@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchSuggestions from "../components/SearchSuggestions";
@@ -165,7 +164,7 @@ const Index = () => {
       <main className="flex flex-1 flex-col overflow-hidden">
         <div 
           ref={chatContainerRef}
-          className="flex flex-1 flex-col overflow-y-auto p-4"
+          className="flex flex-1 flex-col overflow-y-auto p-4 pb-24" // Added padding at the bottom to ensure content doesn't get hidden behind the search box
         >
           <div className="max-w-[980px] mx-auto w-full">
             {searchHistory.length === 0 ? (
@@ -214,7 +213,8 @@ const Index = () => {
           </div>
         </div>
         
-        <div className="sticky bottom-0 z-10 bg-gradient-to-t from-motortrend-gray to-transparent p-4 pb-6 pt-10">
+        {/* Changed from sticky to fixed positioning to keep it at the bottom of the viewport */}
+        <div className="fixed bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-motortrend-gray to-transparent p-4 pb-6">
           <div className="max-w-[980px] mx-auto w-full">
             <SearchBar onSearch={handleSearch} isLoading={isSearching} />
           </div>

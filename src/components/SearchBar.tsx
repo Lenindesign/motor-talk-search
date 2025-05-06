@@ -21,7 +21,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => {
   return (
     <form 
       onSubmit={handleSubmit}
-      className="sticky top-4 z-10 mx-auto w-full max-w-3xl"
+      className="mx-auto w-full"
     >
       <div className="relative flex items-center">
         <div className="absolute left-4 text-white">
@@ -33,7 +33,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Ask me anything about cars"
           disabled={isLoading}
-          className="w-full rounded-full bg-motortrend-dark py-3 pl-12 pr-12 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-motortrend-red"
+          className="w-full rounded-full bg-motortrend-dark py-3 pl-12 pr-12 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-motortrend-red shadow-lg"
         />
         <button 
           type="submit"
@@ -43,7 +43,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => {
           {isLoading ? (
             <Loader size={20} className="animate-spinner" />
           ) : (
-            <div className="flex h-6 w-6 items-center justify-center rounded-full bg-motortrend-red">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-motortrend-red">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
