@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchSuggestions from "../components/SearchSuggestions";
@@ -113,7 +114,7 @@ const Index = () => {
       // Scroll to the result after adding it with a slight delay to ensure DOM update
       setTimeout(() => {
         scrollToLatestResultAtTop();
-      }, 150);
+      }, 100);
     }, 800);
   };
 
@@ -160,6 +161,14 @@ const Index = () => {
       });
     }
   };
+  
+  // Auto-scroll to the latest result when search history changes
+  useEffect(() => {
+    if (searchHistory.length > 0) {
+      // Slight delay to ensure DOM is updated
+      setTimeout(scrollToLatestResultAtTop, 100);
+    }
+  }, [searchHistory]);
   
   return (
     <div className="flex min-h-screen flex-col bg-motortrend-gray">
