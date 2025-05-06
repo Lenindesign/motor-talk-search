@@ -32,6 +32,9 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     return content[contentType] && content[contentType].length > 0;
   };
 
+  // The number of items to display per content type
+  const ITEMS_PER_CONTENT_TYPE = 6;
+
   // Empty state message when there's no content
   const renderEmptyState = () => (
     <div className="flex flex-col items-center justify-center py-8 text-center">
@@ -49,7 +52,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         return (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {hasContent("articles") ? 
-              content.articles.map((article) => (
+              content.articles.slice(0, ITEMS_PER_CONTENT_TYPE).map((article) => (
                 <ArticleCard key={article.id} article={article} />
               )) : 
               renderEmptyState()
@@ -60,7 +63,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         return (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {hasContent("newCars") ? 
-              content.newCars.map((car) => (
+              content.newCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
                 <CarCard key={car.id} car={car} type="new" />
               )) : 
               renderEmptyState()
@@ -71,7 +74,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         return (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {hasContent("usedCars") ? 
-              content.usedCars.map((car) => (
+              content.usedCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
                 <CarCard key={car.id} car={car} type="used" />
               )) : 
               renderEmptyState()
@@ -80,9 +83,9 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         );
       case "photos":
         return (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {hasContent("photos") ? 
-              content.photos.map((photo) => (
+              content.photos.slice(0, ITEMS_PER_CONTENT_TYPE).map((photo) => (
                 <PhotoCard key={photo.id} photo={photo} />
               )) : 
               renderEmptyState()
@@ -93,7 +96,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         return (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {hasContent("videos") ? 
-              content.videos.map((video) => (
+              content.videos.slice(0, ITEMS_PER_CONTENT_TYPE).map((video) => (
                 <VideoCard key={video.id} video={video} />
               )) : 
               renderEmptyState()
@@ -108,7 +111,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
               <div>
                 <h3 className="mb-3 text-lg font-bold">Articles</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {content.articles.slice(0, 3).map((article) => (
+                  {content.articles.slice(0, ITEMS_PER_CONTENT_TYPE).map((article) => (
                     <ArticleCard key={article.id} article={article} />
                   ))}
                 </div>
@@ -119,7 +122,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
               <div>
                 <h3 className="mb-3 text-lg font-bold">New Cars</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {content.newCars.slice(0, 3).map((car) => (
+                  {content.newCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
                     <CarCard key={car.id} car={car} type="new" />
                   ))}
                 </div>
@@ -130,7 +133,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
               <div>
                 <h3 className="mb-3 text-lg font-bold">Used Cars</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {content.usedCars.slice(0, 3).map((car) => (
+                  {content.usedCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
                     <CarCard key={car.id} car={car} type="used" />
                   ))}
                 </div>
@@ -140,8 +143,8 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.photos.length > 0 && (
               <div>
                 <h3 className="mb-3 text-lg font-bold">Photos</h3>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {content.photos.slice(0, 4).map((photo) => (
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {content.photos.slice(0, ITEMS_PER_CONTENT_TYPE).map((photo) => (
                     <PhotoCard key={photo.id} photo={photo} />
                   ))}
                 </div>
@@ -152,7 +155,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
               <div>
                 <h3 className="mb-3 text-lg font-bold">Videos</h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {content.videos.slice(0, 3).map((video) => (
+                  {content.videos.slice(0, ITEMS_PER_CONTENT_TYPE).map((video) => (
                     <VideoCard key={video.id} video={video} />
                   ))}
                 </div>
