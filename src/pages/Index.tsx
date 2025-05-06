@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchSuggestions from "../components/SearchSuggestions";
@@ -71,11 +70,6 @@ const Index = () => {
     // Add the query to the search history immediately
     setSearchHistory((prev) => [...prev, newResult]);
     
-    // Scroll to the input query first
-    setTimeout(() => {
-      scrollToBottom();
-    }, 100);
-    
     // Simulate server response time
     setTimeout(() => {
       if (isQuestion) {
@@ -116,9 +110,9 @@ const Index = () => {
       
       setIsSearching(false);
       
-      // Scroll to the response after adding it with a slight delay to ensure DOM update
+      // Scroll to the result after adding it with a slight delay to ensure DOM update
       setTimeout(() => {
-        scrollToLatestResult();
+        scrollToLatestResultAtTop();
       }, 150);
     }, 800);
   };
@@ -154,11 +148,11 @@ const Index = () => {
     }
   };
   
-  // Function to scroll to the latest result with proper offset for the fixed search bar
-  const scrollToLatestResult = () => {
+  // Function to scroll to position the latest result at the top of the viewport, just below the header
+  const scrollToLatestResultAtTop = () => {
     if (chatContainerRef.current && latestResultRef.current) {
-      const searchBarHeight = 100; // Approximate height of search bar area in pixels
-      const scrollPosition = latestResultRef.current.offsetTop - searchBarHeight;
+      const headerHeight = 80; // Approximate height of the header in pixels
+      const scrollPosition = latestResultRef.current.offsetTop - headerHeight;
       
       chatContainerRef.current.scrollTo({
         top: scrollPosition,
@@ -179,7 +173,7 @@ const Index = () => {
       <main className="flex flex-1 flex-col overflow-hidden">
         <div 
           ref={chatContainerRef}
-          className="flex flex-1 flex-col overflow-y-auto p-4 pb-24" // Added padding at the bottom to ensure content doesn't get hidden behind the search box
+          className="flex flex-1 flex-col overflow-y-auto p-4 pb-24" // Added padding at the bottom for the search box
         >
           <div className="max-w-[980px] mx-auto w-full">
             {searchHistory.length === 0 ? (
