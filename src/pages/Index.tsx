@@ -65,12 +65,12 @@ const Index = () => {
       timestamp: new Date().toLocaleTimeString(),
     };
     
-    // Add the query to the search history at the beginning (newest first)
-    setSearchHistory((prev) => [newResult, ...prev]);
+    // Add the query to the search history at the end (oldest first)
+    setSearchHistory((prev) => [...prev, newResult]);
     
-    // Ensure scroll happens immediately to keep newest item at top
+    // Ensure scroll happens immediately to keep newest item at bottom
     setTimeout(() => {
-      scrollToTop();
+      scrollToBottom();
       
       // Return focus to search bar after brief delay
       if (searchBarRef.current) {
@@ -122,6 +122,11 @@ const Index = () => {
       if (searchBarRef.current) {
         searchBarRef.current.focus();
       }
+
+      // Scroll to bottom to show latest result
+      setTimeout(() => {
+        scrollToBottom();
+      }, 50);
     }, 800);
   };
 
@@ -149,24 +154,24 @@ const Index = () => {
     handleSearch(suggestion);
   };
   
-  // Function to scroll to the top (where newest content is)
-  const scrollToTop = () => {
+  // Function to scroll to the bottom (where newest content is)
+  const scrollToBottom = () => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTo({
-        top: 0,
+        top: chatContainerRef.current.scrollHeight,
         behavior: "smooth"
       });
     }
   };
 
-  // Auto-scroll to top when search history changes
+  // Auto-scroll to bottom when search history changes
   useEffect(() => {
     if (searchHistory.length > 0) {
       // Series of scroll attempts with increasing delays
       const scrollAttempts = [10, 50, 150, 300];
       
       scrollAttempts.forEach(delay => {
-        setTimeout(scrollToTop, delay);
+        setTimeout(scrollToBottom, delay);
       });
       
       // Return focus to search bar
@@ -216,7 +221,7 @@ const Index = () => {
                   <div 
                     key={result.id} 
                     className="space-y-4"
-                    ref={index === 0 ? latestResultRef : undefined}
+                    ref={index === searchHistory.length - 1 ? latestResultRef : undefined}
                   >
                     <ChatMessage
                       message={result.query}

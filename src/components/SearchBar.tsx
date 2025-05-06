@@ -22,7 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading, inputRef }) 
         if (inputRef?.current) {
           inputRef.current.focus();
         }
-      }, 100);
+      }, 50);
     }
   };
 
