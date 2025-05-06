@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchSuggestions from "../components/SearchSuggestions";
@@ -34,11 +33,11 @@ const Index = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [activeContentTypes, setActiveContentTypes] = useState<Record<string, ContentType>>({});
   const [content, setContent] = useState({
-    articles: [] as ArticleData[],
-    newCars: [] as CarData[],
-    usedCars: [] as CarData[],
-    photos: [] as PhotoData[],
-    videos: [] as VideoData[],
+    articles: mockArticles, // Prepopulate with all available articles
+    newCars: mockNewCars,   // Prepopulate with all available new cars
+    usedCars: mockUsedCars, // Prepopulate with all available used cars
+    photos: mockPhotos,     // Prepopulate with all available photos
+    videos: mockVideos,     // Prepopulate with all available videos
   });
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -87,23 +86,19 @@ const Index = () => {
         // Process as a content search
         const contentType = determineContentType(query);
         
-        // Reset content for this search
-        setContent({
-          articles: query.toLowerCase().includes("article") ? mockArticles : [],
-          newCars: query.toLowerCase().includes("new") || contentType === "newCars" ? mockNewCars : [],
-          usedCars: query.toLowerCase().includes("used") || contentType === "usedCars" ? mockUsedCars : [],
-          photos: query.toLowerCase().includes("photo") || contentType === "photos" ? mockPhotos : [],
-          videos: query.toLowerCase().includes("video") || contentType === "videos" ? mockVideos : [],
-        });
+        // Filter content based on the query, but keep all content types populated
+        const filteredContent = {
+          articles: query.toLowerCase().includes("article") ? mockArticles : content.articles,
+          newCars: query.toLowerCase().includes("new") || contentType === "newCars" ? mockNewCars : content.newCars,
+          usedCars: query.toLowerCase().includes("used") || contentType === "usedCars" ? mockUsedCars : content.usedCars,
+          photos: query.toLowerCase().includes("photo") || contentType === "photos" ? mockPhotos : content.photos,
+          videos: query.toLowerCase().includes("video") || contentType === "videos" ? mockVideos : content.videos,
+        };
         
-        // Set default content if nothing specific was requested
-        if (contentType === "articles" && !query.toLowerCase().includes("article")) {
-          setContent(prev => ({
-            ...prev,
-            articles: mockArticles
-          }));
-        }
+        // Update content with the filtered content
+        setContent(filteredContent);
         
+        // Set active content type for this search
         setActiveContentTypes((prev) => ({
           ...prev,
           [searchId]: contentType,

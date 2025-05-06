@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState } from "react";
 
 export interface PhotoData {
   id: string;
@@ -10,11 +10,21 @@ export interface PhotoData {
 
 interface PhotoCardProps {
   photo: PhotoData;
+  onClick?: () => void;
 }
 
-const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
+const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
   return (
-    <div className="relative overflow-hidden rounded-lg bg-white shadow transition-all hover:shadow-md">
+    <div 
+      className={`relative overflow-hidden rounded-lg bg-white shadow transition-all ${isHovered ? 'shadow-lg transform scale-[1.02]' : 'hover:shadow-md'}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={onClick}
+      role={onClick ? "button" : undefined}
+      tabIndex={onClick ? 0 : undefined}
+    >
       <img
         src={photo.imageUrl}
         alt={photo.title}

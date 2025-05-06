@@ -27,46 +27,77 @@ const ContentGrid: React.FC<ContentGridProps> = ({
   isLoadingMore,
   hasMore,
 }) => {
+  // Helper function to check if content array is empty
+  const hasContent = (contentType: keyof typeof content): boolean => {
+    return content[contentType] && content[contentType].length > 0;
+  };
+
+  // Empty state message when there's no content
+  const renderEmptyState = () => (
+    <div className="flex flex-col items-center justify-center py-8 text-center">
+      <div className="text-4xl mb-4">📷</div>
+      <h3 className="text-lg font-bold text-gray-700 mb-2">No content available</h3>
+      <p className="text-gray-500 max-w-md">
+        Try searching for something specific to find relevant {type === "all" ? "content" : type}
+      </p>
+    </div>
+  );
+
   const renderContent = () => {
     switch (type) {
       case "articles":
         return (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {content.articles.map((article) => (
-              <ArticleCard key={article.id} article={article} />
-            ))}
+            {hasContent("articles") ? 
+              content.articles.map((article) => (
+                <ArticleCard key={article.id} article={article} />
+              )) : 
+              renderEmptyState()
+            }
           </div>
         );
       case "newCars":
         return (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {content.newCars.map((car) => (
-              <CarCard key={car.id} car={car} type="new" />
-            ))}
+            {hasContent("newCars") ? 
+              content.newCars.map((car) => (
+                <CarCard key={car.id} car={car} type="new" />
+              )) : 
+              renderEmptyState()
+            }
           </div>
         );
       case "usedCars":
         return (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {content.usedCars.map((car) => (
-              <CarCard key={car.id} car={car} type="used" />
-            ))}
+            {hasContent("usedCars") ? 
+              content.usedCars.map((car) => (
+                <CarCard key={car.id} car={car} type="used" />
+              )) : 
+              renderEmptyState()
+            }
           </div>
         );
       case "photos":
         return (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {content.photos.map((photo) => (
-              <PhotoCard key={photo.id} photo={photo} />
-            ))}
+            {hasContent("photos") ? 
+              content.photos.map((photo) => (
+                <PhotoCard key={photo.id} photo={photo} />
+              )) : 
+              renderEmptyState()
+            }
           </div>
         );
       case "videos":
         return (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {content.videos.map((video) => (
-              <VideoCard key={video.id} video={video} />
-            ))}
+            {hasContent("videos") ? 
+              content.videos.map((video) => (
+                <VideoCard key={video.id} video={video} />
+              )) : 
+              renderEmptyState()
+            }
           </div>
         );
       case "all":
@@ -127,6 +158,9 @@ const ContentGrid: React.FC<ContentGridProps> = ({
                 </div>
               </div>
             )}
+            
+            {!content.articles.length && !content.newCars.length && !content.usedCars.length && 
+             !content.photos.length && !content.videos.length && renderEmptyState()}
           </div>
         );
     }
