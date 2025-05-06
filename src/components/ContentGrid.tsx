@@ -50,7 +50,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     switch (type) {
       case "articles":
         return (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {hasContent("articles") ? 
               content.articles.slice(0, ITEMS_PER_CONTENT_TYPE).map((article) => (
                 <ArticleCard key={article.id} article={article} />
@@ -61,7 +61,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         );
       case "newCars":
         return (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {hasContent("newCars") ? 
               content.newCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
                 <CarCard key={car.id} car={car} type="new" />
@@ -72,7 +72,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         );
       case "usedCars":
         return (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {hasContent("usedCars") ? 
               content.usedCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
                 <CarCard key={car.id} car={car} type="used" />
@@ -83,7 +83,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         );
       case "photos":
         return (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {hasContent("photos") ? 
               content.photos.slice(0, ITEMS_PER_CONTENT_TYPE).map((photo) => (
                 <PhotoCard key={photo.id} photo={photo} />
@@ -94,7 +94,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         );
       case "videos":
         return (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {hasContent("videos") ? 
               content.videos.slice(0, ITEMS_PER_CONTENT_TYPE).map((video) => (
                 <VideoCard key={video.id} video={video} />
@@ -110,7 +110,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.articles.length > 0 && (
               <div>
                 <h3 className="mb-3 text-lg font-bold">Articles</h3>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {content.articles.slice(0, ITEMS_PER_CONTENT_TYPE).map((article) => (
                     <ArticleCard key={article.id} article={article} />
                   ))}
@@ -121,7 +121,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.newCars.length > 0 && (
               <div>
                 <h3 className="mb-3 text-lg font-bold">New Cars</h3>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {content.newCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
                     <CarCard key={car.id} car={car} type="new" />
                   ))}
@@ -132,7 +132,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.usedCars.length > 0 && (
               <div>
                 <h3 className="mb-3 text-lg font-bold">Used Cars</h3>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {content.usedCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
                     <CarCard key={car.id} car={car} type="used" />
                   ))}
@@ -143,7 +143,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.photos.length > 0 && (
               <div>
                 <h3 className="mb-3 text-lg font-bold">Photos</h3>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {content.photos.slice(0, ITEMS_PER_CONTENT_TYPE).map((photo) => (
                     <PhotoCard key={photo.id} photo={photo} />
                   ))}
@@ -154,7 +154,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.videos.length > 0 && (
               <div>
                 <h3 className="mb-3 text-lg font-bold">Videos</h3>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {content.videos.slice(0, ITEMS_PER_CONTENT_TYPE).map((video) => (
                     <VideoCard key={video.id} video={video} />
                   ))}
