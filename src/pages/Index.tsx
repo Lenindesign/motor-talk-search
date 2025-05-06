@@ -14,10 +14,6 @@ import {
   mockPhotos,
   mockVideos
 } from "../services/mockData";
-import { ArticleData } from "../components/ArticleCard";
-import { CarData } from "../components/CarCard";
-import { PhotoData } from "../components/PhotoCard";
-import { VideoData } from "../components/VideoCard";
 import { useIsMobile } from "../hooks/use-mobile";
 
 interface SearchResult {
@@ -69,18 +65,17 @@ const Index = () => {
       timestamp: new Date().toLocaleTimeString(),
     };
     
-    // Add the query to the search history immediately
-    setSearchHistory((prev) => [...prev, newResult]);
+    // Add the query to the search history at the beginning (newest first)
+    setSearchHistory((prev) => [newResult, ...prev]);
     
-    // Ensure scroll happens immediately after adding the query to keep it at top
+    // Ensure scroll happens immediately to keep newest item at top
     setTimeout(() => {
-      scrollToLatestResultAtTop();
+      scrollToTop();
+      
       // Return focus to search bar after brief delay
-      setTimeout(() => {
-        if (searchBarRef.current) {
-          searchBarRef.current.focus();
-        }
-      }, 100);
+      if (searchBarRef.current) {
+        searchBarRef.current.focus();
+      }
     }, 50);
     
     // Simulate server response time
@@ -154,45 +149,24 @@ const Index = () => {
     handleSearch(suggestion);
   };
   
-  // Function to scroll to the latest result positioning it at the top of the viewport
-  const scrollToLatestResultAtTop = () => {
-    if (chatContainerRef.current && latestResultRef.current) {
-      // Adjust header height based on device
-      const headerHeight = isMobile ? 70 : 80;
-      const scrollPosition = latestResultRef.current.offsetTop - headerHeight;
-      
-      // Force scroll with requestAnimationFrame to ensure it happens after rendering
-      requestAnimationFrame(() => {
-        chatContainerRef.current?.scrollTo({
-          top: scrollPosition,
-          behavior: "smooth"
-        });
-        
-        // Double-check the scroll position after a small delay
-        setTimeout(() => {
-          const currentScrollTop = chatContainerRef.current?.scrollTop || 0;
-          const targetScrollTop = latestResultRef.current?.offsetTop - headerHeight || 0;
-          
-          // If we're not close enough to the target position, try scrolling again
-          if (Math.abs(currentScrollTop - targetScrollTop) > 50) {
-            chatContainerRef.current?.scrollTo({
-              top: targetScrollTop,
-              behavior: "smooth"
-            });
-          }
-        }, 300);
+  // Function to scroll to the top (where newest content is)
+  const scrollToTop = () => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: 0,
+        behavior: "smooth"
       });
     }
   };
 
-  // Auto-scroll when search history changes - using a more aggressive approach
+  // Auto-scroll to top when search history changes
   useEffect(() => {
     if (searchHistory.length > 0) {
-      // Series of scroll attempts with increasing delays to handle various edge cases
+      // Series of scroll attempts with increasing delays
       const scrollAttempts = [10, 50, 150, 300];
       
       scrollAttempts.forEach(delay => {
-        setTimeout(scrollToLatestResultAtTop, delay);
+        setTimeout(scrollToTop, delay);
       });
       
       // Return focus to search bar
@@ -202,46 +176,14 @@ const Index = () => {
         }
       }, 350);
     }
-  }, [searchHistory, isMobile]);
+  }, [searchHistory]);
   
-  // Auto-scroll when a chat response is added
+  // Auto-focus search bar when component mounts
   useEffect(() => {
-    const lastResult = searchHistory[searchHistory.length - 1];
-    if (lastResult?.response && lastResult.type === "chat") {
-      // Series of scroll attempts for chat responses
-      const scrollAttempts = [10, 50, 200];
-      
-      scrollAttempts.forEach(delay => {
-        setTimeout(scrollToLatestResultAtTop, delay);
-      });
-      
-      // Return focus to search bar after response appears
-      setTimeout(() => {
-        if (searchBarRef.current) {
-          searchBarRef.current.focus();
-        }
-      }, 250);
+    if (searchBarRef.current) {
+      searchBarRef.current.focus();
     }
-  }, [searchHistory.map(item => item.response).join(',')]);
-
-  // Auto-scroll when content loads - this catches cases where images might delay layout
-  useEffect(() => {
-    if (searchHistory.length > 0 && searchHistory[searchHistory.length - 1].type === "search") {
-      // Content might take longer to load, so use longer delays
-      const scrollAttempts = [10, 100, 300, 600];
-      
-      scrollAttempts.forEach(delay => {
-        setTimeout(scrollToLatestResultAtTop, delay);
-      });
-      
-      // Return focus to search bar after content appears
-      setTimeout(() => {
-        if (searchBarRef.current) {
-          searchBarRef.current.focus();
-        }
-      }, 650);
-    }
-  }, [content]);
+  }, []);
 
   return (
     <div className="flex min-h-screen flex-col bg-motortrend-gray">
@@ -274,7 +216,7 @@ const Index = () => {
                   <div 
                     key={result.id} 
                     className="space-y-4"
-                    ref={index === searchHistory.length - 1 ? latestResultRef : undefined}
+                    ref={index === 0 ? latestResultRef : undefined}
                   >
                     <ChatMessage
                       message={result.query}

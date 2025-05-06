@@ -1,5 +1,5 @@
 
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import { Search, Loader } from "lucide-react";
 
 interface SearchBarProps {
@@ -16,8 +16,22 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading, inputRef }) 
     if (query.trim() && !isLoading) {
       onSearch(query);
       setQuery("");
+      
+      // Return focus to input after submission
+      setTimeout(() => {
+        if (inputRef?.current) {
+          inputRef.current.focus();
+        }
+      }, 100);
     }
   };
+
+  // Ensure focus is maintained whenever component updates
+  useEffect(() => {
+    if (inputRef?.current && !isLoading) {
+      inputRef.current.focus();
+    }
+  }, [isLoading, inputRef]);
 
   return (
     <form 
