@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchSuggestions from "../components/SearchSuggestions";
@@ -18,6 +19,7 @@ import { ArticleData } from "../components/ArticleCard";
 import { CarData } from "../components/CarCard";
 import { PhotoData } from "../components/PhotoCard";
 import { VideoData } from "../components/VideoCard";
+import { useIsMobile } from "../hooks/use-mobile";
 
 interface SearchResult {
   id: string;
@@ -154,7 +156,7 @@ const Index = () => {
   return (
     <div className="flex min-h-screen flex-col bg-motortrend-gray">
       <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between max-w-[980px] mx-auto w-full">
           <div className="text-xl font-bold text-white">MotorTrend</div>
           {/* Mobile menu icon would go here */}
         </div>
@@ -165,53 +167,57 @@ const Index = () => {
           ref={chatContainerRef}
           className="flex flex-1 flex-col overflow-y-auto p-4"
         >
-          {searchHistory.length === 0 ? (
-            <div className="flex flex-1 flex-col items-center justify-center space-y-6">
-              <h1 className="text-3xl font-bold text-motortrend-dark">
-                Welcome to MotorTrend Search
-              </h1>
-              <p className="max-w-md text-center text-gray-500">
-                Ask me anything about cars or search for automotive content
-              </p>
-              <SearchSuggestions onSuggestionClick={handleSuggestionClick} />
-            </div>
-          ) : (
-            <div className="space-y-6 pb-20">
-              {searchHistory.map((result) => (
-                <div key={result.id} className="space-y-4">
-                  <ChatMessage
-                    message={result.query}
-                    isUser={true}
-                    timestamp={result.timestamp}
-                  />
-                  
-                  {result.type === "chat" && result.response && (
-                    <ChatMessage message={result.response} isUser={false} />
-                  )}
-                  
-                  {result.type === "search" && result.contentType && (
-                    <div className="overflow-hidden rounded-lg bg-white p-4 shadow-md">
-                      <ContentTabs
-                        activeTab={activeContentTypes[result.id] || result.contentType}
-                        onTabChange={(tab) => handleTabChange(result.id, tab)}
-                      />
-                      <ContentGrid
-                        type={activeContentTypes[result.id] || result.contentType}
-                        content={content}
-                        loadMore={handleLoadMore}
-                        isLoadingMore={loadingMore}
-                        hasMore={hasMore}
-                      />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="max-w-[980px] mx-auto w-full">
+            {searchHistory.length === 0 ? (
+              <div className="flex flex-1 flex-col items-center justify-center space-y-6">
+                <h1 className="text-3xl font-bold text-motortrend-dark">
+                  Welcome to MotorTrend Search
+                </h1>
+                <p className="max-w-md text-center text-gray-500">
+                  Ask me anything about cars or search for automotive content
+                </p>
+                <SearchSuggestions onSuggestionClick={handleSuggestionClick} />
+              </div>
+            ) : (
+              <div className="space-y-6 pb-20">
+                {searchHistory.map((result) => (
+                  <div key={result.id} className="space-y-4">
+                    <ChatMessage
+                      message={result.query}
+                      isUser={true}
+                      timestamp={result.timestamp}
+                    />
+                    
+                    {result.type === "chat" && result.response && (
+                      <ChatMessage message={result.response} isUser={false} />
+                    )}
+                    
+                    {result.type === "search" && result.contentType && (
+                      <div className="overflow-hidden rounded-lg bg-white p-4 shadow-md">
+                        <ContentTabs
+                          activeTab={activeContentTypes[result.id] || result.contentType}
+                          onTabChange={(tab) => handleTabChange(result.id, tab)}
+                        />
+                        <ContentGrid
+                          type={activeContentTypes[result.id] || result.contentType}
+                          content={content}
+                          loadMore={handleLoadMore}
+                          isLoadingMore={loadingMore}
+                          hasMore={hasMore}
+                        />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
         
         <div className="sticky bottom-0 z-10 bg-gradient-to-t from-motortrend-gray to-transparent p-4 pb-6 pt-10">
-          <SearchBar onSearch={handleSearch} isLoading={isSearching} />
+          <div className="max-w-[980px] mx-auto w-full">
+            <SearchBar onSearch={handleSearch} isLoading={isSearching} />
+          </div>
         </div>
       </main>
     </div>

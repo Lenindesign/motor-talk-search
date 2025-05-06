@@ -25,16 +25,18 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
       role={onClick ? "button" : undefined}
       tabIndex={onClick ? 0 : undefined}
     >
-      <img
-        src={photo.imageUrl}
-        alt={photo.title}
-        className="h-48 w-full object-cover"
-        onError={(e) => {
-          (e.target as HTMLImageElement).src = '/placeholder.svg';
-        }}
-      />
-      <div className="absolute bottom-2 left-2 rounded bg-black/70 px-2 py-1 text-xs text-white">
-        {photo.position}
+      <div className="relative">
+        <img
+          src={photo.imageUrl}
+          alt={photo.title}
+          className="h-48 w-full object-cover"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/placeholder.svg';
+          }}
+        />
+        <div className="absolute bottom-2 left-2 rounded bg-black/70 px-2 py-1 text-xs text-white">
+          {photo.position}
+        </div>
       </div>
       <div className="p-2 text-sm font-medium">{photo.title}</div>
     </div>
