@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchSuggestions from "../components/SearchSuggestions";
@@ -47,6 +46,7 @@ const Index = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const latestResultRef = useRef<HTMLDivElement>(null);
   const allContent = getAllContent();
+  const isMobile = useIsMobile();
 
   // Function to handle search submissions
   const handleSearch = (query: string) => {
@@ -110,11 +110,6 @@ const Index = () => {
       }
       
       setIsSearching(false);
-      
-      // Scroll to the result after adding it with a slight delay to ensure DOM update
-      setTimeout(() => {
-        scrollToLatestResultAtTop();
-      }, 100);
     }, 800);
   };
 
@@ -149,10 +144,11 @@ const Index = () => {
     }
   };
   
-  // Function to scroll to position the latest result at the top of the viewport, just below the header
+  // Enhanced function to scroll to position the latest result at the top of the viewport
   const scrollToLatestResultAtTop = () => {
     if (chatContainerRef.current && latestResultRef.current) {
-      const headerHeight = 80; // Approximate height of the header in pixels
+      // Adjust header height based on device
+      const headerHeight = isMobile ? 70 : 80;
       const scrollPosition = latestResultRef.current.offsetTop - headerHeight;
       
       chatContainerRef.current.scrollTo({
@@ -161,15 +157,32 @@ const Index = () => {
       });
     }
   };
-  
-  // Auto-scroll to the latest result when search history changes
+
+  // Auto-scroll when search history changes
   useEffect(() => {
     if (searchHistory.length > 0) {
-      // Slight delay to ensure DOM is updated
-      setTimeout(scrollToLatestResultAtTop, 100);
+      // We need a longer delay to ensure DOM is fully updated
+      // This is especially important for search results that include images
+      const scrollDelay = 300;
+      setTimeout(() => {
+        scrollToLatestResultAtTop();
+        
+        // Sometimes the first scroll might not work perfectly if content is still loading
+        // Add a second scroll attempt after a slightly longer delay
+        setTimeout(scrollToLatestResultAtTop, 500);
+      }, scrollDelay);
     }
-  }, [searchHistory]);
+  }, [searchHistory, isMobile]);
   
+  // Auto-scroll when a chat response is added
+  useEffect(() => {
+    const lastResult = searchHistory[searchHistory.length - 1];
+    if (lastResult?.response && lastResult.type === "chat") {
+      // Ensure we scroll after the response is rendered
+      setTimeout(scrollToLatestResultAtTop, 200);
+    }
+  }, [searchHistory.map(item => item.response).join(',')]);
+
   return (
     <div className="flex min-h-screen flex-col bg-motortrend-gray">
       <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
