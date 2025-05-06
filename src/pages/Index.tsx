@@ -71,6 +71,9 @@ const Index = () => {
     // Add the query to the search history immediately
     setSearchHistory((prev) => [...prev, newResult]);
     
+    // Ensure scroll happens immediately after adding the query to show user input
+    setTimeout(scrollToLatestResultAtTop, 50);
+    
     // Simulate server response time
     setTimeout(() => {
       if (isQuestion) {
@@ -151,26 +154,39 @@ const Index = () => {
       const headerHeight = isMobile ? 70 : 80;
       const scrollPosition = latestResultRef.current.offsetTop - headerHeight;
       
-      chatContainerRef.current.scrollTo({
-        top: scrollPosition,
-        behavior: "smooth"
+      // Force scroll with requestAnimationFrame to ensure it happens after rendering
+      requestAnimationFrame(() => {
+        chatContainerRef.current?.scrollTo({
+          top: scrollPosition,
+          behavior: "smooth"
+        });
+        
+        // Double-check the scroll position after a small delay
+        setTimeout(() => {
+          const currentScrollTop = chatContainerRef.current?.scrollTop || 0;
+          const targetScrollTop = latestResultRef.current?.offsetTop - headerHeight || 0;
+          
+          // If we're not close enough to the target position, try scrolling again
+          if (Math.abs(currentScrollTop - targetScrollTop) > 50) {
+            chatContainerRef.current?.scrollTo({
+              top: targetScrollTop,
+              behavior: "smooth"
+            });
+          }
+        }, 300);
       });
     }
   };
 
-  // Auto-scroll when search history changes
+  // Auto-scroll when search history changes - using a more aggressive approach
   useEffect(() => {
     if (searchHistory.length > 0) {
-      // We need a longer delay to ensure DOM is fully updated
-      // This is especially important for search results that include images
-      const scrollDelay = 300;
-      setTimeout(() => {
-        scrollToLatestResultAtTop();
-        
-        // Sometimes the first scroll might not work perfectly if content is still loading
-        // Add a second scroll attempt after a slightly longer delay
-        setTimeout(scrollToLatestResultAtTop, 500);
-      }, scrollDelay);
+      // Series of scroll attempts with increasing delays to handle various edge cases
+      const scrollAttempts = [50, 150, 300, 600, 1000];
+      
+      scrollAttempts.forEach(delay => {
+        setTimeout(scrollToLatestResultAtTop, delay);
+      });
     }
   }, [searchHistory, isMobile]);
   
@@ -178,10 +194,26 @@ const Index = () => {
   useEffect(() => {
     const lastResult = searchHistory[searchHistory.length - 1];
     if (lastResult?.response && lastResult.type === "chat") {
-      // Ensure we scroll after the response is rendered
-      setTimeout(scrollToLatestResultAtTop, 200);
+      // Series of scroll attempts for chat responses
+      const scrollAttempts = [50, 200, 500];
+      
+      scrollAttempts.forEach(delay => {
+        setTimeout(scrollToLatestResultAtTop, delay);
+      });
     }
   }, [searchHistory.map(item => item.response).join(',')]);
+
+  // Auto-scroll when content loads - this catches cases where images might delay layout
+  useEffect(() => {
+    if (searchHistory.length > 0 && searchHistory[searchHistory.length - 1].type === "search") {
+      // Content might take longer to load, so use longer delays
+      const scrollAttempts = [300, 800, 1500];
+      
+      scrollAttempts.forEach(delay => {
+        setTimeout(scrollToLatestResultAtTop, delay);
+      });
+    }
+  }, [content]);
 
   return (
     <div className="flex min-h-screen flex-col bg-motortrend-gray">
