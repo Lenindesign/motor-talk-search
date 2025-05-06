@@ -45,6 +45,7 @@ const Index = () => {
   
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const latestResultRef = useRef<HTMLDivElement>(null);
+  const searchBarRef = useRef<HTMLInputElement>(null);
   const allContent = getAllContent();
   const isMobile = useIsMobile();
 
@@ -71,8 +72,16 @@ const Index = () => {
     // Add the query to the search history immediately
     setSearchHistory((prev) => [...prev, newResult]);
     
-    // Ensure scroll happens immediately after adding the query to show user input
-    setTimeout(scrollToLatestResultAtTop, 50);
+    // Ensure scroll happens immediately after adding the query to keep it at top
+    setTimeout(() => {
+      scrollToLatestResultAtTop();
+      // Return focus to search bar after brief delay
+      setTimeout(() => {
+        if (searchBarRef.current) {
+          searchBarRef.current.focus();
+        }
+      }, 100);
+    }, 50);
     
     // Simulate server response time
     setTimeout(() => {
@@ -113,6 +122,11 @@ const Index = () => {
       }
       
       setIsSearching(false);
+      
+      // Return focus to search bar after response is processed
+      if (searchBarRef.current) {
+        searchBarRef.current.focus();
+      }
     }, 800);
   };
 
@@ -140,14 +154,7 @@ const Index = () => {
     handleSearch(suggestion);
   };
   
-  // Function to scroll to the bottom of the chat
-  const scrollToBottom = () => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-    }
-  };
-  
-  // Enhanced function to scroll to position the latest result at the top of the viewport
+  // Function to scroll to the latest result positioning it at the top of the viewport
   const scrollToLatestResultAtTop = () => {
     if (chatContainerRef.current && latestResultRef.current) {
       // Adjust header height based on device
@@ -182,11 +189,18 @@ const Index = () => {
   useEffect(() => {
     if (searchHistory.length > 0) {
       // Series of scroll attempts with increasing delays to handle various edge cases
-      const scrollAttempts = [50, 150, 300, 600, 1000];
+      const scrollAttempts = [10, 50, 150, 300];
       
       scrollAttempts.forEach(delay => {
         setTimeout(scrollToLatestResultAtTop, delay);
       });
+      
+      // Return focus to search bar
+      setTimeout(() => {
+        if (searchBarRef.current) {
+          searchBarRef.current.focus();
+        }
+      }, 350);
     }
   }, [searchHistory, isMobile]);
   
@@ -195,11 +209,18 @@ const Index = () => {
     const lastResult = searchHistory[searchHistory.length - 1];
     if (lastResult?.response && lastResult.type === "chat") {
       // Series of scroll attempts for chat responses
-      const scrollAttempts = [50, 200, 500];
+      const scrollAttempts = [10, 50, 200];
       
       scrollAttempts.forEach(delay => {
         setTimeout(scrollToLatestResultAtTop, delay);
       });
+      
+      // Return focus to search bar after response appears
+      setTimeout(() => {
+        if (searchBarRef.current) {
+          searchBarRef.current.focus();
+        }
+      }, 250);
     }
   }, [searchHistory.map(item => item.response).join(',')]);
 
@@ -207,11 +228,18 @@ const Index = () => {
   useEffect(() => {
     if (searchHistory.length > 0 && searchHistory[searchHistory.length - 1].type === "search") {
       // Content might take longer to load, so use longer delays
-      const scrollAttempts = [300, 800, 1500];
+      const scrollAttempts = [10, 100, 300, 600];
       
       scrollAttempts.forEach(delay => {
         setTimeout(scrollToLatestResultAtTop, delay);
       });
+      
+      // Return focus to search bar after content appears
+      setTimeout(() => {
+        if (searchBarRef.current) {
+          searchBarRef.current.focus();
+        }
+      }, 650);
     }
   }, [content]);
 
@@ -283,7 +311,11 @@ const Index = () => {
         {/* Fixed position at the bottom of the viewport */}
         <div className="fixed bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-motortrend-gray to-transparent p-4 pb-6">
           <div className="max-w-[980px] mx-auto w-full">
-            <SearchBar onSearch={handleSearch} isLoading={isSearching} />
+            <SearchBar 
+              onSearch={handleSearch} 
+              isLoading={isSearching}
+              inputRef={searchBarRef} 
+            />
           </div>
         </div>
       </main>

@@ -5,9 +5,10 @@ import { Search, Loader } from "lucide-react";
 interface SearchBarProps {
   onSearch: (query: string) => void;
   isLoading: boolean;
+  inputRef?: React.RefObject<HTMLInputElement>;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading, inputRef }) => {
   const [query, setQuery] = useState("");
 
   const handleSubmit = (e: FormEvent) => {
@@ -33,7 +34,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading }) => {
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Ask me anything about cars"
           disabled={isLoading}
+          ref={inputRef}
           className="w-full rounded-full bg-motortrend-dark py-3 pl-12 pr-12 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-motortrend-red shadow-lg"
+          autoFocus
         />
         <button 
           type="submit"
