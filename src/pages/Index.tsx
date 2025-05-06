@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchSuggestions from "../components/SearchSuggestions";
@@ -44,6 +45,7 @@ const Index = () => {
   const [hasMore, setHasMore] = useState(true);
   
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const latestResultRef = useRef<HTMLDivElement>(null);
   const allContent = getAllContent();
 
   // Function to handle search submissions
@@ -69,7 +71,7 @@ const Index = () => {
     // Add the query to the search history immediately
     setSearchHistory((prev) => [...prev, newResult]);
     
-    // Scroll to bottom after adding the query
+    // Scroll to the input query first
     setTimeout(() => {
       scrollToBottom();
     }, 100);
@@ -114,10 +116,10 @@ const Index = () => {
       
       setIsSearching(false);
       
-      // Scroll to bottom after adding the response
+      // Scroll to the response after adding it with a slight delay to ensure DOM update
       setTimeout(() => {
-        scrollToBottom();
-      }, 100);
+        scrollToLatestResult();
+      }, 150);
     }, 800);
   };
 
@@ -152,6 +154,19 @@ const Index = () => {
     }
   };
   
+  // Function to scroll to the latest result with proper offset for the fixed search bar
+  const scrollToLatestResult = () => {
+    if (chatContainerRef.current && latestResultRef.current) {
+      const searchBarHeight = 100; // Approximate height of search bar area in pixels
+      const scrollPosition = latestResultRef.current.offsetTop - searchBarHeight;
+      
+      chatContainerRef.current.scrollTo({
+        top: scrollPosition,
+        behavior: "smooth"
+      });
+    }
+  };
+  
   return (
     <div className="flex min-h-screen flex-col bg-motortrend-gray">
       <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
@@ -179,8 +194,12 @@ const Index = () => {
               </div>
             ) : (
               <div className="space-y-6 pb-20">
-                {searchHistory.map((result) => (
-                  <div key={result.id} className="space-y-4">
+                {searchHistory.map((result, index) => (
+                  <div 
+                    key={result.id} 
+                    className="space-y-4"
+                    ref={index === searchHistory.length - 1 ? latestResultRef : undefined}
+                  >
                     <ChatMessage
                       message={result.query}
                       isUser={true}
@@ -213,7 +232,7 @@ const Index = () => {
           </div>
         </div>
         
-        {/* Changed from sticky to fixed positioning to keep it at the bottom of the viewport */}
+        {/* Fixed position at the bottom of the viewport */}
         <div className="fixed bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-motortrend-gray to-transparent p-4 pb-6">
           <div className="max-w-[980px] mx-auto w-full">
             <SearchBar onSearch={handleSearch} isLoading={isSearching} />
