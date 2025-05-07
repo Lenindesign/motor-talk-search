@@ -30,11 +30,11 @@ const Index = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [activeContentTypes, setActiveContentTypes] = useState<Record<string, ContentType>>({});
   const [content, setContent] = useState({
-    articles: mockArticles, // Prepopulate with all available articles
-    newCars: mockNewCars,   // Prepopulate with all available new cars
-    usedCars: mockUsedCars, // Prepopulate with all available used cars
-    photos: mockPhotos,     // Prepopulate with all available photos
-    videos: mockVideos,     // Prepopulate with all available videos
+    articles: mockArticles,
+    newCars: mockNewCars,
+    usedCars: mockUsedCars,
+    photos: mockPhotos,
+    videos: mockVideos,
   });
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -171,7 +171,15 @@ const Index = () => {
       <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
         <div className="flex items-center justify-between max-w-[980px] mx-auto w-full">
           <div className="text-xl font-bold text-white">MotorTrend</div>
-          {/* Mobile menu icon would go here */}
+          {/* Search bar in header */}
+          <div className="w-full max-w-[320px]">
+            <SearchBar 
+              onSearch={handleSearch} 
+              isLoading={isSearching}
+              inputRef={searchBarRef} 
+              isInHeader={true}
+            />
+          </div>
         </div>
       </header>
       
@@ -228,17 +236,6 @@ const Index = () => {
                   ))}
                 </div>
               )}
-            </div>
-          </div>
-          
-          {/* Fixed search bar at the bottom with gradient background */}
-          <div className="sticky bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-motortrend-gray to-transparent p-4 pb-6">
-            <div className="max-w-[980px] mx-auto w-full">
-              <SearchBar 
-                onSearch={handleSearch} 
-                isLoading={isSearching}
-                inputRef={searchBarRef} 
-              />
             </div>
           </div>
         </div>
