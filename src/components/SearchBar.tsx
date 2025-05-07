@@ -6,7 +6,7 @@ interface SearchBarProps {
   onSearch: (query: string) => void;
   isLoading: boolean;
   inputRef?: React.RefObject<HTMLInputElement>;
-  isInHeader?: boolean; // New prop to determine if in header
+  isInHeader?: boolean; // Prop to determine if in header
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ 

@@ -42,6 +42,7 @@ const Index = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const latestResultRef = useRef<HTMLDivElement>(null);
   const searchBarRef = useRef<HTMLInputElement>(null);
+  const mainSearchBarRef = useRef<HTMLInputElement>(null);
   const allContent = getAllContent();
   const isMobile = useIsMobile();
   
@@ -77,14 +78,6 @@ const Index = () => {
     
     // Add the query to the search history at the end (oldest first)
     setSearchHistory((prev) => [...prev, newResult]);
-    
-    // Handle scrolling and focus
-    setTimeout(() => {
-      // Focus search bar after brief delay
-      if (searchBarRef.current) {
-        searchBarRef.current.focus();
-      }
-    }, 50);
     
     // Simulate server response time
     setTimeout(() => {
@@ -126,11 +119,6 @@ const Index = () => {
       
       setIsSearching(false);
       
-      // Return focus to search bar after response is processed
-      if (searchBarRef.current) {
-        searchBarRef.current.focus();
-      }
-
       // Ensure we scroll to the latest result after it's processed and rendered
       setTimeout(() => {
         if (latestResultRef.current) {
@@ -184,7 +172,6 @@ const Index = () => {
       </header>
       
       <main className="flex flex-1 flex-col">
-        {/* Modified structure to have chat container with auto-scroll and search bar fixed at bottom */}
         <div className="relative flex flex-col h-full">
           {/* Main content area that grows/shrinks with proper scroll behavior */}
           <div className="flex-1 overflow-y-auto" ref={chatContainerRef}>
@@ -198,6 +185,15 @@ const Index = () => {
                     Ask me anything about cars or search for automotive content
                   </p>
                   <SearchSuggestions onSuggestionClick={handleSuggestionClick} />
+                  
+                  {/* Main search bar when no results */}
+                  <div className="w-full max-w-[600px] mt-6">
+                    <SearchBar 
+                      onSearch={handleSearch} 
+                      isLoading={isSearching} 
+                      inputRef={mainSearchBarRef}
+                    />
+                  </div>
                 </div>
               ) : (
                 <div className="space-y-6">
@@ -234,6 +230,15 @@ const Index = () => {
                       )}
                     </div>
                   ))}
+                  
+                  {/* Main search bar at the bottom of results */}
+                  <div className="w-full max-w-[600px] mx-auto mt-10">
+                    <SearchBar 
+                      onSearch={handleSearch} 
+                      isLoading={isSearching} 
+                      inputRef={mainSearchBarRef}
+                    />
+                  </div>
                 </div>
               )}
             </div>
