@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Suggestion } from "../hooks/use-autocomplete";
-import { Search, Newspaper, Car } from "lucide-react";
+import { Search, Newspaper, Car, CarFront, Factory } from "lucide-react";
 
 interface AutocompleteSuggestionsProps {
   suggestions: Suggestion[];
@@ -40,30 +40,83 @@ const AutocompleteSuggestions: React.FC<AutocompleteSuggestionsProps> = ({
       case 'newCar':
       case 'usedCar':
         return <Car size={16} className="text-gray-400" />;
+      case 'carMake':
+        return <Factory size={16} className="text-gray-400" />;
+      case 'carModel':
+        return <CarFront size={16} className="text-gray-400" />;
       case 'popular':
       default:
         return <Search size={16} className="text-gray-400" />;
     }
   };
 
+  // Group suggestions by type for better organization
+  const groupedSuggestions = suggestions.reduce((groups, suggestion) => {
+    const groupKey = suggestion.type;
+    if (!groups[groupKey]) {
+      groups[groupKey] = [];
+    }
+    groups[groupKey].push(suggestion);
+    return groups;
+  }, {} as Record<Suggestion["type"], Suggestion[]>);
+
+  // Order of types to display
+  const typeOrder: Suggestion["type"][] = ['carMake', 'carModel', 'newCar', 'usedCar', 'article', 'popular'];
+  
+  // Flatten grouped suggestions back into an array in the desired order
+  const orderedSuggestions = typeOrder.flatMap(type => groupedSuggestions[type] || []);
+
+  // Calculate index offset for flattened suggestions
+  let currentIndex = -1;
+  
   return (
     <div className="absolute left-0 right-0 top-full mt-1 max-h-60 overflow-y-auto rounded-md bg-white shadow-lg z-50">
       <ul className="py-1">
-        {suggestions.map((suggestion, index) => (
-          <li
-            key={suggestion.id}
-            className={`px-4 py-2 flex items-center gap-2 text-sm cursor-pointer ${
-              selectedIndex === index
-                ? "bg-motortrend-red bg-opacity-10 text-motortrend-red"
-                : "hover:bg-gray-100"
-            }`}
-            onClick={() => onSelect(suggestion)}
-            onMouseEnter={() => onMouseEnter(index)}
-          >
-            {getIconForSuggestionType(suggestion.type)}
-            <span>{suggestion.text}</span>
-          </li>
-        ))}
+        {Object.entries(groupedSuggestions).map(([type, typeSuggestions]) => {
+          // Only show headers if there are suggestions of this type
+          if (typeSuggestions.length === 0) return null;
+          
+          const typeLabel = (() => {
+            switch (type) {
+              case 'carMake': return 'Car Makes';
+              case 'carModel': return 'Car Models';
+              case 'newCar': return 'New Cars';
+              case 'usedCar': return 'Used Cars';
+              case 'article': return 'Articles';
+              case 'popular': return 'Popular Searches';
+              default: return '';
+            }
+          })();
+          
+          return (
+            <li key={type} className="pt-1">
+              {typeLabel && (
+                <div className="px-4 py-1 text-xs font-semibold text-gray-500 bg-gray-50">
+                  {typeLabel}
+                </div>
+              )}
+              
+              {typeSuggestions.map(suggestion => {
+                currentIndex++;
+                return (
+                  <div
+                    key={suggestion.id}
+                    className={`px-4 py-2 flex items-center gap-2 text-sm cursor-pointer ${
+                      selectedIndex === currentIndex
+                        ? "bg-motortrend-red bg-opacity-10 text-motortrend-red"
+                        : "hover:bg-gray-100"
+                    }`}
+                    onClick={() => onSelect(suggestion)}
+                    onMouseEnter={() => onMouseEnter(currentIndex)}
+                  >
+                    {getIconForSuggestionType(suggestion.type)}
+                    <span>{suggestion.text}</span>
+                  </div>
+                );
+              })}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

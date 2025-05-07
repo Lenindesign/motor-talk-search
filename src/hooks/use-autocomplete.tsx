@@ -1,12 +1,14 @@
 
 import { useState, useEffect } from 'react';
 import { getAllContent } from "../services/mockData";
+import { carMakes } from "../services/carData";
 
 // Type for search suggestions
 export type Suggestion = {
   id: string;
   text: string;
-  type: 'article' | 'newCar' | 'usedCar' | 'photo' | 'video' | 'popular';
+  type: 'article' | 'newCar' | 'usedCar' | 'photo' | 'video' | 'popular' | 'carMake' | 'carModel';
+  makeId?: string; // Optional for car models to reference their make
 };
 
 export function useAutocomplete(query: string) {
@@ -45,9 +47,37 @@ export function useAutocomplete(query: string) {
         // Create suggestions from mock data
         const newSuggestions: Suggestion[] = [];
         
+        // Add car makes and models suggestions
+        const lowerCaseQuery = query.toLowerCase();
+        
+        // Add car make suggestions
+        carMakes.forEach(make => {
+          if (make.name.toLowerCase().includes(lowerCaseQuery)) {
+            newSuggestions.push({
+              id: `make-${make.id}`,
+              text: make.name,
+              type: 'carMake'
+            });
+          }
+          
+          // Add car model suggestions
+          make.models.forEach(model => {
+            const modelText = `${model.year} ${make.name} ${model.name}`;
+            if (modelText.toLowerCase().includes(lowerCaseQuery) || 
+                model.name.toLowerCase().includes(lowerCaseQuery)) {
+              newSuggestions.push({
+                id: `model-${model.id}`,
+                text: modelText,
+                type: 'carModel',
+                makeId: make.id
+              });
+            }
+          });
+        });
+        
         // Add article-based suggestions
         allContent.articles.forEach(article => {
-          if (article.title.toLowerCase().includes(query.toLowerCase())) {
+          if (article.title.toLowerCase().includes(lowerCaseQuery)) {
             newSuggestions.push({
               id: `article-${article.id}`,
               text: article.title,
@@ -56,31 +86,29 @@ export function useAutocomplete(query: string) {
           }
         });
         
-        // Add car-based suggestions
+        // Add car-based suggestions from mock data
         allContent.newCars.forEach(car => {
-          if (car.make.toLowerCase().includes(query.toLowerCase()) || 
-              car.model.toLowerCase().includes(query.toLowerCase())) {
+          if (car.title && car.title.toLowerCase().includes(lowerCaseQuery)) {
             newSuggestions.push({
               id: `newcar-${car.id}`,
-              text: `${car.year} ${car.make} ${car.model}`,
+              text: car.title,
               type: 'newCar'
             });
           }
         });
         
         allContent.usedCars.forEach(car => {
-          if (car.make.toLowerCase().includes(query.toLowerCase()) || 
-              car.model.toLowerCase().includes(query.toLowerCase())) {
+          if (car.title && car.title.toLowerCase().includes(lowerCaseQuery)) {
             newSuggestions.push({
               id: `usedcar-${car.id}`,
-              text: `Used ${car.year} ${car.make} ${car.model}`,
+              text: car.title,
               type: 'usedCar'
             });
           }
         });
 
-        // Limit to first 8 suggestions for better UX
-        setSuggestions(newSuggestions.slice(0, 8));
+        // Limit to first 10 suggestions for better UX, prioritizing car makes and models
+        setSuggestions(newSuggestions.slice(0, 10));
       } catch (error) {
         console.error('Error fetching suggestions:', error);
         setSuggestions([]);

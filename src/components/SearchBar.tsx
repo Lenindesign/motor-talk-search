@@ -107,7 +107,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               }}
               onFocus={() => setShowSuggestions(true)}
               onKeyDown={handleInputKeyDown}
-              placeholder="Ask me anything"
+              placeholder="Search makes, models..."
               disabled={isLoading}
               className="w-full rounded-full bg-motortrend-dark py-2 pl-9 pr-4 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-motortrend-red shadow-md"
             />
@@ -163,7 +163,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             }}
             onFocus={() => setShowSuggestions(true)}
             onKeyDown={handleInputKeyDown}
-            placeholder="Ask me anything about cars"
+            placeholder="Search car makes, models or ask a question..."
             disabled={isLoading}
             ref={currentInputRef}
             className="w-full rounded-full bg-motortrend-dark py-3 pl-12 pr-12 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-motortrend-red shadow-lg"
