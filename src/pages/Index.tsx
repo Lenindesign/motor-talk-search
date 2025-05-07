@@ -45,6 +45,16 @@ const Index = () => {
   const allContent = getAllContent();
   const isMobile = useIsMobile();
   
+  // Auto-scroll to the latest result when it's added
+  useEffect(() => {
+    if (latestResultRef.current) {
+      latestResultRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'end'
+      });
+    }
+  }, [searchHistory.length]);
+
   // Function to handle search submissions
   const handleSearch = (query: string) => {
     if (isSearching) return;
@@ -120,6 +130,16 @@ const Index = () => {
       if (searchBarRef.current) {
         searchBarRef.current.focus();
       }
+
+      // Ensure we scroll to the latest result after it's processed and rendered
+      setTimeout(() => {
+        if (latestResultRef.current) {
+          latestResultRef.current.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'end'
+          });
+        }
+      }, 100);
     }, 800);
   };
 
@@ -156,11 +176,11 @@ const Index = () => {
       </header>
       
       <main className="flex flex-1 flex-col">
-        {/* Modified structure to have chat container as flex-1 and search bar fixed at bottom */}
+        {/* Modified structure to have chat container with auto-scroll and search bar fixed at bottom */}
         <div className="relative flex flex-col h-full">
-          {/* Main content area that grows/shrinks */}
-          <div className="flex-1 overflow-y-auto">
-            <div className="max-w-[980px] mx-auto w-full px-4 py-4">
+          {/* Main content area that grows/shrinks with proper scroll behavior */}
+          <div className="flex-1 overflow-y-auto" ref={chatContainerRef}>
+            <div className="max-w-[980px] mx-auto w-full px-4 py-4 pb-32">
               {searchHistory.length === 0 ? (
                 <div className="flex flex-1 flex-col items-center justify-center space-y-6 py-20">
                   <h1 className="text-3xl font-bold text-motortrend-dark">
@@ -172,7 +192,7 @@ const Index = () => {
                   <SearchSuggestions onSuggestionClick={handleSuggestionClick} />
                 </div>
               ) : (
-                <div className="space-y-6 pb-24">
+                <div className="space-y-6">
                   {searchHistory.map((result, index) => (
                     <div 
                       key={result.id} 
