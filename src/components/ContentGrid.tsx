@@ -1,4 +1,3 @@
-
 import React from "react";
 import { ContentType } from "./ContentTabs";
 import ArticleCard, { ArticleData } from "./ArticleCard";

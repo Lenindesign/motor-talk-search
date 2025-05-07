@@ -44,7 +44,7 @@ const Index = () => {
   const searchBarRef = useRef<HTMLInputElement>(null);
   const allContent = getAllContent();
   const isMobile = useIsMobile();
-
+  
   // Function to handle search submissions
   const handleSearch = (query: string) => {
     if (isSearching) return;
@@ -68,11 +68,9 @@ const Index = () => {
     // Add the query to the search history at the end (oldest first)
     setSearchHistory((prev) => [...prev, newResult]);
     
-    // Ensure scroll happens immediately to keep newest item at bottom
+    // Handle scrolling and focus
     setTimeout(() => {
-      scrollToBottom();
-      
-      // Return focus to search bar after brief delay
+      // Focus search bar after brief delay
       if (searchBarRef.current) {
         searchBarRef.current.focus();
       }
@@ -122,15 +120,9 @@ const Index = () => {
       if (searchBarRef.current) {
         searchBarRef.current.focus();
       }
-
-      // Scroll to bottom to show latest result
-      setTimeout(() => {
-        scrollToBottom();
-      }, 50);
     }, 800);
   };
 
-  // Function to handle loading more content
   const handleLoadMore = (type: ContentType) => {
     setLoadingMore(true);
     
@@ -153,42 +145,6 @@ const Index = () => {
   const handleSuggestionClick = (suggestion: string) => {
     handleSearch(suggestion);
   };
-  
-  // Function to scroll to the bottom (where newest content is)
-  const scrollToBottom = () => {
-    if (chatContainerRef.current) {
-      chatContainerRef.current.scrollTo({
-        top: chatContainerRef.current.scrollHeight,
-        behavior: "smooth"
-      });
-    }
-  };
-
-  // Auto-scroll to bottom when search history changes
-  useEffect(() => {
-    if (searchHistory.length > 0) {
-      // Series of scroll attempts with increasing delays
-      const scrollAttempts = [10, 50, 150, 300];
-      
-      scrollAttempts.forEach(delay => {
-        setTimeout(scrollToBottom, delay);
-      });
-      
-      // Return focus to search bar
-      setTimeout(() => {
-        if (searchBarRef.current) {
-          searchBarRef.current.focus();
-        }
-      }, 350);
-    }
-  }, [searchHistory]);
-  
-  // Auto-focus search bar when component mounts
-  useEffect(() => {
-    if (searchBarRef.current) {
-      searchBarRef.current.focus();
-    }
-  }, []);
 
   return (
     <div className="flex min-h-screen flex-col bg-motortrend-gray">
@@ -199,70 +155,71 @@ const Index = () => {
         </div>
       </header>
       
-      <main className="flex flex-1 flex-col overflow-hidden">
-        <div 
-          ref={chatContainerRef}
-          className="flex flex-1 flex-col overflow-y-auto p-4 pb-24" // Added padding at the bottom for the search box
-        >
-          <div className="max-w-[980px] mx-auto w-full">
-            {searchHistory.length === 0 ? (
-              <div className="flex flex-1 flex-col items-center justify-center space-y-6">
-                <h1 className="text-3xl font-bold text-motortrend-dark">
-                  Welcome to MotorTrend Search
-                </h1>
-                <p className="max-w-md text-center text-gray-500">
-                  Ask me anything about cars or search for automotive content
-                </p>
-                <SearchSuggestions onSuggestionClick={handleSuggestionClick} />
-              </div>
-            ) : (
-              <div className="space-y-6 pb-20">
-                {searchHistory.map((result, index) => (
-                  <div 
-                    key={result.id} 
-                    className="space-y-4"
-                    ref={index === searchHistory.length - 1 ? latestResultRef : undefined}
-                  >
-                    <ChatMessage
-                      message={result.query}
-                      isUser={true}
-                      timestamp={result.timestamp}
-                    />
-                    
-                    {result.type === "chat" && result.response && (
-                      <ChatMessage message={result.response} isUser={false} />
-                    )}
-                    
-                    {result.type === "search" && result.contentType && (
-                      <div className="overflow-hidden rounded-lg bg-white p-4 shadow-md">
-                        <ContentTabs
-                          activeTab={activeContentTypes[result.id] || result.contentType}
-                          onTabChange={(tab) => handleTabChange(result.id, tab)}
-                        />
-                        <ContentGrid
-                          type={activeContentTypes[result.id] || result.contentType}
-                          content={content}
-                          loadMore={handleLoadMore}
-                          isLoadingMore={loadingMore}
-                          hasMore={hasMore}
-                        />
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
+      <main className="flex flex-1 flex-col">
+        {/* Modified structure to have chat container as flex-1 and search bar fixed at bottom */}
+        <div className="relative flex flex-col h-full">
+          {/* Main content area that grows/shrinks */}
+          <div className="flex-1 overflow-y-auto">
+            <div className="max-w-[980px] mx-auto w-full px-4 py-4">
+              {searchHistory.length === 0 ? (
+                <div className="flex flex-1 flex-col items-center justify-center space-y-6 py-20">
+                  <h1 className="text-3xl font-bold text-motortrend-dark">
+                    Welcome to MotorTrend Search
+                  </h1>
+                  <p className="max-w-md text-center text-gray-500">
+                    Ask me anything about cars or search for automotive content
+                  </p>
+                  <SearchSuggestions onSuggestionClick={handleSuggestionClick} />
+                </div>
+              ) : (
+                <div className="space-y-6 pb-24">
+                  {searchHistory.map((result, index) => (
+                    <div 
+                      key={result.id} 
+                      className="space-y-4"
+                      ref={index === searchHistory.length - 1 ? latestResultRef : undefined}
+                    >
+                      <ChatMessage
+                        message={result.query}
+                        isUser={true}
+                        timestamp={result.timestamp}
+                      />
+                      
+                      {result.type === "chat" && result.response && (
+                        <ChatMessage message={result.response} isUser={false} />
+                      )}
+                      
+                      {result.type === "search" && result.contentType && (
+                        <div className="overflow-hidden rounded-lg bg-white p-4 shadow-md">
+                          <ContentTabs
+                            activeTab={activeContentTypes[result.id] || result.contentType}
+                            onTabChange={(tab) => handleTabChange(result.id, tab)}
+                          />
+                          <ContentGrid
+                            type={activeContentTypes[result.id] || result.contentType}
+                            content={content}
+                            loadMore={handleLoadMore}
+                            isLoadingMore={loadingMore}
+                            hasMore={hasMore}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-        
-        {/* Fixed position at the bottom of the viewport */}
-        <div className="fixed bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-motortrend-gray to-transparent p-4 pb-6">
-          <div className="max-w-[980px] mx-auto w-full">
-            <SearchBar 
-              onSearch={handleSearch} 
-              isLoading={isSearching}
-              inputRef={searchBarRef} 
-            />
+          
+          {/* Fixed search bar at the bottom with gradient background */}
+          <div className="sticky bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-motortrend-gray to-transparent p-4 pb-6">
+            <div className="max-w-[980px] mx-auto w-full">
+              <SearchBar 
+                onSearch={handleSearch} 
+                isLoading={isSearching}
+                inputRef={searchBarRef} 
+              />
+            </div>
           </div>
         </div>
       </main>
