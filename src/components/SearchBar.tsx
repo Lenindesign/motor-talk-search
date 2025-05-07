@@ -6,9 +6,15 @@ interface SearchBarProps {
   onSearch: (query: string) => void;
   isLoading: boolean;
   inputRef?: React.RefObject<HTMLInputElement>;
+  variant?: "header" | "main";
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading, inputRef }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ 
+  onSearch, 
+  isLoading, 
+  inputRef,
+  variant = "main" 
+}) => {
   const [query, setQuery] = useState("");
 
   const handleSubmit = (e: FormEvent) => {
@@ -28,10 +34,50 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch, isLoading, inputRef }) 
 
   // Ensure focus is maintained whenever component updates
   useEffect(() => {
-    if (inputRef?.current && !isLoading) {
+    if (inputRef?.current && !isLoading && variant === "main") {
       inputRef.current.focus();
     }
-  }, [isLoading, inputRef]);
+  }, [isLoading, inputRef, variant]);
+
+  if (variant === "header") {
+    return (
+      <form 
+        onSubmit={handleSubmit}
+        className="w-full max-w-xs"
+      >
+        <div className="relative flex items-center">
+          <div className="absolute left-3 text-white">
+            <Search size={16} />
+          </div>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Ask me anything"
+            disabled={isLoading}
+            className="w-full rounded-full bg-motortrend-dark py-2 pl-9 pr-4 text-sm text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-motortrend-red shadow-md"
+          />
+          <button 
+            type="submit"
+            disabled={isLoading || !query.trim()}
+            className="absolute right-2 text-white disabled:text-gray-400"
+          >
+            {isLoading ? (
+              <Loader size={16} className="animate-spinner" />
+            ) : (
+              query.trim() && (
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-motortrend-red">
+                  <svg width="8" height="8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+              )
+            )}
+          </button>
+        </div>
+      </form>
+    );
+  }
 
   return (
     <form 

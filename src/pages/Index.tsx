@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchSuggestions from "../components/SearchSuggestions";
@@ -171,14 +172,18 @@ const Index = () => {
       <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
         <div className="flex items-center justify-between max-w-[980px] mx-auto w-full">
           <div className="text-xl font-bold text-white">MotorTrend</div>
-          {/* Mobile menu icon would go here */}
+          <div className="hidden sm:block">
+            <SearchBar 
+              onSearch={handleSearch} 
+              isLoading={isSearching}
+              variant="header" 
+            />
+          </div>
         </div>
       </header>
       
       <main className="flex flex-1 flex-col">
-        {/* Modified structure to have chat container with auto-scroll and search bar fixed at bottom */}
         <div className="relative flex flex-col h-full">
-          {/* Main content area that grows/shrinks with proper scroll behavior */}
           <div className="flex-1 overflow-y-auto" ref={chatContainerRef}>
             <div className="max-w-[980px] mx-auto w-full px-4 py-4 pb-32">
               {searchHistory.length === 0 ? (
@@ -231,7 +236,6 @@ const Index = () => {
             </div>
           </div>
           
-          {/* Fixed search bar at the bottom with gradient background */}
           <div className="sticky bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-motortrend-gray to-transparent p-4 pb-6">
             <div className="max-w-[980px] mx-auto w-full">
               <SearchBar 
