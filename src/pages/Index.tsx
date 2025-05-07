@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchSuggestions from "../components/SearchSuggestions";
@@ -171,7 +170,13 @@ const Index = () => {
     <div className="flex min-h-screen flex-col bg-motortrend-gray">
       <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
         <div className="flex items-center justify-between max-w-[980px] mx-auto w-full">
-          <div className="text-xl font-bold text-white">MotorTrend</div>
+          <div className="flex-shrink-0">
+            <img 
+              src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" 
+              alt="MotorTrend Logo" 
+              className="h-7 w-auto"
+            />
+          </div>
           <div className="hidden sm:block">
             <SearchBar 
               onSearch={handleSearch} 
