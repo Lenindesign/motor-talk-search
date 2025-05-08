@@ -4,6 +4,7 @@ import SearchSuggestions from "../components/SearchSuggestions";
 import ChatMessage from "../components/ChatMessage";
 import ContentTabs, { ContentType } from "../components/ContentTabs";
 import ContentGrid from "../components/ContentGrid";
+import MainNavigation from "../components/MainNavigation";
 import { 
   determineContentType, 
   generateChatResponse,
@@ -170,19 +171,25 @@ const Index = () => {
     <div className="flex min-h-screen flex-col bg-motortrend-gray">
       <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
         <div className="flex items-center justify-between max-w-[980px] mx-auto w-full">
-          <div className="flex-shrink-0">
-            <img 
-              src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" 
-              alt="MotorTrend Logo" 
-              className="h-7 w-auto"
-            />
+          <div className="flex items-center space-x-4">
+            {isMobile && <MainNavigation />}
+            <div className="flex-shrink-0">
+              <img 
+                src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" 
+                alt="MotorTrend Logo" 
+                className="h-7 w-auto"
+              />
+            </div>
           </div>
-          <div className="hidden sm:block">
+          <div className="hidden sm:block flex-1 mx-4">
             <SearchBar 
               onSearch={handleSearch} 
               isLoading={isSearching}
               variant="header" 
             />
+          </div>
+          <div className="hidden sm:block">
+            <MainNavigation />
           </div>
         </div>
       </header>
