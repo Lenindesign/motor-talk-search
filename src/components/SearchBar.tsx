@@ -1,3 +1,4 @@
+
 import React, { useState, FormEvent, useEffect, useRef } from "react";
 import { Search, Loader } from "lucide-react";
 import { useAutocomplete, Suggestion } from "../hooks/use-autocomplete";
@@ -88,7 +89,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   if (variant === "header") {
     return (
-      <div className="w-full max-w-xs relative ml-auto" ref={wrapperRef}>
+      <div className="w-full max-w-xs relative" ref={wrapperRef}>
         <form 
           onSubmit={handleSubmit}
           className="w-full"

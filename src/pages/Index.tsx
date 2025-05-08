@@ -171,7 +171,7 @@ const Index = () => {
     <div className="flex min-h-screen flex-col bg-motortrend-gray">
       <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
         <div className="flex items-center justify-between max-w-[980px] mx-auto w-full">
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center">
             {isMobile && <MainNavigation />}
             <div className="flex-shrink-0">
               <img 
@@ -180,16 +180,16 @@ const Index = () => {
                 className="h-7 w-auto"
               />
             </div>
+            <div className="hidden sm:flex ml-6">
+              <MainNavigation />
+            </div>
           </div>
-          <div className="hidden sm:block flex-1 mx-4">
+          <div className="hidden sm:block ml-4">
             <SearchBar 
               onSearch={handleSearch} 
               isLoading={isSearching}
               variant="header" 
             />
-          </div>
-          <div className="hidden sm:block">
-            <MainNavigation />
           </div>
         </div>
       </header>
