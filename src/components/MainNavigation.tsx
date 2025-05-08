@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 import {
@@ -25,7 +24,6 @@ const navigationItems = [
   { name: "Videos", href: "#videos" },
   { name: "Magazines", href: "#magazines" },
   { name: "The Future", href: "#the-future" },
-  { name: "Events", href: "#events" },
 ];
 
 const MainNavigation = () => {

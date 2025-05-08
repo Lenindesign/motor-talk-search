@@ -24,7 +24,6 @@ const App = () => (
           <Route path="/videos" element={<NavRoutes path="/videos" title="Videos" />} />
           <Route path="/magazines" element={<NavRoutes path="/magazines" title="Magazines" />} />
           <Route path="/the-future" element={<NavRoutes path="/the-future" title="The Future" />} />
-          <Route path="/events" element={<NavRoutes path="/events" title="Events" />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
