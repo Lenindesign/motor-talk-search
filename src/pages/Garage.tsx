@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +8,7 @@ import MainNavigation from "../components/MainNavigation";
 import { useIsMobile } from "../hooks/use-mobile";
 import SearchBar from "../components/SearchBar";
 import { User, Settings, Car, Save } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const Garage = () => {
   const { savedItems, removeSavedItem } = useSavedItems();
@@ -65,13 +65,10 @@ const Garage = () => {
           <aside className="w-full md:w-64 space-y-6">
             <Card>
               <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden">
-                  <img 
-                    src={userData.avatar} 
-                    alt={userData.name} 
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <Avatar className="w-16 h-16">
+                  <AvatarImage src={userData.avatar} alt={userData.name} />
+                  <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
+                </Avatar>
                 <div>
                   <CardTitle>{userData.name}</CardTitle>
                   <CardDescription>{userData.email}</CardDescription>
