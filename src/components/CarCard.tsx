@@ -1,5 +1,7 @@
 
 import React from "react";
+import { Save } from "lucide-react";
+import { useSavedItems } from "../contexts/SavedItemsContext";
 
 export interface CarData {
   id: string;
@@ -21,6 +23,30 @@ interface CarCardProps {
 }
 
 const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
+  const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
+  const saved = isSaved(car.id);
+
+  const handleSave = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (saved) {
+      removeSavedItem(car.id);
+    } else {
+      addSavedItem({
+        id: car.id,
+        title: car.title,
+        type: type === "new" ? "newCar" : "usedCar",
+        imageUrl: car.imageUrl,
+        metadata: {
+          price: car.price,
+          category: car.category,
+          year: car.year,
+          mileage: car.mileage,
+          location: car.location
+        }
+      });
+    }
+  };
+
   return (
     <div className="overflow-hidden rounded-lg bg-white shadow transition-all hover:shadow-md">
       <div className="relative">
@@ -40,6 +66,13 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
             New
           </span>
         )}
+        <button
+          onClick={handleSave}
+          className={`absolute top-2 right-2 p-1.5 rounded-full ${saved ? 'bg-motortrend-red text-white' : 'bg-black/70 text-white hover:bg-motortrend-red'} transition-colors`}
+          aria-label={saved ? "Unsave car" : "Save car"}
+        >
+          <Save size={16} className={saved ? 'fill-white' : ''} />
+        </button>
       </div>
       <div className="p-4">
         <div className="mb-1 text-xs font-medium text-motortrend-red">

@@ -1,5 +1,7 @@
 
 import React, { useState } from "react";
+import { Save } from "lucide-react";
+import { useSavedItems } from "../contexts/SavedItemsContext";
 
 export interface PhotoData {
   id: string;
@@ -15,6 +17,25 @@ interface PhotoCardProps {
 
 const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
+  const saved = isSaved(photo.id);
+
+  const handleSave = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (saved) {
+      removeSavedItem(photo.id);
+    } else {
+      addSavedItem({
+        id: photo.id,
+        title: photo.title,
+        type: 'photo',
+        imageUrl: photo.imageUrl,
+        metadata: {
+          position: photo.position
+        }
+      });
+    }
+  };
   
   return (
     <div 
@@ -37,6 +58,13 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
         <div className="absolute bottom-2 left-2 rounded bg-black/70 px-2 py-1 text-xs text-white">
           {photo.position}
         </div>
+        <button
+          onClick={handleSave}
+          className={`absolute top-2 right-2 p-1.5 rounded-full ${saved ? 'bg-motortrend-red text-white' : 'bg-black/70 text-white hover:bg-motortrend-red'} transition-colors`}
+          aria-label={saved ? "Unsave photo" : "Save photo"}
+        >
+          <Save size={16} className={saved ? 'fill-white' : ''} />
+        </button>
       </div>
       <div className="p-2 text-sm font-medium">{photo.title}</div>
     </div>

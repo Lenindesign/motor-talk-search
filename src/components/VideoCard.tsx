@@ -1,5 +1,7 @@
 
 import React from "react";
+import { Save } from "lucide-react";
+import { useSavedItems } from "../contexts/SavedItemsContext";
 
 export interface VideoData {
   id: string;
@@ -13,6 +15,26 @@ interface VideoCardProps {
 }
 
 const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
+  const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
+  const saved = isSaved(video.id);
+
+  const handleSave = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (saved) {
+      removeSavedItem(video.id);
+    } else {
+      addSavedItem({
+        id: video.id,
+        title: video.title,
+        type: 'video',
+        imageUrl: video.imageUrl,
+        metadata: {
+          duration: video.duration
+        }
+      });
+    }
+  };
+  
   return (
     <div className="overflow-hidden rounded-lg bg-white shadow transition-all hover:shadow-md">
       <div className="relative">
@@ -34,6 +56,13 @@ const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
         <div className="absolute bottom-2 right-2 rounded bg-black/70 px-2 py-1 text-xs text-white">
           {video.duration}
         </div>
+        <button
+          onClick={handleSave}
+          className={`absolute top-2 right-2 p-1.5 rounded-full ${saved ? 'bg-motortrend-red text-white' : 'bg-black/70 text-white hover:bg-motortrend-red'} transition-colors`}
+          aria-label={saved ? "Unsave video" : "Save video"}
+        >
+          <Save size={16} className={saved ? 'fill-white' : ''} />
+        </button>
       </div>
       <div className="p-4">
         <h3 className="line-clamp-2 text-sm font-bold">{video.title}</h3>

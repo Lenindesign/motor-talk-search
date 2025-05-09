@@ -1,0 +1,291 @@
+
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useSavedItems, SavedItem, SavedItemType } from "../contexts/SavedItemsContext";
+import MainNavigation from "../components/MainNavigation";
+import { useIsMobile } from "../hooks/use-mobile";
+import SearchBar from "../components/SearchBar";
+import { User, Settings, Car, Bookmark, Save } from "lucide-react";
+
+const Profile = () => {
+  const { savedItems, removeSavedItem } = useSavedItems();
+  const navigate = useNavigate();
+  const isMobile = useIsMobile();
+  const [activeTab, setActiveTab] = useState("saved");
+  
+  // Mock user data - in a real app, this would come from auth context or API
+  const userData = {
+    name: "John Driver",
+    email: "john.driver@example.com",
+    avatar: "/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png",
+    joined: "January 2023"
+  };
+
+  const handleUnsave = (id: string) => {
+    removeSavedItem(id);
+  };
+
+  const filterItemsByType = (type: SavedItemType | 'all') => {
+    if (type === 'all') return savedItems;
+    return savedItems.filter(item => item.type === type);
+  };
+  
+  return (
+    <div className="min-h-screen bg-motortrend-gray">
+      <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
+        <div className="flex items-center justify-between max-w-[980px] mx-auto w-full">
+          <div className="flex items-center">
+            {isMobile && <MainNavigation />}
+            <Link to="/" className="flex-shrink-0">
+              <img 
+                src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" 
+                alt="MotorTrend Logo" 
+                className="h-7 w-auto"
+              />
+            </Link>
+            <div className="hidden sm:flex ml-6">
+              <MainNavigation />
+            </div>
+          </div>
+          <div className="hidden sm:block ml-4">
+            <SearchBar 
+              onSearch={(query) => navigate(`/?q=${query}`)} 
+              isLoading={false}
+              variant="header" 
+            />
+          </div>
+        </div>
+      </header>
+      
+      <main className="max-w-[980px] mx-auto px-4 py-8">
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* Profile Sidebar */}
+          <aside className="w-full md:w-64 space-y-6">
+            <Card>
+              <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden">
+                  <img 
+                    src={userData.avatar} 
+                    alt={userData.name} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <CardTitle>{userData.name}</CardTitle>
+                  <CardDescription>{userData.email}</CardDescription>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Member since {userData.joined}</p>
+                <div className="mt-4 flex justify-between">
+                  <span className="text-sm font-medium">Saved Items</span>
+                  <span className="text-sm font-bold">{savedItems.length}</span>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardContent className="p-4">
+                <nav className="space-y-2">
+                  <Link
+                    to="/profile"
+                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium bg-motortrend-dark text-white w-full"
+                  >
+                    <User size={18} />
+                    Profile
+                  </Link>
+                  <Link
+                    to="/garage"
+                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full"
+                  >
+                    <Car size={18} />
+                    My Garage
+                  </Link>
+                  <button
+                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full"
+                  >
+                    <Settings size={18} />
+                    Settings
+                  </button>
+                </nav>
+              </CardContent>
+            </Card>
+          </aside>
+          
+          {/* Main Content */}
+          <div className="flex-1">
+            <Tabs defaultValue="saved" onValueChange={setActiveTab} className="w-full">
+              <TabsList className="w-full justify-start border-b rounded-none">
+                <TabsTrigger value="saved" className="flex items-center gap-1">
+                  <Bookmark size={16} />
+                  <span>Saved Items</span>
+                </TabsTrigger>
+                <TabsTrigger value="settings" className="flex items-center gap-1">
+                  <Settings size={16} />
+                  <span>Account Settings</span>
+                </TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="saved" className="space-y-6">
+                <div className="bg-white p-4 rounded-lg shadow">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-bold">Saved Items</h2>
+                    <div className="flex gap-2">
+                      <Button 
+                        variant={activeTab === "all" ? "default" : "outline"} 
+                        size="sm" 
+                        onClick={() => setActiveTab("all")}
+                      >
+                        All
+                      </Button>
+                      <Button 
+                        variant={activeTab === "articles" ? "default" : "outline"} 
+                        size="sm" 
+                        onClick={() => setActiveTab("articles")}
+                      >
+                        Articles
+                      </Button>
+                      <Button 
+                        variant={activeTab === "cars" ? "default" : "outline"} 
+                        size="sm" 
+                        onClick={() => setActiveTab("cars")}
+                      >
+                        Cars
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  {savedItems.length === 0 ? (
+                    <div className="text-center py-10">
+                      <Save size={48} className="mx-auto text-gray-300 mb-4" />
+                      <h3 className="text-lg font-medium text-gray-700 mb-2">No saved items yet</h3>
+                      <p className="text-gray-500 max-w-md mx-auto">
+                        Use the save button on articles, cars, videos, and photos to collect them here
+                      </p>
+                      <Button className="mt-4" onClick={() => navigate("/")}>
+                        Browse Content
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {savedItems.map((item) => (
+                        <SavedItemCard 
+                          key={item.id} 
+                          item={item} 
+                          onUnsave={handleUnsave} 
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="settings">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Account Settings</CardTitle>
+                    <CardDescription>
+                      Manage your account preferences
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <label className="text-sm font-medium">Display Name</label>
+                      <input 
+                        type="text" 
+                        defaultValue={userData.name}
+                        className="w-full mt-1 p-2 border rounded"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium">Email Address</label>
+                      <input 
+                        type="email" 
+                        defaultValue={userData.email}
+                        className="w-full mt-1 p-2 border rounded"
+                      />
+                    </div>
+                    <div className="pt-4">
+                      <Button>Save Changes</Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+};
+
+// Component to display a saved item card
+const SavedItemCard = ({ 
+  item, 
+  onUnsave 
+}: { 
+  item: SavedItem;
+  onUnsave: (id: string) => void;
+}) => {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('en-US', { 
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    }).format(date);
+  };
+  
+  const getItemTypeLabel = (type: SavedItemType) => {
+    switch(type) {
+      case 'article': return 'Article';
+      case 'newCar': return 'New Car';
+      case 'usedCar': return 'Used Car';
+      case 'photo': return 'Photo';
+      case 'video': return 'Video';
+      default: return 'Item';
+    }
+  };
+  
+  return (
+    <div className="flex rounded-md overflow-hidden border bg-white">
+      <div className="w-24 h-24 flex-shrink-0">
+        <img 
+          src={item.imageUrl} 
+          alt={item.title}
+          className="w-full h-full object-cover"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/placeholder.svg';
+          }}
+        />
+      </div>
+      <div className="flex-1 p-3 flex flex-col">
+        <div className="flex justify-between">
+          <span className="text-xs font-medium text-motortrend-red">
+            {getItemTypeLabel(item.type)}
+          </span>
+          <span className="text-xs text-gray-500">
+            Saved on {formatDate(item.savedAt)}
+          </span>
+        </div>
+        <h3 className="text-sm font-medium mt-1 line-clamp-2">{item.title}</h3>
+        <div className="mt-auto flex justify-between items-center pt-2">
+          <Button variant="outline" size="sm">View</Button>
+          <Button 
+            variant="ghost" 
+            size="sm"
+            onClick={() => onUnsave(item.id)}
+            className="text-gray-500 hover:text-motortrend-red"
+          >
+            Unsave
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Profile;
