@@ -1,26 +1,60 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Form, FormField, FormItem, FormLabel, FormControl } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
 import { useSavedItems, SavedItem, SavedItemType } from "../contexts/SavedItemsContext";
+import { usePersonalization } from "../contexts/PersonalizationContext";
 import MainNavigation from "../components/MainNavigation";
 import { useIsMobile } from "../hooks/use-mobile";
 import SearchBar from "../components/SearchBar";
-import { User, Settings, Car, Bookmark, Save } from "lucide-react";
+import PersonalizationDialog from "../components/PersonalizationDialog";
+import ProfilePictureUpload from "../components/ProfilePictureUpload";
+import { User, Settings, Car, Bookmark, Save, Palette } from "lucide-react";
 
 const Profile = () => {
   const { savedItems, removeSavedItem } = useSavedItems();
+  const { preferences } = usePersonalization();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [activeTab, setActiveTab] = useState("saved");
+  const [personalizationOpen, setPersonalizationOpen] = useState(false);
+  const [profileImage, setProfileImage] = useState<string | undefined>(
+    localStorage.getItem("userProfileImage") || undefined
+  );
+  
+  // Save profile image to localStorage when it changes
+  useEffect(() => {
+    if (profileImage) {
+      localStorage.setItem("userProfileImage", profileImage);
+    }
+  }, [profileImage]);
+  
+  // Form setup for account settings
+  const form = useForm({
+    defaultValues: {
+      name: localStorage.getItem("userName") || "John Driver",
+      email: localStorage.getItem("userEmail") || "john.driver@example.com",
+    },
+  });
+  
+  const onSubmit = (data: { name: string; email: string }) => {
+    localStorage.setItem("userName", data.name);
+    localStorage.setItem("userEmail", data.email);
+    
+    // Show a success message or notification
+    console.log("Profile updated:", data);
+  };
   
   // Mock user data - in a real app, this would come from auth context or API
   const userData = {
-    name: "John Driver",
-    email: "john.driver@example.com",
-    avatar: "/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png",
+    name: form.watch("name"),
+    email: form.watch("email"),
+    avatar: profileImage || "/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png",
     joined: "January 2023"
   };
 
@@ -84,6 +118,15 @@ const Profile = () => {
                   <span className="text-sm font-medium">Saved Items</span>
                   <span className="text-sm font-bold">{savedItems.length}</span>
                 </div>
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="w-full mt-4 flex items-center justify-center gap-2"
+                  onClick={() => setPersonalizationOpen(true)}
+                >
+                  <Palette size={16} />
+                  Personalize
+                </Button>
               </CardContent>
             </Card>
             
@@ -191,26 +234,55 @@ const Profile = () => {
                       Manage your account preferences
                     </CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <label className="text-sm font-medium">Display Name</label>
-                      <input 
-                        type="text" 
-                        defaultValue={userData.name}
-                        className="w-full mt-1 p-2 border rounded"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium">Email Address</label>
-                      <input 
-                        type="email" 
-                        defaultValue={userData.email}
-                        className="w-full mt-1 p-2 border rounded"
-                      />
-                    </div>
-                    <div className="pt-4">
-                      <Button>Save Changes</Button>
-                    </div>
+                  <CardContent className="space-y-6">
+                    <ProfilePictureUpload 
+                      currentImageUrl={profileImage}
+                      onImageChange={setProfileImage}
+                    />
+                    
+                    <Form {...form}>
+                      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+                        <FormField
+                          control={form.control}
+                          name="name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Display Name</FormLabel>
+                              <FormControl>
+                                <Input {...field} />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="email"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Email Address</FormLabel>
+                              <FormControl>
+                                <Input {...field} type="email" />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <div className="flex items-center justify-between pt-2">
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => setPersonalizationOpen(true)}
+                            className="flex items-center gap-2"
+                          >
+                            <Palette size={16} />
+                            Personalize Experience
+                          </Button>
+                          
+                          <Button type="submit">Save Changes</Button>
+                        </div>
+                      </form>
+                    </Form>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -218,6 +290,12 @@ const Profile = () => {
           </div>
         </div>
       </main>
+      
+      {/* Personalization Dialog */}
+      <PersonalizationDialog 
+        open={personalizationOpen}
+        onOpenChange={setPersonalizationOpen}
+      />
     </div>
   );
 };
