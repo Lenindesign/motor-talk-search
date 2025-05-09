@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -17,6 +18,7 @@ import RecentActivity from "../components/RecentActivity";
 import UserAchievements from "../components/UserAchievements";
 import UserPoints from "../components/UserPoints";
 import { User, Settings, Car, Bookmark, Save, Palette, Activity, Award } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 const Profile = () => {
   const { savedItems, removeSavedItem } = useSavedItems();
@@ -56,7 +58,7 @@ const Profile = () => {
   const userData = {
     name: form.watch("name"),
     email: form.watch("email"),
-    avatar: profileImage || "/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png",
+    avatar: "/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png",
     joined: "January 2023"
   };
 
@@ -106,13 +108,14 @@ const Profile = () => {
           <aside className="w-full md:w-64 space-y-6">
             <Card>
               <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                <div className="w-16 h-16 rounded-full bg-gray-200 overflow-hidden">
-                  <img 
+                <Avatar className="w-16 h-16">
+                  <AvatarImage 
                     src={userData.avatar} 
-                    alt={userData.name} 
-                    className="w-full h-full object-cover"
+                    alt={userData.name}
+                    className="object-cover"
                   />
-                </div>
+                  <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
+                </Avatar>
                 <div>
                   <CardTitle>{userData.name}</CardTitle>
                   <CardDescription>{userData.email}</CardDescription>
