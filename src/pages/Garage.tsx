@@ -24,7 +24,7 @@ const Garage = () => {
   const userData = {
     name: "John Driver",
     email: "john.driver@example.com",
-    avatar: "/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png",
+    avatar: "/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png", // Updated to use the uploaded image
     joined: "January 2023"
   };
   const handleUnsave = (id: string) => {
