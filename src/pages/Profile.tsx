@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -19,41 +18,45 @@ import UserAchievements from "../components/UserAchievements";
 import UserPoints from "../components/UserPoints";
 import { User, Settings, Car, Bookmark, Save, Palette, Activity, Award } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-
 const Profile = () => {
-  const { savedItems, removeSavedItem } = useSavedItems();
-  const { preferences } = usePersonalization();
+  const {
+    savedItems,
+    removeSavedItem
+  } = useSavedItems();
+  const {
+    preferences
+  } = usePersonalization();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [activeTab, setActiveTab] = useState("saved");
   const [personalizationOpen, setPersonalizationOpen] = useState(false);
-  const [profileImage, setProfileImage] = useState<string | undefined>(
-    localStorage.getItem("userProfileImage") || undefined
-  );
-  
+  const [profileImage, setProfileImage] = useState<string | undefined>(localStorage.getItem("userProfileImage") || undefined);
+
   // Save profile image to localStorage when it changes
   useEffect(() => {
     if (profileImage) {
       localStorage.setItem("userProfileImage", profileImage);
     }
   }, [profileImage]);
-  
+
   // Form setup for account settings
   const form = useForm({
     defaultValues: {
       name: localStorage.getItem("userName") || "John Driver",
-      email: localStorage.getItem("userEmail") || "john.driver@example.com",
-    },
+      email: localStorage.getItem("userEmail") || "john.driver@example.com"
+    }
   });
-  
-  const onSubmit = (data: { name: string; email: string }) => {
+  const onSubmit = (data: {
+    name: string;
+    email: string;
+  }) => {
     localStorage.setItem("userName", data.name);
     localStorage.setItem("userEmail", data.email);
-    
+
     // Show a success message or notification
     console.log("Profile updated:", data);
   };
-  
+
   // Mock user data - in a real app, this would come from auth context or API
   const userData = {
     name: form.watch("name"),
@@ -61,43 +64,31 @@ const Profile = () => {
     avatar: "/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png",
     joined: "January 2023"
   };
-
   const handleUnsave = (id: string) => {
     removeSavedItem(id);
   };
-
   const filterItemsByType = (type: SavedItemType | 'all') => {
     if (type === 'all') return savedItems;
     return savedItems.filter(item => item.type === type);
   };
-  
+
   // Filter by current tab
   const [filterType, setFilterType] = useState<SavedItemType | 'all'>('all');
   const filteredItems = filterItemsByType(filterType);
-  
-  return (
-    <div className="min-h-screen bg-motortrend-gray">
+  return <div className="min-h-screen bg-motortrend-gray">
       <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
         <div className="flex items-center justify-between max-w-[980px] mx-auto w-full">
           <div className="flex items-center">
             {isMobile && <MainNavigation />}
             <Link to="/" className="flex-shrink-0">
-              <img 
-                src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" 
-                alt="MotorTrend Logo" 
-                className="h-7 w-auto"
-              />
+              <img src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" alt="MotorTrend Logo" className="h-7 w-auto" />
             </Link>
             <div className="hidden sm:flex ml-6">
               <MainNavigation />
             </div>
           </div>
           <div className="hidden sm:block ml-4">
-            <SearchBar 
-              onSearch={(query) => navigate(`/?q=${query}`)} 
-              isLoading={false}
-              variant="header" 
-            />
+            <SearchBar onSearch={query => navigate(`/?q=${query}`)} isLoading={false} variant="header" />
           </div>
         </div>
       </header>
@@ -109,16 +100,12 @@ const Profile = () => {
             <Card>
               <CardHeader className="flex flex-row items-center gap-4 pb-2">
                 <Avatar className="w-16 h-16">
-                  <AvatarImage 
-                    src={userData.avatar} 
-                    alt={userData.name}
-                    className="object-cover"
-                  />
+                  <AvatarImage src={userData.avatar} alt={userData.name} className="object-cover" />
                   <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div>
                   <CardTitle>{userData.name}</CardTitle>
-                  <CardDescription>{userData.email}</CardDescription>
+                  
                 </div>
               </CardHeader>
               <CardContent>
@@ -127,12 +114,7 @@ const Profile = () => {
                   <span className="text-sm font-medium">Saved Items</span>
                   <span className="text-sm font-bold">{savedItems.length}</span>
                 </div>
-                <Button 
-                  variant="outline" 
-                  size="sm"
-                  className="w-full mt-4 flex items-center justify-center gap-2"
-                  onClick={() => setPersonalizationOpen(true)}
-                >
+                <Button variant="outline" size="sm" className="w-full mt-4 flex items-center justify-center gap-2" onClick={() => setPersonalizationOpen(true)}>
                   <Palette size={16} />
                   Personalize
                 </Button>
@@ -144,23 +126,15 @@ const Profile = () => {
             <Card>
               <CardContent className="p-4">
                 <nav className="space-y-2">
-                  <Link
-                    to="/profile"
-                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium bg-motortrend-dark text-white w-full"
-                  >
+                  <Link to="/profile" className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium bg-motortrend-dark text-white w-full">
                     <User size={18} />
                     Profile
                   </Link>
-                  <Link
-                    to="/garage"
-                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full"
-                  >
+                  <Link to="/garage" className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full">
                     <Car size={18} />
                     My Garage
                   </Link>
-                  <button
-                    className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full"
-                  >
+                  <button className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full">
                     <Settings size={18} />
                     Settings
                   </button>
@@ -196,39 +170,22 @@ const Profile = () => {
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold">Saved Items</h2>
                     <div className="flex gap-2">
-                      <Button 
-                        variant={filterType === "all" ? "default" : "outline"} 
-                        size="sm" 
-                        onClick={() => setFilterType("all")}
-                      >
+                      <Button variant={filterType === "all" ? "default" : "outline"} size="sm" onClick={() => setFilterType("all")}>
                         All
                       </Button>
-                      <Button 
-                        variant={filterType === "article" ? "default" : "outline"} 
-                        size="sm" 
-                        onClick={() => setFilterType("article")}
-                      >
+                      <Button variant={filterType === "article" ? "default" : "outline"} size="sm" onClick={() => setFilterType("article")}>
                         Articles
                       </Button>
-                      <Button 
-                        variant={filterType === "newCar" ? "default" : "outline"} 
-                        size="sm" 
-                        onClick={() => setFilterType("newCar")}
-                      >
+                      <Button variant={filterType === "newCar" ? "default" : "outline"} size="sm" onClick={() => setFilterType("newCar")}>
                         New Cars
                       </Button>
-                      <Button 
-                        variant={filterType === "usedCar" ? "default" : "outline"} 
-                        size="sm" 
-                        onClick={() => setFilterType("usedCar")}
-                      >
+                      <Button variant={filterType === "usedCar" ? "default" : "outline"} size="sm" onClick={() => setFilterType("usedCar")}>
                         Used Cars
                       </Button>
                     </div>
                   </div>
                   
-                  {filteredItems.length === 0 ? (
-                    <div className="text-center py-10">
+                  {filteredItems.length === 0 ? <div className="text-center py-10">
                       <Save size={48} className="mx-auto text-gray-300 mb-4" />
                       <h3 className="text-lg font-medium text-gray-700 mb-2">No saved items yet</h3>
                       <p className="text-gray-500 max-w-md mx-auto">
@@ -237,18 +194,9 @@ const Profile = () => {
                       <Button className="mt-4" onClick={() => navigate("/")}>
                         Browse Content
                       </Button>
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {filteredItems.map((item) => (
-                        <SavedItemCard 
-                          key={item.id} 
-                          item={item} 
-                          onUnsave={handleUnsave} 
-                        />
-                      ))}
-                    </div>
-                  )}
+                    </div> : <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {filteredItems.map(item => <SavedItemCard key={item.id} item={item} onUnsave={handleUnsave} />)}
+                    </div>}
                 </div>
               </TabsContent>
               
@@ -269,46 +217,30 @@ const Profile = () => {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
-                    <ProfilePictureUpload 
-                      currentImageUrl={profileImage}
-                      onImageChange={setProfileImage}
-                    />
+                    <ProfilePictureUpload currentImageUrl={profileImage} onImageChange={setProfileImage} />
                     
                     <Form {...form}>
                       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                        <FormField
-                          control={form.control}
-                          name="name"
-                          render={({ field }) => (
-                            <FormItem>
+                        <FormField control={form.control} name="name" render={({
+                        field
+                      }) => <FormItem>
                               <FormLabel>Display Name</FormLabel>
                               <FormControl>
                                 <Input {...field} />
                               </FormControl>
-                            </FormItem>
-                          )}
-                        />
+                            </FormItem>} />
                         
-                        <FormField
-                          control={form.control}
-                          name="email"
-                          render={({ field }) => (
-                            <FormItem>
+                        <FormField control={form.control} name="email" render={({
+                        field
+                      }) => <FormItem>
                               <FormLabel>Email Address</FormLabel>
                               <FormControl>
                                 <Input {...field} type="email" />
                               </FormControl>
-                            </FormItem>
-                          )}
-                        />
+                            </FormItem>} />
                         
                         <div className="flex items-center justify-between pt-2">
-                          <Button
-                            type="button"
-                            variant="outline"
-                            onClick={() => setPersonalizationOpen(true)}
-                            className="flex items-center gap-2"
-                          >
+                          <Button type="button" variant="outline" onClick={() => setPersonalizationOpen(true)} className="flex items-center gap-2">
                             <Palette size={16} />
                             Personalize Experience
                           </Button>
@@ -326,53 +258,47 @@ const Profile = () => {
       </main>
       
       {/* Personalization Dialog */}
-      <PersonalizationDialog 
-        open={personalizationOpen}
-        onOpenChange={setPersonalizationOpen}
-      />
-    </div>
-  );
+      <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
+    </div>;
 };
 
 // Component to display a saved item card
-const SavedItemCard = ({ 
-  item, 
-  onUnsave 
-}: { 
+const SavedItemCard = ({
+  item,
+  onUnsave
+}: {
   item: SavedItem;
   onUnsave: (id: string) => void;
 }) => {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat('en-US', { 
+    return new Intl.DateTimeFormat('en-US', {
       month: 'short',
       day: 'numeric',
       year: 'numeric'
     }).format(date);
   };
-  
   const getItemTypeLabel = (type: SavedItemType) => {
-    switch(type) {
-      case 'article': return 'Article';
-      case 'newCar': return 'New Car';
-      case 'usedCar': return 'Used Car';
-      case 'photo': return 'Photo';
-      case 'video': return 'Video';
-      default: return 'Item';
+    switch (type) {
+      case 'article':
+        return 'Article';
+      case 'newCar':
+        return 'New Car';
+      case 'usedCar':
+        return 'Used Car';
+      case 'photo':
+        return 'Photo';
+      case 'video':
+        return 'Video';
+      default:
+        return 'Item';
     }
   };
-  
-  return (
-    <div className="flex rounded-md overflow-hidden border bg-white">
+  return <div className="flex rounded-md overflow-hidden border bg-white">
       <div className="w-24 h-24 flex-shrink-0">
-        <img 
-          src={item.imageUrl} 
-          alt={item.title}
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = '/placeholder.svg';
-          }}
-        />
+        <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" onError={e => {
+        (e.target as HTMLImageElement).src = '/placeholder.svg';
+      }} />
       </div>
       <div className="flex-1 p-3 flex flex-col">
         <div className="flex justify-between">
@@ -386,39 +312,37 @@ const SavedItemCard = ({
         <h3 className="text-sm font-medium mt-1 line-clamp-2">{item.title}</h3>
         <div className="mt-auto flex justify-between items-center pt-2">
           <Button variant="outline" size="sm">View</Button>
-          <Button 
-            variant="ghost" 
-            size="sm"
-            onClick={() => onUnsave(item.id)}
-            className="text-gray-500 hover:text-motortrend-red"
-          >
+          <Button variant="ghost" size="sm" onClick={() => onUnsave(item.id)} className="text-gray-500 hover:text-motortrend-red">
             Unsave
           </Button>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
 
 // Helper functions
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
-  return new Intl.DateTimeFormat('en-US', { 
+  return new Intl.DateTimeFormat('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric'
   }).format(date);
 };
-
 const getItemTypeLabel = (type: SavedItemType) => {
-  switch(type) {
-    case 'article': return 'Article';
-    case 'newCar': return 'New Car';
-    case 'usedCar': return 'Used Car';
-    case 'photo': return 'Photo';
-    case 'video': return 'Video';
-    default: return 'Item';
+  switch (type) {
+    case 'article':
+      return 'Article';
+    case 'newCar':
+      return 'New Car';
+    case 'usedCar':
+      return 'Used Car';
+    case 'photo':
+      return 'Photo';
+    case 'video':
+      return 'Video';
+    default:
+      return 'Item';
   }
 };
-
 export default Profile;
