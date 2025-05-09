@@ -9,7 +9,6 @@ import { useIsMobile } from "../hooks/use-mobile";
 import SearchBar from "../components/SearchBar";
 import { User, Settings, Car, Save } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-
 const Garage = () => {
   const {
     savedItems,
@@ -25,14 +24,12 @@ const Garage = () => {
   const userData = {
     name: "John Driver",
     email: "john.driver@example.com",
-    avatar: "/lovable-uploads/095e8621-9376-4d85-96c4-2197cf2ebd6f.png",
+    avatar: "/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png",
     joined: "January 2023"
   };
-  
   const handleUnsave = (id: string) => {
     removeSavedItem(id);
   };
-  
   return <div className="min-h-screen bg-motortrend-gray">
       <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
         <div className="flex items-center justify-between max-w-[980px] mx-auto w-full">
