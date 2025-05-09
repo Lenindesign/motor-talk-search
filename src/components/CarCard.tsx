@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Save } from "lucide-react";
+import { Bookmark } from "lucide-react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 
 export interface CarData {
@@ -71,7 +71,7 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
           className={`absolute top-2 right-2 p-1.5 rounded-full ${saved ? 'bg-motortrend-red text-white' : 'bg-black/70 text-white hover:bg-motortrend-red'} transition-colors`}
           aria-label={saved ? "Unsave car" : "Save car"}
         >
-          <Save size={16} className={saved ? 'fill-white' : ''} />
+          <Bookmark size={16} className={saved ? 'fill-white' : ''} />
         </button>
       </div>
       <div className="p-4">

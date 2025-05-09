@@ -50,6 +50,18 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Gamification and activity colors */
+    --motortrend-red: 0 84% 57%;
+    --motortrend-dark: 220 13% 18%;
+    --motortrend-gray: 210 20% 98%;
+    --achievement-gold: 43 80% 55%;
+    --achievement-silver: 210 10% 70%;
+    --achievement-bronze: 30 50% 40%;
+    --activity-save: 0 84% 57%;
+    --activity-view: 210 100% 50%;
+    --activity-comment: 260 70% 65%;
+    --activity-like: 142 70% 45%;
   }
 
   .dark {
@@ -80,6 +92,7 @@
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
+    
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -88,6 +101,18 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Gamification and activity colors for dark mode */
+    --motortrend-red: 0 70% 65%;
+    --motortrend-dark: 220 13% 18%;
+    --motortrend-gray: 210 15% 20%;
+    --achievement-gold: 43 80% 55%;
+    --achievement-silver: 210 10% 70%;
+    --achievement-bronze: 30 50% 40%;
+    --activity-save: 0 70% 65%;
+    --activity-view: 210 100% 60%;
+    --activity-comment: 260 70% 65%;
+    --activity-like: 142 70% 45%;
   }
 }
 

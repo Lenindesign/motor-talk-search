@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -14,7 +13,10 @@ import { useIsMobile } from "../hooks/use-mobile";
 import SearchBar from "../components/SearchBar";
 import PersonalizationDialog from "../components/PersonalizationDialog";
 import ProfilePictureUpload from "../components/ProfilePictureUpload";
-import { User, Settings, Car, Bookmark, Save, Palette } from "lucide-react";
+import RecentActivity from "../components/RecentActivity";
+import UserAchievements from "../components/UserAchievements";
+import UserPoints from "../components/UserPoints";
+import { User, Settings, Car, Bookmark, Save, Palette, Activity, Award } from "lucide-react";
 
 const Profile = () => {
   const { savedItems, removeSavedItem } = useSavedItems();
@@ -66,6 +68,10 @@ const Profile = () => {
     if (type === 'all') return savedItems;
     return savedItems.filter(item => item.type === type);
   };
+  
+  // Filter by current tab
+  const [filterType, setFilterType] = useState<SavedItemType | 'all'>('all');
+  const filteredItems = filterItemsByType(filterType);
   
   return (
     <div className="min-h-screen bg-motortrend-gray">
@@ -130,6 +136,8 @@ const Profile = () => {
               </CardContent>
             </Card>
             
+            <UserPoints />
+            
             <Card>
               <CardContent className="p-4">
                 <nav className="space-y-2">
@@ -160,15 +168,23 @@ const Profile = () => {
           
           {/* Main Content */}
           <div className="flex-1">
-            <Tabs defaultValue="saved" onValueChange={setActiveTab} className="w-full">
+            <Tabs defaultValue="saved" className="w-full">
               <TabsList className="w-full justify-start border-b rounded-none">
                 <TabsTrigger value="saved" className="flex items-center gap-1">
                   <Bookmark size={16} />
                   <span>Saved Items</span>
                 </TabsTrigger>
+                <TabsTrigger value="activity" className="flex items-center gap-1">
+                  <Activity size={16} />
+                  <span>Recent Activity</span>
+                </TabsTrigger>
+                <TabsTrigger value="achievements" className="flex items-center gap-1">
+                  <Award size={16} />
+                  <span>Achievements</span>
+                </TabsTrigger>
                 <TabsTrigger value="settings" className="flex items-center gap-1">
                   <Settings size={16} />
-                  <span>Account Settings</span>
+                  <span>Settings</span>
                 </TabsTrigger>
               </TabsList>
               
@@ -178,35 +194,42 @@ const Profile = () => {
                     <h2 className="text-xl font-bold">Saved Items</h2>
                     <div className="flex gap-2">
                       <Button 
-                        variant={activeTab === "all" ? "default" : "outline"} 
+                        variant={filterType === "all" ? "default" : "outline"} 
                         size="sm" 
-                        onClick={() => setActiveTab("all")}
+                        onClick={() => setFilterType("all")}
                       >
                         All
                       </Button>
                       <Button 
-                        variant={activeTab === "articles" ? "default" : "outline"} 
+                        variant={filterType === "article" ? "default" : "outline"} 
                         size="sm" 
-                        onClick={() => setActiveTab("articles")}
+                        onClick={() => setFilterType("article")}
                       >
                         Articles
                       </Button>
                       <Button 
-                        variant={activeTab === "cars" ? "default" : "outline"} 
+                        variant={filterType === "newCar" ? "default" : "outline"} 
                         size="sm" 
-                        onClick={() => setActiveTab("cars")}
+                        onClick={() => setFilterType("newCar")}
                       >
-                        Cars
+                        New Cars
+                      </Button>
+                      <Button 
+                        variant={filterType === "usedCar" ? "default" : "outline"} 
+                        size="sm" 
+                        onClick={() => setFilterType("usedCar")}
+                      >
+                        Used Cars
                       </Button>
                     </div>
                   </div>
                   
-                  {savedItems.length === 0 ? (
+                  {filteredItems.length === 0 ? (
                     <div className="text-center py-10">
                       <Save size={48} className="mx-auto text-gray-300 mb-4" />
                       <h3 className="text-lg font-medium text-gray-700 mb-2">No saved items yet</h3>
                       <p className="text-gray-500 max-w-md mx-auto">
-                        Use the save button on articles, cars, videos, and photos to collect them here
+                        Use the bookmark button on articles, cars, videos, and photos to collect them here
                       </p>
                       <Button className="mt-4" onClick={() => navigate("/")}>
                         Browse Content
@@ -214,7 +237,7 @@ const Profile = () => {
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {savedItems.map((item) => (
+                      {filteredItems.map((item) => (
                         <SavedItemCard 
                           key={item.id} 
                           item={item} 
@@ -224,6 +247,14 @@ const Profile = () => {
                     </div>
                   )}
                 </div>
+              </TabsContent>
+              
+              <TabsContent value="activity" className="space-y-6">
+                <RecentActivity />
+              </TabsContent>
+              
+              <TabsContent value="achievements" className="space-y-6">
+                <UserAchievements />
               </TabsContent>
               
               <TabsContent value="settings">
@@ -364,6 +395,27 @@ const SavedItemCard = ({
       </div>
     </div>
   );
+};
+
+// Helper functions
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('en-US', { 
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric'
+  }).format(date);
+};
+
+const getItemTypeLabel = (type: SavedItemType) => {
+  switch(type) {
+    case 'article': return 'Article';
+    case 'newCar': return 'New Car';
+    case 'usedCar': return 'Used Car';
+    case 'photo': return 'Photo';
+    case 'video': return 'Video';
+    default: return 'Item';
+  }
 };
 
 export default Profile;
