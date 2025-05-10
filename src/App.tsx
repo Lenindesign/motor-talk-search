@@ -10,20 +10,23 @@ import Profile from "./pages/Profile";
 import Garage from "./pages/Garage";
 import CarDatabase from "./pages/CarDatabase";
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
+import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 
 function App() {
   return (
-    <SavedItemsProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/garage" element={<Garage />} />
-          <Route path="/cars" element={<CarDatabase />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </SavedItemsProvider>
+    <PersonalizationProvider>
+      <SavedItemsProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/garage" element={<Garage />} />
+            <Route path="/cars" element={<CarDatabase />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </SavedItemsProvider>
+    </PersonalizationProvider>
   );
 }
 
