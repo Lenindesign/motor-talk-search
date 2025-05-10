@@ -144,19 +144,46 @@
     @apply transition-all duration-200;
   }
   
+  /* Enhanced Button Interactions */
+  button:active:not(:disabled),
+  .btn:active:not(:disabled) {
+    @apply scale-95 transition-transform duration-100;
+  }
+  
   /* Focus styles with animation */
   input:focus, button:focus, a:focus, [tabindex]:focus {
     @apply outline-none ring-2 ring-motortrend-red/30 transition-shadow duration-200;
   }
   
-  /* Card hover animation */
+  /* Card interaction enhancements */
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-md;
+    @apply transition-all duration-300 hover:shadow-md transform-gpu hover:-translate-y-1;
   }
   
   /* Link hover animation */
   .link-hover {
     @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-motortrend-red after:transition-all after:duration-300 hover:after:w-full;
+  }
+
+  /* Input field animation */
+  input::placeholder,
+  textarea::placeholder {
+    @apply transition-opacity duration-200;
+  }
+  
+  input:focus::placeholder,
+  textarea:focus::placeholder {
+    @apply opacity-50;
+  }
+  
+  /* Badge interactions */
+  .badge {
+    @apply transition-all duration-200 hover:scale-105;
+  }
+  
+  /* Shimmer effect for loading states */
+  .shimmer {
+    @apply bg-gradient-to-r from-transparent via-white/20 to-transparent bg-[length:1000px_100%] animate-shimmer;
   }
 }
 
@@ -172,6 +199,52 @@
   
   .hover-lift {
     @apply transition-transform duration-300 hover:-translate-y-1;
+  }
+  
+  .hover-scale {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+  
+  .pop-in {
+    @apply animate-pop;
+  }
+  
+  .press-effect {
+    @apply active:scale-95 transition-transform;
+  }
+  
+  .fade-on-hover {
+    @apply transition-opacity hover:opacity-80;
+  }
+
+  /* Mobile touch states */
+  .touch-highlight {
+    -webkit-tap-highlight-color: rgba(234, 56, 76, 0.2);
+  }
+  
+  /* Enhanced scrollbar for desktop */
+  .styled-scrollbar {
+    @apply scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent hover:scrollbar-thumb-gray-400;
+  }
+
+  /* Element appears with a subtle bounce */
+  .bounce-in {
+    @apply animate-bounce-subtle;
+  }
+  
+  /* For highlighting new elements */
+  .highlight-new {
+    @apply relative after:absolute after:inset-0 after:bg-motortrend-red/10 
+           after:animate-pulse after:rounded-lg after:pointer-events-none;
+  }
+  
+  /* Makes images feel interactive on hover */
+  .img-hover-zoom {
+    @apply overflow-hidden;
+  }
+  
+  .img-hover-zoom img {
+    @apply transition-transform duration-500 hover:scale-110;
   }
 }
 
@@ -191,5 +264,13 @@
   }
   50% {
     transform: translateY(-5px);
+  }
+}
+
+/* Mobile-friendly touch interactions */
+@media (hover: none) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
   }
 }

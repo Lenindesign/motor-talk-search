@@ -1,227 +1,114 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-// Define types for saved items
-export type SavedItemType = 'article' | 'newCar' | 'usedCar' | 'photo' | 'video';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
+// Saved item structure
 export interface SavedItem {
   id: string;
   title: string;
-  type: SavedItemType;
+  type: 'article' | 'newCar' | 'usedCar' | 'photo' | 'video';
   imageUrl: string;
-  savedAt: string;
-  metadata?: Record<string, any>;
-}
-
-// Define user activity types and interface
-export type ActivityType = 'save' | 'unsave' | 'comment' | 'view' | 'like';
-
-export interface UserActivity {
-  id: string;
-  type: ActivityType;
-  itemId: string;
-  itemTitle: string;
-  itemType: SavedItemType;
-  timestamp: string;
-}
-
-// Define user points and badges
-export interface UserAchievement {
-  id: string;
-  name: string;
-  description: string;
-  icon: string;
-  earnedAt: string;
+  metadata?: {
+    price?: string;
+    category?: string;
+    year?: string;
+    mileage?: string;
+    fuelType?: string;
+    drivetrain?: string;
+    location?: string;
+    ownership?: 'owned' | 'interested' | 'testDriven';
+    notes?: string;
+    lastUpdated?: string;
+    [key: string]: any;
+  };
 }
 
 interface SavedItemsContextType {
   savedItems: SavedItem[];
-  userActivities: UserActivity[];
-  userPoints: number;
-  userAchievements: UserAchievement[];
-  addSavedItem: (item: Omit<SavedItem, 'savedAt'>) => void;
+  addSavedItem: (item: SavedItem) => void;
   removeSavedItem: (id: string) => void;
   isSaved: (id: string) => boolean;
-  addUserActivity: (activity: Omit<UserActivity, 'id' | 'timestamp'>) => void;
+  updateSavedItem: (id: string, updates: Partial<SavedItem>) => void;
 }
 
 const SavedItemsContext = createContext<SavedItemsContextType | undefined>(undefined);
 
-export const useSavedItems = () => {
-  const context = useContext(SavedItemsContext);
-  if (context === undefined) {
-    throw new Error('useSavedItems must be used within a SavedItemsProvider');
-  }
-  return context;
-};
+// Local storage key
+const SAVED_ITEMS_KEY = "motortrend-saved-items";
 
-export const SavedItemsProvider = ({ children }: { children: ReactNode }) => {
-  const [savedItems, setSavedItems] = useState<SavedItem[]>(() => {
-    // Load saved items from localStorage if available
-    const storedItems = localStorage.getItem('savedItems');
-    return storedItems ? JSON.parse(storedItems) : [];
-  });
+interface SavedItemsProviderProps {
+  children: ReactNode;
+}
 
-  const [userActivities, setUserActivities] = useState<UserActivity[]>(() => {
-    const storedActivities = localStorage.getItem('userActivities');
-    return storedActivities ? JSON.parse(storedActivities) : [];
-  });
-
-  const [userPoints, setUserPoints] = useState<number>(() => {
-    const storedPoints = localStorage.getItem('userPoints');
-    return storedPoints ? parseInt(storedPoints, 10) : 0;
-  });
-
-  const [userAchievements, setUserAchievements] = useState<UserAchievement[]>(() => {
-    const storedAchievements = localStorage.getItem('userAchievements');
-    return storedAchievements ? JSON.parse(storedAchievements) : [];
-  });
-
-  // Update localStorage when saved items change
+export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
+  const [savedItems, setSavedItems] = useState<SavedItem[]>([]);
+  
+  // Load saved items from localStorage on mount
   useEffect(() => {
-    localStorage.setItem('savedItems', JSON.stringify(savedItems));
+    const storedItems = localStorage.getItem(SAVED_ITEMS_KEY);
+    if (storedItems) {
+      setSavedItems(JSON.parse(storedItems));
+    }
+  }, []);
+
+  // Save to localStorage whenever savedItems changes
+  useEffect(() => {
+    localStorage.setItem(SAVED_ITEMS_KEY, JSON.stringify(savedItems));
   }, [savedItems]);
 
-  // Update localStorage when user activities change
-  useEffect(() => {
-    localStorage.setItem('userActivities', JSON.stringify(userActivities));
-  }, [userActivities]);
+  // Check if an item is already saved
+  const isSaved = (id: string) => savedItems.some(item => item.id === id);
 
-  // Update localStorage when user points change
-  useEffect(() => {
-    localStorage.setItem('userPoints', userPoints.toString());
-  }, [userPoints]);
-
-  // Update localStorage when user achievements change
-  useEffect(() => {
-    localStorage.setItem('userAchievements', JSON.stringify(userAchievements));
-  }, [userAchievements]);
-
-  const addSavedItem = (item: Omit<SavedItem, 'savedAt'>) => {
-    setSavedItems((prev) => {
-      // Check if the item is already saved
-      if (prev.some((savedItem) => savedItem.id === item.id)) {
-        return prev;
-      }
-      
-      // Add the new item with current timestamp
-      return [
-        ...prev,
-        {
-          ...item,
-          savedAt: new Date().toISOString(),
-        },
-      ];
-    });
-
-    // Add save activity
-    addUserActivity({
-      type: 'save',
-      itemId: item.id,
-      itemTitle: item.title,
-      itemType: item.type
-    });
-
-    // Add points for saving an item
-    setUserPoints(prev => prev + 5);
-
-    // Check for achievements
-    checkForAchievements();
+  // Add a new item to saved items
+  const addSavedItem = (item: SavedItem) => {
+    if (!isSaved(item.id)) {
+      setSavedItems(prev => [...prev, item]);
+    }
   };
 
+  // Remove an item from saved items
   const removeSavedItem = (id: string) => {
-    // Find the item before removing it
-    const itemToRemove = savedItems.find(item => item.id === id);
-    
-    if (itemToRemove) {
-      setSavedItems((prev) => prev.filter((item) => item.id !== id));
-      
-      // Add unsave activity
-      addUserActivity({
-        type: 'unsave',
-        itemId: id,
-        itemTitle: itemToRemove.title,
-        itemType: itemToRemove.type
-      });
-    }
+    setSavedItems(prev => prev.filter(item => item.id !== id));
   };
-
-  const isSaved = (id: string) => {
-    return savedItems.some((item) => item.id === id);
-  };
-
-  const addUserActivity = (activity: Omit<UserActivity, 'id' | 'timestamp'>) => {
-    const newActivity: UserActivity = {
-      ...activity,
-      id: `activity-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-      timestamp: new Date().toISOString()
-    };
-    
-    setUserActivities(prev => {
-      // Keep only the most recent 50 activities
-      const updatedActivities = [newActivity, ...prev];
-      return updatedActivities.slice(0, 50);
-    });
-  };
-
-  const checkForAchievements = () => {
-    // Check for first save achievement
-    if (savedItems.length === 1 && !userAchievements.some(a => a.id === 'first-save')) {
-      addAchievement({
-        id: 'first-save',
-        name: 'First Save',
-        description: 'Saved your first item',
-        icon: '🔖'
-      });
-    }
-    
-    // Check for 10 saves achievement
-    if (savedItems.length === 10 && !userAchievements.some(a => a.id === 'ten-saves')) {
-      addAchievement({
-        id: 'ten-saves',
-        name: 'Collection Started',
-        description: 'Saved 10 items',
-        icon: '📚'
-      });
-    }
-
-    // Check for diverse collection (at least one of each type)
-    const types = new Set(savedItems.map(item => item.type));
-    if (types.size >= 5 && !userAchievements.some(a => a.id === 'diverse-collection')) {
-      addAchievement({
-        id: 'diverse-collection',
-        name: 'Diverse Collector',
-        description: 'Saved at least one of each content type',
-        icon: '🌟'
-      });
-    }
-  };
-
-  const addAchievement = (achievement: Omit<UserAchievement, 'earnedAt'>) => {
-    const newAchievement: UserAchievement = {
-      ...achievement,
-      earnedAt: new Date().toISOString()
-    };
-    
-    setUserAchievements(prev => [...prev, newAchievement]);
-    
-    // Add bonus points for earning an achievement
-    setUserPoints(prev => prev + 25);
+  
+  // Update an existing saved item
+  const updateSavedItem = (id: string, updates: Partial<SavedItem>) => {
+    setSavedItems(prev => 
+      prev.map(item => 
+        item.id === id 
+          ? { 
+              ...item, 
+              ...updates, 
+              // Special handling for metadata to merge rather than replace
+              metadata: {
+                ...item.metadata,
+                ...(updates.metadata || {})
+              }
+            } 
+          : item
+      )
+    );
   };
 
   return (
-    <SavedItemsContext.Provider
-      value={{
-        savedItems,
-        userActivities,
-        userPoints,
-        userAchievements,
-        addSavedItem,
-        removeSavedItem,
-        isSaved,
-        addUserActivity,
-      }}
-    >
+    <SavedItemsContext.Provider value={{ 
+      savedItems, 
+      addSavedItem, 
+      removeSavedItem, 
+      isSaved,
+      updateSavedItem
+    }}>
       {children}
     </SavedItemsContext.Provider>
   );
-};
+}
+
+// Hook for easy context usage
+export function useSavedItems() {
+  const context = useContext(SavedItemsContext);
+  
+  if (context === undefined) {
+    throw new Error("useSavedItems must be used within a SavedItemsProvider");
+  }
+  
+  return context;
+}
