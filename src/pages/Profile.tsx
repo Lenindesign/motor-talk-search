@@ -18,6 +18,7 @@ import UserAchievements from "../components/UserAchievements";
 import UserPoints from "../components/UserPoints";
 import { User, Settings, Car, Bookmark, Save, Palette, Activity, Award } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+
 const Profile = () => {
   const {
     savedItems,
@@ -270,14 +271,25 @@ const SavedItemCard = ({
   item: SavedItem;
   onUnsave: (id: string) => void;
 }) => {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    }).format(date);
+  // Safe formatDate function that handles invalid dates gracefully
+  const formatDate = (dateString: string | undefined) => {
+    if (!dateString) return "Unknown date";
+    
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return "Unknown date";
+      
+      return new Intl.DateTimeFormat('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      }).format(date);
+    } catch (error) {
+      console.error("Date formatting error:", error);
+      return "Unknown date";
+    }
   };
+  
   const getItemTypeLabel = (type: SavedItemType) => {
     switch (type) {
       case 'article':
@@ -294,6 +306,7 @@ const SavedItemCard = ({
         return 'Item';
     }
   };
+  
   return <div className="flex rounded-md overflow-hidden border bg-white">
       <div className="w-24 h-24 flex-shrink-0">
         <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" onError={e => {
@@ -320,29 +333,4 @@ const SavedItemCard = ({
     </div>;
 };
 
-// Helper functions
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric'
-  }).format(date);
-};
-const getItemTypeLabel = (type: SavedItemType) => {
-  switch (type) {
-    case 'article':
-      return 'Article';
-    case 'newCar':
-      return 'New Car';
-    case 'usedCar':
-      return 'Used Car';
-    case 'photo':
-      return 'Photo';
-    case 'video':
-      return 'Video';
-    default:
-      return 'Item';
-  }
-};
 export default Profile;
