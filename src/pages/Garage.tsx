@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +10,8 @@ import { useIsMobile } from "../hooks/use-mobile";
 import SearchBar from "../components/SearchBar";
 import { User, Settings, Car, Save } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useToast } from "@/hooks/use-toast";
+
 const Garage = () => {
   const {
     savedItems,
@@ -16,6 +19,7 @@ const Garage = () => {
   } = useSavedItems();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const { toast } = useToast();
 
   // Filter only car items
   const savedCars = savedItems.filter(item => item.type === 'newCar' || item.type === 'usedCar');
@@ -29,6 +33,10 @@ const Garage = () => {
   };
   const handleUnsave = (id: string) => {
     removeSavedItem(id);
+    toast({
+      title: "Car removed",
+      description: "The vehicle has been removed from your garage",
+    });
   };
   return <div className="min-h-screen bg-motortrend-gray">
       <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
@@ -36,7 +44,7 @@ const Garage = () => {
           <div className="flex items-center">
             {isMobile && <MainNavigation />}
             <Link to="/" className="flex-shrink-0">
-              <img src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" alt="MotorTrend Logo" className="h-7 w-auto" />
+              <img src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" alt="MotorTrend Logo" className="h-7 w-auto hover:opacity-80 transition-opacity" />
             </Link>
             <div className="hidden sm:flex ml-6">
               <MainNavigation />
@@ -48,14 +56,14 @@ const Garage = () => {
         </div>
       </header>
       
-      <main className="max-w-[980px] mx-auto px-4 py-8">
+      <main className="max-w-[980px] mx-auto px-4 py-8 animate-fade-in">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Profile Sidebar */}
           <aside className="w-full md:w-64 space-y-6">
-            <Card>
+            <Card className="transition-shadow hover:shadow-md">
               <CardHeader className="flex flex-row items-center gap-4 pb-2">
-                <Avatar className="w-16 h-16">
-                  <AvatarImage src={userData.avatar} alt={userData.name} />
+                <Avatar className="w-16 h-16 transition-transform hover:scale-105">
+                  <AvatarImage src={userData.avatar} alt={userData.name} className="object-cover" />
                   <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div>
@@ -72,10 +80,10 @@ const Garage = () => {
               </CardContent>
             </Card>
             
-            <Card>
+            <Card className="transition-shadow hover:shadow-md">
               <CardContent className="p-4">
                 <nav className="space-y-2">
-                  <Link to="/profile" className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full">
+                  <Link to="/profile" className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full transition-colors">
                     <User size={18} />
                     Profile
                   </Link>
@@ -83,7 +91,7 @@ const Garage = () => {
                     <Car size={18} />
                     My Garage
                   </Link>
-                  <button className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full">
+                  <button className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full transition-colors">
                     <Settings size={18} />
                     Settings
                   </button>
@@ -94,27 +102,27 @@ const Garage = () => {
           
           {/* Main Content */}
           <div className="flex-1">
-            <Card>
+            <Card className="transition-shadow hover:shadow-md">
               <CardHeader>
                 <div className="flex justify-between items-center">
                   <CardTitle className="flex items-center gap-2">
                     <Car size={20} />
                     My Garage
                   </CardTitle>
-                  <Button onClick={() => navigate("/")}>Browse Cars</Button>
+                  <Button onClick={() => navigate("/")} className="transition-transform hover:scale-105">Browse Cars</Button>
                 </div>
                 <CardDescription>
                   View and manage your saved vehicles
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {savedCars.length === 0 ? <div className="text-center py-10">
+                {savedCars.length === 0 ? <div className="text-center py-10 animate-fade-in">
                     <Car size={48} className="mx-auto text-gray-300 mb-4" />
                     <h3 className="text-lg font-medium text-gray-700 mb-2">Your garage is empty</h3>
                     <p className="text-gray-500 max-w-md mx-auto">
                       Save cars you're interested in to add them to your garage
                     </p>
-                    <Button className="mt-4" onClick={() => navigate("/")}>
+                    <Button className="mt-4 transition-transform hover:scale-105" onClick={() => navigate("/")}>
                       Find Cars
                     </Button>
                   </div> : <div className="space-y-6">
@@ -139,11 +147,16 @@ const GarageCarCard = ({
   onUnsave: (id: string) => void;
 }) => {
   const metadata = car.metadata || {};
-  return <div className="flex flex-col sm:flex-row rounded-lg overflow-hidden border bg-white">
-      <div className="sm:w-48 h-40 sm:h-auto flex-shrink-0">
-        <img src={car.imageUrl} alt={car.title} className="w-full h-full object-cover" onError={e => {
-        (e.target as HTMLImageElement).src = '/placeholder.svg';
-      }} />
+  return <div className="flex flex-col sm:flex-row rounded-lg overflow-hidden border bg-white transition-all duration-300 hover:shadow-md animate-fade-in">
+      <div className="sm:w-48 h-40 sm:h-auto flex-shrink-0 overflow-hidden">
+        <img 
+          src={car.imageUrl} 
+          alt={car.title} 
+          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
+          onError={e => {
+            (e.target as HTMLImageElement).src = '/placeholder.svg';
+          }}
+        />
       </div>
       <div className="flex-1 p-4 flex flex-col">
         <div className="flex flex-wrap gap-2 mb-2">
@@ -169,9 +182,13 @@ const GarageCarCard = ({
         </div>
         
         <div className="mt-auto pt-4 flex flex-wrap gap-3">
-          <Button>View Details</Button>
-          <Button variant="outline">Compare</Button>
-          <Button variant="ghost" className="text-gray-500 hover:text-motortrend-red ml-auto" onClick={() => onUnsave(car.id)}>
+          <Button className="transition-transform hover:scale-105">View Details</Button>
+          <Button variant="outline" className="transition-all hover:bg-gray-100">Compare</Button>
+          <Button 
+            variant="ghost" 
+            className="text-gray-500 hover:text-motortrend-red transition-colors ml-auto" 
+            onClick={() => onUnsave(car.id)}
+          >
             <Save className="mr-1" size={16} /> Unsave
           </Button>
         </div>
