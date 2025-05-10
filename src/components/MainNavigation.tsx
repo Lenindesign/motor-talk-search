@@ -1,9 +1,10 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { useIsMobile } from "../hooks/use-mobile";
 import { Menu, X, User } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useLocation } from "react-router-dom";
+import { Home, Car, Wrench, Star, PlayCircle, User as UserIcon } from "lucide-react";
 
 interface NavLinkProps {
   href: string;
@@ -21,6 +22,7 @@ const NavLink = ({ href, children, className = "" }: NavLinkProps) => (
 );
 
 const MainNavigation = () => {
+  const location = useLocation();
   const isMobile = useIsMobile();
 
   const navItems = (
@@ -33,6 +35,15 @@ const MainNavigation = () => {
       <NavLink href="/the-future">The Future</NavLink>
     </>
   );
+
+  const menuItems = [
+    { label: 'Home', path: '/', icon: Home },
+    { label: 'New Cars', path: '/cars', icon: Car },
+    { label: 'Garage', path: '/garage', icon: Wrench },
+    { label: 'Reviews', path: '/reviews', icon: Star },
+    { label: 'Videos', path: '/videos', icon: PlayCircle },
+    { label: 'Profile', path: '/profile', icon: UserIcon }
+  ];
 
   if (isMobile) {
     return (

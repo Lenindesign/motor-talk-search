@@ -6,6 +6,7 @@ import { useAutocomplete, Suggestion } from "../hooks/use-autocomplete";
 import AutocompleteSuggestions from "./AutocompleteSuggestions";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import { useToast } from "@/hooks/use-toast";
+import { useCarMakes, useCarModelsByMakeId } from '@/hooks/use-car-database';
 
 interface GarageQuickAddProps {
   onAddCar?: () => void;
@@ -16,6 +17,9 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const { addSavedItem, isSaved } = useSavedItems();
   const { toast } = useToast();
+
+  // Get car makes from database
+  const { data: carMakes, isLoading: makesLoading } = useCarMakes();
 
   const { 
     suggestions, 
@@ -71,9 +75,28 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
     }
   };
 
-  const filteredSuggestions = suggestions.filter(
-    suggestion => suggestion.type === 'newCar' || suggestion.type === 'carModel' || suggestion.type === 'carMake'
-  );
+  // Generate dynamic suggestions from database
+  const databaseSuggestions = () => {
+    if (!query || query.length < 2 || !carMakes) return [];
+    
+    return carMakes
+      .filter(make => make.name.toLowerCase().includes(query.toLowerCase()))
+      .map(make => ({
+        id: make.id,
+        text: make.name,
+        type: 'carMake' as 'carMake',
+      }));
+  };
+  
+  // Combine database suggestions with static ones
+  const combinedSuggestions = [
+    ...databaseSuggestions(),
+    ...suggestions.filter(
+      suggestion => suggestion.type === 'newCar' || suggestion.type === 'carModel' || suggestion.type === 'carMake'
+    )
+  ];
+
+  const filteredSuggestions = combinedSuggestions.slice(0, 8); // Limit to prevent overwhelming UI
 
   return (
     <div className="relative w-full">
@@ -107,7 +130,12 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
             </button>
           )}
         </div>
-        <Button className="gap-1 px-3 py-2 h-9 bg-motortrend-red hover:bg-motortrend-red/90 transition-transform hover:scale-105">
+        <Button 
+          className="gap-1 px-3 py-2 h-9 bg-motortrend-red hover:bg-motortrend-red/90 transition-transform hover:scale-105"
+          onClick={() => {
+            window.location.href = '/cars';
+          }}
+        >
           <Plus size={16} />
           Add Car
         </Button>
@@ -117,7 +145,7 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
           <AutocompleteSuggestions
             suggestions={filteredSuggestions}
             selectedIndex={selectedIndex}
-            isLoading={suggestionsLoading}
+            isLoading={suggestionsLoading || makesLoading}
             onSelect={(suggestion) => handleAddCar(suggestion)}
             onMouseEnter={(index) => setSelectedIndex(index)}
           />
