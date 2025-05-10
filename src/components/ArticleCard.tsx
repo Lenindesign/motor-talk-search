@@ -31,6 +31,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
         title: article.title,
         type: 'article',
         imageUrl: article.imageUrl,
+        savedAt: new Date().toISOString(),
         metadata: {
           category: article.category,
           date: article.date

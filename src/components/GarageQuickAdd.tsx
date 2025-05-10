@@ -33,6 +33,7 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
           title: suggestion.text,
           type: 'newCar',
           imageUrl: '/placeholder.svg',
+          savedAt: new Date().toISOString(),
           metadata: {
             price: 'Contact dealer',
             category: suggestion.type === 'carModel' ? 'Model' : 'New Car',

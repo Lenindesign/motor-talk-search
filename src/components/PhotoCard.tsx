@@ -30,6 +30,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
         title: photo.title,
         type: 'photo',
         imageUrl: photo.imageUrl,
+        savedAt: new Date().toISOString(),
         metadata: {
           position: photo.position
         }

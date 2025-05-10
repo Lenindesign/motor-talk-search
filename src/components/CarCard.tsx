@@ -36,6 +36,7 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
         title: car.title,
         type: type === "new" ? "newCar" : "usedCar",
         imageUrl: car.imageUrl,
+        savedAt: new Date().toISOString(),
         metadata: {
           price: car.price,
           category: car.category,

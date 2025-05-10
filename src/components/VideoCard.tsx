@@ -28,6 +28,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
         title: video.title,
         type: 'video',
         imageUrl: video.imageUrl,
+        savedAt: new Date().toISOString(),
         metadata: {
           duration: video.duration
         }
