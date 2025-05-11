@@ -14,6 +14,8 @@ import { useToast } from "@/hooks/use-toast";
 import GarageQuickAdd from "../components/GarageQuickAdd";
 import GarageCompare from "../components/GarageCompare";
 import CarDetails from "../components/CarDetails";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import CarSelector from "../components/CarSelector";
 
 const Garage = () => {
   const {
@@ -31,6 +33,12 @@ const Garage = () => {
   const [selectedCarDetails, setSelectedCarDetails] = useState<string | null>(null);
   // State for active tab
   const [activeTab, setActiveTab] = useState<'all' | 'owned' | 'interested' | 'testDriven'>('all');
+  // State for car selection in CarSelector
+  const [carSelection, setCarSelection] = useState<{makeId: string | null, modelId: string | null, year: number | null}>({
+    makeId: null, modelId: null, year: null
+  });
+  // State for ownership type when adding a new car
+  const [newCarOwnership, setNewCarOwnership] = useState<'owned' | 'interested' | 'testDriven'>('interested');
 
   // Filter only car items
   const savedCars = savedItems.filter(item => item.type === 'newCar' || item.type === 'usedCar');
@@ -95,6 +103,55 @@ const Garage = () => {
   
   const countByOwnership = (type: string) => {
     return savedCars.filter(car => car.metadata?.ownership === type).length;
+  };
+
+  const handleAddCar = () => {
+    if (!carSelection.makeId || !carSelection.modelId) {
+      toast({
+        title: "Selection required",
+        description: "Please select at least a make and model",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    // This would normally fetch actual car data from an API
+    const make = carSelection.makeId;
+    const model = carSelection.modelId;
+    const year = carSelection.year || new Date().getFullYear();
+
+    const newCarId = `car-${Date.now()}`;
+    const carTitle = `${year} ${make} ${model}`;
+
+    updateSavedItem(newCarId, {
+      id: newCarId,
+      title: carTitle,
+      type: 'newCar',
+      imageUrl: '/placeholder.svg',
+      savedAt: new Date().toISOString(),
+      metadata: {
+        price: 'Contact dealer',
+        category: 'Vehicle',
+        year: year.toString(),
+        ownership: newCarOwnership,
+        notes: `Added on ${new Date().toLocaleDateString()}`
+      }
+    });
+
+    toast({
+      title: "Car added to garage",
+      description: `${carTitle} was added to your ${newCarOwnership} collection.`,
+    });
+
+    // Reset selection
+    setCarSelection({
+      makeId: null,
+      modelId: null,
+      year: null
+    });
+    
+    // Change tab to the one where the car was added
+    setActiveTab(newCarOwnership);
   };
 
   return (
@@ -253,21 +310,58 @@ const Garage = () => {
                 
                 {/* Car listing */}
                 {filteredCars.length === 0 ? (
-                  <div className="text-center py-10 animate-fade-in">
+                  <div className="text-center py-6 animate-fade-in">
                     <Car size={48} className="mx-auto text-gray-300 mb-4" />
                     <h3 className="text-lg font-medium text-gray-700 mb-2">
                       {savedCars.length === 0 
                         ? "Your garage is empty" 
                         : `No ${activeTab !== 'all' ? activeTab : ''} cars found`}
                     </h3>
-                    <p className="text-gray-500 max-w-md mx-auto">
-                      {savedCars.length === 0 
-                        ? "Save cars you're interested in to add them to your garage" 
-                        : `Try selecting a different category or add more cars`}
-                    </p>
-                    <Button className="mt-4 transition-transform hover:scale-105" onClick={() => navigate("/")}>
-                      Find Cars
-                    </Button>
+                    
+                    {/* Replace "Find Cars" button with Add Car search form */}
+                    <Card className="max-w-md mx-auto mt-6 bg-gray-50">
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-center text-lg">Add a car to your garage</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <Tabs defaultValue="interested" className="w-full">
+                          <TabsList className="grid grid-cols-3 mb-4">
+                            <TabsTrigger 
+                              value="owned" 
+                              onClick={() => setNewCarOwnership('owned')}
+                              className="data-[state=active]:bg-green-100 data-[state=active]:text-green-800"
+                            >
+                              Owned
+                            </TabsTrigger>
+                            <TabsTrigger 
+                              value="testDriven" 
+                              onClick={() => setNewCarOwnership('testDriven')}
+                              className="data-[state=active]:bg-blue-100 data-[state=active]:text-blue-800"
+                            >
+                              Test Driven
+                            </TabsTrigger>
+                            <TabsTrigger 
+                              value="interested" 
+                              onClick={() => setNewCarOwnership('interested')}
+                              className="data-[state=active]:bg-amber-100 data-[state=active]:text-amber-800"
+                            >
+                              Interested
+                            </TabsTrigger>
+                          </TabsList>
+                          
+                          {/* Car selection form */}
+                          <div className="space-y-4">
+                            <CarSelector onSelectionChange={setCarSelection} />
+                            <Button 
+                              onClick={handleAddCar} 
+                              className="w-full mt-4 transition-transform hover:scale-105"
+                            >
+                              Add to Garage
+                            </Button>
+                          </div>
+                        </Tabs>
+                      </CardContent>
+                    </Card>
                   </div>
                 ) : (
                   <div className="space-y-6">
