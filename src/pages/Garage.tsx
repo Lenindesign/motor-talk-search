@@ -34,7 +34,7 @@ const Garage = () => {
   const userData = {
     name: localStorage.getItem("userName") || "John Driver",
     email: localStorage.getItem("userEmail") || "john.driver@example.com",
-    avatar: "/lovable-uploads/5b8a120c-3d52-41cb-8e20-9a16e6b9bf6a.png",
+    avatar: "/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png",
     joined: "January 2023"
   };
 
