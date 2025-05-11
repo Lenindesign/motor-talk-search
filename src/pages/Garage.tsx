@@ -34,7 +34,7 @@ const Garage = () => {
   const userData = {
     name: localStorage.getItem("userName") || "John Driver",
     email: localStorage.getItem("userEmail") || "john.driver@example.com",
-    avatar: "/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png",
+    avatar: "/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png",
     joined: "January 2023"
   };
 
@@ -174,6 +174,9 @@ const Garage = () => {
                           .map(car => (
                             <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
                           ))}
+                        {savedCars.filter(car => car.metadata?.ownership === 'owned').length === 0 && (
+                          <p className="text-center text-gray-500 py-8">No owned cars yet. Add some from the form below.</p>
+                        )}
                       </div>
                     </TabsContent>
                     
@@ -184,6 +187,9 @@ const Garage = () => {
                           .map(car => (
                             <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
                           ))}
+                        {savedCars.filter(car => car.metadata?.ownership === 'testDriven').length === 0 && (
+                          <p className="text-center text-gray-500 py-8">No test driven cars yet. Add some from the form below.</p>
+                        )}
                       </div>
                     </TabsContent>
                     
@@ -194,6 +200,9 @@ const Garage = () => {
                           .map(car => (
                             <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
                           ))}
+                        {savedCars.filter(car => car.metadata?.ownership === 'interested').length === 0 && (
+                          <p className="text-center text-gray-500 py-8">No interested cars yet. Add some from the form below.</p>
+                        )}
                       </div>
                     </TabsContent>
                   </Tabs>

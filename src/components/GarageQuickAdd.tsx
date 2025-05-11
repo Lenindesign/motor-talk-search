@@ -17,6 +17,9 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const { addSavedItem, isSaved } = useSavedItems();
   const { toast } = useToast();
+  
+  // For selecting ownership category
+  const [ownership, setOwnership] = useState<'owned' | 'testDriven' | 'interested'>('interested');
 
   // Get car makes from database
   const { data: carMakes, isLoading: makesLoading } = useCarMakes();
@@ -42,12 +45,13 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
             price: 'Contact dealer',
             category: suggestion.type === 'carModel' ? 'Model' : 'New Car',
             year: new Date().getFullYear().toString(),
+            ownership: ownership // Set the selected ownership category
           }
         });
         
         toast({
           title: "Car added to garage",
-          description: `${suggestion.text} was added to your garage.`,
+          description: `${suggestion.text} was added to your ${ownership} collection.`,
         });
       } else {
         toast({
@@ -100,6 +104,31 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
 
   return (
     <div className="relative w-full">
+      {/* Ownership selector */}
+      <div className="flex mb-2 justify-center text-sm">
+        <span className="mr-2 text-gray-500">Add as:</span>
+        <div className="flex space-x-2">
+          <button 
+            onClick={() => setOwnership('owned')} 
+            className={`px-2 py-1 rounded ${ownership === 'owned' ? 'bg-green-100 text-green-700' : 'text-gray-500 hover:bg-gray-100'}`}
+          >
+            Owned
+          </button>
+          <button 
+            onClick={() => setOwnership('testDriven')} 
+            className={`px-2 py-1 rounded ${ownership === 'testDriven' ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:bg-gray-100'}`}
+          >
+            Test Driven
+          </button>
+          <button 
+            onClick={() => setOwnership('interested')} 
+            className={`px-2 py-1 rounded ${ownership === 'interested' ? 'bg-amber-100 text-amber-700' : 'text-gray-500 hover:bg-gray-100'}`}
+          >
+            Interested
+          </button>
+        </div>
+      </div>
+      
       <div className="flex items-center gap-2">
         <div className="relative flex-1">
           <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
@@ -133,7 +162,14 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
         <Button 
           className="gap-1 px-3 py-2 h-9 bg-motortrend-red hover:bg-motortrend-red/90 transition-transform hover:scale-105"
           onClick={() => {
-            window.location.href = '/cars';
+            if (query && filteredSuggestions.length > 0) {
+              handleAddCar(filteredSuggestions[0]);
+            } else {
+              toast({
+                title: "Please select a car",
+                description: "Type and select a car from the suggestions"
+              });
+            }
           }}
         >
           <Plus size={16} />
