@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Car } from "lucide-react";
+import { Car, User, Settings, Bookmark, Save, Palette, Activity, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSavedItems, SavedItem } from "../contexts/SavedItemsContext";
 import MainNavigation from "../components/MainNavigation";
@@ -9,22 +9,34 @@ import { useIsMobile } from "../hooks/use-mobile";
 import SearchBar from "../components/SearchBar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { usePersonalization } from "../contexts/PersonalizationContext";
+import PersonalizationDialog from "../components/PersonalizationDialog";
 
 import EmptyGarage from "../components/EmptyGarage";
 import QuickAddCar from "../components/QuickAddCar";
 import GarageStats from "../components/GarageStats";
 import GarageCarCard from "../components/CarCard"; // Reusing existing component
-import GarageSidebar from "../components/GarageSidebar"; // Import the new sidebar
+import UserPoints from "../components/UserPoints";
 
 const Garage = () => {
   const { savedItems } = useSavedItems();
   const isMobile = useIsMobile();
+  const [personalizationOpen, setPersonalizationOpen] = useState(false);
   
   // Filter only car items
   const savedCars = savedItems.filter(item => item.type === 'newCar' || item.type === 'usedCar');
   
   // Default tab is 'all'
   const [activeTab, setActiveTab] = useState<'all' | 'owned' | 'testDriven' | 'interested'>('all');
+
+  // Mock user data - in a real app, this would come from auth context or API
+  const userData = {
+    name: localStorage.getItem("userName") || "John Driver",
+    email: localStorage.getItem("userEmail") || "john.driver@example.com",
+    avatar: "/lovable-uploads/5b8a120c-3d52-41cb-8e20-9a16e6b9bf6a.png",
+    joined: "January 2023"
+  };
 
   // Helper function to convert SavedItem to CarData format expected by GarageCarCard
   const savedItemToCarData = (item: SavedItem) => {
@@ -62,12 +74,55 @@ const Garage = () => {
         </div>
       </header>
 
-      <main className="max-w-[1200px] mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row gap-6">
-          {/* Sidebar - visible only on medium screens and up */}
-          <div className="hidden md:block">
-            <GarageSidebar />
-          </div>
+      <main className="max-w-[980px] mx-auto px-4 py-8">
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* Profile Sidebar - using the same structure as in Profile.tsx */}
+          <aside className="w-full md:w-64 space-y-6">
+            <Card>
+              <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                <Avatar className="w-16 h-16">
+                  <AvatarImage src={userData.avatar} alt={userData.name} className="object-cover" />
+                  <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <CardTitle>{userData.name}</CardTitle>
+                  
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Member since {userData.joined}</p>
+                <div className="mt-4 flex justify-between">
+                  <span className="text-sm font-medium">Saved Items</span>
+                  <span className="text-sm font-bold">{savedItems.length}</span>
+                </div>
+                <Button variant="outline" size="sm" className="w-full mt-4 flex items-center justify-center gap-2" onClick={() => setPersonalizationOpen(true)}>
+                  <Palette size={16} />
+                  Personalize
+                </Button>
+              </CardContent>
+            </Card>
+            
+            <UserPoints />
+            
+            <Card>
+              <CardContent className="p-4">
+                <nav className="space-y-2">
+                  <Link to="/profile" className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full">
+                    <User size={18} />
+                    Profile
+                  </Link>
+                  <Link to="/garage" className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium bg-motortrend-dark text-white w-full">
+                    <Car size={18} />
+                    My Garage
+                  </Link>
+                  <button className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full">
+                    <Settings size={18} />
+                    Settings
+                  </button>
+                </nav>
+              </CardContent>
+            </Card>
+          </aside>
 
           {/* Main content */}
           <Card className="shadow-sm flex-1">
@@ -160,6 +215,9 @@ const Garage = () => {
           </Card>
         </div>
       </main>
+      
+      {/* Personalization Dialog */}
+      <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
     </div>
   );
 };
