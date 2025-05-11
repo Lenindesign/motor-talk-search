@@ -14,6 +14,7 @@ import EmptyGarage from "../components/EmptyGarage";
 import QuickAddCar from "../components/QuickAddCar";
 import GarageStats from "../components/GarageStats";
 import GarageCarCard from "../components/CarCard"; // Reusing existing component
+import GarageSidebar from "../components/GarageSidebar"; // Import the new sidebar
 
 const Garage = () => {
   const { savedItems } = useSavedItems();
@@ -24,6 +25,23 @@ const Garage = () => {
   
   // Default tab is 'all'
   const [activeTab, setActiveTab] = useState<'all' | 'owned' | 'testDriven' | 'interested'>('all');
+
+  // Helper function to convert SavedItem to CarData format expected by GarageCarCard
+  const savedItemToCarData = (item: SavedItem) => {
+    return {
+      id: item.id,
+      title: item.title,
+      imageUrl: item.imageUrl || '/placeholder.svg',
+      price: item.metadata?.price || 'Contact dealer',
+      category: item.metadata?.category || 'Car',
+      year: item.metadata?.year,
+      mileage: item.metadata?.mileage,
+      fuelType: item.metadata?.fuelType,
+      drivetrain: item.metadata?.drivetrain,
+      location: item.metadata?.location,
+      isNew: item.type === 'newCar'
+    };
+  };
   
   return (
     <div className="min-h-screen bg-white">
@@ -44,95 +62,103 @@ const Garage = () => {
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-4 py-8">
-        <Card className="shadow-sm">
-          <CardHeader className="flex flex-row justify-between items-center pb-2">
-            <div>
-              <CardTitle className="flex items-center gap-2 text-xl">
-                <Car size={22} />
-                My Garage
-              </CardTitle>
-              <CardDescription>
-                View and manage your saved vehicles
-              </CardDescription>
-            </div>
-            <Button onClick={() => window.location.href = "/"}>
-              Browse Cars
-            </Button>
-          </CardHeader>
+      <main className="max-w-[1200px] mx-auto px-4 py-8">
+        <div className="flex flex-col md:flex-row gap-6">
+          {/* Sidebar - visible only on medium screens and up */}
+          <div className="hidden md:block">
+            <GarageSidebar />
+          </div>
 
-          <CardContent>
-            {savedCars.length > 0 ? (
-              <>
-                <GarageStats />
-                
-                <Tabs 
-                  defaultValue="all" 
-                  value={activeTab} 
-                  onValueChange={(value) => setActiveTab(value as 'all' | 'owned' | 'testDriven' | 'interested')}
-                  className="mt-6"
-                >
-                  <TabsList className="grid w-full grid-cols-4">
-                    <TabsTrigger value="all">All</TabsTrigger>
-                    <TabsTrigger value="owned">Owned</TabsTrigger>
-                    <TabsTrigger value="testDriven">Test Driven</TabsTrigger>
-                    <TabsTrigger value="interested">Interested</TabsTrigger>
-                  </TabsList>
-                  
-                  <TabsContent value="all" className="mt-6">
-                    <div className="space-y-4">
-                      {savedCars.map(car => (
-                        <GarageCarCard key={car.id} car={car} type={car.type === 'newCar' ? 'new' : 'used'} />
-                      ))}
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="owned" className="mt-6">
-                    <div className="space-y-4">
-                      {savedCars
-                        .filter(car => car.metadata?.ownership === 'owned')
-                        .map(car => (
-                          <GarageCarCard key={car.id} car={car} type={car.type === 'newCar' ? 'new' : 'used'} />
-                        ))}
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="testDriven" className="mt-6">
-                    <div className="space-y-4">
-                      {savedCars
-                        .filter(car => car.metadata?.ownership === 'testDriven')
-                        .map(car => (
-                          <GarageCarCard key={car.id} car={car} type={car.type === 'newCar' ? 'new' : 'used'} />
-                        ))}
-                    </div>
-                  </TabsContent>
-                  
-                  <TabsContent value="interested" className="mt-6">
-                    <div className="space-y-4">
-                      {savedCars
-                        .filter(car => car.metadata?.ownership === 'interested')
-                        .map(car => (
-                          <GarageCarCard key={car.id} car={car} type={car.type === 'newCar' ? 'new' : 'used'} />
-                        ))}
-                    </div>
-                  </TabsContent>
-                </Tabs>
-                
-                <div className="mt-8 pt-6 border-t">
-                  <h3 className="text-lg font-medium mb-4">Add another car</h3>
-                  <QuickAddCar />
-                </div>
-              </>
-            ) : (
-              <div className="py-6">
-                <EmptyGarage />
-                <div className="mt-8">
-                  <QuickAddCar />
-                </div>
+          {/* Main content */}
+          <Card className="shadow-sm flex-1">
+            <CardHeader className="flex flex-row justify-between items-center pb-2">
+              <div>
+                <CardTitle className="flex items-center gap-2 text-xl">
+                  <Car size={22} />
+                  My Garage
+                </CardTitle>
+                <CardDescription>
+                  View and manage your saved vehicles
+                </CardDescription>
               </div>
-            )}
-          </CardContent>
-        </Card>
+              <Button onClick={() => window.location.href = "/"}>
+                Browse Cars
+              </Button>
+            </CardHeader>
+
+            <CardContent>
+              {savedCars.length > 0 ? (
+                <>
+                  <GarageStats />
+                  
+                  <Tabs 
+                    defaultValue="all" 
+                    value={activeTab} 
+                    onValueChange={(value) => setActiveTab(value as 'all' | 'owned' | 'testDriven' | 'interested')}
+                    className="mt-6"
+                  >
+                    <TabsList className="grid w-full grid-cols-4">
+                      <TabsTrigger value="all">All</TabsTrigger>
+                      <TabsTrigger value="owned">Owned</TabsTrigger>
+                      <TabsTrigger value="testDriven">Test Driven</TabsTrigger>
+                      <TabsTrigger value="interested">Interested</TabsTrigger>
+                    </TabsList>
+                    
+                    <TabsContent value="all" className="mt-6">
+                      <div className="space-y-4">
+                        {savedCars.map(car => (
+                          <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
+                        ))}
+                      </div>
+                    </TabsContent>
+                    
+                    <TabsContent value="owned" className="mt-6">
+                      <div className="space-y-4">
+                        {savedCars
+                          .filter(car => car.metadata?.ownership === 'owned')
+                          .map(car => (
+                            <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
+                          ))}
+                      </div>
+                    </TabsContent>
+                    
+                    <TabsContent value="testDriven" className="mt-6">
+                      <div className="space-y-4">
+                        {savedCars
+                          .filter(car => car.metadata?.ownership === 'testDriven')
+                          .map(car => (
+                            <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
+                          ))}
+                      </div>
+                    </TabsContent>
+                    
+                    <TabsContent value="interested" className="mt-6">
+                      <div className="space-y-4">
+                        {savedCars
+                          .filter(car => car.metadata?.ownership === 'interested')
+                          .map(car => (
+                            <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
+                          ))}
+                      </div>
+                    </TabsContent>
+                  </Tabs>
+                  
+                  <div className="mt-8 pt-6 border-t">
+                    <h3 className="text-lg font-medium mb-4">Add another car</h3>
+                    <QuickAddCar />
+                  </div>
+                </>
+              ) : (
+                <div className="py-6">
+                  <EmptyGarage />
+                  <div className="mt-8">
+                    <QuickAddCar />
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
       </main>
     </div>
   );
