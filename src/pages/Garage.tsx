@@ -3,19 +3,17 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { useSavedItems, SavedItem } from "../contexts/SavedItemsContext";
 import MainNavigation from "../components/MainNavigation";
 import { useIsMobile } from "../hooks/use-mobile";
 import SearchBar from "../components/SearchBar";
-import { Car } from "lucide-react";
+import { User, Settings, Car, Save, Tags, Bell, Car as CarIcon, X, Info, Trash } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import GarageQuickAdd from "../components/GarageQuickAdd";
-
-// Import refactored components
-import ProfileSidebar from "../components/garage/ProfileSidebar";
-import GarageFilterTabs from "../components/garage/GarageFilterTabs";
-import GarageCars from "../components/garage/GarageCars";
-import EmptyGarage from "../components/garage/EmptyGarage";
+import GarageCompare from "../components/GarageCompare";
+import CarDetails from "../components/CarDetails";
 
 const Garage = () => {
   const {
@@ -99,51 +97,6 @@ const Garage = () => {
     return savedCars.filter(car => car.metadata?.ownership === type).length;
   };
 
-  const handleAddCar = (
-    carSelection: { makeId: string | null, modelId: string | null, year: number | null },
-    ownership: 'owned' | 'interested' | 'testDriven'
-  ) => {
-    if (!carSelection.makeId || !carSelection.modelId) {
-      toast({
-        title: "Selection required",
-        description: "Please select at least a make and model",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // This would normally fetch actual car data from an API
-    const make = carSelection.makeId;
-    const model = carSelection.modelId;
-    const year = carSelection.year || new Date().getFullYear();
-
-    const newCarId = `car-${Date.now()}`;
-    const carTitle = `${year} ${make} ${model}`;
-
-    updateSavedItem(newCarId, {
-      id: newCarId,
-      title: carTitle,
-      type: 'newCar',
-      imageUrl: '/placeholder.svg',
-      savedAt: new Date().toISOString(),
-      metadata: {
-        price: 'Contact dealer',
-        category: 'Vehicle',
-        year: year.toString(),
-        ownership: ownership,
-        notes: `Added on ${new Date().toLocaleDateString()}`
-      }
-    });
-
-    toast({
-      title: "Car added to garage",
-      description: `${carTitle} was added to your ${ownership} collection.`,
-    });
-    
-    // Change tab to the one where the car was added
-    setActiveTab(ownership);
-  };
-
   return (
     <div className="min-h-screen bg-motortrend-gray">
       <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
@@ -166,14 +119,70 @@ const Garage = () => {
       <main className="max-w-[980px] mx-auto px-4 py-8 animate-fade-in">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Profile Sidebar */}
-          <ProfileSidebar 
-            userData={userData}
-            savedCars={savedCars}
-            countByOwnership={countByOwnership}
-            selectedCars={selectedCars}
-            onToggleCar={handleToggleSelectCar}
-            onCompare={handleCompare}
-          />
+          <aside className="w-full md:w-64 space-y-6">
+            <Card className="transition-shadow hover:shadow-md">
+              <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                <Avatar className="w-16 h-16 transition-transform hover:scale-105">
+                  <AvatarImage src={userData.avatar} alt={userData.name} className="object-cover" />
+                  <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <CardTitle>{userData.name}</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Member since {userData.joined}</p>
+                <div className="mt-4 space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm font-medium">Cars in Garage</span>
+                    <span className="text-sm font-bold">{savedCars.length}</span>
+                  </div>
+                  <div className="text-xs grid grid-cols-3 gap-1">
+                    <div className="flex flex-col items-center p-1 rounded-md bg-green-50">
+                      <span className="font-semibold text-green-800">{countByOwnership('owned')}</span>
+                      <span className="text-green-600">Owned</span>
+                    </div>
+                    <div className="flex flex-col items-center p-1 rounded-md bg-blue-50">
+                      <span className="font-semibold text-blue-800">{countByOwnership('testDriven')}</span>
+                      <span className="text-blue-600">Test Driven</span>
+                    </div>
+                    <div className="flex flex-col items-center p-1 rounded-md bg-amber-50">
+                      <span className="font-semibold text-amber-800">{countByOwnership('interested')}</span>
+                      <span className="text-amber-600">Interested</span>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="transition-shadow hover:shadow-md">
+              <CardContent className="p-4">
+                <nav className="space-y-2">
+                  <Link to="/profile" className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full transition-colors">
+                    <User size={18} />
+                    Profile
+                  </Link>
+                  <Link to="/garage" className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium bg-motortrend-dark text-white w-full">
+                    <Car size={18} />
+                    My Garage
+                  </Link>
+                  <button className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full transition-colors">
+                    <Settings size={18} />
+                    Settings
+                  </button>
+                </nav>
+              </CardContent>
+            </Card>
+            
+            {savedCars.length > 0 && (
+              <GarageCompare 
+                savedCars={savedCars}
+                selectedCars={selectedCars}
+                onToggleCar={handleToggleSelectCar}
+                onCompare={handleCompare}
+              />
+            )}
+          </aside>
           
           {/* Main Content */}
           <div className="flex-1">
@@ -198,39 +207,220 @@ const Garage = () => {
                 
                 {/* Filter tabs */}
                 {savedCars.length > 0 && (
-                  <GarageFilterTabs
-                    activeTab={activeTab}
-                    setActiveTab={setActiveTab}
-                    countAll={savedCars.length}
-                    countOwned={countByOwnership('owned')}
-                    countTestDriven={countByOwnership('testDriven')}
-                    countInterested={countByOwnership('interested')}
-                  />
+                  <div className="flex mb-6 border-b overflow-x-auto scrollbar-none">
+                    <button
+                      onClick={() => setActiveTab('all')}
+                      className={`px-4 py-2 border-b-2 transition-colors whitespace-nowrap ${
+                        activeTab === 'all' 
+                          ? 'border-motortrend-red text-motortrend-red font-medium' 
+                          : 'border-transparent hover:text-gray-700'
+                      }`}
+                    >
+                      All Cars ({savedCars.length})
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('owned')}
+                      className={`px-4 py-2 border-b-2 transition-colors whitespace-nowrap ${
+                        activeTab === 'owned' 
+                          ? 'border-motortrend-red text-motortrend-red font-medium' 
+                          : 'border-transparent hover:text-gray-700'
+                      }`}
+                    >
+                      Owned ({countByOwnership('owned')})
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('testDriven')}
+                      className={`px-4 py-2 border-b-2 transition-colors whitespace-nowrap ${
+                        activeTab === 'testDriven' 
+                          ? 'border-motortrend-red text-motortrend-red font-medium' 
+                          : 'border-transparent hover:text-gray-700'
+                      }`}
+                    >
+                      Test Driven ({countByOwnership('testDriven')})
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('interested')}
+                      className={`px-4 py-2 border-b-2 transition-colors whitespace-nowrap ${
+                        activeTab === 'interested' 
+                          ? 'border-motortrend-red text-motortrend-red font-medium' 
+                          : 'border-transparent hover:text-gray-700'
+                      }`}
+                    >
+                      Interested ({countByOwnership('interested')})
+                    </button>
+                  </div>
                 )}
                 
                 {/* Car listing */}
                 {filteredCars.length === 0 ? (
-                  <EmptyGarage 
-                    onAddCar={handleAddCar}
-                    noMatchingCars={savedCars.length > 0}
-                    activeTab={activeTab}
-                  />
+                  <div className="text-center py-10 animate-fade-in">
+                    <Car size={48} className="mx-auto text-gray-300 mb-4" />
+                    <h3 className="text-lg font-medium text-gray-700 mb-2">
+                      {savedCars.length === 0 
+                        ? "Your garage is empty" 
+                        : `No ${activeTab !== 'all' ? activeTab : ''} cars found`}
+                    </h3>
+                    <p className="text-gray-500 max-w-md mx-auto">
+                      {savedCars.length === 0 
+                        ? "Save cars you're interested in to add them to your garage" 
+                        : `Try selecting a different category or add more cars`}
+                    </p>
+                    <Button className="mt-4 transition-transform hover:scale-105" onClick={() => navigate("/")}>
+                      Find Cars
+                    </Button>
+                  </div>
                 ) : (
-                  <GarageCars 
-                    filteredCars={filteredCars}
-                    selectedCars={selectedCars}
-                    selectedCarDetails={selectedCarDetails}
-                    onUnsave={handleUnsave}
-                    onToggleSelect={handleToggleSelectCar}
-                    onShowDetails={handleShowCarDetails}
-                    onUpdateCar={handleUpdateCar}
-                  />
+                  <div className="space-y-6">
+                    <div className="space-y-4">
+                      {filteredCars.map(car => (
+                        <React.Fragment key={car.id}>
+                          <GarageCarCard 
+                            car={car} 
+                            onUnsave={handleUnsave}
+                            isSelected={selectedCars.includes(car.id)}
+                            onToggleSelect={() => handleToggleSelectCar(car.id)}
+                            onShowDetails={() => handleShowCarDetails(car.id)}
+                          />
+                          
+                          {selectedCarDetails === car.id && (
+                            <div className="mt-2 ml-4 border-l-2 border-motortrend-red pl-4 animate-fade-in">
+                              <CarDetails 
+                                car={car}
+                                onUpdate={handleUpdateCar}
+                                onDelete={handleUnsave}
+                              />
+                            </div>
+                          )}
+                        </React.Fragment>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </CardContent>
             </Card>
           </div>
         </div>
       </main>
+    </div>
+  );
+};
+
+// Component to display a saved car in garage
+const GarageCarCard = ({
+  car,
+  onUnsave,
+  isSelected,
+  onToggleSelect,
+  onShowDetails
+}: {
+  car: SavedItem;
+  onUnsave: (id: string) => void;
+  isSelected?: boolean;
+  onToggleSelect?: () => void;
+  onShowDetails?: () => void;
+}) => {
+  const metadata = car.metadata || {};
+  
+  // Micro-animation for card interaction
+  const cardClasses = `flex flex-col sm:flex-row rounded-lg overflow-hidden border ${
+    isSelected 
+      ? 'bg-motortrend-red/5 border-motortrend-red/30' 
+      : 'bg-white border-gray-200'
+  } transition-all duration-300 hover:shadow-md animate-fade-in transform hover:-translate-y-1`;
+
+  return (
+    <div className={cardClasses}>
+      <div className="sm:w-48 h-40 sm:h-auto flex-shrink-0 overflow-hidden">
+        <img 
+          src={car.imageUrl} 
+          alt={car.title} 
+          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105" 
+          onError={e => {
+            (e.target as HTMLImageElement).src = '/placeholder.svg';
+          }}
+        />
+      </div>
+      <div className="flex-1 p-4 flex flex-col">
+        <div className="flex flex-wrap gap-2 mb-2">
+          <Badge variant="outline" className="bg-motortrend-red/10 text-motortrend-red border-motortrend-red/30">
+            {car.type === 'newCar' ? 'New' : 'Used'}
+          </Badge>
+          {metadata.year && <Badge variant="outline">{metadata.year}</Badge>}
+          {metadata.category && <Badge variant="outline">{metadata.category}</Badge>}
+          
+          {metadata.ownership && (
+            <Badge className={`ml-auto ${
+              metadata.ownership === 'owned' 
+                ? 'bg-green-100 text-green-800' 
+                : metadata.ownership === 'testDriven' 
+                  ? 'bg-blue-100 text-blue-800' 
+                  : 'bg-amber-100 text-amber-800'
+            }`}>
+              {metadata.ownership === 'owned' 
+                ? 'Owned' 
+                : metadata.ownership === 'testDriven' 
+                  ? 'Test Driven' 
+                  : 'Interested'
+              }
+            </Badge>
+          )}
+        </div>
+        
+        <h3 className="text-lg font-bold">{car.title}</h3>
+        
+        <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
+          {metadata.price && (
+            <div className="text-sm">
+              <span className="font-semibold">Price:</span> {metadata.price}
+            </div>
+          )}
+          {metadata.mileage && (
+            <div className="text-sm">
+              <span className="font-semibold">Mileage:</span> {metadata.mileage}
+            </div>
+          )}
+          {metadata.location && (
+            <div className="text-sm col-span-2">
+              <span className="font-semibold">Location:</span> {metadata.location}
+            </div>
+          )}
+        </div>
+        
+        {metadata.notes && (
+          <div className="mt-2 bg-gray-50 p-2 rounded-md">
+            <p className="text-sm line-clamp-2">{metadata.notes}</p>
+          </div>
+        )}
+        
+        <div className="mt-auto pt-4 flex flex-wrap gap-3">
+          <Button 
+            onClick={onShowDetails}
+            className="transition-transform hover:scale-105"
+          >
+            View Details
+          </Button>
+          
+          <Button 
+            variant="outline" 
+            onClick={onToggleSelect}
+            className={`transition-all ${
+              isSelected 
+                ? 'bg-motortrend-red/10 text-motortrend-red border-motortrend-red/30' 
+                : 'hover:bg-gray-100'
+            }`}
+          >
+            {isSelected ? 'Selected for Compare' : 'Compare'}
+          </Button>
+          
+          <Button 
+            variant="ghost" 
+            className="text-gray-500 hover:text-motortrend-red transition-colors ml-auto" 
+            onClick={() => onUnsave(car.id)}
+          >
+            <Trash className="mr-1" size={16} /> Remove
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
