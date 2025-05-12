@@ -14,9 +14,9 @@ import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 
 function App() {
   return (
-    <PersonalizationProvider>
-      <SavedItemsProvider>
-        <BrowserRouter>
+    <BrowserRouter>
+      <PersonalizationProvider>
+        <SavedItemsProvider>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/profile" element={<Profile />} />
@@ -24,9 +24,9 @@ function App() {
             <Route path="/cars" element={<CarDatabase />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </BrowserRouter>
-      </SavedItemsProvider>
-    </PersonalizationProvider>
+        </SavedItemsProvider>
+      </PersonalizationProvider>
+    </BrowserRouter>
   );
 }
 
