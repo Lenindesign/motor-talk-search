@@ -31,6 +31,9 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
     activeTab !== 'all' ? activeTab as 'owned' | 'testDriven' | 'interested' : 'interested'
   );
 
+  // For selecting body style
+  const [bodyStyle, setBodyStyle] = useState<'SUV' | 'Sedan' | 'Truck' | 'Sports Car' | 'Minivan' | undefined>(undefined);
+
   // Update ownership when activeTab changes
   React.useEffect(() => {
     if (activeTab !== 'all') {
@@ -46,9 +49,62 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
     handleKeyDown
   } = useAutocomplete(query);
   
+  // Generate mock specifications based on body style
+  const generateSpecsForBodyStyle = (style: string) => {
+    switch(style) {
+      case 'SUV':
+        return {
+          cargoCapacity: Math.floor(30 + Math.random() * 20) + " cu ft",
+          cargoCapacityFolded: Math.floor(60 + Math.random() * 30) + " cu ft",
+          passengerCapacity: Math.floor(5 + Math.random() * 3) + " passengers",
+          seatingConfiguration: Math.random() > 0.5 ? "2-3-2" : "2-3"
+        };
+      case 'Sedan':
+        return {
+          trunkCapacity: Math.floor(12 + Math.random() * 8) + " cu ft",
+          safetyRating: Math.random() > 0.7 ? "5-Star NHTSA" : "Top Safety Pick IIHS",
+          horsepowerTorque: Math.floor(150 + Math.random() * 150) + " hp / " + Math.floor(150 + Math.random() * 200) + " lb-ft"
+        };
+      case 'Truck':
+        return {
+          towingCapacity: Math.floor(5000 + Math.random() * 7000) + " lbs",
+          payloadCapacity: Math.floor(1000 + Math.random() * 2000) + " lbs",
+          bedDimensions: Math.floor(5 + Math.random() * 3) + "' x " + Math.floor(4 + Math.random()) + "'",
+          powertrainOptions: Math.random() > 0.5 ? "V6 with 8-spd auto" : "V8 with 10-spd auto"
+        };
+      case 'Sports Car':
+        return {
+          zeroToSixty: (Math.random() * 2 + 2).toFixed(1) + " seconds",
+          topSpeed: Math.floor(155 + Math.random() * 45) + " mph",
+          weightPowerRatio: (Math.random() * 3 + 5).toFixed(1) + " lbs/hp",
+          horsepowerTorque: Math.floor(300 + Math.random() * 400) + " hp / " + Math.floor(300 + Math.random() * 300) + " lb-ft"
+        };
+      case 'Minivan':
+        return {
+          passengerCapacity: Math.floor(7 + Math.random() * 2) + " passengers",
+          seatingConfiguration: "2-3-3",
+          cargoCapacity: "Behind 3rd row: " + Math.floor(20 + Math.random() * 15) + " cu ft",
+          slidingDoorFeatures: Math.random() > 0.5 ? "Power sliding doors" : "Hands-free power doors",
+          familyFeatures: Math.random() > 0.5 ? "Rear entertainment system" : "Vacuum cleaner"
+        };
+      default:
+        return {};
+    }
+  };
+  
   const handleAddCar = (suggestion: Suggestion) => {
     if (suggestion.type === 'newCar' || suggestion.type === 'carModel') {
       if (!isSaved(suggestion.id)) {
+        // Generate specs based on body style
+        const specs = bodyStyle ? generateSpecsForBodyStyle(bodyStyle) : {};
+        
+        // Common fields for all cars
+        const fuelType = Math.random() > 0.3 ? 
+          Math.floor(20 + Math.random() * 15) + " city / " + Math.floor(25 + Math.random() * 15) + " hwy" :
+          "Electric - " + Math.floor(85 + Math.random() * 50) + " MPGe";
+          
+        const drivetrain = ['FWD', 'RWD', 'AWD', '4WD'][Math.floor(Math.random() * 4)];
+        
         addSavedItem({
           id: suggestion.id,
           title: suggestion.text,
@@ -56,10 +112,14 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
           imageUrl: '/placeholder.svg',
           savedAt: new Date().toISOString(),
           metadata: {
-            price: 'Contact dealer',
+            price: '$' + Math.floor(20000 + Math.random() * 60000).toLocaleString(),
             category: suggestion.type === 'carModel' ? 'Model' : 'New Car',
             year: new Date().getFullYear().toString(),
-            ownership: ownership // Ensure this gets set properly
+            ownership: ownership,
+            bodyStyle: bodyStyle,
+            fuelType: fuelType,
+            drivetrain: drivetrain,
+            ...specs
           }
         });
         toast({
@@ -116,6 +176,43 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
             className={`px-2 py-1 rounded ${ownership === 'interested' ? 'bg-amber-100 text-amber-700' : 'text-gray-500 hover:bg-gray-100'}`}
           >
             Interested
+          </button>
+        </div>
+      </div>
+      
+      {/* Body style selector */}
+      <div className="flex mb-4 justify-center text-sm flex-wrap">
+        <span className="mr-2 text-gray-500 w-full text-center mb-1">Vehicle Type:</span>
+        <div className="flex space-x-2 flex-wrap justify-center">
+          <button 
+            onClick={() => setBodyStyle('SUV')} 
+            className={`px-2 py-1 rounded mb-1 ${bodyStyle === 'SUV' ? 'bg-gray-800 text-white' : 'text-gray-500 hover:bg-gray-100'}`}
+          >
+            SUV
+          </button>
+          <button 
+            onClick={() => setBodyStyle('Sedan')} 
+            className={`px-2 py-1 rounded mb-1 ${bodyStyle === 'Sedan' ? 'bg-gray-800 text-white' : 'text-gray-500 hover:bg-gray-100'}`}
+          >
+            Sedan
+          </button>
+          <button 
+            onClick={() => setBodyStyle('Truck')} 
+            className={`px-2 py-1 rounded mb-1 ${bodyStyle === 'Truck' ? 'bg-gray-800 text-white' : 'text-gray-500 hover:bg-gray-100'}`}
+          >
+            Truck
+          </button>
+          <button 
+            onClick={() => setBodyStyle('Sports Car')} 
+            className={`px-2 py-1 rounded mb-1 ${bodyStyle === 'Sports Car' ? 'bg-gray-800 text-white' : 'text-gray-500 hover:bg-gray-100'}`}
+          >
+            Sports Car
+          </button>
+          <button 
+            onClick={() => setBodyStyle('Minivan')} 
+            className={`px-2 py-1 rounded mb-1 ${bodyStyle === 'Minivan' ? 'bg-gray-800 text-white' : 'text-gray-500 hover:bg-gray-100'}`}
+          >
+            Minivan
           </button>
         </div>
       </div>
