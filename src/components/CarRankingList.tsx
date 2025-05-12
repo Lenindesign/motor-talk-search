@@ -3,7 +3,6 @@ import React, { useState, useMemo } from "react";
 import { Star, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CarScore } from "./CarScoreCard";
-import { CarData } from "./CarCard";
 import CarRankingFilter from "./CarRankingFilter";
 
 interface RankedCar {
@@ -59,7 +58,15 @@ const CarRankingList: React.FC<CarRankingListProps> = ({
         return multiplier * ((a.score.rankInClass || 999) - (b.score.rankInClass || 999));
       }
       
-      return multiplier * (a.score[field as keyof CarScore] - b.score[field as keyof CarScore]);
+      // Fix the TypeScript error by explicitly defining the typing
+      const scoreA = a.score[field as keyof CarScore];
+      const scoreB = b.score[field as keyof CarScore];
+      
+      // Make sure we're working with numbers
+      const numA = typeof scoreA === 'number' ? scoreA : 0;
+      const numB = typeof scoreB === 'number' ? scoreB : 0;
+      
+      return multiplier * (numA - numB);
     });
   }, [cars, sortBy, filterBy]);
   
