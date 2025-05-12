@@ -1,6 +1,6 @@
 
 import React from "react";
-import { Bookmark, Car as CarIcon, Truck, Gauge, Fuel, Layers, Box, DoorOpen, Wind } from "lucide-react";
+import { Bookmark, Car as CarIcon, Truck, Gauge, Fuel, Layers, Box, DoorOpen, Wind, Star } from "lucide-react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 
 export interface CarData {
