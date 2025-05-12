@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Bookmark, Car as CarIcon, Truck, Gauge, Fuel, Layers, Box, DoorOpen, Wind } from "lucide-react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
@@ -42,6 +41,11 @@ export interface CarData {
   // Minivan specs
   slidingDoorFeatures?: string;
   familyFeatures?: string;
+  
+  // MotorTrend Rankings and Scores
+  motorTrendRank?: number;
+  motorTrendScore?: number;
+  motorTrendCategoryRank?: number;
 }
 
 interface CarCardProps {
@@ -89,7 +93,11 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
           slidingDoorFeatures: car.slidingDoorFeatures,
           familyFeatures: car.familyFeatures,
           fuelType: car.fuelType,
-          drivetrain: car.drivetrain
+          drivetrain: car.drivetrain,
+          // Add MotorTrend Rankings and Scores
+          motorTrendRank: car.motorTrendRank,
+          motorTrendScore: car.motorTrendScore,
+          motorTrendCategoryRank: car.motorTrendCategoryRank
         }
       });
     }
@@ -228,6 +236,39 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
     }
   };
 
+  // Add MotorTrend score display
+  const renderMotorTrendScore = () => {
+    if (!car.motorTrendScore) return null;
+    
+    // Calculate color based on score (0-10 scale)
+    const score = car.motorTrendScore;
+    let scoreColor = "bg-red-500";
+    
+    if (score >= 9) {
+      scoreColor = "bg-green-600";
+    } else if (score >= 7) {
+      scoreColor = "bg-green-500";
+    } else if (score >= 5) {
+      scoreColor = "bg-amber-500";
+    } else if (score >= 3) {
+      scoreColor = "bg-orange-500";
+    }
+    
+    return (
+      <div className="absolute top-2 left-2 flex items-center gap-1">
+        <div className={`text-white text-xs font-bold px-2 py-1 rounded ${scoreColor} flex items-center`}>
+          <span className="mr-1">MT</span>
+          {score.toFixed(1)}
+        </div>
+        {car.motorTrendRank && (
+          <div className="bg-black/70 text-white text-xs px-2 py-1 rounded">
+            #{car.motorTrendRank}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="overflow-hidden rounded-lg bg-white shadow transition-all hover:shadow-md">
       <div className="relative">
@@ -247,6 +288,7 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
             New
           </span>
         )}
+        {renderMotorTrendScore()}
         <button
           onClick={handleSave}
           className={`absolute top-2 right-2 p-1.5 rounded-full ${saved ? 'bg-motortrend-red text-white' : 'bg-black/70 text-white hover:bg-motortrend-red'} transition-colors`}
@@ -256,8 +298,15 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
         </button>
       </div>
       <div className="p-4">
-        <div className="mb-1 text-xs font-medium text-motortrend-red">
-          {car.category} {car.bodyStyle ? `- ${car.bodyStyle}` : ''}
+        <div className="mb-1 text-xs font-medium text-motortrend-red flex justify-between">
+          <div>
+            {car.category} {car.bodyStyle ? `- ${car.bodyStyle}` : ''}
+          </div>
+          {car.motorTrendCategoryRank && (
+            <div className="text-gray-700 font-semibold">
+              #{car.motorTrendCategoryRank} in class
+            </div>
+          )}
         </div>
         <h3 className="mb-2 line-clamp-2 text-sm font-bold">{car.title}</h3>
         

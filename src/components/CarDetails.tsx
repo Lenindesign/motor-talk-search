@@ -1,8 +1,9 @@
 
 import React, { useState } from 'react';
-import { Calendar, Check, Edit, Save, Trash } from 'lucide-react';
+import { Calendar, Check, Edit, Save, Trash, Award, TrendingUp, BarChart3 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import { SavedItem } from '../contexts/SavedItemsContext';
 import { useToast } from "@/hooks/use-toast";
 
@@ -62,6 +63,64 @@ const CarDetails: React.FC<CarDetailsProps> = ({ car, onUpdate, onDelete }) => {
         );
     }
   };
+  
+  // Helper to render the MotorTrend score with color
+  const renderMotorTrendScore = () => {
+    const score = car.metadata?.motorTrendScore;
+    if (!score) return null;
+    
+    let scoreColor = "text-red-500";
+    let progressColor = "bg-red-500";
+    
+    if (score >= 9) {
+      scoreColor = "text-green-600";
+      progressColor = "bg-green-600";
+    } else if (score >= 7) {
+      scoreColor = "text-green-500";
+      progressColor = "bg-green-500";
+    } else if (score >= 5) {
+      scoreColor = "text-amber-500";
+      progressColor = "bg-amber-500";
+    } else if (score >= 3) {
+      scoreColor = "text-orange-500";
+      progressColor = "bg-orange-500";
+    }
+    
+    return (
+      <div className="mt-4 px-1">
+        <div className="flex items-center justify-between mb-1">
+          <div className="flex items-center gap-2">
+            <Award size={18} className={scoreColor} />
+            <span className="font-medium text-sm">MotorTrend Score</span>
+          </div>
+          <span className={`text-lg font-bold ${scoreColor}`}>{Number(score).toFixed(1)}/10</span>
+        </div>
+        <Progress value={Number(score) * 10} className={`h-2 ${progressColor}`} />
+        
+        <div className="mt-3 space-y-2 text-sm">
+          {car.metadata?.motorTrendRank && (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                <TrendingUp size={15} className="text-gray-500" />
+                <span className="text-gray-700">Overall Rank</span>
+              </div>
+              <span className="font-semibold">#{car.metadata.motorTrendRank}</span>
+            </div>
+          )}
+          
+          {car.metadata?.motorTrendCategoryRank && (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                <BarChart3 size={15} className="text-gray-500" />
+                <span className="text-gray-700">Category Rank</span>
+              </div>
+              <span className="font-semibold">#{car.metadata.motorTrendCategoryRank} in {car.metadata?.bodyStyle || 'class'}</span>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="border rounded-lg bg-white p-4 shadow-sm animate-fade-in">
@@ -108,6 +167,9 @@ const CarDetails: React.FC<CarDetailsProps> = ({ car, onUpdate, onDelete }) => {
           <span>Last updated: {new Date(car.metadata.lastUpdated).toLocaleDateString()}</span>
         </div>
       )}
+      
+      {/* MotorTrend Score Card */}
+      {!isEditing && renderMotorTrendScore()}
 
       {isEditing ? (
         <div className="space-y-3">
