@@ -1,10 +1,10 @@
+
 import React, { useState } from 'react';
-import { Calendar, Check, Edit, Save, Trash, ChartBar } from 'lucide-react';
+import { Calendar, Check, Edit, Save, Trash } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SavedItem } from '../contexts/SavedItemsContext';
 import { useToast } from "@/hooks/use-toast";
-import CarScoreCard, { CarScore } from './CarScoreCard';
 
 interface CarDetailsProps {
   car: SavedItem;
@@ -19,30 +19,6 @@ const CarDetails: React.FC<CarDetailsProps> = ({ car, onUpdate, onDelete }) => {
     car.metadata?.ownership as any || 'interested'
   );
   const { toast } = useToast();
-  const [showScores, setShowScores] = useState(false);
-
-  // Generate mock MotorTrend scores for demonstration purposes
-  // In a real app, this data would come from an API or database
-  const generateMockScores = (): CarScore => {
-    const baseScore = 7 + Math.random() * 2; // Generate a base score between 7-9
-    
-    // Generate scores for different categories, slightly varied from base score
-    return {
-      overall: Math.min(10, Math.max(1, baseScore + (Math.random() * 1.5 - 0.75))).toFixed(1) as unknown as number,
-      performance: Math.min(10, Math.max(1, baseScore + (Math.random() * 2 - 1))).toFixed(1) as unknown as number,
-      fuelEfficiency: Math.min(10, Math.max(1, baseScore + (Math.random() * 2 - 1))).toFixed(1) as unknown as number,
-      safety: Math.min(10, Math.max(1, baseScore + (Math.random() * 2 - 1))).toFixed(1) as unknown as number,
-      value: Math.min(10, Math.max(1, baseScore + (Math.random() * 2 - 1))).toFixed(1) as unknown as number,
-      reliability: Math.min(10, Math.max(1, baseScore + (Math.random() * 2 - 1))).toFixed(1) as unknown as number,
-      comfort: Math.min(10, Math.max(1, baseScore + (Math.random() * 2 - 1))).toFixed(1) as unknown as number,
-      rankInClass: Math.floor(Math.random() * 10) + 1, // Rank between 1 and 10
-      totalInClass: Math.floor(Math.random() * 20) + 10, // Total in class between 10 and 30
-      editorNote: "This vehicle offers excellent value in its class with competitive features and strong build quality."
-    };
-  };
-
-  // Use memoization to keep score consistent between renders
-  const motorTrendScore = React.useMemo(() => generateMockScores(), [car.id]);
 
   const handleSave = () => {
     const updatedMetadata = {
@@ -95,16 +71,6 @@ const CarDetails: React.FC<CarDetailsProps> = ({ car, onUpdate, onDelete }) => {
           <span>{car.title}</span>
         </h3>
         <div className="flex gap-2">
-          <Button 
-            variant="outline"
-            size="sm"
-            onClick={() => setShowScores(!showScores)}
-            className="flex items-center gap-1"
-          >
-            <ChartBar size={16} />
-            {showScores ? "Hide Scores" : "MotorTrend Scores"}
-          </Button>
-          
           {isEditing ? (
             <Button 
               onClick={handleSave} 
@@ -140,12 +106,6 @@ const CarDetails: React.FC<CarDetailsProps> = ({ car, onUpdate, onDelete }) => {
         <div className="flex items-center gap-1 text-xs text-gray-500 mb-2">
           <Calendar size={12} />
           <span>Last updated: {new Date(car.metadata.lastUpdated).toLocaleDateString()}</span>
-        </div>
-      )}
-
-      {showScores && (
-        <div className="mb-4">
-          <CarScoreCard score={motorTrendScore} className="border-motortrend-red border-t-2" />
         </div>
       )}
 
