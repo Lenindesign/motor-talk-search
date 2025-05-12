@@ -142,84 +142,76 @@ const Garage = () => {
             </CardHeader>
 
             <CardContent>
-              {savedCars.length > 0 ? (
-                <>
-                  <GarageStats />
-                  
-                  <Tabs 
-                    defaultValue="all" 
-                    value={activeTab} 
-                    onValueChange={(value) => setActiveTab(value as 'all' | 'owned' | 'testDriven' | 'interested')}
-                    className="mt-6"
-                  >
-                    <TabsList className="grid w-full grid-cols-4">
-                      <TabsTrigger value="all">All</TabsTrigger>
-                      <TabsTrigger value="owned">Owned</TabsTrigger>
-                      <TabsTrigger value="testDriven">Test Driven</TabsTrigger>
-                      <TabsTrigger value="interested">Interested</TabsTrigger>
-                    </TabsList>
-                    
-                    <TabsContent value="all" className="mt-6">
-                      <div className="space-y-4">
-                        {savedCars.map(car => (
-                          <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
-                        ))}
-                      </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="owned" className="mt-6">
-                      <div className="space-y-4">
-                        {savedCars
-                          .filter(car => car.metadata?.ownership === 'owned')
-                          .map(car => (
-                            <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
-                          ))}
-                        {savedCars.filter(car => car.metadata?.ownership === 'owned').length === 0 && (
-                          <p className="text-center text-gray-500 py-8">No owned cars yet. Add some from the form below.</p>
-                        )}
-                      </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="testDriven" className="mt-6">
-                      <div className="space-y-4">
-                        {savedCars
-                          .filter(car => car.metadata?.ownership === 'testDriven')
-                          .map(car => (
-                            <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
-                          ))}
-                        {savedCars.filter(car => car.metadata?.ownership === 'testDriven').length === 0 && (
-                          <p className="text-center text-gray-500 py-8">No test driven cars yet. Add some from the form below.</p>
-                        )}
-                      </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="interested" className="mt-6">
-                      <div className="space-y-4">
-                        {savedCars
-                          .filter(car => car.metadata?.ownership === 'interested')
-                          .map(car => (
-                            <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
-                          ))}
-                        {savedCars.filter(car => car.metadata?.ownership === 'interested').length === 0 && (
-                          <p className="text-center text-gray-500 py-8">No interested cars yet. Add some from the form below.</p>
-                        )}
-                      </div>
-                    </TabsContent>
-                  </Tabs>
-                  
-                  <div className="mt-8 pt-6 border-t">
-                    <h3 className="text-lg font-medium mb-4">Add another car</h3>
-                    <QuickAddCar />
+              <GarageStats />
+              
+              <Tabs 
+                defaultValue="all" 
+                value={activeTab} 
+                onValueChange={(value) => setActiveTab(value as 'all' | 'owned' | 'testDriven' | 'interested')}
+                className="mt-6"
+              >
+                <TabsList className="grid w-full grid-cols-4">
+                  <TabsTrigger value="all">All</TabsTrigger>
+                  <TabsTrigger value="owned">Owned</TabsTrigger>
+                  <TabsTrigger value="testDriven">Test Driven</TabsTrigger>
+                  <TabsTrigger value="interested">Interested</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="all" className="mt-6">
+                  <div className="space-y-4">
+                    {savedCars.map(car => (
+                      <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
+                    ))}
+                    {savedCars.length === 0 && (
+                      <p className="text-center text-gray-500 py-8">No cars in your garage yet. Add some from the form below.</p>
+                    )}
                   </div>
-                </>
-              ) : (
-                <div className="py-6">
-                  <EmptyGarage />
-                  <div className="mt-8">
-                    <QuickAddCar />
+                </TabsContent>
+                
+                <TabsContent value="owned" className="mt-6">
+                  <div className="space-y-4">
+                    {savedCars
+                      .filter(car => car.metadata?.ownership === 'owned')
+                      .map(car => (
+                        <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
+                      ))}
+                    {savedCars.filter(car => car.metadata?.ownership === 'owned').length === 0 && (
+                      <p className="text-center text-gray-500 py-8">No owned cars yet. Add some from the form below.</p>
+                    )}
                   </div>
-                </div>
-              )}
+                </TabsContent>
+                
+                <TabsContent value="testDriven" className="mt-6">
+                  <div className="space-y-4">
+                    {savedCars
+                      .filter(car => car.metadata?.ownership === 'testDriven')
+                      .map(car => (
+                        <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
+                      ))}
+                    {savedCars.filter(car => car.metadata?.ownership === 'testDriven').length === 0 && (
+                      <p className="text-center text-gray-500 py-8">No test driven cars yet. Add some from the form below.</p>
+                    )}
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="interested" className="mt-6">
+                  <div className="space-y-4">
+                    {savedCars
+                      .filter(car => car.metadata?.ownership === 'interested')
+                      .map(car => (
+                        <GarageCarCard key={car.id} car={savedItemToCarData(car)} type={car.type === 'newCar' ? 'new' : 'used'} />
+                      ))}
+                    {savedCars.filter(car => car.metadata?.ownership === 'interested').length === 0 && (
+                      <p className="text-center text-gray-500 py-8">No interested cars yet. Add some from the form below.</p>
+                    )}
+                  </div>
+                </TabsContent>
+              </Tabs>
+              
+              <div className="mt-8 pt-6 border-t">
+                <h3 className="text-lg font-medium mb-4">Add another car</h3>
+                <QuickAddCar activeTab={activeTab} />
+              </div>
             </CardContent>
           </Card>
         </div>
