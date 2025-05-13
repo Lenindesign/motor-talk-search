@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Car, Award, SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -17,6 +16,7 @@ import {
 import { useSavedItems, SavedItem } from "../../contexts/SavedItemsContext";
 import GarageStats from "../GarageStats";
 import GarageCarCard from "../CarCard";
+import UserReviews from "./UserReviews";
 import QuickAddCar from "../QuickAddCar";
 import { CarData } from "../CarCard";
 
@@ -233,6 +233,8 @@ const GarageContent = () => {
             </div>
           </TabsContent>
         </Tabs>
+        
+        <UserReviews />
         
         <div className="mt-8 pt-6 border-t">
           <h3 className="text-lg font-medium mb-4">Add another car</h3>

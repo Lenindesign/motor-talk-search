@@ -18,6 +18,7 @@ import UserAchievements from "../components/UserAchievements";
 import UserPoints from "../components/UserPoints";
 import { User, Settings, Car, Bookmark, Save, Palette, Activity, Award } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import MyGarageSkinny from "../components/profile/MyGarageSkinny";
 
 const Profile = () => {
   const {
@@ -123,6 +124,8 @@ const Profile = () => {
             </Card>
             
             <UserPoints />
+            
+            <MyGarageSkinny />
             
             <Card>
               <CardContent className="p-4">
