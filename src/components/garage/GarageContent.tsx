@@ -1,26 +1,17 @@
+
 import React, { useState } from "react";
-import { Car, Award, SlidersHorizontal, ArrowLeftRight } from "lucide-react";
+import { Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Slider } from "@/components/ui/slider";
-import { Switch } from "@/components/ui/switch";
-import { 
-  DropdownMenu, 
-  DropdownMenuTrigger, 
-  DropdownMenuContent, 
-  DropdownMenuLabel, 
-  DropdownMenuSeparator,
-  DropdownMenuItem
-} from "@/components/ui/dropdown-menu";
 import { useSavedItems, SavedItem } from "../../contexts/SavedItemsContext";
 import GarageStats from "../GarageStats";
-import GarageCarCard from "../CarCard";
+import CarComparisonTable from "./CarComparisonTable";
+import GarageCompare from "../GarageCompare";
 import UserReviews from "./UserReviews";
 import QuickAddCar from "../QuickAddCar";
-import GarageCompare from "../GarageCompare";
 import { CarData } from "../CarCard";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import GarageFilters from "./GarageFilters";
+import GarageTabContent from "./GarageTabContent";
 import { toast } from "@/components/ui/use-toast";
 
 const GarageContent = () => {
@@ -149,6 +140,13 @@ const GarageContent = () => {
     setShowComparison(true);
   };
   
+  // Get car data for selected cars
+  const getSelectedCarData = (): CarData[] => {
+    return savedCars
+      .filter(car => selectedCars.includes(car.id))
+      .map(car => savedItemToCarData(car));
+  };
+  
   const displayCars = getDisplayCars();
 
   return (
@@ -172,15 +170,14 @@ const GarageContent = () => {
             </Button>
           ) : (
             <>
-              <Button 
-                variant="outline" 
-                size="sm"
-                onClick={() => setShowFilters(!showFilters)}
-                className={showFilters ? "bg-gray-100" : ""}
-              >
-                <SlidersHorizontal size={16} className="mr-1" />
-                Filters
-              </Button>
+              <GarageFilters 
+                minScore={minScore}
+                sortByScore={sortByScore}
+                showFilters={showFilters}
+                onMinScoreChange={setMinScore}
+                onSortByScoreChange={setSortByScore}
+                onToggleFilters={() => setShowFilters(!showFilters)}
+              />
               <Button onClick={() => window.location.href = "/"}>
                 Browse Cars
               </Button>
@@ -193,7 +190,7 @@ const GarageContent = () => {
         {/* Comparison View */}
         {showComparison ? (
           <div className="mt-2">
-            <CarComparisonTable cars={selectedCarData} />
+            <CarComparisonTable cars={getSelectedCarData()} />
           </div>
         ) : (
           // Regular Garage View
@@ -210,97 +207,13 @@ const GarageContent = () => {
               />
             </div>
             
-            {showFilters && (
-              <div className="mt-4 p-4 bg-gray-50 rounded-md border">
-                <h3 className="font-medium mb-3 flex items-center gap-1.5">
-                  <Award size={18} className="text-motortrend-red" />
-                  MotorTrend Rankings
-                </h3>
-                
-                <div className="space-y-4">
-                  <div>
-                    <label className="text-sm text-gray-700 mb-2 block">
-                      Minimum MotorTrend Score: {minScore.toFixed(1)}
-                    </label>
-                    <Slider
-                      value={[minScore]}
-                      min={0}
-                      max={10}
-                      step={0.5}
-                      onValueChange={(value) => setMinScore(value[0])}
-                      className="w-full"
-                    />
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <label htmlFor="sort-by-score" className="text-sm text-gray-700">
-                      Sort by MotorTrend Score
-                    </label>
-                    <Switch 
-                      id="sort-by-score" 
-                      checked={sortByScore} 
-                      onCheckedChange={setSortByScore}
-                    />
-                  </div>
-                  
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="sm">Sort by</Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Sort Options</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={() => setSortByScore(true)}>
-                        MotorTrend Score (High to Low)
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => {
-                        setSortByScore(true);
-                        // The reverse sorting will be handled in the component logic
-                      }}>
-                        MotorTrend Score (Low to High)
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => setSortByScore(false)}>
-                        Date Added (Newest First)
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
-              </div>
-            )}
-            
-            <Tabs 
-              defaultValue="all" 
-              value={activeTab} 
-              onValueChange={(value) => setActiveTab(value as 'all' | 'owned' | 'testDriven' | 'interested')}
-              className="mt-6"
-            >
-              <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="all">All</TabsTrigger>
-                <TabsTrigger value="owned">Owned</TabsTrigger>
-                <TabsTrigger value="testDriven">Test Driven</TabsTrigger>
-                <TabsTrigger value="interested">Interested</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value={activeTab} className="mt-6">
-                <div className="space-y-4">
-                  {displayCars.map(car => (
-                    <GarageCarCard 
-                      key={car.id} 
-                      car={savedItemToCarData(car)} 
-                      type={car.type === 'newCar' ? 'new' : 'used'} 
-                    />
-                  ))}
-                  {displayCars.length === 0 && (
-                    <p className="text-center text-gray-500 py-8">
-                      {minScore > 0 ? 
-                        `No cars found with MotorTrend Score of ${minScore} or higher.` : 
-                        `No ${activeTab !== 'all' ? activeTab : ''} cars in your garage yet. Add some from the form below.`
-                      }
-                    </p>
-                  )}
-                </div>
-              </TabsContent>
-            </Tabs>
+            <GarageTabContent 
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+              displayCars={displayCars}
+              savedItemToCarData={savedItemToCarData}
+              minScore={minScore}
+            />
             
             <UserReviews />
             
@@ -312,122 +225,6 @@ const GarageContent = () => {
         )}
       </CardContent>
     </Card>
-  );
-};
-
-// Car Comparison Table Component
-const CarComparisonTable: React.FC<{ cars: CarData[] }> = ({ cars }) => {
-  // Get all possible specs across all cars
-  const getSpecCategories = () => {
-    const categories: Record<string, string[]> = {
-      'Basic Info': ['year', 'mileage', 'price', 'category'],
-      'Performance': ['horsepowerTorque', 'fuelType', 'drivetrain', 'zeroToSixty', 'topSpeed', 'weightPowerRatio'],
-      'Capacity': ['passengerCapacity', 'cargoCapacity', 'cargoCapacityFolded', 'trunkCapacity', 'towingCapacity', 'payloadCapacity'],
-      'Features': ['seatingConfiguration', 'slidingDoorFeatures', 'familyFeatures', 'bedDimensions', 'safetyRating'],
-      'MotorTrend': ['motorTrendScore', 'motorTrendRank', 'motorTrendCategoryRank']
-    };
-    return categories;
-  };
-
-  // Format spec value for display
-  const formatSpecValue = (car: CarData, spec: string): string => {
-    const value = car[spec as keyof CarData];
-    
-    // Handle specific formatting for some specs
-    if (spec === 'motorTrendScore' && typeof value === 'number') {
-      return value.toFixed(1);
-    }
-    
-    if (value === undefined || value === null) {
-      return 'N/A';
-    }
-    
-    return String(value);
-  };
-
-  // Find the best value in a category (like highest MotorTrend score)
-  const getBestValueClass = (cars: CarData[], spec: string, value: string): string => {
-    if (spec === 'motorTrendScore' || spec === 'motorTrendRank' || spec === 'motorTrendCategoryRank') {
-      const numericValues = cars.map(car => {
-        const val = car[spec as keyof CarData];
-        return typeof val === 'number' ? val : 0;
-      });
-      
-      if (numericValues.length === 0) return '';
-      
-      // For rank, lower is better
-      if (spec.includes('Rank')) {
-        const bestValue = Math.min(...numericValues.filter(v => v > 0));
-        if (bestValue === parseFloat(value)) return 'font-bold text-green-700';
-      } 
-      // For scores, higher is better
-      else {
-        const bestValue = Math.max(...numericValues);
-        if (bestValue === parseFloat(value)) return 'font-bold text-green-700';
-      }
-    }
-    
-    return '';
-  };
-
-  const formatSpecLabel = (spec: string): string => {
-    // Convert camelCase to Title Case with spaces
-    return spec
-      .replace(/([A-Z])/g, ' $1')
-      .replace(/^./, str => str.toUpperCase())
-      .trim();
-  };
-
-  // Get all spec categories
-  const specCategories = getSpecCategories();
-
-  return (
-    <div>
-      <div className="flex items-center gap-2 mb-4">
-        <ArrowLeftRight size={18} className="text-motortrend-red" />
-        <h3 className="font-bold">Comparing {cars.length} Vehicles</h3>
-      </div>
-      
-      <div className="overflow-x-auto">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[180px]">Specification</TableHead>
-              {cars.map(car => (
-                <TableHead key={car.id} className="min-w-[200px]">
-                  {car.title}
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {Object.entries(specCategories).map(([category, specs]) => (
-              <React.Fragment key={category}>
-                <TableRow className="bg-gray-100">
-                  <TableCell colSpan={cars.length + 1} className="font-bold">
-                    {category}
-                  </TableCell>
-                </TableRow>
-                {specs.map(spec => (
-                  <TableRow key={spec}>
-                    <TableCell className="font-medium">{formatSpecLabel(spec)}</TableCell>
-                    {cars.map(car => {
-                      const value = formatSpecValue(car, spec);
-                      const bestValueClass = getBestValueClass(cars, spec, value);
-                      return (
-                        <TableCell key={`${car.id}-${spec}`} className={bestValueClass}>
-                          {value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                ))}
-              </React.Fragment>
-            ))}
-          </TableBody>
-        </Table>
-      </div>
-    </div>
   );
 };
 
