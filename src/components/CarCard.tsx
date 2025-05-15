@@ -1,5 +1,6 @@
-import React from "react";
-import { Bookmark, Car as CarIcon, Truck, Gauge, Fuel, Layers, Box, DoorOpen, Wind } from "lucide-react";
+
+import React, { useState } from "react";
+import { Bookmark, Car as CarIcon, Truck, Gauge, Fuel, Layers, Box, DoorOpen, Wind, AlertCircle } from "lucide-react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 
 export interface CarData {
@@ -56,6 +57,8 @@ interface CarCardProps {
 const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
   const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
   const saved = isSaved(car.id);
+  const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -101,6 +104,24 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
         }
       });
     }
+  };
+
+  // Function to get a fallback image based on the car make/model
+  const getFallbackImage = () => {
+    if (!car.title) return '/placeholder.svg';
+    
+    const title = car.title.toLowerCase();
+    // Check for common car makes
+    if (title.includes('tesla')) return 'https://images.unsplash.com/photo-1617704548623-340376564e68?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    if (title.includes('bmw')) return 'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    if (title.includes('ford')) return 'https://images.unsplash.com/photo-1551830820-330a71b99659?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    if (title.includes('honda')) return 'https://images.unsplash.com/photo-1583267746897-2cf415887172?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    if (title.includes('toyota')) return 'https://images.unsplash.com/photo-1559416523-140ddc3d238c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    if (title.includes('chevrolet') || title.includes('chevy')) return 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    if (title.includes('jeep')) return 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    
+    // Fallback for any car
+    return '/placeholder.svg';
   };
 
   // Helper function to render body style-specific specs
@@ -272,14 +293,34 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
   return (
     <div className="overflow-hidden rounded-lg bg-white shadow transition-all hover:shadow-md">
       <div className="relative">
+        {!imageLoaded && !imageError && (
+          <div className="h-40 w-full bg-gray-200 animate-pulse flex items-center justify-center">
+            <span className="text-gray-400 text-sm">Loading car image...</span>
+          </div>
+        )}
+        
         <img
           src={car.imageUrl}
           alt={car.title}
-          className="h-40 w-full object-cover"
+          className={`h-40 w-full object-cover ${!imageLoaded ? 'hidden' : ''}`}
+          onLoad={() => setImageLoaded(true)}
           onError={(e) => {
-            (e.target as HTMLImageElement).src = '/placeholder.svg';
+            setImageError(true);
+            setImageLoaded(true);
+            (e.target as HTMLImageElement).src = getFallbackImage();
+            console.log(`Using fallback image for: ${car.title}`);
           }}
         />
+        
+        {imageError && (
+          <div className="absolute top-2 left-2 bg-black/70 px-2 py-1 rounded text-xs text-white">
+            <span className="flex items-center">
+              <AlertCircle size={12} className="mr-1" />
+              Alternative image
+            </span>
+          </div>
+        )}
+        
         <div className="absolute bottom-2 right-2 rounded bg-black/70 px-2 py-1 text-sm font-bold text-white">
           {car.price}
         </div>

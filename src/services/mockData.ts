@@ -1,4 +1,3 @@
-
 import { ArticleData } from "../components/ArticleCard";
 import { CarData } from "../components/CarCard";
 import { PhotoData } from "../components/PhotoCard";
@@ -181,56 +180,80 @@ export const mockUsedCars: CarData[] = [
   },
 ];
 
-// Mock Photos
+// Mock Photos with enhanced metadata
 export const mockPhotos: PhotoData[] = [
   {
     id: "1",
     imageUrl: "https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8YXN0b24lMjBtYXJ0aW58ZW58MHx8MHx8fDA%3D",
     title: "Aston Martin Vantage at Sunset",
     position: "1/14",
+    make: "Aston Martin",
+    carModel: "Vantage",
+    year: "2023"
   },
   {
     id: "2",
     imageUrl: "https://images.unsplash.com/photo-1566024146453-8d975a02c51b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGJtdyUyMGk4fGVufDB8fDB8fHww",
     title: "BMW i8 Front Angle",
     position: "2/14",
+    make: "BMW",
+    carModel: "i8",
+    year: "2022"
   },
   {
     id: "3",
     imageUrl: "https://images.unsplash.com/photo-1542362567-b07e54358753?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWVyY2VkZXMlMjBhbWd8ZW58MHx8MHx8fDA%3D",
     title: "Mercedes-AMG GT Interior",
     position: "3/14",
+    make: "Mercedes-Benz",
+    carModel: "AMG GT",
+    year: "2023"
   },
   {
     id: "4",
     imageUrl: "https://images.unsplash.com/photo-1612393266591-c32944e815c8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDd8fHBvcnNjaGV8ZW58MHx8MHx8fDA%3D",
     title: "Porsche 911 GT3 RS Track Day",
     position: "4/14",
+    make: "Porsche",
+    carModel: "911 GT3 RS",
+    year: "2023"
   },
   {
     id: "5",
     imageUrl: "https://images.unsplash.com/photo-1580274518385-51df6cf307a8?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZmVycmFyaXxlbnwwfHwwfHx8MA%3D%3D",
     title: "Ferrari SF90 Stradale",
     position: "5/14",
+    make: "Ferrari",
+    carModel: "SF90 Stradale",
+    year: "2023"
   },
   {
     id: "6",
     imageUrl: "https://images.unsplash.com/photo-1633509817627-5a29e6c4606f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8bGFtYm9yZ2hpbmklMjBodXJhY2FufGVufDB8fDB8fHww",
     title: "Lamborghini Huracán EVO",
     position: "6/14",
+    make: "Lamborghini",
+    carModel: "Huracán EVO",
+    year: "2022"
   },
   {
     id: "7",
     imageUrl: "https://images.unsplash.com/photo-1534093607318-f025413f49cb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fG1jbGFyZW58ZW58MHx8MHx8fDA%3D",
     title: "McLaren 720S Detail Shot",
     position: "7/14",
+    make: "McLaren",
+    carModel: "720S",
+    year: "2022"
   },
   {
     id: "8",
     imageUrl: "https://images.unsplash.com/photo-1617654112323-797e8f67b124?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8amFndWFyJTIwZnR5cGV8ZW58MHx8MHx8fDA%3D",
     title: "Jaguar F-Type R Coupe",
     position: "8/14",
-  },
+    make: "Jaguar",
+    carModel: "F-Type R",
+    year: "2022"
+  }
 ];
 
 // Mock Videos
