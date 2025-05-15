@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { CheckSquare, Square } from 'lucide-react';
+import { CheckSquare, Square, ArrowLeftRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { SavedItem } from '../contexts/SavedItemsContext';
 
@@ -22,10 +22,14 @@ const GarageCompare: React.FC<GarageCompareProps> = ({
   return (
     <div className="border rounded-lg bg-white p-4 shadow-sm">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-bold text-lg">Compare Cars</h3>
+        <h3 className="font-bold text-lg flex items-center gap-2">
+          <ArrowLeftRight size={18} className="text-motortrend-red" />
+          Compare Cars
+        </h3>
         <Button 
           onClick={onCompare}
           disabled={!canCompare}
+          variant={canCompare ? "default" : "outline"}
           className="transition-all hover:scale-105"
         >
           Compare Selected
