@@ -9,6 +9,7 @@ interface ContentTabsProps {
 
 const ContentTabs: React.FC<ContentTabsProps> = ({ activeTab, onTabChange }) => {
   const tabs: { id: ContentType; label: string }[] = [
+    { id: "all", label: "All" },
     { id: "articles", label: "Articles" },
     { id: "newCars", label: "New Cars" },
     { id: "usedCars", label: "Used Cars" },

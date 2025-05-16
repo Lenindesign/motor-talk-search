@@ -7,7 +7,7 @@ import VideoCard from "./VideoCard";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 
-export type ContentType = "articles" | "newCars" | "usedCars" | "photos" | "videos";
+export type ContentType = "articles" | "newCars" | "usedCars" | "photos" | "videos" | "all";
 
 interface ContentGridProps {
   type: ContentType;
@@ -25,7 +25,9 @@ const ContentGrid: React.FC<ContentGridProps> = ({
   hasMore,
 }) => {
   // Get the appropriate content based on the type
-  const items = content[type] || [];
+  const items = type === "all" 
+    ? Object.values(content).flat()
+    : content[type] || [];
 
   // Handle click on a car card
   const handleCarClick = (carId: string) => {
@@ -42,13 +44,16 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         <>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-4">
             {items.map((item, index) => {
-              switch (type) {
+              // For "all" type, determine the content type from the item
+              const contentType = type === "all" ? determineItemType(item) : type;
+              
+              switch (contentType) {
                 case "articles":
-                  return <ArticleCard key={item.id} article={item} />;
+                  return <ArticleCard key={item.id || index} article={item} />;
                 case "newCars":
                   return (
                     <div 
-                      key={item.id} 
+                      key={item.id || index} 
                       onClick={() => handleCarClick(item.id)}
                       className="cursor-pointer"
                     >
@@ -58,7 +63,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
                 case "usedCars":
                   return (
                     <div 
-                      key={item.id} 
+                      key={item.id || index} 
                       onClick={() => handleCarClick(item.id)}
                       className="cursor-pointer"
                     >
@@ -66,9 +71,9 @@ const ContentGrid: React.FC<ContentGridProps> = ({
                     </div>
                   );
                 case "photos":
-                  return <PhotoCard key={item.id} photo={item} />;
+                  return <PhotoCard key={item.id || index} photo={item} />;
                 case "videos":
-                  return <VideoCard key={item.id} video={item} />;
+                  return <VideoCard key={item.id || index} video={item} />;
                 default:
                   return null;
               }
@@ -92,6 +97,16 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       )}
     </div>
   );
+};
+
+// Helper function to determine the type of content item
+const determineItemType = (item: any): ContentType => {
+  if (item.articleTitle) return "articles";
+  if (item.make && item.model && item.condition === "new") return "newCars";
+  if (item.make && item.model && item.condition === "used") return "usedCars";
+  if (item.photoUrl) return "photos";
+  if (item.videoUrl) return "videos";
+  return "articles"; // Default fallback
 };
 
 export default ContentGrid;
