@@ -1,7 +1,7 @@
 
 import React from "react";
 
-// Update this to match ContentGrid.tsx
+// Update to match ContentGrid.tsx type definition
 export type ContentType = "articles" | "newCars" | "usedCars" | "photos" | "videos";
 
 interface ContentTabsProps {
