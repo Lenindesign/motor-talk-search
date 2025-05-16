@@ -201,7 +201,7 @@ const Index = () => {
               {searchHistory.length === 0 ? (
                 <div className="flex flex-1 flex-col items-center justify-center space-y-6 py-20">
                   <h1 className="text-3xl font-bold text-motortrend-dark">
-                    Welcome to MotorTrend Search
+                    Welcome to MOTORTREND Search
                   </h1>
                   <p className="max-w-md text-center text-gray-500">
                     Ask me anything about cars or search for automotive content
