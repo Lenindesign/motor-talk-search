@@ -1,6 +1,7 @@
 
 import React from "react";
-import { ContentType } from "./ContentGrid";
+
+export type ContentType = "all" | "articles" | "newCars" | "usedCars" | "photos" | "videos";
 
 interface ContentTabsProps {
   activeTab: ContentType;
