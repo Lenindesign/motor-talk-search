@@ -152,7 +152,7 @@
   
   /* Focus styles with animation */
   input:focus, button:focus, a:focus, [tabindex]:focus {
-    @apply outline-none ring-2 ring-motortrend-red/30 transition-shadow duration-200;
+    @apply outline-none ring-2 ring-motortrend-red/30 transition-shadow duration-300;
   }
   
   /* Card interaction enhancements */
