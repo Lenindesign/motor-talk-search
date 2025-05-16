@@ -4,28 +4,29 @@ import { SavedItem } from "../../contexts/SavedItemsContext";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Trash2, ExternalLink } from "lucide-react";
+import { CarData } from "../CarCard";
 
 interface GarageTabContentProps {
-  title: string;
-  items: SavedItem[];
-  onRemove: (id: string) => void;
-  onCompare: (id: string) => void;
-  selectedForComparison: string[];
+  activeTab: 'all' | 'owned' | 'testDriven' | 'interested';
+  onTabChange: (tab: 'all' | 'owned' | 'testDriven' | 'interested') => void;
+  displayCars: SavedItem[];
+  savedItemToCarData: (item: SavedItem) => CarData;
+  minScore: number;
 }
 
 const GarageTabContent: React.FC<GarageTabContentProps> = ({
-  title,
-  items,
-  onRemove,
-  onCompare,
-  selectedForComparison,
+  activeTab,
+  onTabChange,
+  displayCars,
+  savedItemToCarData,
+  minScore,
 }) => {
-  if (items.length === 0) {
+  if (displayCars.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 mb-2">No {title.toLowerCase()} saved yet</p>
+        <p className="text-gray-500 mb-2">No {activeTab === 'all' ? 'cars' : activeTab} found</p>
         <p className="text-sm text-gray-400">
-          Items you save will appear here
+          {minScore > 0 ? `No cars with score ${minScore} or above found.` : "Items you save will appear here"}
         </p>
       </div>
     );
@@ -42,20 +43,16 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {items.map((item) => (
+      {displayCars.map((item) => (
         <div
           key={item.id}
-          className={`border rounded-lg overflow-hidden hover:shadow-md transition-shadow ${
-            selectedForComparison.includes(item.id)
-              ? "ring-2 ring-motortrend-red"
-              : ""
-          }`}
+          className="border rounded-lg overflow-hidden hover:shadow-md transition-shadow"
         >
           <div className="flex overflow-hidden">
             <div className="w-1/3">
               <a href={`#/cars/${item.id}`}>
                 <img
-                  src={item.imageUrl}
+                  src={item.imageUrl || '/placeholder.svg'}
                   alt={item.title}
                   className="w-full h-full object-cover"
                 />
@@ -88,7 +85,6 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
                     size="icon"
                     variant="ghost"
                     className="h-7 w-7"
-                    onClick={() => onRemove(item.id)}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -119,11 +115,8 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
                     size="sm"
                     variant="ghost"
                     className="h-8 px-2 text-xs"
-                    onClick={() => onCompare(item.id)}
                   >
-                    {selectedForComparison.includes(item.id)
-                      ? "Remove from Compare"
-                      : "Compare"}
+                    Compare
                   </Button>
                   <a href={`#/cars/${item.id}`}>
                     <Button

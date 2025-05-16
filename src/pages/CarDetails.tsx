@@ -32,7 +32,16 @@ const CarDetails = () => {
     year: "Unknown",
     bodyStyle: "Sedan" as any,
     motorTrendScore: 0,
-    motorTrendRank: 0
+    motorTrendRank: 0,
+    // Add all missing properties that were causing errors
+    horsepowerTorque: "N/A",
+    fuelType: "N/A",
+    drivetrain: "N/A",
+    cargoCapacity: "N/A",
+    trunkCapacity: "N/A",
+    towingCapacity: "N/A",
+    zeroToSixty: "N/A",
+    familyFeatures: "N/A"
   };
   
   // Check if car is saved

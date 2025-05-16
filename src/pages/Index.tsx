@@ -1,9 +1,10 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchSuggestions from "../components/SearchSuggestions";
 import ChatMessage from "../components/ChatMessage";
-import ContentTabs, { ContentType } from "../components/ContentTabs";
-import ContentGrid from "../components/ContentGrid";
+import ContentTabs from "../components/ContentTabs";
+import ContentGrid, { ContentType } from "../components/ContentGrid"; // Import ContentType from ContentGrid
 import MainNavigation from "../components/MainNavigation";
 import { 
   determineContentType, 

@@ -1,7 +1,8 @@
 
 import React from "react";
 
-export type ContentType = "all" | "articles" | "newCars" | "usedCars" | "photos" | "videos";
+// Update this to match ContentGrid.tsx
+export type ContentType = "articles" | "newCars" | "usedCars" | "photos" | "videos";
 
 interface ContentTabsProps {
   activeTab: ContentType;
@@ -10,7 +11,6 @@ interface ContentTabsProps {
 
 const ContentTabs: React.FC<ContentTabsProps> = ({ activeTab, onTabChange }) => {
   const tabs: { id: ContentType; label: string }[] = [
-    { id: "all", label: "All" },
     { id: "articles", label: "Articles" },
     { id: "newCars", label: "New Cars" },
     { id: "usedCars", label: "Used Cars" },
