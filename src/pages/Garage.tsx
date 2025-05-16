@@ -74,7 +74,7 @@ const Garage = () => {
   
   // Mock user data - in a real app, this would come from auth context or API
   const userData = {
-    name: localStorage.getItem("userName") || "John Driver",
+    name: localStorage.getItem("userName") || "John Smith",
     email: localStorage.getItem("userEmail") || "john.driver@example.com",
     avatar: "/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png",
     joined: "January 2023"
