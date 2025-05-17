@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
 // User achievement structure
@@ -24,7 +23,7 @@ export interface UserActivity {
 }
 
 // Saved item type
-export type SavedItemType = 'article' | 'newCar' | 'usedCar' | 'photo' | 'video';
+export type SavedItemType = 'article' | 'newCar' | 'usedCar' | 'photo' | 'video' | 'owned' | 'interested';
 
 // Saved item structure
 export interface SavedItem {
@@ -57,6 +56,7 @@ interface SavedItemsContextType {
   removeSavedItem: (id: string) => void;
   isSaved: (id: string) => boolean;
   updateSavedItem: (id: string, updates: Partial<SavedItem>) => void;
+  getSavedItemById: (id: string) => SavedItem | undefined;
 }
 
 const SavedItemsContext = createContext<SavedItemsContextType | undefined>(undefined);
@@ -159,6 +159,9 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
   // Check if an item is already saved
   const isSaved = (id: string) => savedItems.some(item => item.id === id);
 
+  // Get a saved item by ID
+  const getSavedItemById = (id: string) => savedItems.find(item => item.id === id);
+
   // Add a new item to saved items
   const addSavedItem = (item: SavedItem) => {
     // Ensure item has a savedAt date
@@ -232,7 +235,8 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
       addSavedItem, 
       removeSavedItem, 
       isSaved,
-      updateSavedItem
+      updateSavedItem,
+      getSavedItemById
     }}>
       {children}
     </SavedItemsContext.Provider>

@@ -19,10 +19,10 @@ interface ActionButtonsProps {
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({ vehicle }) => {
   const navigate = useNavigate();
-  const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
+  const { addSavedItem, removeSavedItem, isSaved, getSavedItemById } = useSavedItems();
   
-  const isOwned = isSaved(vehicle.id) && useSavedItems().getSavedItemById(vehicle.id)?.type === 'owned';
-  const isWishlisted = isSaved(vehicle.id) && useSavedItems().getSavedItemById(vehicle.id)?.type === 'interested';
+  const isOwned = isSaved(vehicle.id) && getSavedItemById(vehicle.id)?.type === 'owned';
+  const isWishlisted = isSaved(vehicle.id) && getSavedItemById(vehicle.id)?.type === 'interested';
   
   const handleAddToGarage = () => {
     if (isOwned) {
