@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Link } from "react-router-dom";
 import { Bookmark } from "lucide-react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import CarSpecifications from "./car-specs/CarSpecifications";
@@ -63,6 +64,8 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
 
   const handleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
+    e.preventDefault(); // Prevent the link navigation when clicking save button
+    
     if (saved) {
       removeSavedItem(car.id);
     } else {
@@ -107,53 +110,68 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
     }
   };
 
+  // Extract make, model, year from title for potential use in URL
+  // Example title format: "2023 Toyota Camry XSE"
+  const extractVehicleInfo = () => {
+    const parts = car.title.split(' ');
+    if (parts.length >= 3) {
+      const year = parts[0];
+      const make = parts[1];
+      const model = parts[2];
+      return { year, make, model };
+    }
+    return null;
+  };
+
   return (
-    <div className="overflow-hidden rounded-lg bg-white shadow transition-all hover:shadow-md">
-      <div className="relative">
-        <CarImage 
-          imageUrl={car.imageUrl}
-          title={car.title}
-          price={car.price}
-          isNew={type === "new"}
-        />
+    <Link to={`/research/${car.id}`} className="block no-underline text-inherit">
+      <div className="overflow-hidden rounded-lg bg-white shadow transition-all hover:shadow-md cursor-pointer">
+        <div className="relative">
+          <CarImage 
+            imageUrl={car.imageUrl}
+            title={car.title}
+            price={car.price}
+            isNew={type === "new"}
+          />
+          
+          <MotorTrendScore 
+            score={car.motorTrendScore} 
+            rank={car.motorTrendRank} 
+          />
+          
+          <button
+            onClick={handleSave}
+            className={`absolute top-2 right-2 p-1.5 rounded-full ${saved ? 'bg-motortrend-red text-white' : 'bg-black/70 text-white hover:bg-motortrend-red'} transition-colors`}
+            aria-label={saved ? "Unsave car" : "Save car"}
+          >
+            <Bookmark size={16} className={saved ? 'fill-white' : ''} />
+          </button>
+        </div>
         
-        <MotorTrendScore 
-          score={car.motorTrendScore} 
-          rank={car.motorTrendRank} 
-        />
-        
-        <button
-          onClick={handleSave}
-          className={`absolute top-2 right-2 p-1.5 rounded-full ${saved ? 'bg-motortrend-red text-white' : 'bg-black/70 text-white hover:bg-motortrend-red'} transition-colors`}
-          aria-label={saved ? "Unsave car" : "Save car"}
-        >
-          <Bookmark size={16} className={saved ? 'fill-white' : ''} />
-        </button>
-      </div>
-      
-      <div className="p-4">
-        <div className="mb-1 text-xs font-medium text-motortrend-red flex justify-between">
-          <div>
-            {car.category} {car.bodyStyle ? `- ${car.bodyStyle}` : ''}
+        <div className="p-4">
+          <div className="mb-1 text-xs font-medium text-motortrend-red flex justify-between">
+            <div>
+              {car.category} {car.bodyStyle ? `- ${car.bodyStyle}` : ''}
+            </div>
+            {car.motorTrendCategoryRank && (
+              <div className="text-gray-700 font-semibold">
+                #{car.motorTrendCategoryRank} in class
+              </div>
+            )}
           </div>
-          {car.motorTrendCategoryRank && (
-            <div className="text-gray-700 font-semibold">
-              #{car.motorTrendCategoryRank} in class
+          <h3 className="mb-2 line-clamp-2 text-sm font-bold">{car.title}</h3>
+          
+          <CarSpecifications car={car} />
+          
+          {car.location && (
+            <div className="mt-2 text-xs text-gray-500">
+              <span className="mr-1">📍</span>
+              {car.location}
             </div>
           )}
         </div>
-        <h3 className="mb-2 line-clamp-2 text-sm font-bold">{car.title}</h3>
-        
-        <CarSpecifications car={car} />
-        
-        {car.location && (
-          <div className="mt-2 text-xs text-gray-500">
-            <span className="mr-1">📍</span>
-            {car.location}
-          </div>
-        )}
       </div>
-    </div>
+    </Link>
   );
 };
 
