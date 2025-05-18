@@ -1,4 +1,3 @@
-
 import { carMakes } from './carData';
 
 // Mock vehicle database for demonstration
@@ -1240,7 +1239,7 @@ const vehicleDatabase = [
         user: 'ComfortSeeker',
         rating: 4,
         title: 'Luxury without the price premium',
-        content: 'The ES F Sport offers a nice balance of comfort and handling, though it's not truly sporty despite the badge.',
+        content: 'The ES F Sport offers a nice balance of comfort and handling, though it\'s not truly sporty despite the badge.',
         pros: ['Quiet cabin', 'Smooth ride', 'Reliability'],
         cons: ['Remote touch interface is frustrating', 'Front-wheel drive only'],
         ownershipLength: '3.5 years',
