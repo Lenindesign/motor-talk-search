@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSavedItems } from '@/contexts/SavedItemsContext';
@@ -99,6 +100,19 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ vehicle }) => {
   
   const compareVehicles = () => {
     navigate('/garage', { state: { compare: true, vehicleId: vehicle.id } });
+  };
+
+  // Add the missing handler functions
+  const handleDealerQuote = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast.success(`Price quotes requested for ${vehicle.make} ${vehicle.model}. Dealers in ${zipCode} will contact you soon.`);
+    setDealerQuoteOpen(false);
+  };
+
+  const handleFinancingCheck = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast.success(`Financing options for ${vehicle.make} ${vehicle.model} will be sent to ${email}.`);
+    setFinancingOpen(false);
   };
 
   return (
