@@ -12,6 +12,11 @@ const MyGarageSkinny = () => {
   // Filter car items only
   const savedCars = savedItems.filter(item => item.type === 'newCar' || item.type === 'usedCar').slice(0, 3);
   
+  // Get research URL for a car
+  const getResearchUrl = (carId: string) => {
+    return `/research/${carId}`;
+  };
+  
   return (
     <Card className="mt-6">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -28,11 +33,23 @@ const MyGarageSkinny = () => {
         {savedCars.length > 0 ? (
           <div className="space-y-2">
             {savedCars.map(car => (
-              <Link to="/garage" key={car.id} className="flex items-center justify-between p-2 rounded-md hover:bg-gray-50">
+              <Link 
+                to={getResearchUrl(car.id)} 
+                key={car.id} 
+                className="flex items-center justify-between p-2 rounded-md hover:bg-gray-50"
+              >
                 <div className="flex items-center">
                   <div className="w-10 h-10 rounded overflow-hidden mr-3 bg-gray-100">
                     {car.imageUrl && (
-                      <img src={car.imageUrl} alt={car.title} className="w-full h-full object-cover" />
+                      <img 
+                        src={car.imageUrl} 
+                        alt={car.title} 
+                        className="w-full h-full object-cover" 
+                        onError={(e) => {
+                          // Fallback image if the car image fails to load
+                          (e.target as HTMLImageElement).src = '/placeholder.svg';
+                        }}
+                      />
                     )}
                   </div>
                   <div>
@@ -50,15 +67,6 @@ const MyGarageSkinny = () => {
                 </Badge>
               </Link>
             ))}
-            
-            {savedCars.length === 0 && (
-              <div className="text-center py-6">
-                <p className="text-gray-500 text-sm">No cars in your garage yet</p>
-                <Link to="/garage" className="text-sm text-motortrend-red hover:underline mt-2 inline-block">
-                  Add your first car
-                </Link>
-              </div>
-            )}
           </div>
         ) : (
           <div className="text-center py-6">

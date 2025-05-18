@@ -123,8 +123,26 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
     return null;
   };
 
+  // Make sure we have a valid ID for research link
+  const getResearchUrl = () => {
+    // If we have an ID, use it directly
+    if (car.id) {
+      return `/research/${car.id}`;
+    }
+    
+    // Fallback: create a URL-friendly ID from the car title
+    const info = extractVehicleInfo();
+    if (info) {
+      const urlFriendlyId = `${info.year}-${info.make.toLowerCase()}-${info.model.toLowerCase()}`;
+      return `/research/${urlFriendlyId}`;
+    }
+    
+    // Last resort: create an ID from the title
+    return `/research/${encodeURIComponent(car.title.replace(/\s+/g, '-').toLowerCase())}`;
+  };
+
   return (
-    <Link to={`/research/${car.id}`} className="block no-underline text-inherit">
+    <Link to={getResearchUrl()} className="block no-underline text-inherit">
       <div className="overflow-hidden rounded-lg bg-white shadow transition-all hover:shadow-md cursor-pointer">
         <div className="relative">
           <CarImage 

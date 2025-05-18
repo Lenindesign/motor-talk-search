@@ -8,9 +8,9 @@ export interface PhotoData {
   imageUrl: string;
   title: string;
   position: string;
-  carModel?: string; // Add carModel for better matching
-  year?: string;     // Add year for better matching
-  make?: string;     // Add make for better matching
+  carModel?: string;
+  year?: string;
+  make?: string;
 }
 
 interface PhotoCardProps {
@@ -59,6 +59,8 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
 
   // Function to find fallback image based on car details
   const getFallbackImage = () => {
+    if (!photo.title) return '/placeholder.svg';
+    
     // Extract make from title as fallback
     const title = photo.title.toLowerCase();
     
@@ -93,7 +95,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
         
         <img
           src={photo.imageUrl}
-          alt={photo.title}
+          alt={photo.title || 'Car photo'}
           className={`h-48 w-full object-cover ${!imageLoaded ? 'hidden' : ''}`}
           onLoad={() => setImageLoaded(true)}
           onError={(e) => {
@@ -108,7 +110,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
           <div className="absolute top-0 left-0 right-0 flex items-center justify-center h-48 bg-gray-100">
             <div className="text-center px-4">
               <AlertCircle className="mx-auto h-6 w-6 text-gray-400 mb-1" />
-              <p className="text-xs text-gray-500">Using alternative image for {photo.title}</p>
+              <p className="text-xs text-gray-500">Using alternative image for {photo.title || 'this car'}</p>
             </div>
           </div>
         )}
@@ -125,7 +127,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
         </button>
       </div>
       <div className="p-2">
-        <h3 className="text-sm font-medium line-clamp-2">{photo.title}</h3>
+        <h3 className="text-sm font-medium line-clamp-2">{photo.title || 'Car Photo'}</h3>
         {(photo.year || photo.make || photo.carModel) && (
           <p className="text-xs text-gray-500 mt-1">
             {[photo.year, photo.make, photo.carModel].filter(Boolean).join(' ')}

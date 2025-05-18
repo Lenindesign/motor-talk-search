@@ -20,6 +20,14 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
   savedItemToCarData,
   minScore
 }) => {
+  // Ensure all car data has an ID
+  const validateCarData = (item: SavedItem): boolean => {
+    return !!item.id && !!item.title && !!item.type;
+  };
+
+  // Filter out any invalid car data
+  const validCars = displayCars.filter(validateCarData);
+
   return (
     <Tabs 
       defaultValue="all" 
@@ -36,14 +44,15 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
       
       <TabsContent value={activeTab} className="mt-6">
         <div className="space-y-4">
-          {displayCars.map(car => (
-            <GarageCarCard 
-              key={car.id} 
-              car={savedItemToCarData(car)} 
-              type={car.type === 'newCar' ? 'new' : 'used'} 
-            />
-          ))}
-          {displayCars.length === 0 && (
+          {validCars.length > 0 ? (
+            validCars.map(car => (
+              <GarageCarCard 
+                key={car.id} 
+                car={savedItemToCarData(car)} 
+                type={car.type === 'newCar' ? 'new' : 'used'} 
+              />
+            ))
+          ) : (
             <p className="text-center text-gray-500 py-8">
               {minScore > 0 ? 
                 `No cars found with MotorTrend Score of ${minScore} or higher.` : 
