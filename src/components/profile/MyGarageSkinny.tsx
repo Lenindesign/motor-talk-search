@@ -12,7 +12,7 @@ const MyGarageSkinny = () => {
   // Filter car items only
   const savedCars = savedItems.filter(item => item.type === 'newCar' || item.type === 'usedCar').slice(0, 3);
   
-  // Get research URL for a car
+  // Get research URL for a car - ensure this matches the format in CarCard.tsx
   const getResearchUrl = (carId: string) => {
     return `/research/${carId}`;
   };
@@ -47,6 +47,7 @@ const MyGarageSkinny = () => {
                         className="w-full h-full object-cover" 
                         onError={(e) => {
                           // Fallback image if the car image fails to load
+                          console.info(`Using fallback image for: ${car.title}`);
                           (e.target as HTMLImageElement).src = '/placeholder.svg';
                         }}
                       />

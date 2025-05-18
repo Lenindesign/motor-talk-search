@@ -4,6 +4,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GarageCarCard from "../CarCard";
 import { SavedItem } from "../../contexts/SavedItemsContext";
 import { CarData } from "../CarCard";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Info } from "lucide-react";
 
 interface GarageTabContentProps {
   activeTab: 'all' | 'owned' | 'testDriven' | 'interested';
@@ -43,6 +45,16 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
       </TabsList>
       
       <TabsContent value={activeTab} className="mt-6">
+        {/* Notification alert for proper car viewing */}
+        {validCars.length > 0 && (
+          <Alert className="mb-4 bg-blue-50 border-blue-200">
+            <Info className="h-4 w-4 text-blue-600" />
+            <AlertDescription className="text-blue-800">
+              Click on any vehicle card to view detailed information on the research page.
+            </AlertDescription>
+          </Alert>
+        )}
+        
         <div className="space-y-4">
           {validCars.length > 0 ? (
             validCars.map(car => (

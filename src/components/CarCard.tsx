@@ -110,19 +110,6 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
     }
   };
 
-  // Extract make, model, year from title for potential use in URL
-  // Example title format: "2023 Toyota Camry XSE"
-  const extractVehicleInfo = () => {
-    const parts = car.title.split(' ');
-    if (parts.length >= 3) {
-      const year = parts[0];
-      const make = parts[1];
-      const model = parts[2];
-      return { year, make, model };
-    }
-    return null;
-  };
-
   // Make sure we have a valid ID for research link
   const getResearchUrl = () => {
     // If we have an ID, use it directly
@@ -131,14 +118,8 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
     }
     
     // Fallback: create a URL-friendly ID from the car title
-    const info = extractVehicleInfo();
-    if (info) {
-      const urlFriendlyId = `${info.year}-${info.make.toLowerCase()}-${info.model.toLowerCase()}`;
-      return `/research/${urlFriendlyId}`;
-    }
-    
-    // Last resort: create an ID from the title
-    return `/research/${encodeURIComponent(car.title.replace(/\s+/g, '-').toLowerCase())}`;
+    const urlFriendlyId = car.title.replace(/\s+/g, '-').toLowerCase();
+    return `/research/${urlFriendlyId}`;
   };
 
   return (

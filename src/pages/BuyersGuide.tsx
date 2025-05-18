@@ -8,6 +8,7 @@ import { Search, Filter, ArrowUpDown, Calendar } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import CarCard, { CarData } from '@/components/CarCard';
 import { Badge } from '@/components/ui/badge';
+import { toast } from 'sonner';
 
 const BuyersGuide: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'new' | 'used'>('new');
@@ -24,6 +25,7 @@ const BuyersGuide: React.FC = () => {
         // In a real app, you'd fetch from an API here
         // For now, we're setting placeholder data
         setTimeout(() => {
+          // These IDs now match the ones in vehicleService.ts
           setNewCars([
             {
               id: 'new-1',
@@ -141,10 +143,20 @@ const BuyersGuide: React.FC = () => {
             }
           ]);
           setIsLoading(false);
+          
+          // Show success toast
+          toast.success('Vehicle data loaded successfully', {
+            description: 'Click on any vehicle to see detailed information'
+          });
         }, 800);
       } catch (error) {
         console.error('Error loading vehicles:', error);
         setIsLoading(false);
+        
+        // Show error toast
+        toast.error('Error loading vehicles', {
+          description: 'Please try again later'
+        });
       }
     };
 
