@@ -88,7 +88,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   if (variant === "header") {
     return (
-      <div className="w-full max-w-xs relative" ref={wrapperRef}>
+      <div className="w-full relative" ref={wrapperRef}>
         <form 
           onSubmit={handleSubmit}
           className="w-full"

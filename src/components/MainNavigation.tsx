@@ -31,8 +31,6 @@ const MainNavigation = () => {
       <NavLink href="/reviews">Reviews</NavLink>
       <NavLink href="/buyers-guide">Buyer's Guide</NavLink>
       <NavLink href="/videos">Videos</NavLink>
-      <NavLink href="/magazines">Magazines</NavLink>
-      <NavLink href="/the-future">The Future</NavLink>
     </>
   );
 
