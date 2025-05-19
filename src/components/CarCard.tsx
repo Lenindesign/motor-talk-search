@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Bookmark } from "lucide-react";
@@ -60,14 +59,14 @@ interface CarCardProps {
 
 const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
   const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
-  const saved = isSaved(car.id);
+  const saved = isSaved(car.id, type === "new" ? "newCar" : "usedCar");
 
   const handleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault(); // Prevent the link navigation when clicking save button
     
     if (saved) {
-      removeSavedItem(car.id);
+      removeSavedItem(car.id, type === "new" ? "newCar" : "usedCar");
     } else {
       addSavedItem({
         id: car.id,
@@ -168,6 +167,16 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
               {car.location}
             </div>
           )}
+        </div>
+        {/* CTA Button with 32px padding */}
+        <div style={{ padding: 32 }}>
+          <button
+            style={{ backgroundColor: '#E90C17', color: '#fff', width: '100%', fontWeight: 600, fontSize: '1rem', padding: '0.75rem', borderRadius: '0.375rem', boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}
+            className="transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#E90C17]"
+            onClick={e => { e.preventDefault(); e.stopPropagation(); window.open('https://www.autotrader.com/cars-for-sale', '_blank'); }}
+          >
+            See Local Listings
+          </button>
         </div>
       </div>
     </Link>

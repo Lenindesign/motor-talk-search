@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GarageCarCard from "../CarCard";
@@ -55,7 +54,8 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
           </Alert>
         )}
         
-        <div className="space-y-4">
+        {/* Responsive grid for car cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {validCars.length > 0 ? (
             validCars.map(car => (
               <GarageCarCard 
@@ -65,7 +65,7 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
               />
             ))
           ) : (
-            <p className="text-center text-gray-500 py-8">
+            <p className="text-center text-gray-500 py-8 col-span-full">
               {minScore > 0 ? 
                 `No cars found with MotorTrend Score of ${minScore} or higher.` : 
                 `No ${activeTab !== 'all' ? activeTab : ''} cars in your garage yet. Add some from the form below.`

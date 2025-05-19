@@ -16,6 +16,7 @@ import {
   mockVideos
 } from "../services/mockData";
 import { useIsMobile } from "../hooks/use-mobile";
+import GlobalHeader from '../components/GlobalHeader';
 
 interface SearchResult {
   id: string;
@@ -169,31 +170,7 @@ const Index = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-motortrend-gray">
-      <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
-        <div className="flex items-center max-w-[980px] mx-auto w-full">
-          <div className="flex items-center flex-1">
-            {isMobile && <MainNavigation />}
-            <div className="flex-shrink-0">
-              <img 
-                src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" 
-                alt="MotorTrend Logo" 
-                className="h-7 w-auto"
-              />
-            </div>
-            <div className="hidden sm:block ml-4 flex-1 max-w-md">
-              <SearchBar 
-                onSearch={handleSearch} 
-                isLoading={isSearching}
-                variant="header" 
-              />
-            </div>
-          </div>
-          <div className="hidden sm:flex ml-4">
-            <MainNavigation />
-          </div>
-        </div>
-      </header>
-      
+      <GlobalHeader onSearch={handleSearch} isLoading={isSearching} />
       <main className="flex flex-1 flex-col">
         <div className="relative flex flex-col h-full">
           <div className="flex-1 overflow-y-auto" ref={chatContainerRef}>

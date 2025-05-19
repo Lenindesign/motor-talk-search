@@ -19,6 +19,8 @@ import UserPoints from "../components/UserPoints";
 import { User, Settings, Car, Bookmark, Save, Palette, Activity, Award } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MyGarageSkinny from "../components/profile/MyGarageSkinny";
+import GlobalHeader from '../components/GlobalHeader';
+import UserReviews from '../components/garage/UserReviews';
 
 const Profile = () => {
   const {
@@ -66,8 +68,8 @@ const Profile = () => {
     avatar: "/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png",
     joined: "January 2023"
   };
-  const handleUnsave = (id: string) => {
-    removeSavedItem(id);
+  const handleUnsave = (id: string, type: SavedItemType) => {
+    removeSavedItem(id, type);
   };
   const filterItemsByType = (type: SavedItemType | 'all') => {
     if (type === 'all') return savedItems;
@@ -78,22 +80,7 @@ const Profile = () => {
   const [filterType, setFilterType] = useState<SavedItemType | 'all'>('all');
   const filteredItems = filterItemsByType(filterType);
   return <div className="min-h-screen bg-motortrend-gray">
-      <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
-        <div className="flex items-center justify-between max-w-[980px] mx-auto w-full">
-          <div className="flex items-center">
-            {isMobile && <MainNavigation />}
-            <Link to="/" className="flex-shrink-0">
-              <img src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" alt="MotorTrend Logo" className="h-7 w-auto" />
-            </Link>
-            <div className="hidden sm:flex ml-6">
-              <MainNavigation />
-            </div>
-          </div>
-          <div className="hidden sm:block ml-4">
-            <SearchBar onSearch={query => navigate(`/?q=${query}`)} isLoading={false} variant="header" />
-          </div>
-        </div>
-      </header>
+      <GlobalHeader isLoading={false} />
       
       <main className="max-w-[980px] mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row gap-8">
@@ -163,6 +150,10 @@ const Profile = () => {
                   <Award size={16} />
                   <span>Achievements</span>
                 </TabsTrigger>
+                <TabsTrigger value="myreviews" className="flex items-center gap-1">
+                  <Save size={16} />
+                  <span>My Reviews</span>
+                </TabsTrigger>
                 <TabsTrigger value="settings" className="flex items-center gap-1">
                   <Settings size={16} />
                   <span>Settings</span>
@@ -199,7 +190,7 @@ const Profile = () => {
                         Browse Content
                       </Button>
                     </div> : <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {filteredItems.map(item => <SavedItemCard key={item.id} item={item} onUnsave={handleUnsave} />)}
+                      {filteredItems.map(item => <SavedItemCard key={item.id} item={item} onUnsave={(id) => handleUnsave(id, item.type)} />)}
                     </div>}
                 </div>
               </TabsContent>
@@ -210,6 +201,10 @@ const Profile = () => {
               
               <TabsContent value="achievements" className="space-y-6">
                 <UserAchievements />
+              </TabsContent>
+              
+              <TabsContent value="myreviews" className="space-y-6">
+                <UserReviews />
               </TabsContent>
               
               <TabsContent value="settings">

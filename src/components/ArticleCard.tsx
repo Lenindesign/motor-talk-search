@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Bookmark } from "lucide-react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
@@ -19,12 +18,12 @@ interface ArticleCardProps {
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
   const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
-  const saved = isSaved(article.id);
+  const saved = isSaved(article.id, 'article');
 
   const handleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (saved) {
-      removeSavedItem(article.id);
+      removeSavedItem(article.id, 'article');
     } else {
       addSavedItem({
         id: article.id,
@@ -33,8 +32,10 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
         imageUrl: article.imageUrl,
         savedAt: new Date().toISOString(),
         metadata: {
+          date: article.date,
           category: article.category,
-          date: article.date
+          featured: article.featured,
+          photoCount: article.photoCount
         }
       });
     }

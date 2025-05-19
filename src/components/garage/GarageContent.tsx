@@ -1,9 +1,8 @@
-
 import React, { useState } from "react";
 import { Car } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useSavedItems, SavedItem } from "../../contexts/SavedItemsContext";
+import { useSavedItems, SavedItem, SavedItemType } from "../../contexts/SavedItemsContext";
 import GarageStats from "../GarageStats";
 import CarComparisonTable from "./CarComparisonTable";
 import GarageCompare from "../GarageCompare";
@@ -108,7 +107,16 @@ const GarageContent = () => {
   };
   
   // Handler for toggling car selection for comparison
-  const handleToggleCarForComparison = (carId: string) => {
+  const handleToggleCarForComparison = (carId: string, carType: SavedItemType) => {
+    if (carId === 'ALL_SELECT') {
+      // Select up to 4 cars
+      setSelectedCars(savedCars.slice(0, 4).map(car => car.id));
+      return;
+    }
+    if (carId === 'ALL_DESELECT') {
+      setSelectedCars([]);
+      return;
+    }
     setSelectedCars(prev => {
       if (prev.includes(carId)) {
         return prev.filter(id => id !== carId);
@@ -197,14 +205,10 @@ const GarageContent = () => {
           <>
             <GarageStats />
             
-            {/* Comparison Selection */}
+            {/* Add Another Car (moved here) */}
             <div className="mb-6">
-              <GarageCompare
-                savedCars={savedCars}
-                selectedCars={selectedCars}
-                onToggleCar={handleToggleCarForComparison}
-                onCompare={handleCompare}
-              />
+              <h3 className="text-lg font-medium mb-4">Add another car</h3>
+              <QuickAddCar activeTab={activeTab} />
             </div>
             
             <GarageTabContent 
@@ -217,10 +221,13 @@ const GarageContent = () => {
             
             <UserReviews />
             
-            <div className="mt-8 pt-6 border-t">
-              <h3 className="text-lg font-medium mb-4">Add another car</h3>
-              <QuickAddCar activeTab={activeTab} />
-            </div>
+            {/* Compare Cars (moved to bottom) */}
+            <GarageCompare
+              savedCars={savedCars}
+              selectedCars={selectedCars}
+              onToggleCar={(id, type) => handleToggleCarForComparison(id, type)}
+              onCompare={handleCompare}
+            />
           </>
         )}
       </CardContent>

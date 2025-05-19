@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Bookmark, AlertCircle } from "lucide-react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
@@ -21,7 +20,7 @@ interface PhotoCardProps {
 const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
   const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
-  const saved = isSaved(photo.id);
+  const saved = isSaved(photo.id, 'photo');
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -39,7 +38,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onClick }) => {
   const handleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (saved) {
-      removeSavedItem(photo.id);
+      removeSavedItem(photo.id, 'photo');
     } else {
       addSavedItem({
         id: photo.id,

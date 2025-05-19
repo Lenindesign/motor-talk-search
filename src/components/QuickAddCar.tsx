@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Search, Plus } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -176,43 +175,6 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
             className={`px-2 py-1 rounded ${ownership === 'interested' ? 'bg-amber-100 text-amber-700' : 'text-gray-500 hover:bg-gray-100'}`}
           >
             Interested
-          </button>
-        </div>
-      </div>
-      
-      {/* Body style selector */}
-      <div className="flex mb-4 justify-center text-sm flex-wrap">
-        <span className="mr-2 text-gray-500 w-full text-center mb-1">Vehicle Type:</span>
-        <div className="flex space-x-2 flex-wrap justify-center">
-          <button 
-            onClick={() => setBodyStyle('SUV')} 
-            className={`px-2 py-1 rounded mb-1 ${bodyStyle === 'SUV' ? 'bg-gray-800 text-white' : 'text-gray-500 hover:bg-gray-100'}`}
-          >
-            SUV
-          </button>
-          <button 
-            onClick={() => setBodyStyle('Sedan')} 
-            className={`px-2 py-1 rounded mb-1 ${bodyStyle === 'Sedan' ? 'bg-gray-800 text-white' : 'text-gray-500 hover:bg-gray-100'}`}
-          >
-            Sedan
-          </button>
-          <button 
-            onClick={() => setBodyStyle('Truck')} 
-            className={`px-2 py-1 rounded mb-1 ${bodyStyle === 'Truck' ? 'bg-gray-800 text-white' : 'text-gray-500 hover:bg-gray-100'}`}
-          >
-            Truck
-          </button>
-          <button 
-            onClick={() => setBodyStyle('Sports Car')} 
-            className={`px-2 py-1 rounded mb-1 ${bodyStyle === 'Sports Car' ? 'bg-gray-800 text-white' : 'text-gray-500 hover:bg-gray-100'}`}
-          >
-            Sports Car
-          </button>
-          <button 
-            onClick={() => setBodyStyle('Minivan')} 
-            className={`px-2 py-1 rounded mb-1 ${bodyStyle === 'Minivan' ? 'bg-gray-800 text-white' : 'text-gray-500 hover:bg-gray-100'}`}
-          >
-            Minivan
           </button>
         </div>
       </div>

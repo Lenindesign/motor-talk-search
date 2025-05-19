@@ -53,8 +53,8 @@ interface SavedItemsContextType {
   userAchievements: UserAchievement[];
   userActivities: UserActivity[];
   addSavedItem: (item: SavedItem) => void;
-  removeSavedItem: (id: string) => void;
-  isSaved: (id: string) => boolean;
+  removeSavedItem: (id: string, type: SavedItemType) => void;
+  isSaved: (id: string, type: SavedItemType) => boolean;
   updateSavedItem: (id: string, updates: Partial<SavedItem>) => void;
   getSavedItemById: (id: string) => SavedItem | undefined;
 }
@@ -157,7 +157,7 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
   }, [savedItems, userPoints]);
 
   // Check if an item is already saved
-  const isSaved = (id: string) => savedItems.some(item => item.id === id);
+  const isSaved = (id: string, type: SavedItemType) => savedItems.some(item => item.id === id && item.type === type);
 
   // Get a saved item by ID
   const getSavedItemById = (id: string) => savedItems.find(item => item.id === id);
@@ -170,7 +170,7 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
       savedAt: item.savedAt || new Date().toISOString(),
     };
     
-    if (!isSaved(itemWithDate.id)) {
+    if (!isSaved(itemWithDate.id, itemWithDate.type)) {
       setSavedItems(prev => [...prev, itemWithDate]);
       // Add points for saving an item
       setUserPoints(prev => prev + 5);
@@ -189,10 +189,10 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
   };
 
   // Remove an item from saved items
-  const removeSavedItem = (id: string) => {
-    const itemToRemove = savedItems.find(item => item.id === id);
+  const removeSavedItem = (id: string, type: SavedItemType) => {
+    const itemToRemove = savedItems.find(item => item.id === id && item.type === type);
     if (itemToRemove) {
-      setSavedItems(prev => prev.filter(item => item.id !== id));
+      setSavedItems(prev => prev.filter(item => !(item.id === id && item.type === type)));
       
       // Add activity for unsaving
       const newActivity: UserActivity = {

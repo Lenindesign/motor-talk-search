@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import PersonalizationDialog from "../components/PersonalizationDialog";
@@ -7,6 +6,7 @@ import ProfileSidebar from "../components/garage/ProfileSidebar";
 import GarageContent from "../components/garage/GarageContent";
 import { useCarMakes, useCarModelsByMakeId } from "../hooks/use-car-database";
 import { useToast } from "@/hooks/use-toast";
+import GlobalHeader from '../components/GlobalHeader';
 
 // Mock MotorTrend data - in a real app would come from an API
 const motorTrendData = {
@@ -103,9 +103,8 @@ const Garage = () => {
   }, [savedItems, updateSavedItem]);
   
   return (
-    <div className="min-h-screen bg-white">
-      <GarageHeader />
-
+    <div className="min-h-screen bg-motortrend-gray">
+      <GlobalHeader isLoading={false} />
       <main className="max-w-[980px] mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row gap-8">
           <ProfileSidebar 
@@ -113,7 +112,6 @@ const Garage = () => {
             savedItemsCount={savedItems.length} 
             onPersonalizeClick={() => setPersonalizationOpen(true)}
           />
-
           <GarageContent />
         </div>
       </main>

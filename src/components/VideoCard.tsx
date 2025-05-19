@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Bookmark } from "lucide-react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
@@ -16,12 +15,12 @@ interface VideoCardProps {
 
 const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
   const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
-  const saved = isSaved(video.id);
+  const saved = isSaved(video.id, 'video');
 
   const handleSave = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (saved) {
-      removeSavedItem(video.id);
+      removeSavedItem(video.id, 'video');
     } else {
       addSavedItem({
         id: video.id,

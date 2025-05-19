@@ -1,13 +1,12 @@
-
 import React from 'react';
 import { CheckSquare, Square, ArrowLeftRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { SavedItem } from '../contexts/SavedItemsContext';
+import { SavedItem, SavedItemType } from '../contexts/SavedItemsContext';
 
 interface GarageCompareProps {
   savedCars: SavedItem[];
   selectedCars: string[];
-  onToggleCar: (id: string) => void;
+  onToggleCar: (id: string, type: SavedItemType) => void;
   onCompare: () => void;
 }
 
@@ -35,6 +34,25 @@ const GarageCompare: React.FC<GarageCompareProps> = ({
           Compare Selected
         </Button>
       </div>
+      {/* Select All Option */}
+      {savedCars.length > 1 && (
+        <div className="mb-2 flex justify-end">
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => {
+              if (selectedCars.length === Math.min(savedCars.length, 4)) {
+                onToggleCar('ALL_DESELECT', 'newCar'); // Custom signal to deselect all
+              } else {
+                onToggleCar('ALL_SELECT', 'newCar'); // Custom signal to select all
+              }
+            }}
+            className="text-sm text-motortrend-red hover:underline"
+          >
+            {selectedCars.length === Math.min(savedCars.length, 4) ? 'Deselect All' : 'Select All'}
+          </Button>
+        </div>
+      )}
       
       {savedCars.length > 0 ? (
         <div>
@@ -43,19 +61,11 @@ const GarageCompare: React.FC<GarageCompareProps> = ({
             {savedCars.map(car => (
               <button
                 key={car.id}
-                onClick={() => onToggleCar(car.id)}
-                className={`flex items-center gap-2 p-2 rounded-md text-left transition-colors ${
-                  selectedCars.includes(car.id) 
-                    ? 'bg-motortrend-red/10 border border-motortrend-red/30' 
-                    : 'hover:bg-gray-100 border border-transparent'
-                }`}
+                onClick={() => onToggleCar(car.id, car.type)}
+                className={`flex items-center gap-2 p-2 rounded-md ${selectedCars.includes(car.id) ? 'bg-motortrend-red text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'} transition-colors`}
               >
-                {selectedCars.includes(car.id) ? (
-                  <CheckSquare size={18} className="text-motortrend-red flex-shrink-0" />
-                ) : (
-                  <Square size={18} className="text-gray-400 flex-shrink-0" />
-                )}
-                <span className="truncate">{car.title}</span>
+                {selectedCars.includes(car.id) ? <CheckSquare size={16} /> : <Square size={16} />}
+                {car.title}
               </button>
             ))}
           </div>
