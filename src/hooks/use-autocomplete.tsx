@@ -28,8 +28,24 @@ export function useAutocomplete(query: string) {
     // Reset selection when query changes
     setSelectedIndex(-1);
     
+    // If query is empty, show popular searches immediately
     if (!query.trim()) {
       setSuggestions(popularSearches);
+      return;
+    }
+
+    // If query is just 1 character, only show direct matches to improve performance
+    if (query.trim().length === 1) {
+      const quickSuggestions = carMakes
+        .filter(make => make.name.toLowerCase().startsWith(query.toLowerCase()))
+        .slice(0, 5)
+        .map(make => ({
+          id: `make-${make.id}`,
+          text: make.name,
+          type: 'carMake' as 'carMake'
+        }));
+      
+      setSuggestions(quickSuggestions);
       return;
     }
 
@@ -41,8 +57,11 @@ export function useAutocomplete(query: string) {
         // For now, we'll use the mock data
         const allContent = getAllContent();
         
-        // Simulate network delay
-        await new Promise(resolve => setTimeout(resolve, 200));
+        // For a faster response, we won't simulate network delay for 2+ characters
+        // which makes the interface feel more responsive
+        if (query.length > 2) {
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
         
         // Create suggestions from mock data
         const newSuggestions: Suggestion[] = [];
@@ -50,9 +69,18 @@ export function useAutocomplete(query: string) {
         // Add car makes and models suggestions
         const lowerCaseQuery = query.toLowerCase();
         
-        // Add car make suggestions
+        // Add car make suggestions - prioritize starts with matches
         carMakes.forEach(make => {
-          if (make.name.toLowerCase().includes(lowerCaseQuery)) {
+          const makeName = make.name.toLowerCase();
+          // Prioritize "starts with" matches
+          if (makeName.startsWith(lowerCaseQuery)) {
+            newSuggestions.push({
+              id: `make-${make.id}`,
+              text: make.name,
+              type: 'carMake'
+            });
+          } else if (makeName.includes(lowerCaseQuery)) {
+            // Then include "contains" matches
             newSuggestions.push({
               id: `make-${make.id}`,
               text: make.name,
@@ -60,19 +88,21 @@ export function useAutocomplete(query: string) {
             });
           }
           
-          // Add car model suggestions
-          make.models.forEach(model => {
-            const modelText = `${model.year} ${make.name} ${model.name}`;
-            if (modelText.toLowerCase().includes(lowerCaseQuery) || 
-                model.name.toLowerCase().includes(lowerCaseQuery)) {
-              newSuggestions.push({
-                id: `model-${model.id}`,
-                text: modelText,
-                type: 'carModel',
-                makeId: make.id
-              });
-            }
-          });
+          // Add car model suggestions - only if query is 2+ characters for performance
+          if (query.length >= 2) {
+            make.models.forEach(model => {
+              const modelText = `${model.year} ${make.name} ${model.name}`;
+              if (modelText.toLowerCase().includes(lowerCaseQuery) || 
+                  model.name.toLowerCase().includes(lowerCaseQuery)) {
+                newSuggestions.push({
+                  id: `model-${model.id}`,
+                  text: modelText,
+                  type: 'carModel',
+                  makeId: make.id
+                });
+              }
+            });
+          }
         });
         
         // Add article-based suggestions
@@ -117,10 +147,10 @@ export function useAutocomplete(query: string) {
       }
     };
 
-    // Debounce the fetch operation to avoid excessive API calls
+    // Reduce debounce time for more immediate feedback
     const timer = setTimeout(() => {
       fetchSuggestions();
-    }, 300);
+    }, 150); // Reduced from 300ms to 150ms for faster response
 
     return () => clearTimeout(timer);
   }, [query]);

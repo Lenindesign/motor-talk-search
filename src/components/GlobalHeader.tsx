@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import MainNavigation from './MainNavigation';
@@ -13,10 +14,13 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onSearch, isLoading = false
 
   const handleSearch = (query: string) => {
     if (onSearch) {
+      // Pass the query to parent component for real-time search
       onSearch(query);
     } else {
-      // Navigate to home page with search query
-      navigate(`/?q=${encodeURIComponent(query)}`);
+      // Only navigate on explicit submission or for longer queries
+      if (query.trim().length > 2) {
+        navigate(`/?q=${encodeURIComponent(query)}`);
+      }
     }
   };
 

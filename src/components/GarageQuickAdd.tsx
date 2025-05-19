@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, Plus } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useAutocomplete, Suggestion } from "../hooks/use-autocomplete";
@@ -81,8 +81,9 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
 
   // Generate dynamic suggestions from database
   const databaseSuggestions = () => {
-    if (!query || query.length < 2 || !carMakes) return [];
+    if (!query || !carMakes) return [];
     
+    // Show suggestions as soon as user starts typing (even with 1 character)
     return carMakes
       .filter(make => make.name.toLowerCase().includes(query.toLowerCase()))
       .map(make => ({
@@ -101,6 +102,13 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
   ];
 
   const filteredSuggestions = combinedSuggestions.slice(0, 8); // Limit to prevent overwhelming UI
+
+  // Handle input changes and show suggestions immediately
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setQuery(value);
+    setShowSuggestions(value.length > 0);
+  };
 
   return (
     <div className="relative w-full">
@@ -137,10 +145,7 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
           <input
             type="text"
             value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setShowSuggestions(true);
-            }}
+            onChange={handleInputChange}
             onFocus={() => setShowSuggestions(true)}
             onKeyDown={handleInputKeyDown}
             placeholder="Search for make, model, or trim..."

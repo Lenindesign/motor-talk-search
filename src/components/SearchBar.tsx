@@ -1,5 +1,6 @@
-import React, { useState, FormEvent, useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { Search, Loader } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useAutocomplete, Suggestion } from "../hooks/use-autocomplete";
 import AutocompleteSuggestions from "./AutocompleteSuggestions";
 
@@ -31,12 +32,23 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   const currentInputRef = inputRef || localInputRef;
 
-  const handleSubmit = (e: FormEvent) => {
+  // This effect triggers search as user types
+  useEffect(() => {
+    if (query.trim().length > 1) {
+      // Only search if query has 2+ characters
+      onSearch(query);
+    }
+  }, [query, onSearch]);
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim() && !isLoading) {
       onSearch(query);
-      setQuery("");
-      setShowSuggestions(false);
+      
+      // Keep suggestions visible after search
+      if (query.length > 1) {
+        setShowSuggestions(true);
+      }
       
       // Return focus to input after submission
       setTimeout(() => {
@@ -49,8 +61,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   const handleSuggestionSelect = (suggestion: Suggestion) => {
     onSearch(suggestion.text);
-    setQuery("");
-    setShowSuggestions(false);
+    setQuery(suggestion.text);
+    // Keep suggestions visible after selection
+    setShowSuggestions(true);
   };
 
   // Close suggestions when clicking outside
@@ -86,6 +99,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
     }
   }, [isLoading, currentInputRef, variant]);
 
+  // Show suggestions as soon as user starts typing (1+ characters)
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setQuery(value);
+    setShowSuggestions(value.length > 0);
+  };
+
   if (variant === "header") {
     return (
       <div className="w-full relative" ref={wrapperRef}>
@@ -100,11 +120,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
             <input
               type="text"
               value={query}
-              onChange={(e) => {
-                setQuery(e.target.value);
-                setShowSuggestions(true);
-              }}
-              onFocus={() => setShowSuggestions(true)}
+              onChange={handleInputChange}
+              onFocus={() => setShowSuggestions(query.length > 0)}
               onKeyDown={handleInputKeyDown}
               placeholder="Search makes, models..."
               disabled={isLoading}
@@ -154,11 +171,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
           <input
             type="text"
             value={query}
-            onChange={(e) => {
-              setQuery(e.target.value);
-              setShowSuggestions(true);
-            }}
-            onFocus={() => setShowSuggestions(true)}
+            onChange={handleInputChange}
+            onFocus={() => setShowSuggestions(query.length > 0)}
             onKeyDown={handleInputKeyDown}
             placeholder="Search car makes, models or ask a question..."
             disabled={isLoading}
