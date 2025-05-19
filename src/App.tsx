@@ -11,6 +11,8 @@ import Garage from "./pages/Garage";
 import CarDatabase from "./pages/CarDatabase";
 import CarResearch from "./pages/CarResearch";
 import BuyersGuide from "./pages/BuyersGuide"; // We'll keep the import name the same
+import { SavedItemsProvider } from "./contexts/SavedItemsContext";
+import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 
 function App() {
   return (
