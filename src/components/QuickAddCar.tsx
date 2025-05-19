@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Search, Plus } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -93,7 +94,7 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
   
   const handleAddCar = (suggestion: Suggestion) => {
     if (suggestion.type === 'newCar' || suggestion.type === 'carModel') {
-      if (!isSaved(suggestion.id)) {
+      if (!isSaved(suggestion.id, 'newCar')) {
         // Generate specs based on body style
         const specs = bodyStyle ? generateSpecsForBodyStyle(bodyStyle) : {};
         

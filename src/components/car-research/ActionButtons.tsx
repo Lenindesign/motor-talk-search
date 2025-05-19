@@ -35,12 +35,12 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ vehicle }) => {
   const [phone, setPhone] = useState('');
   const [zipCode, setZipCode] = useState('');
   
-  const isOwned = isSaved(vehicle.id) && getSavedItemById(vehicle.id)?.type === 'owned';
-  const isWishlisted = isSaved(vehicle.id) && getSavedItemById(vehicle.id)?.type === 'interested';
+  const isOwned = isSaved(vehicle.id, 'owned');
+  const isWishlisted = isSaved(vehicle.id, 'interested');
   
   const handleAddToGarage = () => {
     if (isOwned) {
-      removeSavedItem(vehicle.id);
+      removeSavedItem(vehicle.id, 'owned');
       toast.success("Removed from your garage");
       return;
     }
@@ -68,7 +68,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ vehicle }) => {
   
   const handleAddToWishlist = () => {
     if (isWishlisted) {
-      removeSavedItem(vehicle.id);
+      removeSavedItem(vehicle.id, 'interested');
       toast.success("Removed from your wishlist");
       return;
     }

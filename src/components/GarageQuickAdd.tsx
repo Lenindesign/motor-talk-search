@@ -34,7 +34,7 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
 
   const handleAddCar = (suggestion: Suggestion) => {
     if (suggestion.type === 'newCar' || suggestion.type === 'carModel') {
-      if (!isSaved(suggestion.id)) {
+      if (!isSaved(suggestion.id, 'newCar')) {
         addSavedItem({
           id: suggestion.id,
           title: suggestion.text,
