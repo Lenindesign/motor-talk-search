@@ -1,121 +1,199 @@
-
-import React, { useState, useEffect, useCallback, forwardRef } from 'react';
-import { Search, Loader2 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import debounce from 'lodash/debounce';
+import React, { useState, FormEvent, useEffect, useRef } from "react";
+import { Search, Loader } from "lucide-react";
+import { useAutocomplete, Suggestion } from "../hooks/use-autocomplete";
+import AutocompleteSuggestions from "./AutocompleteSuggestions";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
-  isLoading?: boolean;
-  placeholder?: string;
-  variant?: 'header' | 'fullWidth' | 'default';
-  autoFocus?: boolean;
-  initialQuery?: string;
+  isLoading: boolean;
   inputRef?: React.RefObject<HTMLInputElement>;
+  variant?: "header" | "main";
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  onSearch,
-  isLoading = false,
-  placeholder = 'Search cars, reviews, news...',
-  variant = 'default',
-  autoFocus = false,
-  initialQuery = '',
-  inputRef
+const SearchBar: React.FC<SearchBarProps> = ({ 
+  onSearch, 
+  isLoading, 
+  inputRef,
+  variant = "main" 
 }) => {
-  const [query, setQuery] = useState(initialQuery);
-  const [focused, setFocused] = useState(false);
+  const [query, setQuery] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const localInputRef = useRef<HTMLInputElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   
-  useEffect(() => {
-    if (autoFocus && !inputRef) {
-      const timer = setTimeout(() => {
-        const inputElement = document.getElementById('search-input');
-        if (inputElement) {
-          inputElement.focus();
-        }
-      }, 100);
-      
-      return () => clearTimeout(timer);
-    }
-  }, [autoFocus, inputRef]);
-  
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const debouncedSearch = useCallback(
-    debounce((searchQuery: string) => {
-      if (searchQuery.trim().length > 1) {
-        onSearch(searchQuery);
-      }
-    }, 500),
-    [onSearch]
-  );
-  
-  useEffect(() => {
-    debouncedSearch(query);
-    return () => {
-      debouncedSearch.cancel();
-    };
-  }, [query, debouncedSearch]);
-  
-  const handleSubmit = (e: React.FormEvent) => {
+  const { 
+    suggestions, 
+    isLoading: suggestionsLoading, 
+    selectedIndex, 
+    setSelectedIndex,
+    handleKeyDown
+  } = useAutocomplete(query);
+
+  const currentInputRef = inputRef || localInputRef;
+
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (query.trim()) {
+    if (query.trim() && !isLoading) {
       onSearch(query);
+      setQuery("");
+      setShowSuggestions(false);
+      
+      // Return focus to input after submission
+      setTimeout(() => {
+        if (currentInputRef?.current) {
+          currentInputRef.current.focus();
+        }
+      }, 50);
     }
   };
-  
-  let containerClasses = 'flex items-center relative';
-  let inputClasses = 'w-full text-sm transition-colors focus-visible:outline-none';
-  
-  switch (variant) {
-    case 'header':
-      containerClasses += ' bg-white/10 hover:bg-white/15 rounded-md';
-      inputClasses += ' bg-transparent text-white placeholder:text-white/60 pl-10 pr-3 py-1.5';
-      break;
-    case 'fullWidth':
-      containerClasses += ' bg-white rounded-md w-full border shadow-sm';
-      inputClasses += ' bg-transparent text-gray-800 pl-10 pr-3 py-2 rounded-md';
-      break;
-    default:
-      containerClasses += ' bg-white rounded-md border shadow-sm';
-      inputClasses += ' bg-transparent text-gray-800 pl-10 pr-3 py-2 rounded-md';
-  }
-  
-  if (focused) {
-    containerClasses += ' ring-2 ring-motortrend-red/30';
+
+  const handleSuggestionSelect = (suggestion: Suggestion) => {
+    onSearch(suggestion.text);
+    setQuery("");
+    setShowSuggestions(false);
+  };
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setShowSuggestions(false);
+      }
+    }
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // Handle keyboard events for navigation and selection
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    handleKeyDown(e);
+    
+    if (e.key === 'Enter' && selectedIndex >= 0 && selectedIndex < suggestions.length) {
+      e.preventDefault();
+      handleSuggestionSelect(suggestions[selectedIndex]);
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false);
+    }
+  };
+
+  // Ensure focus is maintained whenever component updates
+  useEffect(() => {
+    if (currentInputRef?.current && !isLoading && variant === "main") {
+      currentInputRef.current.focus();
+    }
+  }, [isLoading, currentInputRef, variant]);
+
+  if (variant === "header") {
+    return (
+      <div className="w-full relative" ref={wrapperRef}>
+        <form 
+          onSubmit={handleSubmit}
+          className="w-full"
+        >
+          <div className="relative flex items-center">
+            <div className="absolute left-3 text-white">
+              <Search size={16} />
+            </div>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setShowSuggestions(true);
+              }}
+              onFocus={() => setShowSuggestions(true)}
+              onKeyDown={handleInputKeyDown}
+              placeholder="Search makes, models..."
+              disabled={isLoading}
+              className="w-full rounded-full bg-motortrend-dark py-2 pl-9 pr-4 text-sm text-white placeholder-gray-400 focus:outline-none ring-2 ring-motortrend-red shadow-md"
+            />
+            <button 
+              type="submit"
+              disabled={isLoading || !query.trim()}
+              className="absolute right-2 text-white disabled:text-gray-400"
+            >
+              {isLoading ? (
+                <Loader size={16} className="animate-spinner" />
+              ) : (
+                query.trim() && (
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-motortrend-red">
+                    <Search size={12} />
+                  </div>
+                )
+              )}
+            </button>
+          </div>
+        </form>
+
+        {showSuggestions && (
+          <AutocompleteSuggestions
+            suggestions={suggestions}
+            selectedIndex={selectedIndex}
+            isLoading={suggestionsLoading}
+            onSelect={handleSuggestionSelect}
+            onMouseEnter={(index) => setSelectedIndex(index)}
+          />
+        )}
+      </div>
+    );
   }
 
   return (
-    <form onSubmit={handleSubmit} className={containerClasses}>
-      <div className={`absolute left-3 top-1/2 -translate-y-1/2 ${variant === 'header' ? 'text-white' : 'text-gray-500'}`}>
-        {isLoading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          <Search className="h-4 w-4" />
-        )}
-      </div>
-      <input
-        id="search-input"
-        ref={inputRef}
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder={placeholder}
-        className={inputClasses}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
-        autoComplete="off"
-        autoFocus={autoFocus}
-      />
-      {variant !== 'header' && query && (
-        <Button 
-          type="submit" 
-          size="sm" 
-          className="absolute right-1 top-1/2 -translate-y-1/2 h-7 bg-motortrend-red hover:bg-motortrend-red/90 text-white"
-        >
-          Search
-        </Button>
+    <div className="mx-auto w-full relative" ref={wrapperRef}>
+      <form 
+        onSubmit={handleSubmit}
+        className="w-full"
+      >
+        <div className="relative flex items-center">
+          <div className="absolute left-4 text-white">
+            <Search size={20} />
+          </div>
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setShowSuggestions(true);
+            }}
+            onFocus={() => setShowSuggestions(true)}
+            onKeyDown={handleInputKeyDown}
+            placeholder="Search car makes, models or ask a question..."
+            disabled={isLoading}
+            ref={currentInputRef}
+            className="w-full rounded-full bg-motortrend-dark py-3 pl-12 pr-12 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-motortrend-red shadow-lg"
+            autoFocus
+          />
+          <button 
+            type="submit"
+            disabled={isLoading || !query.trim()}
+            className="absolute right-4 text-white disabled:text-gray-400"
+          >
+            {isLoading ? (
+              <Loader size={20} className="animate-spinner" />
+            ) : (
+              query.trim() && (
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-motortrend-red">
+                  <Search size={14} />
+                </div>
+              )
+            )}
+          </button>
+        </div>
+      </form>
+
+      {showSuggestions && (
+        <AutocompleteSuggestions
+          suggestions={suggestions}
+          selectedIndex={selectedIndex}
+          isLoading={suggestionsLoading}
+          onSelect={handleSuggestionSelect}
+          onMouseEnter={(index) => setSelectedIndex(index)}
+        />
       )}
-    </form>
+    </div>
   );
 };
 
