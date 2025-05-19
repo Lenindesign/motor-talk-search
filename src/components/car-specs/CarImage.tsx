@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { AlertCircle } from "lucide-react";
 
@@ -13,7 +14,7 @@ export const CarImage: React.FC<CarImageProps> = ({ imageUrl, title, price, isNe
   const [imageLoaded, setImageLoaded] = useState(false);
   const [triedFallback, setTriedFallback] = useState(false);
   
-  // Function to get a fallback image based on the car make/model
+  // Function to get an accurate fallback image based on the car make/model
   const getFallbackImage = () => {
     if (!title) return 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
     
@@ -23,93 +24,63 @@ export const CarImage: React.FC<CarImageProps> = ({ imageUrl, title, price, isNe
     const yearMatch = lowerTitle.match(/\d{4}/);
     const year = yearMatch ? yearMatch[0] : '';
     
-    // Common car makes with their Unsplash image IDs
-    const makeImages: { [key: string]: string } = {
-      // Luxury Brands
-      'tesla': '1617704548623-340376564e68',
-      'bmw': '1607853202273-797f1c22a38e',
-      'mercedes': '1618843474573-739b486f3f69',
-      'audi': '1603584176860-3a9de7a49219',
-      'porsche': '1618843474573-739b486f3f69',
-      'ferrari': '1618843474573-739b486f3f69',
-      'lamborghini': '1618843474573-739b486f3f69',
-      'lexus': '1618843474573-739b486f3f69',
-      'acura': '1618843474573-739b486f3f69',
-      'infiniti': '1618843474573-739b486f3f69',
-      'cadillac': '1618843474573-739b486f3f69',
-      'lincoln': '1618843474573-739b486f3f69',
-      
-      // Mainstream Brands
-      'ford': '1551830820-330a71b99659',
-      'honda': '1583267746897-2cf415887172',
-      'toyota': '1559416523-140ddc3d238c',
-      'chevrolet': '1552519507-da3b142c6e3d',
-      'chevy': '1552519507-da3b142c6e3d',
-      'nissan': '1618843474573-739b486f3f69',
-      'hyundai': '1618843474573-739b486f3f69',
-      'kia': '1618843474573-739b486f3f69',
-      'volkswagen': '1618843474573-739b486f3f69',
-      'volvo': '1618843474573-739b486f3f69',
-      'subaru': '1618843474573-739b486f3f69',
-      'mazda': '1618843474573-739b486f3f69',
-      'mitsubishi': '1618843474573-739b486f3f69',
-      'buick': '1618843474573-739b486f3f69',
-      'chrysler': '1618843474573-739b486f3f69',
-      'dodge': '1618843474573-739b486f3f69',
-      'gmc': '1618843474573-739b486f3f69',
-      
-      // Specialty Brands
-      'jeep': '1502877338535-766e1452684a',
-      'mini': '1618843474573-739b486f3f69',
-      'ram': '1618843474573-739b486f3f69',
-      'scion': '1618843474573-739b486f3f69',
-      'smart': '1618843474573-739b486f3f69',
-      'suzuki': '1618843474573-739b486f3f69',
-    };
-    
-    // Vehicle type images
-    const typeImages: { [key: string]: string } = {
-      'suv': '1618843479313-40f8afb4b4d8',
-      'crossover': '1618843479313-40f8afb4b4d8',
-      'sedan': '1618843479313-40f8afb4b4d8',
-      'truck': '1618843479313-40f8afb4b4d8',
-      'pickup': '1618843479313-40f8afb4b4d8',
-      'sports': '1618843479313-40f8afb4b4d8',
-      'coupe': '1618843479313-40f8afb4b4d8',
-      'minivan': '1618843479313-40f8afb4b4d8',
-      'van': '1618843479313-40f8afb4b4d8',
-      'hatchback': '1618843479313-40f8afb4b4d8',
-      'wagon': '1618843479313-40f8afb4b4d8',
-      'convertible': '1618843479313-40f8afb4b4d8',
-    };
-    
-    // Try to find a matching make first
-    for (const [make, imageId] of Object.entries(makeImages)) {
-      if (lowerTitle.includes(make)) {
-        return `https://images.unsplash.com/photo-${imageId}?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3`;
-      }
-    }
-    
-    // If no make is found, try to match vehicle type
-    for (const [type, imageId] of Object.entries(typeImages)) {
-      if (lowerTitle.includes(type)) {
-        return `https://images.unsplash.com/photo-${imageId}?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3`;
-      }
-    }
-    
-    // If no specific match is found, use a generic car image based on the year
-    if (year) {
-      const yearNum = parseInt(year);
-      if (yearNum >= 2020) {
-        return 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
-      } else if (yearNum >= 2010) {
-        return 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    // Check for specific makes for accurate image matches
+    if (lowerTitle.includes("aston martin")) {
+      return 'https://images.unsplash.com/photo-1603386329225-868f9b1ee6c9?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("bmw") || lowerTitle.includes("i5") || lowerTitle.includes("m5")) {
+      return 'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("mercedes")) {
+      return 'https://images.unsplash.com/photo-1546518071-fddcdda7580a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("porsche")) {
+      return 'https://images.unsplash.com/photo-1582639510494-c80b5de9f148?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("ferrari")) {
+      return 'https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("lamborghini")) {
+      return 'https://images.unsplash.com/photo-1633509817627-5a29e6c4606f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("tesla") || lowerTitle.includes("model")) {
+      return 'https://images.unsplash.com/photo-1617704548623-340376564e68?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("audi") || lowerTitle.includes("q7") || lowerTitle.includes("e-tron")) {
+      return 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("honda") || lowerTitle.includes("accord")) {
+      return 'https://images.unsplash.com/photo-1583267746897-2cf415887172?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("toyota") || lowerTitle.includes("crown") || lowerTitle.includes("camry")) {
+      return 'https://images.unsplash.com/photo-1559416523-140ddc3d238c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("ford") || lowerTitle.includes("mustang") || lowerTitle.includes("f-150")) {
+      if (lowerTitle.includes("mustang")) {
+        return 'https://images.unsplash.com/photo-1584345604476-8ec5f82d718c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
       } else {
-        return 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+        return 'https://images.unsplash.com/photo-1551830820-330a71b99659?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
       }
+    } else if (lowerTitle.includes("chevrolet") || lowerTitle.includes("chevy") || lowerTitle.includes("corvette") || lowerTitle.includes("camaro")) {
+      return 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("jeep") || lowerTitle.includes("wrangler")) {
+      return 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("dodge") || lowerTitle.includes("challenger")) {
+      return 'https://images.unsplash.com/photo-1584345604476-8ec5f82d718c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("hyundai") || lowerTitle.includes("ioniq")) {
+      return 'https://images.unsplash.com/photo-1663947719095-17af003c9193?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("kia")) {
+      return 'https://images.unsplash.com/photo-1669893631979-7686c59623e3?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("lexus") || lowerTitle.includes("es")) {
+      return 'https://images.unsplash.com/photo-1604429868519-8a64cb3b010a?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("rivian")) {
+      return 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("lucid")) {
+      return 'https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
     }
     
-    // Ultimate fallback - generic car image
+    // Vehicle type fallbacks
+    if (lowerTitle.includes("suv") || lowerTitle.includes("crossover")) {
+      return 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("sedan")) {
+      return 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("truck") || lowerTitle.includes("pickup")) {
+      return 'https://images.unsplash.com/photo-1647983216233-e16d8f364ece?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    } else if (lowerTitle.includes("sport") || lowerTitle.includes("coupe")) {
+      return 'https://images.unsplash.com/photo-1580274916550-e323be2ae537?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
+    }
+    
+    // If no specific match is found, use a generic car image
     return 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3';
   };
 
@@ -145,7 +116,7 @@ export const CarImage: React.FC<CarImageProps> = ({ imageUrl, title, price, isNe
         <div className="absolute top-2 left-2 bg-black/70 px-2 py-1 rounded text-xs text-white">
           <span className="flex items-center">
             <AlertCircle size={12} className="mr-1" />
-            Alternative image unavailable
+            Using alternative image
           </span>
         </div>
       )}

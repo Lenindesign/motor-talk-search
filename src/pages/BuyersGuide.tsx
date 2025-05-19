@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import MainNavigation from '@/components/MainNavigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -23,14 +24,13 @@ const BuyersGuide: React.FC = () => {
       setIsLoading(true);
       try {
         // In a real app, you'd fetch from an API here
-        // For now, we're setting placeholder data
+        // For now, we're setting placeholder data with accurate images
         setTimeout(() => {
-          // These IDs now match the ones in vehicleService.ts
           setNewCars([
             {
               id: 'new-1',
               title: '2025 Ford Mustang GT',
-              imageUrl: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+              imageUrl: 'https://images.unsplash.com/photo-1584345604476-8ec5f82d718c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
               price: '$45,995',
               category: 'Sports Car',
               bodyStyle: 'Sports Car',
@@ -75,7 +75,7 @@ const BuyersGuide: React.FC = () => {
             {
               id: 'new-4',
               title: '2025 Hyundai Ioniq 6 Limited',
-              imageUrl: 'https://images.unsplash.com/photo-1617704548623-340376564e68?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+              imageUrl: 'https://images.unsplash.com/photo-1663947719095-17af003c9193?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
               price: '$52,150',
               category: 'Electric',
               bodyStyle: 'Sedan',
@@ -92,12 +92,12 @@ const BuyersGuide: React.FC = () => {
           setUsedCars([
             {
               id: 'used-1',
-              title: '2022 Tesla Model 3 Long Range',
+              title: '2023 Tesla Model 3 Long Range',
               imageUrl: 'https://images.unsplash.com/photo-1617704548623-340376564e68?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
               price: '$38,995',
               category: 'Electric',
               bodyStyle: 'Sedan',
-              year: '2022',
+              year: '2023',
               horsepowerTorque: '346 hp',
               fuelType: 'Electric',
               drivetrain: 'AWD',
@@ -110,7 +110,7 @@ const BuyersGuide: React.FC = () => {
             {
               id: 'used-2',
               title: '2021 Audi Q7 Premium Plus',
-              imageUrl: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+              imageUrl: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
               price: '$42,750',
               category: 'Luxury SUV',
               bodyStyle: 'SUV',
@@ -127,7 +127,7 @@ const BuyersGuide: React.FC = () => {
             {
               id: 'used-3',
               title: '2020 Lexus ES 350 F Sport',
-              imageUrl: 'https://images.unsplash.com/photo-1559416523-140ddc3d238c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+              imageUrl: 'https://images.unsplash.com/photo-1604429868519-8a64cb3b010a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
               price: '$32,495',
               category: 'Luxury Sedan',
               bodyStyle: 'Sedan',
@@ -146,7 +146,7 @@ const BuyersGuide: React.FC = () => {
           
           // Show success toast
           toast.success('Vehicle data loaded successfully', {
-            description: 'Click on any vehicle to see detailed information'
+            description: 'Real car images are now displayed for all vehicles'
           });
         }, 800);
       } catch (error) {
