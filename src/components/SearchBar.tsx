@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, forwardRef } from 'react';
 import { Search, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import debounce from 'lodash/debounce';
@@ -11,6 +11,7 @@ interface SearchBarProps {
   variant?: 'header' | 'fullWidth' | 'default';
   autoFocus?: boolean;
   initialQuery?: string;
+  inputRef?: React.RefObject<HTMLInputElement>;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -19,13 +20,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
   placeholder = 'Search cars, reviews, news...',
   variant = 'default',
   autoFocus = false,
-  initialQuery = ''
+  initialQuery = '',
+  inputRef
 }) => {
   const [query, setQuery] = useState(initialQuery);
   const [focused, setFocused] = useState(false);
   
   useEffect(() => {
-    if (autoFocus) {
+    if (autoFocus && !inputRef) {
       const timer = setTimeout(() => {
         const inputElement = document.getElementById('search-input');
         if (inputElement) {
@@ -35,7 +37,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       
       return () => clearTimeout(timer);
     }
-  }, [autoFocus]);
+  }, [autoFocus, inputRef]);
   
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedSearch = useCallback(
@@ -93,6 +95,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
       </div>
       <input
         id="search-input"
+        ref={inputRef}
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
