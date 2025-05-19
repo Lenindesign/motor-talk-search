@@ -29,7 +29,7 @@ const MainNavigation = () => {
     <>
       <NavLink href="/news">News</NavLink>
       <NavLink href="/reviews">Reviews</NavLink>
-      <NavLink href="/buyers-guide">Buyer's Guide</NavLink>
+      <NavLink href="/buyers-guide">Cars</NavLink>
       <NavLink href="/videos">Videos</NavLink>
     </>
   );
