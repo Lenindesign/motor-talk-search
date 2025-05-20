@@ -19,12 +19,12 @@ const ContentTabs: React.FC<ContentTabsProps> = ({ activeTab, onTabChange }) => 
   ];
 
   return (
-    <div className="mb-4 flex overflow-x-auto border-b border-gray-200">
+    <div className="mb-4 flex overflow-x-auto scrollbar-none pb-1 border-b border-gray-200">
       {tabs.map((tab) => (
         <button
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
-          className={`whitespace-nowrap px-4 py-2 text-sm font-medium ${
+          className={`whitespace-nowrap px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium rounded-t-md transition-colors ${
             activeTab === tab.id
               ? 'bg-motortrend-dark text-white'
               : 'bg-transparent text-gray-600 hover:bg-gray-100'

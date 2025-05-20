@@ -1,7 +1,9 @@
+
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import MainNavigation from './MainNavigation';
 import SearchBar from './SearchBar';
+import { useIsMobile } from '../hooks/use-mobile';
 
 interface GlobalHeaderProps {
   onSearch?: (query: string) => void;
@@ -10,6 +12,7 @@ interface GlobalHeaderProps {
 
 const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onSearch, isLoading = false }) => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
 
   const handleSearch = (query: string) => {
     if (onSearch) {
@@ -21,32 +24,28 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onSearch, isLoading = false
   };
 
   return (
-    <header className="sticky top-0 z-20 bg-motortrend-dark px-4 py-3 shadow-md">
-      <div className="flex items-center max-w-[980px] mx-auto w-full gap-2 sm:gap-4">
+    <header className="sticky top-0 z-20 bg-motortrend-dark px-3 sm:px-4 py-2.5 sm:py-3 shadow-md">
+      <div className="flex items-center max-w-[980px] mx-auto w-full gap-1.5 sm:gap-4">
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link to="/">
             <img 
               src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" 
               alt="MotorTrend Logo" 
-              className="h-7 w-auto"
+              className="h-6 sm:h-7 w-auto"
             />
           </Link>
         </div>
         {/* Search bar always visible, full width on mobile */}
-        <div className="flex-1 min-w-0 ml-2">
+        <div className="flex-1 min-w-0">
           <SearchBar 
             onSearch={handleSearch} 
             isLoading={isLoading} 
             variant="header" 
           />
         </div>
-        {/* Hamburger menu always visible on mobile, right aligned */}
-        <div className="flex sm:hidden ml-2 order-last">
-          <MainNavigation />
-        </div>
-        {/* Main navigation visible on desktop */}
-        <div className="hidden sm:flex ml-4">
+        {/* Navigation - mobile hamburger or desktop links */}
+        <div className="flex items-center">
           <MainNavigation />
         </div>
       </div>
@@ -54,4 +53,4 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onSearch, isLoading = false
   );
 };
 
-export default GlobalHeader; 
+export default GlobalHeader;
