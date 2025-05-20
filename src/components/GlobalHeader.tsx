@@ -1,8 +1,15 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import MainNavigation from './MainNavigation';
 import SearchBar from './SearchBar';
+import { Button } from './ui/button';
+import { Search } from 'lucide-react';
+import { 
+  Sheet,
+  SheetContent,
+  SheetTrigger
+} from './ui/sheet';
 
 interface GlobalHeaderProps {
   onSearch?: (query: string) => void;
@@ -11,22 +18,21 @@ interface GlobalHeaderProps {
 
 const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onSearch, isLoading = false }) => {
   const navigate = useNavigate();
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
 
   const handleSearch = (query: string) => {
     if (onSearch) {
-      // Pass the query to parent component for real-time search
       onSearch(query);
     } else {
-      // Only navigate on explicit submission or for longer queries
-      if (query.trim().length > 2) {
-        navigate(`/?q=${encodeURIComponent(query)}`);
-      }
+      // Navigate to home page with search query
+      navigate(`/?q=${encodeURIComponent(query)}`);
     }
+    setShowMobileSearch(false);
   };
 
   return (
     <header className="sticky top-0 z-20 bg-motortrend-dark px-4 py-3 shadow-md">
-      <div className="flex items-center max-w-[980px] mx-auto w-full gap-2 sm:gap-4">
+      <div className="flex items-center max-w-[1200px] mx-auto w-full gap-2 sm:gap-4">
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link to="/">
@@ -37,25 +43,50 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onSearch, isLoading = false
             />
           </Link>
         </div>
-        {/* Search bar always visible, full width on mobile */}
-        <div className="flex-1 min-w-0 ml-2">
+        
+        {/* Desktop Search bar */}
+        <div className="hidden md:flex flex-1 min-w-0 ml-2">
           <SearchBar 
             onSearch={handleSearch} 
             isLoading={isLoading} 
             variant="header" 
           />
         </div>
-        {/* Hamburger menu always visible on mobile, right aligned */}
-        <div className="flex sm:hidden ml-2 order-last">
+        
+        {/* Mobile search trigger */}
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="md:hidden text-white hover:bg-white/20" 
+          onClick={() => setShowMobileSearch(true)}
+        >
+          <Search size={20} />
+        </Button>
+        
+        {/* Main navigation visible on desktop */}
+        <div className="hidden md:flex ml-4">
           <MainNavigation />
         </div>
-        {/* Main navigation visible on desktop */}
-        <div className="hidden sm:flex ml-4">
+        
+        {/* Hamburger menu always visible on mobile, right aligned */}
+        <div className="flex md:hidden ml-auto">
           <MainNavigation />
         </div>
       </div>
+      
+      {/* Mobile search sheet */}
+      <Sheet open={showMobileSearch} onOpenChange={setShowMobileSearch}>
+        <SheetContent side="top" className="pt-16 pb-4 px-4">
+          <SearchBar 
+            onSearch={handleSearch} 
+            isLoading={isLoading} 
+            variant="fullWidth" 
+            autoFocus
+          />
+        </SheetContent>
+      </Sheet>
     </header>
   );
 };
 
-export default GlobalHeader; 
+export default GlobalHeader;

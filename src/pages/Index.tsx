@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
 import SearchSuggestions from "../components/SearchSuggestions";
@@ -41,7 +40,6 @@ const Index = () => {
   });
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-  const [activeSearch, setActiveSearch] = useState("");
   
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const latestResultRef = useRef<HTMLDivElement>(null);
@@ -59,33 +57,8 @@ const Index = () => {
     }
   }, [searchHistory.length]);
 
-  // Function to debounce real-time search
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      // If we have an active search query and it's not already in history
-      if (activeSearch && !searchHistory.some(item => item.query === activeSearch)) {
-        performSearch(activeSearch);
-      }
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [activeSearch]);
-
   // Function to handle search submissions
   const handleSearch = (query: string) => {
-    // Set active search immediately to trigger real-time results
-    setActiveSearch(query);
-    
-    // If query is too short, don't add to history
-    if (query.trim().length <= 1) return;
-    
-    // If this query is already in history, just return
-    if (searchHistory.some(item => item.query === query)) return;
-    
-    // For longer queries, add to history (with debouncing in the effect)
-  };
-
-  // Actual search execution function
-  const performSearch = (query: string) => {
     if (isSearching) return;
     
     setIsSearching(true);
@@ -115,7 +88,7 @@ const Index = () => {
       }
     }, 50);
     
-    // Use shorter response times for real-time feel
+    // Simulate server response time
     setTimeout(() => {
       if (isQuestion) {
         // Process as a chat question
@@ -169,7 +142,7 @@ const Index = () => {
           });
         }
       }, 100);
-    }, 300); // Reduced from 800ms to 300ms for more responsive feel
+    }, 800);
   };
 
   const handleLoadMore = (type: ContentType) => {

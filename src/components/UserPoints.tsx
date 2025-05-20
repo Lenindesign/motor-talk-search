@@ -1,70 +1,74 @@
 
 import React from "react";
-import { useSavedItems } from "../contexts/SavedItemsContext";
+import { Trophy, ChevronUp, Award } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 
-const UserPoints = () => {
-  const { userPoints } = useSavedItems();
+interface UserPointsProps {
+  className?: string;
+}
+
+const UserPoints: React.FC<UserPointsProps> = ({ className }) => {
+  // Mock data - in real app, this would come from user context/API
+  const userPoints = 1250;
+  const nextLevelPoints = 2000;
+  const currentLevel = 3;
+  const recentPoints = [
+    { activity: "Car review", points: 50, date: "2 days ago" },
+    { activity: "Daily login", points: 10, date: "Yesterday" },
+    { activity: "Added car to garage", points: 25, date: "Today" },
+  ];
   
-  // Calculate level based on points
-  // This is a simple formula, can be adjusted as needed
-  const level = Math.floor(Math.sqrt(userPoints) / 2) + 1;
-  
-  // Calculate progress to next level
-  const pointsForCurrentLevel = Math.pow((level - 1) * 2, 2);
-  const pointsForNextLevel = Math.pow(level * 2, 2);
-  const pointsRange = pointsForNextLevel - pointsForCurrentLevel;
-  const pointsProgress = userPoints - pointsForCurrentLevel;
-  const progressPercentage = (pointsProgress / pointsRange) * 100;
-  
-  // Get rank title based on level
-  const rankTitle = getRankTitle(level);
+  // Calculate progress percentage
+  const progressPercentage = (userPoints / nextLevelPoints) * 100;
   
   return (
-    <Card className="bg-gradient-to-br from-motortrend-dark to-motortrend-red text-white">
-      <CardHeader>
-        <CardTitle className="flex items-center justify-between">
-          <span>Your Progress</span>
-          <span className="text-2xl font-bold">{userPoints} pts</span>
+    <Card className={cn("border-0 shadow-sm overflow-hidden", className)}>
+      <CardHeader className="pb-2 bg-gradient-to-r from-amber-500 to-amber-400 text-white">
+        <CardTitle className="text-base flex items-center">
+          <Trophy className="mr-2 h-5 w-5" />
+          Driver Status
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div>
-            <div className="flex justify-between text-sm mb-1">
-              <span>Level {level}</span>
-              <span>Level {level + 1}</span>
+      <CardContent className="p-4">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center">
+            <div className="bg-amber-500 text-white p-2 rounded-full mr-2">
+              <Award className="h-4 w-4" />
             </div>
-            <Progress value={progressPercentage} className="h-2 bg-white/20" />
+            <span className="font-medium">Level {currentLevel}</span>
           </div>
-          
-          <div className="bg-white/10 p-3 rounded-md text-center">
-            <p className="text-sm opacity-80">Your Rank</p>
-            <h3 className="text-xl font-bold">{rankTitle}</h3>
+          <span className="text-sm font-bold bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full">
+            {userPoints} pts
+          </span>
+        </div>
+        
+        <div className="space-y-1 mb-4">
+          <div className="flex justify-between text-xs text-gray-600">
+            <span>Progress to Level {currentLevel + 1}</span>
+            <span>{userPoints}/{nextLevelPoints}</span>
           </div>
-          
-          <div className="text-xs">
-            <p>Keep saving items and interacting with content to earn more points!</p>
-          </div>
+          <Progress value={progressPercentage} className="h-2 bg-gray-100" indicatorClassName="bg-amber-500" />
+        </div>
+        
+        <div>
+          <h4 className="text-xs font-medium text-gray-500 mb-2">RECENT ACTIVITY</h4>
+          <ul className="space-y-2">
+            {recentPoints.map((item, index) => (
+              <li key={index} className="flex items-center justify-between text-sm">
+                <span>{item.activity}</span>
+                <span className="font-medium text-amber-600 flex items-center">
+                  <ChevronUp className="h-3 w-3 text-green-500 mr-0.5" />
+                  {item.points}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </CardContent>
     </Card>
   );
-};
-
-const getRankTitle = (level: number) => {
-  if (level === 1) return 'Novice Driver';
-  if (level === 2) return 'Casual Cruiser';
-  if (level === 3) return 'Road Tripper';
-  if (level === 4) return 'Speed Enthusiast';
-  if (level === 5) return 'Track Day Hero';
-  if (level === 6) return 'Racing Expert';
-  if (level === 7) return 'Automotive Aficionado';
-  if (level === 8) return 'Motor Master';
-  if (level === 9) return 'Ultimate Gearhead';
-  if (level >= 10) return 'MotorTrend Legend';
-  return 'Unknown Rank';
 };
 
 export default UserPoints;

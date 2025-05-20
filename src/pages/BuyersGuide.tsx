@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import MainNavigation from '@/components/MainNavigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -177,7 +178,7 @@ const BuyersGuide: React.FC = () => {
     <div className="bg-gray-50 min-h-screen">
       <GlobalHeader onSearch={(query) => setSearchTerm(query)} isLoading={isLoading} />
       <div className="container mx-auto px-4 py-6">
-        <h1 className="text-2xl font-bold mb-6">Cars</h1>
+        <h1 className="text-2xl font-bold mb-6">Buyer's Guide</h1>
         
         {/* Search and filters */}
         <div className="mb-6">

@@ -10,7 +10,7 @@ import Profile from "./pages/Profile";
 import Garage from "./pages/Garage";
 import CarDatabase from "./pages/CarDatabase";
 import CarResearch from "./pages/CarResearch";
-import BuyersGuide from "./pages/BuyersGuide"; // We'll keep the import name the same
+import BuyersGuide from "./pages/BuyersGuide"; // Add this import
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
 import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 
@@ -25,7 +25,7 @@ function App() {
             <Route path="/garage" element={<Garage />} />
             <Route path="/cars" element={<CarDatabase />} />
             <Route path="/research/:id" element={<CarResearch />} />
-            <Route path="/buyers-guide" element={<BuyersGuide />} /> {/* Keep the same URL */}
+            <Route path="/buyers-guide" element={<BuyersGuide />} /> {/* Add this route */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </SavedItemsProvider>
