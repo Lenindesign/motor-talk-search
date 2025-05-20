@@ -122,8 +122,22 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased font-sans;
     scroll-behavior: smooth;
+  }
+  
+  /* Apply Poppins to all heading elements */
+  h1, h2, h3, h4, h5, h6, 
+  .card-title, 
+  .heading, 
+  [class*="text-xl"], 
+  [class*="text-2xl"], 
+  [class*="text-3xl"], 
+  [class*="text-4xl"], 
+  [class*="text-5xl"], 
+  [class*="font-bold"],
+  [class*="font-semibold"] {
+    @apply font-heading;
   }
   
   /* Font size adjustments */
