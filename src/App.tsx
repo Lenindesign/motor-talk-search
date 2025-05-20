@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
@@ -10,7 +9,9 @@ import Profile from "./pages/Profile";
 import Garage from "./pages/Garage";
 import CarDatabase from "./pages/CarDatabase";
 import CarResearch from "./pages/CarResearch";
-import BuyersGuide from "./pages/BuyersGuide"; 
+import BuyersGuide from "./pages/BuyersGuide";
+import News from "./pages/News";
+import Videos from "./pages/Videos";
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
 import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 
@@ -26,6 +27,8 @@ function App() {
             <Route path="/cars" element={<CarDatabase />} />
             <Route path="/research/:id" element={<CarResearch />} />
             <Route path="/buyers-guide" element={<BuyersGuide />} />
+            <Route path="/news" element={<News />} />
+            <Route path="/videos" element={<Videos />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </SavedItemsProvider>

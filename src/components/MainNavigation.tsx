@@ -1,10 +1,10 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { useIsMobile } from "../hooks/use-mobile";
 import { Menu, X, User, Home, Car, Wrench, Star, PlayCircle } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useLocation } from "react-router-dom";
+import GlobalHeader from '@/components/GlobalHeader';
 
 interface NavLinkProps {
   href: string;
