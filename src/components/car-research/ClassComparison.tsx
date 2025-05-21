@@ -176,17 +176,26 @@ const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = f
                 layout="vertical"
                 margin={{ top: 20, right: 30, left: 80, bottom: 5 }}
               >
-                <CartesianGrid strokeDasharray="3 3" horizontal={false} />
+                {/* Added specific gridlines that align with labels */}
+                <CartesianGrid 
+                  strokeDasharray="3 3" 
+                  horizontal={true}
+                  vertical={false}
+                  verticalPoints={chartData.map((_item, index) => index)} 
+                />
                 <XAxis 
                   type="number" 
                   domain={['dataMin - 10', 'dataMax + 10']}
-                  tickFormatter={(value) => `${value}%`}
+                  tickFormatter={(value) => `${value.toFixed(1)}%`}
+                  tick={{ fontSize: 12 }}
                 />
                 <YAxis 
                   dataKey="name" 
                   type="category" 
                   scale="band" 
                   tick={{ fontWeight: 500 }}
+                  axisLine={true}
+                  tickLine={true}
                 />
                 <ReferenceLine x={0} stroke="#666" strokeWidth={1.5} />
                 <RechartsTooltip content={<CustomTooltip />} />
@@ -207,7 +216,7 @@ const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = f
               </BarChart>
             </ResponsiveContainer>
             
-            <div className="mt-4 flex justify-center gap-8">
+            <div className="mt-6 flex justify-center gap-8">
               <div className="flex items-center gap-1">
                 <div className="h-3 w-3 bg-green-500 rounded-sm"></div>
                 <span className="text-xs text-gray-600">Better than average</span>
