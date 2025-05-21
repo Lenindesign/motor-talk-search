@@ -147,6 +147,39 @@ const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = f
     }
     return null;
   };
+
+  // Function to render detailed comparison card for a category
+  const renderDetailedCategoryCard = (data: any) => {
+    const isBetter = isHigherBetter(data.key) ? data.percentDiff > 0 : data.percentDiff < 0;
+    return (
+      <div key={data.key} className="border rounded-lg p-4 bg-white shadow-sm">
+        <h4 className="text-md font-semibold mb-2">{data.name}</h4>
+        
+        <div className="grid grid-cols-2 gap-4 mb-3">
+          <div className="bg-gray-50 p-2 rounded">
+            <p className="text-xs text-gray-500">This Vehicle</p>
+            <p className="font-medium text-lg">{data.format(data.vehicleValue)}</p>
+          </div>
+          <div className="bg-gray-50 p-2 rounded">
+            <p className="text-xs text-gray-500">Class Average</p>
+            <p className="font-medium text-lg">{data.format(data.classAvg)}</p>
+          </div>
+        </div>
+        
+        <div className={`flex items-center ${isBetter ? 'text-green-600' : 'text-red-600'}`}>
+          {isBetter ? 
+            <TrendingUp className="h-4 w-4 mr-1" /> : 
+            <TrendingDown className="h-4 w-4 mr-1" />
+          }
+          <span className="font-medium">
+            {formatPercentage(data.percentDiff)} {isBetter ? 'better' : 'worse'} than average
+          </span>
+        </div>
+        
+        <p className="text-xs text-gray-500 mt-2">{data.tooltip}</p>
+      </div>
+    );
+  };
   
   return (
     <Card className="h-full">
@@ -284,6 +317,16 @@ const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = f
               it delivers more value through better technology features and reliability ratings. 
               The cargo space is about average for the segment.
             </p>
+          </div>
+        )}
+        
+        {/* New detailed breakdown section */}
+        {detailed && (
+          <div className="mt-6">
+            <h3 className="text-md font-semibold mb-3">Detailed Comparison Breakdown</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {chartData.map(item => renderDetailedCategoryCard(item))}
+            </div>
           </div>
         )}
       </CardContent>
