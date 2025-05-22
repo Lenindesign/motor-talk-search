@@ -1,7 +1,8 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { useIsMobile } from "../hooks/use-mobile";
-import { Menu, X, User, Home, Car, Wrench, Star, PlayCircle } from "lucide-react";
+import { Menu, X, User, Home, Car, Wrench, Star, PlayCircle, LayoutDashboard } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useLocation } from "react-router-dom";
 import GlobalHeader from '@/components/GlobalHeader';
@@ -27,6 +28,7 @@ const MainNavigation = () => {
 
   const navItems = (
     <>
+      <NavLink href="/dashboard">Dashboard</NavLink>
       <NavLink href="/news">News</NavLink>
       <NavLink href="/buyers-guide">Cars</NavLink>
       <NavLink href="/videos">Videos</NavLink>
@@ -34,6 +36,7 @@ const MainNavigation = () => {
   );
 
   const menuItems = [
+    { label: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
     { label: 'Home', path: '/', icon: Home },
     { label: 'Cars', path: '/buyers-guide', icon: Car },
     { label: 'Garage', path: '/garage', icon: Wrench },

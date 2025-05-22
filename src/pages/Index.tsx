@@ -1,10 +1,14 @@
+
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import SearchSuggestions from "../components/SearchSuggestions";
 import ChatMessage from "../components/ChatMessage";
 import ContentTabs, { ContentType } from "../components/ContentTabs";
 import ContentGrid from "../components/ContentGrid";
 import MainNavigation from "../components/MainNavigation";
+import { Button } from "@/components/ui/button";
+import { LayoutDashboard } from "lucide-react";
 import { 
   determineContentType, 
   generateChatResponse,
@@ -180,9 +184,27 @@ const Index = () => {
                   <h1 className="text-3xl font-bold text-motortrend-dark">
                     Welcome to MOTORTREND Search
                   </h1>
-                  <p className="max-w-md text-center text-gray-500">
+                  <p className="max-w-md text-center text-gray-500 mb-4">
                     Ask me anything about cars or search for automotive content
                   </p>
+                  
+                  {/* New personalized dashboard link */}
+                  <div className="bg-white p-4 rounded-lg shadow-md w-full max-w-md mb-4 transition-all hover:shadow-lg">
+                    <Link 
+                      to="/dashboard" 
+                      className="flex items-center justify-between text-motortrend-dark hover:text-motortrend-red"
+                    >
+                      <div className="flex items-center">
+                        <LayoutDashboard className="h-5 w-5 mr-2" />
+                        <div>
+                          <h3 className="font-medium">Try the New Dashboard</h3>
+                          <p className="text-sm text-gray-500">Get personalized automotive content</p>
+                        </div>
+                      </div>
+                      <Button size="sm">Go</Button>
+                    </Link>
+                  </div>
+                  
                   <SearchSuggestions onSuggestionClick={handleSuggestionClick} />
                 </div>
               ) : (

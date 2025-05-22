@@ -13,6 +13,7 @@ import CarResearch from "./pages/CarResearch";
 import BuyersGuide from "./pages/BuyersGuide";
 import News from "./pages/News";
 import Videos from "./pages/Videos";
+import Dashboard from "./pages/Dashboard";
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
 import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 
@@ -23,6 +24,7 @@ function App() {
         <SavedItemsProvider>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/garage" element={<Garage />} />
             <Route path="/cars" element={<CarDatabase />} />
