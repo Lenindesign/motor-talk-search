@@ -1,9 +1,10 @@
 
-import React from 'react';
-import { ArrowRight, ChartBar, TrendingUp, TrendingDown, Info } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowRight, ChartBar, TrendingUp, TrendingDown, Info, BarChart3, PieChart, LineChart, ListFilter, LayoutGrid } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChartContainer } from '@/components/ui/chart';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 import {
   BarChart,
@@ -16,6 +17,16 @@ import {
   LabelList,
   CartesianGrid,
   ReferenceLine,
+  PieChart as RechartsPieChart,
+  Pie,
+  LineChart as RechartsLineChart,
+  Line,
+  Legend,
+  Radar,
+  RadarChart,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
 } from 'recharts';
 
 interface ClassComparisonProps {
@@ -24,6 +35,7 @@ interface ClassComparisonProps {
 }
 
 const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = false }) => {
+  const [viewType, setViewType] = useState<string>('bar');
   const classData = vehicle.classComparison;
   
   // Format currency to nearest thousand with k suffix
@@ -117,6 +129,36 @@ const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = f
   };
   
   const chartData = prepareData();
+
+  // Prepare data for pie chart (simplified representation)
+  const preparePieData = () => {
+    return chartData.map(item => ({
+      name: item.name,
+      value: Math.abs(item.percentDiff), // Use absolute value for pie size
+      isBetter: item.isBetter,
+      color: item.isBetter ? '#4ade80' : '#f87171',
+    }));
+  };
+
+  // Prepare data for radar chart (different format needed)
+  const prepareRadarData = () => {
+    return [
+      {
+        subject: 'This Vehicle',
+        ...chartData.reduce((acc, item) => {
+          acc[item.name] = item.vehicleValue;
+          return acc;
+        }, {}),
+      },
+      {
+        subject: 'Class Average',
+        ...chartData.reduce((acc, item) => {
+          acc[item.name] = item.classAvg;
+          return acc;
+        }, {}),
+      },
+    ];
+  };
   
   // Custom tooltip component for the chart
   const CustomTooltip = ({ active, payload }: any) => {
@@ -142,6 +184,20 @@ const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = f
               {formatPercentage(data.percentDiff)} {isBetter ? 'better' : 'worse'} than average
             </p>
           </div>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  // Custom tooltip for radar chart
+  const RadarTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white p-2 rounded border shadow-md">
+          <p className="text-sm font-medium">{payload[0].name}</p>
+          <p className="text-xs">This Vehicle: <span className="font-medium">{payload[0].value}</span></p>
+          <p className="text-xs">Class Average: <span className="font-medium">{payload[1]?.value}</span></p>
         </div>
       );
     }
@@ -181,27 +237,11 @@ const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = f
     );
   };
   
-  return (
-    <Card className="h-full">
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <CardTitle className="text-lg">Class Comparison</CardTitle>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Info className="h-4 w-4 text-gray-400 cursor-help" />
-            </TooltipTrigger>
-            <TooltipContent>
-              <p className="max-w-xs">Comparing this vehicle to the average in its class. Percentages show how much better or worse this vehicle performs.</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </CardHeader>
-      <CardContent>
-        <div className="text-center text-sm text-gray-500 mb-4">
-          Compared to average {vehicle.type}
-        </div>
-        
-        {detailed ? (
+  // Render different visualization types
+  const renderVisualization = () => {
+    switch (viewType) {
+      case 'bar':
+        return (
           <div className="my-4">
             <ResponsiveContainer width="100%" height={400}>
               <BarChart
@@ -248,8 +288,38 @@ const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = f
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
-            
-            <div className="mt-6 flex justify-center gap-8">
+          </div>
+        );
+      
+      case 'pie':
+        return (
+          <div className="my-4">
+            <ResponsiveContainer width="100%" height={400}>
+              <RechartsPieChart>
+                <Pie
+                  data={preparePieData()}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={150}
+                  labelLine={false}
+                  label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                >
+                  {preparePieData().map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Legend layout="vertical" verticalAlign="middle" align="right" />
+                <RechartsTooltip 
+                  formatter={(value, name) => {
+                    const item = chartData.find(d => d.name === name);
+                    return [formatPercentage(item?.percentDiff || 0), name];
+                  }}
+                />
+              </RechartsPieChart>
+            </ResponsiveContainer>
+            <div className="mt-4 flex justify-center gap-8">
               <div className="flex items-center gap-1">
                 <div className="h-3 w-3 bg-green-500 rounded-sm"></div>
                 <span className="text-xs text-gray-600">Better than average</span>
@@ -260,55 +330,130 @@ const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = f
               </div>
             </div>
           </div>
-        ) : (
-          <div className="mt-2 space-y-4">
-            <ul className="space-y-3">
-              {chartData.map((item, index) => (
-                <li key={index} className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium">{item.name}</span>
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <Info className="h-3.5 w-3.5 text-gray-400 cursor-help" />
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>{item.tooltip}</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <div className="text-right">
-                      <span className="block text-sm font-medium">
-                        {item.format(item.vehicleValue)}
-                      </span>
-                      <span className="block text-xs text-gray-500">
-                        vs. avg {item.format(item.classAvg)}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1 min-w-[60px]">
-                      {getDifferenceIcon(item.key, item.percentDiff)}
-                      <span className={`text-xs font-medium ${getDifferenceColor(item.key, item.percentDiff)}`}>
-                        {formatPercentage(item.percentDiff)}
-                      </span>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            
-            {!detailed && (
-              <div className="mt-4 text-center">
-                <button className="text-sm text-primary hover:underline">
-                  View detailed comparison
-                </button>
-              </div>
-            )}
+        );
+      
+      case 'radar':
+        return (
+          <div className="my-4">
+            <ResponsiveContainer width="100%" height={400}>
+              <RadarChart outerRadius={150} data={prepareRadarData()}>
+                <PolarGrid />
+                <PolarAngleAxis dataKey="subject" />
+                <PolarRadiusAxis angle={30} domain={[0, 'auto']} />
+                {chartData.map(item => (
+                  <Radar
+                    key={item.name}
+                    name={item.name}
+                    dataKey={item.name}
+                    stroke={item.isBetter ? '#4ADE80' : '#F87171'}
+                    fill={item.isBetter ? 'rgba(74, 222, 128, 0.5)' : 'rgba(248, 113, 113, 0.5)'}
+                    fillOpacity={0.6}
+                  />
+                ))}
+                <Legend />
+                <RechartsTooltip content={RadarTooltip} />
+              </RadarChart>
+            </ResponsiveContainer>
           </div>
-        )}
+        );
+      
+      case 'table':
+        return (
+          <div className="my-4 overflow-x-auto">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="bg-gray-50">
+                  <th className="text-left p-3 border-b border-gray-200">Category</th>
+                  <th className="text-right p-3 border-b border-gray-200">This Vehicle</th>
+                  <th className="text-right p-3 border-b border-gray-200">Class Average</th>
+                  <th className="text-right p-3 border-b border-gray-200">Difference</th>
+                </tr>
+              </thead>
+              <tbody>
+                {chartData.map((item, index) => (
+                  <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                    <td className="p-3 border-b border-gray-200 font-medium">{item.name}</td>
+                    <td className="p-3 border-b border-gray-200 text-right">
+                      {item.format(item.vehicleValue)}
+                    </td>
+                    <td className="p-3 border-b border-gray-200 text-right">
+                      {item.format(item.classAvg)}
+                    </td>
+                    <td className={`p-3 border-b border-gray-200 text-right font-medium ${getDifferenceColor(item.key, item.percentDiff)}`}>
+                      <div className="flex items-center justify-end gap-1">
+                        {getDifferenceIcon(item.key, item.percentDiff)}
+                        {formatPercentage(item.percentDiff)}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      
+      case 'cards':
+        return (
+          <div className="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {chartData.map((item, index) => renderDetailedCategoryCard(item))}
+          </div>
+        );
+      
+      default:
+        return null;
+    }
+  };
+  
+  return (
+    <Card className="h-full">
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <CardTitle className="text-lg">Class Comparison</CardTitle>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Info className="h-4 w-4 text-gray-400 cursor-help" />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p className="max-w-xs">Comparing this vehicle to the average in its class. Percentages show how much better or worse this vehicle performs.</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </CardHeader>
+      <CardContent>
+        <div className="text-center text-sm text-gray-500 mb-4">
+          Compared to average {vehicle.type}
+        </div>
         
-        {detailed && (
+        <Tabs defaultValue={viewType} value={viewType} onValueChange={setViewType} className="w-full">
+          <TabsList className="grid grid-cols-5 mb-4">
+            <TabsTrigger value="bar" className="flex items-center gap-1">
+              <BarChart3 className="h-4 w-4" />
+              <span className="hidden sm:inline">Bar</span>
+            </TabsTrigger>
+            <TabsTrigger value="pie" className="flex items-center gap-1">
+              <PieChart className="h-4 w-4" />
+              <span className="hidden sm:inline">Pie</span>
+            </TabsTrigger>
+            <TabsTrigger value="radar" className="flex items-center gap-1">
+              <LineChart className="h-4 w-4" />
+              <span className="hidden sm:inline">Radar</span>
+            </TabsTrigger>
+            <TabsTrigger value="table" className="flex items-center gap-1">
+              <ListFilter className="h-4 w-4" />
+              <span className="hidden sm:inline">Table</span>
+            </TabsTrigger>
+            <TabsTrigger value="cards" className="flex items-center gap-1">
+              <LayoutGrid className="h-4 w-4" />
+              <span className="hidden sm:inline">Cards</span>
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value={viewType}>
+            {renderVisualization()}
+          </TabsContent>
+        </Tabs>
+        
+        {detailed && !['cards', 'table'].includes(viewType) && (
           <div className="mt-6 rounded-lg bg-gray-50 p-4">
             <h3 className="mb-2 text-sm font-semibold">How it Compares</h3>
             <p className="text-sm text-gray-700">
@@ -320,15 +465,16 @@ const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = f
           </div>
         )}
         
-        {/* New detailed breakdown section */}
-        {detailed && (
-          <div className="mt-6">
-            <h3 className="text-md font-semibold mb-3">Detailed Comparison Breakdown</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {chartData.map(item => renderDetailedCategoryCard(item))}
-            </div>
+        <div className="mt-6 flex justify-center gap-8">
+          <div className="flex items-center gap-1">
+            <div className="h-3 w-3 bg-green-500 rounded-sm"></div>
+            <span className="text-xs text-gray-600">Better than average</span>
           </div>
-        )}
+          <div className="flex items-center gap-1">
+            <div className="h-3 w-3 bg-red-400 rounded-sm"></div>
+            <span className="text-xs text-gray-600">Worse than average</span>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );
