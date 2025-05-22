@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSavedItems } from "../contexts/SavedItemsContext";
@@ -61,7 +60,8 @@ const Dashboard = () => {
   };
   
   const userName = localStorage.getItem("userName") || "Auto Enthusiast";
-  const userInterests = preferences?.categories || ['SUVs', 'Hybrids', 'Reviews'];
+  // Fix here - changing preferences.categories to preferences.favoriteCategories
+  const userInterests = preferences?.favoriteCategories || ['SUVs', 'Hybrids', 'Reviews'];
 
   return (
     <div className="min-h-screen bg-motortrend-gray">
