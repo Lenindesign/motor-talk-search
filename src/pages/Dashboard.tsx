@@ -32,7 +32,7 @@ const Dashboard = () => {
   // Sample recommendations based on user behavior
   const recommendations = [
     { id: 1, type: 'article', title: '10 Best Family SUVs for 2023', image: '/lovable-uploads/5b8a120c-3d52-41cb-8e20-9a16e6b9bf6a.png' },
-    { id: 2, type: 'car', make: 'Toyota', model: 'RAV4', year: 2023, image: '/placeholder.svg' },
+    { id: 2, type: 'car', title: 'Toyota RAV4', year: 2023, image: '/placeholder.svg' },
     { id: 3, type: 'video', title: '2023 Honda Civic Review', image: '/placeholder.svg' },
     { id: 4, type: 'article', title: 'Electric vs Hybrid: Which is Right for You?', image: '/placeholder.svg' },
   ];
@@ -52,7 +52,7 @@ const Dashboard = () => {
           article.title.toLowerCase().includes(query.toLowerCase())
         ).slice(0, 3),
         ...mockNewCars.filter(car => 
-          `${car.make} ${car.model}`.toLowerCase().includes(query.toLowerCase())
+          car.title.toLowerCase().includes(query.toLowerCase())
         ).slice(0, 3)
       ];
       setSearchResults(results);
@@ -61,7 +61,7 @@ const Dashboard = () => {
   };
   
   const userName = localStorage.getItem("userName") || "Auto Enthusiast";
-  const userInterests = preferences?.interests || ['SUVs', 'Hybrids', 'Reviews'];
+  const userInterests = preferences?.categories || ['SUVs', 'Hybrids', 'Reviews'];
 
   return (
     <div className="min-h-screen bg-motortrend-gray">
@@ -142,18 +142,18 @@ const Dashboard = () => {
                           <CommandEmpty>No results found.</CommandEmpty>
                           <CommandGroup heading="Vehicles">
                             {searchResults
-                              .filter(item => item.make)
+                              .filter(item => 'price' in item)
                               .map((car) => (
                                 <CommandItem key={car.id} className="flex items-center gap-2">
                                   <Car className="h-4 w-4" />
-                                  <span>{car.year} {car.make} {car.model}</span>
+                                  <span>{car.title}</span>
                                 </CommandItem>
                               ))
                             }
                           </CommandGroup>
                           <CommandGroup heading="Articles">
                             {searchResults
-                              .filter(item => item.category)
+                              .filter(item => 'category' in item)
                               .map((article) => (
                                 <CommandItem key={article.id} className="flex items-center gap-2">
                                   <Newspaper className="h-4 w-4" />
@@ -222,7 +222,7 @@ const Dashboard = () => {
                   {recommendations.map((item) => (
                     <Card key={item.id} className="overflow-hidden hover:shadow-md transition-shadow">
                       <div className="aspect-[16/9] relative">
-                        <img src={item.image} alt={item.title || item.model} className="w-full h-full object-cover" />
+                        <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
                         <div className="absolute top-2 right-2">
                           <Badge variant="secondary" className={`${item.type === 'article' ? 'bg-blue-500' : item.type === 'car' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
                             {item.type === 'article' ? 'Article' : item.type === 'car' ? 'Vehicle' : 'Video'}
@@ -231,7 +231,7 @@ const Dashboard = () => {
                       </div>
                       <CardContent className="p-3">
                         <h3 className="font-medium text-sm line-clamp-2">
-                          {item.title || `${item.year} ${item.make} ${item.model}`}
+                          {item.title}
                         </h3>
                       </CardContent>
                     </Card>
@@ -286,10 +286,10 @@ const Dashboard = () => {
                   {filteredCars.map((car) => (
                     <Card key={car.id} className="overflow-hidden hover:shadow-md transition-shadow group">
                       <div className="aspect-[16/9] relative">
-                        <img src={car.imageUrl} alt={`${car.year} ${car.make} ${car.model}`} className="w-full h-full object-cover" />
+                        <img src={car.imageUrl} alt={car.title} className="w-full h-full object-cover" />
                         <div className="absolute top-2 right-2">
                           <Badge variant="secondary" className="bg-green-500 text-white">
-                            {car.condition}
+                            {car.category}
                           </Badge>
                         </div>
                         <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -298,7 +298,7 @@ const Dashboard = () => {
                         </div>
                       </div>
                       <CardContent className="p-3">
-                        <h3 className="font-medium">{car.year} {car.make} {car.model}</h3>
+                        <h3 className="font-medium">{car.title}</h3>
                         <div className="flex items-center justify-between mt-1">
                           <span className="font-semibold">{car.price}</span>
                           <div className="flex items-center gap-1">
