@@ -142,6 +142,10 @@ const Profile = () => {
                   <Bookmark size={16} />
                   <span>Saved Items</span>
                 </TabsTrigger>
+                <TabsTrigger value="garage" className="flex items-center gap-1">
+                  <Car size={16} />
+                  <span>My Garage</span>
+                </TabsTrigger>
                 <TabsTrigger value="activity" className="flex items-center gap-1">
                   <Activity size={16} />
                   <span>Recent Activity</span>
@@ -193,6 +197,10 @@ const Profile = () => {
                       {filteredItems.map(item => <SavedItemCard key={item.id} item={item} onUnsave={(id) => handleUnsave(id, item.type)} />)}
                     </div>}
                 </div>
+              </TabsContent>
+              
+              <TabsContent value="garage" className="space-y-6">
+                <GarageContent />
               </TabsContent>
               
               <TabsContent value="activity" className="space-y-6">

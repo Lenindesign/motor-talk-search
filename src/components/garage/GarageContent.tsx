@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Car } from "lucide-react";
+
+import React, { useState, useEffect } from "react";
+import { Car, BookOpen, Sparkles, ArrowRightLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSavedItems, SavedItem, SavedItemType } from "../../contexts/SavedItemsContext";
@@ -12,6 +13,34 @@ import { CarData } from "../CarCard";
 import GarageFilters from "./GarageFilters";
 import GarageTabContent from "./GarageTabContent";
 import { toast } from "@/components/ui/use-toast";
+
+// Sample articles related to cars (in a real app, these would come from an API)
+const relatedArticles = [
+  {
+    id: 'art1',
+    title: 'Best SUVs for Families in 2025',
+    category: 'SUV',
+    excerpt: 'Looking for a family-friendly SUV? Here are our top picks for 2025...',
+    imageUrl: '/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png',
+    date: '2025-03-15'
+  },
+  {
+    id: 'art2',
+    title: 'Electric Vehicle Maintenance: What You Need to Know',
+    category: 'EV',
+    excerpt: 'Maintaining an electric vehicle is different from traditional cars. Learn the essentials...',
+    imageUrl: '/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png',
+    date: '2025-03-10'
+  },
+  {
+    id: 'art3',
+    title: 'Sports Car Buyer\'s Guide: Performance on a Budget',
+    category: 'Sports Car',
+    excerpt: 'Get thrilling performance without breaking the bank with these affordable sports cars...',
+    imageUrl: '/lovable-uploads/5b8a120c-3d52-41cb-8e20-9a16e6b9bf6a.png',
+    date: '2025-03-05'
+  }
+];
 
 const GarageContent = () => {
   const { savedItems } = useSavedItems();
@@ -30,6 +59,9 @@ const GarageContent = () => {
   // Comparison states
   const [selectedCars, setSelectedCars] = useState<string[]>([]);
   const [showComparison, setShowComparison] = useState<boolean>(false);
+  
+  // Content view states
+  const [contentView, setContentView] = useState<'garage' | 'articles' | 'reviews'>('garage');
 
   // Helper function to convert SavedItem to CarData format expected by GarageCarCard
   const savedItemToCarData = (item: SavedItem): CarData => {
@@ -155,7 +187,30 @@ const GarageContent = () => {
       .map(car => savedItemToCarData(car));
   };
   
+  // Filter articles related to user's saved cars
+  const getRelatedArticles = () => {
+    // Get car categories from saved cars
+    const carCategories = savedCars.map(car => {
+      if (car.metadata?.bodyStyle) return car.metadata.bodyStyle;
+      if (car.title.toLowerCase().includes('suv')) return 'SUV';
+      if (car.title.toLowerCase().includes('sedan')) return 'Sedan';
+      if (car.title.toLowerCase().includes('truck')) return 'Truck';
+      if (car.title.toLowerCase().includes('electric') || car.title.toLowerCase().includes('ev')) return 'EV';
+      return 'Car';
+    });
+    
+    // Filter articles that match car categories (in a real app, this would be more sophisticated)
+    const uniqueCategories = Array.from(new Set(carCategories));
+    return relatedArticles.filter(article => 
+      uniqueCategories.some(category => 
+        article.category.toLowerCase() === category.toLowerCase() || 
+        article.title.toLowerCase().includes(category.toLowerCase())
+      )
+    );
+  };
+  
   const displayCars = getDisplayCars();
+  const filteredArticles = getRelatedArticles();
 
   return (
     <Card className="shadow-sm flex-1">
@@ -168,7 +223,7 @@ const GarageContent = () => {
           <CardDescription>
             {showComparison 
               ? "Compare your selected vehicles side by side" 
-              : "View and manage your saved vehicles"}
+              : "View, manage, and get insights about your vehicles"}
           </CardDescription>
         </div>
         <div className="flex gap-2">
@@ -178,14 +233,47 @@ const GarageContent = () => {
             </Button>
           ) : (
             <>
-              <GarageFilters 
-                minScore={minScore}
-                sortByScore={sortByScore}
-                showFilters={showFilters}
-                onMinScoreChange={setMinScore}
-                onSortByScoreChange={setSortByScore}
-                onToggleFilters={() => setShowFilters(!showFilters)}
-              />
+              <div className="flex gap-2">
+                <Button 
+                  variant={contentView === 'garage' ? 'default' : 'outline'} 
+                  size="sm" 
+                  onClick={() => setContentView('garage')}
+                  className="flex items-center gap-1"
+                >
+                  <Car size={16} />
+                  <span className="hidden sm:inline">Cars</span>
+                </Button>
+                <Button 
+                  variant={contentView === 'articles' ? 'default' : 'outline'} 
+                  size="sm" 
+                  onClick={() => setContentView('articles')}
+                  className="flex items-center gap-1"
+                >
+                  <BookOpen size={16} />
+                  <span className="hidden sm:inline">Articles</span>
+                </Button>
+                <Button 
+                  variant={contentView === 'reviews' ? 'default' : 'outline'} 
+                  size="sm" 
+                  onClick={() => setContentView('reviews')}
+                  className="flex items-center gap-1"
+                >
+                  <Sparkles size={16} />
+                  <span className="hidden sm:inline">Reviews</span>
+                </Button>
+              </div>
+              
+              {contentView === 'garage' && (
+                <GarageFilters 
+                  minScore={minScore}
+                  sortByScore={sortByScore}
+                  showFilters={showFilters}
+                  onMinScoreChange={setMinScore}
+                  onSortByScoreChange={setSortByScore}
+                  onToggleFilters={() => setShowFilters(!showFilters)}
+                />
+              )}
+              
               <Button onClick={() => window.location.href = "/"}>
                 Browse Cars
               </Button>
@@ -205,29 +293,75 @@ const GarageContent = () => {
           <>
             <GarageStats />
             
-            {/* Add Another Car (moved here) */}
-            <div className="mb-6">
-              <h3 className="text-lg font-medium mb-4">Add another car</h3>
-              <QuickAddCar activeTab={activeTab} />
-            </div>
+            {contentView === 'garage' && (
+              <>
+                {/* Add Another Car */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-medium mb-4">Add another car</h3>
+                  <QuickAddCar activeTab={activeTab} />
+                </div>
+                
+                <GarageTabContent 
+                  activeTab={activeTab}
+                  onTabChange={setActiveTab}
+                  displayCars={displayCars}
+                  savedItemToCarData={savedItemToCarData}
+                  minScore={minScore}
+                />
+                
+                {/* Compare Cars */}
+                <GarageCompare
+                  savedCars={savedCars}
+                  selectedCars={selectedCars}
+                  onToggleCar={(id, type) => handleToggleCarForComparison(id, type)}
+                  onCompare={handleCompare}
+                />
+              </>
+            )}
             
-            <GarageTabContent 
-              activeTab={activeTab}
-              onTabChange={setActiveTab}
-              displayCars={displayCars}
-              savedItemToCarData={savedItemToCarData}
-              minScore={minScore}
-            />
+            {contentView === 'articles' && (
+              <div className="mt-6">
+                <h3 className="text-lg font-medium mb-4">Articles Related to Your Garage</h3>
+                {filteredArticles.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {filteredArticles.map(article => (
+                      <div key={article.id} className="border rounded-md overflow-hidden bg-white shadow-sm">
+                        <div className="h-40 overflow-hidden">
+                          <img 
+                            src={article.imageUrl} 
+                            alt={article.title} 
+                            className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                        <div className="p-4">
+                          <span className="text-xs font-semibold text-motortrend-red">{article.category}</span>
+                          <h4 className="text-md font-semibold mt-1">{article.title}</h4>
+                          <p className="text-sm text-gray-600 mt-2 line-clamp-2">{article.excerpt}</p>
+                          <div className="mt-3 flex items-center justify-between">
+                            <span className="text-xs text-gray-500">
+                              {new Date(article.date).toLocaleDateString()}
+                            </span>
+                            <Button size="sm" variant="outline">Read More</Button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-10 bg-gray-50 rounded-lg">
+                    <BookOpen size={48} className="mx-auto text-gray-300 mb-4" />
+                    <h3 className="text-lg font-medium text-gray-700 mb-2">No related articles</h3>
+                    <p className="text-gray-500 max-w-md mx-auto">
+                      Add cars to your garage to see articles related to your vehicles
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
             
-            <UserReviews />
-            
-            {/* Compare Cars (moved to bottom) */}
-            <GarageCompare
-              savedCars={savedCars}
-              selectedCars={selectedCars}
-              onToggleCar={(id, type) => handleToggleCarForComparison(id, type)}
-              onCompare={handleCompare}
-            />
+            {contentView === 'reviews' && (
+              <UserReviews />
+            )}
           </>
         )}
       </CardContent>
