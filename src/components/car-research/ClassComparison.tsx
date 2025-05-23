@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { TabsContent } from '@/components/ui/tabs';
 
 import { prepareComparisonData } from './utils/dataPreparation';
 import BarChartView from './comparison-charts/BarChartView';
@@ -45,7 +44,7 @@ const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = f
         return <CardsView chartData={chartData} />;
       
       default:
-        return null;
+        return <BarChartView chartData={chartData} />;
     }
   };
   
@@ -70,10 +69,10 @@ const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = f
         </div>
         
         <VisualizationControls viewType={viewType} setViewType={setViewType} />
-
-        <TabsContent value={viewType}>
+        
+        <div className="visualization-container">
           {renderVisualization()}
-        </TabsContent>
+        </div>
         
         {detailed && !['cards', 'table'].includes(viewType) && (
           <DetailedExplanation vehicle={vehicle} />

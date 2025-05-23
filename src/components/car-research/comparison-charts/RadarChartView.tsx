@@ -7,58 +7,61 @@ import {
   PolarRadiusAxis,
   Radar,
   ResponsiveContainer,
-  Tooltip as RechartsTooltip,
+  Tooltip,
   Legend,
 } from 'recharts';
+import { ChartContainer, ChartTooltipContent } from '@/components/ui/chart';
 import { ChartDataItem, prepareRadarData } from '../utils/dataPreparation';
 
 interface RadarChartViewProps {
   chartData: ChartDataItem[];
 }
 
-interface RadarTooltipProps {
-  active?: boolean;
-  payload?: any[];
-}
-
-// Custom tooltip for radar chart
-const RadarTooltip = ({ active, payload }: RadarTooltipProps) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="bg-white p-2 rounded border shadow-md">
-        <p className="text-sm font-medium">{payload[0].name}</p>
-        <p className="text-xs">This Vehicle: <span className="font-medium">{payload[0].value}</span></p>
-        <p className="text-xs">Class Average: <span className="font-medium">{payload[1]?.value}</span></p>
-      </div>
-    );
-  }
-  return null;
-};
-
 const RadarChartView: React.FC<RadarChartViewProps> = ({ chartData }) => {
   const radarData = prepareRadarData(chartData);
+  
+  const config = {
+    thisVehicle: {
+      label: "This Vehicle",
+      theme: {
+        light: "#3b82f6",
+        dark: "#60a5fa"
+      }
+    },
+    classAverage: {
+      label: "Class Average",
+      theme: {
+        light: "#6b7280",
+        dark: "#9ca3af"
+      }
+    },
+  };
 
   return (
     <div className="my-4">
-      <ResponsiveContainer width="100%" height={400}>
+      <ChartContainer config={config} className="h-[400px]">
         <RadarChart outerRadius={150} data={radarData}>
           <PolarGrid />
           <PolarAngleAxis dataKey="subject" />
           <PolarRadiusAxis angle={30} domain={[0, 'auto']} />
-          {chartData.map(item => (
-            <Radar
-              key={item.name}
-              name={item.name}
-              dataKey={item.name}
-              stroke={item.isBetter ? '#4ADE80' : '#F87171'}
-              fill={item.isBetter ? 'rgba(74, 222, 128, 0.5)' : 'rgba(248, 113, 113, 0.5)'}
-              fillOpacity={0.6}
-            />
-          ))}
+          <Radar
+            name="This Vehicle"
+            dataKey="This Vehicle"
+            stroke="var(--color-thisVehicle)"
+            fill="var(--color-thisVehicle)"
+            fillOpacity={0.6}
+          />
+          <Radar
+            name="Class Average"
+            dataKey="Class Average"
+            stroke="var(--color-classAverage)"
+            fill="var(--color-classAverage)"
+            fillOpacity={0.6}
+          />
           <Legend />
-          <RechartsTooltip content={RadarTooltip} />
+          <Tooltip content={<ChartTooltipContent />} />
         </RadarChart>
-      </ResponsiveContainer>
+      </ChartContainer>
     </div>
   );
 };
