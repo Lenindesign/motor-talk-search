@@ -1,4 +1,3 @@
-
 import { ArticleData } from "../components/ArticleCard";
 import { CarData } from "../components/CarCard";
 import { PhotoData } from "../components/PhotoCard";
@@ -262,38 +261,56 @@ export const mockVideos: VideoData[] = [
   {
     id: "1",
     title: "2025 BMW M5 First Drive Review",
-    imageUrl: "https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    thumbnail: "https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    author: "MotorTrend Video",
+    timestamp: "3 days ago",
     duration: "12:45",
+    url: "/videos/bmw-m5-first-drive"
   },
   {
     id: "2",
     title: "Electric Off-Road Comparison: Rivian R1T vs Ford F-150 Lightning",
-    imageUrl: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    thumbnail: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    author: "MotorTrend Video",
+    timestamp: "3 days ago",
     duration: "18:32",
+    url: "/videos/electric-trucks-comparison"
   },
   {
     id: "3",
     title: "Supercar Drag Race: Ferrari vs Lamborghini vs McLaren",
-    imageUrl: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    thumbnail: "https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    author: "MotorTrend Video",
+    timestamp: "3 days ago",
     duration: "8:54",
+    url: "/videos/supercar-drag-race"
   },
   {
     id: "4",
     title: "2025 Lucid Air: In-Depth Technology Overview",
-    imageUrl: "https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    thumbnail: "https://images.unsplash.com/photo-1619405399517-d7fce0f13302?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    author: "MotorTrend Video",
+    timestamp: "3 days ago",
     duration: "14:17",
+    url: "/videos/lucid-air-tech-overview"
   },
   {
     id: "5",
     title: "DIY Car Maintenance Tips Every Owner Should Know",
-    imageUrl: "https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    thumbnail: "https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    author: "MotorTrend Video",
+    timestamp: "3 days ago",
     duration: "10:05",
+    url: "/videos/diy-maintenance-tips"
   },
   {
     id: "6",
     title: "Best Car Audio Systems of 2025",
-    imageUrl: "https://images.unsplash.com/photo-1624628639856-100bf817a80f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    thumbnail: "https://images.unsplash.com/photo-1624628639856-100bf817a80f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3",
+    author: "MotorTrend Video",
+    timestamp: "3 days ago",
     duration: "16:28",
+    url: "/videos/best-car-audio-2025"
   },
 ];
 

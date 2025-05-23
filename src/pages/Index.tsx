@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from "react";
-import { Newspaper, Video, Car, Zap, Star, TrendingUp, Clock, BarChart2, Tag } from "lucide-react";
+import { Newspaper, Video, Car, Zap, Star, TrendingUp, Clock, BarChart2, Tag, ArrowRight } from "lucide-react";
 import GlobalHeader from "@/components/GlobalHeader";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -82,7 +81,7 @@ const Index = () => {
   const featuredVideos: VideoData[] = mockVideos.slice(0, 6).map((video, idx) => ({
     id: `video-${idx}`,
     title: video.title,
-    thumbnail: video.imageUrl,
+    thumbnail: video.thumbnail,
     category: idx % 2 === 0 ? "Review" : "Comparison",
     author: "MotorTrend Video",
     timestamp: "3 days ago",

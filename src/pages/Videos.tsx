@@ -1,3 +1,4 @@
+
 import React from 'react';
 import GlobalHeader from '@/components/GlobalHeader';
 import VideoCard from '@/components/VideoCard';
@@ -29,7 +30,7 @@ const Videos: React.FC = () => {
           <div className="overflow-hidden rounded-lg bg-white shadow-lg mb-6">
             <div className="relative">
               <img
-                src={featuredVideo.imageUrl}
+                src={featuredVideo.thumbnail}
                 alt={featuredVideo.title}
                 className="h-[400px] w-full object-cover"
               />
@@ -82,4 +83,4 @@ const Videos: React.FC = () => {
   );
 };
 
-export default Videos; 
+export default Videos;

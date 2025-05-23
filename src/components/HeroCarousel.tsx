@@ -36,9 +36,11 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({ items, className }) => {
       <Carousel
         opts={{ loop: true }}
         className="w-full"
-        onSelect={(api) => {
+        setApi={(api) => {
           if (api) {
-            setCurrentIndex(api.selectedScrollSnap());
+            api.on("select", () => {
+              setCurrentIndex(api.selectedScrollSnap());
+            });
           }
         }}
       >

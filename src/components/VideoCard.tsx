@@ -8,6 +8,7 @@ export interface VideoData {
   id: string;
   title: string;
   thumbnail: string;
+  imageUrl?: string; // Add this optional property for compatibility
   category?: string;
   author: string;
   timestamp: string;
@@ -27,6 +28,9 @@ const VideoCard: React.FC<VideoCardProps> = ({
   size = "medium",
   className 
 }) => {
+  // Use imageUrl if available, otherwise fallback to thumbnail
+  const imageSource = video.imageUrl || video.thumbnail;
+  
   return (
     <div className={cn(
       "group cursor-pointer overflow-hidden rounded-lg bg-white shadow-sm transition-all hover:shadow-md",
@@ -34,7 +38,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
     )}>
       <div className="relative">
         <img
-          src={video.thumbnail}
+          src={imageSource}
           alt={video.title}
           className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
           style={{ 
