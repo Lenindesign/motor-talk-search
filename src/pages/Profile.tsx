@@ -21,6 +21,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MyGarageSkinny from "../components/profile/MyGarageSkinny";
 import GlobalHeader from '../components/GlobalHeader';
 import UserReviews from '../components/garage/UserReviews';
+import GarageContent from '../components/garage/GarageContent';
 
 const Profile = () => {
   const {
