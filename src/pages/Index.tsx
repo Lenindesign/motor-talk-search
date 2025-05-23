@@ -197,7 +197,7 @@ const Index = () => {
                       <div className="flex items-center">
                         <LayoutDashboard className="h-5 w-5 mr-2" />
                         <div>
-                          <h3 className="font-medium">Try the New Dashboard</h3>
+                          <h3 className="font-medium">My Garage</h3>
                           <p className="text-sm text-gray-500">Get personalized automotive content</p>
                         </div>
                       </div>
