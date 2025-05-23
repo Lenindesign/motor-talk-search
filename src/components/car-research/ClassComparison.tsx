@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
-import { Info, BarChart3, PieChart, LineChart, ListFilter, LayoutGrid } from 'lucide-react';
+import { Info } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { TabsContent } from '@/components/ui/tabs';
 
 import { prepareComparisonData } from './utils/dataPreparation';
 import BarChartView from './comparison-charts/BarChartView';
@@ -12,6 +12,8 @@ import RadarChartView from './comparison-charts/RadarChartView';
 import TableView from './comparison-charts/TableView';
 import CardsView from './comparison-charts/CardsView';
 import LegendView from './comparison-charts/LegendView';
+import VisualizationControls from './comparison-charts/VisualizationControls';
+import DetailedExplanation from './comparison-charts/DetailedExplanation';
 
 interface ClassComparisonProps {
   vehicle: any;
@@ -67,45 +69,14 @@ const ClassComparison: React.FC<ClassComparisonProps> = ({ vehicle, detailed = f
           Compared to average {vehicle.type}
         </div>
         
-        <Tabs defaultValue={viewType} value={viewType} onValueChange={setViewType} className="w-full">
-          <TabsList className="grid grid-cols-5 mb-4">
-            <TabsTrigger value="bar" className="flex items-center gap-1">
-              <BarChart3 className="h-4 w-4" />
-              <span className="hidden sm:inline">Bar</span>
-            </TabsTrigger>
-            <TabsTrigger value="pie" className="flex items-center gap-1">
-              <PieChart className="h-4 w-4" />
-              <span className="hidden sm:inline">Pie</span>
-            </TabsTrigger>
-            <TabsTrigger value="radar" className="flex items-center gap-1">
-              <LineChart className="h-4 w-4" />
-              <span className="hidden sm:inline">Radar</span>
-            </TabsTrigger>
-            <TabsTrigger value="table" className="flex items-center gap-1">
-              <ListFilter className="h-4 w-4" />
-              <span className="hidden sm:inline">Table</span>
-            </TabsTrigger>
-            <TabsTrigger value="cards" className="flex items-center gap-1">
-              <LayoutGrid className="h-4 w-4" />
-              <span className="hidden sm:inline">Cards</span>
-            </TabsTrigger>
-          </TabsList>
+        <VisualizationControls viewType={viewType} setViewType={setViewType} />
 
-          <TabsContent value={viewType}>
-            {renderVisualization()}
-          </TabsContent>
-        </Tabs>
+        <TabsContent value={viewType}>
+          {renderVisualization()}
+        </TabsContent>
         
         {detailed && !['cards', 'table'].includes(viewType) && (
-          <div className="mt-6 rounded-lg bg-gray-50 p-4">
-            <h3 className="mb-2 text-sm font-semibold">How it Compares</h3>
-            <p className="text-sm text-gray-700">
-              The {vehicle.year} {vehicle.make} {vehicle.model} stands out in its class with 
-              superior fuel economy and safety ratings. While priced slightly higher than the class average, 
-              it delivers more value through better technology features and reliability ratings. 
-              The cargo space is about average for the segment.
-            </p>
-          </div>
+          <DetailedExplanation vehicle={vehicle} />
         )}
         
         {/* Only show legend outside of pie chart view since pie has its own */}
