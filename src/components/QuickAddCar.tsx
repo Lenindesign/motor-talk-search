@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Search, Plus } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -6,12 +5,10 @@ import { useAutocomplete, Suggestion } from "../hooks/use-autocomplete";
 import AutocompleteSuggestions from "./AutocompleteSuggestions";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import { useToast } from "@/hooks/use-toast";
-
 interface QuickAddCarProps {
   onAddCar?: () => void;
   activeTab?: 'all' | 'owned' | 'testDriven' | 'interested';
 }
-
 const QuickAddCar: React.FC<QuickAddCarProps> = ({
   onAddCar,
   activeTab = 'interested'
@@ -27,9 +24,7 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
   } = useToast();
 
   // For selecting ownership category - default to the active tab or interested
-  const [ownership, setOwnership] = useState<'owned' | 'testDriven' | 'interested'>(
-    activeTab !== 'all' ? activeTab as 'owned' | 'testDriven' | 'interested' : 'interested'
-  );
+  const [ownership, setOwnership] = useState<'owned' | 'testDriven' | 'interested'>(activeTab !== 'all' ? activeTab as 'owned' | 'testDriven' | 'interested' : 'interested');
 
   // For selecting body style
   const [bodyStyle, setBodyStyle] = useState<'SUV' | 'Sedan' | 'Truck' | 'Sports Car' | 'Minivan' | undefined>(undefined);
@@ -40,7 +35,6 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
       setOwnership(activeTab as 'owned' | 'testDriven' | 'interested');
     }
   }, [activeTab]);
-  
   const {
     suggestions,
     isLoading: suggestionsLoading,
@@ -48,10 +42,10 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
     setSelectedIndex,
     handleKeyDown
   } = useAutocomplete(query);
-  
+
   // Generate mock specifications based on body style
   const generateSpecsForBodyStyle = (style: string) => {
-    switch(style) {
+    switch (style) {
       case 'SUV':
         return {
           cargoCapacity: Math.floor(30 + Math.random() * 20) + " cu ft",
@@ -91,20 +85,15 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
         return {};
     }
   };
-  
   const handleAddCar = (suggestion: Suggestion) => {
     if (suggestion.type === 'newCar' || suggestion.type === 'carModel') {
       if (!isSaved(suggestion.id, 'newCar')) {
         // Generate specs based on body style
         const specs = bodyStyle ? generateSpecsForBodyStyle(bodyStyle) : {};
-        
+
         // Common fields for all cars
-        const fuelType = Math.random() > 0.3 ? 
-          Math.floor(20 + Math.random() * 15) + " city / " + Math.floor(25 + Math.random() * 15) + " hwy" :
-          "Electric - " + Math.floor(85 + Math.random() * 50) + " MPGe";
-          
+        const fuelType = Math.random() > 0.3 ? Math.floor(20 + Math.random() * 15) + " city / " + Math.floor(25 + Math.random() * 15) + " hwy" : "Electric - " + Math.floor(85 + Math.random() * 50) + " MPGe";
         const drivetrain = ['FWD', 'RWD', 'AWD', '4WD'][Math.floor(Math.random() * 4)];
-        
         addSavedItem({
           id: suggestion.id,
           title: suggestion.text,
@@ -139,7 +128,6 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
       onAddCar();
     }
   };
-  
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     handleKeyDown(e);
     if (e.key === 'Enter' && selectedIndex >= 0 && selectedIndex < suggestions.length) {
@@ -149,32 +137,20 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
       setShowSuggestions(false);
     }
   };
-  
-  const filteredSuggestions = suggestions.filter(suggestion => 
-    suggestion.type === 'newCar' || suggestion.type === 'carModel' || suggestion.type === 'carMake'
-  ).slice(0, 8); // Limit to prevent overwhelming UI
+  const filteredSuggestions = suggestions.filter(suggestion => suggestion.type === 'newCar' || suggestion.type === 'carModel' || suggestion.type === 'carMake').slice(0, 8); // Limit to prevent overwhelming UI
 
   return <div className="w-full max-w-md mx-auto">
       {/* Ownership selector */}
       <div className="flex mb-2 justify-center text-sm">
-        <span className="mr-2 text-gray-500">Add as:</span>
+        <span className="mr-2 text-gray-500 py-[15px] px-[14px]">Add as:</span>
         <div className="flex space-x-2">
-          <button 
-            onClick={() => setOwnership('owned')} 
-            className={`px-2 py-1 rounded ${ownership === 'owned' ? 'bg-green-100 text-green-700' : 'text-gray-500 hover:bg-gray-100'}`}
-          >
+          <button onClick={() => setOwnership('owned')} className={`px-2 py-1 rounded ${ownership === 'owned' ? 'bg-green-100 text-green-700' : 'text-gray-500 hover:bg-gray-100'}`}>
             Owned
           </button>
-          <button 
-            onClick={() => setOwnership('testDriven')} 
-            className={`px-2 py-1 rounded ${ownership === 'testDriven' ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:bg-gray-100'}`}
-          >
+          <button onClick={() => setOwnership('testDriven')} className={`px-2 py-1 rounded ${ownership === 'testDriven' ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:bg-gray-100'}`}>
             Test Driven
           </button>
-          <button 
-            onClick={() => setOwnership('interested')} 
-            className={`px-2 py-1 rounded ${ownership === 'interested' ? 'bg-amber-100 text-amber-700' : 'text-gray-500 hover:bg-gray-100'}`}
-          >
+          <button onClick={() => setOwnership('interested')} className={`px-2 py-1 rounded ${ownership === 'interested' ? 'bg-amber-100 text-amber-700' : 'text-gray-500 hover:bg-gray-100'}`}>
             Interested
           </button>
         </div>
@@ -216,5 +192,4 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
         </div>}
     </div>;
 };
-
 export default QuickAddCar;
