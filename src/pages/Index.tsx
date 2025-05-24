@@ -193,7 +193,7 @@ const Index = () => {
                       
                       {result.type === "chat" && result.response && <ChatMessage message={result.response} isUser={false} />}
                       
-                      {result.type === "search" && result.contentType && <div className="overflow-hidden bg-white p-4 shadow-md rounded-md">
+                      {result.type === "search" && result.contentType && <div className="overflow-hidden rounded-lg bg-white p-4 shadow-md">
                           <ContentTabs activeTab={activeContentTypes[result.id] || result.contentType} onTabChange={tab => handleTabChange(result.id, tab)} />
                           <ContentGrid type={activeContentTypes[result.id] || result.contentType} content={content} loadMore={handleLoadMore} isLoadingMore={loadingMore} hasMore={hasMore} />
                         </div>}
