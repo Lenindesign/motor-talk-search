@@ -249,7 +249,7 @@ const Garage = () => {
   }, [savedItems, updateSavedItem]);
   return <div className="min-h-screen bg-motortrend-gray">
       <GlobalHeader isLoading={false} />
-      <main className="max-w-[980px] mx-auto py-[32px] px-[32px]">
+      <main className="max-w-[980px] mx-auto py-[32px] px-0">
         <div className="flex flex-col md:flex-row gap-8">
           <ProfileSidebar userData={userData} savedItemsCount={savedItems.length} onPersonalizeClick={() => setPersonalizationOpen(true)} />
           <GarageContent />
