@@ -163,8 +163,8 @@ const Index = () => {
       <main className="flex flex-1 flex-col">
         <div className="relative flex flex-col h-full">
           <div className="flex-1 overflow-y-auto" ref={chatContainerRef}>
-            <div className="max-w-[980px] mx-auto w-full py-4 pb-32 px-0">
-              {searchHistory.length === 0 ? <div className="flex flex-1 flex-col items-center justify-center space-y-6 py-20">
+            <div className="max-w-[980px] mx-auto w-full pb-32 px-0 py-[16px]">
+              {searchHistory.length === 0 ? <div className="flex flex-1 flex-col items-center justify-center space-y-6 px-[32px] py-[32px]">
                   <h1 className="text-3xl font-bold text-motortrend-dark">
                     Welcome to MOTORTREND Search
                   </h1>
@@ -173,7 +173,7 @@ const Index = () => {
                   </p>
                   
                   {/* New personalized dashboard link */}
-                  <div className="bg-white p-4 rounded-lg shadow-md w-full max-w-md mb-4 transition-all hover:shadow-lg">
+                  <div className="bg-white p-4 rounded-lg shadow-md w-full max-w-md mb-4 transition-all hover:shadow-lg px-[32px]">
                     <Link to="/dashboard" className="flex items-center justify-between text-motortrend-dark hover:text-motortrend-red">
                       <div className="flex items-center">
                         <LayoutDashboard className="h-5 w-5 mr-2" />
