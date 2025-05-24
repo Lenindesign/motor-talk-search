@@ -2,7 +2,7 @@
 import React from 'react';
 import { useSavedItems } from "../contexts/SavedItemsContext";
 
-// Minimalist with just numbers and text
+// Pill-shaped badges with solid colors
 const GarageStats = () => {
   const { savedItems } = useSavedItems();
   
@@ -12,18 +12,18 @@ const GarageStats = () => {
   const interestedCount = savedCars.filter(car => car.metadata?.ownership === 'interested').length;
 
   return (
-    <div className="flex justify-center gap-12 my-8">
-      <div className="text-center">
-        <div className="text-4xl font-bold text-green-600 mb-1">{ownedCount}</div>
-        <div className="text-sm font-medium text-gray-700 uppercase tracking-wider">Owned</div>
+    <div className="flex justify-center gap-3 my-8">
+      <div className="px-6 py-3 bg-green-500 rounded-full flex items-center gap-2 text-white">
+        <span className="text-lg font-bold">{ownedCount}</span>
+        <span className="text-sm">Owned</span>
       </div>
-      <div className="text-center">
-        <div className="text-4xl font-bold text-blue-600 mb-1">{testDrivenCount}</div>
-        <div className="text-sm font-medium text-gray-700 uppercase tracking-wider">Test Driven</div>
+      <div className="px-6 py-3 bg-blue-500 rounded-full flex items-center gap-2 text-white">
+        <span className="text-lg font-bold">{testDrivenCount}</span>
+        <span className="text-sm">Test Driven</span>
       </div>
-      <div className="text-center">
-        <div className="text-4xl font-bold text-amber-600 mb-1">{interestedCount}</div>
-        <div className="text-sm font-medium text-gray-700 uppercase tracking-wider">Interested</div>
+      <div className="px-6 py-3 bg-amber-500 rounded-full flex items-center gap-2 text-white">
+        <span className="text-lg font-bold">{interestedCount}</span>
+        <span className="text-sm">Interested</span>
       </div>
     </div>
   );
