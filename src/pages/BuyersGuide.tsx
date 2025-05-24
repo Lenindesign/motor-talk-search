@@ -155,7 +155,7 @@ const BuyersGuide: React.FC = () => {
   const filteredUsedCars = usedCars.filter(car => car.title.toLowerCase().includes(searchTerm.toLowerCase()) || car.category.toLowerCase().includes(searchTerm.toLowerCase()));
   return <div className="bg-gray-50 min-h-screen">
       <GlobalHeader onSearch={query => setSearchTerm(query)} isLoading={isLoading} />
-      <div className="max-w-[980px] mx-auto px-0 py-[32px]">
+      <div className="max-w-[980px] mx-auto py-[32px] px-[32px]">
         <h1 className="text-2xl font-bold mb-6">Buyer's Guide</h1>
         
         {/* Search and filters */}
