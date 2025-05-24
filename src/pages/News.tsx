@@ -9,7 +9,6 @@ import VideoCard from '@/components/VideoCard';
 import PhotoCard from '@/components/PhotoCard';
 import CarCard from '@/components/CarCard';
 import { mockArticles, mockVideos, mockPhotos, mockNewCars } from '@/services/mockData';
-
 const News: React.FC = () => {
   const [activeTab, setActiveTab] = useState('latest');
 
@@ -33,21 +32,15 @@ const News: React.FC = () => {
 
   // Latest cars section (first 3 cars)
   const latestCars = mockNewCars.slice(0, 3);
-
-  return (
-    <div className="min-h-screen bg-gray-50">
+  return <div className="min-h-screen bg-gray-50">
       <GlobalHeader />
-      <main className="container mx-auto px-4 py-8">
+      <main className="max-w-[980px] mx-auto px-0 py-[32px]">
         {/* Featured Article */}
         <div className="mb-8">
           <h2 className="mb-4 text-2xl font-bold">Featured Story</h2>
           <div className="overflow-hidden rounded-lg bg-white shadow-lg">
             <div className="relative">
-              <img
-                src={featuredArticle.imageUrl}
-                alt={featuredArticle.title}
-                className="h-[400px] w-full object-cover"
-              />
+              <img src={featuredArticle.imageUrl} alt={featuredArticle.title} className="h-[400px] w-full object-cover" />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
                 <span className="mb-2 inline-block rounded bg-motortrend-red px-2 py-1 text-xs font-bold text-white">
                   {featuredArticle.category}
@@ -78,25 +71,19 @@ const News: React.FC = () => {
 
           <TabsContent value="latest">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {latestNews.map((article) => (
-                <ArticleCard key={article.id} article={article} />
-              ))}
+              {latestNews.map(article => <ArticleCard key={article.id} article={article} />)}
             </div>
           </TabsContent>
 
           <TabsContent value="trending">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {trendingNews.map((article) => (
-                <ArticleCard key={article.id} article={article} />
-              ))}
+              {trendingNews.map(article => <ArticleCard key={article.id} article={article} />)}
             </div>
           </TabsContent>
 
           <TabsContent value="for-you">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {forYouNews.map((article) => (
-                <ArticleCard key={article.id} article={article} />
-              ))}
+              {forYouNews.map(article => <ArticleCard key={article.id} article={article} />)}
             </div>
           </TabsContent>
         </Tabs>
@@ -114,9 +101,7 @@ const News: React.FC = () => {
             </Button>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {featuredVideos.map((video) => (
-              <VideoCard key={video.id} video={video} />
-            ))}
+            {featuredVideos.map(video => <VideoCard key={video.id} video={video} />)}
           </div>
         </section>
 
@@ -133,9 +118,7 @@ const News: React.FC = () => {
             </Button>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {featuredPhotos.map((photo) => (
-              <PhotoCard key={photo.id} photo={photo} />
-            ))}
+            {featuredPhotos.map(photo => <PhotoCard key={photo.id} photo={photo} />)}
           </div>
         </section>
 
@@ -149,14 +132,10 @@ const News: React.FC = () => {
             </Button>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {latestCars.map((car) => (
-              <CarCard key={car.id} car={car} type="new" />
-            ))}
+            {latestCars.map(car => <CarCard key={car.id} car={car} type="new" />)}
           </div>
         </section>
       </main>
-    </div>
-  );
+    </div>;
 };
-
-export default News; 
+export default News;
