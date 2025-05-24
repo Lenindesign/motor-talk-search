@@ -43,19 +43,22 @@ const CarComparisonTable: React.FC<CarComparisonTableProps> = ({ cars }) => {
       const numericValues = cars.map(car => {
         const val = car[spec as keyof CarData];
         return typeof val === 'number' ? val : 0;
-      });
+      }).filter(v => v > 0);
       
       if (numericValues.length === 0) return '';
       
+      const currentValue = parseFloat(value);
+      if (isNaN(currentValue)) return '';
+      
       // For rank, lower is better
       if (spec.includes('Rank')) {
-        const bestValue = Math.min(...numericValues.filter(v => v > 0));
-        if (bestValue === parseFloat(value)) return 'font-bold text-green-700';
+        const bestValue = Math.min(...numericValues);
+        if (bestValue === currentValue) return 'font-bold text-green-700';
       } 
       // For scores, higher is better
       else {
         const bestValue = Math.max(...numericValues);
-        if (bestValue === parseFloat(value)) return 'font-bold text-green-700';
+        if (bestValue === currentValue) return 'font-bold text-green-700';
       }
     }
     

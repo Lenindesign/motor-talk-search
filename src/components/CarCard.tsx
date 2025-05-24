@@ -15,6 +15,40 @@ export interface CarData {
   fuelType?: string;
   drivetrain?: string;
   location?: string;
+  
+  // Body style and basic specs
+  bodyStyle?: 'SUV' | 'Sedan' | 'Truck' | 'Sports Car' | 'Minivan' | 'Crossover' | 'Coupe' | 'Convertible' | 'Hatchback' | 'Wagon';
+  
+  // SUV-specific specs
+  cargoCapacity?: string;
+  cargoCapacityFolded?: string;
+  passengerCapacity?: string;
+  seatingConfiguration?: string;
+  
+  // Sedan-specific specs
+  trunkCapacity?: string;
+  safetyRating?: string;
+  horsepowerTorque?: string;
+  
+  // Truck-specific specs
+  towingCapacity?: string;
+  payloadCapacity?: string;
+  bedDimensions?: string;
+  powertrainOptions?: string;
+  
+  // Sports Car-specific specs
+  zeroToSixty?: string;
+  topSpeed?: string;
+  weightPowerRatio?: string;
+  
+  // Minivan-specific specs
+  slidingDoorFeatures?: string;
+  familyFeatures?: string;
+  
+  // MotorTrend scores and rankings
+  motorTrendScore?: number;
+  motorTrendRank?: number;
+  motorTrendCategoryRank?: number;
 }
 
 interface CarCardProps {
