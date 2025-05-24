@@ -22,7 +22,6 @@ import MyGarageSkinny from "../components/profile/MyGarageSkinny";
 import GlobalHeader from '../components/GlobalHeader';
 import UserReviews from '../components/garage/UserReviews';
 import GarageContent from '../components/garage/GarageContent';
-
 const Profile = () => {
   const {
     savedItems,
@@ -83,7 +82,7 @@ const Profile = () => {
   return <div className="min-h-screen bg-motortrend-gray">
       <GlobalHeader isLoading={false} />
       
-      <main className="max-w-[980px] mx-auto px-4 py-8">
+      <main className="max-w-[980px] mx-auto py-8 px-0">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Profile Sidebar */}
           <aside className="w-full md:w-64 space-y-6">
@@ -195,7 +194,7 @@ const Profile = () => {
                         Browse Content
                       </Button>
                     </div> : <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {filteredItems.map(item => <SavedItemCard key={item.id} item={item} onUnsave={(id) => handleUnsave(id, item.type)} />)}
+                      {filteredItems.map(item => <SavedItemCard key={item.id} item={item} onUnsave={id => handleUnsave(id, item.type)} />)}
                     </div>}
                 </div>
               </TabsContent>
@@ -281,11 +280,9 @@ const SavedItemCard = ({
   // Safe formatDate function that handles invalid dates gracefully
   const formatDate = (dateString: string | undefined) => {
     if (!dateString) return "Unknown date";
-    
     try {
       const date = new Date(dateString);
       if (isNaN(date.getTime())) return "Unknown date";
-      
       return new Intl.DateTimeFormat('en-US', {
         month: 'short',
         day: 'numeric',
@@ -296,7 +293,6 @@ const SavedItemCard = ({
       return "Unknown date";
     }
   };
-  
   const getItemTypeLabel = (type: SavedItemType) => {
     switch (type) {
       case 'article':
@@ -313,7 +309,6 @@ const SavedItemCard = ({
         return 'Item';
     }
   };
-  
   return <div className="flex rounded-md overflow-hidden border bg-white">
       <div className="w-24 h-24 flex-shrink-0">
         <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" onError={e => {
@@ -339,5 +334,4 @@ const SavedItemCard = ({
       </div>
     </div>;
 };
-
 export default Profile;
