@@ -9,6 +9,7 @@ import CarCard, { CarData } from '@/components/CarCard';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import GlobalHeader from '../components/GlobalHeader';
+
 const BuyersGuide: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'new' | 'used'>('new');
   const [searchTerm, setSearchTerm] = useState('');
@@ -21,13 +22,11 @@ const BuyersGuide: React.FC = () => {
     const loadVehicles = async () => {
       setIsLoading(true);
       try {
-        // In a real app, you'd fetch from an API here
-        // For now, we're setting placeholder data with accurate images
         setTimeout(() => {
           setNewCars([{
             id: 'new-1',
             title: '2025 Ford Mustang GT',
-            imageUrl: 'https://images.unsplash.com/photo-1584345604476-8ec5f82d718c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+            imageUrl: 'https://images.unsplash.com/photo-1494976688602-30db25b13217?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
             price: '$45,995',
             category: 'Sports Car',
             bodyStyle: 'Sports Car',
@@ -41,7 +40,7 @@ const BuyersGuide: React.FC = () => {
           }, {
             id: 'new-2',
             title: '2025 BMW i5 eDrive40',
-            imageUrl: 'https://images.unsplash.com/photo-1607853202273-797f1c22a38e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+            imageUrl: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
             price: '$67,795',
             category: 'Luxury Sedan',
             bodyStyle: 'Sedan',
@@ -55,7 +54,7 @@ const BuyersGuide: React.FC = () => {
           }, {
             id: 'new-3',
             title: '2025 Toyota Crown Signia',
-            imageUrl: 'https://images.unsplash.com/photo-1559416523-140ddc3d238c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+            imageUrl: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
             price: '$42,500',
             category: 'Crossover',
             bodyStyle: 'SUV',
@@ -69,7 +68,7 @@ const BuyersGuide: React.FC = () => {
           }, {
             id: 'new-4',
             title: '2025 Hyundai Ioniq 6 Limited',
-            imageUrl: 'https://images.unsplash.com/photo-1663947719095-17af003c9193?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+            imageUrl: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
             price: '$52,150',
             category: 'Electric',
             bodyStyle: 'Sedan',
@@ -84,7 +83,7 @@ const BuyersGuide: React.FC = () => {
           setUsedCars([{
             id: 'used-1',
             title: '2023 Tesla Model 3 Long Range',
-            imageUrl: 'https://images.unsplash.com/photo-1617704548623-340376564e68?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+            imageUrl: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
             price: '$38,995',
             category: 'Electric',
             bodyStyle: 'Sedan',
@@ -100,7 +99,7 @@ const BuyersGuide: React.FC = () => {
           }, {
             id: 'used-2',
             title: '2021 Audi Q7 Premium Plus',
-            imageUrl: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+            imageUrl: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
             price: '$42,750',
             category: 'Luxury SUV',
             bodyStyle: 'SUV',
@@ -116,7 +115,7 @@ const BuyersGuide: React.FC = () => {
           }, {
             id: 'used-3',
             title: '2020 Lexus ES 350 F Sport',
-            imageUrl: 'https://images.unsplash.com/photo-1604429868519-8a64cb3b010a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+            imageUrl: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
             price: '$32,495',
             category: 'Luxury Sedan',
             bodyStyle: 'Sedan',
@@ -132,16 +131,14 @@ const BuyersGuide: React.FC = () => {
           }]);
           setIsLoading(false);
 
-          // Show success toast
           toast.success('Vehicle data loaded successfully', {
-            description: 'Real car images are now displayed for all vehicles'
+            description: 'High-quality automotive images are now displayed for all vehicles'
           });
         }, 800);
       } catch (error) {
         console.error('Error loading vehicles:', error);
         setIsLoading(false);
 
-        // Show error toast
         toast.error('Error loading vehicles', {
           description: 'Please try again later'
         });

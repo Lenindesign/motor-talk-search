@@ -1,7 +1,8 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Calendar, Gauge, Fuel, Settings } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export interface CarData {
   id: string;
@@ -57,7 +58,22 @@ interface CarCardProps {
 }
 
 const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
+  const [imageLoading, setImageLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
+  
   const linkPath = type === 'new' ? `/new-car/${car.id}` : `/used-car/${car.id}`;
+  
+  // Fallback image URL for automotive content
+  const fallbackImageUrl = 'https://images.unsplash.com/photo-1494976688602-30db25b13217?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3';
+  
+  const handleImageLoad = () => {
+    setImageLoading(false);
+  };
+  
+  const handleImageError = () => {
+    setImageError(true);
+    setImageLoading(false);
+  };
   
   return (
     <Link 
@@ -65,10 +81,16 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
       className="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
     >
       <div className="relative">
+        {imageLoading && (
+          <Skeleton className="h-48 w-full" />
+        )}
         <img
-          src={car.imageUrl}
+          src={imageError ? fallbackImageUrl : car.imageUrl}
           alt={car.title}
-          className="h-48 w-full object-cover"
+          className={`h-48 w-full object-cover transition-opacity duration-300 ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
+          onLoad={handleImageLoad}
+          onError={handleImageError}
+          loading="lazy"
         />
         {car.isNew && (
           <div className="absolute top-2 left-2">
