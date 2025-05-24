@@ -1,10 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Bookmark } from "lucide-react";
-import { useSavedItems } from "../contexts/SavedItemsContext";
-import CarSpecifications from "./car-specs/CarSpecifications";
-import MotorTrendScore from "./car-specs/MotorTrendScore";
-import CarImage from "./car-specs/CarImage";
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { MapPin, Calendar, Gauge, Fuel, Settings } from 'lucide-react';
 
 export interface CarData {
   id: string;
@@ -18,166 +15,76 @@ export interface CarData {
   fuelType?: string;
   drivetrain?: string;
   location?: string;
-  bodyStyle?: "SUV" | "Sedan" | "Truck" | "Sports Car" | "Minivan";
-  
-  // SUV specs
-  cargoCapacity?: string;
-  cargoCapacityFolded?: string;
-  passengerCapacity?: string;
-  seatingConfiguration?: string;
-  
-  // Sedan specs
-  trunkCapacity?: string;
-  safetyRating?: string;
-  horsepowerTorque?: string;
-  
-  // Truck specs
-  towingCapacity?: string;
-  payloadCapacity?: string;
-  bedDimensions?: string;
-  powertrainOptions?: string;
-  
-  // Sports Car specs
-  zeroToSixty?: string;
-  topSpeed?: string;
-  weightPowerRatio?: string;
-  
-  // Minivan specs
-  slidingDoorFeatures?: string;
-  familyFeatures?: string;
-  
-  // MotorTrend Rankings and Scores
-  motorTrendRank?: number;
-  motorTrendScore?: number;
-  motorTrendCategoryRank?: number;
 }
 
 interface CarCardProps {
   car: CarData;
-  type: "new" | "used";
+  type: 'new' | 'used';
 }
 
 const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
-  const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
-  const saved = isSaved(car.id, type === "new" ? "newCar" : "usedCar");
-
-  const handleSave = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault(); // Prevent the link navigation when clicking save button
-    
-    if (saved) {
-      removeSavedItem(car.id, type === "new" ? "newCar" : "usedCar");
-    } else {
-      addSavedItem({
-        id: car.id,
-        title: car.title,
-        type: type === "new" ? "newCar" : "usedCar",
-        imageUrl: car.imageUrl,
-        savedAt: new Date().toISOString(),
-        metadata: {
-          price: car.price,
-          category: car.category,
-          year: car.year,
-          mileage: car.mileage,
-          location: car.location,
-          bodyStyle: car.bodyStyle,
-          // Include all spec fields in the metadata
-          cargoCapacity: car.cargoCapacity,
-          cargoCapacityFolded: car.cargoCapacityFolded,
-          passengerCapacity: car.passengerCapacity,
-          seatingConfiguration: car.seatingConfiguration,
-          trunkCapacity: car.trunkCapacity,
-          safetyRating: car.safetyRating,
-          horsepowerTorque: car.horsepowerTorque,
-          towingCapacity: car.towingCapacity,
-          payloadCapacity: car.payloadCapacity,
-          bedDimensions: car.bedDimensions,
-          powertrainOptions: car.powertrainOptions,
-          zeroToSixty: car.zeroToSixty,
-          topSpeed: car.topSpeed,
-          weightPowerRatio: car.weightPowerRatio,
-          slidingDoorFeatures: car.slidingDoorFeatures,
-          familyFeatures: car.familyFeatures,
-          fuelType: car.fuelType,
-          drivetrain: car.drivetrain,
-          // MotorTrend Rankings and Scores
-          motorTrendRank: car.motorTrendRank,
-          motorTrendScore: car.motorTrendScore,
-          motorTrendCategoryRank: car.motorTrendCategoryRank
-        }
-      });
-    }
-  };
-
-  // Make sure we have a valid ID for research link
-  const getResearchUrl = () => {
-    // If we have an ID, use it directly
-    if (car.id) {
-      return `/research/${car.id}`;
-    }
-    
-    // Fallback: create a URL-friendly ID from the car title
-    const urlFriendlyId = car.title.replace(/\s+/g, '-').toLowerCase();
-    return `/research/${urlFriendlyId}`;
-  };
-
+  const linkPath = type === 'new' ? `/new-car/${car.id}` : `/used-car/${car.id}`;
+  
   return (
-    <Link to={getResearchUrl()} className="block no-underline text-inherit">
-      <div className="overflow-hidden rounded-lg bg-white shadow transition-all hover:shadow-md cursor-pointer">
-        <div className="relative">
-          <CarImage 
-            imageUrl={car.imageUrl}
-            title={car.title}
-            price={car.price}
-            isNew={type === "new"}
-          />
-          
-          <MotorTrendScore 
-            score={car.motorTrendScore} 
-            rank={car.motorTrendRank} 
-          />
-          
-          <button
-            onClick={handleSave}
-            className={`absolute top-2 right-2 p-1.5 rounded-full ${saved ? 'bg-motortrend-red text-white' : 'bg-black/70 text-white hover:bg-motortrend-red'} transition-colors`}
-            aria-label={saved ? "Unsave car" : "Save car"}
-          >
-            <Bookmark size={16} className={saved ? 'fill-white' : ''} />
-          </button>
+    <Link 
+      to={linkPath}
+      className="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+    >
+      <div className="relative">
+        <img
+          src={car.imageUrl}
+          alt={car.title}
+          className="h-48 w-full object-cover"
+        />
+        {car.isNew && (
+          <div className="absolute top-2 left-2">
+            <span className="bg-green-600 text-white px-2 py-1 rounded text-xs font-bold">
+              NEW 2025
+            </span>
+          </div>
+        )}
+      </div>
+      <div className="p-4">
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="font-bold text-lg flex-1 line-clamp-2">{car.title}</h3>
         </div>
+        <div className="text-xl font-bold text-motortrend-red mb-2">{car.price}</div>
+        <div className="text-sm text-gray-600 mb-3">{car.category}</div>
         
-        <div className="p-4">
-          <div className="mb-1 text-xs font-medium text-motortrend-red flex justify-between">
-            <div>
-              {car.category} {car.bodyStyle ? `- ${car.bodyStyle}` : ''}
-            </div>
-            {car.motorTrendCategoryRank && (
-              <div className="text-gray-700 font-semibold">
-                #{car.motorTrendCategoryRank} in class
+        {type === 'used' && (
+          <div className="space-y-1 text-xs text-gray-500">
+            {car.year && (
+              <div className="flex items-center">
+                <Calendar size={12} className="mr-1" />
+                <span>{car.year}</span>
+              </div>
+            )}
+            {car.mileage && (
+              <div className="flex items-center">
+                <Gauge size={12} className="mr-1" />
+                <span>{car.mileage}</span>
+              </div>
+            )}
+            {car.fuelType && (
+              <div className="flex items-center">
+                <Fuel size={12} className="mr-1" />
+                <span>{car.fuelType}</span>
+              </div>
+            )}
+            {car.drivetrain && (
+              <div className="flex items-center">
+                <Settings size={12} className="mr-1" />
+                <span>{car.drivetrain}</span>
+              </div>
+            )}
+            {car.location && (
+              <div className="flex items-center">
+                <MapPin size={12} className="mr-1" />
+                <span>{car.location}</span>
               </div>
             )}
           </div>
-          <h3 className="mb-2 line-clamp-2 text-sm font-bold">{car.title}</h3>
-          
-          <CarSpecifications car={car} />
-          
-          {car.location && (
-            <div className="mt-2 text-xs text-gray-500">
-              <span className="mr-1">📍</span>
-              {car.location}
-            </div>
-          )}
-        </div>
-        {/* CTA Button with 32px padding */}
-        <div style={{ padding: 32 }}>
-          <button
-            style={{ backgroundColor: '#E90C17', color: '#fff', width: '100%', fontWeight: 600, fontSize: '1rem', padding: '0.75rem', borderRadius: '0.375rem', boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}
-            className="transition hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#E90C17]"
-            onClick={e => { e.preventDefault(); e.stopPropagation(); window.open('https://www.autotrader.com/cars-for-sale', '_blank'); }}
-          >
-            See Local Listings
-          </button>
-        </div>
+        )}
       </div>
     </Link>
   );

@@ -13,6 +13,11 @@ import CarResearch from "./pages/CarResearch";
 import BuyersGuide from "./pages/BuyersGuide";
 import News from "./pages/News";
 import Videos from "./pages/Videos";
+import ArticleDetail from "./pages/ArticleDetail";
+import NewCarDetail from "./pages/NewCarDetail";
+import UsedCarDetail from "./pages/UsedCarDetail";
+import PhotoDetail from "./pages/PhotoDetail";
+import VideoDetail from "./pages/VideoDetail";
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
 import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 
@@ -31,6 +36,11 @@ function App() {
             <Route path="/buyers-guide" element={<BuyersGuide />} />
             <Route path="/news" element={<News />} />
             <Route path="/videos" element={<Videos />} />
+            <Route path="/article/:id" element={<ArticleDetail />} />
+            <Route path="/new-car/:id" element={<NewCarDetail />} />
+            <Route path="/used-car/:id" element={<UsedCarDetail />} />
+            <Route path="/photo/:id" element={<PhotoDetail />} />
+            <Route path="/video/:id" element={<VideoDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </SavedItemsProvider>
