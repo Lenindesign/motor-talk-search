@@ -1,12 +1,16 @@
 
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Star, Share, Bookmark, Calculator, MapPin } from 'lucide-react';
+import { ArrowLeft, Star, Share, Bookmark, Calculator, MapPin, Users, Shield, Zap, Award, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
 import GlobalHeader from '@/components/GlobalHeader';
+import GarageActionMenu from '@/components/GarageActionMenu';
 import { mockNewCars } from '@/services/mockData';
+import { CarData } from '@/components/CarCard';
 
 const NewCarDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,6 +33,21 @@ const NewCarDetail: React.FC = () => {
     );
   }
 
+  // Convert car to CarData format for GarageActionMenu
+  const carData: CarData = {
+    id: car.id,
+    title: car.title,
+    price: car.price,
+    category: car.category,
+    imageUrl: car.imageUrl,
+    year: '2025',
+    bodyStyle: car.category,
+    mileage: 'New',
+    fuelType: 'Electric',
+    drivetrain: 'AWD',
+    location: 'Available Nationwide'
+  };
+
   const mockSpecs = {
     engine: '400 HP Electric Motor',
     acceleration: '4.2 seconds 0-60 mph',
@@ -47,6 +66,42 @@ const NewCarDetail: React.FC = () => {
   ];
 
   const selectedTrimData = mockTrims.find(t => t.name === selectedTrim) || mockTrims[0];
+
+  // Expert ratings data
+  const expertRatings = [
+    { category: 'Performance', score: 8.5, description: 'Excellent acceleration and handling' },
+    { category: 'Comfort', score: 9.2, description: 'Premium interior and smooth ride' },
+    { category: 'Technology', score: 9.0, description: 'Advanced infotainment and driver aids' },
+    { category: 'Safety', score: 9.5, description: 'Top safety ratings across all tests' },
+    { category: 'Reliability', score: 8.0, description: 'Good predicted reliability' },
+    { category: 'Value', score: 7.5, description: 'Competitive in premium segment' }
+  ];
+
+  const overallRating = expertRatings.reduce((acc, rating) => acc + rating.score, 0) / expertRatings.length;
+
+  // Class comparison data
+  const classComparison = [
+    { metric: 'Price', thisVehicle: 85, classAverage: 70, unit: 'k' },
+    { metric: 'Fuel Economy', thisVehicle: 92, classAverage: 75, unit: 'MPGe' },
+    { metric: 'Cargo Space', thisVehicle: 78, classAverage: 80, unit: 'cu ft' },
+    { metric: 'Safety Rating', thisVehicle: 95, classAverage: 85, unit: '/5' },
+    { metric: 'Technology', thisVehicle: 90, classAverage: 75, unit: '/10' }
+  ];
+
+  // Owner reviews data
+  const ownerReviews = {
+    overallScore: 4.2,
+    totalReviews: 1247,
+    ratingDistribution: [
+      { stars: 5, count: 587 },
+      { stars: 4, count: 394 },
+      { stars: 3, count: 156 },
+      { stars: 2, count: 78 },
+      { stars: 1, count: 32 }
+    ],
+    topPros: ['Amazing acceleration', 'Quiet cabin', 'Premium materials'],
+    topCons: ['Expensive options', 'Learning curve for tech', 'Firm ride']
+  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -78,7 +133,7 @@ const NewCarDetail: React.FC = () => {
                 </span>
                 <div className="flex items-center text-yellow-400">
                   <Star size={16} className="fill-current mr-1" />
-                  <span className="text-white text-sm">4.8/5 Expert Rating</span>
+                  <span className="text-white text-sm">{overallRating.toFixed(1)}/10 Expert Rating</span>
                 </div>
               </div>
               <h1 className="text-3xl font-bold text-white mb-2">{car.title}</h1>
@@ -101,10 +156,7 @@ const NewCarDetail: React.FC = () => {
                   <MapPin size={16} className="mr-2" />
                   Find Dealer
                 </Button>
-                <Button variant="outline" size="sm">
-                  <Bookmark size={16} className="mr-2" />
-                  Save
-                </Button>
+                <GarageActionMenu car={carData} type="new" className="ml-2" />
                 <Button variant="outline" size="sm">
                   <Share size={16} className="mr-2" />
                   Share
@@ -114,14 +166,59 @@ const NewCarDetail: React.FC = () => {
           </div>
         </div>
 
+        {/* Quick Stats Summary */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+          <Card>
+            <CardContent className="p-4 text-center">
+              <div className="flex items-center justify-center mb-2">
+                <Award className="h-5 w-5 text-yellow-500 mr-1" />
+                <span className="text-2xl font-bold">{overallRating.toFixed(1)}</span>
+                <span className="text-gray-500">/10</span>
+              </div>
+              <p className="text-sm text-gray-600">Expert Rating</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <div className="flex items-center justify-center mb-2">
+                <Users className="h-5 w-5 text-blue-500 mr-1" />
+                <span className="text-2xl font-bold">{ownerReviews.overallScore}</span>
+                <span className="text-gray-500">/5</span>
+              </div>
+              <p className="text-sm text-gray-600">Owner Rating</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <div className="flex items-center justify-center mb-2">
+                <Zap className="h-5 w-5 text-green-500 mr-1" />
+                <span className="text-2xl font-bold">405</span>
+                <span className="text-gray-500">mi</span>
+              </div>
+              <p className="text-sm text-gray-600">EPA Range</p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4 text-center">
+              <div className="flex items-center justify-center mb-2">
+                <Shield className="h-5 w-5 text-red-500 mr-1" />
+                <span className="text-2xl font-bold">5</span>
+                <span className="text-gray-500">★</span>
+              </div>
+              <p className="text-sm text-gray-600">Safety Rating</p>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Main Content */}
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="ratings">Expert Ratings</TabsTrigger>
+            <TabsTrigger value="comparison">Class Comparison</TabsTrigger>
+            <TabsTrigger value="reviews">Owner Reviews</TabsTrigger>
             <TabsTrigger value="specs">Specifications</TabsTrigger>
             <TabsTrigger value="trims">Trims & Pricing</TabsTrigger>
-            <TabsTrigger value="reviews">Reviews</TabsTrigger>
-            <TabsTrigger value="compare">Compare</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">
@@ -154,7 +251,7 @@ const NewCarDetail: React.FC = () => {
               <div>
                 <Card>
                   <CardHeader>
-                    <CardTitle>Key Features</CardTitle>
+                    <CardTitle>Key Selling Points</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2">
@@ -178,6 +275,120 @@ const NewCarDetail: React.FC = () => {
                   </CardContent>
                 </Card>
               </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="ratings">
+            <Card>
+              <CardHeader>
+                <CardTitle>Expert Rating Breakdown</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {expertRatings.map((rating) => (
+                    <div key={rating.category} className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium">{rating.category}</span>
+                        <span className="text-lg font-bold">{rating.score}/10</span>
+                      </div>
+                      <Progress value={rating.score * 10} className="h-2" />
+                      <p className="text-sm text-gray-600">{rating.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="comparison">
+            <Card>
+              <CardHeader>
+                <CardTitle>How It Compares to Class Average</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {classComparison.map((item) => (
+                    <div key={item.metric} className="space-y-2">
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium">{item.metric}</span>
+                        <div className="flex items-center space-x-4">
+                          <span className="text-sm">
+                            This Car: <span className="font-bold">{item.thisVehicle}{item.unit}</span>
+                          </span>
+                          <span className="text-sm text-gray-500">
+                            Average: {item.classAverage}{item.unit}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="relative">
+                        <Progress value={item.classAverage} className="h-2 bg-gray-200" />
+                        <Progress 
+                          value={item.thisVehicle} 
+                          className={`h-2 absolute top-0 ${item.thisVehicle > item.classAverage ? 'bg-green-500' : 'bg-red-500'}`} 
+                        />
+                      </div>
+                      <div className="flex justify-between text-xs text-gray-500">
+                        <span>{item.thisVehicle > item.classAverage ? 'Above Average' : 'Below Average'}</span>
+                        <TrendingUp size={12} className={item.thisVehicle > item.classAverage ? 'text-green-500' : 'text-red-500'} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="reviews">
+            <div className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Owner Reviews Summary</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <div className="text-center mb-4">
+                        <div className="text-4xl font-bold">{ownerReviews.overallScore}</div>
+                        <div className="text-gray-500">out of 5 stars</div>
+                        <div className="text-sm text-gray-500">{ownerReviews.totalReviews} reviews</div>
+                      </div>
+                      <div className="space-y-2">
+                        {ownerReviews.ratingDistribution.map((rating) => (
+                          <div key={rating.stars} className="flex items-center space-x-2">
+                            <span className="text-sm w-8">{rating.stars}★</span>
+                            <Progress value={(rating.count / ownerReviews.totalReviews) * 100} className="flex-1 h-2" />
+                            <span className="text-sm text-gray-500 w-12">{rating.count}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <div className="mb-4">
+                        <h4 className="font-semibold text-green-600 mb-2">Top Pros</h4>
+                        <ul className="space-y-1">
+                          {ownerReviews.topPros.map((pro, index) => (
+                            <li key={index} className="text-sm flex items-center">
+                              <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                              {pro}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-red-600 mb-2">Top Cons</h4>
+                        <ul className="space-y-1">
+                          {ownerReviews.topCons.map((con, index) => (
+                            <li key={index} className="text-sm flex items-center">
+                              <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+                              {con}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </TabsContent>
 
@@ -233,44 +444,6 @@ const NewCarDetail: React.FC = () => {
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="reviews">
-            <Card>
-              <CardHeader>
-                <CardTitle>Expert & Owner Reviews</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="border-l-4 border-motortrend-red pl-4">
-                    <p className="text-gray-700 italic">
-                      "An exceptional vehicle that sets new standards for electric performance and luxury."
-                    </p>
-                    <p className="text-sm text-gray-500 mt-2">- MotorTrend Expert Review</p>
-                  </div>
-                  <div className="border-l-4 border-blue-500 pl-4">
-                    <p className="text-gray-700 italic">
-                      "Outstanding build quality and innovative features make this a standout choice."
-                    </p>
-                    <p className="text-sm text-gray-500 mt-2">- Verified Owner</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="compare">
-            <Card>
-              <CardHeader>
-                <CardTitle>Compare Similar Vehicles</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Compare this vehicle with similar models to make an informed decision.
-                </p>
-                <Button className="mt-4">Start Comparison</Button>
               </CardContent>
             </Card>
           </TabsContent>
