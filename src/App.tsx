@@ -49,11 +49,6 @@ function App() {
       </BrowserRouter>
     </div>
   );
-          </Routes>
-        </SavedItemsProvider>
-      </PersonalizationProvider>
-    </BrowserRouter>
-  );
 }
 
 export default App;
