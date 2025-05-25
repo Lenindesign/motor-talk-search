@@ -9,7 +9,6 @@ import CarCard, { CarData } from '@/components/CarCard';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import GlobalHeader from '../components/GlobalHeader';
-
 const BuyersGuide: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'new' | 'used'>('new');
   const [searchTerm, setSearchTerm] = useState('');
@@ -130,7 +129,6 @@ const BuyersGuide: React.FC = () => {
             location: 'Atlanta, GA'
           }]);
           setIsLoading(false);
-
           toast.success('Vehicle data loaded successfully', {
             description: 'High-quality automotive images are now displayed for all vehicles'
           });
@@ -138,7 +136,6 @@ const BuyersGuide: React.FC = () => {
       } catch (error) {
         console.error('Error loading vehicles:', error);
         setIsLoading(false);
-
         toast.error('Error loading vehicles', {
           description: 'Please try again later'
         });
@@ -152,7 +149,7 @@ const BuyersGuide: React.FC = () => {
   const filteredUsedCars = usedCars.filter(car => car.title.toLowerCase().includes(searchTerm.toLowerCase()) || car.category.toLowerCase().includes(searchTerm.toLowerCase()));
   return <div className="bg-gray-50 min-h-screen">
       <GlobalHeader onSearch={query => setSearchTerm(query)} isLoading={isLoading} />
-      <div className="max-w-[980px] mx-auto py-[32px] px-[32px]">
+      <div className="max-w-[980px] mx-auto py-[32px] px-0">
         <h1 className="text-2xl font-bold mb-6">Buyer's Guide</h1>
         
         {/* Search and filters */}
