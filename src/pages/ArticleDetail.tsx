@@ -122,7 +122,7 @@ const ArticleDetail: React.FC = () => {
         <Progress value={readingProgress} className="h-1 rounded-none bg-transparent" />
       </div>
 
-      <main className="container mx-auto px-4 py-8 max-w-4xl">
+      <main className="max-w-[980px] mx-auto px-0 py-[32px]">
         {/* Back Navigation */}
         <div className="mb-8">
           <Link to="/" className="inline-flex items-center text-motortrend-red hover:text-motortrend-dark transition-colors font-medium">
