@@ -47,7 +47,7 @@ Key topics covered in this video:
 Subscribe to MotorTrend for the latest automotive content and stay up to date with industry trends, reviews, and exclusive behind-the-scenes footage.`,
     tags: ["automotive", "car review", "performance", "2025 models", "test drive"]
   };
-  return <div className="min-h-screen bg-gray-50 py-[16px]">
+  return <div className="min-h-screen bg-gray-50 py-0">
       <GlobalHeader />
       <main className="max-w-[980px] mx-auto px-0 py-[32px]">
         {/* Back Navigation */}
