@@ -7,6 +7,7 @@ import AutocompleteSuggestions from "./AutocompleteSuggestions";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import { useToast } from "@/hooks/use-toast";
 import { useCarMakes, useCarModelsByMakeId } from '@/hooks/use-car-database';
+import { mockNewCars, mockUsedCars } from '@/services/mockData';
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -38,17 +39,31 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
   const handleAddCar = (suggestion: Suggestion) => {
     if (suggestion.type === 'newCar' || suggestion.type === 'carModel') {
       if (!isSaved(suggestion.id, 'newCar')) {
+        // Find matching car from mock data
+        const matchingCar = mockNewCars.find(car => car.id === suggestion.id) || 
+                           mockUsedCars.find(car => car.id === suggestion.id);
+
+        if (!matchingCar) {
+          toast({
+            title: "Error",
+            description: "Could not find car details. Please try again.",
+            variant: "destructive"
+          });
+          return;
+        }
+
         addSavedItem({
           id: suggestion.id,
           title: suggestion.text,
           type: 'newCar',
-          imageUrl: '/placeholder.svg',
+          imageUrl: matchingCar.imageUrl,
           savedAt: new Date().toISOString(),
           metadata: {
-            price: 'Contact dealer',
-            category: suggestion.type === 'carModel' ? 'Model' : 'New Car',
-            year: new Date().getFullYear().toString(),
-            ownership: ownership // Set the selected ownership category
+            price: matchingCar.price,
+            category: matchingCar.category,
+            year: matchingCar.year || new Date().getFullYear().toString(),
+            ownership: ownership,
+            bodyStyle: matchingCar.bodyStyle
           }
         });
         

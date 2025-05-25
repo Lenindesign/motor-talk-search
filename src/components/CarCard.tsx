@@ -1,8 +1,11 @@
-
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { MapPin, Calendar, Gauge, Fuel, Settings } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { MapPin, Calendar, Gauge, Fuel, Settings, Loader2 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+// Import cn utility if not already available
+const cn = (...classes: string[]) => {
+  return classes.filter(Boolean).join(' ');
+};
 
 export interface CarData {
   id: string;
@@ -50,47 +53,160 @@ export interface CarData {
   motorTrendScore?: number;
   motorTrendRank?: number;
   motorTrendCategoryRank?: number;
+  
+  // Image optimization settings
+  width?: number;
+  height?: number;
+  quality?: number;
+  priority?: boolean;
 }
 
 interface CarCardProps {
   car: CarData;
   type: 'new' | 'used';
+  width?: number;
+  height?: number;
+  quality?: number;
+  priority?: boolean;
+  fallbackImageUrl?: string;
+  secondaryFallbackImageUrl?: string;
+  tertiaryFallbackImageUrl?: string;
+  quaternaryFallbackImageUrl?: string;
+  quinaryFallbackImageUrl?: string;
+  // Image optimization settings
+  blurRadius?: number;
+  borderRadius?: number;
+  transitionDuration?: number;
+  // Car type specific fallbacks
+  sedanFallback?: string;
+  suvFallback?: string;
+  truckFallback?: string;
+  sportsCarFallback?: string;
+  minivanFallback?: string;
+  crossoverFallback?: string;
+  coupeFallback?: string;
+  convertibleFallback?: string;
+  hatchbackFallback?: string;
+  wagonFallback?: string;
 }
 
-const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
+const CarCard: React.FC<CarCardProps> = ({ 
+  car, 
+  type,
+  width = 800,
+  // Calculate height to maintain 16:9 aspect ratio
+  height = width * (9/16),
+  quality = 80,
+  priority = false,
+  fallbackImageUrl = 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  secondaryFallbackImageUrl = 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  tertiaryFallbackImageUrl = 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  quaternaryFallbackImageUrl = 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  quinaryFallbackImageUrl = 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  blurRadius = 3,
+  borderRadius = 8,
+  transitionDuration = 0.3,
+  sedanFallback = 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  suvFallback = 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  truckFallback = 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  sportsCarFallback = 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  minivanFallback = 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  crossoverFallback = 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  coupeFallback = 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  convertibleFallback = 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  hatchbackFallback = 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  wagonFallback = 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3'
+}) => {
   const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
-  
+  const [currentImage, setCurrentImage] = useState<string>(car.imageUrl);
+
   const linkPath = type === 'new' ? `/new-car/${car.id}` : `/used-car/${car.id}`;
-  
-  // Fallback image URL for automotive content
-  const fallbackImageUrl = 'https://images.unsplash.com/photo-1494976688602-30db25b13217?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3';
-  
-  const handleImageLoad = () => {
-    setImageLoading(false);
-  };
-  
-  const handleImageError = () => {
-    setImageError(true);
-    setImageLoading(false);
-  };
-  
+
+  useEffect(() => {
+    const loadImage = async () => {
+      try {
+        const img = new Image();
+        img.onload = () => {
+          setCurrentImage(car.imageUrl);
+          setImageLoading(false);
+          setImageError(false);
+        };
+        img.onerror = () => {
+          // Try fallback images in order
+          const fallbacks = [
+            fallbackImageUrl,
+            secondaryFallbackImageUrl,
+            tertiaryFallbackImageUrl,
+            quaternaryFallbackImageUrl,
+            quinaryFallbackImageUrl
+          ];
+          for (const fallback of fallbacks) {
+            if (fallback) {
+              setCurrentImage(fallback);
+              setImageLoading(true);
+              setImageError(false);
+              const fallbackImg = new Image();
+              fallbackImg.onload = () => {
+                setCurrentImage(fallback);
+                setImageLoading(false);
+                setImageError(false);
+              };
+              fallbackImg.onerror = () => {
+                setImageError(true);
+              };
+              fallbackImg.src = fallback;
+              return;
+            }
+          }
+          setImageError(true);
+        };
+        img.src = car.imageUrl;
+      } catch (error) {
+        console.error('Error loading image:', error);
+        setImageLoading(false);
+        setImageError(true);
+      }
+    };
+
+    loadImage();
+  }, [car.imageUrl, fallbackImageUrl, secondaryFallbackImageUrl, tertiaryFallbackImageUrl, quaternaryFallbackImageUrl, quinaryFallbackImageUrl]);
+
   return (
-    <Link 
-      to={linkPath}
-      className="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-    >
-      <div className="relative">
-        {imageLoading && (
-          <Skeleton className="h-48 w-full" />
-        )}
+    <RouterLink to={linkPath} className="group flex flex-col w-full h-full">
+      <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg">
+        <div
+          className={cn(
+            'absolute inset-0 bg-gradient-to-br from-gray-900/50 to-gray-900/30 flex items-center justify-center',
+            imageLoading && 'animate-pulse'
+          )}
+          style={{
+            opacity: imageLoading ? 1 : 0,
+            transition: 'opacity 0.3s ease-out'
+          }}
+        >
+          {imageLoading ? (
+            <Loader2 className="h-8 w-8 animate-spin text-white" />
+          ) : (
+            <Settings className="h-8 w-8 text-white" />
+          )}
+        </div>
         <img
-          src={imageError ? fallbackImageUrl : car.imageUrl}
+          src={currentImage}
           alt={car.title}
-          className={`h-48 w-full object-cover transition-opacity duration-300 ${imageLoading ? 'opacity-0' : 'opacity-100'}`}
-          onLoad={handleImageLoad}
-          onError={handleImageError}
+          className={cn(
+            'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105',
+            `rounded-[${borderRadius}px]`
+          )}
+          onLoad={() => setImageLoading(false)}
+          onError={() => setImageError(true)}
           loading="lazy"
+          width={width}
+          height={height}
+          style={{
+            filter: imageLoading ? `blur(${blurRadius}px)` : 'none',
+            transition: `filter ${transitionDuration}s ease-out`
+          }}
         />
         {car.isNew && (
           <div className="absolute top-2 left-2">
@@ -101,48 +217,51 @@ const CarCard: React.FC<CarCardProps> = ({ car, type }) => {
         )}
       </div>
       <div className="p-4">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="font-bold text-lg flex-1 line-clamp-2">{car.title}</h3>
-        </div>
-        <div className="text-xl font-bold text-motortrend-red mb-2">{car.price}</div>
-        <div className="text-sm text-gray-600 mb-3">{car.category}</div>
-        
-        {type === 'used' && (
-          <div className="space-y-1 text-xs text-gray-500">
-            {car.year && (
-              <div className="flex items-center">
-                <Calendar size={12} className="mr-1" />
-                <span>{car.year}</span>
-              </div>
-            )}
-            {car.mileage && (
-              <div className="flex items-center">
-                <Gauge size={12} className="mr-1" />
-                <span>{car.mileage}</span>
-              </div>
-            )}
-            {car.fuelType && (
-              <div className="flex items-center">
-                <Fuel size={12} className="mr-1" />
-                <span>{car.fuelType}</span>
-              </div>
-            )}
-            {car.drivetrain && (
-              <div className="flex items-center">
-                <Settings size={12} className="mr-1" />
-                <span>{car.drivetrain}</span>
-              </div>
-            )}
-            {car.location && (
-              <div className="flex items-center">
-                <MapPin size={12} className="mr-1" />
-                <span>{car.location}</span>
-              </div>
-            )}
+        <div className="space-y-2">
+          <div className="flex items-start">
+            <h3 className="font-bold text-lg flex-grow line-clamp-2">{car.title}</h3>
+            <span className="text-motortrend-red text-lg font-semibold ml-2">{car.price}</span>
           </div>
-        )}
+          <p className="text-sm text-gray-600">{car.category}</p>
+          {type === 'used' && (
+            <div className="mt-3 space-y-2">
+              <div className="flex flex-wrap gap-2 text-sm">
+                {car.year && (
+                  <div className="flex items-center">
+                    <Calendar size={14} className="mr-1" />
+                    <span>{car.year}</span>
+                  </div>
+                )}
+                {car.mileage && (
+                  <div className="flex items-center">
+                    <Gauge size={14} className="mr-1" />
+                    <span>{car.mileage}</span>
+                  </div>
+                )}
+                {car.fuelType && (
+                  <div className="flex items-center">
+                    <Fuel size={14} className="mr-1" />
+                    <span>{car.fuelType}</span>
+                  </div>
+                )}
+                {car.drivetrain && (
+                  <div className="flex items-center">
+                    <Settings size={14} className="mr-1" />
+                    <span>{car.drivetrain}</span>
+                  </div>
+                )}
+                {car.location && (
+                  <div className="flex items-center">
+                    <MapPin size={14} className="mr-1" />
+                    <span>{car.location}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </Link>
+    </RouterLink>
   );
 };
 

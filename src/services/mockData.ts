@@ -9,7 +9,7 @@ export const mockArticles: ArticleData[] = [
   {
     id: "1",
     title: "2025 Ferrari 12Cilindri First Look: The 819-HP Replacement for the 812 Superfast",
-    imageUrl: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
     date: "May 5, 2025",
     category: "Review",
     featured: true,
@@ -24,7 +24,7 @@ export const mockArticles: ArticleData[] = [
   {
     id: "3",
     title: "Best Performance Cars Under $50,000",
-    imageUrl: "https://images.unsplash.com/photo-1494976688602-30db25b13217?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
     date: "April 30, 2025",
     category: "Buyer's Guide",
   },
@@ -39,7 +39,7 @@ export const mockArticles: ArticleData[] = [
   {
     id: "5",
     title: "Hybrid vs. Electric: Which Is Right For You in 2025?",
-    imageUrl: "https://images.unsplash.com/photo-1593941707882-a5bac6861d75?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
     date: "April 25, 2025",
     category: "Comparison",
   },
@@ -51,6 +51,13 @@ export const mockArticles: ArticleData[] = [
     category: "Adventure",
     photoCount: 8,
   },
+  {
+    id: "7",
+    title: "2025 Lucid Air: In-Depth Technology Overview",
+    imageUrl: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    date: "May 10, 2025",
+    category: "Technology",
+  },
 ];
 
 // Mock New Cars with high-quality automotive images
@@ -58,11 +65,11 @@ export const mockNewCars: CarData[] = [
   {
     id: "new-1",
     title: "2025 Lucid Air Grand Touring",
-    imageUrl: "https://images.unsplash.com/photo-1593941707882-a5bac6861d75?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
     price: "$87,400",
     category: "Electric Sedan",
     isNew: true,
-    bodyStyle: "Sedan",
+    bodyStyle: "Sedan", // Using a reliable high-quality car image from Unsplash
   },
   {
     id: "new-2",
@@ -85,7 +92,7 @@ export const mockNewCars: CarData[] = [
   {
     id: "new-4",
     title: "2025 Ford Mustang GT",
-    imageUrl: "https://images.unsplash.com/photo-1494976688602-30db25b13217?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
     price: "$42,990",
     category: "Sports Car",
     isNew: true,
@@ -142,7 +149,7 @@ export const mockUsedCars: CarData[] = [
   {
     id: "used-3",
     title: "2021 Ford F-150 Raptor",
-    imageUrl: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
     price: "$65,800",
     category: "Pickup Truck",
     year: "2021",
@@ -168,7 +175,7 @@ export const mockUsedCars: CarData[] = [
   {
     id: "used-5",
     title: "2020 Jeep Wrangler Unlimited Rubicon",
-    imageUrl: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
     price: "$45,500",
     category: "SUV",
     year: "2020",
@@ -181,7 +188,7 @@ export const mockUsedCars: CarData[] = [
   {
     id: "used-6",
     title: "2021 Audi e-tron GT",
-    imageUrl: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
     price: "$89,700",
     category: "Electric Sports Car",
     year: "2021",
@@ -224,7 +231,7 @@ export const mockPhotos: PhotoData[] = [
   },
   {
     id: "4",
-    imageUrl: "https://images.unsplash.com/photo-1494976688602-30db25b13217?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
     title: "2023 Porsche 911 GT3 RS Track Day",
     position: "4/14",
     make: "Porsche",
@@ -233,7 +240,7 @@ export const mockPhotos: PhotoData[] = [
   },
   {
     id: "5",
-    imageUrl: "https://images.unsplash.com/photo-1593941707882-a5bac6861d75?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
     title: "2023 Ferrari SF90 Stradale",
     position: "5/14",
     make: "Ferrari",

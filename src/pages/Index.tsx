@@ -158,7 +158,7 @@ const Index = () => {
   const handleSuggestionClick = (suggestion: string) => {
     handleSearch(suggestion);
   };
-  return <div className="flex min-h-screen flex-col bg-motortrend-gray">
+  return <div className="flex min-h-screen flex-col bg-motortrend-gray w-full">
       <GlobalHeader onSearch={handleSearch} isLoading={isSearching} />
       <main className="flex flex-1 flex-col">
         <div className="relative flex flex-col h-full">

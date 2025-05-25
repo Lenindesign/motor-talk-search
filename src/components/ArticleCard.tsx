@@ -42,12 +42,14 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
         </div>
       </div>
       <div className="p-4">
-        <h3 className="font-bold text-lg mb-2 line-clamp-2">{article.title}</h3>
-        <div className="flex items-center text-sm text-gray-500">
-          <Calendar size={14} className="mr-1" />
-          <span className="mr-3">{article.date}</span>
-          <User size={14} className="mr-1" />
-          <span>MotorTrend</span>
+        <div className="space-y-3">
+          <h3 className="font-bold text-lg line-clamp-2 text-left">{article.title}</h3>
+          <div className="flex items-center text-sm text-gray-500 text-left">
+            <Calendar size={14} className="mr-1" />
+            <span className="mr-3">{article.date}</span>
+            <User size={14} className="mr-1" />
+            <span>MotorTrend</span>
+          </div>
         </div>
       </div>
     </Link>

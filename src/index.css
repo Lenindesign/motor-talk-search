@@ -4,6 +4,21 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-neutral-8);
+  }
+  html {
+    width: 100%;
+    height: 100%;
+  }
+  #root {
+    width: 100%;
+    height: 100%;
+  }
   /**
    * CSS Variables for the new design system
    */

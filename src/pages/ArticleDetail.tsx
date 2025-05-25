@@ -199,15 +199,15 @@ const ArticleDetail: React.FC = () => {
         </div>
 
         {/* Article Content */}
-        <article className="prose prose-lg max-w-none">
+        <article className="prose prose-lg max-w-none text-left">
           {mockContent.sections.map((section, index) => {
           switch (section.type) {
             case 'paragraph':
-              return <p key={index} className="mb-6 text-gray-700 leading-relaxed text-lg">
+              return <p key={index} className="mb-6 text-gray-700 leading-relaxed text-lg text-left">
                     {section.content}
                   </p>;
             case 'heading':
-              return <h2 key={index} className="text-3xl font-bold mt-12 mb-6 text-gray-900 relative">
+              return <h2 key={index} className="text-3xl font-bold mt-12 mb-6 text-gray-900 relative text-left">
                     <span className="text-xl font-bold mb-4 text-gray-900">
                       {section.content}
                     </span>
