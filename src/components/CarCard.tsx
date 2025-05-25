@@ -1,7 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { MapPin, Calendar, Gauge, Fuel, Settings, Loader2 } from 'lucide-react';
 import { Skeleton } from '@/components/ui/skeleton';
+import GarageActionMenu from './GarageActionMenu';
+
 // Import cn utility if not already available
 const cn = (...classes: string[]) => {
   return classes.filter(Boolean).join(' ');
@@ -173,59 +176,73 @@ const CarCard: React.FC<CarCardProps> = ({
   }, [car.imageUrl, fallbackImageUrl, secondaryFallbackImageUrl, tertiaryFallbackImageUrl, quaternaryFallbackImageUrl, quinaryFallbackImageUrl]);
 
   return (
-    <RouterLink to={linkPath} className="group flex flex-col w-full h-full">
-      <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg">
-        <div
-          className={cn(
-            'absolute inset-0 bg-gradient-to-br from-gray-900/50 to-gray-900/30 flex items-center justify-center',
-            imageLoading && 'animate-pulse'
-          )}
-          style={{
-            opacity: imageLoading ? 1 : 0,
-            transition: 'opacity 0.3s ease-out'
-          }}
-        >
-          {imageLoading ? (
-            <Loader2 className="h-8 w-8 animate-spin text-white" />
-          ) : (
-            <Settings className="h-8 w-8 text-white" />
+    <div className="group flex flex-col w-full h-full bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
+      <RouterLink to={linkPath} className="flex-grow">
+        <div className="relative w-full aspect-[16/9] overflow-hidden">
+          <div
+            className={cn(
+              'absolute inset-0 bg-gradient-to-br from-gray-900/50 to-gray-900/30 flex items-center justify-center',
+              imageLoading && 'animate-pulse'
+            )}
+            style={{
+              opacity: imageLoading ? 1 : 0,
+              transition: 'opacity 0.3s ease-out'
+            }}
+          >
+            {imageLoading ? (
+              <Loader2 className="h-8 w-8 animate-spin text-white" />
+            ) : (
+              <Settings className="h-8 w-8 text-white" />
+            )}
+          </div>
+          <img
+            src={currentImage}
+            alt={car.title}
+            className={cn(
+              'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105'
+            )}
+            onLoad={() => setImageLoading(false)}
+            onError={() => setImageError(true)}
+            loading="lazy"
+            width={width}
+            height={height}
+            style={{
+              filter: imageLoading ? `blur(${blurRadius}px)` : 'none',
+              transition: `filter ${transitionDuration}s ease-out`
+            }}
+          />
+          {car.isNew && (
+            <div className="absolute top-2 left-2">
+              <span className="bg-green-600 text-white px-2 py-1 rounded text-xs font-bold">
+                NEW 2025
+              </span>
+            </div>
           )}
         </div>
-        <img
-          src={currentImage}
-          alt={car.title}
-          className={cn(
-            'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105',
-            `rounded-[${borderRadius}px]`
-          )}
-          onLoad={() => setImageLoading(false)}
-          onError={() => setImageError(true)}
-          loading="lazy"
-          width={width}
-          height={height}
-          style={{
-            filter: imageLoading ? `blur(${blurRadius}px)` : 'none',
-            transition: `filter ${transitionDuration}s ease-out`
-          }}
-        />
-        {car.isNew && (
-          <div className="absolute top-2 left-2">
-            <span className="bg-green-600 text-white px-2 py-1 rounded text-xs font-bold">
-              NEW 2025
+      </RouterLink>
+      
+      <div className="p-4 flex-grow flex flex-col">
+        <div className="flex-grow space-y-2">
+          <div className="flex items-start justify-between">
+            <RouterLink to={linkPath} className="flex-grow">
+              <h3 className="font-bold text-lg line-clamp-2 hover:text-motortrend-red transition-colors">
+                {car.title}
+              </h3>
+            </RouterLink>
+            <span className="text-motortrend-red text-lg font-semibold ml-2 flex-shrink-0">
+              {car.price}
             </span>
           </div>
-        )}
-      </div>
-      <div className="p-4">
-        <div className="space-y-2">
-          <div className="flex items-start">
-            <h3 className="font-bold text-lg flex-grow line-clamp-2">{car.title}</h3>
-            <span className="text-motortrend-red text-lg font-semibold ml-2">{car.price}</span>
-          </div>
-          <p className="text-sm text-gray-600">{car.category}</p>
+          
+          <RouterLink to={linkPath}>
+            <p className="text-sm text-gray-600 hover:text-gray-800 transition-colors">
+              {car.category}
+            </p>
+          </RouterLink>
+          
           {type === 'used' && (
             <div className="mt-3 space-y-2">
-              <div className="flex flex-wrap gap-2 text-sm">
+              <div className="flex flex-wrap gap-2 text-sm text-gray-600">
                 {car.year && (
                   <div className="flex items-center">
                     <Calendar size={14} className="mr-1" />
@@ -260,8 +277,13 @@ const CarCard: React.FC<CarCardProps> = ({
             </div>
           )}
         </div>
+        
+        {/* Garage Action Menu */}
+        <div className="mt-3 pt-3 border-t border-gray-100">
+          <GarageActionMenu car={car} type={type} className="w-full" />
+        </div>
       </div>
-    </RouterLink>
+    </div>
   );
 };
 

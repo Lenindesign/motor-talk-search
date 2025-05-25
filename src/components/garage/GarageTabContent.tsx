@@ -39,7 +39,7 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
       <TabsList className="grid w-full grid-cols-4">
         <TabsTrigger value="all">All</TabsTrigger>
         <TabsTrigger value="owned">Owned</TabsTrigger>
-        <TabsTrigger value="testDriven">Test Driven</TabsTrigger>
+        <TabsTrigger value="testDriven">Test Drive</TabsTrigger>
         <TabsTrigger value="interested">Interested</TabsTrigger>
       </TabsList>
       
@@ -68,7 +68,7 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
             <p className="text-center text-gray-500 py-8 col-span-full">
               {minScore > 0 ? 
                 `No cars found with MotorTrend Score of ${minScore} or higher.` : 
-                `No ${activeTab !== 'all' ? activeTab : ''} cars in your garage yet. Add some from the form below.`
+                `No ${activeTab === 'testDriven' ? 'Test Drive' : activeTab !== 'all' ? activeTab : ''} cars in your garage yet. Add some from the form below.`
               }
             </p>
           )}

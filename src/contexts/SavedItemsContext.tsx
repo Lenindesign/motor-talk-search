@@ -23,7 +23,8 @@ export interface UserActivity {
 }
 
 // Saved item type
-export type SavedItemType = 'article' | 'newCar' | 'usedCar' | 'photo' | 'video' | 'owned' | 'interested';
+// Update the SavedItemType to use "testDriven" internally but display as "Test Drive"
+export type SavedItemType = 'article' | 'newCar' | 'usedCar' | 'photo' | 'video' | 'owned' | 'testDriven' | 'interested';
 
 // Saved item structure
 export interface SavedItem {
@@ -57,6 +58,7 @@ interface SavedItemsContextType {
   isSaved: (id: string, type: SavedItemType) => boolean;
   updateSavedItem: (id: string, updates: Partial<SavedItem>) => void;
   getSavedItemById: (id: string) => SavedItem | undefined;
+  getOwnershipDisplayText?: (ownership: string) => string;
 }
 
 const SavedItemsContext = createContext<SavedItemsContextType | undefined>(undefined);
@@ -226,6 +228,21 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
     );
   };
 
+  // Add a helper function to get display text for ownership
+  const getOwnershipDisplayText = (ownership: string) => {
+    switch (ownership) {
+      case 'testDriven':
+        return 'Test Drive';
+      case 'owned':
+        return 'Owned';
+      case 'interested':
+        return 'Interested';
+      default:
+        return ownership;
+    }
+  };
+
+  // Add the new helper function to the context value
   return (
     <SavedItemsContext.Provider value={{ 
       savedItems, 
@@ -236,7 +253,8 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
       removeSavedItem, 
       isSaved,
       updateSavedItem,
-      getSavedItemById
+      getSavedItemById,
+      getOwnershipDisplayText
     }}>
       {children}
     </SavedItemsContext.Provider>
