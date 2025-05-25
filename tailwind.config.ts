@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -14,13 +15,23 @@ export default {
 			center: true,
 			padding: '2rem',
 			screens: {
-				'2xl': '1400px'
+				sm: '40rem',
+				md: '48rem',
+				lg: '64rem',
+				xl: '80rem',
+				'2xl': '96rem'
 			}
 		},
 		extend: {
 			fontFamily: {
 				'sans': ['Geist', 'sans-serif'],
 				'heading': ['Poppins', 'sans-serif'],
+				'hero': ['var(--font-hero)', 'var(--font-heading)', 'Poppins', 'sans-serif'],
+				'body': ['var(--font-body)', 'Geist', 'sans-serif'],
+				'subtitle': ['var(--font-subtitle)', 'var(--font-heading)', 'Poppins', 'sans-serif'],
+				'button': ['var(--font-button)', 'var(--font-heading)', 'Poppins', 'sans-serif'],
+				'caption': ['var(--font-caption)', 'var(--font-body)', 'Geist', 'sans-serif'],
+				'email': ['Arial', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -30,11 +41,17 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					1: 'var(--color-primary-1)',
+					2: 'var(--color-primary-2)',
+					3: 'var(--color-primary-3)',
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					foreground: 'hsl(var(--secondary-foreground))',
+					1: 'var(--color-secondary-1)',
+					2: 'var(--color-secondary-2)',
+					3: 'var(--color-secondary-3)',
 				},
 				destructive: {
 					DEFAULT: 'hsl(var(--destructive))',
@@ -66,6 +83,41 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
+				// New design system colors
+				error: {
+					1: 'var(--color-error-1)',
+					2: 'var(--color-error-2)',
+					3: 'var(--color-error-3)',
+					4: 'var(--color-error-4)',
+				},
+				info: {
+					1: 'var(--color-info-1)',
+					2: 'var(--color-info-2)',
+					3: 'var(--color-info-3)',
+					4: 'var(--color-info-4)',
+				},
+				neutral: {
+					1: 'var(--color-neutral-1)',
+					2: 'var(--color-neutral-2)',
+					3: 'var(--color-neutral-3)',
+					4: 'var(--color-neutral-4)',
+					5: 'var(--color-neutral-5)',
+					6: 'var(--color-neutral-6)',
+					7: 'var(--color-neutral-7)',
+					8: 'var(--color-neutral-8)',
+				},
+				success: {
+					1: 'var(--color-success-1)',
+					2: 'var(--color-success-2)',
+					3: 'var(--color-success-3)',
+					4: 'var(--color-success-4)',
+				},
+				warning: {
+					1: 'var(--color-warning-1)',
+					2: 'var(--color-warning-2)',
+					3: 'var(--color-warning-3)',
+					4: 'var(--color-warning-4)',
+				},
 				motortrend: {
 					dark: '#1A1F2C',
 					red: '#E90C17',
@@ -74,6 +126,10 @@ export default {
 					text: '#222222',
 					muted: '#8E9196',
 				},
+			},
+			aspectRatio: {
+				'paper': '8.5 / 11',
+				'vertical': '9 / 16',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -88,6 +144,30 @@ export default {
 				'accordion-up': {
 					from: { height: 'var(--radix-accordion-content-height)' },
 					to: { height: '0' }
+				},
+				'circular-progress-rotate': {
+					'0%': { transform: 'rotate(0deg)' },
+					'100%': { transform: 'rotate(360deg)' }
+				},
+				'circular-progress-dash': {
+					'0%': { 'stroke-dasharray': '1px, 200px', 'stroke-dashoffset': '0' },
+					'50%': { 'stroke-dasharray': '100px, 200px', 'stroke-dashoffset': '-15px' },
+					'100%': { 'stroke-dasharray': '100px, 200px', 'stroke-dashoffset': '-125px' }
+				},
+				'linear-progress-indeterminate-bar1': {
+					'0%': { left: '-35%', right: '100%' },
+					'60%': { left: '100%', right: '-90%' },
+					'100%': { left: '100%', right: '-90%' }
+				},
+				'linear-progress-indeterminate-bar2': {
+					'0%': { left: '-200%', right: '100%' },
+					'60%': { left: '107%', right: '-8%' },
+					'100%': { left: '107%', right: '-8%' }
+				},
+				'wave': {
+					'0%': { transform: 'translateX(-100%)' },
+					'50%': { transform: 'translateX(100%)' },
+					'100%': { transform: 'translateX(100%)' }
 				},
 				'fade-in': {
 					'0%': { opacity: '0', transform: 'translateY(10px)' },
@@ -138,6 +218,11 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
+				'circular-progress': 'circular-progress-rotate 1.4s linear infinite',
+				'circular-progress-dash': 'circular-progress-dash 1.4s ease-in-out infinite',
+				'linear-progress-bar1': 'linear-progress-indeterminate-bar1 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite',
+				'linear-progress-bar2': 'linear-progress-indeterminate-bar2 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite',
+				'wave': 'wave 2s linear 0.5s infinite',
 				'fade-in': 'fade-in 0.3s ease-out',
 				'fade-out': 'fade-out 0.3s ease-out',
 				'spinner': 'spinner 1s linear infinite',
