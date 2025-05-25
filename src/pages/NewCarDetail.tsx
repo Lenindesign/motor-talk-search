@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
@@ -15,15 +14,16 @@ import ComparisonTab from './NewCarDetail/ComparisonTab';
 import ReviewsTab from './NewCarDetail/ReviewsTab';
 import TrimsTab from './NewCarDetail/TrimsTab';
 import SpecsTab from './NewCarDetail/SpecsTab';
-
 const NewCarDetail: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const {
+    id
+  } = useParams<{
+    id: string;
+  }>();
   const car = mockNewCars.find(c => c.id === id);
   const [selectedTrim, setSelectedTrim] = useState('Base');
-
   if (!car) {
-    return (
-      <div className="min-h-screen bg-gray-50">
+    return <div className="min-h-screen bg-gray-50">
         <GlobalHeader />
         <main className="container mx-auto px-4 py-8">
           <div className="text-center">
@@ -33,8 +33,7 @@ const NewCarDetail: React.FC = () => {
             </Link>
           </div>
         </main>
-      </div>
-    );
+      </div>;
   }
 
   // Convert car to CarData format for GarageActionMenu
@@ -51,46 +50,29 @@ const NewCarDetail: React.FC = () => {
     drivetrain: 'AWD',
     location: 'Available Nationwide'
   };
-
   const processedTrims = mockTrims.map(trim => ({
     name: trim.name,
-    price: trim.name === 'Base' 
-      ? car.price 
-      : '$' + (parseInt(car.price.replace(/[^\d]/g, '')) + trim.basePrice).toLocaleString(),
+    price: trim.name === 'Base' ? car.price : '$' + (parseInt(car.price.replace(/[^\d]/g, '')) + trim.basePrice).toLocaleString(),
     features: trim.features
   }));
-
   const selectedTrimData = processedTrims.find(t => t.name === selectedTrim) || processedTrims[0];
   const overallRating = expertRatings.reduce((acc, rating) => acc + rating.score, 0) / expertRatings.length;
-
-  return (
-    <div className="min-h-screen bg-gray-50">
+  return <div className="min-h-screen bg-gray-50">
       <GlobalHeader />
-      <main className="container mx-auto px-4 py-8">
+      <main className="max-w-[980px] mx-auto px-0 py-[32px]">
         {/* Back Navigation */}
         <div className="mb-6">
-          <Link 
-            to="/cars" 
-            className="inline-flex items-center text-motortrend-red hover:text-motortrend-dark transition-colors"
-          >
+          <Link to="/cars" className="inline-flex items-center text-motortrend-red hover:text-motortrend-dark transition-colors">
             <ArrowLeft size={20} className="mr-2" />
             Back to Car Database
           </Link>
         </div>
 
         {/* Car Header */}
-        <CarHeader 
-          car={car}
-          carData={carData}
-          selectedTrimPrice={selectedTrimData.price}
-          overallRating={overallRating}
-        />
+        <CarHeader car={car} carData={carData} selectedTrimPrice={selectedTrimData.price} overallRating={overallRating} />
 
         {/* Quick Stats Summary */}
-        <QuickStats 
-          overallRating={overallRating}
-          ownerRating={ownerReviews.overallScore}
-        />
+        <QuickStats overallRating={overallRating} ownerRating={ownerReviews.overallScore} />
 
         {/* Main Content */}
         <Tabs defaultValue="overview" className="space-y-6">
@@ -120,12 +102,7 @@ const NewCarDetail: React.FC = () => {
           </TabsContent>
 
           <TabsContent value="trims">
-            <TrimsTab 
-              trims={processedTrims}
-              selectedTrim={selectedTrim}
-              onTrimSelect={setSelectedTrim}
-              selectedTrimData={selectedTrimData}
-            />
+            <TrimsTab trims={processedTrims} selectedTrim={selectedTrim} onTrimSelect={setSelectedTrim} selectedTrimData={selectedTrimData} />
           </TabsContent>
 
           <TabsContent value="specs">
@@ -133,8 +110,6 @@ const NewCarDetail: React.FC = () => {
           </TabsContent>
         </Tabs>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default NewCarDetail;
