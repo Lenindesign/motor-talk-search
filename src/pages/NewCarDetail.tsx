@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Star, Share, Bookmark, Calculator, MapPin, Users, Shield, Zap, Award, TrendingUp } from 'lucide-react';
@@ -33,6 +32,22 @@ const NewCarDetail: React.FC = () => {
     );
   }
 
+  // Helper function to map category to valid bodyStyle
+  const getBodyStyle = (category: string): "SUV" | "Sedan" | "Truck" | "Sports Car" | "Minivan" | "Crossover" | "Coupe" | "Convertible" | "Hatchback" | "Wagon" => {
+    const categoryLower = category.toLowerCase();
+    if (categoryLower.includes('suv')) return 'SUV';
+    if (categoryLower.includes('sedan')) return 'Sedan';
+    if (categoryLower.includes('truck')) return 'Truck';
+    if (categoryLower.includes('sports')) return 'Sports Car';
+    if (categoryLower.includes('minivan')) return 'Minivan';
+    if (categoryLower.includes('crossover')) return 'Crossover';
+    if (categoryLower.includes('coupe')) return 'Coupe';
+    if (categoryLower.includes('convertible')) return 'Convertible';
+    if (categoryLower.includes('hatchback')) return 'Hatchback';
+    if (categoryLower.includes('wagon')) return 'Wagon';
+    return 'SUV'; // Default fallback
+  };
+
   // Convert car to CarData format for GarageActionMenu
   const carData: CarData = {
     id: car.id,
@@ -41,7 +56,7 @@ const NewCarDetail: React.FC = () => {
     category: car.category,
     imageUrl: car.imageUrl,
     year: '2025',
-    bodyStyle: car.category,
+    bodyStyle: getBodyStyle(car.category),
     mileage: 'New',
     fuelType: 'Electric',
     drivetrain: 'AWD',
