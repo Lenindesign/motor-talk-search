@@ -1,32 +1,30 @@
-
 import React from "react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-
 const UserPoints = () => {
-  const { userPoints } = useSavedItems();
-  
+  const {
+    userPoints
+  } = useSavedItems();
+
   // Calculate level based on points
   // This is a simple formula, can be adjusted as needed
   const level = Math.floor(Math.sqrt(userPoints) / 2) + 1;
-  
+
   // Calculate progress to next level
   const pointsForCurrentLevel = Math.pow((level - 1) * 2, 2);
   const pointsForNextLevel = Math.pow(level * 2, 2);
   const pointsRange = pointsForNextLevel - pointsForCurrentLevel;
   const pointsProgress = userPoints - pointsForCurrentLevel;
-  const progressPercentage = (pointsProgress / pointsRange) * 100;
-  
+  const progressPercentage = pointsProgress / pointsRange * 100;
+
   // Get rank title based on level
   const rankTitle = getRankTitle(level);
-  
-  return (
-    <Card className="bg-gradient-to-br from-motortrend-dark to-motortrend-red text-white">
+  return <Card className="bg-gradient-to-br from-motortrend-dark to-motortrend-red text-white">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <span>Your Progress</span>
-          <span className="text-2xl font-bold">{userPoints} pts</span>
+          <span className="text-slate-50">Your Progress</span>
+          <span className="text-2xl font-bold text-slate-50">{userPoints} pts</span>
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -49,10 +47,8 @@ const UserPoints = () => {
           </div>
         </div>
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
-
 const getRankTitle = (level: number) => {
   if (level === 1) return 'Novice Driver';
   if (level === 2) return 'Casual Cruiser';
@@ -66,5 +62,4 @@ const getRankTitle = (level: number) => {
   if (level >= 10) return 'MotorTrend Legend';
   return 'Unknown Rank';
 };
-
 export default UserPoints;
