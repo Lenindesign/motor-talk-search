@@ -11,7 +11,7 @@ interface GuideItem {
   badgeColor?: string;
 }
 const guideItems: GuideItem[] = [{
-  id: '1',
+  id: 'lucid-air',
   title: '2025 Lucid Air Grand Touring',
   price: '$87,400',
   rating: 4.8,
@@ -19,19 +19,19 @@ const guideItems: GuideItem[] = [{
   badge: 'Sponsored',
   badgeColor: 'bg-yellow-500'
 }, {
-  id: '2',
+  id: 'rivian-r1s',
   title: '2025 Rivian R1S',
   price: '$76,000',
   rating: 4.6,
   imageUrl: 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&w=400&h=300'
 }, {
-  id: '3',
+  id: 'bmw-i5',
   title: '2025 BMW i5 eDrive40',
   price: '$65,700',
   rating: 4.7,
   imageUrl: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=400&h=300'
 }, {
-  id: '4',
+  id: 'mustang-gt',
   title: '2025 Ford Mustang GT',
   price: '$42,990',
   rating: 4.5,
