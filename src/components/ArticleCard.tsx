@@ -83,11 +83,11 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, className, onClick, 
       }}
       onClick={onClick || (() => navigate(`/article/${article.id}`))}
     >
-      <div className="relative">
+      <div className="relative pt-[56.25%]">
         <img
           src={article.imageUrl}
           alt={article.title}
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
         />
         {article.photoCount && (

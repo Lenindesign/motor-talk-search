@@ -1,4 +1,3 @@
-
 import React from 'react';
 import GlobalHeader from '@/components/GlobalHeader';
 import HeroCarousel from '@/components/home/HeroCarousel';
@@ -29,7 +28,7 @@ const Videos: React.FC = () => {
               id: 'v1',
               title: '2025 Lamborghini Revuelto: Track Review',
               subtitle: 'Lambo’s 1000+ hp hybrid V12 gets unleashed on the circuit. Watch the full test.',
-              imageUrl: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80',
+              imageUrl: 'https://www.motortrend.com/uploads/2023/03/012-2024-lamborghini-revuelto.jpg?w=768&width=768&q=75&format=webp',
               videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
               tag: 'Track Test',
               tagColor: 'bg-yellow-600',

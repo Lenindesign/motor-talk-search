@@ -5,6 +5,7 @@ import { useSavedItems } from '../contexts/SavedItemsContext';
 import BaseCard from './ui/BaseCard';
 import { CARD_STYLES } from '@/styles/cardStyles';
 import { cn } from '@/lib/utils';
+
 export interface VideoData {
   id: string;
   title: string;
@@ -18,11 +19,13 @@ export interface VideoData {
     publishDate?: string;
   };
 }
+
 export interface VideoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   video: VideoData;
   className?: string;
   onClick?: () => void;
 }
+
 const VideoCard: React.FC<VideoCardProps> = ({
   video,
   className,
@@ -59,8 +62,8 @@ const VideoCard: React.FC<VideoCardProps> = ({
     views: video.views,
     publishDate: video.publishDate
   }} onClick={onClick || (() => navigate(`/video/${video.id}`))}>
-      <div className="relative">
-        <img src={video.imageUrl} alt={video.title} className="h-48 w-full object-cover" />
+      <div className="relative pt-[56.25%]">
+        <img src={video.imageUrl} alt={video.title} className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors flex items-center justify-center">
           <div className="bg-motortrend-red/90 group-hover:bg-motortrend-red rounded-full p-3 transition-colors">
             <Play className="text-white ml-0.5" />
@@ -83,4 +86,5 @@ const VideoCard: React.FC<VideoCardProps> = ({
       </div>
     </BaseCard>;
 };
+
 export default VideoCard;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Car, Truck, Zap, Crown, Trophy, TrendingUp } from 'lucide-react';
+import { Car, Truck, Zap, Crown, Trophy, TrendingUp, LayoutGrid } from 'lucide-react';
+
 interface CategoryItem {
   id: string;
   name: string;
@@ -8,6 +9,7 @@ interface CategoryItem {
   link: string;
   description: string;
 }
+
 const categories: CategoryItem[] = [{
   id: 'suvs',
   name: 'SUVs',
@@ -45,6 +47,7 @@ const categories: CategoryItem[] = [{
   link: '/cars?category=sports',
   description: 'Performance and excitement'
 }];
+
 const trendingComparisons = [{
   id: '1',
   title: 'Toyota RAV4 Prime vs Honda CR-V Hybrid',
@@ -54,11 +57,15 @@ const trendingComparisons = [{
   title: 'Ford F-150 Lightning vs Ram 1500 TRX',
   views: '189K views'
 }];
+
 const BrowseByCategory: React.FC = () => {
-  return <section className="space-content">
-      <div className="flex items-center gap-3 mb-8">
-        <div className="w-1 h-8 bg-motortrend-red rounded-full"></div>
-        <h2 className="typography-display text-neutral-1 text-2xl">Browse By Category</h2>
+  return (
+    <section className="space-content">
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="flex items-center gap-2 text-2xl font-bold">
+          <LayoutGrid size={24} />
+          Browse By Category
+        </h2>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
@@ -79,11 +86,12 @@ const BrowseByCategory: React.FC = () => {
           </Link>)}
       </div>
 
-      {/* Trending Comparisons */}
       <div className="bg-white rounded-2xl p-8 shadow-modern">
-        <div className="flex items-center gap-3 mb-6">
-          <TrendingUp size={24} className="text-motortrend-red" />
-          <h3 className="typography-title text-neutral-1">Trending Comparisons</h3>
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="flex items-center gap-2 text-2xl font-bold">
+            <TrendingUp size={24} />
+            Trending Comparisons
+          </h2>
         </div>
 
         <div className="space-y-4">
@@ -102,6 +110,8 @@ const BrowseByCategory: React.FC = () => {
             </div>)}
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default BrowseByCategory;

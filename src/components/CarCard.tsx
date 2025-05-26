@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useSavedItems } from '../contexts/SavedItemsContext';
@@ -142,7 +141,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = ({
           <CarSpecs car={car} type={type} />
         </div>
       </div>
-      <div className="mt-3 pt-3 border-t border-gray-100">
+      <div className="mt-3 pt-3 px-4 pb-4 border-t border-gray-100">
         <GarageActionMenu car={car} type={type} className="w-full" />
       </div>
     </BaseCard>

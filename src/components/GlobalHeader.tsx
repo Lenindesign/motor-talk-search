@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import MainNavigation from './MainNavigation';
@@ -25,7 +24,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onSearch, isLoading = false
   };
 
   return (
-    <header className="sticky top-0 left-0 right-0 z-20 bg-motortrend-dark w-full px-3 sm:px-4 py-2.5 sm:py-3 shadow-md">
+    <header className="sticky top-0 left-0 right-0 z-50 bg-motortrend-dark w-full px-3 sm:px-4 py-2.5 sm:py-3 shadow-md">
       <div className="flex items-center max-w-[980px] mx-auto w-full gap-1.5 sm:gap-4">
         {/* Logo */}
         <div className="flex-shrink-0">

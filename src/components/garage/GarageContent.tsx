@@ -11,6 +11,7 @@ import { CarData } from "../CarCard";
 import GarageFilters from "./GarageFilters";
 import GarageTabContent from "./GarageTabContent";
 import { toast } from "@/components/ui/use-toast";
+import { useNavigate } from 'react-router-dom'; // Added useNavigate
 
 // Sample articles related to cars (in a real app, these would come from an API)
 const relatedArticles = [{
@@ -187,6 +188,7 @@ const GarageContent = () => {
   };
   const displayCars = getDisplayCars();
   const filteredArticles = getRelatedArticles();
+  const navigate = useNavigate(); // Added navigate hook
   return <Card className="shadow-sm flex-1">
       <CardHeader className="flex flex-row justify-between items-center pb-2">
         <div>
@@ -203,7 +205,12 @@ const GarageContent = () => {
               Back to Garage
             </Button> : <>
               <div className="flex gap-2">
-                <Button variant={contentView === 'garage' ? 'default' : 'outline'} size="sm" onClick={() => setContentView('garage')} className="flex items-center gap-1">
+                <Button 
+                  variant={contentView === 'garage' ? 'default' : 'outline'} 
+                  size="sm" 
+                  onClick={() => navigate('/buyers-guide')} // Changed to navigate
+                  className="flex items-center gap-1"
+                >
                   <Car size={16} />
                   <span className="hidden sm:inline">Cars</span>
                 </Button>

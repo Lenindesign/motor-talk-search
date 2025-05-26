@@ -43,14 +43,6 @@ const UsedCarDetail: React.FC = () => {
   return <div className="min-h-screen bg-gray-50">
       <GlobalHeader />
       <main className="max-w-[980px] mx-auto px-0 py-[32px]">
-        {/* Back Navigation */}
-        <div className="mb-6">
-          <Link to="/cars" className="inline-flex items-center text-motortrend-red hover:text-motortrend-dark transition-colors">
-            <ArrowLeft size={20} className="mr-2" />
-            Back to Used Cars
-          </Link>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">

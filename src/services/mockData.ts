@@ -1,4 +1,3 @@
-
 import { ArticleData } from "../components/ArticleCard";
 import { CarData } from "../components/CarCard";
 import { PhotoData } from "../components/PhotoCard";
@@ -91,9 +90,9 @@ export const mockNewCars: CarData[] = [
   },
   {
     id: "new-4",
-    title: "2025 Ford Mustang GT",
-    imageUrl: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
-    price: "$42,990",
+    title: "2025 Ford Mustang 60th Anniversary Edition",
+    imageUrl: "https://hips.hearstapps.com/hmg-prod/images/2025-ford-mustang-60th-anniversary-exterior-66227932bb88e.jpg",
+    price: "$42,990", 
     category: "Sports Car",
     isNew: true,
     bodyStyle: "Sports Car",

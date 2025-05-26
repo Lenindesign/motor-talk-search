@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import GlobalHeader from '@/components/GlobalHeader';
 import { mockVideos } from '@/services/mockData';
+
 const VideoDetail: React.FC = () => {
   const {
     id
@@ -13,6 +14,7 @@ const VideoDetail: React.FC = () => {
   }>();
   const video = mockVideos.find(v => v.id === id);
   const [isPlaying, setIsPlaying] = useState(false);
+
   if (!video) {
     return <div className="min-h-screen bg-gray-50">
         <GlobalHeader />
@@ -26,6 +28,7 @@ const VideoDetail: React.FC = () => {
         </main>
       </div>;
   }
+
   const relatedVideos = mockVideos.filter(v => v.id !== id).slice(0, 4);
   const mockVideoStats = {
     views: "2,847,392",
@@ -47,17 +50,10 @@ Key topics covered in this video:
 Subscribe to MotorTrend for the latest automotive content and stay up to date with industry trends, reviews, and exclusive behind-the-scenes footage.`,
     tags: ["automotive", "car review", "performance", "2025 models", "test drive"]
   };
+
   return <div className="min-h-screen bg-gray-50 py-0">
       <GlobalHeader />
       <main className="max-w-[980px] mx-auto px-0 py-[32px]">
-        {/* Back Navigation */}
-        <div className="mb-6">
-          <Link to="/" className="inline-flex items-center text-motortrend-red hover:text-motortrend-dark transition-colors">
-            <ArrowLeft size={20} className="mr-2" />
-            Back to Videos
-          </Link>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Video Player */}
           <div className="lg:col-span-2 space-y-6">
@@ -266,4 +262,5 @@ Subscribe to MotorTrend for the latest automotive content and stay up to date wi
       </main>
     </div>;
 };
+
 export default VideoDetail;

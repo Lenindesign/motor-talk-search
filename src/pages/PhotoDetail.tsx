@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ChevronLeft, ChevronRight, Download, Share, Heart, ZoomIn, Bookmark } from 'lucide-react';
@@ -84,17 +83,6 @@ const PhotoDetail: React.FC = () => {
     <div className="min-h-screen bg-black">
       <GlobalHeader />
       <main className="container mx-auto px-4 py-8">
-        {/* Back Navigation */}
-        <div className="mb-6">
-          <Link 
-            to="/" 
-            className="inline-flex items-center text-white hover:text-gray-300 transition-colors"
-          >
-            <ArrowLeft size={20} className="mr-2" />
-            Back to Photos
-          </Link>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Main Photo Viewer */}
           <div className="lg:col-span-3">

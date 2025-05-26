@@ -1,11 +1,8 @@
-
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useIsMobile } from "../hooks/use-mobile";
 import { Menu, X, User, Home, Car, Wrench, Star, PlayCircle } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useLocation } from "react-router-dom";
-import GlobalHeader from '@/components/GlobalHeader';
 
 interface NavLinkProps {
   href: string;
@@ -13,14 +10,19 @@ interface NavLinkProps {
   className?: string;
 }
 
-const NavLink = ({ href, children, className = "" }: NavLinkProps) => (
-  <Link
-    to={href}
-    className={`text-white font-medium hover:text-motortrend-red transition-colors ${className}`}
-  >
-    {children}
-  </Link>
-);
+const NavLink = ({ href, children, className = "" }: NavLinkProps) => {
+  const location = useLocation();
+  // Active if current path starts with href, or exact match for home ('/')
+  const isActive = href === '/' ? location.pathname === href : location.pathname.startsWith(href);
+  return (
+    <Link
+      to={href}
+      className={`font-medium transition-colors hover:text-motortrend-red ${isActive ? 'text-motortrend-red' : 'text-white'} ${className}`}
+    >
+      {children}
+    </Link>
+  );
+};
 
 const MainNavigation = () => {
   const location = useLocation();
@@ -63,17 +65,20 @@ const MainNavigation = () => {
               </Link>
             </div>
             <div className="flex-1 overflow-y-auto py-4">
-              {menuItems.map((item) => (
-                <Link 
-                  key={item.path}
-                  to={item.path} 
-                  className={`flex items-center gap-3 px-6 py-3 text-base font-medium transition-colors
-                    ${location.pathname === item.path ? 'text-motortrend-red bg-white/5' : 'text-white hover:bg-white/5'}`}
-                >
-                  <item.icon size={18} />
-                  {item.label}
-                </Link>
-              ))}
+              {menuItems.map((item) => {
+                const isActiveMobile = item.path === '/' ? location.pathname === item.path : location.pathname.startsWith(item.path);
+                return (
+                  <Link 
+                    key={item.path}
+                    to={item.path} 
+                    className={`flex items-center gap-3 px-6 py-3 text-base font-medium transition-colors
+                      ${isActiveMobile ? 'text-motortrend-red bg-white/5' : 'text-white hover:bg-white/5'}`}
+                  >
+                    <item.icon size={18} />
+                    {item.label}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </SheetContent>

@@ -105,14 +105,6 @@ const NewCarDetail: React.FC = () => {
     <div className="min-h-screen bg-neutral-8">
       <GlobalHeader />
       <main className="max-w-[980px] mx-auto w-full px-0 py-[16px] pt-[120px]">
-        {/* Back Navigation */}
-        <div className="mb-8 lg:mb-12">
-          <Link to="/cars" className="inline-flex items-center typography-body text-motortrend-red hover:text-motortrend-red/80 transition-colors duration-200 group">
-            <ArrowLeft size={20} className="mr-3 transition-transform group-hover:-translate-x-1" />
-            Back to Car Database
-          </Link>
-        </div>
-
         {/* Car Header */}
         <div className="mb-12 lg:mb-16">
           <CarHeader car={car} carData={carData} selectedTrimPrice={selectedTrimData.price} overallRating={overallRating} />
