@@ -1,3 +1,4 @@
+
 import { CardType } from '../../types/card';
 
 interface CardConfig {
@@ -47,7 +48,6 @@ export const CARD_REGISTRY: Record<CardType, CardConfig> = {
       condition: 'Excellent'
     }
   }
-}
 };
 
 export const validateCardData = (
