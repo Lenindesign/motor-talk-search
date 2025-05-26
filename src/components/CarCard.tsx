@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { MapPin, Calendar, Gauge, Fuel, Settings, Loader2, Bookmark } from 'lucide-react';
@@ -92,6 +91,9 @@ interface CarCardProps {
   convertibleFallback?: string;
   hatchbackFallback?: string;
   wagonFallback?: string;
+  isLoading?: boolean;
+  onAction?: (action: string, car: CarData) => void;
+  isSaved?: boolean;
 }
 
 const CarCard: React.FC<CarCardProps> = ({ 
