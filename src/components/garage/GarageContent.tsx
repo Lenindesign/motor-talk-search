@@ -208,14 +208,8 @@ const GarageContent = () => {
                   <Car size={16} />
                   <span className="hidden sm:inline">Cars</span>
                 </Button>
-                <Button variant={contentView === 'articles' ? 'default' : 'outline'} size="sm" onClick={() => setContentView('articles')} className="flex items-center gap-1">
-                  <BookOpen size={16} />
-                  <span className="hidden sm:inline">Articles</span>
-                </Button>
-                <Button variant={contentView === 'reviews' ? 'default' : 'outline'} size="sm" onClick={() => setContentView('reviews')} className="flex items-center gap-1">
-                  <Sparkles size={16} />
-                  <span className="hidden sm:inline">Reviews</span>
-                </Button>
+                
+                
               </div>
               
               {contentView === 'garage' && <GarageFilters minScore={minScore} sortByScore={sortByScore} showFilters={showFilters} onMinScoreChange={setMinScore} onSortByScoreChange={setSortByScore} onToggleFilters={() => setShowFilters(!showFilters)} />}
