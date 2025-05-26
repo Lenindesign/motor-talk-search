@@ -28,10 +28,10 @@ const MainNavigation = () => {
 
   const navItems = (
     <>
-      <NavLink href="/garage">My Garage</NavLink>
       <NavLink href="/news">News</NavLink>
       <NavLink href="/buyers-guide">Cars</NavLink>
       <NavLink href="/videos">Videos</NavLink>
+      <NavLink href="/garage">My Garage</NavLink>
     </>
   );
 
