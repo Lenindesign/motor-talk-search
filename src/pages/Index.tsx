@@ -1,3 +1,4 @@
+
 import React from "react";
 import GlobalHeader from '../components/GlobalHeader';
 import HeroCarousel from '../components/home/HeroCarousel';
@@ -7,11 +8,13 @@ import BuyersGuide from '../components/home/BuyersGuide';
 import LatestReviews from '../components/home/LatestReviews';
 import FeaturedVideos from '../components/home/FeaturedVideos';
 import BrowseByCategory from '../components/home/BrowseByCategory';
+
 const Index = () => {
-  return <div className="flex min-h-screen flex-col bg-motortrend-gray w-full">
+  return (
+    <div className="flex min-h-screen flex-col bg-motortrend-gray w-full">
       <GlobalHeader />
       <main className="flex flex-1 flex-col">
-        <div className="max-w-[980px] mx-auto px-0 py-[32px]">
+        <div className="max-w-[1200px] mx-auto w-full px-6 py-8 space-content">
           {/* Hero Carousel */}
           <HeroCarousel />
           
@@ -34,6 +37,8 @@ const Index = () => {
           <BrowseByCategory />
         </div>
       </main>
-    </div>;
+    </div>
+  );
 };
+
 export default Index;
