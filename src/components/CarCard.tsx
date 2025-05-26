@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useSavedItems } from '../contexts/SavedItemsContext';
@@ -127,7 +128,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = ({
               </h3>
             </RouterLink>
             <span className="text-motortrend-red text-lg font-semibold ml-2 flex-shrink-0">
-              ${car.price}
+              {car.price}
             </span>
           </div>
           <RouterLink to={linkPath} className="text-gray-600 hover:text-motortrend-red transition-colors">
