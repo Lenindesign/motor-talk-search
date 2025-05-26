@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, ChevronLeft, ChevronRight, Download, Share, Heart, ZoomIn } from 'lucide-react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, ChevronLeft, ChevronRight, Download, Share, Heart, ZoomIn, Bookmark } from 'lucide-react';
+import { useSavedItems } from '../contexts/SavedItemsContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import GlobalHeader from '@/components/GlobalHeader';
@@ -9,6 +10,30 @@ import { mockPhotos } from '@/services/mockData';
 
 const PhotoDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
+  const isPhotoSaved = isSaved(id, 'photo');
+
+  const handleSave = () => {
+    const savedItem = {
+      id,
+      title: photo.title,
+      type: 'photo' as const,
+      imageUrl: photo.imageUrl,
+      savedAt: new Date().toISOString(),
+      metadata: {
+        position: photo.position,
+        make: photo.make,
+        carModel: photo.carModel,
+        year: photo.year
+      }
+    };
+    if (isPhotoSaved) {
+      removeSavedItem(id, 'photo');
+    } else {
+      addSavedItem(savedItem);
+    }
+  };
   const photo = mockPhotos.find(p => p.id === id);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
@@ -97,6 +122,14 @@ const PhotoDetail: React.FC = () => {
                   className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
                 >
                   <ChevronRight size={24} />
+                </button>
+                
+                {/* Save Button */}
+                <button
+                  onClick={handleSave}
+                  className={`absolute top-4 left-4 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors ${isPhotoSaved ? 'bg-motortrend-red' : ''}`}
+                >
+                  <Bookmark size={20} className={`${isPhotoSaved ? 'fill-current' : 'stroke-current'}`} />
                 </button>
 
                 {/* Photo Counter */}

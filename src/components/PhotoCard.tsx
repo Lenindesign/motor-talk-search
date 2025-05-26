@@ -1,7 +1,8 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Camera, Calendar } from 'lucide-react';
+import { Camera, Calendar, Bookmark } from 'lucide-react';
+import { useSavedItems } from '../contexts/SavedItemsContext';
 
 export interface PhotoData {
   id: string;
@@ -18,12 +19,47 @@ interface PhotoCardProps {
 }
 
 const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
+  const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
+  const isPhotoSaved = isSaved(photo.id, 'photo');
+
+  const handleSave = () => {
+    const savedItem = {
+      id: photo.id,
+      title: photo.title,
+      type: 'photo' as const,
+      imageUrl: photo.imageUrl,
+      savedAt: new Date().toISOString(),
+      metadata: {
+        position: photo.position,
+        make: photo.make,
+        carModel: photo.carModel,
+        year: photo.year
+      }
+    };
+    if (isPhotoSaved) {
+      removeSavedItem(photo.id, 'photo');
+    } else {
+      addSavedItem(savedItem);
+    };
+  };
   return (
     <Link 
       to={`/photo/${photo.id}`}
       className="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
     >
       <div className="relative">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            handleSave();
+          }}
+          className="absolute top-2.5 left-2.5 p-2.5 rounded-full bg-white/90 hover:bg-gray-50 shadow-md transition-all duration-300 transform hover:scale-110 z-50"
+        >
+          <Bookmark 
+            size={22} 
+            className={`text-gray-600 ${isPhotoSaved ? 'fill-current' : 'stroke-current'} transition-colors duration-300 ${isPhotoSaved ? 'text-blue-600' : ''}`}
+          />
+        </button>
         <img
           src={photo.imageUrl}
           alt={photo.title}

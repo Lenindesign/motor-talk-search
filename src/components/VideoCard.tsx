@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Play, Clock, Eye } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Play, Clock, Eye, Bookmark } from 'lucide-react';
+import { useSavedItems } from '../contexts/SavedItemsContext';
 
 export interface VideoData {
   id: string;
@@ -17,11 +18,47 @@ interface VideoCardProps {
 }
 
 const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
+  const navigate = useNavigate();
+  const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
+  const isVideoSaved = isSaved(video.id, 'video');
+  const savedItem = {
+    id: video.id,
+    title: video.title,
+    type: 'video' as const,
+    imageUrl: video.imageUrl,
+    savedAt: new Date().toISOString(),
+    metadata: {
+      duration: video.duration,
+      views: video.views,
+      publishDate: video.publishDate
+    }
+  };
+
+  const handleSave = () => {
+    if (isVideoSaved) {
+      removeSavedItem(video.id, 'video');
+    } else {
+      addSavedItem(savedItem);
+    }
+  };
+
   return (
-    <Link 
-      to={`/video/${video.id}`}
-      className="block bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
+    <div 
+      className="group relative bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+      onClick={() => navigate(`/video/${video.id}`)}
     >
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          handleSave();
+        }}
+        className="absolute top-2.5 left-2.5 p-2.5 rounded-full bg-white/90 hover:bg-gray-50 shadow-md transition-all duration-300 transform hover:scale-110 z-50"
+      >
+        <Bookmark 
+          size={22} 
+          className={`text-gray-600 ${isVideoSaved ? 'fill-current' : 'stroke-current'} transition-colors duration-300 ${isVideoSaved ? 'text-blue-600' : ''}`}
+        />
+      </button>
       <div className="relative">
         <img
           src={video.imageUrl}
@@ -51,7 +88,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
           {video.publishDate && <span>{video.publishDate}</span>}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

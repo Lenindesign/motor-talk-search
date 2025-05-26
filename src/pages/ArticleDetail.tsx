@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, User, Share, Bookmark, Eye, Clock, ChevronUp } from 'lucide-react';
+import { useSavedItems } from '../contexts/SavedItemsContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
@@ -12,6 +13,30 @@ const ArticleDetail: React.FC = () => {
   } = useParams<{
     id: string;
   }>();
+  const navigate = useNavigate();
+  const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
+  const isArticleSaved = isSaved(id, 'article');
+
+  const handleSave = () => {
+    const savedItem = {
+      id,
+      title: article.title,
+      type: 'article' as const,
+      imageUrl: article.imageUrl,
+      savedAt: new Date().toISOString(),
+      metadata: {
+        category: article.category,
+        date: article.date,
+        photoCount: article.photoCount,
+        featured: article.featured
+      }
+    };
+    if (isArticleSaved) {
+      removeSavedItem(id, 'article');
+    } else {
+      addSavedItem(savedItem);
+    }
+  };
   const article = mockArticles.find(a => a.id === id);
   const [readingProgress, setReadingProgress] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -184,9 +209,14 @@ const ArticleDetail: React.FC = () => {
         {/* Action Buttons */}
         <div className="flex items-center justify-between mb-12 p-6 bg-white rounded-xl shadow-sm border">
           <div className="flex space-x-3">
-            <Button variant="outline" size="sm" className="hover:bg-motortrend-red hover:text-white transition-colors">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleSave}
+              className={`hover:bg-motortrend-red hover:text-white transition-colors ${isArticleSaved ? 'bg-motortrend-red text-white' : ''}`}
+            >
               <Bookmark size={16} className="mr-2" />
-              Save Article
+              {isArticleSaved ? 'Saved' : 'Save Article'}
             </Button>
             <Button variant="outline" size="sm" className="hover:bg-motortrend-red hover:text-white transition-colors">
               <Share size={16} className="mr-2" />

@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { MapPin, Calendar, Gauge, Fuel, Settings, Loader2 } from 'lucide-react';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { MapPin, Calendar, Gauge, Fuel, Settings, Loader2, Bookmark } from 'lucide-react';
+import { useSavedItems } from '../contexts/SavedItemsContext';
 import { Skeleton } from '@/components/ui/skeleton';
 import GarageActionMenu from './GarageActionMenu';
 
@@ -103,8 +104,8 @@ const CarCard: React.FC<CarCardProps> = ({
   priority = false,
   fallbackImageUrl = 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
   secondaryFallbackImageUrl = 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-  tertiaryFallbackImageUrl = 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-  quaternaryFallbackImageUrl = 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  tertiaryFallbackImageUrl = 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  quaternaryFallbackImageUrl = 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
   quinaryFallbackImageUrl = 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
   blurRadius = 3,
   borderRadius = 8,
@@ -118,8 +119,41 @@ const CarCard: React.FC<CarCardProps> = ({
   coupeFallback = 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
   convertibleFallback = 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
   hatchbackFallback = 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-  wagonFallback = 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3'
+  wagonFallback = 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  isLoading = false,
+  onAction,
+  isSaved = false
 }) => {
+  const navigate = useNavigate();
+  const { addSavedItem, removeSavedItem, isSaved: isItemSaved } = useSavedItems();
+  const isCarSaved = isItemSaved(car.id, type === 'new' ? 'newCar' : 'usedCar');
+  const savedItem = {
+    id: car.id,
+    title: car.title,
+    type: type === 'new' ? 'newCar' as const : 'usedCar' as const,
+    imageUrl: car.imageUrl,
+    savedAt: new Date().toISOString(),
+    metadata: {
+      price: car.price,
+      category: car.category,
+      year: car.year,
+      mileage: car.mileage,
+      fuelType: car.fuelType,
+      drivetrain: car.drivetrain,
+      location: car.location,
+      bodyStyle: car.bodyStyle,
+      isNew: car.isNew
+    }
+  };
+
+  const handleSave = () => {
+    if (isCarSaved) {
+      removeSavedItem(car.id, type === 'new' ? 'newCar' : 'usedCar');
+    } else {
+      addSavedItem(savedItem);
+    }
+  };
+
   const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
   const [currentImage, setCurrentImage] = useState<string>(car.imageUrl);
@@ -179,6 +213,18 @@ const CarCard: React.FC<CarCardProps> = ({
     <div className="group flex flex-col w-full h-full bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
       <RouterLink to={linkPath} className="flex-grow">
         <div className="relative w-full aspect-[16/9] overflow-hidden">
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSave();
+            }}
+            className="absolute top-2.5 left-2.5 p-2.5 rounded-full bg-white/90 hover:bg-gray-50 shadow-md transition-all duration-300 transform hover:scale-110 z-50"
+          >
+            <Bookmark 
+              size={22} 
+              className={`text-gray-600 ${isCarSaved ? 'fill-current' : 'stroke-current'} transition-colors duration-300 ${isCarSaved ? 'text-blue-600' : ''}`}
+            />
+          </button>
           <div
             className={cn(
               'absolute inset-0 bg-gradient-to-br from-gray-900/50 to-gray-900/30 flex items-center justify-center',
