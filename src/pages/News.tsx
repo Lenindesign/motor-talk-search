@@ -45,7 +45,7 @@ const News: React.FC = () => {
                 <span className="mb-2 inline-block rounded bg-motortrend-red px-2 py-1 text-xs font-bold text-white">
                   {featuredArticle.category}
                 </span>
-                <h1 className="mb-2 font-bold text-white text-5xl">{featuredArticle.title}</h1>
+                <h1 className="mb-2 font-bold text-white text-4xl">{featuredArticle.title}</h1>
                 <p className="text-sm text-gray-200">{featuredArticle.date}</p>
               </div>
             </div>
