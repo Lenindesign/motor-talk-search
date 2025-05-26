@@ -19,8 +19,8 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onSearch, isLoading = false
     if (onSearch) {
       onSearch(query);
     } else {
-      // Navigate to home page with search query
-      navigate(`/?q=${encodeURIComponent(query)}`);
+      // Navigate to search page with query
+      navigate(`/search?q=${encodeURIComponent(query)}`);
     }
   };
 

@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
 
 import Index from "./pages/Index";
+import Search from "./pages/Search";
 import NavRoutes from "./pages/NavRoutes"; 
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
@@ -29,6 +30,7 @@ function App() {
           <SavedItemsProvider>
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/search" element={<Search />} />
               <Route path="/dashboard" element={<Navigate to="/garage" replace />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/garage" element={<Garage />} />
