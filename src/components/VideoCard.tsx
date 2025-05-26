@@ -3,6 +3,9 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Play, Clock, Eye, Bookmark } from 'lucide-react';
 import { useSavedItems } from '../contexts/SavedItemsContext';
+import BaseCard from './ui/BaseCard';
+import { CARD_STYLES } from '@/styles/cardStyles';
+import { cn } from '@/lib/utils';
 
 export interface VideoData {
   id: string;
@@ -11,13 +14,20 @@ export interface VideoData {
   duration: string;
   views?: string;
   publishDate?: string;
+  metadata?: {
+    duration?: string;
+    views?: string;
+    publishDate?: string;
+  };
 }
 
-interface VideoCardProps {
+interface VideoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   video: VideoData;
+  className?: string;
+  onClick?: () => void;
 }
 
-const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
+const VideoCard: React.FC<VideoCardProps> = ({ video, className, onClick }) => {
   const navigate = useNavigate();
   const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
   const isVideoSaved = isSaved(video.id, 'video');
@@ -43,22 +53,21 @@ const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
   };
 
   return (
-    <div 
-      className="group relative bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer"
-      onClick={() => navigate(`/video/${video.id}`)}
+    <BaseCard
+      type="video"
+      className={cn(
+        'group relative hover:shadow-xl transition-shadow duration-300 cursor-pointer',
+        className
+      )}
+      isSaved={isVideoSaved}
+      onToggleSave={handleSave}
+      metadata={{
+        duration: video.duration,
+        views: video.views,
+        publishDate: video.publishDate
+      }}
+      onClick={onClick || (() => navigate(`/video/${video.id}`))}
     >
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          handleSave();
-        }}
-        className="absolute top-2.5 left-2.5 p-2.5 rounded-full bg-white/90 hover:bg-gray-50 shadow-md transition-all duration-300 transform hover:scale-110 z-50"
-      >
-        <Bookmark 
-          size={22} 
-          className={`text-gray-600 ${isVideoSaved ? 'fill-current' : 'stroke-current'} transition-colors duration-300 ${isVideoSaved ? 'text-blue-600' : ''}`}
-        />
-      </button>
       <div className="relative">
         <img
           src={video.imageUrl}
@@ -67,11 +76,11 @@ const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
         />
         <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors flex items-center justify-center">
           <div className="bg-motortrend-red/90 group-hover:bg-motortrend-red rounded-full p-3 transition-colors">
-            <Play size={20} className="text-white ml-0.5" fill="currentColor" />
+            <Play className="text-white ml-0.5" />
           </div>
         </div>
         <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded flex items-center text-xs">
-          <Clock size={12} className="mr-1" />
+          <Clock className="mr-1" />
           {video.duration}
         </div>
       </div>
@@ -81,14 +90,14 @@ const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
           <span className="mr-3">MotorTrend</span>
           {video.views && (
             <>
-              <Eye size={12} className="mr-1" />
+              <Eye className="mr-1" />
               <span className="mr-3">{video.views} views</span>
             </>
           )}
           {video.publishDate && <span>{video.publishDate}</span>}
         </div>
       </div>
-    </div>
+    </BaseCard>
   );
 };
 

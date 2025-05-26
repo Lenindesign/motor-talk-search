@@ -6,7 +6,6 @@ import { useSavedItems, SavedItem, SavedItemType } from "../../contexts/SavedIte
 import GarageStats from "../GarageStats";
 import CarComparisonTable from "./CarComparisonTable";
 import GarageCompare from "../GarageCompare";
-import UserReviews from "./UserReviews";
 import QuickAddCar from "../QuickAddCar";
 import { CarData } from "../CarCard";
 import GarageFilters from "./GarageFilters";
@@ -57,7 +56,7 @@ const GarageContent = () => {
   const [showComparison, setShowComparison] = useState<boolean>(false);
 
   // Content view states
-  const [contentView, setContentView] = useState<'garage' | 'articles' | 'reviews'>('garage');
+  const [contentView, setContentView] = useState<'garage' | 'articles'>('garage');
 
   // Helper function to convert SavedItem to CarData format expected by GarageCarCard
   const savedItemToCarData = (item: SavedItem): CarData => {
@@ -268,8 +267,6 @@ const GarageContent = () => {
                     </p>
                   </div>}
               </div>}
-            
-            {contentView === 'reviews' && <UserReviews />}
           </>}
       </CardContent>
     </Card>;

@@ -73,7 +73,9 @@ const LatestNews: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {newsItems.map((item) => (
           <Link to={`/article/${item.id}`} key={item.id} className="block bg-white rounded-2xl shadow-modern overflow-hidden">
-            <img src={item.imageUrl} alt={item.title} className="w-full h-48 object-cover" />
+            <div className="relative aspect-[16/9] overflow-hidden">
+              <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" />
+            </div>
             <div className="p-6">
               <div className="flex items-center gap-4 mb-4">
                 <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-white typography-small font-semibold tracking-wide ${item.tagColor}`}>

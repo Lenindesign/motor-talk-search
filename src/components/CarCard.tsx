@@ -1,17 +1,22 @@
-
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useSavedItems } from '../contexts/SavedItemsContext';
 import { useImageLoader } from './CarCard/useImageLoader';
-import CarImage from './CarCard/CarImage';
 import CarSpecs from './CarCard/CarSpecs';
 import GarageActionMenu from './GarageActionMenu';
-import { CarCardProps } from './CarCard/types';
+import BaseCard from './ui/BaseCard';
+import { CardType } from '@/styles/cardStyles';
+import { cn } from '@/lib/utils';
+import { CarData, CarCardProps } from './CarCard/types';
 
 // Re-export types for backward compatibility
 export type { CarData, CarCardProps } from './CarCard/types';
 
-const CarCard: React.FC<CarCardProps> = ({ 
+interface EnhancedCarCardProps extends CarCardProps {
+  className?: string;
+}
+
+const CarCard: React.FC<EnhancedCarCardProps> = ({ 
   car, 
   type,
   width = 800,
@@ -28,7 +33,8 @@ const CarCard: React.FC<CarCardProps> = ({
   transitionDuration = 0.3,
   isLoading = false,
   onAction,
-  isSaved = false
+  isSaved = false,
+  className
 }) => {
   const { addSavedItem, removeSavedItem, isSaved: isItemSaved } = useSavedItems();
   const isCarSaved = isItemSaved(car.id, type === 'new' ? 'newCar' : 'usedCar');
@@ -72,23 +78,45 @@ const CarCard: React.FC<CarCardProps> = ({
   const linkPath = type === 'new' ? `/new-car/${car.id}` : `/used-car/${car.id}`;
 
   return (
-    <div className="group flex flex-col w-full h-full bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200">
-      <RouterLink to={linkPath} className="flex-grow">
-        <CarImage
-          car={car}
-          currentImage={currentImage}
-          imageLoading={imageLoading}
-          imageError={imageError}
+    <BaseCard
+      type={type === 'new' ? 'newCar' : 'usedCar' as CardType}
+      className={cn(
+        'flex flex-col w-full h-full bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200',
+        className
+      )}
+      isSaved={isCarSaved}
+      onToggleSave={handleSave}
+      isLoading={isLoading}
+      onClick={() => window.location.href = linkPath}
+    >
+      <div className="flex-grow">
+        <img
+          src={currentImage}
+          alt={car.title}
+          className={cn(
+            'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105',
+            imageLoading ? 'blur-2xl' : 'blur-0'
+          )}
+          onLoad={() => {
+            if (imageLoading) {
+              // Add any additional loading logic here
+            }
+          }}
+          onError={() => {
+            // Add any additional error handling here
+          }}
+          loading="lazy"
           width={width}
           height={height}
-          blurRadius={blurRadius}
-          transitionDuration={transitionDuration}
-          isCarSaved={isCarSaved}
-          onSave={handleSave}
-          onImageLoad={() => {}}
-          onImageError={() => {}}
         />
-      </RouterLink>
+        {car.isNew && (
+          <div className="absolute top-2 left-2">
+            <span className="bg-green-600 text-white px-2 py-1 rounded text-xs font-bold">
+              NEW 2025
+            </span>
+          </div>
+        )}
+      </div>
       
       <div className="p-4 flex-grow flex flex-col">
         <div className="flex-grow space-y-2">
@@ -99,25 +127,24 @@ const CarCard: React.FC<CarCardProps> = ({
               </h3>
             </RouterLink>
             <span className="text-motortrend-red text-lg font-semibold ml-2 flex-shrink-0">
-              {car.price}
+              ${car.price}
             </span>
           </div>
-          
-          <RouterLink to={linkPath}>
-            <p className="text-sm text-gray-600 hover:text-gray-800 transition-colors">
-              {car.category}
-            </p>
+          <RouterLink to={linkPath} className="text-gray-600 hover:text-motortrend-red transition-colors">
+            {car.category}
           </RouterLink>
-          
+          {car.isNew && (
+            <div className="mt-2 bg-green-600 text-white px-2 py-1 rounded text-xs font-bold">
+              NEW 2025
+            </div>
+          )}
           <CarSpecs car={car} type={type} />
         </div>
-        
-        {/* Garage Action Menu */}
-        <div className="mt-3 pt-3 border-t border-gray-100">
-          <GarageActionMenu car={car} type={type} className="w-full" />
-        </div>
       </div>
-    </div>
+      <div className="mt-3 pt-3 border-t border-gray-100">
+        <GarageActionMenu car={car} type={type} className="w-full" />
+      </div>
+    </BaseCard>
   );
 };
 
