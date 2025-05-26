@@ -13,7 +13,7 @@ const Index = () => {
       <main className="flex flex-1 flex-col">
         <div className="max-w-[980px] mx-auto px-4 sm:px-6 lg:px-0 space-y-8">
            {/* Hero Carousel */}
-           <div className="pt-4 pb-1.5 py-0">
+           <div className="pt-4 pb-1.5 py-[15px]">
              <HeroCarousel />
            </div>
            
