@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -19,7 +18,7 @@ const heroSlides: HeroSlide[] = [
     id: '1',
     title: '2025 Tesla Cybertruck: Everything We Know About the Electric Pickup Revolution',
     subtitle: 'The highly anticipated electric truck is finally here, and it\'s changing the pickup landscape forever. Here\'s our exclusive first drive and in-depth analysis.',
-    imageUrl: '/lovable-uploads/63b8496b-1701-478b-bdda-3cb3dc187a2a.png',
+    imageUrl: 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&w=1920&h=1080',
     tag: 'First Drive',
     tagColor: 'bg-motortrend-red',
     author: 'John Carter',
