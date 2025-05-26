@@ -11,7 +11,6 @@ interface HeroSlide {
   author: string;
   readTime: string;
 }
-
 const heroSlides: HeroSlide[] = [{
   id: '1',
   title: '2025 Ferrari 296 GT3: The Ultimate Track Weapon',
@@ -51,16 +50,13 @@ const HeroCarousel: React.FC = () => {
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
-
-  return (
-    <div className="relative w-full overflow-hidden rounded-2xl shadow-modern-xl">
+  return <div className="relative w-full overflow-hidden rounded-2xl shadow-modern-xl">
       {/* Responsive aspect ratio container */}
       <div className="aspect-[4/6] sm:aspect-[16/9]">
         <div className="relative h-full">
           {/* Slides */}
           <div className="relative w-full h-full">
-            {heroSlides.map((slide, index) => (
-              <div key={slide.id} className={`absolute inset-0 transition-opacity duration-500 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}>
+            {heroSlides.map((slide, index) => <div key={slide.id} className={`absolute inset-0 transition-opacity duration-500 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}>
                 <div className="relative w-full h-full">
                   <img src={slide.imageUrl} alt={slide.title} className="w-full h-full object-cover" loading="lazy" />
                   
@@ -69,7 +65,7 @@ const HeroCarousel: React.FC = () => {
                   
                   {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 px-6 lg:px-12">
-                    <div className="max-w-4xl">
+                    <div className="max-w-4xl py-[32px]">
                       <div className="flex items-center gap-4 mb-4">
                         <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-white typography-small font-semibold tracking-wide ${slide.tagColor}`}>
                           {slide.tag}
@@ -89,8 +85,7 @@ const HeroCarousel: React.FC = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              </div>)}
           </div>
 
           {/* Navigation arrows */}
@@ -104,14 +99,10 @@ const HeroCarousel: React.FC = () => {
 
           {/* Dot indicators */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            {heroSlides.map((_, index) => (
-              <button key={index} onClick={() => goToSlide(index)} className={`w-3 h-3 rounded-full transition-colors ${index === currentSlide ? 'bg-white' : 'bg-white/40'}`} aria-label={`Go to slide ${index + 1}`} />
-            ))}
+            {heroSlides.map((_, index) => <button key={index} onClick={() => goToSlide(index)} className={`w-3 h-3 rounded-full transition-colors ${index === currentSlide ? 'bg-white' : 'bg-white/40'}`} aria-label={`Go to slide ${index + 1}`} />)}
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default HeroCarousel;
