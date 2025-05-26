@@ -1,35 +1,28 @@
-
 import React from 'react';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { classComparison } from './utils';
-
 const ComparisonTab: React.FC = () => {
   // Calculate overall score (weighted average)
   const overallScore = classComparison.reduce((acc, item) => {
-    const percentage = ((item.thisVehicle - item.classAverage) / item.classAverage) * 100;
+    const percentage = (item.thisVehicle - item.classAverage) / item.classAverage * 100;
     return acc + percentage;
   }, 0) / classComparison.length;
-
   const formatPercentage = (value: number) => {
     const sign = value >= 0 ? '+' : '';
     return `${sign}${value.toFixed(1)}%`;
   };
-
   const getColorClass = (value: number, metric: string) => {
     // For price, lower is better (inverse logic)
     const isBetter = metric === 'Price' ? value < 0 : value > 0;
     return isBetter ? 'text-green-600' : 'text-red-500';
   };
-
   const getBarColor = (value: number, metric: string) => {
     const isBetter = metric === 'Price' ? value < 0 : value > 0;
     return isBetter ? 'bg-green-500' : 'bg-red-400';
   };
-
-  return (
-    <div className="space-y-8">
+  return <div className="space-y-8">
       {/* Overall Comparison Header */}
       <Card>
         <CardHeader>
@@ -47,12 +40,11 @@ const ComparisonTab: React.FC = () => {
         <CardContent>
           {/* Horizontal Bar Chart */}
           <div className="space-y-4">
-            {classComparison.map((item) => {
-              const percentage = ((item.thisVehicle - item.classAverage) / item.classAverage) * 100;
-              const barWidth = Math.min(Math.abs(percentage) * 2, 100); // Scale for visual appeal
-              
-              return (
-                <div key={item.metric} className="space-y-2">
+            {classComparison.map(item => {
+            const percentage = (item.thisVehicle - item.classAverage) / item.classAverage * 100;
+            const barWidth = Math.min(Math.abs(percentage) * 2, 100); // Scale for visual appeal
+
+            return <div key={item.metric} className="space-y-2">
                   <div className="flex justify-between items-center">
                     <span className="font-medium text-sm">{item.metric}</span>
                     <span className={`font-semibold text-sm ${getColorClass(percentage, item.metric)}`}>
@@ -61,15 +53,13 @@ const ComparisonTab: React.FC = () => {
                   </div>
                   <div className="relative">
                     <div className="w-full h-6 bg-gray-200 rounded-full overflow-hidden">
-                      <div 
-                        className={`h-full transition-all duration-300 ${getBarColor(percentage, item.metric)}`}
-                        style={{ width: `${barWidth}%` }}
-                      />
+                      <div className={`h-full transition-all duration-300 ${getBarColor(percentage, item.metric)}`} style={{
+                    width: `${barWidth}%`
+                  }} />
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                </div>;
+          })}
           </div>
 
           {/* Legend */}
@@ -82,10 +72,7 @@ const ComparisonTab: React.FC = () => {
               <div className="w-3 h-3 bg-red-400 rounded-sm"></div>
               <span className="text-xs text-gray-600">Worse than average</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-gray-400 rounded-sm"></div>
-              <span className="text-xs text-gray-600">Average</span>
-            </div>
+            
           </div>
         </CardContent>
       </Card>
@@ -104,12 +91,10 @@ const ComparisonTab: React.FC = () => {
       <div className="space-y-4">
         <h3 className="text-xl font-semibold">Detailed Comparison Breakdown</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {classComparison.map((item) => {
-            const percentage = ((item.thisVehicle - item.classAverage) / item.classAverage) * 100;
-            const isBetter = item.metric === 'Price' ? percentage < 0 : percentage > 0;
-            
-            return (
-              <Card key={item.metric} className="p-4">
+          {classComparison.map(item => {
+          const percentage = (item.thisVehicle - item.classAverage) / item.classAverage * 100;
+          const isBetter = item.metric === 'Price' ? percentage < 0 : percentage > 0;
+          return <Card key={item.metric} className="p-4">
                 <div className="text-center space-y-3">
                   <h4 className="font-semibold text-lg">{item.metric}</h4>
                   
@@ -135,13 +120,10 @@ const ComparisonTab: React.FC = () => {
                     {item.metric} compared to class average. {item.metric === 'Price' ? 'Lower' : 'Higher'} is better.
                   </p>
                 </div>
-              </Card>
-            );
-          })}
+              </Card>;
+        })}
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default ComparisonTab;
