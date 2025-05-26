@@ -29,12 +29,7 @@ const BaseCard = forwardRef<HTMLDivElement, BaseCardProps>(({
   };
   const renderSaveButton = () => {
     if (!onToggleSave) return null;
-    return <button className={cn(cardStyles.actionButton, type === 'photo' ? 'p-2.5 rounded-full bg-white/90 hover:bg-gray-50 shadow-md transform hover:scale-110 z-50' : '', type === 'video' ? 'p-2.5 rounded-full bg-white/90 hover:bg-gray-50 shadow-md transform hover:scale-110 z-50' : '', type === 'car' ? 'p-2.5 rounded-full bg-white/90 hover:bg-gray-50 shadow-md transform hover:scale-110 z-50' : '', type === 'newCar' ? 'p-2.5 rounded-full bg-white/90 hover:bg-gray-50 shadow-md transform hover:scale-110 z-50' : '', type === 'usedCar' ? 'p-2.5 rounded-full bg-white/90 hover:bg-gray-50 shadow-md transform hover:scale-110 z-50' : '')} onClick={e => {
-      e.stopPropagation();
-      onToggleSave();
-    }}>
-          <Bookmark className={cn(type === 'photo' ? 'w-5 h-5' : 'w-5 h-5', type === 'video' ? 'w-5 h-5' : 'w-5 h-5', type === 'car' ? 'w-5 h-5' : 'w-5 h-5', type === 'newCar' ? 'w-5 h-5' : 'w-5 h-5', type === 'usedCar' ? 'w-5 h-5' : 'w-5 h-5', isSaved ? 'text-blue-500 fill-current' : 'text-gray-400 stroke-current', 'transition-colors duration-300')} />
-        </button>;
+    return;
   };
   const renderVideoOverlay = () => {
     // Only render overlay if it's not already provided by the child component
