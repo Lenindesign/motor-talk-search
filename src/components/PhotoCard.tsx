@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Camera, Calendar, Bookmark } from 'lucide-react';
@@ -23,7 +22,7 @@ export interface PhotoData {
   };
 }
 
-interface PhotoCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface PhotoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   photo: PhotoData;
   className?: string;
   onClick?: () => void;

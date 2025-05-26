@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Play, Clock, Eye, Bookmark } from 'lucide-react';
@@ -21,7 +20,7 @@ export interface VideoData {
   };
 }
 
-interface VideoCardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface VideoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   video: VideoData;
   className?: string;
   onClick?: () => void;
