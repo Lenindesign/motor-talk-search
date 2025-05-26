@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import GlobalHeader from '@/components/GlobalHeader';
 import { mockNewCars } from '@/services/mockData';
 import { CarData } from '@/components/CarCard';
@@ -14,6 +13,7 @@ import ComparisonTab from './NewCarDetail/ComparisonTab';
 import ReviewsTab from './NewCarDetail/ReviewsTab';
 import TrimsTab from './NewCarDetail/TrimsTab';
 import SpecsTab from './NewCarDetail/SpecsTab';
+import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 const NewCarDetail: React.FC = () => {
   const {
     id
@@ -22,6 +22,46 @@ const NewCarDetail: React.FC = () => {
   }>();
   const car = mockNewCars.find(c => c.id === id);
   const [selectedTrim, setSelectedTrim] = useState('Base');
+  const [activeSection, setActiveSection] = useState('overview');
+  const { scrollToSection } = useSmoothScroll();
+
+  const sections = [
+    { id: 'overview', title: 'Overview' },
+    { id: 'ratings', title: 'Expert Ratings' },
+    { id: 'comparison', title: 'Class Comparison' },
+    { id: 'reviews', title: 'Owner Reviews' },
+    { id: 'specs', title: 'Specifications' },
+    { id: 'trims', title: 'Trims & Pricing' }
+  ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    sections.forEach((section) => {
+      const element = document.getElementById(section.id);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      sections.forEach((section) => {
+        const element = document.getElementById(section.id);
+        if (element) {
+          observer.unobserve(element);
+        }
+      });
+    };
+  }, []);
   if (!car) {
     return <div className="min-h-screen bg-neutral-8">
         <GlobalHeader />
@@ -59,7 +99,7 @@ const NewCarDetail: React.FC = () => {
   const overallRating = expertRatings.reduce((acc, rating) => acc + rating.score, 0) / expertRatings.length;
   return <div className="min-h-screen bg-neutral-8">
       <GlobalHeader />
-      <main className="max-w-[980px] mx-auto w-full pb-32 px-0 py-[16px]">
+      <main className="max-w-[980px] mx-auto w-full px-0 py-[16px]">
         {/* Back Navigation */}
         <div className="mb-8 lg:mb-12">
           <Link to="/cars" className="inline-flex items-center typography-body text-motortrend-red hover:text-motortrend-red/80 transition-colors duration-200 group">
@@ -78,58 +118,56 @@ const NewCarDetail: React.FC = () => {
           <QuickStats overallRating={overallRating} ownerRating={ownerReviews.overallScore} />
         </div>
 
-        {/* Main Content Tabs */}
-        <div className="space-content">
-          <Tabs defaultValue="overview" className="w-full">
-            <div className="mb-8 lg:mb-12">
-              <TabsList className="grid w-full grid-cols-6 h-14 p-1 bg-white shadow-modern border-modern rounded-xl">
-                <TabsTrigger value="overview" className="typography-caption font-medium data-[state=active]:bg-motortrend-red data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200">
-                  Overview
-                </TabsTrigger>
-                <TabsTrigger value="ratings" className="typography-caption font-medium data-[state=active]:bg-motortrend-red data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200">
-                  Expert Ratings
-                </TabsTrigger>
-                <TabsTrigger value="comparison" className="typography-caption font-medium data-[state=active]:bg-motortrend-red data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200">
-                  Class Comparison
-                </TabsTrigger>
-                <TabsTrigger value="reviews" className="typography-caption font-medium data-[state=active]:bg-motortrend-red data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200">
-                  Owner Reviews
-                </TabsTrigger>
-                <TabsTrigger value="specs" className="typography-caption font-medium data-[state=active]:bg-motortrend-red data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200">
-                  Specifications
-                </TabsTrigger>
-                <TabsTrigger value="trims" className="typography-caption font-medium data-[state=active]:bg-motortrend-red data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200">
-                  Trims & Pricing
-                </TabsTrigger>
-              </TabsList>
-            </div>
+        {/* Sticky Navigation */}
+        <nav className="sticky top-0 z-10 bg-white/90 backdrop-blur-sm border-b border-neutral-200">
+          <div className="flex space-x-4 overflow-x-auto p-2">
+            {sections.map((section) => (
+              <button
+                key={section.id}
+                onClick={() => scrollToSection(section.id)}
+                className={`typography-caption font-medium px-4 py-2 rounded-lg transition-all duration-200 ${
+                  activeSection === section.id
+                    ? 'bg-motortrend-red text-white shadow-sm'
+                    : 'hover:bg-motortrend-red/10'
+                }`}
+              >
+                {section.title}
+              </button>
+            ))}
+          </div>
+        </nav>
 
-            <div className="space-content">
-              <TabsContent value="overview" className="m-0">
-                <OverviewTab carTitle={car.title} />
-              </TabsContent>
+        {/* Content Sections */}
+        <div className="space-y-12">
+          <section id="overview" className="pt-8">
+            <h2 className="typography-display text-neutral-1 mb-4">Overview</h2>
+            <OverviewTab carTitle={car.title} />
+          </section>
 
-              <TabsContent value="ratings" className="m-0">
-                <RatingsTab />
-              </TabsContent>
+          <section id="ratings" className="pt-8">
+            <h2 className="typography-display text-neutral-1 mb-4">Expert Ratings</h2>
+            <RatingsTab />
+          </section>
 
-              <TabsContent value="comparison" className="m-0">
-                <ComparisonTab />
-              </TabsContent>
+          <section id="comparison" className="pt-8">
+            <h2 className="typography-display text-neutral-1 mb-4">Class Comparison</h2>
+            <ComparisonTab />
+          </section>
 
-              <TabsContent value="reviews" className="m-0">
-                <ReviewsTab />
-              </TabsContent>
+          <section id="reviews" className="pt-8">
+            <h2 className="typography-display text-neutral-1 mb-4">Owner Reviews</h2>
+            <ReviewsTab />
+          </section>
 
-              <TabsContent value="specs" className="m-0">
-                <SpecsTab />
-              </TabsContent>
+          <section id="specs" className="pt-8">
+            <h2 className="typography-display text-neutral-1 mb-4">Specifications</h2>
+            <SpecsTab />
+          </section>
 
-              <TabsContent value="trims" className="m-0">
-                <TrimsTab trims={processedTrims} selectedTrim={selectedTrim} onTrimSelect={setSelectedTrim} selectedTrimData={selectedTrimData} />
-              </TabsContent>
-            </div>
-          </Tabs>
+          <section id="trims" className="pt-8">
+            <h2 className="typography-display text-neutral-1 mb-4">Trims & Pricing</h2>
+            <TrimsTab trims={processedTrims} selectedTrim={selectedTrim} onTrimSelect={setSelectedTrim} selectedTrimData={selectedTrimData} />
+          </section>
         </div>
       </main>
     </div>;
