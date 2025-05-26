@@ -7,7 +7,6 @@ import BuyersGuide from '../components/home/BuyersGuide';
 import LatestReviews from '../components/home/LatestReviews';
 import FeaturedVideos from '../components/home/FeaturedVideos';
 import BrowseByCategory from '../components/home/BrowseByCategory';
-
 const Index = () => {
   return <div className="flex min-h-screen flex-col bg-motortrend-gray w-full">
       <GlobalHeader />
@@ -34,7 +33,7 @@ const Index = () => {
             </div>
             
             {/* Vehicle Finder */}
-            <div className="pt-4 pb-4">
+            <div className="pt-4 pb-4 py-0">
               <VehicleFinder />
             </div>
             
