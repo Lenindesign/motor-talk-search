@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Heart, Calendar, Phone, MapPin, ChevronDown } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -103,10 +102,10 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({ car, type, classNam
       <PopoverTrigger asChild>
         <Button 
           variant={getButtonVariant()} 
-          size="sm" 
-          className={`gap-1 ${className}`}
+          size="lg" 
+          className={`gap-1 px-6 py-3 rounded-xl font-semibold transition-all duration-200 ${className}`}
         >
-          <Heart size={14} fill={currentOwnership ? 'currentColor' : 'none'} />
+          <Heart size={18} fill={currentOwnership ? 'currentColor' : 'none'} />
           <span className="hidden sm:inline">{getButtonText()}</span>
           <ChevronDown size={12} />
         </Button>
