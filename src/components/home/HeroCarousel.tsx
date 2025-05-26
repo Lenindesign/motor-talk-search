@@ -54,15 +54,15 @@ const HeroCarousel: React.FC = () => {
 
   return (
     <div className="relative w-full mb-12 overflow-hidden rounded-2xl shadow-modern-xl">
-      {/* 16:9 aspect ratio container */}
-      <div className="aspect-video">
+      {/* Responsive aspect ratio container */}
+      <div className="aspect-[9/16] sm:aspect-[16/9]">
         <div className="relative h-full">
           {/* Slides */}
           <div className="relative w-full h-full">
             {heroSlides.map((slide, index) => (
               <div key={slide.id} className={`absolute inset-0 transition-opacity duration-500 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}>
                 <div className="relative w-full h-full">
-                  <img src={slide.imageUrl} alt={slide.title} className="w-full h-full object-cover" />
+                  <img src={slide.imageUrl} alt={slide.title} className="w-full h-full object-cover" loading="lazy" />
                   
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
