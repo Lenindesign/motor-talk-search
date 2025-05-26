@@ -36,11 +36,11 @@ const MainNavigation = () => {
   );
 
   const menuItems = [
-    { label: 'My Garage', path: '/garage', icon: Car },
     { label: 'Home', path: '/', icon: Home },
     { label: 'Cars', path: '/buyers-guide', icon: Car },
     { label: 'Videos', path: '/videos', icon: PlayCircle },
-    { label: 'Profile', path: '/profile', icon: User }
+    { label: 'Profile', path: '/profile', icon: User }, 
+    { label: 'My Garage', path: '/garage', icon: Car }
   ];
 
   if (isMobile) {
