@@ -11,27 +11,41 @@ const Index = () => {
   return <div className="flex min-h-screen flex-col bg-motortrend-gray w-full">
       <GlobalHeader />
       <main className="flex flex-1 flex-col">
-        <div className="max-w-[980px] mx-auto px-4 sm:px-6 pt-8 pb-16 lg:px-0">
-          {/* Hero Carousel */}
-          <HeroCarousel />
-          
-          {/* Vehicle Finder */}
-          <VehicleFinder />
+        <div className="max-w-[980px] mx-auto px-4 sm:px-6 lg:px-0 space-y-8">
+           {/* Hero Carousel */}
+           <div className="pt-4 pb-1.5">
+             <HeroCarousel />
+           </div>
+           
+           {/* Vehicle Finder */}
+           <div className="pt-1.5 pb-6">
+             <VehicleFinder />
+           </div>
           
           {/* Latest News */}
-          <LatestNews />
+          <div className="pt-6 pb-6">
+            <LatestNews />
+          </div>
           
           {/* Latest Reviews */}
-          <LatestReviews />
+          <div className="pt-6 pb-6">
+            <LatestReviews />
+          </div>
           
           {/* Buyer's Guide */}
-          <BuyersGuide />
+          <div className="pt-6 pb-6">
+            <BuyersGuide />
+          </div>
           
           {/* Featured Videos */}
-          <FeaturedVideos />
+          <div className="pt-6 pb-6">
+            <FeaturedVideos />
+          </div>
           
           {/* Browse by Category */}
-          <BrowseByCategory />
+          <div className="pt-6 pb-6">
+            <BrowseByCategory />
+          </div>
         </div>
       </main>
     </div>;
