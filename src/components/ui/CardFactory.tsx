@@ -45,10 +45,9 @@ const createCardProps = (
 ): CardProps => {
   switch (type) {
     case 'newCar':
-    case 'usedCar':
       return {
         car: data as CarData,
-        type: type === 'newCar' ? 'new' : 'used',
+        type: 'new',
         className: props.className,
         isLoading: props.isLoading,
         isSaved: props.isSaved,
@@ -56,7 +55,19 @@ const createCardProps = (
         metadata: props.metadata,
         children: props.children,
         ...props
-      };
+      } as CarCardProps;
+    case 'usedCar':
+      return {
+        car: data as CarData,
+        type: 'used',
+        className: props.className,
+        isLoading: props.isLoading,
+        isSaved: props.isSaved,
+        onToggleSave: props.onToggleSave,
+        metadata: props.metadata,
+        children: props.children,
+        ...props
+      } as CarCardProps;
     case 'article':
       return {
         article: data as ArticleData,
@@ -67,7 +78,7 @@ const createCardProps = (
         metadata: props.metadata,
         children: props.children,
         ...props
-      };
+      } as ArticleCardProps;
     case 'video':
       return {
         video: data as VideoData,
@@ -78,7 +89,7 @@ const createCardProps = (
         metadata: props.metadata,
         children: props.children,
         ...props
-      };
+      } as VideoCardProps;
     case 'photo':
       return {
         photo: data as PhotoData,
@@ -89,7 +100,7 @@ const createCardProps = (
         metadata: props.metadata,
         children: props.children,
         ...props
-      };
+      } as PhotoCardProps;
     default:
       throw new Error(`Unknown card type: ${type}`);
   }
