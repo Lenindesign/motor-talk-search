@@ -150,7 +150,7 @@ const NewCarDetail: React.FC = () => {
 
           <section id="comparison" className="pt-8">
             <h2 className="typography-display text-neutral-1 mb-4">Class Comparison</h2>
-            <ComparisonTab />
+            <ComparisonTab carTitle={car.title} carCategory={car.category} />
           </section>
 
           <section id="competitors" className="pt-8">
