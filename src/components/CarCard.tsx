@@ -8,6 +8,9 @@ import CarSpecs from './CarCard/CarSpecs';
 import GarageActionMenu from './GarageActionMenu';
 import { CarCardProps } from './CarCard/types';
 
+// Re-export types for backward compatibility
+export type { CarData, CarCardProps } from './CarCard/types';
+
 const CarCard: React.FC<CarCardProps> = ({ 
   car, 
   type,
