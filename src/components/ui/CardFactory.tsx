@@ -1,11 +1,12 @@
+
 import React from 'react';
 import BaseCard from './BaseCard';
 import { CardType } from '@/styles/cardStyles';
 import { cn } from '@/lib/utils';
 import { CarData, CarCardProps } from '../CarCard/types';
-import { ArticleData, ArticleCardProps } from '../ArticleCard/types';
-import { VideoData, VideoCardProps } from '../VideoCard/types';
-import { PhotoData, PhotoCardProps } from '../PhotoCard/types';
+import { ArticleData, ArticleCardProps } from '../ArticleCard';
+import { VideoData, VideoCardProps } from '../VideoCard';
+import { PhotoData, PhotoCardProps } from '../PhotoCard';
 
 // Define a union type for all card data types
 export type CardData = CarData | ArticleData | VideoData | PhotoData;
@@ -107,6 +108,7 @@ const CardFactory: React.FC<CardFactoryProps> = ({
 }) => {
   const cardProps = createCardProps(type, data, {
     type,
+    data,
     className,
     isLoading,
     isSaved,
