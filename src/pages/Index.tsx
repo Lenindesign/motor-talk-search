@@ -11,7 +11,7 @@ const Index = () => {
   return <div className="flex min-h-screen flex-col bg-motortrend-gray w-full">
       <GlobalHeader />
       <main className="flex flex-1 flex-col">
-        <div className="max-w-[980px] mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
+        <div className="max-w-[980px] mx-auto px-4 sm:px-6 pt-8 pb-16 lg:px-0">
           {/* Hero Carousel */}
           <HeroCarousel />
           
