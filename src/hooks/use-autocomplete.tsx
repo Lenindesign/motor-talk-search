@@ -1,23 +1,28 @@
-
 import { useState, useEffect } from 'react';
 import { getAllContent } from "../services/mockData";
 import { carMakes } from "../services/carData";
 
-// Type for search suggestions
-export type Suggestion = {
+// Type for rich search suggestions in the mega dropdown
+export type MegaSuggestion = {
   id: string;
-  text: string;
+  text: string; // Typically the title
   type: 'article' | 'newCar' | 'usedCar' | 'photo' | 'video' | 'popular' | 'carMake' | 'carModel';
-  makeId?: string; // Optional for car models to reference their make
+  imageUrl?: string; // Optional, as makes/models might not have one
+  category?: string; // For articles, photos, videos, cars
+  price?: string; // For cars
+  date?: string; // For articles, photos
+  duration?: string; // For videos
+  // Add any other relevant fields from mockData types
+  makeId?: string; 
 };
 
 export function useAutocomplete(query: string) {
-  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+  const [suggestions, setSuggestions] = useState<MegaSuggestion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   
   // Popular searches that always appear when the input is empty
-  const popularSearches: Suggestion[] = [
+  const popularSearches: MegaSuggestion[] = [
     { id: 'pop-1', text: 'New SUVs', type: 'popular' },
     { id: 'pop-2', text: 'Electric cars', type: 'popular' },
     { id: 'pop-3', text: 'Best sedans', type: 'popular' },
@@ -45,7 +50,7 @@ export function useAutocomplete(query: string) {
         await new Promise(resolve => setTimeout(resolve, 200));
         
         // Create suggestions from mock data
-        const newSuggestions: Suggestion[] = [];
+        const newSuggestions: MegaSuggestion[] = [];
         
         // Add car makes and models suggestions
         const lowerCaseQuery = query.toLowerCase();
@@ -57,6 +62,7 @@ export function useAutocomplete(query: string) {
               id: `make-${make.id}`,
               text: make.name,
               type: 'carMake'
+              // No imageUrl for makes
             });
           }
           
@@ -69,6 +75,7 @@ export function useAutocomplete(query: string) {
                 id: `model-${model.id}`,
                 text: modelText,
                 type: 'carModel',
+                // No imageUrl for models
                 makeId: make.id
               });
             }
@@ -81,7 +88,10 @@ export function useAutocomplete(query: string) {
             newSuggestions.push({
               id: `article-${article.id}`,
               text: article.title,
-              type: 'article'
+              type: 'article',
+              imageUrl: article.imageUrl,
+              category: article.category,
+              date: article.date
             });
           }
         });
@@ -92,7 +102,10 @@ export function useAutocomplete(query: string) {
             newSuggestions.push({
               id: `newcar-${car.id}`,
               text: car.title,
-              type: 'newCar'
+              type: 'newCar',
+              imageUrl: car.imageUrl,
+              category: car.category,
+              price: car.price
             });
           }
         });
@@ -102,13 +115,45 @@ export function useAutocomplete(query: string) {
             newSuggestions.push({
               id: `usedcar-${car.id}`,
               text: car.title,
-              type: 'usedCar'
+              type: 'usedCar',
+              imageUrl: car.imageUrl,
+              category: car.category,
+              price: car.price
+              // Add other used car specific fields if needed, e.g., mileage, year
+            });
+          }
+        });
+
+        // Add photo-based suggestions
+        allContent.photos.forEach(photo => {
+          if (photo.title.toLowerCase().includes(lowerCaseQuery)) {
+            newSuggestions.push({
+              id: `photo-${photo.id}`,
+              text: photo.title,
+              type: 'photo',
+              imageUrl: photo.imageUrl,
+              date: photo.year
+            });
+          }
+        });
+
+        // Add video-based suggestions
+        allContent.videos.forEach(video => {
+          if (video.title.toLowerCase().includes(lowerCaseQuery)) {
+            newSuggestions.push({
+              id: `video-${video.id}`,
+              text: video.title,
+              type: 'video',
+              imageUrl: video.imageUrl,
+              duration: video.duration,
+              date: video.publishDate
             });
           }
         });
 
         // Limit to first 10 suggestions for better UX, prioritizing car makes and models
-        setSuggestions(newSuggestions.slice(0, 10));
+        // TODO: Consider a more sophisticated limiting strategy for mega dropdown (e.g., N per category)
+        setSuggestions(newSuggestions.slice(0, 15)); // Increased limit slightly for more variety
       } catch (error) {
         console.error('Error fetching suggestions:', error);
         setSuggestions([]);

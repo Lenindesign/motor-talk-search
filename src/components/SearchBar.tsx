@@ -1,10 +1,11 @@
 import React, { useState, FormEvent, useEffect, useRef } from "react";
 import { Search, Loader, Mic, X, Camera } from "lucide-react";
-import { useAutocomplete, Suggestion } from "../hooks/use-autocomplete";
-import AutocompleteSuggestions from "./AutocompleteSuggestions";
+import { useAutocomplete, MegaSuggestion } from "../hooks/use-autocomplete";
+import MegaSearchDropdown from "./MegaSearchDropdown";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import ImageSearchOverlay from './ImageSearchOverlay';
+import { useNavigate } from 'react-router-dom';
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -21,12 +22,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   const [query, setQuery] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [isFocused, setIsFocused] = useState(false); // Track focus state for enhanced visuals
-  const [voiceSearch, setVoiceSearch] = useState(false); // For simulating voice search
+  const [isFocused, setIsFocused] = useState(false); 
+  const [voiceSearch, setVoiceSearch] = useState(false); 
   const [isImageSearchOverlayOpen, setIsImageSearchOverlayOpen] = useState(false);
   const localInputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  
+  const navigate = useNavigate();
+
   const { 
     suggestions, 
     isLoading: suggestionsLoading, 
@@ -37,16 +39,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
   const currentInputRef = inputRef || localInputRef;
 
-  // Determine padding and icon positioning based on variant
-  const inputPaddingRightClass = variant === "header" ? "pr-36" : "pr-32"; // Header: mic + camera + search + clear; Main: search + clear + mic
+  const inputPaddingRightClass = variant === "header" ? "pr-36" : "pr-32"; 
   const clearButtonRightClass = variant === "header" ? "right-10" : "right-16";
-  // Mic button is only for main variant in this reverted state
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (query.trim() && !isLoading) {
-      onSearch(query);
-      setQuery("");
+      onSearch(query); 
       setShowSuggestions(false);
       
       setTimeout(() => {
@@ -57,10 +56,37 @@ const SearchBar: React.FC<SearchBarProps> = ({
     }
   };
 
-  const handleSuggestionSelect = (suggestion: Suggestion) => {
-    onSearch(suggestion.text);
-    setQuery("");
+  const handleSuggestionSelect = (suggestion: MegaSuggestion) => {
+    let path = '';
+    switch (suggestion.type) {
+      case 'newCar':
+        path = `/new-car/${suggestion.id.replace('newcar-', '')}`;
+        break;
+      case 'usedCar':
+        path = `/used-car/${suggestion.id.replace('usedcar-', '')}`;
+        break;
+      case 'article':
+        path = `/article/${suggestion.id.replace('article-', '')}`;
+        break;
+      case 'video':
+        path = `/video/${suggestion.id.replace('video-', '')}`;
+        break;
+      case 'photo':
+        path = `/photo/${suggestion.id.replace('photo-', '')}`;
+        break;
+      case 'carMake':
+      case 'carModel':
+      case 'popular':
+      default:
+        path = `/search?q=${encodeURIComponent(suggestion.text)}`;
+        break;
+    }
+    navigate(path);
+    setQuery(""); 
     setShowSuggestions(false);
+    if (currentInputRef?.current) {
+      currentInputRef.current.blur(); 
+    }
   };
 
   const clearSearch = () => {
@@ -104,13 +130,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
       handleSuggestionSelect(suggestions[selectedIndex]);
     } else if (e.key === 'Escape') {
       setShowSuggestions(false);
+    } else if (e.key === 'Tab' && showSuggestions) {
+      setShowSuggestions(false);
     }
   };
 
-  // Ensure focus is maintained whenever component updates, for main variant
   useEffect(() => {
     if (currentInputRef?.current && !isLoading && variant === "main") {
-      // currentInputRef.current.focus(); // Commented out to prevent aggressive focus stealing
     }
   }, [isLoading, currentInputRef, variant]);
 
@@ -144,7 +170,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               onKeyDown={handleInputKeyDown}
               className={`w-full rounded-md border bg-white py-2.5 pl-10 ${inputPaddingRightClass} text-sm shadow-sm transition-all duration-300 ease-in-out focus:border-primary-500 focus:ring-2 focus:ring-primary-500/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:focus:border-primary-500 ${isFocused ? 'ring-2 ring-primary-500/50 border-primary-500 dark:border-primary-500' : 'border-gray-300 dark:border-gray-600'}`}
               placeholder="Search..."
-              disabled={isLoading || voiceSearch} // voiceSearch disabled for header for now
+              disabled={isLoading || voiceSearch} 
               ref={currentInputRef}
               aria-autocomplete="list"
               aria-expanded={showSuggestions && suggestions.length > 0}
@@ -226,7 +252,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
           </div>
         </form>
       ) : (
-        // Main page search bar
         <form onSubmit={handleSubmit} className="w-full" aria-label="Main search">
           <div className="relative flex items-center">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -322,28 +347,36 @@ const SearchBar: React.FC<SearchBarProps> = ({
         </form>
       )}
       {showSuggestions && suggestions.length > 0 && (
-        <AutocompleteSuggestions 
-          suggestions={suggestions} 
-          onSelect={handleSuggestionSelect} 
-          isLoading={suggestionsLoading}
+        <MegaSearchDropdown
+          suggestions={suggestions}
           selectedIndex={selectedIndex}
-          onMouseEnter={setSelectedIndex} 
+          isLoading={suggestionsLoading}
+          onSelect={handleSuggestionSelect}
+          onMouseEnter={(index) => setSelectedIndex(index)}
         />
       )}
-      <ImageSearchOverlay 
-        isOpen={isImageSearchOverlayOpen}
-        onClose={() => setIsImageSearchOverlayOpen(false)}
-        onImageSelected={(file) => {
-          console.log("Image selected in SearchBar:", file.name);
-          // TODO: Implement actual image search logic with this file
-          setIsImageSearchOverlayOpen(false); // Close overlay after selection
-        }}
-        onTakePhotoClicked={() => {
-          console.log("Take photo clicked in SearchBar");
-          // TODO: Implement camera capture logic
-          setIsImageSearchOverlayOpen(false); // Close overlay
-        }}
-      />
+      {isImageSearchOverlayOpen && (
+        <ImageSearchOverlay 
+          isOpen={isImageSearchOverlayOpen} 
+          onClose={() => setIsImageSearchOverlayOpen(false)} 
+          onImageSelected={(file: File) => {
+            console.log("Image selected for search:", file.name);
+            // Simulate processing and getting a search query from the file
+            const simulatedQuery = `Image search: ${file.name.substring(0, 30)}${file.name.length > 30 ? '...' : ''}`;
+            setQuery(simulatedQuery);
+            setIsImageSearchOverlayOpen(false);
+            onSearch(simulatedQuery); // Call the main onSearch prop of SearchBar
+          }}
+          onTakePhotoClicked={() => {
+            console.log("Take photo initiated for search");
+            // Simulate taking a photo and getting a search query
+            const simulatedQuery = "Image search: Photo taken";
+            setQuery(simulatedQuery);
+            setIsImageSearchOverlayOpen(false);
+            onSearch(simulatedQuery); // Call the main onSearch prop of SearchBar
+          }}
+        />
+      )}
     </div>
   );
 };
