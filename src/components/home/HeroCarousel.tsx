@@ -72,7 +72,7 @@ const HeroCarousel: React.FC = () => {
                     </span>
                   </div>
                   
-                  <h1 className="typography-hero text-white mb-4 max-w-2xl text-2xl">
+                  <h1 className="typography-display text-white-1">
                     {slide.title}
                   </h1>
                   
