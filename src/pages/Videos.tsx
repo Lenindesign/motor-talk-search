@@ -24,7 +24,41 @@ const Videos: React.FC = () => {
       <main className="max-w-[980px] mx-auto px-0 py-[32px]">
         {/* Hero Carousel */}
         <div className="mb-10">
-          <HeroCarousel />
+          <HeroCarousel slides={[
+            {
+              id: 'v1',
+              title: '2025 Lamborghini Revuelto: Track Review',
+              subtitle: 'Lambo’s 1000+ hp hybrid V12 gets unleashed on the circuit. Watch the full test.',
+              imageUrl: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80',
+              videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+              tag: 'Track Test',
+              tagColor: 'bg-yellow-600',
+              author: 'Chris Harris',
+              readTime: '2 hours ago'
+            },
+            {
+              id: 'v2',
+              title: 'EV Drag Race: Tesla Plaid vs Lucid Air',
+              subtitle: 'The most powerful EVs go head-to-head in a quarter-mile showdown.',
+              imageUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=80',
+              videoUrl: 'https://www.w3schools.com/html/movie.mp4',
+              tag: 'Drag Race',
+              tagColor: 'bg-red-700',
+              author: 'Megan Lee',
+              readTime: '4 hours ago'
+            },
+            {
+              id: 'v3',
+              title: 'Off-Road Adventure: Bronco vs Wrangler',
+              subtitle: 'Which 4x4 conquers the wild? See the ultimate off-road face-off.',
+              imageUrl: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1200&q=80',
+              videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
+              tag: 'Adventure',
+              tagColor: 'bg-green-800',
+              author: 'Carlos Ramirez',
+              readTime: '6 hours ago'
+            }
+          ]} />
         </div>
 
         {/* Section Helper */}

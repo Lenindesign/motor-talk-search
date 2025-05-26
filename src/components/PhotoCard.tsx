@@ -81,7 +81,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, className, onClick }) => {
           {photo.position}
         </div>
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
-          <h3 className="font-bold text-white text-sm mb-1 line-clamp-2">{photo.title}</h3>
+          <h3 className="text-2xl font-bold leading-tight text-white mb-1 line-clamp-2">{photo.title}</h3>
         </div>
       </div>
       <div className="p-4">

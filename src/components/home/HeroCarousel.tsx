@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-interface HeroSlide {
+import { Play } from 'lucide-react';
+
+export interface HeroSlide {
   id: string;
   title: string;
   subtitle: string;
@@ -10,8 +12,9 @@ interface HeroSlide {
   tagColor: string;
   author: string;
   readTime: string;
+  videoUrl?: string;
 }
-const heroSlides: HeroSlide[] = [{
+const defaultHeroSlides: HeroSlide[] = [{
   id: '1',
   title: '2025 Ferrari 296 GT3: The Ultimate Track Weapon',
   subtitle: 'Ferrari unveils its latest track-focused supercar with revolutionary hybrid technology and track performance',
@@ -39,7 +42,11 @@ const heroSlides: HeroSlide[] = [{
   author: 'Mike Thompson',
   readTime: '2 hours ago'
 }];
-const HeroCarousel: React.FC = () => {
+interface HeroCarouselProps {
+  slides?: HeroSlide[];
+}
+const HeroCarousel: React.FC<HeroCarouselProps> = ({ slides }) => {
+  const heroSlides = slides && slides.length > 0 ? slides : defaultHeroSlides;
   const [currentSlide, setCurrentSlide] = useState(0);
   const nextSlide = () => {
     setCurrentSlide(prev => (prev + 1) % heroSlides.length);
@@ -58,7 +65,28 @@ const HeroCarousel: React.FC = () => {
           <div className="relative w-full h-full">
             {heroSlides.map((slide, index) => <div key={slide.id} className={`absolute inset-0 transition-opacity duration-500 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}>
                 <div className="relative w-full h-full">
-                  <img src={slide.imageUrl} alt={slide.title} className="w-full h-full object-cover" loading="lazy" />
+                  {slide.videoUrl ? (
+                    <div className="relative w-full h-full">
+                      <video
+                        src={slide.videoUrl}
+                        poster={slide.imageUrl}
+                        className="w-full h-full object-cover"
+                        controls={false}
+                        autoPlay={false}
+                        muted
+                        playsInline
+                        preload="metadata"
+                      />
+                      {/* Play icon overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div className="bg-black/60 rounded-full p-4">
+                          <Play className="text-white w-10 h-10" />
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <img src={slide.imageUrl} alt={slide.title} className="w-full h-full object-cover" loading="lazy" />
+                  )}
                   
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />

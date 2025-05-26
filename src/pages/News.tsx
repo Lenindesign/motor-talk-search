@@ -39,7 +39,38 @@ const News: React.FC = () => {
       <main className="max-w-[980px] mx-auto px-0 py-[32px]">
         {/* Hero Carousel */}
         <div className="mb-8">
-          <HeroCarousel />
+          <HeroCarousel slides={[
+            {
+              id: 'n1',
+              title: '2025 Porsche Macan EV: First Drive',
+              subtitle: 'Porsche enters the electric SUV market with a bang. Here’s how the Macan EV stacks up.',
+              imageUrl: 'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?auto=format&fit=crop&w=1200&q=80',
+              tag: 'First Drive',
+              tagColor: 'bg-blue-700',
+              author: 'Alexandra Smith',
+              readTime: '3 hours ago'
+            },
+            {
+              id: 'n2',
+              title: 'Inside the 2025 Detroit Auto Show',
+              subtitle: 'The biggest reveals, surprises, and electric debuts from Detroit.',
+              imageUrl: 'https://images.unsplash.com/photo-1511918984145-48de785d4c4e?auto=format&fit=crop&w=1200&q=80',
+              tag: 'Event',
+              tagColor: 'bg-green-700',
+              author: 'Brian Lee',
+              readTime: '5 hours ago'
+            },
+            {
+              id: 'n3',
+              title: 'How Autonomous Tech is Changing Road Trips',
+              subtitle: 'From hands-free driving to smart navigation, a look at the new era of travel.',
+              imageUrl: 'https://images.unsplash.com/photo-1461632830798-3adb3034e4c8?auto=format&fit=crop&w=1200&q=80',
+              tag: 'Tech',
+              tagColor: 'bg-purple-700',
+              author: 'Dana Patel',
+              readTime: '7 hours ago'
+            }
+          ]} />
         </div>
 
         {/* Main Content Tabs */}

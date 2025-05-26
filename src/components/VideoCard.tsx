@@ -84,7 +84,9 @@ const VideoCard: React.FC<VideoCardProps> = ({ video, className, onClick }) => {
         </div>
       </div>
       <div className="p-4">
-        <h3 className="font-bold text-lg mb-2 line-clamp-2">{video.title}</h3>
+        <h3 className="text-2xl font-bold leading-tight text-gray-900 mb-1 line-clamp-2">
+          {video.title}
+        </h3>
         <div className="flex items-center text-sm text-gray-500">
           <span className="mr-3">MotorTrend</span>
           {video.views && (

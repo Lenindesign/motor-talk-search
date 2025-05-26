@@ -98,7 +98,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, className, onClick, 
         )}
       </div>
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-900 mb-1">
+        <h3 className="text-2xl font-bold leading-tight text-gray-900 mb-1">
           {article.title}
         </h3>
       </div>
