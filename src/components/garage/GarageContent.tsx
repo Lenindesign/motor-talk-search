@@ -12,6 +12,7 @@ import GarageFilters from "./GarageFilters";
 import GarageTabContent from "./GarageTabContent";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from 'react-router-dom'; // Added useNavigate
+import ArticleCard from "../ArticleCard"; // Added ArticleCard import
 
 // Sample articles related to cars (in a real app, these would come from an API)
 const relatedArticles = [{
@@ -250,22 +251,19 @@ const GarageContent = () => {
             {contentView === 'articles' && <div className="mt-6">
                 <h3 className="text-lg font-medium mb-4">Articles Related to Your Garage</h3>
                 {filteredArticles.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredArticles.map(article => <div key={article.id} className="border rounded-md overflow-hidden bg-white shadow-sm">
-                        <div className="h-40 overflow-hidden">
-                          <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300" />
-                        </div>
-                        <div className="p-4">
-                          <span className="text-xs font-semibold text-motortrend-red">{article.category}</span>
-                          <h4 className="text-md font-semibold mt-1">{article.title}</h4>
-                          <p className="text-sm text-gray-600 mt-2 line-clamp-2">{article.excerpt}</p>
-                          <div className="mt-3 flex items-center justify-between">
-                            <span className="text-xs text-gray-500">
-                              {new Date(article.date).toLocaleDateString()}
-                            </span>
-                            <Button size="sm" variant="outline">Read More</Button>
-                          </div>
-                        </div>
-                      </div>)}
+                    {filteredArticles.map(article => (
+                      <ArticleCard 
+                        key={article.id} 
+                        article={{
+                          id: article.id,
+                          title: article.title,
+                          imageUrl: article.imageUrl,
+                          date: article.date,
+                          category: article.category,
+                          // featured and photoCount are optional and not in mock data
+                        }}
+                      />
+                    ))}
                   </div> : <div className="text-center py-10 bg-gray-50 rounded-lg">
                     <BookOpen size={48} className="mx-auto text-gray-300 mb-4" />
                     <h3 className="text-lg font-medium text-gray-700 mb-2">No related articles</h3>

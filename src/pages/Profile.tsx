@@ -94,22 +94,27 @@ const Profile = () => {
             {/* Profile Sidebar */}
             <aside className="w-full md:w-64 space-y-6">
               <Card>
-                <CardHeader className="flex flex-row items-center gap-4 pb-2">
+                <CardHeader className="p-6 flex flex-col items-center text-center sm:flex-row sm:text-left sm:items-center gap-4">
                   <Avatar className="w-16 h-16">
                     <AvatarImage src={userData.avatar} alt={userData.name} className="object-cover" />
                     <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
                   </Avatar>
-                  <div>
-                    <CardTitle>{userData.name}</CardTitle>
+                  <div className="flex-grow">
+                    <CardTitle className="text-xl font-semibold">{userData.name}</CardTitle>
+                    <p className="text-sm text-gray-500 mt-1">Member since {userData.joined}</p>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-500">Member since {userData.joined}</p>
-                  <div className="mt-4 flex justify-between">
+                <CardContent className="p-6 pt-0">
+                  <div className="mt-4 flex justify-between items-center">
                     <span className="text-sm font-medium">Saved Items</span>
-                    <span className="text-sm font-bold">{savedItems.length}</span>
+                    <span className="text-sm font-bold text-lg">{savedItems.length}</span>
                   </div>
-                  <Button variant="outline" size="sm" className="w-full mt-4 flex items-center justify-center gap-2" onClick={() => setPersonalizationOpen(true)}>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full mt-6 flex items-center justify-center gap-2" 
+                    onClick={() => setPersonalizationOpen(true)}
+                  >
                     <Palette size={16} />
                     Personalize
                   </Button>
@@ -284,6 +289,10 @@ const Profile = () => {
                   <RecentActivity />
                 </TabsContent>
                 
+                <TabsContent value="achievements" className="space-y-6">
+                  <UserAchievements />
+                </TabsContent>
+
                 <TabsContent value="settings" className="space-y-6">
                   <Card>
                     <CardHeader>

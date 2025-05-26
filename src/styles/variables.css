@@ -1,0 +1,76 @@
+:root {
+  /* Colors */
+  --motortrend-red: #c11b17;
+  --motortrend-red-hover: #e90c17;
+  --motortrend-red-light: #ff858a;
+  --neutral-1: #141416;
+  --neutral-2: #23262f;
+  --neutral-3: #353945;
+  --neutral-4: #6e7481;
+  --neutral-5: #b1b5c3;
+  --neutral-6: #e6e8ec;
+  --neutral-7: #f4f5f6;
+  --neutral-8: #fcfcfd;
+
+  /* Typography */
+  --font-display: 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Font Sizes */
+  --font-size-2xl: clamp(1.5rem, 2vw, 1.875rem);
+  --font-size-xl: clamp(1.25rem, 1.5vw, 1.5rem);
+  --font-size-lg: clamp(1.125rem, 1.25vw, 1.25rem);
+  --font-size-base: clamp(1rem, 1vw, 1rem);
+  --font-size-sm: clamp(0.875rem, 0.875vw, 0.875rem);
+  --font-size-xs: clamp(0.75rem, 0.75vw, 0.75rem);
+
+  /* Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-10: 2.5rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+  --spacing-20: 5rem;
+}
+
+/* Typography classes */
+.typography-display {
+  font-family: var(--font-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+}
+
+.typography-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.typography-body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-normal);
+}
+
+.typography-small {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.typography-caption {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-normal);
+}

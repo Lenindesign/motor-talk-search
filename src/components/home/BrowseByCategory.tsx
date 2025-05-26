@@ -61,7 +61,7 @@ const trendingComparisons = [{
 const BrowseByCategory: React.FC = () => {
   return (
     <section className="space-content">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-8 flex items-center justify-between">
         <h2 className="flex items-center gap-2 text-2xl font-bold">
           <LayoutGrid size={24} />
           Browse By Category

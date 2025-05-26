@@ -109,13 +109,6 @@ const CarCard: React.FC<EnhancedCarCardProps> = ({
           width={width}
           height={height}
         />
-        {car.isNew && (
-          <div className="absolute top-2 left-2">
-            <span className="bg-green-600 text-white px-2 py-1 rounded text-xs font-bold">
-              NEW 2025
-            </span>
-          </div>
-        )}
       </div>
       
       <div className="p-4 flex-grow flex flex-col">
@@ -133,11 +126,6 @@ const CarCard: React.FC<EnhancedCarCardProps> = ({
           <RouterLink to={linkPath} className="text-gray-600 hover:text-motortrend-red transition-colors">
             {car.category}
           </RouterLink>
-          {car.isNew && (
-            <div className="mt-2 bg-green-600 text-white px-2 py-1 rounded text-xs font-bold">
-              NEW 2025
-            </div>
-          )}
           <CarSpecs car={car} type={type} />
         </div>
       </div>

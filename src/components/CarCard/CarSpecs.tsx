@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MapPin, Calendar, Gauge, Fuel, Settings } from 'lucide-react';
 import { CarData } from './types';
@@ -9,8 +8,6 @@ interface CarSpecsProps {
 }
 
 const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
-  if (type !== 'used') return null;
-
   return (
     <div className="mt-3 space-y-2">
       <div className="flex flex-wrap gap-2 text-sm text-gray-600">
