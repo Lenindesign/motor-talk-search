@@ -1,10 +1,8 @@
-
 import React from 'react';
 import { Star, Calculator, MapPin, Share } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import GarageActionMenu from '@/components/GarageActionMenu';
 import { CarData } from '@/components/CarCard';
-
 interface CarHeaderProps {
   car: {
     id: string;
@@ -17,17 +15,16 @@ interface CarHeaderProps {
   selectedTrimPrice: string;
   overallRating: number;
 }
-
-const CarHeader: React.FC<CarHeaderProps> = ({ car, carData, selectedTrimPrice, overallRating }) => {
-  return (
-    <div className="bg-white rounded-2xl shadow-modern-lg overflow-hidden border-modern">
+const CarHeader: React.FC<CarHeaderProps> = ({
+  car,
+  carData,
+  selectedTrimPrice,
+  overallRating
+}) => {
+  return <div className="bg-white rounded-2xl shadow-modern-lg overflow-hidden border-modern">
       <div className="relative">
         <div className="aspect-[16/9] lg:aspect-[21/9] overflow-hidden">
-          <img
-            src={car.imageUrl}
-            alt={car.title}
-            className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
-          />
+          <img src={car.imageUrl} alt={car.title} className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" />
         </div>
         
         {/* Gradient overlay for better text readability */}
@@ -47,12 +44,12 @@ const CarHeader: React.FC<CarHeaderProps> = ({ car, carData, selectedTrimPrice, 
             </div>
           </div>
           
-          <h1 className="typography-hero text-white mb-4 max-w-4xl">
+          <h1 className="typography-hero text-white mb-4 max-w-4xl text-5xl">
             {car.title}
           </h1>
           
           <div className="flex items-center gap-6 text-neutral-6">
-            <span className="typography-display text-white font-bold">
+            <span className="typography-display text-white font-bold text-2xl">
               {selectedTrimPrice}
             </span>
             <span className="typography-body-large text-neutral-300">
@@ -65,37 +62,24 @@ const CarHeader: React.FC<CarHeaderProps> = ({ car, carData, selectedTrimPrice, 
       {/* Action Buttons */}
       <div className="card-spacing border-t border-neutral-6/30">
         <div className="flex flex-wrap items-center gap-4 lg:gap-6">
-          <Button 
-            size="lg"
-            className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-6 py-3 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg"
-          >
+          <Button size="lg" className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-6 py-3 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg">
             <Calculator size={18} className="mr-3" />
             Build & Price
           </Button>
           
-          <Button 
-            variant="outline" 
-            size="lg"
-            className="border-neutral-4 text-neutral-2 hover:bg-neutral-7 px-6 py-3 rounded-xl font-semibold transition-all duration-200"
-          >
+          <Button variant="outline" size="lg" className="border-neutral-4 text-neutral-2 hover:bg-neutral-7 px-6 py-3 rounded-xl font-semibold transition-all duration-200">
             <MapPin size={18} className="mr-3" />
             Find Dealer
           </Button>
           
           <GarageActionMenu car={carData} type="new" className="ml-auto lg:ml-0" />
           
-          <Button 
-            variant="outline" 
-            size="lg"
-            className="border-neutral-4 text-neutral-2 hover:bg-neutral-7 rounded-xl font-semibold transition-all duration-200"
-          >
+          <Button variant="outline" size="lg" className="border-neutral-4 text-neutral-2 hover:bg-neutral-7 rounded-xl font-semibold transition-all duration-200">
             <Share size={18} className="mr-3" />
             Share
           </Button>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default CarHeader;
