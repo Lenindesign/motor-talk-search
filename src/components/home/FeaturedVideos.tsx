@@ -1,8 +1,6 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Play, Clock } from 'lucide-react';
-
 interface VideoItem {
   id: string;
   title: string;
@@ -13,57 +11,43 @@ interface VideoItem {
   views: string;
   date: string;
 }
-
-const videoItems: VideoItem[] = [
-  {
-    id: '1',
-    title: '2025 BMW i5 vs Mercedes EQS: Electric Luxury Showdown',
-    duration: '12:45',
-    imageUrl: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=600&h=400',
-    tag: 'Review',
-    tagColor: 'bg-blue-600',
-    views: '245K',
-    date: '2 days ago'
-  },
-  {
-    id: '2',
-    title: 'Tesla Model S Plaid vs Porsche Taycan Turbo S',
-    duration: '15:30',
-    imageUrl: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=600&h=400',
-    tag: 'Comparison',
-    tagColor: 'bg-purple-600',
-    views: '892K',
-    date: '1 week ago'
-  }
-];
-
+const videoItems: VideoItem[] = [{
+  id: '1',
+  title: '2025 BMW i5 vs Mercedes EQS: Electric Luxury Showdown',
+  duration: '12:45',
+  imageUrl: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=600&h=400',
+  tag: 'Review',
+  tagColor: 'bg-blue-600',
+  views: '245K',
+  date: '2 days ago'
+}, {
+  id: '2',
+  title: 'Tesla Model S Plaid vs Porsche Taycan Turbo S',
+  duration: '15:30',
+  imageUrl: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=600&h=400',
+  tag: 'Comparison',
+  tagColor: 'bg-purple-600',
+  views: '892K',
+  date: '1 week ago'
+}];
 const FeaturedVideos: React.FC = () => {
-  return (
-    <section className="space-content">
+  return <section className="space-content">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-3">
           <Play size={24} className="text-motortrend-red" />
-          <h2 className="typography-display text-neutral-1">Featured Videos</h2>
+          <h2 className="typography-display text-neutral-1 text-2xl">Featured Videos</h2>
         </div>
-        <Link 
-          to="/videos"
-          className="typography-body text-motortrend-red hover:text-motortrend-red/80 font-medium transition-colors"
-        >
+        <Link to="/videos" className="typography-body text-motortrend-red hover:text-motortrend-red/80 font-medium transition-colors">
           View All →
         </Link>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {videoItems.map((item) => (
-          <article key={item.id} className="group">
+        {videoItems.map(item => <article key={item.id} className="group">
             <Link to={`/video/${item.id}`} className="block">
               <div className="bg-white rounded-2xl overflow-hidden shadow-modern hover:shadow-modern-lg transition-all duration-300 group-hover:-translate-y-1">
                 <div className="relative aspect-video overflow-hidden">
-                  <img
-                    src={item.imageUrl}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                  <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   
                   {/* Play button overlay */}
                   <div className="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-black/30 transition-colors">
@@ -101,11 +85,8 @@ const FeaturedVideos: React.FC = () => {
                 </div>
               </div>
             </Link>
-          </article>
-        ))}
+          </article>)}
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default FeaturedVideos;
