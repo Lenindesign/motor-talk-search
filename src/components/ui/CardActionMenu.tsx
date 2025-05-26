@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Bookmark, Share2, MoreVertical } from 'lucide-react';
 import { CARD_STYLES } from '@/styles/cardStyles';
@@ -22,7 +23,7 @@ const CardActionMenu: React.FC<CardActionMenuProps> = ({
         className={`${CARD_STYLES.saveButton} ${actions.isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
       >
         <Bookmark
-          className={`${CARD_STYLES.bookmark} ${actions.isSaved ? 'fill-current text-blue-600' : ''}`}
+          className={`w-5 h-5 ${actions.isSaved ? 'fill-current text-blue-600' : ''}`}
         />
       </button>
       {onShare && (
