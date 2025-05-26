@@ -3,6 +3,7 @@ import { Star, Calculator, MapPin, Share } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import GarageActionMenu from '@/components/GarageActionMenu';
 import { CarData } from '@/components/CarCard';
+
 interface CarHeaderProps {
   car: {
     id: string;
@@ -15,6 +16,7 @@ interface CarHeaderProps {
   selectedTrimPrice: string;
   overallRating: number;
 }
+
 const CarHeader: React.FC<CarHeaderProps> = ({
   car,
   carData,
@@ -61,7 +63,7 @@ const CarHeader: React.FC<CarHeaderProps> = ({
       
       {/* Action Buttons */}
       <div className="card-spacing border-t border-neutral-6/30">
-        <div className="flex flex-wrap items-center gap-4 lg:gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-6">
           <Button size="lg" className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-6 py-3 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg">
             <Calculator size={18} className="mr-3" />
             Build & Price
@@ -72,7 +74,7 @@ const CarHeader: React.FC<CarHeaderProps> = ({
             Find Dealer
           </Button>
           
-          <GarageActionMenu car={carData} type="new" className="ml-auto lg:ml-0" />
+          <GarageActionMenu car={carData} type="new" />
           
           <Button variant="outline" size="lg" className="border-neutral-4 text-neutral-2 hover:bg-neutral-7 rounded-xl font-semibold transition-all duration-200">
             <Share size={18} className="mr-3" />
@@ -82,4 +84,5 @@ const CarHeader: React.FC<CarHeaderProps> = ({
       </div>
     </div>;
 };
+
 export default CarHeader;
