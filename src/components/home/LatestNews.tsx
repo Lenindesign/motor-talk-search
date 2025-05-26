@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 interface NewsItem {
   id: string;
   title: string;
@@ -70,37 +71,35 @@ const LatestNews: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {newsItems.map(item => <article key={item.id} className="group">
-            <Link to={`/article/${item.id}`} className="block">
-              <div className="bg-white rounded-2xl overflow-hidden shadow-modern hover:shadow-modern-lg transition-all duration-300 group-hover:-translate-y-1">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute top-4 left-4">
-                    <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-white typography-small font-semibold tracking-wide ${item.tagColor}`}>
-                      {item.tag}
-                    </span>
-                  </div>
-                </div>
-                
-                <div className="p-6">
-                  <div className="flex items-center gap-3 mb-3 typography-caption text-neutral-4">
-                    <Calendar size={14} />
-                    <span>{item.date}</span>
-                    <span>•</span>
-                    <span>{item.readTime}</span>
-                  </div>
-                  
-                  <h3 className="typography-title text-neutral-1 mb-3 group-hover:text-motortrend-red transition-colors">
-                    {item.title}
-                  </h3>
-                  
-                  <p className="typography-body text-neutral-4 line-clamp-2">
-                    {item.excerpt}
-                  </p>
-                </div>
+        {newsItems.map((item) => (
+          <Link to={`/article/${item.id}`} key={item.id} className="block bg-white rounded-2xl shadow-modern overflow-hidden">
+            <img src={item.imageUrl} alt={item.title} className="w-full h-48 object-cover" />
+            <div className="p-6">
+              <div className="flex items-center gap-4 mb-4">
+                <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-white typography-small font-semibold tracking-wide ${item.tagColor}`}>
+                  {item.tag}
+                </span>
+                <span className="text-neutral-4 typography-caption">
+                  {item.date}
+                </span>
               </div>
-            </Link>
-          </article>)}
+              <h3 className="typography-title text-neutral-1 mb-4">
+                {item.title}
+              </h3>
+              <p className="typography-body text-neutral-3 mb-6">
+                {item.excerpt}
+              </p>
+              <div className="flex items-center gap-4">
+                <span className="text-neutral-4 typography-caption">
+                  {item.readTime}
+                </span>
+                <Button variant="outline" size="sm" className="text-motortrend-red hover:bg-motortrend-red/10">
+                  Read More
+                </Button>
+              </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </section>;
 };
