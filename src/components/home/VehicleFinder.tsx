@@ -8,7 +8,7 @@ const VehicleFinder: React.FC = () => {
   const budgetOptions = ['Under $25,000', '$25,000 - $50,000', '$50,000 - $75,000', '$75,000 - $100,000', 'Over $100,000'];
   const vehicleTypes = ['Sedan', 'SUV', 'Truck', 'Coupe', 'Convertible', 'Hatchback', 'Wagon'];
   const brands = ['BMW', 'Mercedes-Benz', 'Audi', 'Toyota', 'Honda', 'Ford', 'Chevrolet', 'Tesla', 'Porsche', 'Ferrari', 'Lamborghini'];
-  return <section className="bg-white rounded-2xl shadow-modern p-8">
+  return <section className="bg-white rounded-2xl shadow-modern p-8 mb-12">
       <div className="flex items-center gap-3 mb-6">
         <Search size={24} className="text-motortrend-red" />
         <h2 className="typography-display text-neutral-1 text-2xl">Vehicle Finder</h2>

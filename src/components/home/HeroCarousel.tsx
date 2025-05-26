@@ -50,7 +50,7 @@ const HeroCarousel: React.FC = () => {
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
-  return <div className="relative w-full h-[500px] lg:h-[600px] overflow-hidden rounded-2xl shadow-modern-xl">
+  return <div className="relative w-full h-[500px] lg:h-[600px] overflow-hidden rounded-2xl shadow-modern-xl mb-12">
       {/* Slides */}
       <div className="relative w-full h-full">
         {heroSlides.map((slide, index) => <div key={slide.id} className={`absolute inset-0 transition-opacity duration-500 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}>
