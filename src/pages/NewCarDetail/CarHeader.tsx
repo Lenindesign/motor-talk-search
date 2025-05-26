@@ -44,12 +44,12 @@ const CarHeader: React.FC<CarHeaderProps> = ({
             </div>
           </div>
           
-          <h1 className="typography-hero text-white mb-4 max-w-4xl text-4xl">
+          <h1 className="text-4xl">
             {car.title}
           </h1>
           
           <div className="flex items-center gap-6 text-neutral-6">
-            <span className="typography-display text-white font-bold text-xl">
+            <span className="typography-display text-white font-bold text-2xl">
               {selectedTrimPrice}
             </span>
             <span className="typography-body-large text-neutral-300">
