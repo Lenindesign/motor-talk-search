@@ -11,11 +11,12 @@ interface HeroSlide {
   author: string;
   readTime: string;
 }
+
 const heroSlides: HeroSlide[] = [{
   id: '1',
   title: '2025 Tesla Cybertruck: Everything We Know About the Electric Pickup Revolution',
   subtitle: 'The highly anticipated electric truck is finally here, and it\'s changing the pickup landscape forever. Here\'s our exclusive first drive and in-depth analysis.',
-  imageUrl: 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&w=1920&h=1080&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+  imageUrl: 'https://images.pexels.com/photos/19052331/pexels-photo-19052331.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080',
   tag: 'First Drive',
   tagColor: 'bg-motortrend-red',
   author: 'John Carter',
