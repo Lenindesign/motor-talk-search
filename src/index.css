@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -89,13 +88,13 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
     
-    /* Font family variables */
-    --font-hero: var(--font-heading);
+    /* Updated font family variables with modern typography */
+    --font-hero: 'Poppins', sans-serif;
     --font-heading: 'Poppins', sans-serif;
     --font-body: 'Geist', sans-serif;
-    --font-subtitle: var(--font-heading);
-    --font-button: var(--font-heading);
-    --font-caption: var(--font-body);
+    --font-subtitle: 'Poppins', sans-serif;
+    --font-button: 'Poppins', sans-serif;
+    --font-caption: 'Geist', sans-serif;
   }
 
   .dark {
@@ -138,61 +137,82 @@
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-body);
     scroll-behavior: smooth;
+    letter-spacing: -0.01em;
   }
   
-  /* Typography hierarchy using new system */
+  /* Modern Typography hierarchy using Poppins for headings and Geist for body */
   h1 {
     @apply font-bold text-pretty antialiased;
     font-family: var(--font-heading);
-    font-size: 4rem; /* 64px */
-    line-height: 4rem; /* 64px */
+    font-size: clamp(2.5rem, 5vw, 4rem); /* 40px - 64px responsive */
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.025em;
     font-synthesis-weight: none;
   }
 
   h2 {
     @apply font-bold text-pretty antialiased;
     font-family: var(--font-heading);
-    font-size: 3rem; /* 48px */
-    line-height: 3.5rem; /* 56px */
+    font-size: clamp(2rem, 4vw, 3rem); /* 32px - 48px responsive */
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.02em;
     font-synthesis-weight: none;
   }
 
   h3 {
-    @apply font-bold text-pretty antialiased;
+    @apply font-semibold text-pretty antialiased;
     font-family: var(--font-heading);
-    font-size: 2.5rem; /* 40px */
-    line-height: 3rem; /* 48px */
+    font-size: clamp(1.5rem, 3vw, 2rem); /* 24px - 32px responsive */
+    line-height: 1.3;
+    font-weight: 600;
+    letter-spacing: -0.015em;
     font-synthesis-weight: none;
   }
 
   h4 {
-    @apply font-bold text-pretty antialiased;
+    @apply font-semibold text-pretty antialiased;
     font-family: var(--font-heading);
-    font-size: 2rem; /* 32px */
-    line-height: 2.25rem; /* 36px */
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem); /* 20px - 24px responsive */
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: -0.01em;
     font-synthesis-weight: none;
   }
 
   h5 {
-    @apply font-bold text-pretty antialiased;
+    @apply font-medium text-pretty antialiased;
     font-family: var(--font-heading);
-    font-size: 1.5rem; /* 24px */
-    line-height: 1.75rem; /* 28px */
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.5;
+    font-weight: 500;
+    letter-spacing: -0.005em;
     font-synthesis-weight: none;
   }
 
   h6 {
-    @apply font-bold text-pretty antialiased;
+    @apply font-medium text-pretty antialiased;
     font-family: var(--font-heading);
-    font-size: 1.25rem; /* 20px */
-    line-height: 1.75rem; /* 28px */
+    font-size: 1rem; /* 16px */
+    line-height: 1.5;
+    font-weight: 500;
+    letter-spacing: normal;
     font-synthesis-weight: none;
+  }
+
+  /* Body text improvements */
+  p {
+    font-family: var(--font-body);
+    line-height: 1.6;
+    letter-spacing: -0.005em;
   }
 
   /* Button typography */
   button {
     font-family: var(--font-button);
-    font-weight: bold;
+    font-weight: 500;
+    letter-spacing: 0.01em;
     font-synthesis-weight: none;
   }
 
@@ -200,8 +220,130 @@
   .caption {
     font-family: var(--font-caption);
     font-size: 0.875rem; /* 14px */
-    line-height: 1.125rem; /* 18px */
+    line-height: 1.4;
+    letter-spacing: normal;
     font-synthesis-weight: none;
+  }
+}
+
+/* Modern utility classes with improved spacing */
+@layer utilities {
+  .main-container {
+    @apply max-w-7xl px-6 sm:px-8 lg:px-12;
+  }
+
+  .content-container {
+    @apply max-w-4xl mx-auto px-6 sm:px-8;
+  }
+
+  .section-spacing {
+    @apply py-16 lg:py-24;
+  }
+
+  .card-spacing {
+    @apply p-6 lg:p-8;
+  }
+
+  /* Modern shadows */
+  .shadow-modern {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  }
+
+  .shadow-modern-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  }
+
+  .shadow-modern-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+
+  /* Modern borders */
+  .border-modern {
+    @apply border border-neutral-6/60;
+  }
+
+  /* Typography utilities with improved hierarchy */
+  .typography-hero {
+    font-family: var(--font-hero);
+    font-weight: 800;
+    font-size: clamp(3rem, 6vw, 5rem); /* 48px - 80px responsive */
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    font-synthesis-weight: none;
+    @apply text-pretty antialiased;
+  }
+
+  .typography-display {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    font-synthesis-weight: none;
+    @apply text-pretty antialiased;
+  }
+
+  .typography-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    font-synthesis-weight: none;
+    @apply text-pretty antialiased;
+  }
+
+  .typography-body-large {
+    font-family: var(--font-body);
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.6;
+    letter-spacing: -0.005em;
+    font-synthesis-weight: none;
+    @apply text-pretty antialiased;
+  }
+
+  .typography-body {
+    font-family: var(--font-body);
+    font-size: 1rem; /* 16px */
+    line-height: 1.6;
+    letter-spacing: -0.005em;
+    font-synthesis-weight: none;
+    @apply text-pretty antialiased;
+  }
+
+  .typography-caption {
+    font-family: var(--font-caption);
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.4;
+    letter-spacing: normal;
+    font-synthesis-weight: none;
+    @apply text-pretty antialiased;
+  }
+
+  .typography-small {
+    font-family: var(--font-caption);
+    font-size: 0.75rem; /* 12px */
+    line-height: 1.4;
+    letter-spacing: 0.025em;
+    font-synthesis-weight: none;
+    @apply text-pretty antialiased;
+  }
+
+  /* Modern spacing system */
+  .space-section {
+    @apply space-y-16 lg:space-y-24;
+  }
+
+  .space-content {
+    @apply space-y-8 lg:space-y-12;
+  }
+
+  .space-element {
+    @apply space-y-4 lg:space-y-6;
+  }
+
+  .space-tight {
+    @apply space-y-2 lg:space-y-3;
   }
 }
 

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
@@ -14,26 +15,29 @@ import ComparisonTab from './NewCarDetail/ComparisonTab';
 import ReviewsTab from './NewCarDetail/ReviewsTab';
 import TrimsTab from './NewCarDetail/TrimsTab';
 import SpecsTab from './NewCarDetail/SpecsTab';
+
 const NewCarDetail: React.FC = () => {
-  const {
-    id
-  } = useParams<{
-    id: string;
-  }>();
+  const { id } = useParams<{ id: string }>();
   const car = mockNewCars.find(c => c.id === id);
   const [selectedTrim, setSelectedTrim] = useState('Base');
+
   if (!car) {
-    return <div className="min-h-screen bg-gray-50">
+    return (
+      <div className="min-h-screen bg-neutral-8">
         <GlobalHeader />
-        <main className="container mx-auto px-4 py-8">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Vehicle Not Found</h1>
-            <Link to="/cars" className="text-motortrend-red hover:underline">
+        <main className="content-container section-spacing">
+          <div className="text-center space-element">
+            <h1 className="typography-display text-neutral-1 mb-6">Vehicle Not Found</h1>
+            <Link 
+              to="/cars" 
+              className="typography-body text-motortrend-red hover:text-motortrend-red/80 transition-colors duration-200"
+            >
               Browse All Cars
             </Link>
           </div>
         </main>
-      </div>;
+      </div>
+    );
   }
 
   // Convert car to CarData format for GarageActionMenu
@@ -50,66 +54,130 @@ const NewCarDetail: React.FC = () => {
     drivetrain: 'AWD',
     location: 'Available Nationwide'
   };
+
   const processedTrims = mockTrims.map(trim => ({
     name: trim.name,
-    price: trim.name === 'Base' ? car.price : '$' + (parseInt(car.price.replace(/[^\d]/g, '')) + trim.basePrice).toLocaleString(),
+    price: trim.name === 'Base' 
+      ? car.price 
+      : '$' + (parseInt(car.price.replace(/[^\d]/g, '')) + trim.basePrice).toLocaleString(),
     features: trim.features
   }));
+
   const selectedTrimData = processedTrims.find(t => t.name === selectedTrim) || processedTrims[0];
   const overallRating = expertRatings.reduce((acc, rating) => acc + rating.score, 0) / expertRatings.length;
-  return <div className="min-h-screen bg-gray-50">
+
+  return (
+    <div className="min-h-screen bg-neutral-8">
       <GlobalHeader />
-      <main className="max-w-[980px] mx-auto px-0 py-[32px]">
+      <main className="content-container py-12 lg:py-16">
         {/* Back Navigation */}
-        <div className="mb-6">
-          <Link to="/cars" className="inline-flex items-center text-motortrend-red hover:text-motortrend-dark transition-colors">
-            <ArrowLeft size={20} className="mr-2" />
+        <div className="mb-8 lg:mb-12">
+          <Link 
+            to="/cars" 
+            className="inline-flex items-center typography-body text-motortrend-red hover:text-motortrend-red/80 transition-colors duration-200 group"
+          >
+            <ArrowLeft size={20} className="mr-3 transition-transform group-hover:-translate-x-1" />
             Back to Car Database
           </Link>
         </div>
 
         {/* Car Header */}
-        <CarHeader car={car} carData={carData} selectedTrimPrice={selectedTrimData.price} overallRating={overallRating} />
+        <div className="mb-12 lg:mb-16">
+          <CarHeader 
+            car={car} 
+            carData={carData} 
+            selectedTrimPrice={selectedTrimData.price} 
+            overallRating={overallRating} 
+          />
+        </div>
 
         {/* Quick Stats Summary */}
-        <QuickStats overallRating={overallRating} ownerRating={ownerReviews.overallScore} />
+        <div className="mb-12 lg:mb-16">
+          <QuickStats 
+            overallRating={overallRating} 
+            ownerRating={ownerReviews.overallScore} 
+          />
+        </div>
 
-        {/* Main Content */}
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-6">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="ratings">Expert Ratings</TabsTrigger>
-            <TabsTrigger value="comparison">Class Comparison</TabsTrigger>
-            <TabsTrigger value="reviews">Owner Reviews</TabsTrigger>
-            <TabsTrigger value="specs">Specifications</TabsTrigger>
-            <TabsTrigger value="trims">Trims & Pricing</TabsTrigger>
-          </TabsList>
+        {/* Main Content Tabs */}
+        <div className="space-content">
+          <Tabs defaultValue="overview" className="w-full">
+            <div className="mb-8 lg:mb-12">
+              <TabsList className="grid w-full grid-cols-6 h-14 p-1 bg-white shadow-modern border-modern rounded-xl">
+                <TabsTrigger 
+                  value="overview" 
+                  className="typography-caption font-medium data-[state=active]:bg-motortrend-red data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200"
+                >
+                  Overview
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="ratings"
+                  className="typography-caption font-medium data-[state=active]:bg-motortrend-red data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200"
+                >
+                  Expert Ratings
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="comparison"
+                  className="typography-caption font-medium data-[state=active]:bg-motortrend-red data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200"
+                >
+                  Class Comparison
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="reviews"
+                  className="typography-caption font-medium data-[state=active]:bg-motortrend-red data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200"
+                >
+                  Owner Reviews
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="specs"
+                  className="typography-caption font-medium data-[state=active]:bg-motortrend-red data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200"
+                >
+                  Specifications
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="trims"
+                  className="typography-caption font-medium data-[state=active]:bg-motortrend-red data-[state=active]:text-white data-[state=active]:shadow-sm rounded-lg transition-all duration-200"
+                >
+                  Trims & Pricing
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
-          <TabsContent value="overview">
-            <OverviewTab carTitle={car.title} />
-          </TabsContent>
+            <div className="space-content">
+              <TabsContent value="overview" className="m-0">
+                <OverviewTab carTitle={car.title} />
+              </TabsContent>
 
-          <TabsContent value="ratings">
-            <RatingsTab />
-          </TabsContent>
+              <TabsContent value="ratings" className="m-0">
+                <RatingsTab />
+              </TabsContent>
 
-          <TabsContent value="comparison">
-            <ComparisonTab />
-          </TabsContent>
+              <TabsContent value="comparison" className="m-0">
+                <ComparisonTab />
+              </TabsContent>
 
-          <TabsContent value="reviews">
-            <ReviewsTab />
-          </TabsContent>
+              <TabsContent value="reviews" className="m-0">
+                <ReviewsTab />
+              </TabsContent>
 
-          <TabsContent value="trims">
-            <TrimsTab trims={processedTrims} selectedTrim={selectedTrim} onTrimSelect={setSelectedTrim} selectedTrimData={selectedTrimData} />
-          </TabsContent>
+              <TabsContent value="specs" className="m-0">
+                <SpecsTab />
+              </TabsContent>
 
-          <TabsContent value="specs">
-            <SpecsTab />
-          </TabsContent>
-        </Tabs>
+              <TabsContent value="trims" className="m-0">
+                <TrimsTab 
+                  trims={processedTrims} 
+                  selectedTrim={selectedTrim} 
+                  onTrimSelect={setSelectedTrim} 
+                  selectedTrimData={selectedTrimData} 
+                />
+              </TabsContent>
+            </div>
+          </Tabs>
+        </div>
       </main>
-    </div>;
+    </div>
+  );
 };
+
 export default NewCarDetail;

@@ -10,45 +10,76 @@ interface QuickStatsProps {
 
 const QuickStats: React.FC<QuickStatsProps> = ({ overallRating, ownerRating }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-      <Card>
-        <CardContent className="p-4 text-center">
-          <div className="flex items-center justify-center mb-2">
-            <Award className="h-5 w-5 text-yellow-500 mr-1" />
-            <span className="text-2xl font-bold">{overallRating.toFixed(1)}</span>
-            <span className="text-gray-500">/10</span>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <Card className="bg-white shadow-modern border-modern rounded-xl overflow-hidden hover:shadow-modern-lg transition-all duration-200">
+        <CardContent className="card-spacing text-center">
+          <div className="flex items-center justify-center mb-4">
+            <div className="flex items-center justify-center w-12 h-12 bg-yellow-50 rounded-full mr-3">
+              <Award className="h-6 w-6 text-yellow-600" />
+            </div>
+            <div className="text-left">
+              <div className="flex items-baseline">
+                <span className="typography-display text-neutral-1 font-bold">
+                  {overallRating.toFixed(1)}
+                </span>
+                <span className="typography-body text-neutral-4 ml-1">/10</span>
+              </div>
+            </div>
           </div>
-          <p className="text-sm text-gray-600">Expert Rating</p>
+          <p className="typography-caption text-neutral-4 font-medium">Expert Rating</p>
         </CardContent>
       </Card>
-      <Card>
-        <CardContent className="p-4 text-center">
-          <div className="flex items-center justify-center mb-2">
-            <Users className="h-5 w-5 text-blue-500 mr-1" />
-            <span className="text-2xl font-bold">{ownerRating}</span>
-            <span className="text-gray-500">/5</span>
+      
+      <Card className="bg-white shadow-modern border-modern rounded-xl overflow-hidden hover:shadow-modern-lg transition-all duration-200">
+        <CardContent className="card-spacing text-center">
+          <div className="flex items-center justify-center mb-4">
+            <div className="flex items-center justify-center w-12 h-12 bg-blue-50 rounded-full mr-3">
+              <Users className="h-6 w-6 text-blue-600" />
+            </div>
+            <div className="text-left">
+              <div className="flex items-baseline">
+                <span className="typography-display text-neutral-1 font-bold">
+                  {ownerRating}
+                </span>
+                <span className="typography-body text-neutral-4 ml-1">/5</span>
+              </div>
+            </div>
           </div>
-          <p className="text-sm text-gray-600">Owner Rating</p>
+          <p className="typography-caption text-neutral-4 font-medium">Owner Rating</p>
         </CardContent>
       </Card>
-      <Card>
-        <CardContent className="p-4 text-center">
-          <div className="flex items-center justify-center mb-2">
-            <Zap className="h-5 w-5 text-green-500 mr-1" />
-            <span className="text-2xl font-bold">405</span>
-            <span className="text-gray-500">mi</span>
+      
+      <Card className="bg-white shadow-modern border-modern rounded-xl overflow-hidden hover:shadow-modern-lg transition-all duration-200">
+        <CardContent className="card-spacing text-center">
+          <div className="flex items-center justify-center mb-4">
+            <div className="flex items-center justify-center w-12 h-12 bg-green-50 rounded-full mr-3">
+              <Zap className="h-6 w-6 text-green-600" />
+            </div>
+            <div className="text-left">
+              <div className="flex items-baseline">
+                <span className="typography-display text-neutral-1 font-bold">405</span>
+                <span className="typography-body text-neutral-4 ml-1">mi</span>
+              </div>
+            </div>
           </div>
-          <p className="text-sm text-gray-600">EPA Range</p>
+          <p className="typography-caption text-neutral-4 font-medium">EPA Range</p>
         </CardContent>
       </Card>
-      <Card>
-        <CardContent className="p-4 text-center">
-          <div className="flex items-center justify-center mb-2">
-            <Shield className="h-5 w-5 text-red-500 mr-1" />
-            <span className="text-2xl font-bold">5</span>
-            <span className="text-gray-500">★</span>
+      
+      <Card className="bg-white shadow-modern border-modern rounded-xl overflow-hidden hover:shadow-modern-lg transition-all duration-200">
+        <CardContent className="card-spacing text-center">
+          <div className="flex items-center justify-center mb-4">
+            <div className="flex items-center justify-center w-12 h-12 bg-red-50 rounded-full mr-3">
+              <Shield className="h-6 w-6 text-red-600" />
+            </div>
+            <div className="text-left">
+              <div className="flex items-baseline">
+                <span className="typography-display text-neutral-1 font-bold">5</span>
+                <span className="typography-body text-neutral-4 ml-1">★</span>
+              </div>
+            </div>
           </div>
-          <p className="text-sm text-gray-600">Safety Rating</p>
+          <p className="typography-caption text-neutral-4 font-medium">Safety Rating</p>
         </CardContent>
       </Card>
     </div>
