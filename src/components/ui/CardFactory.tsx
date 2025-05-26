@@ -43,63 +43,36 @@ const createCardProps = (
   data: CardData,
   props: CardFactoryProps
 ): CardProps => {
+  // Extract the original type from props to avoid conflicts
+  const { type: originalType, data: originalData, ...restProps } = props;
+  
   switch (type) {
     case 'newCar':
       return {
         car: data as CarData,
         type: 'new',
-        className: props.className,
-        isLoading: props.isLoading,
-        isSaved: props.isSaved,
-        onToggleSave: props.onToggleSave,
-        metadata: props.metadata,
-        children: props.children,
-        ...props
+        ...restProps
       } as CarCardProps;
     case 'usedCar':
       return {
         car: data as CarData,
         type: 'used',
-        className: props.className,
-        isLoading: props.isLoading,
-        isSaved: props.isSaved,
-        onToggleSave: props.onToggleSave,
-        metadata: props.metadata,
-        children: props.children,
-        ...props
+        ...restProps
       } as CarCardProps;
     case 'article':
       return {
         article: data as ArticleData,
-        className: props.className,
-        isLoading: props.isLoading,
-        isSaved: props.isSaved,
-        onToggleSave: props.onToggleSave,
-        metadata: props.metadata,
-        children: props.children,
-        ...props
+        ...restProps
       } as ArticleCardProps;
     case 'video':
       return {
         video: data as VideoData,
-        className: props.className,
-        isLoading: props.isLoading,
-        isSaved: props.isSaved,
-        onToggleSave: props.onToggleSave,
-        metadata: props.metadata,
-        children: props.children,
-        ...props
+        ...restProps
       } as VideoCardProps;
     case 'photo':
       return {
         photo: data as PhotoData,
-        className: props.className,
-        isLoading: props.isLoading,
-        isSaved: props.isSaved,
-        onToggleSave: props.onToggleSave,
-        metadata: props.metadata,
-        children: props.children,
-        ...props
+        ...restProps
       } as PhotoCardProps;
     default:
       throw new Error(`Unknown card type: ${type}`);
