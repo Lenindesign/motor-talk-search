@@ -27,7 +27,7 @@ const ComparisonTab: React.FC = () => {
       <Card>
         <CardHeader>
           <div className="space-y-2">
-            <CardTitle>Class Comparison</CardTitle>
+            
             <div className="flex items-center gap-2">
               <span className="text-2xl font-bold">2025 Electric SUV vs Average Electric SUV</span>
               <span className={`text-lg font-semibold ${overallScore >= 0 ? 'text-green-600' : 'text-red-500'}`}>
