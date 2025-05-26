@@ -19,7 +19,7 @@ const MyGarageSkinny = () => {
   
   return (
     <Card className="mt-6">
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
+      <CardHeader className="pb-2">
         <CardTitle className="text-base font-medium">
           <span className="flex items-center">
             <Car className="mr-2 h-4 w-4" /> My Garage
