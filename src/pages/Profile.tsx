@@ -17,10 +17,6 @@ import RecentActivity from "../components/RecentActivity";
 import UserAchievements from "../components/UserAchievements";
 import UserPoints from "../components/UserPoints";
 import { User, Settings, Car, Bookmark, Save, Palette, Activity, Award } from "lucide-react";
-import ArticleCard from "../components/ArticleCard";
-import CarCard from "../components/CarCard";
-import PhotoCard from "../components/PhotoCard";
-import VideoCard from "../components/VideoCard";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MyGarageSkinny from "../components/profile/MyGarageSkinny";
 import GlobalHeader from '../components/GlobalHeader';
@@ -162,10 +158,7 @@ const Profile = () => {
                   <Save size={16} />
                   <span>My Reviews</span>
                 </TabsTrigger>
-                <TabsTrigger value="settings" className="flex items-center gap-1">
-                  <Settings size={16} />
-                  <span>Settings</span>
-                </TabsTrigger>
+                
               </TabsList>
               
               <TabsContent value="saved" className="space-y-6">
@@ -198,57 +191,7 @@ const Profile = () => {
                         Browse Content
                       </Button>
                     </div> : <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {filteredItems.map(item => {
-  switch(item.type) {
-    case 'article':
-      return <ArticleCard key={item.id} article={{
-        id: item.id,
-        title: item.title,
-        imageUrl: item.imageUrl,
-        date: item.metadata?.date || '',
-        category: item.metadata?.category || '',
-        photoCount: item.metadata?.photoCount,
-        featured: item.metadata?.featured
-      }} />;
-    case 'newCar':
-    case 'usedCar':
-      return <CarCard key={item.id} car={{
-        id: item.id,
-        title: item.title,
-        imageUrl: item.imageUrl,
-        price: item.metadata?.price || '',
-        category: item.metadata?.category || '',
-        year: item.metadata?.year,
-        mileage: item.metadata?.mileage,
-        fuelType: item.metadata?.fuelType,
-        drivetrain: item.metadata?.drivetrain,
-        location: item.metadata?.location,
-        bodyStyle: item.metadata?.bodyStyle as any,
-        isNew: item.type === 'newCar' ? true : false
-      }} type={item.type === 'newCar' ? 'new' : 'used'} />;
-    case 'photo':
-      return <PhotoCard key={item.id} photo={{
-        id: item.id,
-        imageUrl: item.imageUrl,
-        title: item.title,
-        position: item.metadata?.position || '',
-        make: item.metadata?.make || '',
-        carModel: item.metadata?.carModel || '',
-        year: item.metadata?.year || ''
-      }} />;
-    case 'video':
-      return <VideoCard key={item.id} video={{
-        id: item.id,
-        title: item.title,
-        imageUrl: item.imageUrl,
-        duration: item.metadata?.duration || '',
-        views: item.metadata?.views,
-        publishDate: item.metadata?.publishDate
-      }} />;
-    default:
-      return null;
-  }
-})}
+                      {filteredItems.map(item => <SavedItemCard key={item.id} item={item} onUnsave={id => handleUnsave(id, item.type)} />)}
                     </div>}
                 </div>
               </TabsContent>
