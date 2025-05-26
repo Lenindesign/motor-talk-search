@@ -37,8 +37,10 @@ const guideItems: GuideItem[] = [{
   rating: 4.5,
   imageUrl: 'https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&w=400&h=300'
 }];
+
 const BuyersGuide: React.FC = () => {
-  return <section className="space-content">
+  return (
+    <section className="space-content">
       <div className="flex items-center justify-between mb-8">
         <div className="flex items-center gap-3">
           <div className="w-1 h-8 bg-motortrend-red rounded-full"></div>
@@ -50,16 +52,29 @@ const BuyersGuide: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {guideItems.map(item => <div key={item.id} className="group">
-            <Link to={`/new-car/${item.id}`} className="block">
+        {guideItems.map((item) => (
+          <div key={item.id} className="group">
+            <Link 
+              to={`/new-car/${item.id}`} 
+              className="block"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                setTimeout(() => {
+                  window.location.href = `/new-car/${item.id}`;
+                }, 300);
+              }}
+            >
               <div className="bg-white rounded-2xl overflow-hidden shadow-modern hover:shadow-modern-lg transition-all duration-300 group-hover:-translate-y-1">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  {item.badge && <div className="absolute top-4 right-4">
+                  {item.badge && (
+                    <div className="absolute top-4 right-4">
                       <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-white typography-small font-semibold tracking-wide ${item.badgeColor}`}>
                         {item.badge}
                       </span>
-                    </div>}
+                    </div>
+                  )}
                 </div>
                 
                 <div className="p-6">
@@ -85,8 +100,10 @@ const BuyersGuide: React.FC = () => {
                 </div>
               </div>
             </Link>
-          </div>)}
+          </div>
+        ))}
       </div>
-    </section>;
+    </section>
+  );
 };
 export default BuyersGuide;
