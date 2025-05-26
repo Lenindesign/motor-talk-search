@@ -24,7 +24,7 @@ const newsItems: NewsItem[] = [{
   id: '2',
   title: 'Electric SUVs With the Longest Range in 2025',
   excerpt: 'These electric SUVs offer the best combination of range, performance, and practicality for families.',
-  imageUrl: 'https://images.unsplash.com/photo-1593941707882-a5bac6861d75?auto=format&fit=crop&w=400&h=300',
+  imageUrl: 'https://file.kelleybluebookimages.com/kbb/base/house/2025/2025-Rivian-R1S-FrontSide_RIVR1S2501_640x480.jpg',
   tag: 'Guide',
   tagColor: 'bg-blue-600',
   date: 'May 3, 2025',

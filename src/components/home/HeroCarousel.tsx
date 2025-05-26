@@ -14,9 +14,9 @@ interface HeroSlide {
 
 const heroSlides: HeroSlide[] = [{
   id: '1',
-  title: '2025 Tesla Cybertruck: Everything We Know About the Electric Pickup Revolution',
-  subtitle: 'The highly anticipated electric truck is finally here, and it\'s changing the pickup landscape forever. Here\'s our exclusive first drive and in-depth analysis.',
-  imageUrl: 'https://images.pexels.com/photos/19052331/pexels-photo-19052331.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+  title: '2025 Ferrari 296 GT3: The Ultimate Track Weapon',
+  subtitle: 'Ferrari unveils its latest track-focused supercar with revolutionary hybrid technology and track performance',
+  imageUrl: 'https://www.ferrarisiliconvalley.com/static/dealer-20428/New_Ferrari_V12_ext_02_red_media_de9bb413-30d8-448c-bb64-2458e003d949.webp',
   tag: 'First Drive',
   tagColor: 'bg-motortrend-red',
   author: 'John Carter',
