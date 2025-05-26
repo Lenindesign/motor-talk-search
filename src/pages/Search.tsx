@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
 import SearchSuggestions from "../components/SearchSuggestions";
 import ChatMessage from "../components/ChatMessage";
@@ -22,6 +22,7 @@ interface SearchResult {
 }
 
 const Search = () => {
+  const [searchParams] = useSearchParams();
   const [searchHistory, setSearchHistory] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [activeContentTypes, setActiveContentTypes] = useState<Record<string, ContentType>>({});
@@ -49,6 +50,14 @@ const Search = () => {
       });
     }
   }, [searchHistory.length]);
+
+  // Check for URL query parameter and perform search automatically
+  useEffect(() => {
+    const query = searchParams.get('q');
+    if (query && query.trim()) {
+      handleSearch(query.trim());
+    }
+  }, [searchParams]);
 
   // Function to handle search submissions
   const handleSearch = (query: string) => {
