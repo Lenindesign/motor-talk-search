@@ -53,9 +53,9 @@ const HeroCarousel: React.FC = () => {
   };
 
   return (
-    <div className="relative w-full mb-12 overflow-hidden rounded-2xl shadow-modern-xl">
+    <div className="relative w-full overflow-hidden rounded-2xl shadow-modern-xl">
       {/* Responsive aspect ratio container */}
-      <div className="aspect-[9/16] sm:aspect-[16/9]">
+      <div className="aspect-[4/6] sm:aspect-[16/9]">
         <div className="relative h-full">
           {/* Slides */}
           <div className="relative w-full h-full">
@@ -68,7 +68,7 @@ const HeroCarousel: React.FC = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   
                   {/* Content */}
-                  <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-12">
+                  <div className="absolute bottom-0 left-0 right-0 px-6 lg:px-12">
                     <div className="max-w-4xl">
                       <div className="flex items-center gap-4 mb-4">
                         <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-white typography-small font-semibold tracking-wide ${slide.tagColor}`}>
