@@ -24,7 +24,6 @@ import VideoCard from "../components/VideoCard";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MyGarageSkinny from "../components/profile/MyGarageSkinny";
 import GlobalHeader from '../components/GlobalHeader';
-
 import GarageContent from '../components/garage/GarageContent';
 const Profile = () => {
   const {
@@ -83,9 +82,7 @@ const Profile = () => {
   // Filter by current tab
   const [filterType, setFilterType] = useState<SavedItemType | 'all'>('all');
   const filteredItems = filterItemsByType(filterType);
-
-  return (
-    <>
+  return <>
       <div className="min-h-screen bg-motortrend-gray">
         <GlobalHeader isLoading={false} />
         
@@ -109,12 +106,7 @@ const Profile = () => {
                     <span className="text-sm font-medium">Saved Items</span>
                     <span className="text-sm font-bold text-lg">{savedItems.length}</span>
                   </div>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="w-full mt-6 flex items-center justify-center gap-2" 
-                    onClick={() => setPersonalizationOpen(true)}
-                  >
+                  <Button variant="outline" size="sm" className="w-full mt-6 flex items-center justify-center gap-2" onClick={() => setPersonalizationOpen(true)}>
                     <Palette size={16} />
                     Personalize
                   </Button>
@@ -191,8 +183,7 @@ const Profile = () => {
                       </div>
                     </div>
                     
-                    {filteredItems.length === 0 ? (
-                      <div className="text-center py-10">
+                    {filteredItems.length === 0 ? <div className="text-center py-10">
                         <Save size={48} className="mx-auto text-gray-300 mb-4" />
                         <h3 className="text-lg font-medium text-gray-700 mb-2">No saved items yet</h3>
                         <p className="text-gray-500 max-w-md mx-auto">
@@ -201,83 +192,59 @@ const Profile = () => {
                         <Button className="mt-4" onClick={() => navigate("/")}>
                           Browse Content
                         </Button>
-                      </div>
-                    ) : (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {filteredItems.map((item) => {
-                          switch (item.type) {
-                            case 'article':
-                              return (
-                                <ArticleCard
-                                  key={item.id}
-                                  article={{
-                                    id: item.id,
-                                    imageUrl: item.imageUrl,
-                                    title: item.title,
-                                    date: item.metadata?.date || '',
-                                    category: item.metadata?.category || '',
-                                    featured: item.metadata?.featured,
-                                    photoCount: item.metadata?.photoCount
-                                  }}
-                                />
-                              );
-                            case 'photo':
-                              return (
-                                <PhotoCard
-                                  key={item.id}
-                                  photo={{
-                                    id: item.id,
-                                    imageUrl: item.imageUrl,
-                                    title: item.title,
-                                    position: item.metadata?.position || '',
-                                    make: item.metadata?.make || '',
-                                    carModel: item.metadata?.carModel || '',
-                                    year: item.metadata?.year || ''
-                                  }}
-                                />
-                              );
-                            case 'video':
-                              return (
-                                <VideoCard
-                                  key={item.id}
-                                  video={{
-                                    id: item.id,
-                                    imageUrl: item.imageUrl,
-                                    title: item.title,
-                                    duration: item.metadata?.duration || '',
-                                    views: item.metadata?.views,
-                                    publishDate: item.metadata?.publishDate
-                                  }}
-                                />
-                              );
-                            case 'newCar':
-                            case 'usedCar':
-                              return (
-                                <CarCard
-                                  key={item.id}
-                                  car={{
-                                    id: item.id,
-                                    imageUrl: item.imageUrl,
-                                    title: item.title,
-                                    price: item.metadata?.price || '',
-                                    category: item.metadata?.category || '',
-                                    year: item.metadata?.year,
-                                    mileage: item.metadata?.mileage,
-                                    fuelType: item.metadata?.fuelType,
-                                    drivetrain: item.metadata?.drivetrain,
-                                    location: item.metadata?.location,
-                                    bodyStyle: item.metadata?.bodyStyle as any,
-                                    isNew: item.type === 'newCar' ? true : false
-                                  }}
-                                  type={item.type === 'newCar' ? 'new' : 'used'}
-                                />
-                              );
-                            default:
-                              return null;
-                          }
-                        })}
-                      </div>
-                    )}
+                      </div> : <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {filteredItems.map(item => {
+                      switch (item.type) {
+                        case 'article':
+                          return <ArticleCard key={item.id} article={{
+                            id: item.id,
+                            imageUrl: item.imageUrl,
+                            title: item.title,
+                            date: item.metadata?.date || '',
+                            category: item.metadata?.category || '',
+                            featured: item.metadata?.featured,
+                            photoCount: item.metadata?.photoCount
+                          }} />;
+                        case 'photo':
+                          return <PhotoCard key={item.id} photo={{
+                            id: item.id,
+                            imageUrl: item.imageUrl,
+                            title: item.title,
+                            position: item.metadata?.position || '',
+                            make: item.metadata?.make || '',
+                            carModel: item.metadata?.carModel || '',
+                            year: item.metadata?.year || ''
+                          }} />;
+                        case 'video':
+                          return <VideoCard key={item.id} video={{
+                            id: item.id,
+                            imageUrl: item.imageUrl,
+                            title: item.title,
+                            duration: item.metadata?.duration || '',
+                            views: item.metadata?.views,
+                            publishDate: item.metadata?.publishDate
+                          }} />;
+                        case 'newCar':
+                        case 'usedCar':
+                          return <CarCard key={item.id} car={{
+                            id: item.id,
+                            imageUrl: item.imageUrl,
+                            title: item.title,
+                            price: item.metadata?.price || '',
+                            category: item.metadata?.category || '',
+                            year: item.metadata?.year,
+                            mileage: item.metadata?.mileage,
+                            fuelType: item.metadata?.fuelType,
+                            drivetrain: item.metadata?.drivetrain,
+                            location: item.metadata?.location,
+                            bodyStyle: item.metadata?.bodyStyle as any,
+                            isNew: item.type === 'newCar' ? true : false
+                          }} type={item.type === 'newCar' ? 'new' : 'used'} />;
+                        default:
+                          return null;
+                      }
+                    })}
+                      </div>}
                   </div>
                 </TabsContent>
                 
@@ -304,30 +271,22 @@ const Profile = () => {
                     <CardContent>
                       <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                          <FormField
-                            control={form.control}
-                            name="name"
-                            render={({ field }) => (
-                              <FormItem>
+                          <FormField control={form.control} name="name" render={({
+                          field
+                        }) => <FormItem>
                                 <FormLabel>Name</FormLabel>
                                 <FormControl>
                                   <Input {...field} />
                                 </FormControl>
-                              </FormItem>
-                            )}
-                          />
-                          <FormField
-                            control={form.control}
-                            name="email"
-                            render={({ field }) => (
-                              <FormItem>
+                              </FormItem>} />
+                          <FormField control={form.control} name="email" render={({
+                          field
+                        }) => <FormItem>
                                 <FormLabel>Email Address</FormLabel>
                                 <FormControl>
                                   <Input {...field} type="email" />
                                 </FormControl>
-                              </FormItem>
-                            )}
-                          />
+                              </FormItem>} />
                           <div className="flex items-center justify-between pt-2">
                             <Button type="button" variant="outline" onClick={() => setPersonalizationOpen(true)} className="flex items-center gap-2">
                               <Palette size={16} />
@@ -346,9 +305,8 @@ const Profile = () => {
         </main>
       </div>
       <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
-    </>
-  );
-}
+    </>;
+};
 
 // Component to display a saved item card
 const SavedItemCard = ({
