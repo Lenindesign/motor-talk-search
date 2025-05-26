@@ -76,9 +76,7 @@ const HeroCarousel: React.FC = () => {
                     {slide.title}
                   </h1>
                   
-                  <p className="typography-body-large text-neutral-300 mb-6 max-w-2xl">
-                    {slide.subtitle}
-                  </p>
+                  
                   
                   <Button size="lg" className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 py-3 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg">
                     Read Full Story
