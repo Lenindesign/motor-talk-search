@@ -44,7 +44,7 @@ const CarHeader: React.FC<CarHeaderProps> = ({
             </div>
           </div>
           
-          <h1 className="text-4xl">
+          <h1 className="text-4xl text-white">
             {car.title}
           </h1>
           
