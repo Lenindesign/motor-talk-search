@@ -25,6 +25,8 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
 }) => {
   return (
     <aside className="w-full md:w-64 space-y-6">
+      <UserPoints />
+      
       <Card>
         <CardHeader className="flex flex-row items-center gap-4 pb-2">
           <Avatar className="w-16 h-16">
@@ -47,8 +49,6 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
           </Button>
         </CardContent>
       </Card>
-      
-      <UserPoints />
       
       <Card>
         <CardContent className="p-4">
