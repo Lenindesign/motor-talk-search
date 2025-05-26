@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useSavedItems, UserAchievement } from "../contexts/SavedItemsContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,7 +22,7 @@ const iconColorClasses: Record<string, string> = {
   "EV Expert": "bg-yellow-500",
   "Reviewer": "bg-blue-500",
   "Commenter": "bg-green-500",
-  "Car Enthusiast": "bg-red-500", 
+  "Car Enthusiast": "bg-red-500",
   "Mechanic": "bg-slate-500",
   "Collector": "bg-indigo-500",
   "Supporter": "bg-cyan-500",
@@ -38,69 +37,58 @@ const progressColorClasses: Record<string, string> = {
   "Supporter": "bg-cyan-500",
   "Champion": "bg-orange-500"
 };
-
 const UserAchievements = () => {
-  const { userAchievements } = useSavedItems();
-  
+  const {
+    userAchievements
+  } = useSavedItems();
+
   // Mock data for badges in progress (in a real app, this would come from the API)
-  const badgesInProgress = [
-    { 
-      id: "car-enthusiast", 
-      name: "Car Enthusiast", 
-      description: "Save 20 cars to your favorites",
-      progress: 65 
-    },
-    { 
-      id: "mechanic", 
-      name: "Mechanic", 
-      description: "Read 5 maintenance guides",
-      progress: 40 
-    },
-    { 
-      id: "collector", 
-      name: "Collector", 
-      description: "View 50 different car models",
-      progress: 78 
-    },
-    { 
-      id: "supporter", 
-      name: "Supporter", 
-      description: "Like 25 articles or reviews",
-      progress: 52 
-    },
-    { 
-      id: "champion", 
-      name: "Champion", 
-      description: "Earn 5 other badges",
-      progress: 60 
-    }
-  ];
-  
+  const badgesInProgress = [{
+    id: "car-enthusiast",
+    name: "Car Enthusiast",
+    description: "Save 20 cars to your favorites",
+    progress: 65
+  }, {
+    id: "mechanic",
+    name: "Mechanic",
+    description: "Read 5 maintenance guides",
+    progress: 40
+  }, {
+    id: "collector",
+    name: "Collector",
+    description: "View 50 different car models",
+    progress: 78
+  }, {
+    id: "supporter",
+    name: "Supporter",
+    description: "Like 25 articles or reviews",
+    progress: 52
+  }, {
+    id: "champion",
+    name: "Champion",
+    description: "Earn 5 other badges",
+    progress: 60
+  }];
+
   // For the reference image, we'll use some mock data but in a real implementation
   // this would be fetched from the backend or calculated based on user activity
-  const earnedBadges = [
-    {
-      id: "ev-expert",
-      name: "EV Expert",
-      description: "Read 10 articles about electric vehicles",
-      earnedAt: "2023-05-05T12:00:00Z"
-    },
-    {
-      id: "reviewer",
-      name: "Reviewer",
-      description: "Write 5 car reviews",
-      earnedAt: "2023-04-20T12:00:00Z"
-    },
-    {
-      id: "commenter",
-      name: "Commenter",
-      description: "Leave 10 comments on articles",
-      earnedAt: "2023-03-15T12:00:00Z"
-    }
-  ];
-  
-  return (
-    <div className="space-y-6">
+  const earnedBadges = [{
+    id: "ev-expert",
+    name: "EV Expert",
+    description: "Read 10 articles about electric vehicles",
+    earnedAt: "2023-05-05T12:00:00Z"
+  }, {
+    id: "reviewer",
+    name: "Reviewer",
+    description: "Write 5 car reviews",
+    earnedAt: "2023-04-20T12:00:00Z"
+  }, {
+    id: "commenter",
+    name: "Commenter",
+    description: "Leave 10 comments on articles",
+    earnedAt: "2023-03-15T12:00:00Z"
+  }];
+  return <div className="space-y-6">
       <div className="bg-motortrend-dark text-white p-4 rounded-lg">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-bold">Achievements</h2>
@@ -123,53 +111,45 @@ const UserAchievements = () => {
 
         <h3 className="text-lg font-bold mb-2">Earned Badges</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          {earnedBadges.map(badge => (
-            <div key={badge.id} className="bg-motortrend-dark border border-gray-700 rounded-lg p-4 flex flex-col">
+          {earnedBadges.map(badge => <div key={badge.id} className="bg-motortrend-dark border border-gray-700 rounded-lg p-4 flex flex-col">
               <div className="flex items-center gap-3 mb-2">
                 <div className={`p-3 rounded-full ${iconColorClasses[badge.name] || 'bg-gray-500'}`}>
                   {achievementIcons[badge.name] || <Star className="h-6 w-6" />}
                 </div>
                 <div>
-                  <h4 className="font-medium">{badge.name}</h4>
+                  <h4 className="font-medium text-base">{badge.name}</h4>
                   <p className="text-xs text-gray-400">
-                    Earned on {new Date(badge.earnedAt).toLocaleDateString('en-US', { 
-                      month: 'long', 
-                      day: 'numeric', 
-                      year: 'numeric'
-                    })}
+                    Earned on {new Date(badge.earnedAt).toLocaleDateString('en-US', {
+                  month: 'long',
+                  day: 'numeric',
+                  year: 'numeric'
+                })}
                   </p>
                 </div>
               </div>
               <p className="text-sm text-gray-300 mt-2">{badge.description}</p>
-            </div>
-          ))}
+            </div>)}
         </div>
 
         <h3 className="text-lg font-bold mb-2">Badges In Progress</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          {badgesInProgress.map(badge => (
-            <div key={badge.id} className="bg-motortrend-dark border border-gray-700 rounded-lg p-4">
+          {badgesInProgress.map(badge => <div key={badge.id} className="bg-motortrend-dark border border-gray-700 rounded-lg p-4">
               <div className="flex items-center gap-3 mb-2">
                 <div className="p-3 rounded-full bg-gray-700">
                   {achievementIcons[badge.name] || <Star className="h-6 w-6 text-gray-400" />}
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-medium">{badge.name}</h4>
+                  <h4 className="font-medium text-base">{badge.name}</h4>
                   <div className="flex items-center gap-2 mt-1">
-                    <Progress 
-                      value={badge.progress} 
-                      className="h-1.5 flex-1"
-                      style={{
-                        background: 'rgba(255, 255, 255, 0.1)'
-                      }}
-                    />
+                    <Progress value={badge.progress} className="h-1.5 flex-1" style={{
+                  background: 'rgba(255, 255, 255, 0.1)'
+                }} />
                     <span className="text-xs">{badge.progress}% complete</span>
                   </div>
                 </div>
               </div>
               <p className="text-sm text-gray-300 mt-2">{badge.description}</p>
-            </div>
-          ))}
+            </div>)}
         </div>
 
         <div className="bg-gray-800 rounded-lg p-4">
@@ -179,13 +159,9 @@ const UserAchievements = () => {
               <span>1,250 points</span>
               <span>1,500 points</span>
             </div>
-            <Progress 
-              value={83} 
-              className="h-2"
-              style={{
-                background: 'rgba(255, 255, 255, 0.1)'
-              }}
-            />
+            <Progress value={83} className="h-2" style={{
+            background: 'rgba(255, 255, 255, 0.1)'
+          }} />
             <p className="text-xs text-gray-400 mt-1">250 points until Level 13</p>
           </div>
 
@@ -201,8 +177,6 @@ const UserAchievements = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default UserAchievements;
