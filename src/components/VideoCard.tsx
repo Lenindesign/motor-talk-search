@@ -69,7 +69,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
         
       </div>
       <div className="p-4">
-        <h3 className="font-bold leading-tight text-gray-900 mb-1 line-clamp-2 text-base">
+        <h3 className="font-bold leading-tight text-gray-900 mb-1 line-clamp-2 text-lg">
           {video.title}
         </h3>
         <div className="flex items-center text-sm text-gray-500">

@@ -79,7 +79,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
           </div>}
       </div>
       <div className="p-4">
-        <h3 className="font-bold leading-tight text-gray-900 mb-1 text-base">
+        <h3 className="font-bold leading-tight text-gray-900 mb-1 text-lg">
           {article.title}
         </h3>
       </div>
