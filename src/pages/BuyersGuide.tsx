@@ -9,6 +9,7 @@ import CarCard, { CarData } from '@/components/CarCard';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import GlobalHeader from '../components/GlobalHeader';
+
 const BuyersGuide: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'new' | 'used'>('new');
   const [searchTerm, setSearchTerm] = useState('');
@@ -150,9 +151,17 @@ const BuyersGuide: React.FC = () => {
   }, []);
 
   // Filter cars based on search term
-  const filteredNewCars = newCars.filter(car => car.title.toLowerCase().includes(searchTerm.toLowerCase()) || car.category.toLowerCase().includes(searchTerm.toLowerCase()));
-  const filteredUsedCars = usedCars.filter(car => car.title.toLowerCase().includes(searchTerm.toLowerCase()) || car.category.toLowerCase().includes(searchTerm.toLowerCase()));
-  return <div className="bg-gray-50 min-h-screen">
+  const filteredNewCars = newCars.filter(car => 
+    car.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    car.category.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const filteredUsedCars = usedCars.filter(car => 
+    car.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    car.category.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  return (
+    <div className="bg-gray-50 min-h-screen">
       <GlobalHeader onSearch={handleSearch} isLoading={isLoading} />
       <div className="max-w-[980px] mx-auto py-[32px] px-0">
         <h1 className="text-2xl font-bold mb-6">Buyer's Guide</h1>
@@ -162,7 +171,12 @@ const BuyersGuide: React.FC = () => {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="relative flex-grow">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <Input placeholder="Search by make, model, or category..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="pl-10 pr-4 py-2" />
+              <Input 
+                placeholder="Search by make, model, or category..." 
+                value={searchTerm} 
+                onChange={(e) => setSearchTerm(e.target.value)} 
+                className="pl-10 pr-4 py-2" 
+              />
             </div>
             <Button variant="outline" className="flex items-center gap-2">
               <Filter className="h-4 w-4" />
@@ -191,7 +205,7 @@ const BuyersGuide: React.FC = () => {
           </CardContent>
         </Card>
         
-        <Tabs defaultValue="new" value={activeTab} onValueChange={value => setActiveTab(value as 'new' | 'used')}>
+        <Tabs defaultValue="new" value={activeTab} onValueChange={(value) => setActiveTab(value as 'new' | 'used')}>
           <TabsList>
             <TabsTrigger value="new">New Cars</TabsTrigger>
             <TabsTrigger value="used">Used Cars</TabsTrigger>
@@ -199,19 +213,31 @@ const BuyersGuide: React.FC = () => {
           
           <TabsContent value="new" className="mt-6">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="font-semibold text-2xl">New Vehicles ({filteredNewCars.length})</h2>
+              <h2 className="text-lg font-semibold">New Vehicles ({filteredNewCars.length})</h2>
               <Badge variant="outline" className="text-xs">
                 Updated today
               </Badge>
             </div>
             
-            {isLoading ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[1, 2, 3, 4, 5, 6].map(i => <div key={i} className="h-80 rounded-lg bg-gray-200 animate-pulse" />)}
-              </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredNewCars.length > 0 ? filteredNewCars.map(car => <CarCard key={car.id} car={car} type="new" />) : <div className="col-span-full text-center py-12">
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div key={i} className="h-80 rounded-lg bg-gray-200 animate-pulse" />
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredNewCars.length > 0 ? (
+                  filteredNewCars.map((car) => (
+                    <CarCard key={car.id} car={car} type="new" />
+                  ))
+                ) : (
+                  <div className="col-span-full text-center py-12">
                     <p className="text-gray-500">No vehicles match your search criteria.</p>
-                  </div>}
-              </div>}
+                  </div>
+                )}
+              </div>
+            )}
           </TabsContent>
           
           <TabsContent value="used" className="mt-6">
@@ -222,16 +248,30 @@ const BuyersGuide: React.FC = () => {
               </Badge>
             </div>
             
-            {isLoading ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[1, 2, 3].map(i => <div key={i} className="h-80 rounded-lg bg-gray-200 animate-pulse" />)}
-              </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredUsedCars.length > 0 ? filteredUsedCars.map(car => <CarCard key={car.id} car={car} type="used" />) : <div className="col-span-full text-center py-12">
+            {isLoading ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="h-80 rounded-lg bg-gray-200 animate-pulse" />
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredUsedCars.length > 0 ? (
+                  filteredUsedCars.map((car) => (
+                    <CarCard key={car.id} car={car} type="used" />
+                  ))
+                ) : (
+                  <div className="col-span-full text-center py-12">
                     <p className="text-gray-500">No vehicles match your search criteria.</p>
-                  </div>}
-              </div>}
+                  </div>
+                )}
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       </div>
-    </div>;
+    </div>
+  );
 };
+
 export default BuyersGuide;
