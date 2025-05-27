@@ -11,8 +11,8 @@ import { CarData } from "../CarCard";
 import GarageFilters from "./GarageFilters";
 import GarageTabContent from "./GarageTabContent";
 import { toast } from "@/components/ui/use-toast";
-import { useNavigate } from 'react-router-dom'; // Added useNavigate
-import ArticleCard from "../ArticleCard"; // Added ArticleCard import
+import { useNavigate } from 'react-router-dom'; 
+import ArticleCard from "../ArticleCard"; 
 
 // Sample articles related to cars (in a real app, these would come from an API)
 const relatedArticles = [{
@@ -41,11 +41,6 @@ const GarageContent = () => {
   const {
     savedItems
   } = useSavedItems();
-
-  // Filter only car items
-  const savedCars = savedItems.filter(item => item.type === 'newCar' || item.type === 'usedCar');
-
-  // Default tab is 'all'
   const [activeTab, setActiveTab] = useState<'all' | 'owned' | 'testDriven' | 'interested'>('all');
 
   // Add filtering states
@@ -59,6 +54,9 @@ const GarageContent = () => {
 
   // Content view states
   const [contentView, setContentView] = useState<'garage' | 'articles'>('garage');
+
+  // Filter only car items
+  const savedCars = savedItems.filter(item => item.type === 'newCar' || item.type === 'usedCar');
 
   // Helper function to convert SavedItem to CarData format expected by GarageCarCard
   const savedItemToCarData = (item: SavedItem): CarData => {
@@ -189,7 +187,7 @@ const GarageContent = () => {
   };
   const displayCars = getDisplayCars();
   const filteredArticles = getRelatedArticles();
-  const navigate = useNavigate(); // Added navigate hook
+  const navigate = useNavigate(); 
   return <Card className="shadow-sm flex-1">
       <CardHeader className="flex flex-row justify-between items-center pb-2">
         <div>
@@ -209,7 +207,7 @@ const GarageContent = () => {
                 <Button 
                   variant={contentView === 'garage' ? 'default' : 'outline'} 
                   size="sm" 
-                  onClick={() => navigate('/buyers-guide')} // Changed to navigate
+                  onClick={() => navigate('/buyers-guide')} 
                   className="flex items-center gap-1"
                 >
                   <Car size={16} />

@@ -8,6 +8,7 @@ interface MegaSearchDropdownProps {
   isLoading: boolean;
   onSelect: (suggestion: MegaSuggestion) => void; 
   onMouseEnter: (index: number) => void;
+  direction?: 'up' | 'down'; 
 }
 
 const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({ 
@@ -15,11 +16,14 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
   selectedIndex,
   isLoading,
   onSelect,
-  onMouseEnter
+  onMouseEnter,
+  direction = 'down' 
 }) => {
+  const positionClasses = direction === 'up' ? 'bottom-full mb-1' : 'top-full mt-1';
+
   if (isLoading) {
     return (
-      <div className="absolute left-0 right-0 top-full mt-1 w-[calc(100vw-40px)] max-w-2xl max-h-96 overflow-y-auto rounded-md bg-white shadow-lg z-50 p-2 dark:bg-gray-800 border dark:border-gray-700">
+      <div className={`absolute left-0 right-0 ${positionClasses} w-[calc(100vw-40px)] max-w-2xl max-h-96 overflow-y-auto rounded-md bg-white shadow-lg z-50 p-2 dark:bg-gray-800 border dark:border-gray-700`}>
         <div className="flex items-center justify-center p-4">
           <div className="animate-spin h-5 w-5 border-2 border-motortrend-red border-t-transparent rounded-full"></div>
           <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">Loading suggestions...</span>
@@ -67,7 +71,7 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
   let globalSuggestionIndex = -1; 
 
   return (
-    <div className="absolute left-0 right-0 top-full mt-1 w-[calc(100vw-40px)] max-w-2xl max-h-[70vh] overflow-y-auto rounded-md bg-white shadow-2xl z-50 dark:bg-gray-800 border dark:border-gray-700">
+    <div className={`absolute left-0 right-0 ${positionClasses} w-[calc(100vw-40px)] max-w-2xl max-h-[70vh] overflow-y-auto rounded-md bg-white shadow-2xl z-50 dark:bg-gray-800 border dark:border-gray-700`}>
       <ul className="py-1">
         {typeOrder.map(type => {
           const typeSuggestions = groupedSuggestions[type];

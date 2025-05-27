@@ -38,6 +38,7 @@ const Search = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const latestResultRef = useRef<HTMLDivElement>(null);
   const searchBarRef = useRef<HTMLInputElement>(null);
+  const currentProcessingQueryRef = useRef<string | null>(null);
   const allContent = getAllContent();
   const isMobile = useIsMobile();
 
@@ -53,22 +54,51 @@ const Search = () => {
 
   // Check for URL query parameter and perform search automatically
   useEffect(() => {
-    const query = searchParams.get('q');
-    if (query && query.trim()) {
-      handleSearch(query.trim());
+    const queryFromUrl = searchParams.get('q');
+
+    if (queryFromUrl && queryFromUrl.trim()) {
+      const trimmedQuery = queryFromUrl.trim();
+
+      if (isSearching) {
+        // If a search is already in progress, defer to it.
+        // The useEffect will re-run when isSearching becomes false.
+        return;
+      }
+
+      const isQuestion = trimmedQuery.endsWith("?");
+      const typeFromUrl = isQuestion ? "chat" : "search";
+      const queryExistsInHistory = searchHistory.some(
+        item => item.query === trimmedQuery && item.type === typeFromUrl
+      );
+
+      if (!queryExistsInHistory) {
+        handleSearch(trimmedQuery);
+      }
     }
-  }, [searchParams]);
+  }, [searchParams, searchHistory, isSearching]);
 
   // Function to handle search submissions
-  const handleSearch = (query: string) => {
-    if (isSearching) return;
+  const handleSearch = (rawQuery: string) => {
+    const query = rawQuery.trim();
+    if (!query) return;
+
+    if (isSearching) {
+      // If already processing this exact query, return.
+      if (currentProcessingQueryRef.current === query) {
+        return;
+      }
+      // If processing a *different* query, also return (prevents concurrent different searches).
+      // This could be changed to a queueing mechanism later if needed.
+      return;
+    }
     setIsSearching(true);
+    currentProcessingQueryRef.current = query; // Mark this query as being processed
 
     // Create a unique ID for this search result
     const searchId = `search-${Date.now()}`;
 
     // Determine if this is a question or a search
-    const isQuestion = query.trim().endsWith("?");
+    const isQuestion = query.endsWith("?");
 
     // Create a new search result
     const newResult: SearchResult = {
@@ -126,6 +156,7 @@ const Search = () => {
         setHasMore(true);
       }
       setIsSearching(false);
+      currentProcessingQueryRef.current = null; // Clear the processed query
 
       // Return focus to search bar after response is processed
       if (searchBarRef.current) {
@@ -224,7 +255,12 @@ const Search = () => {
           
           <div className="sticky bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-motortrend-gray to-transparent p-4 pb-6">
             <div className="max-w-[980px] mx-auto w-full">
-              <SearchBar onSearch={handleSearch} isLoading={isSearching} inputRef={searchBarRef} />
+              <SearchBar 
+                onSearch={handleSearch} 
+                isLoading={isSearching} 
+                inputRef={searchBarRef} 
+                dropdownDirection="up" 
+              />
             </div>
           </div>
         </div>

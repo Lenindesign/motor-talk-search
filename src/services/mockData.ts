@@ -324,6 +324,54 @@ export const chatResponses: Record<string, string> = {
   "suv": "SUVs continue to dominate the market in 2025. For family-friendly options, the Hyundai Santa Fe, Toyota Highlander, and Kia Telluride offer excellent value and features. In the luxury segment, the BMW X5, Mercedes-Benz GLE, and Genesis GV80 stand out with premium materials and cutting-edge technology. Off-road enthusiasts should consider the Jeep Grand Cherokee, Ford Bronco, or Land Rover Defender. For electric SUVs, the Rivian R1S, Tesla Model Y, and Kia EV9 are our top recommendations.",
 };
 
+// Helper function to create markdown links for search queries
+const createSearchLink = (displayText: string, searchQuery?: string): string => {
+  const query = searchQuery || displayText;
+  return `[${displayText}](/search?q=${encodeURIComponent(query)})`;
+};
+
+// Function to generate chat responses
+export const generateChatResponse = (query: string): string => {
+  const lowerQuery = query.toLowerCase();
+  let responseText = "";
+
+  if (lowerQuery.includes("best car")) {
+    responseText = `The best car depends on your needs! Are you looking for an SUV, sedan, or truck? We have many guides, for example, on ${createSearchLink("Best Performance Cars Under $50,000")}.`;
+  } else if (lowerQuery.includes("compare")) {
+    responseText = `Sure, what vehicles would you like to compare? For example, 'compare the ${createSearchLink("2025 Lucid Air Grand Touring")} and ${createSearchLink("2025 Rivian R1S")}.`;
+  } else if (lowerQuery.includes("latest news") || lowerQuery.includes("ferrari")) {
+    responseText = `You can find the latest automotive news in our articles section. We recently published an article titled "${createSearchLink(mockArticles[0].title)}".`; // Assuming mockArticles[0] is the Ferrari one
+  } else if (lowerQuery.includes("electric cars") || lowerQuery.includes("evs")) {
+    responseText = `We have many articles and listings for electric cars. Check out the article "${createSearchLink("Electric SUVs With the Longest Range in 2025")}" or browse our new EV inventory like the ${createSearchLink("2025 Lucid Air Grand Touring")} and ${createSearchLink("2025 Rivian R1S")}.`;
+  } else if (lowerQuery.includes("list of cars") || lowerQuery.includes("show me some cars") || lowerQuery.includes("list of year make models")) {
+    const exampleCars = [
+      mockNewCars.length > 0 ? createSearchLink(mockNewCars[0].title) : null,
+      mockNewCars.length > 1 ? createSearchLink(mockNewCars[1].title) : null,
+      mockUsedCars.length > 0 ? createSearchLink(mockUsedCars[0].title) : null,
+    ].filter(Boolean) as string[]; 
+
+    if (exampleCars.length > 0) {
+      responseText = `Sure, here are some examples: ${exampleCars.join(', ')}. You can ask for more specific types too!`;
+    } else {
+      responseText = "I can show you cars, what are you interested in?";
+    }
+  } else {
+    responseText = "I can help with that. What specific information are you looking for?";
+  }
+  return responseText;
+};
+
+// Function to get all content types
+export const getAllContent = () => {
+  return {
+    articles: mockArticles,
+    newCars: mockNewCars,
+    usedCars: mockUsedCars,
+    photos: mockPhotos,
+    videos: mockVideos,
+  };
+};
+
 export const determineContentType = (query: string): "all" | "articles" | "newCars" | "usedCars" | "photos" | "videos" => {
   query = query.toLowerCase();
   
@@ -333,26 +381,4 @@ export const determineContentType = (query: string): "all" | "articles" | "newCa
   if (query.includes("new") && query.includes("car")) return "newCars";
   
   return "articles";
-};
-
-export const generateChatResponse = (query: string): string => {
-  query = query.toLowerCase();
-  
-  for (const key in chatResponses) {
-    if (query.includes(key)) {
-      return chatResponses[key];
-    }
-  }
-  
-  return "I'd be happy to help with your question about cars. At MotorTrend, we're automotive experts who test and review the latest vehicles. Could you provide more specific details about what you're looking for, such as a particular model, comparison, or type of information?";
-};
-
-export const getAllContent = () => {
-  return {
-    articles: mockArticles,
-    newCars: mockNewCars,
-    usedCars: mockUsedCars,
-    photos: mockPhotos,
-    videos: mockVideos,
-  };
 };

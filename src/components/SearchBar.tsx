@@ -10,17 +10,21 @@ import { useNavigate } from 'react-router-dom';
 interface SearchBarProps {
   onSearch: (query: string) => void;
   isLoading: boolean;
-  inputRef?: React.RefObject<HTMLInputElement>;
   variant?: "header" | "main";
+  initialQuery?: string;
+  inputRef?: React.RefObject<HTMLInputElement>;
+  dropdownDirection?: 'up' | 'down';
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ 
   onSearch, 
   isLoading, 
+  variant = "main", 
+  initialQuery = "", 
   inputRef,
-  variant = "main" 
+  dropdownDirection
 }) => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery || "");
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isFocused, setIsFocused] = useState(false); 
   const [voiceSearch, setVoiceSearch] = useState(false); 
@@ -168,7 +172,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               }}
               onBlur={() => setIsFocused(false)}
               onKeyDown={handleInputKeyDown}
-              className={`w-full rounded-md border bg-white py-2.5 pl-10 ${inputPaddingRightClass} text-sm shadow-sm transition-all duration-300 ease-in-out focus:border-primary-500 focus:ring-2 focus:ring-primary-500/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:focus:border-primary-500 ${isFocused ? 'ring-2 ring-primary-500/50 border-primary-500 dark:border-primary-500' : 'border-gray-300 dark:border-gray-600'}`}
+              className={`w-full rounded-full border-2 border-motortrend-red bg-white py-2.5 pl-10 ${inputPaddingRightClass} text-sm shadow-sm transition-all duration-300 ease-in-out focus:ring-2 focus:ring-motortrend-red/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:border-motortrend-red`}
               placeholder="Search..."
               disabled={isLoading || voiceSearch} 
               ref={currentInputRef}
@@ -281,7 +285,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               }}
               onBlur={() => setIsFocused(false)}
               onKeyDown={handleInputKeyDown}
-              className={`w-full rounded-md border bg-white py-3 pl-12 ${inputPaddingRightClass} text-base shadow-sm transition-all duration-300 ease-in-out focus:border-primary-500 focus:ring-2 focus:ring-primary-500/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:focus:border-primary-500 ${isFocused ? 'ring-2 ring-primary-500/50 border-primary-500 dark:border-primary-500' : 'border-gray-300 dark:border-gray-600'}`}
+              className={`w-full rounded-full border-2 border-motortrend-red bg-white py-3 pl-10 ${inputPaddingRightClass} text-base shadow-sm transition-all duration-300 ease-in-out focus:ring-2 focus:ring-motortrend-red/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:border-motortrend-red`}
               placeholder="Search for cars, news, reviews..."
               disabled={isLoading || voiceSearch}
               ref={currentInputRef}
@@ -353,6 +357,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           isLoading={suggestionsLoading}
           onSelect={handleSuggestionSelect}
           onMouseEnter={(index) => setSelectedIndex(index)}
+          direction={dropdownDirection}
         />
       )}
       {isImageSearchOverlayOpen && (
