@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, ArrowRight } from 'lucide-react';
@@ -39,10 +38,8 @@ const guideItems: CarData[] = [{
   year: "2025",
   category: 'Sports Car'
 }];
-
 const BuyersGuide: React.FC = () => {
-  return (
-    <section className="space-content">
+  return <section className="space-content">
       <div className="component-header">
         <h2 className="component-title">
           <ShoppingCart size={24} />
@@ -56,13 +53,9 @@ const BuyersGuide: React.FC = () => {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {guideItems.map((item) => (
-          <CarCard key={item.id} car={item} type="new" />
-        ))}
+      <div className="!mt-0 grid grid-cols-3 md:grid-cols-3 gap-6">
+        {guideItems.map(item => <CarCard key={item.id} car={item} type="new" />)}
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default BuyersGuide;
