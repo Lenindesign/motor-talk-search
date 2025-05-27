@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { Car, BookOpen, Sparkles, ArrowRightLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -37,6 +38,7 @@ const relatedArticles = [{
   imageUrl: '/lovable-uploads/5b8a120c-3d52-41cb-8e20-9a16e6b9bf6a.png',
   date: '2025-03-05'
 }];
+
 const GarageContent = () => {
   const {
     savedItems
@@ -188,7 +190,9 @@ const GarageContent = () => {
   const displayCars = getDisplayCars();
   const filteredArticles = getRelatedArticles();
   const navigate = useNavigate(); 
-  return <Card className="shadow-sm flex-1">
+  
+  return (
+    <Card className="shadow-sm flex-1">
       <CardHeader className="flex flex-row justify-between items-center pb-2">
         <div>
           <CardTitle className="flex items-center gap-2 text-xl">
@@ -200,9 +204,12 @@ const GarageContent = () => {
           </CardDescription>
         </div>
         <div className="flex gap-2">
-          {showComparison ? <Button variant="outline" onClick={() => setShowComparison(false)}>
+          {showComparison ? (
+            <Button variant="outline" onClick={() => setShowComparison(false)}>
               Back to Garage
-            </Button> : <>
+            </Button>
+          ) : (
+            <>
               <div className="flex gap-2">
                 <Button 
                   variant={contentView === 'garage' ? 'default' : 'outline'} 
@@ -213,42 +220,65 @@ const GarageContent = () => {
                   <Car size={16} />
                   <span className="hidden sm:inline">Cars</span>
                 </Button>
-                
-                
               </div>
               
-              {contentView === 'garage' && <GarageFilters minScore={minScore} sortByScore={sortByScore} showFilters={showFilters} onMinScoreChange={setMinScore} onSortByScoreChange={setSortByScore} onToggleFilters={() => setShowFilters(!showFilters)} />}
-              
-              
-            </>}
+              {contentView === 'garage' && (
+                <GarageFilters 
+                  minScore={minScore} 
+                  sortByScore={sortByScore} 
+                  showFilters={showFilters} 
+                  onMinScoreChange={setMinScore} 
+                  onSortByScoreChange={setSortByScore} 
+                  onToggleFilters={() => setShowFilters(!showFilters)} 
+                />
+              )}
+            </>
+          )}
         </div>
       </CardHeader>
 
       <CardContent>
         {/* Comparison View */}
-        {showComparison ? <div className="mt-2">
+        {showComparison ? (
+          <div className="mt-2">
             <CarComparisonTable cars={getSelectedCarData()} />
-          </div> :
-      // Regular Garage View
-      <>
+          </div>
+        ) : (
+          // Regular Garage View
+          <>
             <GarageStats />
             
-            {contentView === 'garage' && <>
+            {contentView === 'garage' && (
+              <>
                 {/* Add Another Car */}
                 <div className="mb-6">
                   <h3 className="text-lg font-medium mb-4">Add another car</h3>
                   <QuickAddCar activeTab={activeTab} />
                 </div>
                 
-                <GarageTabContent activeTab={activeTab} onTabChange={setActiveTab} displayCars={displayCars} savedItemToCarData={savedItemToCarData} minScore={minScore} />
+                <GarageTabContent 
+                  activeTab={activeTab} 
+                  onTabChange={setActiveTab} 
+                  displayCars={displayCars} 
+                  savedItemToCarData={savedItemToCarData} 
+                  minScore={minScore} 
+                />
                 
                 {/* Compare Cars */}
-                <GarageCompare savedCars={savedCars} selectedCars={selectedCars} onToggleCar={(id, type) => handleToggleCarForComparison(id, type)} onCompare={handleCompare} />
-              </>}
+                <GarageCompare 
+                  savedCars={savedCars} 
+                  selectedCars={selectedCars} 
+                  onToggleCar={(id, type) => handleToggleCarForComparison(id, type)} 
+                  onCompare={handleCompare} 
+                />
+              </>
+            )}
             
-            {contentView === 'articles' && <div className="mt-6">
+            {contentView === 'articles' && (
+              <div className="mt-6">
                 <h3 className="text-lg font-medium mb-4">Articles Related to Your Garage</h3>
-                {filteredArticles.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredArticles.length > 0 ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredArticles.map(article => (
                       <ArticleCard 
                         key={article.id} 
@@ -262,16 +292,23 @@ const GarageContent = () => {
                         }}
                       />
                     ))}
-                  </div> : <div className="text-center py-10 bg-gray-50 rounded-lg">
+                  </div>
+                ) : (
+                  <div className="text-center py-10 bg-gray-50 rounded-lg">
                     <BookOpen size={48} className="mx-auto text-gray-300 mb-4" />
                     <h3 className="text-lg font-medium text-gray-700 mb-2">No related articles</h3>
                     <p className="text-gray-500 max-w-md mx-auto">
                       Add cars to your garage to see articles related to your vehicles
                     </p>
-                  </div>}
-              </div>}
-          </>}
+                  </div>
+                )}
+              </div>
+            )}
+          </>
+        )}
       </CardContent>
-    </Card>;
+    </Card>
+  );
 };
+
 export default GarageContent;
