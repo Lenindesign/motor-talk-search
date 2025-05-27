@@ -70,10 +70,9 @@ const MobileStickySearch: React.FC<MobileStickySearchProps> = ({ onSearch, isLoa
       }}
     >
 
-      <div className="py-2 w-full flex justify-center">
-        <div className="w-[90vw] max-w-[600px] mx-auto rounded-2xl bg-white px-2 shadow">
-
-        <SearchBar onSearch={onSearch} isLoading={isLoading} />
+      <div className="py-2 w-full">
+        <div className="rounded-2xl bg-white px-4 shadow">
+          <SearchBar onSearch={onSearch} isLoading={isLoading} />
         </div>
       </div>
     </div>

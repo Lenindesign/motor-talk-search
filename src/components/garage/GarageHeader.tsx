@@ -1,7 +1,6 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
-import { Car } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { CardTitle, CardDescription } from "@/components/ui/card";
 import MainNavigation from "../MainNavigation";

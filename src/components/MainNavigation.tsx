@@ -42,47 +42,59 @@ const MainNavigation = () => {
     { label: 'Cars', path: '/buyers-guide', icon: Car },
     { label: 'Videos', path: '/videos', icon: PlayCircle },
     { label: 'Profile', path: '/profile', icon: User }, 
-    { label: 'My Garage', path: '/garage', icon: Car }
+    { label: 'My Garage', path: '/garage', icon: null }
   ];
 
   if (isMobile) {
     return (
-      <Sheet>
-        <SheetTrigger asChild>
-          <button className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors mr-2" aria-label="Menu">
-            <Menu size={24} />
-          </button>
-        </SheetTrigger>
-        <SheetContent side="left" className="bg-motortrend-dark border-r border-gray-800 p-0 w-[280px]">
-          <div className="flex flex-col h-full">
-            <div className="p-6 border-b border-gray-800">
-              <Link to="/">
-                <img
-                  src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png"
-                  alt="MotorTrend Logo"
-                  className="h-6"
-                />
-              </Link>
+      <div className="flex items-center">
+        <Link to="/garage" aria-label="My Garage" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors mr-1">
+          <svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 -960 960 960" width="22" fill="currentColor"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/></svg>
+        </Link>
+        <Link to="/profile" aria-label="Profile" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors mr-1">
+          <User size={22} />
+        </Link>
+        <Sheet>
+          <SheetTrigger asChild>
+            <button className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors mr-2" aria-label="Menu">
+              <Menu size={24} />
+            </button>
+          </SheetTrigger>
+          <SheetContent side="left" className="bg-motortrend-dark border-r border-gray-800 p-0 w-[280px]">
+            <div className="flex flex-col h-full">
+              <div className="p-6 border-b border-gray-800">
+                <Link to="/">
+                  <img
+                    src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png"
+                    alt="MotorTrend Logo"
+                    className="h-6"
+                  />
+                </Link>
+              </div>
+              <div className="flex-1 overflow-y-auto py-4">
+                {menuItems.map((item) => {
+                  const isActiveMobile = item.path === '/' ? location.pathname === item.path : location.pathname.startsWith(item.path);
+                  return (
+                    <Link 
+                      key={item.path}
+                      to={item.path} 
+                      className={`flex items-center gap-3 px-6 py-3 text-base font-medium transition-colors
+                        ${isActiveMobile ? 'text-motortrend-red bg-white/5' : 'text-white hover:bg-white/5'}`}
+                    >
+                      {item.label === 'My Garage' ? (
+                        <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18" fill="currentColor" className="inline"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/></svg>
+                      ) : (
+                        item.icon && <item.icon size={18} />
+                      )}
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
-            <div className="flex-1 overflow-y-auto py-4">
-              {menuItems.map((item) => {
-                const isActiveMobile = item.path === '/' ? location.pathname === item.path : location.pathname.startsWith(item.path);
-                return (
-                  <Link 
-                    key={item.path}
-                    to={item.path} 
-                    className={`flex items-center gap-3 px-6 py-3 text-base font-medium transition-colors
-                      ${isActiveMobile ? 'text-motortrend-red bg-white/5' : 'text-white hover:bg-white/5'}`}
-                  >
-                    <item.icon size={18} />
-                    {item.label}
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </SheetContent>
-      </Sheet>
+          </SheetContent>
+        </Sheet>
+      </div>
     );
   }
 

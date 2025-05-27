@@ -248,11 +248,18 @@ const Garage = () => {
     });
   }, [savedItems, updateSavedItem]);
   return <div className="min-h-screen bg-motortrend-gray">
-      
+
       <main className="max-w-[980px] mx-auto py-[32px] px-0">
         <div className="flex flex-col md:flex-row gap-8">
-          <ProfileSidebar userData={userData} savedItemsCount={savedItems.length} onPersonalizeClick={() => setPersonalizationOpen(true)} />
-          <GarageContent />
+          {/* On mobile, GarageContent is first; on desktop, ProfileSidebar is first */}
+          <div className="block md:hidden">
+            <GarageContent />
+            <ProfileSidebar userData={userData} savedItemsCount={savedItems.length} onPersonalizeClick={() => setPersonalizationOpen(true)} />
+          </div>
+          <div className="hidden md:flex md:flex-row w-full gap-8">
+            <ProfileSidebar userData={userData} savedItemsCount={savedItems.length} onPersonalizeClick={() => setPersonalizationOpen(true)} />
+            <GarageContent />
+          </div>
         </div>
       </main>
       

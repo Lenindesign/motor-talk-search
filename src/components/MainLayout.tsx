@@ -19,10 +19,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       <MobileStickySearch onSearch={onSearch} isLoading={isLoading} />
       {/* Spacer for fixed header + search bar on mobile */}
       <div style={{
-      height: 112
+      height: 80
     }} className="sm:hidden py-4" />
       {/* Main content */}
-      <main className="flex-grow container mx-auto px-3 sm:px-4 py-4">
+      <main className="flex-grow container mx-auto px-3 sm:px-4 py-">
         {children}
       </main>
     </div>;

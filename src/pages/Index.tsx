@@ -12,7 +12,7 @@ const Index = () => {
       <main className="flex flex-1 flex-col">
          <div className="max-w-[980px] mx-auto  sm:px-6 lg:px-0">
             {/* Hero Carousel */}
-             <div className="mb-8">
+             <div className="mb-8 pt-0 sm:pt-8">
                <HeroCarousel />
              </div>
             
