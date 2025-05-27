@@ -51,7 +51,7 @@ const AutocompleteSuggestions: React.FC<AutocompleteSuggestionsProps> = ({
   };
 
   // Group suggestions by type for better organization
-  const groupedSuggestions = suggestions.reduce((groups, suggestion) => {
+  const groupedSuggestions = suggestions.reduce((groups: Record<Suggestion["type"], Suggestion[]>, suggestion) => {
     const groupKey = suggestion.type;
     if (!groups[groupKey]) {
       groups[groupKey] = [];
@@ -63,16 +63,15 @@ const AutocompleteSuggestions: React.FC<AutocompleteSuggestionsProps> = ({
   // Order of types to display
   const typeOrder: Suggestion["type"][] = ['carMake', 'carModel', 'newCar', 'usedCar', 'article', 'popular'];
   
-  // Flatten grouped suggestions back into an array in the desired order
-  const orderedSuggestions = typeOrder.flatMap(type => groupedSuggestions[type] || []);
-
   // Calculate index offset for flattened suggestions
   let currentIndex = -1;
   
   return (
     <div className="absolute left-0 right-0 top-full mt-1 max-h-60 overflow-y-auto rounded-md bg-white shadow-lg z-50">
       <ul className="py-1">
-        {Object.entries(groupedSuggestions).map(([type, typeSuggestions]) => {
+        {typeOrder.map(type => {
+          const typeSuggestions = groupedSuggestions[type] || [];
+          
           // Only show headers if there are suggestions of this type
           if (typeSuggestions.length === 0) return null;
           

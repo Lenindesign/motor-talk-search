@@ -1,9 +1,10 @@
+
 import { useState, useEffect } from 'react';
 import { getAllContent } from "../services/mockData";
 import { carMakes } from "../services/carData";
 
 // Type for rich search suggestions in the mega dropdown
-export type MegaSuggestion = {
+export type Suggestion = {
   id: string;
   text: string; // Typically the title
   type: 'article' | 'newCar' | 'usedCar' | 'photo' | 'video' | 'popular' | 'carMake' | 'carModel';
@@ -17,12 +18,12 @@ export type MegaSuggestion = {
 };
 
 export function useAutocomplete(query: string) {
-  const [suggestions, setSuggestions] = useState<MegaSuggestion[]>([]);
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   
   // Popular searches that always appear when the input is empty
-  const popularSearches: MegaSuggestion[] = [
+  const popularSearches: Suggestion[] = [
     { id: 'pop-1', text: 'New SUVs', type: 'popular' },
     { id: 'pop-2', text: 'Electric cars', type: 'popular' },
     { id: 'pop-3', text: 'Best sedans', type: 'popular' },
@@ -50,7 +51,7 @@ export function useAutocomplete(query: string) {
         await new Promise(resolve => setTimeout(resolve, 200));
         
         // Create suggestions from mock data
-        const newSuggestions: MegaSuggestion[] = [];
+        const newSuggestions: Suggestion[] = [];
         
         // Add car makes and models suggestions
         const lowerCaseQuery = query.toLowerCase();
