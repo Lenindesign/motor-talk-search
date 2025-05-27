@@ -11,11 +11,11 @@ const GarageStats = () => {
   const testDrivenCount = savedCars.filter(car => car.metadata?.ownership === 'testDriven').length;
   const interestedCount = savedCars.filter(car => car.metadata?.ownership === 'interested').length;
   return <div className="flex justify-center gap-3 my-8 px-0">
-      <div className="px-6 py-3 bg-green-500 rounded-full flex items-center gap-2 text-white">
+      <div className="px-6 py-3 rounded-full flex items-center gap-2 text-white bg-motortrend-red">
         <span className="text-lg font-bold">{ownedCount}</span>
         <span className="text-sm">Owned</span>
       </div>
-      <div className="px-6 py-3 bg-blue-500 rounded-full flex items-center gap-2 text-white">
+      <div className="px-6 py-3 rounded-full flex items-center gap-2 text-white bg-motortrend-dark">
         <span className="text-lg font-bold">{testDrivenCount}</span>
         <span className="text-sm">Test Driven</span>
       </div>
