@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Play, Share, Heart, ThumbsUp, ThumbsDown, Eye, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import GlobalHeader from '@/components/GlobalHeader';
+
 import { mockVideos } from '@/services/mockData';
 
 const VideoDetail: React.FC = () => {
@@ -17,7 +17,7 @@ const VideoDetail: React.FC = () => {
 
   if (!video) {
     return <div className="min-h-screen bg-gray-50">
-        <GlobalHeader />
+        
         <main className="container mx-auto px-4 py-8">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Video Not Found</h1>
@@ -52,7 +52,7 @@ Subscribe to MotorTrend for the latest automotive content and stay up to date wi
   };
 
   return <div className="min-h-screen bg-gray-50 py-0">
-      <GlobalHeader />
+      
       <main className="max-w-[980px] mx-auto px-0 py-[32px]">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Video Player */}

@@ -22,13 +22,16 @@ import VideoDetail from "./pages/VideoDetail";
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
 import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 
+import MainLayout from "./components/MainLayout";
+
 function App() {
   return (
     <div className="w-full bg-motortrend-gray">
       <BrowserRouter>
         <PersonalizationProvider>
           <SavedItemsProvider>
-            <Routes>
+            <MainLayout>
+  <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/search" element={<Search />} />
               <Route path="/dashboard" element={<Navigate to="/garage" replace />} />
@@ -46,6 +49,7 @@ function App() {
               <Route path="/video/:id" element={<VideoDetail />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+</MainLayout>
           </SavedItemsProvider>
         </PersonalizationProvider>
       </BrowserRouter>

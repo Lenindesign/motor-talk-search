@@ -1,5 +1,5 @@
 import React from 'react';
-import GlobalHeader from '@/components/GlobalHeader';
+
 import HeroCarousel from '@/components/home/HeroCarousel';
 import VideoCard from '@/components/VideoCard';
 import { Button } from '@/components/ui/button';
@@ -19,7 +19,7 @@ const Videos: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GlobalHeader />
+      
       <main className="max-w-[980px] mx-auto px-0 py-[32px]">
         {/* Hero Carousel */}
         <div className="mb-10">

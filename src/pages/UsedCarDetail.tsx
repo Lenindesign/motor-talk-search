@@ -4,7 +4,7 @@ import { ArrowLeft, Phone, Mail, MapPin, Calendar, Gauge, Fuel, Settings, Heart,
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import GlobalHeader from '@/components/GlobalHeader';
+
 import { mockUsedCars } from '@/services/mockData';
 const UsedCarDetail: React.FC = () => {
   const {
@@ -16,7 +16,7 @@ const UsedCarDetail: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   if (!car) {
     return <div className="min-h-screen bg-gray-50">
-        <GlobalHeader />
+        
         <main className="container mx-auto px-4 py-8">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Vehicle Not Found</h1>
@@ -41,7 +41,7 @@ const UsedCarDetail: React.FC = () => {
   };
   const mockFeatures = ["Premium Sound System", "Navigation System", "Backup Camera", "Heated Seats", "Sunroof", "Leather Interior", "Bluetooth Connectivity", "Keyless Entry", "LED Headlights", "Alloy Wheels"];
   return <div className="min-h-screen bg-gray-50">
-      <GlobalHeader />
+      
       <main className="max-w-[980px] mx-auto px-0 py-[32px]">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}

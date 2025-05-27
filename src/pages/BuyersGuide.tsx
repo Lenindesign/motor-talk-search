@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import CarCard, { CarData } from '@/components/CarCard';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-import GlobalHeader from '../components/GlobalHeader';
+
 
 const BuyersGuide: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'new' | 'used'>('new');
@@ -162,7 +162,6 @@ const BuyersGuide: React.FC = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      <GlobalHeader onSearch={handleSearch} isLoading={isLoading} />
       <div className="max-w-[980px] mx-auto py-[32px] px-0">
         <h1 className="text-2xl font-bold mb-6">Buyer's Guide</h1>
         

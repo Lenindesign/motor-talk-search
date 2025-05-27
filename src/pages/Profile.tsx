@@ -24,7 +24,7 @@ import PhotoCard from "../components/PhotoCard";
 import VideoCard from "../components/VideoCard";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MyGarageSkinny from "../components/profile/MyGarageSkinny";
-import GlobalHeader from '../components/GlobalHeader';
+
 import GarageContent from '../components/garage/GarageContent';
 
 const Profile = () => {
@@ -91,9 +91,10 @@ const Profile = () => {
   return (
     <>
       <div className="min-h-screen bg-motortrend-gray">
-        <GlobalHeader isLoading={false} />
         
-        <main className="max-w-[980px] mx-auto py-8 px-0">
+        {/* Spacer for fixed header + search bar on mobile */}
+      <div className="sm:hidden" style={{ height: 112 }} />
+      <main className="max-w-[980px] mx-auto py-8 px-0">
           <div className="flex flex-col md:flex-row gap-8">
             {/* Profile Sidebar */}
             <aside className="w-full md:w-64 space-y-6">
@@ -147,7 +148,8 @@ const Profile = () => {
             {/* Main Content */}
             <div className="flex-1">
               <Tabs defaultValue="saved" className="w-full">
-                <TabsList className="w-full justify-start border-b rounded-none">
+                <TabsList className="w-full justify-start border-b rounded-none overflow-x-auto whitespace-nowrap scrollbar-hide flex-nowrap">
+
                   <TabsTrigger value="saved" className="flex items-center gap-1">
                     <Bookmark size={16} />
                     <span>Saved Items</span>

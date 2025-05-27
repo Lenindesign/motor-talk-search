@@ -38,13 +38,14 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ onSearch, isLoading = false
         </div>
         {/* Search bar always visible, full width on mobile */}
         <div className="flex-1 min-w-0">
-          <SearchBar 
-            onSearch={handleSearch} 
-            isLoading={isLoading} 
-            variant="header" 
-          />
+          {!isMobile && (
+            <SearchBar 
+              onSearch={handleSearch} 
+              isLoading={isLoading} 
+              variant="header" 
+            />
+          )}
         </div>
-        
         {/* Navigation - mobile hamburger or desktop links */}
         <div className="flex items-center">
           <MainNavigation />

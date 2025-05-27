@@ -5,7 +5,7 @@ import { useSavedItems } from '../contexts/SavedItemsContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import GlobalHeader from '@/components/GlobalHeader';
+
 import { mockArticles } from '@/services/mockData';
 
 const ArticleDetail: React.FC = () => {
@@ -65,7 +65,7 @@ const ArticleDetail: React.FC = () => {
   if (!article) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <GlobalHeader />
+        
         <main className="container mx-auto px-4 py-8">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Article Not Found</h1>
@@ -170,7 +170,7 @@ const ArticleDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GlobalHeader />
+      
 
       {/* Reading Progress Bar */}
       <div className="fixed top-0 left-0 right-0 z-50">

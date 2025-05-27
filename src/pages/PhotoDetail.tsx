@@ -4,7 +4,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight, Download, Share, Heart, ZoomIn, B
 import { useSavedItems } from '../contexts/SavedItemsContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import GlobalHeader from '@/components/GlobalHeader';
+
 import { mockPhotos } from '@/services/mockData';
 
 const PhotoDetail: React.FC = () => {
@@ -40,7 +40,7 @@ const PhotoDetail: React.FC = () => {
   if (!photo) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <GlobalHeader />
+        
         <main className="container mx-auto px-4 py-8">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Photo Not Found</h1>
@@ -81,7 +81,7 @@ const PhotoDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-black">
-      <GlobalHeader />
+      
       <main className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Main Photo Viewer */}

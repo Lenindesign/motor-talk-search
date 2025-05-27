@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { LayoutDashboard } from "lucide-react";
 import { determineContentType, generateChatResponse, getAllContent, mockArticles, mockNewCars, mockUsedCars, mockPhotos, mockVideos } from "../services/mockData";
 import { useIsMobile } from "../hooks/use-mobile";
-import GlobalHeader from '../components/GlobalHeader';
+
 
 interface SearchResult {
   id: string;
@@ -200,7 +200,6 @@ const Search = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-motortrend-gray w-full">
-      <GlobalHeader onSearch={handleSearch} isLoading={isSearching} />
       <main className="flex flex-1 flex-col">
         <div className="relative flex flex-col h-full">
           <div className="flex-1 overflow-y-auto" ref={chatContainerRef}>

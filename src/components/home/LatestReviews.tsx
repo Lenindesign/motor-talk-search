@@ -53,7 +53,7 @@ const LatestReviews: React.FC = () => {
         </Button>
       </div>
 
-      <div className="!mt-0 grid grid-cols-3 md:grid-cols-3 gap-6">
+      <div className="!mt-0 flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6">
         {reviewItems.map(item => (
           <ArticleCard key={item.id} article={item} />
         ))}

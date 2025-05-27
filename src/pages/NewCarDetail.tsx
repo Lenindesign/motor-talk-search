@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
-import GlobalHeader from '@/components/GlobalHeader';
+
 import { mockNewCars } from '@/services/mockData';
 import { CarData } from '@/components/CarCard';
 import { getBodyStyle, mockTrims, expertRatings, ownerReviews } from './NewCarDetail/utils';
@@ -26,7 +26,7 @@ const NewCarDetail: React.FC = () => {
   if (!car) {
     return (
       <div className="min-h-screen bg-neutral-8">
-        <GlobalHeader />
+        
         <main className="content-container section-spacing">
           <div className="text-center space-element">
             <h1 className="typography-display text-neutral-1 mb-6">Vehicle Not Found</h1>
@@ -103,7 +103,7 @@ const NewCarDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-neutral-8">
-      <GlobalHeader />
+      
       <main className="max-w-[980px] mx-auto w-full px-0 py-[16px] pt-[120px]">
         {/* Car Header */}
         <div className="mb-12 lg:mb-16">

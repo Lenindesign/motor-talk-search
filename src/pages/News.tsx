@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, TrendingUp, Clock, Star, Video, Image } from 'lucide-react';
-import GlobalHeader from '@/components/GlobalHeader';
+
 import HeroCarousel from '@/components/home/HeroCarousel';
 import ArticleCard from '@/components/ArticleCard';
 import VideoCard from '@/components/VideoCard';
@@ -35,7 +35,7 @@ const News: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <GlobalHeader />
+      
       <main className="max-w-[980px] mx-auto px-0 py-[32px]">
         {/* Hero Carousel */}
         <div className="mb-8">

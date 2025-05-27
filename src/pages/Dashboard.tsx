@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import { usePersonalization } from "../contexts/PersonalizationContext";
-import GlobalHeader from '../components/GlobalHeader';
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -65,7 +65,6 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-motortrend-gray">
-      <GlobalHeader onSearch={handleSearch} isLoading={isSearching} />
       
       {/* Breadcrumbs for navigation context */}
       <div className="bg-white border-b">
