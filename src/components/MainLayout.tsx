@@ -20,7 +20,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       {/* Spacer for fixed header + search bar on mobile */}
       <div style={{
       height: 112
-    }} className="sm:hidden py-8" />
+    }} className="sm:hidden py-4" />
       {/* Main content */}
       <main className="flex-grow container mx-auto px-3 sm:px-4 py-4">
         {children}
