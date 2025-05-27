@@ -39,7 +39,7 @@ const LatestNews: React.FC = () => {
       <div className="component-header">
         <h2 className="component-title">
           <Newspaper size={24} />
-          Latest News
+          Top News
         </h2>
         <Button variant="ghost" asChild>
           <Link to="/news" className="component-view-all">
