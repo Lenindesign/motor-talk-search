@@ -5,7 +5,6 @@ import { useSavedItems } from '../contexts/SavedItemsContext';
 import BaseCard from './ui/BaseCard';
 import { CARD_STYLES } from '@/styles/cardStyles';
 import { cn } from '@/lib/utils';
-
 export interface VideoData {
   id: string;
   title: string;
@@ -19,13 +18,11 @@ export interface VideoData {
     publishDate?: string;
   };
 }
-
 export interface VideoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   video: VideoData;
   className?: string;
   onClick?: () => void;
 }
-
 const VideoCard: React.FC<VideoCardProps> = ({
   video,
   className,
@@ -72,7 +69,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
         
       </div>
       <div className="p-4">
-        <h3 className="text-2xl font-bold leading-tight text-gray-900 mb-1 line-clamp-2">
+        <h3 className="font-bold leading-tight text-gray-900 mb-1 line-clamp-2 text-base">
           {video.title}
         </h3>
         <div className="flex items-center text-sm text-gray-500">
@@ -86,5 +83,4 @@ const VideoCard: React.FC<VideoCardProps> = ({
       </div>
     </BaseCard>;
 };
-
 export default VideoCard;
