@@ -43,7 +43,7 @@ const News: React.FC = () => {
             {
               id: 'n1',
               title: '2025 Porsche Macan EV: First Drive',
-              subtitle: 'Porsche enters the electric SUV market with a bang. Here's how the Macan EV stacks up.',
+              subtitle: 'Porsche enters the electric SUV market with a bang. Here\'s how the Macan EV stacks up.',
               imageUrl: 'https://cdn.motor1.com/images/mgl/8ANLNB/s1/2024-porsche-macan-ev.jpg',
               tag: 'First Drive',
               tagColor: 'bg-blue-700',
