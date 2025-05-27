@@ -19,7 +19,7 @@ const GarageStats = () => {
         <span className="text-lg font-bold">{testDrivenCount}</span>
         <span className="text-sm">Test Driven</span>
       </div>
-      <div className="px-6 py-3 bg-amber-500 rounded-full flex items-center gap-2 text-white">
+      <div className="px-6 py-3 rounded-full flex items-center gap-2 text-white bg-gray-600">
         <span className="text-lg font-bold">{interestedCount}</span>
         <span className="text-sm">Interested</span>
       </div>
