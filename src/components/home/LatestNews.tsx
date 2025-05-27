@@ -49,7 +49,7 @@ const LatestNews: React.FC = () => {
         </Button>
       </div>
 
-      <div className="!mt-0 grid grid-cols-3 md:grid-cols-3 gap-6\n">
+      <div className="!mt-0 grid grid-cols-3 md:grid-cols-3 gap-6">
         {newsItems.map(item => <ArticleCard key={item.id} article={item} />)}
       </div>
     </section>;
