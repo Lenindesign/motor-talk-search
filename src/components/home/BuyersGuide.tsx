@@ -43,7 +43,7 @@ const BuyersGuide: React.FC = () => {
       <div className="component-header">
         <h2 className="component-title">
           <ShoppingCart size={24} />
-          Top Cars
+          Buyer's Guide
         </h2>
         <Button variant="ghost" asChild>
           <Link to="/buyers-guide" className="component-view-all">
