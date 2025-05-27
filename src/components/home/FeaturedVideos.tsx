@@ -1,8 +1,10 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Video, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import VideoCard, { VideoData } from '@/components/VideoCard';
+
 const videoItems: VideoData[] = [{
   id: '1',
   title: '2025 BMW i5 vs Mercedes EQS: Electric Luxury Showdown',
@@ -17,9 +19,18 @@ const videoItems: VideoData[] = [{
   imageUrl: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=600&h=400',
   views: '892K',
   publishDate: '1 week ago'
+}, {
+  id: '3',
+  title: 'Best Off-Road SUVs of 2025: Ultimate Comparison',
+  duration: '18:22',
+  imageUrl: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&h=400',
+  views: '156K',
+  publishDate: '3 days ago'
 }];
+
 const FeaturedVideos: React.FC = () => {
-  return <section className="space-content">
+  return (
+    <section className="space-content">
       <div className="component-header">
         <h2 className="component-title">
           <Video size={24} />
@@ -34,8 +45,12 @@ const FeaturedVideos: React.FC = () => {
       </div>
 
       <div className="!mt-0 grid grid-cols-3 md:grid-cols-3 gap-6">
-        {videoItems.map(item => <VideoCard key={item.id} video={item} />)}
+        {videoItems.map(item => (
+          <VideoCard key={item.id} video={item} />
+        ))}
       </div>
-    </section>;
+    </section>
+  );
 };
+
 export default FeaturedVideos;
