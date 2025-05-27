@@ -1,12 +1,13 @@
+
 import React from "react";
-import { MegaSuggestion } from "../hooks/use-autocomplete"; 
+import { Suggestion } from "../hooks/use-autocomplete"; 
 import { Search, Newspaper, Car, CarFront, Factory, Image as ImageIcon, Video as VideoIcon } from "lucide-react"; 
 
 interface MegaSearchDropdownProps { 
-  suggestions: MegaSuggestion[]; 
+  suggestions: Suggestion[]; 
   selectedIndex: number;
   isLoading: boolean;
-  onSelect: (suggestion: MegaSuggestion) => void; 
+  onSelect: (suggestion: Suggestion) => void; 
   onMouseEnter: (index: number) => void;
   direction?: 'up' | 'down'; 
 }
@@ -36,7 +37,7 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
     return null;
   }
 
-  const getIconForSuggestionType = (type: MegaSuggestion["type"]) => {
+  const getIconForSuggestionType = (type: Suggestion["type"]) => {
     switch (type) {
       case 'article':
         return <Newspaper size={18} className="text-gray-500 dark:text-gray-400" />;
@@ -64,9 +65,9 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
     }
     groups[groupKey].push(suggestion);
     return groups;
-  }, {} as Record<MegaSuggestion["type"], MegaSuggestion[]>);
+  }, {} as Record<Suggestion["type"], Suggestion[]>);
 
-  const typeOrder: MegaSuggestion["type"][] = ['carMake', 'carModel', 'newCar', 'usedCar', 'article', 'video', 'photo', 'popular']; 
+  const typeOrder: Suggestion["type"][] = ['carMake', 'carModel', 'newCar', 'usedCar', 'article', 'video', 'photo', 'popular']; 
   
   let globalSuggestionIndex = -1; 
 

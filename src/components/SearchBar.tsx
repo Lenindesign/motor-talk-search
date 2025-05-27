@@ -1,6 +1,6 @@
 import React, { useState, FormEvent, useEffect, useRef } from "react";
 import { Search, Loader, Mic, X, Camera } from "lucide-react";
-import { useAutocomplete, MegaSuggestion } from "../hooks/use-autocomplete";
+import { useAutocomplete, Suggestion } from "../hooks/use-autocomplete";
 import MegaSearchDropdown from "./MegaSearchDropdown";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -60,7 +60,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
     }
   };
 
-  const handleSuggestionSelect = (suggestion: MegaSuggestion) => {
+  const handleSuggestionSelect = (suggestion: Suggestion) => {
     let path = '';
     switch (suggestion.type) {
       case 'newCar':
