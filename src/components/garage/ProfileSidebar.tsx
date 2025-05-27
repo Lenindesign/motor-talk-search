@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { User, Car, Settings, Palette } from "lucide-react";
@@ -6,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import UserPoints from "../UserPoints";
-
 interface ProfileSidebarProps {
   userData: {
     name: string;
@@ -17,16 +15,14 @@ interface ProfileSidebarProps {
   savedItemsCount: number;
   onPersonalizeClick: () => void;
 }
-
-const ProfileSidebar: React.FC<ProfileSidebarProps> = ({ 
-  userData, 
-  savedItemsCount, 
-  onPersonalizeClick 
+const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
+  userData,
+  savedItemsCount,
+  onPersonalizeClick
 }) => {
-  return (
-    <aside className="w-full md:w-64 space-y-6">
+  return <aside className="w-full md:w-64 space-y-6">
       <Card>
-        <CardHeader className="flex flex-row items-center gap-4 pb-2">
+        <CardHeader className="p-4 flex flex-row items-center gap-4 pb-2">
           <Avatar className="w-16 h-16">
             <AvatarImage src={userData.avatar} alt={userData.name} className="object-cover" />
             <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
@@ -35,7 +31,7 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
             <CardTitle>{userData.name}</CardTitle>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="">
           <p className="text-sm text-gray-500">Member since {userData.joined}</p>
           <div className="mt-4 flex justify-between">
             <span className="text-sm font-medium">Saved Items</span>
@@ -68,8 +64,6 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
           </nav>
         </CardContent>
       </Card>
-    </aside>
-  );
+    </aside>;
 };
-
 export default ProfileSidebar;
