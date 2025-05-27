@@ -150,7 +150,7 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
           <button onClick={() => setOwnership('testDriven')} className={`px-2 py-1 rounded ${ownership === 'testDriven' ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:bg-gray-100'}`}>
             Test Driven
           </button>
-          <button onClick={() => setOwnership('interested')} className={`px-2 py-1 rounded ${ownership === 'interested' ? 'bg-amber-100 text-amber-700' : 'text-gray-500 hover:bg-gray-100'}`}>
+          <button onClick={() => setOwnership('interested')} className="">
             Interested
           </button>
         </div>
