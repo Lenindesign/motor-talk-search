@@ -21,7 +21,7 @@ const UserPoints = () => {
   // Get rank title based on level
   const rankTitle = getRankTitle(level);
   return <Card className="bg-gradient-to-br from-motortrend-dark to-motortrend-red text-white">
-      <CardHeader>
+      <CardHeader className="">
         <CardTitle className="flex items-center justify-between">
           <span className="text-slate-50">Your Progress</span>
           <span className="text-2xl font-bold text-slate-50">{userPoints} pts</span>
