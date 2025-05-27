@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -24,9 +23,7 @@ import PhotoCard from "../components/PhotoCard";
 import VideoCard from "../components/VideoCard";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MyGarageSkinny from "../components/profile/MyGarageSkinny";
-
 import GarageContent from '../components/garage/GarageContent';
-
 const Profile = () => {
   const {
     savedItems,
@@ -55,7 +52,6 @@ const Profile = () => {
       email: localStorage.getItem("userEmail") || "john.driver@example.com"
     }
   });
-  
   const onSubmit = (data: {
     name: string;
     email: string;
@@ -74,11 +70,9 @@ const Profile = () => {
     avatar: "/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png",
     joined: "January 2023"
   };
-  
   const handleUnsave = (id: string, type: SavedItemType) => {
     removeSavedItem(id, type);
   };
-  
   const filterItemsByType = (type: SavedItemType | 'all') => {
     if (type === 'all') return savedItems;
     return savedItems.filter(item => item.type === type);
@@ -87,19 +81,19 @@ const Profile = () => {
   // Filter by current tab
   const [filterType, setFilterType] = useState<SavedItemType | 'all'>('all');
   const filteredItems = filterItemsByType(filterType);
-  
-  return (
-    <>
+  return <>
       <div className="min-h-screen bg-motortrend-gray">
         
         {/* Spacer for fixed header + search bar on mobile */}
-      <div className="sm:hidden" style={{ height: 112 }} />
+      <div className="sm:hidden" style={{
+        height: 112
+      }} />
       <main className="max-w-[980px] mx-auto py-8 px-0">
           <div className="flex flex-col md:flex-row gap-8">
             {/* Profile Sidebar */}
             <aside className="w-full md:w-64 space-y-6">
               <Card>
-                <CardHeader className="p-6 flex flex-col items-center text-center sm:flex-row sm:text-left sm:items-center gap-4">
+                <CardHeader className="p-4 flex flex-col items-center text-center sm:flex-row sm:text-left sm:items-center gap-4">
                   <Avatar className="w-16 h-16">
                     <AvatarImage src={userData.avatar} alt={userData.name} className="object-cover" />
                     <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
@@ -109,7 +103,7 @@ const Profile = () => {
                     <p className="text-sm text-gray-500 mt-1">Member since {userData.joined}</p>
                   </div>
                 </CardHeader>
-                <CardContent className="p-6 pt-0">
+                <CardContent className="p-4 pt-0">
                   <div className="mt-4 flex justify-between items-center">
                     <span className="text-sm font-medium">Saved Items</span>
                     <span className="text-sm font-bold text-lg">{savedItems.length}</span>
@@ -192,8 +186,7 @@ const Profile = () => {
                       </div>
                     </div>
                     
-                    {filteredItems.length === 0 ? (
-                      <div className="text-center py-10">
+                    {filteredItems.length === 0 ? <div className="text-center py-10">
                         <Save size={48} className="mx-auto text-gray-300 mb-4" />
                         <h3 className="text-lg font-medium text-gray-700 mb-2">No saved items yet</h3>
                         <p className="text-gray-500 max-w-md mx-auto">
@@ -202,83 +195,59 @@ const Profile = () => {
                         <Button className="mt-4" onClick={() => navigate("/")}>
                           Browse Content
                         </Button>
-                      </div>
-                    ) : (
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {filteredItems.map(item => {
-                          switch (item.type) {
-                            case 'article':
-                              return (
-                                <ArticleCard 
-                                  key={item.id} 
-                                  article={{
-                                    id: item.id,
-                                    imageUrl: item.imageUrl,
-                                    title: item.title,
-                                    date: item.metadata?.date || '',
-                                    category: item.metadata?.category || '',
-                                    featured: item.metadata?.featured,
-                                    photoCount: item.metadata?.photoCount
-                                  }} 
-                                />
-                              );
-                            case 'photo':
-                              return (
-                                <PhotoCard 
-                                  key={item.id} 
-                                  photo={{
-                                    id: item.id,
-                                    imageUrl: item.imageUrl,
-                                    title: item.title,
-                                    position: item.metadata?.position || '',
-                                    make: item.metadata?.make || '',
-                                    carModel: item.metadata?.carModel || '',
-                                    year: item.metadata?.year || ''
-                                  }} 
-                                />
-                              );
-                            case 'video':
-                              return (
-                                <VideoCard 
-                                  key={item.id} 
-                                  video={{
-                                    id: item.id,
-                                    imageUrl: item.imageUrl,
-                                    title: item.title,
-                                    duration: item.metadata?.duration || '',
-                                    views: item.metadata?.views,
-                                    publishDate: item.metadata?.publishDate
-                                  }} 
-                                />
-                              );
-                            case 'newCar':
-                            case 'usedCar':
-                              return (
-                                <CarCard 
-                                  key={item.id} 
-                                  car={{
-                                    id: item.id,
-                                    imageUrl: item.imageUrl,
-                                    title: item.title,
-                                    price: item.metadata?.price || '',
-                                    category: item.metadata?.category || '',
-                                    year: item.metadata?.year,
-                                    mileage: item.metadata?.mileage,
-                                    fuelType: item.metadata?.fuelType,
-                                    drivetrain: item.metadata?.drivetrain,
-                                    location: item.metadata?.location,
-                                    bodyStyle: item.metadata?.bodyStyle as any,
-                                    isNew: item.type === 'newCar' ? true : false
-                                  }} 
-                                  type={item.type === 'newCar' ? 'new' : 'used'} 
-                                />
-                              );
-                            default:
-                              return null;
-                          }
-                        })}
-                      </div>
-                    )}
+                      switch (item.type) {
+                        case 'article':
+                          return <ArticleCard key={item.id} article={{
+                            id: item.id,
+                            imageUrl: item.imageUrl,
+                            title: item.title,
+                            date: item.metadata?.date || '',
+                            category: item.metadata?.category || '',
+                            featured: item.metadata?.featured,
+                            photoCount: item.metadata?.photoCount
+                          }} />;
+                        case 'photo':
+                          return <PhotoCard key={item.id} photo={{
+                            id: item.id,
+                            imageUrl: item.imageUrl,
+                            title: item.title,
+                            position: item.metadata?.position || '',
+                            make: item.metadata?.make || '',
+                            carModel: item.metadata?.carModel || '',
+                            year: item.metadata?.year || ''
+                          }} />;
+                        case 'video':
+                          return <VideoCard key={item.id} video={{
+                            id: item.id,
+                            imageUrl: item.imageUrl,
+                            title: item.title,
+                            duration: item.metadata?.duration || '',
+                            views: item.metadata?.views,
+                            publishDate: item.metadata?.publishDate
+                          }} />;
+                        case 'newCar':
+                        case 'usedCar':
+                          return <CarCard key={item.id} car={{
+                            id: item.id,
+                            imageUrl: item.imageUrl,
+                            title: item.title,
+                            price: item.metadata?.price || '',
+                            category: item.metadata?.category || '',
+                            year: item.metadata?.year,
+                            mileage: item.metadata?.mileage,
+                            fuelType: item.metadata?.fuelType,
+                            drivetrain: item.metadata?.drivetrain,
+                            location: item.metadata?.location,
+                            bodyStyle: item.metadata?.bodyStyle as any,
+                            isNew: item.type === 'newCar' ? true : false
+                          }} type={item.type === 'newCar' ? 'new' : 'used'} />;
+                        default:
+                          return null;
+                      }
+                    })}
+                      </div>}
                   </div>
                 </TabsContent>
                 
@@ -305,30 +274,22 @@ const Profile = () => {
                     <CardContent>
                       <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                          <FormField 
-                            control={form.control} 
-                            name="name" 
-                            render={({ field }) => (
-                              <FormItem>
+                          <FormField control={form.control} name="name" render={({
+                          field
+                        }) => <FormItem>
                                 <FormLabel>Name</FormLabel>
                                 <FormControl>
                                   <Input {...field} />
                                 </FormControl>
-                              </FormItem>
-                            )} 
-                          />
-                          <FormField 
-                            control={form.control} 
-                            name="email" 
-                            render={({ field }) => (
-                              <FormItem>
+                              </FormItem>} />
+                          <FormField control={form.control} name="email" render={({
+                          field
+                        }) => <FormItem>
                                 <FormLabel>Email Address</FormLabel>
                                 <FormControl>
                                   <Input {...field} type="email" />
                                 </FormControl>
-                              </FormItem>
-                            )} 
-                          />
+                              </FormItem>} />
                           <div className="flex items-center justify-between pt-2">
                             <Button type="button" variant="outline" onClick={() => setPersonalizationOpen(true)} className="flex items-center gap-2">
                               <Palette size={16} />
@@ -347,8 +308,6 @@ const Profile = () => {
         </main>
       </div>
       <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
-    </>
-  );
+    </>;
 };
-
 export default Profile;
