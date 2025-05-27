@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Car, Truck, Zap, Crown, Trophy, TrendingUp, LayoutGrid } from 'lucide-react';
@@ -61,15 +62,16 @@ const trendingComparisons = [{
 const BrowseByCategory: React.FC = () => {
   return (
     <section className="space-content">
-      <div className="mb-8 flex items-center justify-between">
-        <h2 className="flex items-center gap-2 text-2xl font-bold">
+      <div className="component-header">
+        <h2 className="component-title">
           <LayoutGrid size={24} />
           Browse By Category
         </h2>
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
-        {categories.map(category => <Link key={category.id} to={category.link} className="group">
+        {categories.map(category => (
+          <Link key={category.id} to={category.link} className="group">
             <div className="bg-white rounded-2xl p-6 text-center shadow-modern hover:shadow-modern-lg transition-all duration-300 group-hover:-translate-y-1">
               <div className="w-12 h-12 rounded-full bg-motortrend-red/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-motortrend-red group-hover:text-white transition-colors">
                 <div className="text-motortrend-red group-hover:text-white transition-colors">
@@ -83,19 +85,21 @@ const BrowseByCategory: React.FC = () => {
                 {category.description}
               </p>
             </div>
-          </Link>)}
+          </Link>
+        ))}
       </div>
 
       <div className="bg-white rounded-2xl p-8 shadow-modern">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="flex items-center gap-2 text-2xl font-bold">
+        <div className="component-header">
+          <h2 className="component-title">
             <TrendingUp size={24} />
             Trending Comparisons
           </h2>
         </div>
 
         <div className="space-y-4">
-          {trendingComparisons.map(comparison => <div key={comparison.id} className="flex items-center justify-between p-4 rounded-xl bg-neutral-7 hover:bg-neutral-6 transition-colors">
+          {trendingComparisons.map(comparison => (
+            <div key={comparison.id} className="flex items-center justify-between p-4 rounded-xl bg-neutral-7 hover:bg-neutral-6 transition-colors">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-motortrend-red/10 flex items-center justify-center flex-shrink-0">
                   <span className="text-motortrend-red typography-caption font-bold">vs</span>
@@ -107,7 +111,8 @@ const BrowseByCategory: React.FC = () => {
               <span className="typography-caption text-neutral-4">
                 {comparison.views}
               </span>
-            </div>)}
+            </div>
+          ))}
         </div>
       </div>
     </section>

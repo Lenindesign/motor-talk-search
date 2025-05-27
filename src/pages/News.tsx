@@ -43,7 +43,7 @@ const News: React.FC = () => {
             {
               id: 'n1',
               title: '2025 Porsche Macan EV: First Drive',
-              subtitle: 'Porsche enters the electric SUV market with a bang. Here’s how the Macan EV stacks up.',
+              subtitle: 'Porsche enters the electric SUV market with a bang. Here's how the Macan EV stacks up.',
               imageUrl: 'https://cdn.motor1.com/images/mgl/8ANLNB/s1/2024-porsche-macan-ev.jpg',
               tag: 'First Drive',
               tagColor: 'bg-blue-700',
@@ -92,68 +92,80 @@ const News: React.FC = () => {
 
           <TabsContent value="latest">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {latestNews.map(article => <ArticleCard key={article.id} article={article} />)}
+              {latestNews.map(article => (
+                <ArticleCard key={article.id} article={article} />
+              ))}
             </div>
           </TabsContent>
 
           <TabsContent value="trending">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {trendingNews.map(article => <ArticleCard key={article.id} article={article} />)}
+              {trendingNews.map(article => (
+                <ArticleCard key={article.id} article={article} />
+              ))}
             </div>
           </TabsContent>
 
           <TabsContent value="for-you">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {forYouNews.map(article => <ArticleCard key={article.id} article={article} />)}
+              {forYouNews.map(article => (
+                <ArticleCard key={article.id} article={article} />
+              ))}
             </div>
           </TabsContent>
         </Tabs>
 
         {/* Videos Section */}
         <section className="mb-8">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="flex items-center gap-2 text-2xl font-bold">
+          <div className="component-header">
+            <h2 className="component-title">
               <Video size={24} />
               Featured Videos
             </h2>
-            <Button variant="ghost" className="flex items-center gap-2">
+            <Button variant="ghost" className="component-view-all">
               View All
               <ArrowRight size={16} />
             </Button>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {featuredVideos.map(video => <VideoCard key={video.id} video={video} />)}
+            {featuredVideos.map(video => (
+              <VideoCard key={video.id} video={video} />
+            ))}
           </div>
         </section>
 
         {/* Photos Section */}
         <section className="mb-8">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="flex items-center gap-2 text-2xl font-bold">
+          <div className="component-header">
+            <h2 className="component-title">
               <Image size={24} />
               Photo Gallery
             </h2>
-            <Button variant="ghost" className="flex items-center gap-2">
+            <Button variant="ghost" className="component-view-all">
               View All
               <ArrowRight size={16} />
             </Button>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {featuredPhotos.map(photo => <PhotoCard key={photo.id} photo={photo} />)}
+            {featuredPhotos.map(photo => (
+              <PhotoCard key={photo.id} photo={photo} />
+            ))}
           </div>
         </section>
 
         {/* Latest Cars Section */}
         <section className="mb-8">
-          <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-2xl font-bold">Latest Cars</h2>
-            <Button variant="ghost" className="flex items-center gap-2">
+          <div className="component-header">
+            <h2 className="component-title">Latest Cars</h2>
+            <Button variant="ghost" className="component-view-all">
               View All
               <ArrowRight size={16} />
             </Button>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {latestCars.map(car => <CarCard key={car.id} car={car} type="new" />)}
+            {latestCars.map(car => (
+              <CarCard key={car.id} car={car} type="new" />
+            ))}
           </div>
         </section>
       </main>

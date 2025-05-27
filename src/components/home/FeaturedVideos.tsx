@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Video, ArrowRight } from 'lucide-react';
@@ -23,13 +24,13 @@ const videoItems: VideoData[] = [{
 const FeaturedVideos: React.FC = () => {
   return (
     <section className="space-content">
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="flex items-center gap-2 text-2xl font-bold">
+      <div className="component-header">
+        <h2 className="component-title">
           <Video size={24} />
           Featured Videos
         </h2>
         <Button variant="ghost" asChild>
-          <Link to="/videos" className="flex items-center gap-2">
+          <Link to="/videos" className="component-view-all">
             View All
             <ArrowRight size={16} />
           </Link>

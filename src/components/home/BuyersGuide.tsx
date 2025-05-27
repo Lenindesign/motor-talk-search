@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, ArrowRight } from 'lucide-react';
@@ -42,13 +43,13 @@ const guideItems: CarData[] = [{
 const BuyersGuide: React.FC = () => {
   return (
     <section className="space-content">
-      <div className="mb-8 flex items-center justify-between">
-        <h2 className="flex items-center gap-2 text-2xl font-bold">
+      <div className="component-header">
+        <h2 className="component-title">
           <ShoppingCart size={24} />
           Buyer's Guide
         </h2>
         <Button variant="ghost" asChild>
-          <Link to="/buyers-guide" className="flex items-center gap-2">
+          <Link to="/buyers-guide" className="component-view-all">
             View All
             <ArrowRight size={16} />
           </Link>

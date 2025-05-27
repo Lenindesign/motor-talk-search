@@ -346,6 +346,23 @@
   .space-tight {
     @apply space-y-2 lg:space-y-3;
   }
+
+  /* Global component header styles - consistent across all pages */
+  .component-header {
+    @apply mb-4 flex items-center justify-between;
+  }
+
+  .component-title {
+    @apply flex items-center gap-2 text-2xl font-bold;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-synthesis-weight: none;
+  }
+
+  .component-view-all {
+    @apply flex items-center gap-2;
+  }
 }
 
 /* Custom keyframes for new animations */

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Star, ArrowRight } from 'lucide-react';
@@ -33,13 +34,13 @@ const reviewItems: ArticleData[] = [{
 const LatestReviews: React.FC = () => {
   return (
     <section className="space-content">
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="flex items-center gap-2 text-2xl font-bold">
+      <div className="component-header">
+        <h2 className="component-title">
           <Star size={24} />
           Latest Reviews
         </h2>
         <Button variant="ghost" asChild>
-          <Link to="/news" className="flex items-center gap-2">
+          <Link to="/news" className="component-view-all">
             View All
             <ArrowRight size={16} />
           </Link>
