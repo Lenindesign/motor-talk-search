@@ -1,5 +1,4 @@
 import React from "react";
-
 import HeroCarousel from '../components/home/HeroCarousel';
 import LatestNews from '../components/home/LatestNews';
 import VehicleFinder from '../components/home/VehicleFinder';
@@ -11,7 +10,7 @@ const Index = () => {
   return <div className="flex min-h-screen flex-col bg-motortrend-gray w-full">
       
       <main className="flex flex-1 flex-col">
-         <div className="max-w-[980px] mx-auto px-4 sm:px-6 lg:px-0 py-8">
+         <div className="max-w-[980px] mx-auto  sm:px-6 lg:px-0 py-8">
             {/* Hero Carousel */}
              <div className="mb-8">
                <HeroCarousel />
