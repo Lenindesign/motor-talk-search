@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { Car, BookOpen, Sparkles, ArrowRightLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,8 +11,8 @@ import { CarData } from "../CarCard";
 import GarageFilters from "./GarageFilters";
 import GarageTabContent from "./GarageTabContent";
 import { toast } from "@/components/ui/use-toast";
-import { useNavigate } from 'react-router-dom'; 
-import ArticleCard from "../ArticleCard"; 
+import { useNavigate } from 'react-router-dom';
+import ArticleCard from "../ArticleCard";
 
 // Sample articles related to cars (in a real app, these would come from an API)
 const relatedArticles = [{
@@ -38,7 +37,6 @@ const relatedArticles = [{
   imageUrl: '/lovable-uploads/5b8a120c-3d52-41cb-8e20-9a16e6b9bf6a.png',
   date: '2025-03-05'
 }];
-
 const GarageContent = () => {
   const {
     savedItems
@@ -189,14 +187,12 @@ const GarageContent = () => {
   };
   const displayCars = getDisplayCars();
   const filteredArticles = getRelatedArticles();
-  const navigate = useNavigate(); 
-  
-  return (
-    <Card className="shadow-sm flex-1">
+  const navigate = useNavigate();
+  return <Card className="shadow-sm flex-1">
       <CardHeader className="flex flex-row justify-between items-center pb-2">
         <div>
           <CardTitle className="flex items-center gap-2 text-xl">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z" /></svg>
             {showComparison ? "Car Comparison" : "My Garage"}
           </CardTitle>
           <CardDescription className="text-base font-normal text-left px-0">
@@ -204,111 +200,64 @@ const GarageContent = () => {
           </CardDescription>
         </div>
         <div className="flex gap-2">
-          {showComparison ? (
-            <Button variant="outline" onClick={() => setShowComparison(false)}>
+          {showComparison ? <Button variant="outline" onClick={() => setShowComparison(false)}>
               Back to Garage
-            </Button>
-          ) : (
-            <>
+            </Button> : <>
               <div className="flex gap-2">
-                <Button 
-                  variant={contentView === 'garage' ? 'default' : 'outline'} 
-                  size="sm" 
-                  onClick={() => navigate('/buyers-guide')} 
-                  className="flex items-center gap-1"
-                >
+                <Button variant={contentView === 'garage' ? 'default' : 'outline'} size="sm" onClick={() => navigate('/buyers-guide')} className="flex items-center gap-1">
                   <Car size={16} />
                   <span className="hidden sm:inline">Cars</span>
                 </Button>
               </div>
               
-              {contentView === 'garage' && (
-                <GarageFilters 
-                  minScore={minScore} 
-                  sortByScore={sortByScore} 
-                  showFilters={showFilters} 
-                  onMinScoreChange={setMinScore} 
-                  onSortByScoreChange={setSortByScore} 
-                  onToggleFilters={() => setShowFilters(!showFilters)} 
-                />
-              )}
-            </>
-          )}
+              {contentView === 'garage' && <GarageFilters minScore={minScore} sortByScore={sortByScore} showFilters={showFilters} onMinScoreChange={setMinScore} onSortByScoreChange={setSortByScore} onToggleFilters={() => setShowFilters(!showFilters)} />}
+            </>}
         </div>
       </CardHeader>
 
-      <CardContent>
+      <CardContent className="pt-0">
         {/* Comparison View */}
-        {showComparison ? (
-          <div className="mt-2">
+        {showComparison ? <div className="mt-2">
             <CarComparisonTable cars={getSelectedCarData()} />
-          </div>
-        ) : (
-          // Regular Garage View
-          <>
+          </div> :
+      // Regular Garage View
+      <>
             <GarageStats />
             
-            {contentView === 'garage' && (
-              <>
+            {contentView === 'garage' && <>
                 {/* Add Another Car */}
                 <div className="mb-6">
-                  <h3 className="text-lg font-medium mb-4">Add another car</h3>
+                  <h3 className="mb-4 text-center font-semibold text-2xl">Add another car</h3>
                   <QuickAddCar activeTab={activeTab} />
                 </div>
                 
-                <GarageTabContent 
-                  activeTab={activeTab} 
-                  onTabChange={setActiveTab} 
-                  displayCars={displayCars} 
-                  savedItemToCarData={savedItemToCarData} 
-                  minScore={minScore} 
-                />
+                <GarageTabContent activeTab={activeTab} onTabChange={setActiveTab} displayCars={displayCars} savedItemToCarData={savedItemToCarData} minScore={minScore} />
                 
                 {/* Compare Cars */}
-                <GarageCompare 
-                  savedCars={savedCars} 
-                  selectedCars={selectedCars} 
-                  onToggleCar={(id, type) => handleToggleCarForComparison(id, type)} 
-                  onCompare={handleCompare} 
-                />
-              </>
-            )}
+                <GarageCompare savedCars={savedCars} selectedCars={selectedCars} onToggleCar={(id, type) => handleToggleCarForComparison(id, type)} onCompare={handleCompare} />
+              </>}
             
-            {contentView === 'articles' && (
-              <div className="mt-6">
+            {contentView === 'articles' && <div className="mt-6">
                 <h3 className="text-lg font-medium mb-4">Articles Related to Your Garage</h3>
-                {filteredArticles.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredArticles.map(article => (
-                      <ArticleCard 
-                        key={article.id} 
-                        article={{
-                          id: article.id,
-                          title: article.title,
-                          imageUrl: article.imageUrl,
-                          date: article.date,
-                          category: article.category,
-                          // featured and photoCount are optional and not in mock data
-                        }}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-10 bg-gray-50 rounded-lg">
+                {filteredArticles.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {filteredArticles.map(article => <ArticleCard key={article.id} article={{
+              id: article.id,
+              title: article.title,
+              imageUrl: article.imageUrl,
+              date: article.date,
+              category: article.category
+              // featured and photoCount are optional and not in mock data
+            }} />)}
+                  </div> : <div className="text-center py-10 bg-gray-50 rounded-lg">
                     <BookOpen size={48} className="mx-auto text-gray-300 mb-4" />
                     <h3 className="text-lg font-medium text-gray-700 mb-2">No related articles</h3>
                     <p className="text-gray-500 max-w-md mx-auto">
                       Add cars to your garage to see articles related to your vehicles
                     </p>
-                  </div>
-                )}
-              </div>
-            )}
-          </>
-        )}
+                  </div>}
+              </div>}
+          </>}
       </CardContent>
-    </Card>
-  );
+    </Card>;
 };
-
 export default GarageContent;
