@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import MainNavigation from '@/components/MainNavigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -10,14 +9,16 @@ import CarCard, { CarData } from '@/components/CarCard';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { useCarSearchApi } from '@/hooks/use-cars-api';
-
 const BuyersGuide: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'new' | 'used'>('new');
   const [searchTerm, setSearchTerm] = useState('');
   const [displayedSearchResults, setDisplayedSearchResults] = useState<CarData[]>([]);
 
   // Use the real car search API
-  const { data: apiSearchResults, isLoading: apiLoading } = useCarSearchApi(searchTerm);
+  const {
+    data: apiSearchResults,
+    isLoading: apiLoading
+  } = useCarSearchApi(searchTerm);
 
   // Transform API results to CarData format
   useEffect(() => {
@@ -89,7 +90,6 @@ const BuyersGuide: React.FC = () => {
     motorTrendRank: 1,
     motorTrendCategoryRank: 1
   }];
-
   const defaultUsedCars: CarData[] = [{
     id: 'used-1',
     title: '2023 Tesla Model 3 Long Range',
@@ -111,9 +111,7 @@ const BuyersGuide: React.FC = () => {
   // Use search results if available, otherwise show defaults
   const displayedNewCars = searchTerm ? displayedSearchResults : defaultNewCars;
   const displayedUsedCars = searchTerm ? displayedSearchResults : defaultUsedCars;
-
-  return (
-    <div className="bg-gray-50 min-h-screen">
+  return <div className="bg-gray-50 min-h-screen">
       <div className="max-w-[980px] mx-auto py-[32px] px-0">
         <h1 className="text-2xl font-bold mb-6">Buyer's Guide</h1>
         
@@ -122,12 +120,7 @@ const BuyersGuide: React.FC = () => {
           <div className="flex flex-col md:flex-row gap-4">
             <div className="relative flex-grow">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <Input 
-                placeholder="Search by make, model (e.g., VW, BMW, Ford)..." 
-                value={searchTerm} 
-                onChange={(e) => handleSearch(e.target.value)} 
-                className="pl-10 pr-4 py-2" 
-              />
+              <Input placeholder="Search by make, model (e.g., VW, BMW, Ford)..." value={searchTerm} onChange={e => handleSearch(e.target.value)} className="pl-10 pr-4 py-2" />
             </div>
             <Button variant="outline" className="flex items-center gap-2">
               <Filter className="h-4 w-4" />
@@ -141,36 +134,19 @@ const BuyersGuide: React.FC = () => {
         </div>
         
         {/* Search results info */}
-        {searchTerm && (
-          <div className="mb-4">
+        {searchTerm && <div className="mb-4">
             <p className="text-sm text-gray-600">
               {apiLoading ? 'Searching...' : `Found ${displayedSearchResults.length} results for "${searchTerm}"`}
             </p>
-            {!apiLoading && displayedSearchResults.length === 0 && (
-              <p className="text-sm text-orange-600 mt-1">
+            {!apiLoading && displayedSearchResults.length === 0 && <p className="text-sm text-orange-600 mt-1">
                 No results found. Try searching for "volkswagen" instead of "vw" or other car makes like "bmw", "ford", "toyota".
-              </p>
-            )}
-          </div>
-        )}
+              </p>}
+          </div>}
         
         {/* Best time to buy */}
-        <Card className="mb-6 border-green-200 bg-green-50">
-          <CardHeader className="pb-2">
-            <CardTitle className="flex items-center text-green-800 text-lg">
-              <Calendar className="h-5 w-5 mr-2 text-green-600" />
-              Best Time to Buy
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-green-800">
-              Current market conditions show that May is a great time to buy. 
-              Dealers are offering an average of 7% below MSRP on select models to clear inventory.
-            </p>
-          </CardContent>
-        </Card>
         
-        <Tabs defaultValue="new" value={activeTab} onValueChange={(value) => setActiveTab(value as 'new' | 'used')}>
+        
+        <Tabs defaultValue="new" value={activeTab} onValueChange={value => setActiveTab(value as 'new' | 'used')}>
           <TabsList>
             <TabsTrigger value="new">New Cars</TabsTrigger>
             <TabsTrigger value="used">Used Cars</TabsTrigger>
@@ -186,27 +162,15 @@ const BuyersGuide: React.FC = () => {
               </Badge>
             </div>
             
-            {apiLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div key={i} className="h-80 rounded-lg bg-gray-200 animate-pulse" />
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {displayedNewCars.length > 0 ? (
-                  displayedNewCars.map((car) => (
-                    <CarCard key={car.id} car={car} type="new" />
-                  ))
-                ) : (
-                  <div className="col-span-full text-center py-12">
+            {apiLoading ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[1, 2, 3, 4, 5, 6].map(i => <div key={i} className="h-80 rounded-lg bg-gray-200 animate-pulse" />)}
+              </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {displayedNewCars.length > 0 ? displayedNewCars.map(car => <CarCard key={car.id} car={car} type="new" />) : <div className="col-span-full text-center py-12">
                     <p className="text-gray-500">
                       {searchTerm ? `No vehicles found for "${searchTerm}". Try searching for "volkswagen" instead of "vw", or other makes like "bmw", "ford", "toyota".` : 'No vehicles match your search criteria.'}
                     </p>
-                  </div>
-                )}
-              </div>
-            )}
+                  </div>}
+              </div>}
           </TabsContent>
           
           <TabsContent value="used" className="mt-6">
@@ -219,32 +183,18 @@ const BuyersGuide: React.FC = () => {
               </Badge>
             </div>
             
-            {apiLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="h-80 rounded-lg bg-gray-200 animate-pulse" />
-                ))}
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {displayedUsedCars.length > 0 ? (
-                  displayedUsedCars.map((car) => (
-                    <CarCard key={car.id} car={car} type="used" />
-                  ))
-                ) : (
-                  <div className="col-span-full text-center py-12">
+            {apiLoading ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[1, 2, 3].map(i => <div key={i} className="h-80 rounded-lg bg-gray-200 animate-pulse" />)}
+              </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {displayedUsedCars.length > 0 ? displayedUsedCars.map(car => <CarCard key={car.id} car={car} type="used" />) : <div className="col-span-full text-center py-12">
                     <p className="text-gray-500">
                       {searchTerm ? `No vehicles found for "${searchTerm}". Try searching for "volkswagen" instead of "vw", or other makes like "bmw", "ford", "toyota".` : 'No vehicles match your search criteria.'}
                     </p>
-                  </div>
-                )}
-              </div>
-            )}
+                  </div>}
+              </div>}
           </TabsContent>
         </Tabs>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default BuyersGuide;
