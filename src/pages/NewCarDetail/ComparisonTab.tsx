@@ -3,13 +3,14 @@ import { TrendingUp, TrendingDown } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { classComparison } from './utils';
-
 interface ComparisonTabProps {
   carTitle: string;
   carCategory: string;
 }
-
-const ComparisonTab: React.FC<ComparisonTabProps> = ({ carTitle, carCategory }) => {
+const ComparisonTab: React.FC<ComparisonTabProps> = ({
+  carTitle,
+  carCategory
+}) => {
   // Calculate overall score (weighted average)
   const overallScore = classComparison.reduce((acc, item) => {
     const percentage = (item.thisVehicle - item.classAverage) / item.classAverage * 100;
@@ -19,7 +20,6 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({ carTitle, carCategory }) 
     const sign = value >= 0 ? '+' : '';
     return `${sign}${value.toFixed(1)}%`;
   };
-
   return <div className="space-y-8">
       {/* Overall Comparison Header */}
       <Card>
@@ -39,41 +39,34 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({ carTitle, carCategory }) 
           {/* New Horizontal Bar Chart Section */}
           <div className="space-y-6 pt-4">
             {classComparison.map(item => {
-              const thisVehicleValue = item.thisVehicle;
-              const classAverageValue = item.classAverage;
-              const percentageDiff = (thisVehicleValue - classAverageValue) / classAverageValue * 100;
+            const thisVehicleValue = item.thisVehicle;
+            const classAverageValue = item.classAverage;
+            const percentageDiff = (thisVehicleValue - classAverageValue) / classAverageValue * 100;
+            let isThisVehicleBetterByDefault = thisVehicleValue > classAverageValue; // Higher is better
+            if (item.metric === 'Price') {
+              isThisVehicleBetterByDefault = thisVehicleValue < classAverageValue; // Lower is better for Price
+            }
+            let thisVehicleBarColor = 'bg-sky-500'; // Neutral default
+            if (item.metric === 'Price') {
+              if (thisVehicleValue < classAverageValue) thisVehicleBarColor = 'bg-green-500';else if (thisVehicleValue > classAverageValue) thisVehicleBarColor = 'bg-red-500';
+            } else {
+              if (thisVehicleValue > classAverageValue) thisVehicleBarColor = 'bg-green-500';else if (thisVehicleValue < classAverageValue) thisVehicleBarColor = 'bg-red-500';
+            }
 
-              let isThisVehicleBetterByDefault = thisVehicleValue > classAverageValue; // Higher is better
-              if (item.metric === 'Price') {
-                isThisVehicleBetterByDefault = thisVehicleValue < classAverageValue; // Lower is better for Price
-              }
-
-              let thisVehicleBarColor = 'bg-sky-500'; // Neutral default
-              if (item.metric === 'Price') {
-                if (thisVehicleValue < classAverageValue) thisVehicleBarColor = 'bg-green-500';
-                else if (thisVehicleValue > classAverageValue) thisVehicleBarColor = 'bg-red-500';
-              } else {
-                if (thisVehicleValue > classAverageValue) thisVehicleBarColor = 'bg-green-500';
-                else if (thisVehicleValue < classAverageValue) thisVehicleBarColor = 'bg-red-500';
-              }
-
-              // Determine max value for scaling bars
-              let maxValueScale = 100; // Default for 0-100 scores
-              if (item.metric === 'Price' || item.unit === 'MPGe' || item.unit === 'cu ft') {
-                maxValueScale = Math.max(thisVehicleValue, classAverageValue, 0) * 1.25; // Scale to 125% of the max observed value
-                if (maxValueScale === 0) maxValueScale = 100; // Fallback if values are 0
-              }
-              
-              const thisVehicleWidth = (thisVehicleValue / maxValueScale) * 100;
-              const classAverageWidth = (classAverageValue / maxValueScale) * 100;
-
-              return (
-                <div key={item.metric} className="space-y-2 pb-2 border-b border-gray-200 last:border-b-0 last:pb-0">
+            // Determine max value for scaling bars
+            let maxValueScale = 100; // Default for 0-100 scores
+            if (item.metric === 'Price' || item.unit === 'MPGe' || item.unit === 'cu ft') {
+              maxValueScale = Math.max(thisVehicleValue, classAverageValue, 0) * 1.25; // Scale to 125% of the max observed value
+              if (maxValueScale === 0) maxValueScale = 100; // Fallback if values are 0
+            }
+            const thisVehicleWidth = thisVehicleValue / maxValueScale * 100;
+            const classAverageWidth = classAverageValue / maxValueScale * 100;
+            return <div key={item.metric} className="space-y-2 pb-2 border-b border-gray-200 last:border-b-0 last:pb-0">
                   <div className="flex justify-between items-center">
-                    <span className="font-semibold text-md text-gray-700">{item.metric}</span>
-                    <span className={`font-semibold text-sm ${isThisVehicleBetterByDefault ? 'text-green-600' : (percentageDiff === 0 ? 'text-gray-600' : 'text-red-600')}`}>
+                    <span className="font-semibold text-xl text-gray-700">{item.metric}</span>
+                    <span className={`font-semibold text-sm ${isThisVehicleBetterByDefault ? 'text-green-600' : percentageDiff === 0 ? 'text-gray-600' : 'text-red-600'}`}>
                       {formatPercentage(percentageDiff)}
-                      {percentageDiff !== 0 ? (isThisVehicleBetterByDefault ? ' Better' : ' Worse') : ' Average'}
+                      {percentageDiff !== 0 ? isThisVehicleBetterByDefault ? ' Better' : ' Worse' : ' Average'}
                     </span>
                   </div>
 
@@ -81,15 +74,14 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({ carTitle, carCategory }) 
                   <div className="space-y-1">
                     <div className="flex justify-between text-sm text-gray-600">
                       <span>{carTitle}</span>
-                      <span className={`font-medium ${thisVehicleBarColor.includes('green') ? 'text-green-700' : (thisVehicleBarColor.includes('red') ? 'text-red-700' : 'text-sky-700')}`}>
+                      <span className={`font-medium ${thisVehicleBarColor.includes('green') ? 'text-green-700' : thisVehicleBarColor.includes('red') ? 'text-red-700' : 'text-sky-700'}`}>
                         {item.thisVehicle}{item.unit}
                       </span>
                     </div>
                     <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
-                      <div 
-                        className={`h-full rounded-full transition-all duration-300 ${thisVehicleBarColor}`}
-                        style={{ width: `${Math.max(0, Math.min(thisVehicleWidth, 100))}%` }} 
-                      />
+                      <div className={`h-full rounded-full transition-all duration-300 ${thisVehicleBarColor}`} style={{
+                    width: `${Math.max(0, Math.min(thisVehicleWidth, 100))}%`
+                  }} />
                     </div>
                   </div>
 
@@ -102,15 +94,13 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({ carTitle, carCategory }) 
                       </span>
                     </div>
                     <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full rounded-full bg-gray-400 transition-all duration-300" 
-                        style={{ width: `${Math.max(0, Math.min(classAverageWidth, 100))}%` }}
-                      />
+                      <div className="h-full rounded-full bg-gray-400 transition-all duration-300" style={{
+                    width: `${Math.max(0, Math.min(classAverageWidth, 100))}%`
+                  }} />
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                </div>;
+          })}
           </div>
 
           {/* How it Compares Section */}
