@@ -48,7 +48,7 @@ const CompetitorsComparison: React.FC = () => {
                   </ul>
                 </div>
                 <div className="space-y-2 mt-4">
-                  <h5 className="text-sm font-medium text-red-600">Cons</h5>
+                  <h5 className="font-medium text-red-600 text-base">Cons</h5>
                   <ul className="space-y-1 text-sm text-gray-600">
                     {currentVehicle.cons.map((con, index) => <li key={index} className="flex items-center">
                         <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
