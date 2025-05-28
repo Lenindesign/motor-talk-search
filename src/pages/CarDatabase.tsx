@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,6 +6,7 @@ import MainNavigation from "../components/MainNavigation";
 import { useIsMobile } from "../hooks/use-mobile";
 import SearchBar from "../components/SearchBar";
 import CarSelector from "../components/CarSelector";
+import CarSelectorApi from "../components/CarSelectorApi";
 import { useToast } from "@/hooks/use-toast";
 import { Database, Car, Search } from 'lucide-react';
 
@@ -16,24 +16,31 @@ const CarDatabase = () => {
   const { toast } = useToast();
   
   const [selectedCar, setSelectedCar] = useState<{
-    makeId: string | null;
-    modelId: string | null;
+    make: string | null;
+    model: string | null;
     year: number | null;
+    details?: any[];
   }>({
-    makeId: null,
-    modelId: null,
-    year: null
+    make: null,
+    model: null,
+    year: null,
+    details: []
   });
 
-  const handleSelectionChange = (selection: { makeId: string | null, modelId: string | null, year: number | null }) => {
+  const handleSelectionChange = (selection: { 
+    make: string | null, 
+    model: string | null, 
+    year: number | null,
+    details?: any[]
+  }) => {
     setSelectedCar(selection);
   };
 
   const handleSearch = () => {
-    if (selectedCar.makeId && selectedCar.modelId && selectedCar.year) {
+    if (selectedCar.make && selectedCar.model && selectedCar.year) {
       toast({
         title: "Car Selected",
-        description: `You've selected a ${selectedCar.year} car. In a real app, this would search for this vehicle.`
+        description: `You've selected a ${selectedCar.year} ${selectedCar.make} ${selectedCar.model}. Found ${selectedCar.details?.length || 0} configurations.`
       });
       // In a real application, you would navigate to a search results page or perform some action
     } else {
@@ -67,7 +74,7 @@ const CarDatabase = () => {
       <main className="max-w-[980px] mx-auto px-4 py-8">
         <div className="mb-8 flex justify-between items-center">
           <h1 className="text-3xl font-bold flex items-center">
-            <Database className="mr-2" /> Car Database
+            <Database className="mr-2" /> Car Database (API Powered)
           </h1>
           <Button onClick={() => navigate("/garage")} className="flex items-center gap-2">
             <Car size={16} />
@@ -79,21 +86,21 @@ const CarDatabase = () => {
           <div className="md:col-span-2">
             <Card>
               <CardHeader>
-                <CardTitle>Find a Car</CardTitle>
+                <CardTitle>Find a Car (Real API Data)</CardTitle>
                 <CardDescription>
-                  Select a make, model, and year from our database
+                  Select a make, model, and year from our live car database API
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
-                <CarSelector onSelectionChange={handleSelectionChange} />
+                <CarSelectorApi onSelectionChange={handleSelectionChange} />
                 
                 <Button 
                   onClick={handleSearch} 
                   className="w-full flex items-center justify-center gap-2"
-                  disabled={!selectedCar.makeId || !selectedCar.modelId || !selectedCar.year}
+                  disabled={!selectedCar.make || !selectedCar.model || !selectedCar.year}
                 >
                   <Search size={16} />
-                  Search Inventory
+                  Search Inventory ({selectedCar.details?.length || 0} configurations)
                 </Button>
               </CardContent>
             </Card>
@@ -102,30 +109,47 @@ const CarDatabase = () => {
           <div>
             <Card>
               <CardHeader>
-                <CardTitle>Database Info</CardTitle>
+                <CardTitle>Live API Data</CardTitle>
                 <CardDescription>
-                  Our car database is powered by Supabase
+                  Real-time car data from API Ninjas
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-500">
-                  This database contains information about various car makes, models, and years.
-                  The data is stored in Supabase and accessed via a React application.
+                  This database now uses live data from the API Ninjas Cars API, 
+                  providing real-time information about car makes, models, years, 
+                  and specifications.
                 </p>
                 <ul className="mt-4 space-y-2 text-sm">
                   <li className="flex items-center">
                     <span className="mr-2 h-2 w-2 rounded-full bg-green-500"></span>
-                    Car Makes
+                    Live Car Makes
                   </li>
                   <li className="flex items-center">
                     <span className="mr-2 h-2 w-2 rounded-full bg-blue-500"></span>
-                    Car Models
+                    Real Model Data
                   </li>
                   <li className="flex items-center">
                     <span className="mr-2 h-2 w-2 rounded-full bg-amber-500"></span>
-                    Model Years
+                    Current Model Years
+                  </li>
+                  <li className="flex items-center">
+                    <span className="mr-2 h-2 w-2 rounded-full bg-purple-500"></span>
+                    Technical Specifications
                   </li>
                 </ul>
+                
+                {selectedCar.details && selectedCar.details.length > 0 && (
+                  <div className="mt-4 p-3 border rounded bg-green-50">
+                    <h4 className="font-medium text-sm mb-2">Selected Car Info:</h4>
+                    <p className="text-xs">
+                      {selectedCar.year} {selectedCar.make} {selectedCar.model}
+                    </p>
+                    <p className="text-xs text-gray-600">
+                      {selectedCar.details.length} configuration(s) available
+                    </p>
+                  </div>
+                )}
               </CardContent>
             </Card>
           </div>
