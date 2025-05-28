@@ -121,7 +121,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   
                   {/* Content */}
-                  <div className="left-0 right-0 px-12 lg:px-12 pb-4">
+                  <div className="absolute bottom-0 left-0 right-0 px-6 lg:px-12">
                     <div className="max-w-4xl py-[32px]">
                       <div className="flex items-center gap-4 mb-4">
                         <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-white typography-small font-semibold tracking-wide ${slide.tagColor}`}>
