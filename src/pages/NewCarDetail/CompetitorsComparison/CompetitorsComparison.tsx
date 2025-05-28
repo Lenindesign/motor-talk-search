@@ -34,7 +34,7 @@ const CompetitorsComparison: React.FC = () => {
                 <div className="flex flex-col items-center">
                   <img src={currentVehicle.imageUrl} alt={currentVehicle.name} className="w-32 h-20 object-cover rounded-lg mb-2" />
                   <h4 className="font-semibold">{currentVehicle.name}</h4>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-gray-500 text-lg font-semibold">
                     ${currentVehicle.price.toLocaleString()} MSRP
                   </p>
                 </div>
@@ -65,7 +65,7 @@ const CompetitorsComparison: React.FC = () => {
                   <div className="flex flex-col items-center">
                     <img src={competitor.imageUrl} alt={competitor.name} className="w-32 h-20 object-cover rounded-lg mb-2" />
                     <h4 className="font-semibold">{competitor.name}</h4>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-gray-500 text-lg font-semibold">
                       ${competitor.price.toLocaleString()} MSRP
                     </p>
                   </div>
