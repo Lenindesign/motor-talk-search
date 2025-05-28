@@ -1,4 +1,3 @@
-
 import { supabase } from "@/integrations/supabase/client";
 
 const API_BASE_URL = 'https://api.api-ninjas.com/v1';
@@ -126,33 +125,104 @@ export const searchCarsFromApi = async (query: string): Promise<CarData[]> => {
   try {
     const apiKey = await getApiKey();
     
-    // Try searching by make first
-    const makeResponse = await fetch(`${API_BASE_URL}/cars?make=${encodeURIComponent(query)}&limit=20`, {
-      headers: {
-        'X-Api-Key': apiKey,
-      },
-    });
+    // Map common abbreviations to full names
+    const makeMapping: { [key: string]: string[] } = {
+      'vw': ['volkswagen'],
+      'benz': ['mercedes-benz'],
+      'merc': ['mercedes-benz'],
+      'bmw': ['bmw'],
+      'audi': ['audi'],
+      'ford': ['ford'],
+      'toyota': ['toyota'],
+      'honda': ['honda'],
+      'nissan': ['nissan'],
+      'hyundai': ['hyundai'],
+      'kia': ['kia'],
+      'mazda': ['mazda'],
+      'subaru': ['subaru'],
+      'volvo': ['volvo'],
+      'lexus': ['lexus'],
+      'acura': ['acura'],
+      'infiniti': ['infiniti'],
+      'cadillac': ['cadillac'],
+      'buick': ['buick'],
+      'chevrolet': ['chevrolet'],
+      'chevy': ['chevrolet'],
+      'dodge': ['dodge'],
+      'jeep': ['jeep'],
+      'ram': ['ram'],
+      'chrysler': ['chrysler'],
+      'gmc': ['gmc'],
+      'lincoln': ['lincoln'],
+      'tesla': ['tesla'],
+      'porsche': ['porsche'],
+      'jaguar': ['jaguar'],
+      'land rover': ['land rover'],
+      'mini': ['mini'],
+      'fiat': ['fiat'],
+      'alfa romeo': ['alfa romeo'],
+      'maserati': ['maserati'],
+      'ferrari': ['ferrari'],
+      'lamborghini': ['lamborghini'],
+      'bentley': ['bentley'],
+      'rolls-royce': ['rolls-royce']
+    };
 
-    if (makeResponse.ok) {
-      const makeResults: CarData[] = await makeResponse.json();
-      if (makeResults.length > 0) {
-        return makeResults;
+    const searchTerms = makeMapping[query.toLowerCase()] || [query];
+    console.log('Searching for terms:', searchTerms);
+    
+    let allResults: CarData[] = [];
+    
+    // Try each search term
+    for (const searchTerm of searchTerms) {
+      // Try searching by make first
+      try {
+        const makeResponse = await fetch(`${API_BASE_URL}/cars?make=${encodeURIComponent(searchTerm)}&limit=20`, {
+          headers: {
+            'X-Api-Key': apiKey,
+          },
+        });
+
+        if (makeResponse.ok) {
+          const makeResults: CarData[] = await makeResponse.json();
+          console.log(`Make search results for "${searchTerm}":`, makeResults);
+          if (makeResults.length > 0) {
+            allResults = allResults.concat(makeResults);
+          }
+        }
+      } catch (error) {
+        console.error(`Error searching by make for "${searchTerm}":`, error);
+      }
+
+      // If no results by make, try by model
+      if (allResults.length === 0) {
+        try {
+          const modelResponse = await fetch(`${API_BASE_URL}/cars?model=${encodeURIComponent(searchTerm)}&limit=20`, {
+            headers: {
+              'X-Api-Key': apiKey,
+            },
+          });
+
+          if (modelResponse.ok) {
+            const modelResults: CarData[] = await modelResponse.json();
+            console.log(`Model search results for "${searchTerm}":`, modelResults);
+            if (modelResults.length > 0) {
+              allResults = allResults.concat(modelResults);
+            }
+          }
+        } catch (error) {
+          console.error(`Error searching by model for "${searchTerm}":`, error);
+        }
       }
     }
 
-    // If no results by make, try by model
-    const modelResponse = await fetch(`${API_BASE_URL}/cars?model=${encodeURIComponent(query)}&limit=20`, {
-      headers: {
-        'X-Api-Key': apiKey,
-      },
-    });
+    // Remove duplicates based on make, model, and year
+    const uniqueResults = allResults.filter((car, index, array) => 
+      array.findIndex(c => c.make === car.make && c.model === car.model && c.year === car.year) === index
+    );
 
-    if (modelResponse.ok) {
-      const modelResults: CarData[] = await modelResponse.json();
-      return modelResults;
-    }
-
-    return [];
+    console.log('Final unique results:', uniqueResults);
+    return uniqueResults;
   } catch (error) {
     console.error('Error searching cars:', error);
     return [];

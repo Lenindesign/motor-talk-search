@@ -14,8 +14,7 @@ import { useCarSearchApi } from '@/hooks/use-cars-api';
 const BuyersGuide: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'new' | 'used'>('new');
   const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [searchResults, setSearchResults] = useState<CarData[]>([]);
+  const [displayedSearchResults, setDisplayedSearchResults] = useState<CarData[]>([]);
 
   // Use the real car search API
   const { data: apiSearchResults, isLoading: apiLoading } = useCarSearchApi(searchTerm);
@@ -23,6 +22,7 @@ const BuyersGuide: React.FC = () => {
   // Transform API results to CarData format
   useEffect(() => {
     if (apiSearchResults && apiSearchResults.length > 0) {
+      console.log('API Search Results:', apiSearchResults);
       const transformedResults: CarData[] = apiSearchResults.map((car, index) => ({
         id: `api-${car.make}-${car.model}-${car.year}-${index}`,
         title: `${car.year} ${car.make} ${car.model}`,
@@ -34,28 +34,25 @@ const BuyersGuide: React.FC = () => {
         horsepowerTorque: car.cylinders ? `${car.cylinders} cylinders` : undefined,
         fuelType: car.fuel_type || 'Gasoline',
         drivetrain: car.drive || 'FWD',
-        motorTrendScore: Math.random() * 2 + 7, // Random score for demo
+        motorTrendScore: Math.random() * 2 + 7,
         motorTrendRank: index + 1,
         motorTrendCategoryRank: index + 1
       }));
-      setSearchResults(transformedResults);
-      setIsLoading(false);
+      console.log('Transformed Results:', transformedResults);
+      setDisplayedSearchResults(transformedResults);
     } else if (searchTerm && !apiLoading) {
-      setSearchResults([]);
-      setIsLoading(false);
+      console.log('No results found for:', searchTerm);
+      setDisplayedSearchResults([]);
+    } else if (!searchTerm) {
+      setDisplayedSearchResults([]);
     }
   }, [apiSearchResults, apiLoading, searchTerm]);
 
-  // Update loading state based on API
-  useEffect(() => {
-    setIsLoading(apiLoading);
-  }, [apiLoading]);
-
-  // Handle search from GlobalHeader
+  // Handle search
   const handleSearch = (query: string) => {
+    console.log('Searching for:', query);
     setSearchTerm(query);
     if (query.trim()) {
-      setIsLoading(true);
       toast.success('Searching vehicles...', {
         description: `Looking for "${query}" in our database`
       });
@@ -112,8 +109,8 @@ const BuyersGuide: React.FC = () => {
   }];
 
   // Use search results if available, otherwise show defaults
-  const displayedNewCars = searchTerm ? searchResults : defaultNewCars;
-  const displayedUsedCars = searchTerm ? searchResults : defaultUsedCars;
+  const displayedNewCars = searchTerm ? displayedSearchResults : defaultNewCars;
+  const displayedUsedCars = searchTerm ? displayedSearchResults : defaultUsedCars;
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -147,8 +144,13 @@ const BuyersGuide: React.FC = () => {
         {searchTerm && (
           <div className="mb-4">
             <p className="text-sm text-gray-600">
-              {isLoading ? 'Searching...' : `Found ${searchResults.length} results for "${searchTerm}"`}
+              {apiLoading ? 'Searching...' : `Found ${displayedSearchResults.length} results for "${searchTerm}"`}
             </p>
+            {!apiLoading && displayedSearchResults.length === 0 && (
+              <p className="text-sm text-orange-600 mt-1">
+                No results found. Try searching for "volkswagen" instead of "vw" or other car makes like "bmw", "ford", "toyota".
+              </p>
+            )}
           </div>
         )}
         
@@ -184,7 +186,7 @@ const BuyersGuide: React.FC = () => {
               </Badge>
             </div>
             
-            {isLoading ? (
+            {apiLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
                   <div key={i} className="h-80 rounded-lg bg-gray-200 animate-pulse" />
@@ -199,7 +201,7 @@ const BuyersGuide: React.FC = () => {
                 ) : (
                   <div className="col-span-full text-center py-12">
                     <p className="text-gray-500">
-                      {searchTerm ? `No vehicles found for "${searchTerm}". Try searching for makes like BMW, Ford, or VW.` : 'No vehicles match your search criteria.'}
+                      {searchTerm ? `No vehicles found for "${searchTerm}". Try searching for "volkswagen" instead of "vw", or other makes like "bmw", "ford", "toyota".` : 'No vehicles match your search criteria.'}
                     </p>
                   </div>
                 )}
@@ -217,7 +219,7 @@ const BuyersGuide: React.FC = () => {
               </Badge>
             </div>
             
-            {isLoading ? (
+            {apiLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="h-80 rounded-lg bg-gray-200 animate-pulse" />
@@ -232,7 +234,7 @@ const BuyersGuide: React.FC = () => {
                 ) : (
                   <div className="col-span-full text-center py-12">
                     <p className="text-gray-500">
-                      {searchTerm ? `No vehicles found for "${searchTerm}". Try searching for makes like BMW, Ford, or VW.` : 'No vehicles match your search criteria.'}
+                      {searchTerm ? `No vehicles found for "${searchTerm}". Try searching for "volkswagen" instead of "vw", or other makes like "bmw", "ford", "toyota".` : 'No vehicles match your search criteria.'}
                     </p>
                   </div>
                 )}
