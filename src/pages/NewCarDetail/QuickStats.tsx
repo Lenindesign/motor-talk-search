@@ -1,21 +1,20 @@
-
 import React from 'react';
 import { Award, Users, Zap, Shield } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-
 interface QuickStatsProps {
   overallRating: number;
   ownerRating: number;
 }
-
-const QuickStats: React.FC<QuickStatsProps> = ({ overallRating, ownerRating }) => {
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+const QuickStats: React.FC<QuickStatsProps> = ({
+  overallRating,
+  ownerRating
+}) => {
+  return <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       <Card className="bg-white shadow-modern border-modern rounded-xl overflow-hidden hover:shadow-modern-lg transition-all duration-200">
         <CardContent className="card-spacing text-center">
           <div className="flex items-center justify-center mb-4">
-            <div className="flex items-center justify-center w-12 h-12 bg-yellow-50 rounded-full mr-3">
-              <Award className="h-6 w-6 text-yellow-600" />
+            <div className="flex items-center justify-center w-12 h-12 rounded-full mr-3 bg-motortrend-dark">
+              <Award className="h-6 w-6 text-white" />
             </div>
             <div className="text-left">
               <div className="flex items-baseline">
@@ -82,8 +81,6 @@ const QuickStats: React.FC<QuickStatsProps> = ({ overallRating, ownerRating }) =
           <p className="typography-caption text-neutral-4 font-medium">Safety Rating</p>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>;
 };
-
 export default QuickStats;
