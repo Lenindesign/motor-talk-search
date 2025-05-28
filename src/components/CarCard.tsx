@@ -1,10 +1,12 @@
-import React from 'react';
+
+import React, { memo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { useSavedItems } from '../contexts/SavedItemsContext';
-import { useImageLoader } from './CarCard/useImageLoader';
+import { useCardSave } from '../hooks/useCardSave';
+import { useOptimizedImageLoader } from '../hooks/useOptimizedImageLoader';
 import CarSpecs from './CarCard/CarSpecs';
 import GarageActionMenu from './GarageActionMenu';
 import BaseCard from './ui/BaseCard';
+import CardSkeleton from './ui/CardSkeleton';
 import { CardType } from '@/styles/cardStyles';
 import { cn } from '@/lib/utils';
 import { CarData, CarCardProps } from './CarCard/types';
@@ -16,44 +18,23 @@ interface EnhancedCarCardProps extends CarCardProps {
   className?: string;
 }
 
-const CarCard: React.FC<EnhancedCarCardProps> = ({ 
+const CarCard: React.FC<EnhancedCarCardProps> = memo(({ 
   car, 
   type,
-  width = 800,
-  height = width * (9/16),
-  quality = 80,
   priority = false,
-  fallbackImageUrl = 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-  secondaryFallbackImageUrl = 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-  tertiaryFallbackImageUrl = 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-  quaternaryFallbackImageUrl = 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-  quinaryFallbackImageUrl = 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-  blurRadius = 3,
-  borderRadius = 8,
-  transitionDuration = 0.3,
   isLoading = false,
-  onAction,
-  isSaved = false,
   className
 }) => {
-  const { addSavedItem, removeSavedItem, isSaved: isItemSaved } = useSavedItems();
-  const isCarSaved = isItemSaved(car.id, type === 'new' ? 'newCar' : 'usedCar');
-  
-  const { imageLoading, imageError, currentImage } = useImageLoader({
+  const { currentImage, isLoading: imageLoading } = useOptimizedImageLoader({
     imageUrl: car.imageUrl,
-    fallbackImageUrl,
-    secondaryFallbackImageUrl,
-    tertiaryFallbackImageUrl,
-    quaternaryFallbackImageUrl,
-    quinaryFallbackImageUrl
+    priority
   });
 
-  const savedItem = {
+  const { isSaved, toggleSave } = useCardSave({
     id: car.id,
+    type: type === 'new' ? 'newCar' : 'usedCar',
     title: car.title,
-    type: type === 'new' ? 'newCar' as const : 'usedCar' as const,
     imageUrl: car.imageUrl,
-    savedAt: new Date().toISOString(),
     metadata: {
       price: car.price,
       category: car.category,
@@ -65,17 +46,13 @@ const CarCard: React.FC<EnhancedCarCardProps> = ({
       bodyStyle: car.bodyStyle,
       isNew: car.isNew
     }
-  };
-
-  const handleSave = () => {
-    if (isCarSaved) {
-      removeSavedItem(car.id, type === 'new' ? 'newCar' : 'usedCar');
-    } else {
-      addSavedItem(savedItem);
-    }
-  };
+  });
 
   const linkPath = type === 'new' ? `/new-car/${car.id}` : `/used-car/${car.id}`;
+
+  if (isLoading) {
+    return <CardSkeleton className={className} variant="detailed" />;
+  }
 
   return (
     <BaseCard
@@ -84,31 +61,27 @@ const CarCard: React.FC<EnhancedCarCardProps> = ({
         'flex flex-col w-full h-full bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200',
         className
       )}
-      isSaved={isCarSaved}
-      onToggleSave={handleSave}
-      isLoading={isLoading}
+      isSaved={isSaved}
+      onToggleSave={toggleSave}
       onClick={() => window.location.href = linkPath}
     >
-      <div className="flex-grow">
+      <div className="flex-grow relative">
         <img
           src={currentImage}
           alt={car.title}
           className={cn(
-            'w-full h-full object-cover transition-transform duration-300 group-hover:scale-105',
-            imageLoading ? 'blur-2xl' : 'blur-0'
+            'w-full h-full object-cover transition-all duration-300 group-hover:scale-105',
+            imageLoading ? 'opacity-0' : 'opacity-100'
           )}
-          onLoad={() => {
-            if (imageLoading) {
-              // Add any additional loading logic here
-            }
-          }}
-          onError={() => {
-            // Add any additional error handling here
-          }}
-          loading="lazy"
-          width={width}
-          height={height}
+          loading={priority ? "eager" : "lazy"}
         />
+        {car.isNew && (
+          <div className="absolute top-2 right-2">
+            <span className="bg-green-600 text-white px-2 py-1 rounded text-xs font-bold">
+              NEW {car.year}
+            </span>
+          </div>
+        )}
       </div>
       
       <div className="p-4 flex-grow flex flex-col">
@@ -134,6 +107,8 @@ const CarCard: React.FC<EnhancedCarCardProps> = ({
       </div>
     </BaseCard>
   );
-};
+});
+
+CarCard.displayName = 'CarCard';
 
 export default CarCard;

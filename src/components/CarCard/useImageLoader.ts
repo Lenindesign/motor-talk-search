@@ -1,4 +1,6 @@
 
+// @deprecated - Use useOptimizedImageLoader instead
+// This file is kept for backward compatibility
 import { useState, useEffect } from 'react';
 
 interface UseImageLoaderProps {
@@ -12,64 +14,37 @@ interface UseImageLoaderProps {
 
 export const useImageLoader = ({
   imageUrl,
-  fallbackImageUrl,
-  secondaryFallbackImageUrl,
-  tertiaryFallbackImageUrl,
-  quaternaryFallbackImageUrl,
-  quinaryFallbackImageUrl
+  fallbackImageUrl
 }: UseImageLoaderProps) => {
   const [imageLoading, setImageLoading] = useState(true);
   const [imageError, setImageError] = useState(false);
   const [currentImage, setCurrentImage] = useState<string>(imageUrl);
 
   useEffect(() => {
-    const loadImage = async () => {
-      try {
-        const img = new Image();
-        img.onload = () => {
-          setCurrentImage(imageUrl);
-          setImageLoading(false);
-          setImageError(false);
-        };
-        img.onerror = () => {
-          // Try fallback images in order
-          const fallbacks = [
-            fallbackImageUrl,
-            secondaryFallbackImageUrl,
-            tertiaryFallbackImageUrl,
-            quaternaryFallbackImageUrl,
-            quinaryFallbackImageUrl
-          ];
-          for (const fallback of fallbacks) {
-            if (fallback) {
-              setCurrentImage(fallback);
-              setImageLoading(true);
-              setImageError(false);
-              const fallbackImg = new Image();
-              fallbackImg.onload = () => {
-                setCurrentImage(fallback);
-                setImageLoading(false);
-                setImageError(false);
-              };
-              fallbackImg.onerror = () => {
-                setImageError(true);
-              };
-              fallbackImg.src = fallback;
-              return;
-            }
-          }
-          setImageError(true);
-        };
-        img.src = imageUrl;
-      } catch (error) {
-        console.error('Error loading image:', error);
+    // Simplified version for backward compatibility
+    const img = new Image();
+    img.onload = () => {
+      setCurrentImage(imageUrl);
+      setImageLoading(false);
+      setImageError(false);
+    };
+    img.onerror = () => {
+      if (fallbackImageUrl) {
+        setCurrentImage(fallbackImageUrl);
         setImageLoading(false);
+        setImageError(false);
+      } else {
         setImageError(true);
+        setImageLoading(false);
       }
     };
+    img.src = imageUrl;
 
-    loadImage();
-  }, [imageUrl, fallbackImageUrl, secondaryFallbackImageUrl, tertiaryFallbackImageUrl, quaternaryFallbackImageUrl, quinaryFallbackImageUrl]);
+    return () => {
+      img.onload = null;
+      img.onerror = null;
+    };
+  }, [imageUrl, fallbackImageUrl]);
 
   return {
     imageLoading,

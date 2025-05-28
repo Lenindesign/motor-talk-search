@@ -1,27 +1,37 @@
+
 import React from 'react';
-import { CARD_STYLES } from '@/styles/cardStyles';
+import { cn } from '@/lib/utils';
 
 interface CardSkeletonProps {
   className?: string;
+  variant?: 'default' | 'compact' | 'detailed';
 }
 
-const CardSkeleton: React.FC<CardSkeletonProps> = ({ className = '' }) => {
+const CardSkeleton: React.FC<CardSkeletonProps> = ({ 
+  className, 
+  variant = 'default' 
+}) => {
   return (
-    <div className={`${CARD_STYLES.base} ${className}`}>
-      <div className="relative">
-        <div className="h-48 w-full bg-gray-200 animate-pulse rounded-lg"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-3 animate-pulse">
-          <div className="h-4 w-1/2 bg-gray-200 rounded"></div>
-        </div>
-      </div>
-      <div className={CARD_STYLES.padding}>
+    <div className={cn(
+      'bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden animate-pulse',
+      className
+    )}>
+      <div className="aspect-[16/9] bg-gray-200" />
+      <div className="p-4 space-y-3">
         <div className="space-y-2">
-          <div className="h-4 w-3/4 bg-gray-200 rounded animate-pulse"></div>
-          <div className="flex items-center gap-2">
-            <div className="h-3 w-16 bg-gray-200 rounded animate-pulse"></div>
-            <div className="h-3 w-16 bg-gray-200 rounded animate-pulse"></div>
-          </div>
+          <div className="h-5 bg-gray-200 rounded w-3/4" />
+          {variant === 'detailed' && <div className="h-4 bg-gray-200 rounded w-1/2" />}
         </div>
+        <div className="flex justify-between items-center">
+          <div className="h-4 bg-gray-200 rounded w-1/4" />
+          <div className="h-4 bg-gray-200 rounded w-1/6" />
+        </div>
+        {variant === 'detailed' && (
+          <div className="space-y-2 pt-2 border-t border-gray-100">
+            <div className="h-3 bg-gray-200 rounded w-full" />
+            <div className="h-3 bg-gray-200 rounded w-2/3" />
+          </div>
+        )}
       </div>
     </div>
   );
