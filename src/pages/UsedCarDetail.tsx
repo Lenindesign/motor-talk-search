@@ -4,7 +4,6 @@ import { ArrowLeft, Phone, Mail, MapPin, Calendar, Gauge, Fuel, Settings, Heart,
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
 import { mockUsedCars } from '@/services/mockData';
 const UsedCarDetail: React.FC = () => {
   const {
@@ -83,7 +82,7 @@ const UsedCarDetail: React.FC = () => {
                   </div>
                 </div>
                 
-                <div className="text-3xl font-bold text-motortrend-red mb-4">{car.price}</div>
+                <div className="text-3xl font-bold text-motortrend-black mb-4">{car.price}</div>
                 
                 <div className="flex items-center text-sm text-gray-600 mb-4">
                   <MapPin size={16} className="mr-1" />
