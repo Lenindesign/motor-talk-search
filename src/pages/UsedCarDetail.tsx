@@ -190,7 +190,7 @@ const UsedCarDetail: React.FC = () => {
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="border rounded-lg p-4">
                           <h4 className="font-semibold mb-2">Monthly Payment</h4>
-                          <p className="text-2xl font-bold text-motortrend-red">$687/mo</p>
+                          <p className="text-2xl font-bold text-motortrend-dark">$687/mo</p>
                           <p className="text-sm text-gray-600">60 months @ 4.9% APR</p>
                         </div>
                         <div className="border rounded-lg p-4">
