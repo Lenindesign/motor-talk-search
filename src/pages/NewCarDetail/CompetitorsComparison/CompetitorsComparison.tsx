@@ -38,7 +38,7 @@ const CompetitorsComparison: React.FC = () => {
                     ${currentVehicle.price.toLocaleString()} MSRP
                   </p>
                 </div>
-                <div className="space-y-2 mt-4">
+                <div className="space-y-8 mt-4">
                   <h5 className="text-sm font-medium text-green-600">Pros</h5>
                   <ul className="space-y-1 text-sm text-gray-600">
                     {currentVehicle.pros.map((pro, index) => <li key={index} className="flex items-center">
@@ -47,7 +47,7 @@ const CompetitorsComparison: React.FC = () => {
                       </li>)}
                   </ul>
                 </div>
-                <div className="space-y-2 mt-4">
+                <div className="space-y-8 mt-4">
                   <h5 className="text-sm font-medium text-red-600">Cons</h5>
                   <ul className="space-y-1 text-sm text-gray-600">
                     {currentVehicle.cons.map((con, index) => <li key={index} className="flex items-center">
