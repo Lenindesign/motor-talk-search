@@ -31,7 +31,7 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
             <CardTitle>{userData.name}</CardTitle>
           </div>
         </CardHeader>
-        <CardContent className="">
+        <CardContent className="pt-4">
           <p className="text-sm text-gray-500">Member since {userData.joined}</p>
           <div className="mt-4 flex justify-between">
             <span className="text-sm font-medium">Saved Items</span>
