@@ -22,7 +22,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       height: 80
     }} className="sm:hidden py-4" />
       {/* Main content */}
-      <main className="flex-grow container mx-auto px-3 sm:px-4 py-">
+      <main className="">
         {children}
       </main>
     </div>;

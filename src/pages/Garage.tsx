@@ -246,7 +246,7 @@ const Garage = () => {
       });
     });
   }, [savedItems, updateSavedItem]);
-  return <div className="w-full min-h-screen bg-motortrend-gray">
+  return <div className="">
 
       <main className="max-w-[980px] mx-auto py-[32px] px-0">
         <div className="flex flex-col md:flex-row gap-8">

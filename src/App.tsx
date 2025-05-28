@@ -1,11 +1,9 @@
-
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
-
 import Index from "./pages/Index";
 import Search from "./pages/Search";
-import NavRoutes from "./pages/NavRoutes"; 
+import NavRoutes from "./pages/NavRoutes";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
 import Garage from "./pages/Garage";
@@ -21,12 +19,9 @@ import PhotoDetail from "./pages/PhotoDetail";
 import VideoDetail from "./pages/VideoDetail";
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
 import { PersonalizationProvider } from "./contexts/PersonalizationContext";
-
 import MainLayout from "./components/MainLayout";
-
 function App() {
-  return (
-    <div className="w-full bg-motortrend-gray">
+  return <div className="w-full min-h-screen bg-motortrend-gray bg-motortrend-gray">
       <BrowserRouter>
         <PersonalizationProvider>
           <SavedItemsProvider>
@@ -49,12 +44,10 @@ function App() {
               <Route path="/video/:id" element={<VideoDetail />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
-</MainLayout>
+          </MainLayout>
           </SavedItemsProvider>
         </PersonalizationProvider>
       </BrowserRouter>
-    </div>
-  );
+    </div>;
 }
-
 export default App;
