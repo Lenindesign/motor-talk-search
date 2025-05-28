@@ -1,10 +1,8 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Newspaper, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ArticleCard, { ArticleData } from '@/components/ArticleCard';
-
 const newsItems: ArticleData[] = [{
   id: '1',
   title: '2025 Ferrari 12Cilindri First Look: The B12-HP...',
@@ -36,13 +34,11 @@ const newsItems: ArticleData[] = [{
   category: 'Comparison',
   date: 'Apr 25, 2025'
 }];
-
 const LatestNews: React.FC = () => {
-  return (
-    <section className="space-content">
+  return <section className="space-content">
       <div className="component-header">
         <h2 className="component-title">
-          <Newspaper size={24} />
+          
           Top News
         </h2>
         <Button variant="ghost" asChild>
@@ -54,17 +50,13 @@ const LatestNews: React.FC = () => {
       </div>
 
       <div className="!mt-0 flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6">
-        {newsItems.slice(0, 3).map((item, index) => (
-          <div key={item.id} className="relative">
+        {newsItems.slice(0, 3).map((item, index) => <div key={item.id} className="relative">
             <ArticleCard article={item} />
             <div className="absolute top-2 right-2 z-10 w-8 h-8 bg-motortrend-red text-white rounded-sm flex items-center justify-center font-bold text-sm">
               {index + 1}
             </div>
-          </div>
-        ))}
+          </div>)}
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default LatestNews;

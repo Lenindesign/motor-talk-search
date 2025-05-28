@@ -58,7 +58,7 @@ const BrowseByCategory: React.FC = () => {
   return <section className="space-content">
       <div className="component-header">
         <h2 className="component-title">
-          <LayoutGrid size={24} />
+          
           Browse By Category
         </h2>
       </div>
