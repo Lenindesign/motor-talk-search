@@ -7,7 +7,6 @@ import GarageContent from "../components/garage/GarageContent";
 import { useCarMakes, useCarModelsByMakeId } from "../hooks/use-car-database";
 import { useToast } from "@/hooks/use-toast";
 
-
 // Mock MotorTrend data - in a real app would come from an API
 const motorTrendData = {
   // Generate some mock data based on popular cars
@@ -247,7 +246,7 @@ const Garage = () => {
       });
     });
   }, [savedItems, updateSavedItem]);
-  return <div className="min-h-screen bg-motortrend-gray">
+  return <div className="w-full min-h-screen bg-motortrend-gray">
 
       <main className="max-w-[980px] mx-auto py-[32px] px-0">
         <div className="flex flex-col md:flex-row gap-8">
