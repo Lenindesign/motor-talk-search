@@ -1,35 +1,31 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { mockSpecs } from './utils';
-
 interface OverviewTabProps {
   carTitle: string;
 }
-
-const OverviewTab: React.FC<OverviewTabProps> = ({ carTitle }) => {
-  return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+const OverviewTab: React.FC<OverviewTabProps> = ({
+  carTitle
+}) => {
+  return <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div className="lg:col-span-2">
         <Card>
           <CardHeader>
             <CardTitle>Vehicle Overview</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-700 mb-4">
+            <p className="mb-4 text-motortrend-dark">
               The {carTitle} represents the pinnacle of modern automotive engineering, 
               combining cutting-edge electric technology with luxurious comfort and 
               impressive performance capabilities.
             </p>
             <div className="grid grid-cols-2 gap-4">
-              {Object.entries(mockSpecs).map(([key, value]) => (
-                <div key={key} className="border-b pb-2">
+              {Object.entries(mockSpecs).map(([key, value]) => <div key={key} className="border-b pb-2">
                   <dt className="font-semibold text-sm text-gray-600 capitalize">
                     {key.replace(/([A-Z])/g, ' $1').trim()}
                   </dt>
                   <dd className="text-gray-900">{value}</dd>
-                </div>
-              ))}
+                </div>)}
             </div>
           </CardContent>
         </Card>
@@ -62,8 +58,6 @@ const OverviewTab: React.FC<OverviewTabProps> = ({ carTitle }) => {
           </CardContent>
         </Card>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default OverviewTab;
