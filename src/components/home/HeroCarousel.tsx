@@ -122,7 +122,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                   
                   {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 px-6 lg:px-12">
-                    <div className="max-w-4xl py-[32px]">
+                    <div className="max-w-4xl py-12">
                       <div className="flex items-center gap-4 mb-4">
                         <span className={`inline-flex items-center px-3 py-1.5 rounded-full text-white typography-small font-semibold tracking-wide ${slide.tagColor}`}>
                           {slide.tag}
