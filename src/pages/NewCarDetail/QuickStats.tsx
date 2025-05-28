@@ -32,8 +32,8 @@ const QuickStats: React.FC<QuickStatsProps> = ({
       <Card className="bg-white shadow-modern border-modern rounded-xl overflow-hidden hover:shadow-modern-lg transition-all duration-200">
         <CardContent className="card-spacing text-center">
           <div className="flex items-center justify-center mb-4">
-            <div className="flex items-center justify-center w-12 h-12 bg-blue-50 rounded-full mr-3">
-              <Users className="h-6 w-6 text-blue-600" />
+            <div className="flex items-center justify-center w-12 h-12 bg-motortrend-dark rounded-full mr-3">
+              <Users className="h-6 w-6 text-white" />
             </div>
             <div className="text-left">
               <div className="flex items-baseline">
@@ -51,8 +51,8 @@ const QuickStats: React.FC<QuickStatsProps> = ({
       <Card className="bg-white shadow-modern border-modern rounded-xl overflow-hidden hover:shadow-modern-lg transition-all duration-200">
         <CardContent className="card-spacing text-center">
           <div className="flex items-center justify-center mb-4">
-            <div className="flex items-center justify-center w-12 h-12 bg-green-50 rounded-full mr-3">
-              <Zap className="h-6 w-6 text-green-600" />
+            <div className="flex items-center justify-center w-12 h-12 bg-motortrend-dark rounded-full mr-0">
+              <Zap className="h-6 w-6 text-white" />
             </div>
             <div className="text-left">
               <div className="flex items-baseline">
@@ -68,8 +68,8 @@ const QuickStats: React.FC<QuickStatsProps> = ({
       <Card className="bg-white shadow-modern border-modern rounded-xl overflow-hidden hover:shadow-modern-lg transition-all duration-200">
         <CardContent className="card-spacing text-center">
           <div className="flex items-center justify-center mb-4">
-            <div className="flex items-center justify-center w-12 h-12 bg-red-50 rounded-full mr-3">
-              <Shield className="h-6 w-6 text-red-600" />
+            <div className="flex items-center justify-center w-12 h-12 bg-motortrend-dark rounded-full mr-3">
+              <Shield className="h-6 w-6 text-white" />
             </div>
             <div className="text-left">
               <div className="flex items-baseline">
