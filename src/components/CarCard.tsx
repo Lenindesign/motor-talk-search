@@ -54,8 +54,16 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
     return <CardSkeleton className={className} variant="detailed" />;
   }
   return <BaseCard type={type === 'new' ? 'newCar' : 'usedCar' as CardType} className={cn('flex flex-col w-full h-full bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200', className)} isSaved={isSaved} onToggleSave={toggleSave} onClick={() => window.location.href = linkPath}>
-      <div className="flex-grow relative">
-        <img src={currentImage} alt={car.title} className={cn('w-full h-full object-cover transition-all duration-300 group-hover:scale-105', imageLoading ? 'opacity-0' : 'opacity-100')} loading={priority ? "eager" : "lazy"} />
+      <div className="relative pt-[56.25%]">
+        <img 
+          src={currentImage} 
+          alt={car.title} 
+          className={cn(
+            'absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:scale-105', 
+            imageLoading ? 'opacity-0' : 'opacity-100'
+          )} 
+          loading={priority ? "eager" : "lazy"} 
+        />
         {car.isNew && <div className="absolute top-2 right-2">
             
           </div>}

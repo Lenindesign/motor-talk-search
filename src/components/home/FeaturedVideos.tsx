@@ -14,7 +14,7 @@ const videoItems: VideoData[] = [{
   id: '2',
   title: 'Tesla Model S Plaid vs Porsche Taycan Turbo S',
   duration: '15:30',
-  imageUrl: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?auto=format&fit=crop&w=600&h=400',
+  imageUrl: 'https://di-uploads-pod17.dealerinspire.com/porscheofbend/uploads/2024/04/Taycan-Model-S-SBS-MBL.jpg', 
   views: '892K',
   publishDate: '1 week ago'
 }, {

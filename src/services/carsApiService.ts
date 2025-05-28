@@ -1,6 +1,5 @@
-import { supabase } from "@/integrations/supabase/client";
-
 const API_BASE_URL = 'https://api.api-ninjas.com/v1';
+const API_KEY = 'f0c4c8d1-2d40-41dd-9786-1f9d5bd0c289';
 
 interface CarData {
   make: string;
@@ -26,25 +25,12 @@ interface CarModelData {
   model: string;
 }
 
-// Helper function to get API key from Supabase secrets
-const getApiKey = async (): Promise<string> => {
-  const { data, error } = await supabase.functions.invoke('get-cars-api-key');
-  
-  if (error) {
-    console.error('Error fetching API key:', error);
-    throw new Error('Failed to fetch API key');
-  }
-  
-  return data.apiKey;
-};
-
 // Fetch car makes
 export const fetchCarMakesFromApi = async (): Promise<string[]> => {
   try {
-    const apiKey = await getApiKey();
     const response = await fetch(`${API_BASE_URL}/cars?limit=50`, {
       headers: {
-        'X-Api-Key': apiKey,
+        'X-Api-Key': API_KEY,
       },
     });
 
@@ -67,10 +53,9 @@ export const fetchCarMakesFromApi = async (): Promise<string[]> => {
 // Fetch car models by make
 export const fetchCarModelsByMakeFromApi = async (make: string): Promise<CarModelData[]> => {
   try {
-    const apiKey = await getApiKey();
     const response = await fetch(`${API_BASE_URL}/cars?make=${encodeURIComponent(make)}&limit=50`, {
       headers: {
-        'X-Api-Key': apiKey,
+        'X-Api-Key': API_KEY,
       },
     });
 
@@ -95,7 +80,6 @@ export const fetchCarModelsByMakeFromApi = async (make: string): Promise<CarMode
 // Fetch detailed car information
 export const fetchCarDetailsFromApi = async (make?: string, model?: string, year?: number): Promise<CarData[]> => {
   try {
-    const apiKey = await getApiKey();
     let url = `${API_BASE_URL}/cars?limit=50`;
     
     if (make) url += `&make=${encodeURIComponent(make)}`;
@@ -104,7 +88,7 @@ export const fetchCarDetailsFromApi = async (make?: string, model?: string, year
     
     const response = await fetch(url, {
       headers: {
-        'X-Api-Key': apiKey,
+        'X-Api-Key': API_KEY,
       },
     });
 
@@ -123,7 +107,6 @@ export const fetchCarDetailsFromApi = async (make?: string, model?: string, year
 // Search cars by query
 export const searchCarsFromApi = async (query: string): Promise<CarData[]> => {
   try {
-    const apiKey = await getApiKey();
     
     // Map common abbreviations to full names
     const makeMapping: { [key: string]: string[] } = {
@@ -165,64 +148,63 @@ export const searchCarsFromApi = async (query: string): Promise<CarData[]> => {
       'ferrari': ['ferrari'],
       'lamborghini': ['lamborghini'],
       'bentley': ['bentley'],
-      'rolls-royce': ['rolls-royce']
     };
-
-    const searchTerms = makeMapping[query.toLowerCase()] || [query];
-    console.log('Searching for terms:', searchTerms);
     
-    let allResults: CarData[] = [];
+    // Convert query to lowercase for matching
+    const lowerQuery = query.toLowerCase();
     
-    // Try each search term
-    for (const searchTerm of searchTerms) {
-      // Try searching by make first
-      try {
-        const makeResponse = await fetch(`${API_BASE_URL}/cars?make=${encodeURIComponent(searchTerm)}&limit=20`, {
+    // Check if query matches any make abbreviation
+    const matchingMakes = Object.entries(makeMapping)
+      .filter(([abbr]) => lowerQuery.includes(abbr))
+      .flatMap(([_, makes]) => makes);
+    
+    // If we have matching makes, search for those specifically
+    if (matchingMakes.length > 0) {
+      const makeQueries = matchingMakes.map(make => 
+        `${API_BASE_URL}/cars?make=${encodeURIComponent(make)}&limit=50`
+      );
+      
+      const responses = await Promise.all(
+        makeQueries.map(url => fetch(url, {
           headers: {
-            'X-Api-Key': apiKey,
+            'X-Api-Key': API_KEY,
           },
-        });
-
-        if (makeResponse.ok) {
-          const makeResults: CarData[] = await makeResponse.json();
-          console.log(`Make search results for "${searchTerm}":`, makeResults);
-          if (makeResults.length > 0) {
-            allResults = allResults.concat(makeResults);
-          }
-        }
-      } catch (error) {
-        console.error(`Error searching by make for "${searchTerm}":`, error);
-      }
-
-      // If no results by make, try by model
-      if (allResults.length === 0) {
-        try {
-          const modelResponse = await fetch(`${API_BASE_URL}/cars?model=${encodeURIComponent(searchTerm)}&limit=20`, {
-            headers: {
-              'X-Api-Key': apiKey,
-            },
-          });
-
-          if (modelResponse.ok) {
-            const modelResults: CarData[] = await modelResponse.json();
-            console.log(`Model search results for "${searchTerm}":`, modelResults);
-            if (modelResults.length > 0) {
-              allResults = allResults.concat(modelResults);
-            }
-          }
-        } catch (error) {
-          console.error(`Error searching by model for "${searchTerm}":`, error);
-        }
-      }
+        }))
+      );
+      
+      const results = await Promise.all(
+        responses.map(res => res.json())
+      );
+      
+      // Flatten and deduplicate results
+      const allCars = results.flat();
+      const uniqueCars = [...new Map(allCars.map(car => 
+        [`${car.make} ${car.model} ${car.year}`, car]
+      )).values()];
+      
+      return uniqueCars;
     }
 
-    // Remove duplicates based on make, model, and year
-    const uniqueResults = allResults.filter((car, index, array) => 
-      array.findIndex(c => c.make === car.make && c.model === car.model && c.year === car.year) === index
-    );
+    // If no make match, do a general search
+    try {
+      console.log('Searching for:', query);
+      const response = await fetch(`${API_BASE_URL}/cars?search=${encodeURIComponent(query)}&limit=50`, {
+        headers: {
+          'X-Api-Key': API_KEY,
+        },
+      });
+      console.log('API Response Status:', response.status, response.statusText);
 
-    console.log('Final unique results:', uniqueResults);
-    return uniqueResults;
+      if (!response.ok) {
+        throw new Error(`API request failed: ${response.statusText}`);
+      }
+
+      const cars: CarData[] = await response.json();
+      return cars;
+    } catch (error) {
+      console.error('Error searching cars:', error);
+      return [];
+    }
   } catch (error) {
     console.error('Error searching cars:', error);
     return [];

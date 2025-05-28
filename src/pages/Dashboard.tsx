@@ -220,8 +220,8 @@ const Dashboard = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                   {recommendations.map((item) => (
                     <Card key={item.id} className="overflow-hidden hover:shadow-md transition-shadow">
-                      <div className="aspect-[16/9] relative">
-                        <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                      <div className="relative pt-[56.25%]">
+                        <img src={item.image} alt={item.title} className="absolute inset-0 w-full h-full object-cover" />
                         <div className="absolute top-2 right-2">
                           <Badge variant="secondary" className={`${item.type === 'article' ? 'bg-blue-500' : item.type === 'car' ? 'bg-green-500' : 'bg-red-500'} text-white`}>
                             {item.type === 'article' ? 'Article' : item.type === 'car' ? 'Vehicle' : 'Video'}
@@ -250,8 +250,8 @@ const Dashboard = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   {filteredArticles.map((article) => (
                     <Card key={article.id} className="overflow-hidden hover:shadow-md transition-shadow">
-                      <div className="aspect-[16/9] relative">
-                        <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover" />
+                      <div className="relative pt-[56.25%]">
+                        <img src={article.imageUrl} alt={article.title} className="absolute inset-0 w-full h-full object-cover" />
                         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
                           <div className="flex gap-2">
                             <Badge variant="secondary" className="bg-motortrend-red text-white">
@@ -284,8 +284,8 @@ const Dashboard = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                   {filteredCars.map((car) => (
                     <Card key={car.id} className="overflow-hidden hover:shadow-md transition-shadow group">
-                      <div className="aspect-[16/9] relative">
-                        <img src={car.imageUrl} alt={car.title} className="w-full h-full object-cover" />
+                      <div className="relative pt-[56.25%]">
+                        <img src={car.imageUrl} alt={car.title} className="absolute inset-0 w-full h-full object-cover" />
                         <div className="absolute top-2 right-2">
                           <Badge variant="secondary" className="bg-green-500 text-white">
                             {car.category}
@@ -317,8 +317,8 @@ const Dashboard = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   {savedItems.map((item) => (
                     <Card key={item.id} className="overflow-hidden">
-                      <div className="aspect-[16/9] relative">
-                        <img src={item.imageUrl} alt={item.title} className="w-full h-full object-cover" />
+                      <div className="relative pt-[56.25%]">
+                        <img src={item.imageUrl} alt={item.title} className="absolute inset-0 w-full h-full object-cover" />
                       </div>
                       <CardContent className="p-3">
                         <div className="flex justify-between items-start mb-2">

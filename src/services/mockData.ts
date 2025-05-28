@@ -30,7 +30,7 @@ export const mockArticles: ArticleData[] = [
   {
     id: "4",
     title: "2025 Tesla Cybertruck Owner Review: Living With the Future",
-    imageUrl: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://di-uploads-pod16.dealerinspire.com/vikingmotors/uploads/2019/09/diy-car-maintenance.jpg",
     date: "April 28, 2025",
     category: "Long-Term Test",
     photoCount: 12,
@@ -53,7 +53,7 @@ export const mockArticles: ArticleData[] = [
   {
     id: "7",
     title: "2025 Lucid Air: In-Depth Technology Overview",
-    imageUrl: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://di-uploads-pod16.dealerinspire.com/vikingmotors/uploads/2019/09/diy-car-maintenance.jpg",
     date: "May 10, 2025",
     category: "Technology",
   },
@@ -304,7 +304,7 @@ export const mockVideos: VideoData[] = [
   {
     id: "5",
     title: "DIY Car Maintenance Tips Every Owner Should Know",
-    imageUrl: "https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://di-uploads-pod16.dealerinspire.com/vikingmotors/uploads/2019/09/diy-car-maintenance.jpg",
     duration: "10:05",
   },
   {
