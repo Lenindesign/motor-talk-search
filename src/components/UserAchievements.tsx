@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Bolt, Star, MessageSquare, Heart, Wrench, Car, ThumbsUp, Trophy } from "lucide-react";
+import Leaderboard from "../pages/Leaderboard"; // Import the new Leaderboard page
 
 // Map achievement types to their respective icons
 const achievementIcons: Record<string, React.ReactNode> = {
@@ -43,6 +44,9 @@ const UserAchievements = () => {
   } = useSavedItems();
 
   // Mock data for badges in progress (in a real app, this would come from the API)
+  // Tab state for Achievements/Leaderboard
+  const [activeTab, setActiveTab] = React.useState<'achievements' | 'leaderboard'>('achievements');
+
   const badgesInProgress = [{
     id: "car-enthusiast",
     name: "Car Enthusiast",
@@ -95,25 +99,27 @@ const UserAchievements = () => {
         </div>
 
         <div className="flex overflow-x-auto gap-2 p-1 mb-4">
-          <button className="min-w-fit px-4 py-2 rounded-md bg-gray-700 text-white flex items-center gap-2">
-            Recent Activity
-          </button>
-          <button className="min-w-fit px-4 py-2 rounded-md bg-gray-700 text-white flex items-center gap-2">
-            Saved Items
-          </button>
-          <button className="min-w-fit px-4 py-2 rounded-md bg-motortrend-red text-white flex items-center gap-2">
+          <button
+            className={`min-w-fit px-4 py-2 rounded-md flex items-center gap-2 ${activeTab === 'achievements' ? 'bg-motortrend-red text-white' : 'bg-gray-700 text-white'}`}
+            onClick={() => setActiveTab('achievements')}
+          >
             <Trophy size={16} /> Achievements
           </button>
-          <button className="min-w-fit px-4 py-2 rounded-md bg-gray-700 text-white flex items-center gap-2">
+          <button
+            className={`min-w-fit px-4 py-2 rounded-md flex items-center gap-2 ${activeTab === 'leaderboard' ? 'bg-motortrend-red text-white' : 'bg-gray-700 text-white'}`}
+            onClick={() => setActiveTab('leaderboard')}
+          >
             Leaderboard
           </button>
         </div>
 
-        <h3 className="text-lg font-bold mb-2">Earned Badges</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          {earnedBadges.map(badge => <div key={badge.id} className="bg-motortrend-dark border border-gray-700 rounded-lg p-4 flex flex-col">
-              <div className="flex items-center gap-3 mb-2">
-                <div className={`p-3 rounded-full ${iconColorClasses[badge.name] || 'bg-gray-500'}`}>
+        {activeTab === 'achievements' ? (
+          <>
+            <h3 className="text-lg font-bold mb-2">Earned Badges</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+              {earnedBadges.map(badge => <div key={badge.id} className="bg-motortrend-dark border border-gray-700 rounded-lg p-4 flex flex-col">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className={`p-3 rounded-full ${iconColorClasses[badge.name] || 'bg-gray-500'}`}>
                   {achievementIcons[badge.name] || <Star className="h-6 w-6" />}
                 </div>
                 <div>
@@ -176,6 +182,10 @@ const UserAchievements = () => {
             </div>
           </div>
         </div>
+          </>
+        ) : (
+          <Leaderboard />
+        )}
       </div>
     </div>;
 };
