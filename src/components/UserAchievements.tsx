@@ -46,7 +46,6 @@ const UserAchievements = () => {
   // Mock data for badges in progress (in a real app, this would come from the API)
   // Tab state for Achievements/Leaderboard
   const [activeTab, setActiveTab] = React.useState<'achievements' | 'leaderboard'>('achievements');
-
   const badgesInProgress = [{
     id: "car-enthusiast",
     name: "Car Enthusiast",
@@ -94,27 +93,18 @@ const UserAchievements = () => {
   }];
   return <div className="space-y-6">
       <div className="bg-motortrend-dark text-white p-4 rounded-lg">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Achievements</h2>
-        </div>
+        
 
         <div className="flex overflow-x-auto gap-2 p-1 mb-4">
-          <button
-            className={`min-w-fit px-4 py-2 rounded-md flex items-center gap-2 ${activeTab === 'achievements' ? 'bg-motortrend-red text-white' : 'bg-gray-700 text-white'}`}
-            onClick={() => setActiveTab('achievements')}
-          >
+          <button className={`min-w-fit px-4 py-2 rounded-md flex items-center gap-2 ${activeTab === 'achievements' ? 'bg-motortrend-red text-white' : 'bg-gray-700 text-white'}`} onClick={() => setActiveTab('achievements')}>
             <Trophy size={16} /> Achievements
           </button>
-          <button
-            className={`min-w-fit px-4 py-2 rounded-md flex items-center gap-2 ${activeTab === 'leaderboard' ? 'bg-motortrend-red text-white' : 'bg-gray-700 text-white'}`}
-            onClick={() => setActiveTab('leaderboard')}
-          >
+          <button className={`min-w-fit px-4 py-2 rounded-md flex items-center gap-2 ${activeTab === 'leaderboard' ? 'bg-motortrend-red text-white' : 'bg-gray-700 text-white'}`} onClick={() => setActiveTab('leaderboard')}>
             Leaderboard
           </button>
         </div>
 
-        {activeTab === 'achievements' ? (
-          <>
+        {activeTab === 'achievements' ? <>
             <h3 className="text-lg font-bold mb-2">Earned Badges</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               {earnedBadges.map(badge => <div key={badge.id} className="bg-motortrend-dark border border-gray-700 rounded-lg p-4 flex flex-col">
@@ -126,10 +116,10 @@ const UserAchievements = () => {
                   <h4 className="font-medium text-base">{badge.name}</h4>
                   <p className="text-xs text-gray-400">
                     Earned on {new Date(badge.earnedAt).toLocaleDateString('en-US', {
-                  month: 'long',
-                  day: 'numeric',
-                  year: 'numeric'
-                })}
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                  })}
                   </p>
                 </div>
               </div>
@@ -148,8 +138,8 @@ const UserAchievements = () => {
                   <h4 className="font-medium text-base">{badge.name}</h4>
                   <div className="flex items-center gap-2 mt-1">
                     <Progress value={badge.progress} className="h-1.5 flex-1" style={{
-                  background: 'rgba(255, 255, 255, 0.1)'
-                }} />
+                    background: 'rgba(255, 255, 255, 0.1)'
+                  }} />
                     <span className="text-xs">{badge.progress}% complete</span>
                   </div>
                 </div>
@@ -166,8 +156,8 @@ const UserAchievements = () => {
               <span>1,500 points</span>
             </div>
             <Progress value={83} className="h-2" style={{
-            background: 'rgba(255, 255, 255, 0.1)'
-          }} />
+              background: 'rgba(255, 255, 255, 0.1)'
+            }} />
             <p className="text-xs text-gray-400 mt-1">250 points until Level 13</p>
           </div>
 
@@ -182,10 +172,7 @@ const UserAchievements = () => {
             </div>
           </div>
         </div>
-          </>
-        ) : (
-          <Leaderboard />
-        )}
+          </> : <Leaderboard />}
       </div>
     </div>;
 };
