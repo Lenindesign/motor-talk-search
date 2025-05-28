@@ -104,7 +104,7 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({
           </div>
 
           {/* How it Compares Section */}
-          <div className="space-y-4">
+          <div className="space-y-8">
             <h3 className="text-xl font-semibold">How it Compares</h3>
             <p className="text-gray-600">
               The {carTitle} stands out in its class with superior fuel economy and safety ratings. While 
