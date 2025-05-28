@@ -35,7 +35,7 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({
             <p className="text-sm text-gray-500">Overall score based on weighted average of all metrics</p>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-0">
           {/* New Horizontal Bar Chart Section */}
           <div className="space-y-6 pt-4">
             {classComparison.map(item => {
@@ -104,7 +104,7 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({
           </div>
 
           {/* How it Compares Section */}
-          <div className="space-y-8">
+          <div className="space-y-12">
             <h3 className="text-xl font-semibold">How it Compares</h3>
             <p className="text-gray-600">
               The {carTitle} stands out in its class with superior fuel economy and safety ratings. While 
@@ -114,7 +114,7 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({
           </div>
 
           {/* Detailed Comparison Breakdown */}
-          <div className="space-y-8">
+          <div className="space-y-12">
             <h3 className="text-xl font-semibold">Detailed Comparison Breakdown</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {classComparison.map(item => {
