@@ -2,7 +2,6 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { mockCompetitors, comparisonMetrics } from './utils';
-
 const CompetitorsComparison: React.FC = () => {
   const currentVehicle = {
     name: 'Our Vehicle',
@@ -18,20 +17,10 @@ const CompetitorsComparison: React.FC = () => {
       cargo: '28.1 cu ft',
       warranty: '4 years/50,000 miles'
     },
-    pros: [
-      'Premium interior',
-      'Advanced tech features',
-      'Excellent range'
-    ],
-    cons: [
-      'Expensive options',
-      'Learning curve for tech',
-      'Firm ride'
-    ]
+    pros: ['Premium interior', 'Advanced tech features', 'Excellent range'],
+    cons: ['Expensive options', 'Learning curve for tech', 'Firm ride']
   };
-
-  return (
-    <div className="space-y-6">
+  return <div className="space-y-6">
       {/* Comparison Grid */}
       <Card>
         <CardHeader>
@@ -43,51 +32,38 @@ const CompetitorsComparison: React.FC = () => {
             <Card className="h-full">
               <CardContent className="p-4">
                 <div className="flex flex-col items-center">
-                  <img
-                    src={currentVehicle.imageUrl}
-                    alt={currentVehicle.name}
-                    className="w-32 h-20 object-cover rounded-lg mb-2"
-                  />
+                  <img src={currentVehicle.imageUrl} alt={currentVehicle.name} className="w-32 h-20 object-cover rounded-lg mb-2" />
                   <h4 className="font-semibold">{currentVehicle.name}</h4>
                   <p className="text-sm text-gray-500">
                     ${currentVehicle.price.toLocaleString()} MSRP
                   </p>
                 </div>
-                <div className="space-y-2 mt-4">
+                <div className="space-y-8 mt-4">
                   <h5 className="text-sm font-medium text-green-600">Pros</h5>
                   <ul className="space-y-1 text-sm text-gray-600">
-                    {currentVehicle.pros.map((pro, index) => (
-                      <li key={index} className="flex items-center">
+                    {currentVehicle.pros.map((pro, index) => <li key={index} className="flex items-center">
                         <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
                         {pro}
-                      </li>
-                    ))}
+                      </li>)}
                   </ul>
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-8">
                   <h5 className="text-sm font-medium text-red-600">Cons</h5>
                   <ul className="space-y-1 text-sm text-gray-600">
-                    {currentVehicle.cons.map((con, index) => (
-                      <li key={index} className="flex items-center">
+                    {currentVehicle.cons.map((con, index) => <li key={index} className="flex items-center">
                         <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
                         {con}
-                      </li>
-                    ))}
+                      </li>)}
                   </ul>
                 </div>
               </CardContent>
             </Card>
 
             {/* Competitors */}
-            {mockCompetitors.map((competitor) => (
-              <Card key={competitor.name} className="h-full">
+            {mockCompetitors.map(competitor => <Card key={competitor.name} className="h-full">
                 <CardContent className="p-4">
                   <div className="flex flex-col items-center">
-                    <img
-                      src={competitor.imageUrl}
-                      alt={competitor.name}
-                      className="w-32 h-20 object-cover rounded-lg mb-2"
-                    />
+                    <img src={competitor.imageUrl} alt={competitor.name} className="w-32 h-20 object-cover rounded-lg mb-2" />
                     <h4 className="font-semibold">{competitor.name}</h4>
                     <p className="text-sm text-gray-500">
                       ${competitor.price.toLocaleString()} MSRP
@@ -96,33 +72,26 @@ const CompetitorsComparison: React.FC = () => {
                   <div className="space-y-2 mt-4">
                     <h5 className="text-sm font-medium text-green-600">Pros</h5>
                     <ul className="space-y-1 text-sm text-gray-600">
-                      {competitor.pros.map((pro, index) => (
-                        <li key={index} className="flex items-center">
+                      {competitor.pros.map((pro, index) => <li key={index} className="flex items-center">
                           <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
                           {pro}
-                        </li>
-                      ))}
+                        </li>)}
                     </ul>
                   </div>
-                  <div className="space-y-2">
+                  <div className="space-y-8">
                     <h5 className="text-sm font-medium text-red-600">Cons</h5>
                     <ul className="space-y-1 text-sm text-gray-600">
-                      {competitor.cons.map((con, index) => (
-                        <li key={index} className="flex items-center">
+                      {competitor.cons.map((con, index) => <li key={index} className="flex items-center">
                           <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
                           {con}
-                        </li>
-                      ))}
+                        </li>)}
                     </ul>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </CardContent>
       </Card>
-    </div>
-  );
+    </div>;
 };
-
 export default CompetitorsComparison;
