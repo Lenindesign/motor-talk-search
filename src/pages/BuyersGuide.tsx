@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import MainNavigation from '@/components/MainNavigation';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -8,157 +9,111 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import CarCard, { CarData } from '@/components/CarCard';
 import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
-
+import { useCarSearchApi } from '@/hooks/use-cars-api';
 
 const BuyersGuide: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'new' | 'used'>('new');
   const [searchTerm, setSearchTerm] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
-  const [newCars, setNewCars] = useState<CarData[]>([]);
-  const [usedCars, setUsedCars] = useState<CarData[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchResults, setSearchResults] = useState<CarData[]>([]);
+
+  // Use the real car search API
+  const { data: apiSearchResults, isLoading: apiLoading } = useCarSearchApi(searchTerm);
+
+  // Transform API results to CarData format
+  useEffect(() => {
+    if (apiSearchResults && apiSearchResults.length > 0) {
+      const transformedResults: CarData[] = apiSearchResults.map((car, index) => ({
+        id: `api-${car.make}-${car.model}-${car.year}-${index}`,
+        title: `${car.year} ${car.make} ${car.model}`,
+        imageUrl: `https://images.unsplash.com/photo-1494976688602-30db25b13217?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`,
+        price: 'Contact Dealer',
+        category: car.class || 'Vehicle',
+        bodyStyle: car.class || 'Vehicle',
+        year: car.year.toString(),
+        horsepowerTorque: car.cylinders ? `${car.cylinders} cylinders` : undefined,
+        fuelType: car.fuel_type || 'Gasoline',
+        drivetrain: car.drive || 'FWD',
+        motorTrendScore: Math.random() * 2 + 7, // Random score for demo
+        motorTrendRank: index + 1,
+        motorTrendCategoryRank: index + 1
+      }));
+      setSearchResults(transformedResults);
+      setIsLoading(false);
+    } else if (searchTerm && !apiLoading) {
+      setSearchResults([]);
+      setIsLoading(false);
+    }
+  }, [apiSearchResults, apiLoading, searchTerm]);
+
+  // Update loading state based on API
+  useEffect(() => {
+    setIsLoading(apiLoading);
+  }, [apiLoading]);
 
   // Handle search from GlobalHeader
   const handleSearch = (query: string) => {
     setSearchTerm(query);
+    if (query.trim()) {
+      setIsLoading(true);
+      toast.success('Searching vehicles...', {
+        description: `Looking for "${query}" in our database`
+      });
+    }
   };
 
-  // Simulate loading data
-  useEffect(() => {
-    const loadVehicles = async () => {
-      setIsLoading(true);
-      try {
-        setTimeout(() => {
-          setNewCars([{
-            id: 'new-1',
-            title: '2025 Ford Mustang GT',
-            imageUrl: 'https://images.unsplash.com/photo-1494976688602-30db25b13217?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-            price: '$45,995',
-            category: 'Sports Car',
-            bodyStyle: 'Sports Car',
-            year: '2025',
-            horsepowerTorque: '480 hp',
-            fuelType: 'Premium Gasoline',
-            drivetrain: 'RWD',
-            motorTrendScore: 8.7,
-            motorTrendRank: 2,
-            motorTrendCategoryRank: 1
-          }, {
-            id: 'new-2',
-            title: '2025 BMW i5 eDrive40',
-            imageUrl: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-            price: '$67,795',
-            category: 'Luxury Sedan',
-            bodyStyle: 'Sedan',
-            year: '2025',
-            horsepowerTorque: '335 hp',
-            fuelType: 'Electric',
-            drivetrain: 'RWD',
-            motorTrendScore: 9.1,
-            motorTrendRank: 1,
-            motorTrendCategoryRank: 1
-          }, {
-            id: 'new-3',
-            title: '2025 Toyota Crown Signia',
-            imageUrl: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-            price: '$42,500',
-            category: 'Crossover',
-            bodyStyle: 'SUV',
-            year: '2025',
-            horsepowerTorque: '236 hp',
-            fuelType: 'Hybrid',
-            drivetrain: 'AWD',
-            motorTrendScore: 8.0,
-            motorTrendRank: 5,
-            motorTrendCategoryRank: 3
-          }, {
-            id: 'new-4',
-            title: '2025 Hyundai Ioniq 6 Limited',
-            imageUrl: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-            price: '$52,150',
-            category: 'Electric',
-            bodyStyle: 'Sedan',
-            year: '2025',
-            horsepowerTorque: '320 hp',
-            fuelType: 'Electric',
-            drivetrain: 'AWD',
-            motorTrendScore: 8.8,
-            motorTrendRank: 3,
-            motorTrendCategoryRank: 2
-          }]);
-          setUsedCars([{
-            id: 'used-1',
-            title: '2023 Tesla Model 3 Long Range',
-            imageUrl: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-            price: '$38,995',
-            category: 'Electric',
-            bodyStyle: 'Sedan',
-            year: '2023',
-            horsepowerTorque: '346 hp',
-            fuelType: 'Electric',
-            drivetrain: 'AWD',
-            motorTrendScore: 8.5,
-            motorTrendRank: 4,
-            motorTrendCategoryRank: 2,
-            mileage: '27,540',
-            location: 'Scottsdale, AZ'
-          }, {
-            id: 'used-2',
-            title: '2021 Audi Q7 Premium Plus',
-            imageUrl: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-            price: '$42,750',
-            category: 'Luxury SUV',
-            bodyStyle: 'SUV',
-            year: '2021',
-            horsepowerTorque: '335 hp',
-            fuelType: 'Premium Gasoline',
-            drivetrain: 'AWD',
-            motorTrendScore: 8.2,
-            motorTrendRank: 7,
-            motorTrendCategoryRank: 4,
-            mileage: '35,872',
-            location: 'Denver, CO'
-          }, {
-            id: 'used-3',
-            title: '2020 Lexus ES 350 F Sport',
-            imageUrl: 'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
-            price: '$32,495',
-            category: 'Luxury Sedan',
-            bodyStyle: 'Sedan',
-            year: '2020',
-            horsepowerTorque: '302 hp',
-            fuelType: 'Premium Gasoline',
-            drivetrain: 'FWD',
-            motorTrendScore: 7.8,
-            motorTrendRank: 12,
-            motorTrendCategoryRank: 5,
-            mileage: '42,150',
-            location: 'Atlanta, GA'
-          }]);
-          setIsLoading(false);
-          toast.success('Vehicle data loaded successfully', {
-            description: 'High-quality automotive images are now displayed for all vehicles'
-          });
-        }, 800);
-      } catch (error) {
-        console.error('Error loading vehicles:', error);
-        setIsLoading(false);
-        toast.error('Error loading vehicles', {
-          description: 'Please try again later'
-        });
-      }
-    };
-    loadVehicles();
-  }, []);
+  // Default cars for when there's no search
+  const defaultNewCars: CarData[] = [{
+    id: 'new-1',
+    title: '2025 Ford Mustang GT',
+    imageUrl: 'https://images.unsplash.com/photo-1494976688602-30db25b13217?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    price: '$45,995',
+    category: 'Sports Car',
+    bodyStyle: 'Sports Car',
+    year: '2025',
+    horsepowerTorque: '480 hp',
+    fuelType: 'Premium Gasoline',
+    drivetrain: 'RWD',
+    motorTrendScore: 8.7,
+    motorTrendRank: 2,
+    motorTrendCategoryRank: 1
+  }, {
+    id: 'new-2',
+    title: '2025 BMW i5 eDrive40',
+    imageUrl: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    price: '$67,795',
+    category: 'Luxury Sedan',
+    bodyStyle: 'Sedan',
+    year: '2025',
+    horsepowerTorque: '335 hp',
+    fuelType: 'Electric',
+    drivetrain: 'RWD',
+    motorTrendScore: 9.1,
+    motorTrendRank: 1,
+    motorTrendCategoryRank: 1
+  }];
 
-  // Filter cars based on search term
-  const filteredNewCars = newCars.filter(car => 
-    car.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    car.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-  const filteredUsedCars = usedCars.filter(car => 
-    car.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    car.category.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const defaultUsedCars: CarData[] = [{
+    id: 'used-1',
+    title: '2023 Tesla Model 3 Long Range',
+    imageUrl: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    price: '$38,995',
+    category: 'Electric',
+    bodyStyle: 'Sedan',
+    year: '2023',
+    horsepowerTorque: '346 hp',
+    fuelType: 'Electric',
+    drivetrain: 'AWD',
+    motorTrendScore: 8.5,
+    motorTrendRank: 4,
+    motorTrendCategoryRank: 2,
+    mileage: '27,540',
+    location: 'Scottsdale, AZ'
+  }];
+
+  // Use search results if available, otherwise show defaults
+  const displayedNewCars = searchTerm ? searchResults : defaultNewCars;
+  const displayedUsedCars = searchTerm ? searchResults : defaultUsedCars;
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -171,9 +126,9 @@ const BuyersGuide: React.FC = () => {
             <div className="relative flex-grow">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
               <Input 
-                placeholder="Search by make, model, or category..." 
+                placeholder="Search by make, model (e.g., VW, BMW, Ford)..." 
                 value={searchTerm} 
-                onChange={(e) => setSearchTerm(e.target.value)} 
+                onChange={(e) => handleSearch(e.target.value)} 
                 className="pl-10 pr-4 py-2" 
               />
             </div>
@@ -187,6 +142,15 @@ const BuyersGuide: React.FC = () => {
             </Button>
           </div>
         </div>
+        
+        {/* Search results info */}
+        {searchTerm && (
+          <div className="mb-4">
+            <p className="text-sm text-gray-600">
+              {isLoading ? 'Searching...' : `Found ${searchResults.length} results for "${searchTerm}"`}
+            </p>
+          </div>
+        )}
         
         {/* Best time to buy */}
         <Card className="mb-6 border-green-200 bg-green-50">
@@ -212,9 +176,11 @@ const BuyersGuide: React.FC = () => {
           
           <TabsContent value="new" className="mt-6">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-lg font-semibold">New Vehicles ({filteredNewCars.length})</h2>
+              <h2 className="text-lg font-semibold">
+                {searchTerm ? `Search Results (${displayedNewCars.length})` : `New Vehicles (${displayedNewCars.length})`}
+              </h2>
               <Badge variant="outline" className="text-xs">
-                Updated today
+                {searchTerm ? 'Live API Data' : 'Updated today'}
               </Badge>
             </div>
             
@@ -226,13 +192,15 @@ const BuyersGuide: React.FC = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredNewCars.length > 0 ? (
-                  filteredNewCars.map((car) => (
+                {displayedNewCars.length > 0 ? (
+                  displayedNewCars.map((car) => (
                     <CarCard key={car.id} car={car} type="new" />
                   ))
                 ) : (
                   <div className="col-span-full text-center py-12">
-                    <p className="text-gray-500">No vehicles match your search criteria.</p>
+                    <p className="text-gray-500">
+                      {searchTerm ? `No vehicles found for "${searchTerm}". Try searching for makes like BMW, Ford, or VW.` : 'No vehicles match your search criteria.'}
+                    </p>
                   </div>
                 )}
               </div>
@@ -241,9 +209,11 @@ const BuyersGuide: React.FC = () => {
           
           <TabsContent value="used" className="mt-6">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-lg font-semibold">Used Vehicles ({filteredUsedCars.length})</h2>
+              <h2 className="text-lg font-semibold">
+                {searchTerm ? `Search Results (${displayedUsedCars.length})` : `Used Vehicles (${displayedUsedCars.length})`}
+              </h2>
               <Badge variant="outline" className="text-xs">
-                Updated today
+                {searchTerm ? 'Live API Data' : 'Updated today'}
               </Badge>
             </div>
             
@@ -255,13 +225,15 @@ const BuyersGuide: React.FC = () => {
               </div>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredUsedCars.length > 0 ? (
-                  filteredUsedCars.map((car) => (
+                {displayedUsedCars.length > 0 ? (
+                  displayedUsedCars.map((car) => (
                     <CarCard key={car.id} car={car} type="used" />
                   ))
                 ) : (
                   <div className="col-span-full text-center py-12">
-                    <p className="text-gray-500">No vehicles match your search criteria.</p>
+                    <p className="text-gray-500">
+                      {searchTerm ? `No vehicles found for "${searchTerm}". Try searching for makes like BMW, Ford, or VW.` : 'No vehicles match your search criteria.'}
+                    </p>
                   </div>
                 )}
               </div>
