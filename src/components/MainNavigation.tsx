@@ -97,6 +97,17 @@ const MainNavigation = () => {
     { label: 'Hybrid Car News', path: '/hybrid-car-news' }
   ];
   
+  const videosSubmenu = [
+    { label: 'Latest Videos', path: '/videos/latest' },
+    { label: 'First Looks', path: '/videos/first-looks' },
+    { label: 'First Drives', path: '/videos/first-drives' },
+    { label: 'Comparison Tests', path: '/videos/comparison-tests' },
+    { label: 'First Test', path: '/videos/first-test' },
+    { label: 'Walkarounds', path: '/videos/walkarounds' },
+    { label: 'InEvitable', path: '/videos/inevitable' },
+    { label: 'HOT ROD', path: '/videos/hot-rod' }
+  ];
+  
   const carsSubmenu = [
     { label: 'Car Finder', path: '/car-finder' },
     { label: 'Compare Cars', path: '/compare-cars' },
@@ -196,6 +207,21 @@ const MainNavigation = () => {
                           </div>
                         )}
                         
+                        {/* Videos Submenu */}
+                        {item.label === 'Videos' && (
+                          <div className="pl-6 border-l border-gray-800 ml-8 mt-1">
+                            {videosSubmenu.map(subItem => (
+                              <Link
+                                key={subItem.path}
+                                to={subItem.path}
+                                className="flex items-center gap-3 px-6 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                              >
+                                {subItem.label}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                        
                         {/* Cars Submenu */}
                         {isCars && (
                           <div className="pl-6 border-l border-gray-800 ml-8 mt-1">
@@ -263,7 +289,24 @@ const MainNavigation = () => {
         >
           Cars
         </NavLink>
-        <NavLink href="/videos">Videos</NavLink>
+        <NavLink 
+          href="/videos" 
+          hasDropdown 
+          dropdownContent={
+            <div className="py-2">
+              <Link to="/videos/latest" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Latest Videos</Link>
+              <Link to="/videos/first-looks" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">First Looks</Link>
+              <Link to="/videos/first-drives" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">First Drives</Link>
+              <Link to="/videos/comparison-tests" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Comparison Tests</Link>
+              <Link to="/videos/first-test" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">First Test</Link>
+              <Link to="/videos/walkarounds" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Walkarounds</Link>
+              <Link to="/videos/inevitable" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">InEvitable</Link>
+              <Link to="/videos/hot-rod" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">HOT ROD</Link>
+            </div>
+          }
+        >
+          Videos
+        </NavLink>
         {/* Icons */}
         <div className="flex items-center space-x-2 ml-4">
           {/* My Garage Icon */}
