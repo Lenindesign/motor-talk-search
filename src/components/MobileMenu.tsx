@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown, Home, Car, PlayCircle, User } from "lucide-react";
@@ -18,7 +19,9 @@ export const MobileMenu = () => {
     Videos: false,
   });
 
-  const toggleExpand = (label: string) => {
+  const toggleExpand = (label: string, event: React.MouseEvent) => {
+    event.preventDefault();
+    event.stopPropagation();
     setExpandedItems((prev) => ({
       ...prev,
       [label]: !prev[label],
@@ -109,21 +112,27 @@ export const MobileMenu = () => {
               <div key={item.path} className="mb-1">
                 {item.subItems ? (
                   <>
-                    <button
-                      onClick={() => toggleExpand(item.label)}
-                      className="flex items-center justify-between w-full px-6 py-3 text-base font-medium text-white hover:bg-white/5 transition-colors"
-                    >
-                      <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <Link
+                        to={item.path}
+                        className="flex items-center gap-3 px-6 py-3 text-base font-medium text-white hover:bg-white/5 transition-colors pr-12"
+                      >
                         {item.icon && React.createElement(item.icon, { size: 18 })}
                         {item.label}
-                      </div>
-                      <ChevronDown
-                        size={16}
-                        className={`transition-transform duration-300 ${
-                          expandedItems[item.label] ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
+                      </Link>
+                      <button
+                        onClick={(e) => toggleExpand(item.label, e)}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-white hover:text-gray-300 transition-colors z-10 hover:bg-white/10 rounded-md"
+                        aria-label={`Toggle ${item.label} submenu`}
+                      >
+                        <ChevronDown
+                          size={16}
+                          className={`transition-transform duration-300 ${
+                            expandedItems[item.label] ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                    </div>
                     <div
                       className={`overflow-hidden transition-all duration-300 ease-in-out ${
                         expandedItems[item.label] 
