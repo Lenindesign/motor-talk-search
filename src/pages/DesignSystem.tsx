@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
@@ -16,12 +15,9 @@ import PatternsTab from '@/components/design-system/PatternsTab';
 import PlaygroundTab from '@/components/design-system/PlaygroundTab';
 import AccessibilityTab from '@/components/design-system/AccessibilityTab';
 import { Download, Github, Code, Palette, BookOpen, FileText } from 'lucide-react';
-
 const DesignSystem = () => {
   const [activeTab, setActiveTab] = useState('overview');
-
-  return (
-    <div className="min-h-screen bg-neutral-8">
+  return <div className="min-h-screen bg-neutral-8">
       <div className="max-w-7xl mx-auto">
         <div className="p-6 pb-0">
           <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -48,101 +44,60 @@ const DesignSystem = () => {
         <div className="flex flex-col md:flex-row">
           {/* Left Sidebar Navigation */}
           <div className="md:w-1/3 lg:w-1/4 md:min-h-[calc(100vh-160px)] md:border-r border-neutral-6">
-            <Tabs 
-              value={activeTab} 
-              onValueChange={setActiveTab} 
-              orientation="vertical"
-              className="w-full"
-            >
+            <Tabs value={activeTab} onValueChange={setActiveTab} orientation="vertical" className="w-full p-4">
               <TabsList className="flex flex-col h-auto p-0 bg-transparent">
                 <div className="p-4 text-xs font-medium text-neutral-4 uppercase tracking-wider text-left w-full">Getting Started</div>
-                <TabsTrigger 
-                  value="overview" 
-                  className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
-                >
+                <TabsTrigger value="overview" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3">
                   <BookOpen className="h-4 w-4 mr-2" />
                   Overview
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="tokens" 
-                  className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
-                >
+                <TabsTrigger value="tokens" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3">
                   <FileText className="h-4 w-4 mr-2" />
                   Design Tokens
                 </TabsTrigger>
                 
                 <div className="p-4 text-xs font-medium text-neutral-4 uppercase tracking-wider mt-2 text-left w-full">Foundation</div>
-                <TabsTrigger 
-                  value="colors" 
-                  className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
-                >
+                <TabsTrigger value="colors" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3">
                   <Palette className="h-4 w-4 mr-2" />
                   Colors
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="typography" 
-                  className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
-                >
+                <TabsTrigger value="typography" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3">
                   <span className="font-serif font-bold text-xs mr-2">A</span>
                   Typography
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="spacing" 
-                  className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
-                >
+                <TabsTrigger value="spacing" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3">
                   <span className="text-xs mr-2">⟷</span>
                   Spacing
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="icons" 
-                  className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
-                >
+                <TabsTrigger value="icons" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3">
                   <span className="text-xs mr-2">★</span>
                   Icons
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="animations" 
-                  className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
-                >
+                <TabsTrigger value="animations" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3">
                   <span className="text-xs mr-2">⟳</span>
                   Animations
                 </TabsTrigger>
                 
                 <div className="p-4 text-xs font-medium text-neutral-4 uppercase tracking-wider mt-2 text-left w-full">Components</div>
-                <TabsTrigger 
-                  value="components" 
-                  className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
-                >
+                <TabsTrigger value="components" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3">
                   <span className="text-xs mr-2">⬚</span>
                   UI Components
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="cards" 
-                  className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
-                >
+                <TabsTrigger value="cards" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3">
                   <span className="text-xs mr-2">❏</span>
                   Cards
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="patterns" 
-                  className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
-                >
+                <TabsTrigger value="patterns" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3">
                   <span className="text-xs mr-2">⌘</span>
                   Patterns
                 </TabsTrigger>
                 
                 <div className="p-4 text-xs font-medium text-neutral-4 uppercase tracking-wider mt-2 text-left w-full">Resources</div>
-                <TabsTrigger 
-                  value="playground" 
-                  className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
-                >
+                <TabsTrigger value="playground" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3">
                   <Code className="h-4 w-4 mr-2" />
                   Playground
                 </TabsTrigger>
-                <TabsTrigger 
-                  value="accessibility" 
-                  className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
-                >
+                <TabsTrigger value="accessibility" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3">
                   <span className="text-xs mr-2">♿</span>
                   Accessibility
                 </TabsTrigger>
@@ -204,8 +159,6 @@ const DesignSystem = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default DesignSystem;
