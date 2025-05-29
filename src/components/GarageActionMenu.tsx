@@ -93,128 +93,106 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
     if (currentOwnership === 'interested') return 'Interested';
     return 'Add to Garage';
   };
+
   const getButtonVariant = () => {
     if (currentOwnership) return 'default';
     return 'outline';
   };
-  if (currentOwnership) {
-    // If car is in garage, render a button that navigates to /buyers-guide
-    return <Button variant={getButtonVariant()} // This will be 'default'
-    size="lg" className={`gap-1 px-6 py-3 rounded-xl font-semibold transition-all duration-200 ${className}`} onClick={e => {
-      e.stopPropagation(); // Prevent card click
-      navigate('/buyers-guide');
-    }}>
-        <Heart size={18} fill="currentColor" />
-        <span className="hidden sm:inline">{getButtonText()}</span>
-        {/* No ChevronDown icon as it's a direct action */}
-      </Button>;
-  } else {
-    // If car is not in garage, render the Popover with trigger and content
-    return <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
-          <Button variant={getButtonVariant()} // This will be 'outline'
-        size="lg" className={`gap-1 px-6 py-3 rounded-xl font-semibold transition-all duration-200 ${className}`} onClick={e => {
-          e.stopPropagation(); // Prevent card click, PopoverTrigger handles opening
-        }}>
-            <Heart size={18} fill={currentOwnership ? 'currentColor' : 'none'} /> {/* Will be 'none' here */}
-            <span className="hidden sm:inline">{getButtonText()}</span> {/* "Add to Garage" */}
-            <ChevronDown size={12} /> {/* Show ChevronDown for dropdown */}
-          </Button>
-        </PopoverTrigger>
-        <PopoverContent className="w-64 p-0" align="end">
-          <Card>
-            <CardContent className="p-2 space-y-2 px-2 py-2">
-              <div className="font-medium text-sm text-gray-900 mb-2">
-                Add to Garage
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          variant={getButtonVariant()}
+          size="lg"
+          className={`gap-1 px-6 py-3 rounded-xl font-semibold transition-all duration-200 ${className}`}
+          onClick={e => {
+            e.stopPropagation();
+          }}
+        >
+          <Heart size={18} fill={currentOwnership ? 'currentColor' : 'none'} />
+          <span className="hidden sm:inline">{getButtonText()}</span>
+          <ChevronDown size={12} />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-64 p-0" align="end">
+        <Card>
+          <CardContent className="p-2 space-y-2 px-2 py-2">
+            <div className="font-medium text-sm text-gray-900 mb-2">Add to Garage</div>
+            <div className="space-y-1">
+              <Button
+                variant={currentOwnership === 'owned' ? 'default' : 'ghost'}
+                size="sm"
+                className="w-full justify-start gap-2"
+                onClick={e => {
+                  e.stopPropagation();
+                  handleAddToGarage('owned');
+                }}
+              >
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                Owned
+              </Button>
+              <Button
+                variant={currentOwnership === 'testDriven' ? 'default' : 'ghost'}
+                size="sm"
+                className="w-full justify-start gap-2"
+                onClick={e => {
+                  e.stopPropagation();
+                  handleAddToGarage('testDriven');
+                }}
+              >
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                Test Drive
+              </Button>
+              <Button
+                variant={currentOwnership === 'interested' ? 'default' : 'ghost'}
+                size="sm"
+                className="w-full justify-start gap-2"
+                onClick={e => {
+                  e.stopPropagation();
+                  handleAddToGarage('interested');
+                }}
+              >
+                <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
+                Interested
+              </Button>
+            </div>
+            {currentOwnership === 'testDriven' && (
+              <div className="border-t pt-2 mt-2">
+                <div className="font-medium text-sm text-gray-900 mb-2">Test Drive Actions</div>
+                <div className="space-y-1">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full justify-start gap-2"
+                    onClick={e => {
+                      e.stopPropagation();
+                      handleScheduleTestDrive();
+                    }}
+                  >
+                    <Calendar size={14} />
+                    Schedule Appointment
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full justify-start gap-2"
+                    onClick={e => {
+                      e.stopPropagation();
+                      handleContactDealer();
+                    }}
+                  >
+                    <Phone size={14} />
+                    Contact Dealer
+                  </Button>
+                </div>
               </div>
-              
-              <div className="space-y-1">
-                <Button variant={currentOwnership === 'owned' ? 'default' : 'ghost'} size="sm" className="w-full justify-start gap-2" onClick={e => {
-                e.stopPropagation();
-                handleAddToGarage('owned');
-              }}>
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  Owned
-                  {currentOwnership === 'owned' && <Badge variant="secondary" className="ml-auto text-xs">Current</Badge>}
-                </Button>
-                
-                <Button variant={currentOwnership === 'testDriven' ? 'default' : 'ghost'} size="sm" className="w-full justify-start gap-2" onClick={e => {
-                e.stopPropagation();
-                handleAddToGarage('testDriven');
-              }}>
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  Test Drive
-                  {currentOwnership === 'testDriven' && <Badge variant="secondary" className="ml-auto text-xs">Current</Badge>}
-                </Button>
-                
-                <Button variant={currentOwnership === 'interested' ? 'default' : 'ghost'} size="sm" className="w-full justify-start gap-2" onClick={e => {
-                e.stopPropagation();
-                handleAddToGarage('interested');
-              }}>
-                  <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-                  Interested
-                  {currentOwnership === 'interested' && <Badge variant="secondary" className="ml-auto text-xs">Current</Badge>}
-                </Button>
-              </div>
+            )}
+          </CardContent>
+        </Card>
+      </PopoverContent>
+    </Popover>
+  );
+}
 
-              {currentOwnership === 'testDriven' && <>
-                  <div className="border-t pt-2 mt-2">
-                    <div className="font-medium text-sm text-gray-900 mb-2">
-                      Test Drive Actions
-                    </div>
-                    <div className="space-y-1">
-                      <Button variant="outline" size="sm" className="w-full justify-start gap-2" onClick={e => {
-                    e.stopPropagation();
-                    handleScheduleTestDrive();
-                  }}>
-                        <Calendar size={14} />
-                        Schedule Appointment
-                      </Button>
-                      <Button variant="outline" size="sm" className="w-full justify-start gap-2" onClick={e => {
-                    e.stopPropagation();
-                    handleContactDealer();
-                  }}>
-                        <Phone size={14} />
-                        Contact Dealer
-                      </Button>
-                    </div>
-                  </div>
-                </>}
-
-              {(currentOwnership === 'interested' || !currentOwnership) && type === 'new' && <div className="border-t pt-2 mt-2">
-                  <div className="space-y-1">
-                    <Button variant="outline" size="sm" className="w-full justify-start gap-2" onClick={e => {
-                  e.stopPropagation();
-                  handleScheduleTestDrive();
-                }}>
-                      <Calendar size={14} />
-                      Book Test Drive
-                    </Button>
-                    <Button variant="outline" size="sm" className="w-full justify-start gap-2" onClick={e => {
-                  e.stopPropagation();
-                  handleContactDealer();
-                }}>
-                      <MapPin size={14} />
-                      Find Local Dealers
-                    </Button>
-                  </div>
-                </div>}
-
-              {(currentOwnership === 'interested' || !currentOwnership) && type === 'used' && <div className="border-t pt-2 mt-2">
-                  <div className="space-y-1">
-                    <Button variant="outline" size="sm" className="w-full justify-start gap-2" onClick={e => {
-                  e.stopPropagation();
-                  handleContactDealer();
-                }}>
-                      <MapPin size={14} />
-                      View Seller Details
-                    </Button>
-                  </div>
-                </div>}
-            </CardContent>
-          </Card>
-        </PopoverContent>
-      </Popover>;
-  }
-};
 export default GarageActionMenu;

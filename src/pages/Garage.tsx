@@ -246,24 +246,23 @@ const Garage = () => {
       });
     });
   }, [savedItems, updateSavedItem]);
-  return <div className="">
-
-      <main className="max-w-[980px] mx-auto py-[32px] px-0">
+  return (
+    <div className="">
+      <main className="max-w-[980px] mx-auto py-8 px-0">
         <div className="flex flex-col md:flex-row gap-8">
-          {/* On mobile, GarageContent is first; on desktop, ProfileSidebar is first */}
-          <div className="block md:hidden">
-            <GarageContent />
+          {/* Sidebar (ProfileSidebar + UserPoints) */}
+          <aside className="w-full md:w-64 space-y-6">
             <ProfileSidebar userData={userData} savedItemsCount={savedItems.length} onPersonalizeClick={() => setPersonalizationOpen(true)} />
-          </div>
-          <div className="hidden md:flex md:flex-row w-full gap-8">
-            <ProfileSidebar userData={userData} savedItemsCount={savedItems.length} onPersonalizeClick={() => setPersonalizationOpen(true)} />
+          </aside>
+          {/* Main Content (GarageContent) */}
+          <div className="flex-1">
             <GarageContent />
           </div>
         </div>
       </main>
-      
       {/* Personalization Dialog */}
       <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
-    </div>;
+    </div>
+  );
 };
 export default Garage;

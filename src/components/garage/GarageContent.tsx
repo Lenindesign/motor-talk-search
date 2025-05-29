@@ -10,6 +10,7 @@ import QuickAddCar from "../QuickAddCar";
 import { CarData } from "../CarCard";
 import GarageFilters from "./GarageFilters";
 import GarageTabContent from "./GarageTabContent";
+import CarsYouMayLike from "./CarsYouMayLike";
 import { toast } from "@/components/ui/use-toast";
 import { useNavigate } from 'react-router-dom';
 import ArticleCard from "../ArticleCard";
@@ -188,7 +189,9 @@ const GarageContent = () => {
   const displayCars = getDisplayCars();
   const filteredArticles = getRelatedArticles();
   const navigate = useNavigate();
-  return <Card className="shadow-sm flex-1">
+  return (
+    <>
+      <Card className="shadow-sm flex-1">
       <CardHeader className="flex flex-row justify-between items-center pb-2">
         <div>
           <CardTitle className="flex items-center gap-2 text-xl">
@@ -236,7 +239,7 @@ const GarageContent = () => {
                 {/* Compare Cars */}
                 <GarageCompare savedCars={savedCars} selectedCars={selectedCars} onToggleCar={(id, type) => handleToggleCarForComparison(id, type)} onCompare={handleCompare} />
               </>}
-            
+            <CarsYouMayLike />
             {contentView === 'articles' && <div className="mt-6">
                 <h3 className="text-lg font-medium mb-4">Articles Related to Your Garage</h3>
                 {filteredArticles.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -258,6 +261,8 @@ const GarageContent = () => {
               </div>}
           </>}
       </CardContent>
-    </Card>;
+    </Card>
+    </>
+  );
 };
 export default GarageContent;
