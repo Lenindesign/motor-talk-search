@@ -222,7 +222,7 @@ const GarageContent = () => {
           </div> :
       // Regular Garage View
       <>
-            <GarageStats />
+            <GarageStats activeTab={activeTab} onTabChange={setActiveTab} />
             
             {contentView === 'garage' && <>
                 {/* Add Another Car */}
