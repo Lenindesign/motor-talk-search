@@ -25,9 +25,12 @@ const NavLink = ({ href, children, className = "", hasDropdown = false, dropdown
   const isActive = href === '/' ? location.pathname === href : location.pathname.startsWith(href);
   
   if (hasDropdown) {
+    // Check if this is the Videos link - needs special handling for responsive hiding
+    const isVideosLink = href === '/videos';
+    
     return (
       <div 
-        className="relative group"
+        className={`relative group ${isVideosLink ? 'hidden nav-md:block' : ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -293,7 +296,6 @@ const MainNavigation = () => {
         <NavLink 
           href="/videos" 
           hasDropdown 
-          className="hidden nav-md:block" 
           dropdownContent={
             <div className="py-2">
               <Link to="/videos/latest" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Latest Videos</Link>
