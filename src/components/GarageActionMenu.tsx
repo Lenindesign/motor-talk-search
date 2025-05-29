@@ -123,7 +123,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
         </PopoverTrigger>
         <PopoverContent className="w-64 p-0" align="end">
           <Card>
-            <CardContent className="p-3 space-y-2 px-[8px] py-[12px]">
+            <CardContent className="p-4 space-y-2 px-2 py-2">
               <div className="font-medium text-sm text-gray-900 mb-2">
                 Add to Garage
               </div>
