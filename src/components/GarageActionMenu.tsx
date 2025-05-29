@@ -188,7 +188,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
                   handleScheduleTestDrive();
                 }}>
                       <Calendar size={14} />
-                      Schedule Test Drive
+                      Book Test Drive
                     </Button>
                     <Button variant="outline" size="sm" className="w-full justify-start gap-2" onClick={e => {
                   e.stopPropagation();
