@@ -71,6 +71,17 @@ const NavLink = ({ href, children, className = "", hasDropdown = false, dropdown
 const MainNavigation = () => {
   const location = useLocation();
   const isMobile = useIsMobile();
+  
+  // State for tracking expanded menu items in mobile view
+  const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({});
+  
+  // Toggle expanded state for mobile menu items
+  const toggleExpand = (label: string) => {
+    setExpandedItems(prev => ({
+      ...prev,
+      [label]: !prev[label]
+    }));
+  };
 
   const navItems = (
     <>
@@ -182,21 +193,37 @@ const MainNavigation = () => {
                     
                     return (
                       <div key={item.path} className="mb-1">
-                        <Link 
-                          to={item.path} 
-                          className={`flex items-center gap-3 px-6 py-3 text-base font-medium transition-colors
+                        <button 
+                          onClick={() => {
+                            // For categories with submenu, toggle expand
+                            if (item.label === 'News' || item.label === 'Cars' || item.label === 'Videos') {
+                              toggleExpand(item.label);
+                            } else {
+                              // For other items, navigate
+                              window.location.href = item.path;
+                            }
+                          }}
+                          className={`flex items-center justify-between w-full px-6 py-3 text-base font-medium transition-colors
                             ${isActiveMobile ? 'text-motortrend-red bg-white/5' : 'text-white hover:bg-white/5'}`}
                         >
-                          {item.label === 'My Garage' ? (
-                            <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18" fill="currentColor" className="inline"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/></svg>
-                          ) : (
-                            item.icon && <item.icon size={18} />
+                          <div className="flex items-center gap-3">
+                            {item.label === 'My Garage' ? (
+                              <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18" fill="currentColor" className="inline"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/></svg>
+                            ) : (
+                              item.icon && <item.icon size={18} />
+                            )}
+                            {item.label}
+                          </div>
+                          {(item.label === 'News' || item.label === 'Cars' || item.label === 'Videos') && (
+                            <ChevronDown 
+                              size={16} 
+                              className={`transition-transform duration-300 ${expandedItems[item.label] ? 'rotate-180' : ''}`} 
+                            />
                           )}
-                          {item.label}
-                        </Link>
+                        </button>
                         
                         {/* News Submenu */}
-                        {isNews && (
+                        {isNews && expandedItems['News'] && (
                           <div className="pl-6 border-l border-gray-800 ml-8 mt-1">
                             {newsSubmenu.map(subItem => (
                               <Link
@@ -211,7 +238,7 @@ const MainNavigation = () => {
                         )}
                         
                         {/* Videos Submenu */}
-                        {item.label === 'Videos' && (
+                        {item.label === 'Videos' && expandedItems['Videos'] && (
                           <div className="pl-6 border-l border-gray-800 ml-8 mt-1">
                             {videosSubmenu.map(subItem => (
                               <Link
@@ -226,7 +253,7 @@ const MainNavigation = () => {
                         )}
                         
                         {/* Cars Submenu */}
-                        {isCars && (
+                        {isCars && expandedItems['Cars'] && (
                           <div className="pl-6 border-l border-gray-800 ml-8 mt-1">
                             {carsSubmenu.map(subItem => (
                               <Link
