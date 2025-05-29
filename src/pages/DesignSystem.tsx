@@ -21,12 +21,12 @@ const DesignSystem = () => {
   const [activeTab, setActiveTab] = useState('overview');
 
   return (
-    <div className="min-h-screen bg-neutral-8 p-6">
+    <div className="min-h-screen bg-neutral-8">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div>
+        <div className="p-6 pb-0">
+          <div className="mb-6">
             <h1 className="typography-hero text-neutral-1 mb-4">Design System</h1>
-            <p className="typography-body-large text-neutral-4 max-w-2xl">
+            <p className="typography-body-large text-neutral-4 max-w-3xl">
               A comprehensive style guide and component library for the MotorTrend application. 
               Built with atomic design principles and modern design tokens.
             </p>
@@ -43,106 +43,164 @@ const DesignSystem = () => {
           </div>
         </div>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 lg:grid-cols-12 mb-8 gap-1">
-            <TabsTrigger value="overview" className="flex items-center gap-1.5">
-              <BookOpen className="h-3.5 w-3.5 md:mr-1" />
-              <span className="hidden md:inline">Overview</span>
-            </TabsTrigger>
-            <TabsTrigger value="tokens" className="flex items-center gap-1.5">
-              <FileText className="h-3.5 w-3.5 md:mr-1" />
-              <span className="hidden md:inline">Tokens</span>
-            </TabsTrigger>
-            <TabsTrigger value="colors" className="flex items-center gap-1.5">
-              <Palette className="h-3.5 w-3.5 md:mr-1" />
-              <span className="hidden md:inline">Colors</span>
-            </TabsTrigger>
-            <TabsTrigger value="typography" className="flex items-center gap-1.5">
-              <span className="font-serif font-bold text-xs md:mr-1">A</span>
-              <span className="hidden md:inline">Typography</span>
-            </TabsTrigger>
-            <TabsTrigger value="spacing" className="flex items-center gap-1.5">
-              <span className="text-xs">⟷</span>
-              <span className="hidden md:inline">Spacing</span>
-            </TabsTrigger>
-            <TabsTrigger value="components" className="flex items-center gap-1.5">
-              <span className="text-xs">⬚</span>
-              <span className="hidden md:inline">Components</span>
-            </TabsTrigger>
-            <TabsTrigger value="patterns" className="flex items-center gap-1.5">
-              <span className="text-xs">⌘</span>
-              <span className="hidden md:inline">Patterns</span>
-            </TabsTrigger>
-            <TabsTrigger value="playground" className="flex items-center gap-1.5">
-              <Code className="h-3.5 w-3.5 md:mr-1" />
-              <span className="hidden md:inline">Playground</span>
-            </TabsTrigger>
-            <TabsTrigger value="cards" className="flex items-center gap-1.5">
-              <span className="text-xs">❏</span>
-              <span className="hidden md:inline">Cards</span>
-            </TabsTrigger>
-            <TabsTrigger value="icons" className="flex items-center gap-1.5">
-              <span className="text-xs">★</span>
-              <span className="hidden md:inline">Icons</span>
-            </TabsTrigger>
-            <TabsTrigger value="animations" className="flex items-center gap-1.5">
-              <span className="text-xs">⟳</span>
-              <span className="hidden md:inline">Animations</span>
-            </TabsTrigger>
-            <TabsTrigger value="accessibility" className="flex items-center gap-1.5">
-              <span className="text-xs">A11y</span>
-              <span className="hidden md:inline">Accessibility</span>
-            </TabsTrigger>
-          </TabsList>
+        <div className="flex flex-col md:flex-row">
+          {/* Left Sidebar Navigation */}
+          <div className="md:w-1/3 lg:w-1/4 md:min-h-[calc(100vh-160px)] md:border-r border-neutral-6">
+            <Tabs 
+              value={activeTab} 
+              onValueChange={setActiveTab} 
+              orientation="vertical"
+              className="w-full"
+            >
+              <TabsList className="flex flex-col h-auto p-0 bg-transparent">
+                <div className="p-4 text-xs font-medium text-neutral-4 uppercase tracking-wider">Getting Started</div>
+                <TabsTrigger 
+                  value="overview" 
+                  className="justify-start rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
+                >
+                  <BookOpen className="h-4 w-4 mr-2" />
+                  Overview
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="tokens" 
+                  className="justify-start rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
+                >
+                  <FileText className="h-4 w-4 mr-2" />
+                  Design Tokens
+                </TabsTrigger>
+                
+                <div className="p-4 text-xs font-medium text-neutral-4 uppercase tracking-wider mt-2">Foundation</div>
+                <TabsTrigger 
+                  value="colors" 
+                  className="justify-start rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
+                >
+                  <Palette className="h-4 w-4 mr-2" />
+                  Colors
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="typography" 
+                  className="justify-start rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
+                >
+                  <span className="font-serif font-bold text-xs mr-2">A</span>
+                  Typography
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="spacing" 
+                  className="justify-start rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
+                >
+                  <span className="text-xs mr-2">⟷</span>
+                  Spacing
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="icons" 
+                  className="justify-start rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
+                >
+                  <span className="text-xs mr-2">★</span>
+                  Icons
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="animations" 
+                  className="justify-start rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
+                >
+                  <span className="text-xs mr-2">⟳</span>
+                  Animations
+                </TabsTrigger>
+                
+                <div className="p-4 text-xs font-medium text-neutral-4 uppercase tracking-wider mt-2">Components</div>
+                <TabsTrigger 
+                  value="components" 
+                  className="justify-start rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
+                >
+                  <span className="text-xs mr-2">⬚</span>
+                  UI Components
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="cards" 
+                  className="justify-start rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
+                >
+                  <span className="text-xs mr-2">❏</span>
+                  Cards
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="patterns" 
+                  className="justify-start rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
+                >
+                  <span className="text-xs mr-2">⌘</span>
+                  Patterns
+                </TabsTrigger>
+                
+                <div className="p-4 text-xs font-medium text-neutral-4 uppercase tracking-wider mt-2">Resources</div>
+                <TabsTrigger 
+                  value="playground" 
+                  className="justify-start rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
+                >
+                  <Code className="h-4 w-4 mr-2" />
+                  Playground
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="accessibility" 
+                  className="justify-start rounded-none border-l-2 border-transparent data-[state=active]:border-primary-2 px-4 py-3"
+                >
+                  <span className="text-xs mr-2">♿</span>
+                  Accessibility
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+          
+          {/* Content Area */}
+          <div className="md:w-2/3 lg:w-3/4 p-6">
+            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <TabsContent value="overview">
+                <OverviewTab />
+              </TabsContent>
 
-          <TabsContent value="overview">
-            <OverviewTab />
-          </TabsContent>
+              <TabsContent value="colors">
+                <ColorsTab />
+              </TabsContent>
 
-          <TabsContent value="colors">
-            <ColorsTab />
-          </TabsContent>
+              <TabsContent value="typography">
+                <TypographyTab />
+              </TabsContent>
 
-          <TabsContent value="typography">
-            <TypographyTab />
-          </TabsContent>
+              <TabsContent value="spacing">
+                <SpacingTab />
+              </TabsContent>
 
-          <TabsContent value="spacing">
-            <SpacingTab />
-          </TabsContent>
+              <TabsContent value="components">
+                <ComponentsTab />
+              </TabsContent>
 
-          <TabsContent value="components">
-            <ComponentsTab />
-          </TabsContent>
+              <TabsContent value="cards">
+                <CardsTab />
+              </TabsContent>
 
-          <TabsContent value="cards">
-            <CardsTab />
-          </TabsContent>
+              <TabsContent value="icons">
+                <IconsTab />
+              </TabsContent>
 
-          <TabsContent value="icons">
-            <IconsTab />
-          </TabsContent>
+              <TabsContent value="animations">
+                <AnimationsTab />
+              </TabsContent>
 
-          <TabsContent value="animations">
-            <AnimationsTab />
-          </TabsContent>
+              <TabsContent value="tokens">
+                <TokensTab />
+              </TabsContent>
 
-          <TabsContent value="tokens">
-            <TokensTab />
-          </TabsContent>
+              <TabsContent value="patterns">
+                <PatternsTab />
+              </TabsContent>
 
-          <TabsContent value="patterns">
-            <PatternsTab />
-          </TabsContent>
+              <TabsContent value="playground">
+                <PlaygroundTab />
+              </TabsContent>
 
-          <TabsContent value="playground">
-            <PlaygroundTab />
-          </TabsContent>
-
-          <TabsContent value="accessibility">
-            <AccessibilityTab />
-          </TabsContent>
-        </Tabs>
+              <TabsContent value="accessibility">
+                <AccessibilityTab />
+              </TabsContent>
+            </Tabs>
+          </div>
+        </div>
       </div>
     </div>
   );
