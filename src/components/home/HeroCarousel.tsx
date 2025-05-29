@@ -23,10 +23,10 @@ const defaultHeroSlides: HeroSlide[] = [{
   readTime: '8 hours ago'
 }, {
   id: '2',
-  title: '2025 Ford Mustang GT: The Evolution of an Icon',
-  subtitle: 'Ford\'s latest Mustang GT brings more power and refinement to America\'s favorite sports car.',
-  imageUrl: 'https://www.usnews.com/dims4/USNEWS/1f68db0/2147483647/thumbnail/970x647/quality/85/?url=https%3A%2F%2Fwww.usnews.com%2Fcmsmedia%2Fff%2Fb8%2F1541dfa646598a340d0e1d5cd797%2Fmaverick-lobo-2.jpg',
-  tag: 'Review',
+  title: '2025 Tesla Model S Plaid vs 2024 Lucid Air Sapphire',
+  subtitle: 'Electric super-sedan showdown: Tesla\'s Plaid takes on Lucid\'s Sapphire in a battle of speed and luxury',
+  imageUrl: 'https://www.motortrend.com/uploads/2024/02/023-2022-Tesla-Model-S-Plaid-2024-Lucid-Air-Sapphire.jpg',
+  tag: 'Comparison',
   tagColor: 'bg-blue-600',
   author: 'Sarah Johnson',
   readTime: '4 hours ago'

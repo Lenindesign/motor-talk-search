@@ -93,51 +93,44 @@ const Profile = () => {
           <div className="flex flex-col md:flex-row gap-8">
             {/* Profile Sidebar */}
             <aside className="w-full md:w-64 space-y-6">
-              <Card>
-                <CardHeader className="p-4 flex flex-col items-center text-center sm:flex-row sm:text-left sm:items-center gap-4">
-                  <Avatar className="w-16 h-16">
-                    <AvatarImage src={userData.avatar} alt={userData.name} className="object-cover" />
-                    <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <div className="flex-grow">
-                    <CardTitle className="text-xl font-semibold">{userData.name}</CardTitle>
+              <Card className="overflow-hidden">
+                <CardContent className="p-6">
+                  <div className="flex flex-col items-center text-center">
+                    <Avatar className="w-20 h-20 mb-4">
+                      <AvatarImage src={userData.avatar} alt={userData.name} className="object-cover" />
+                      <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <h2 className="text-xl font-bold">{userData.name}</h2>
                     <p className="text-sm text-gray-500 mt-1">Member since {userData.joined}</p>
+                    
+                    <div className="w-full mt-6 flex justify-between items-center">
+                      <span className="text-sm font-medium">Saved Items</span>
+                      <span className="font-bold">{savedItems.length}</span>
+                    </div>
+                    
+                    <div className="w-full mt-4 space-y-3">
+                      <Button variant="default" size="sm" className="w-full flex items-center justify-center gap-2">
+                        <User size={16} />
+                        Profile
+                      </Button>
+                      
+                      <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2" onClick={() => setPersonalizationOpen(true)}>
+                        <Palette size={16} />
+                        Personalize
+                      </Button>
+                      
+                      <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2">
+                        <Settings size={16} />
+                        Settings
+                      </Button>
+                    </div>
                   </div>
-                </CardHeader>
-                <CardContent className="p-4 pt-0">
-                  <div className="mt-4 flex justify-between items-center">
-                    <span className="text-sm font-medium">Saved Items</span>
-                    <span className="text-sm font-bold text-lg">{savedItems.length}</span>
-                  </div>
-                  <Button variant="outline" size="sm" className="w-full mt-6 flex items-center justify-center gap-2" onClick={() => setPersonalizationOpen(true)}>
-                    <Palette size={16} />
-                    Personalize
-                  </Button>
                 </CardContent>
               </Card>
               
               <UserPoints />
               
               <MyGarageSkinny />
-              
-              <Card>
-                <CardContent className="p-4">
-                  <nav className="space-y-2">
-                    <Link to="/profile" className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium bg-motortrend-dark text-white w-full">
-                      <User size={18} />
-                      Profile
-                    </Link>
-                    <Link to="/garage" className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full">
-                      <Car size={18} />
-                      My Garage
-                    </Link>
-                    <button className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 w-full">
-                      <Settings size={18} />
-                      Settings
-                    </button>
-                  </nav>
-                </CardContent>
-              </Card>
             </aside>
             
             {/* Main Content */}
