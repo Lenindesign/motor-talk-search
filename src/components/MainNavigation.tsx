@@ -286,7 +286,6 @@ const MainNavigation = () => {
   return (
     <TooltipProvider delayDuration={150}>
       <div className="flex items-center justify-between w-full">
-        <HamburgerMenu />
         <nav className="hidden sm:flex items-center space-x-6">
           {/* Category Links */}
           <NavLink 
@@ -369,6 +368,8 @@ const MainNavigation = () => {
               <p>Profile</p>
             </TooltipContent>
           </Tooltip>
+          {/* Hamburger Menu */}
+          <HamburgerMenu />
         </div>
       </nav>
       </div>
