@@ -113,25 +113,32 @@ export const MobileMenu = () => {
                 {item.subItems ? (
                   <>
                     <div className="relative">
-                      <Link
-                        to={item.path}
-                        className="flex items-center gap-3 px-6 py-3 text-base font-medium text-white hover:bg-white/5 transition-colors pr-12"
-                      >
-                        {item.icon && React.createElement(item.icon, { size: 18 })}
-                        {item.label}
-                      </Link>
-                      <button
-                        onClick={(e) => toggleExpand(item.label, e)}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-white hover:text-gray-300 transition-colors z-10 hover:bg-white/10 rounded-md"
-                        aria-label={`Toggle ${item.label} submenu`}
-                      >
-                        <ChevronDown
-                          size={16}
-                          className={`transition-transform duration-300 ${
-                            expandedItems[item.label] ? "rotate-180" : ""
-                          }`}
-                        />
-                      </button>
+                      <div className="relative flex items-center">
+                        <button
+                          onClick={(e) => toggleExpand(item.label, e)}
+                          className="mr-2 p-2 text-white hover:text-gray-300 transition-colors z-10 hover:bg-white/10 rounded-md focus:outline-none"
+                          aria-label={`Toggle ${item.label} submenu`}
+                          tabIndex={0}
+                          type="button"
+                        >
+                          <ChevronDown
+                            size={16}
+                            className={`transition-transform duration-200 ml-2 ${
+                              expandedItems[item.label]
+                                ? 'rotate-180 text-motortrend-red'
+                                : 'text-white'
+                            }`}
+                          />
+                        </button>
+                        <Link
+                          to={item.path}
+                          className="flex-1 flex items-center gap-3 px-6 py-3 text-base font-medium text-white hover:bg-white/5 transition-colors"
+                          tabIndex={0}
+                        >
+                          {item.icon && React.createElement(item.icon, { size: 18 })}
+                          {item.label}
+                        </Link>
+                      </div>
                     </div>
                     <div
                       className={`overflow-hidden transition-all duration-300 ease-in-out ${
