@@ -1,74 +1,44 @@
-
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Search } from "lucide-react";
-import MainNavigation from "./MainNavigation";
-import MobileMenu from "./MobileMenu";
-import UserMenu from "./UserMenu";
-import { useAuth } from "@/contexts/AuthContext";
-
-const GlobalHeader = () => {
-  const [searchOpen, setSearchOpen] = useState(false);
-  const { loading } = useAuth();
-
-  return (
-    <header className="bg-motortrend-dark text-white sticky top-0 z-50 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <MobileMenu />
-          </div>
-
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link to="/" className="flex items-center">
-              <img
-                src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png"
-                alt="MotorTrend Logo"
-                className="h-8 w-auto"
-              />
-            </Link>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:block flex-1 max-w-3xl mx-8">
-            <MainNavigation />
-          </div>
-
-          {/* Search and User Menu */}
-          <div className="flex items-center space-x-4">
-            {/* Search Button */}
-            <button
-              onClick={() => setSearchOpen(!searchOpen)}
-              className="p-2 rounded-md text-white hover:bg-white/10 transition-colors"
-              aria-label="Search"
-            >
-              <Search size={20} />
-            </button>
-
-            {/* User Menu */}
-            {!loading && <UserMenu />}
-          </div>
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import MainNavigation from './MainNavigation';
+import SearchBar from './SearchBar';
+import { useIsMobile } from '../hooks/use-mobile';
+import { Button } from '@/components/ui/button';
+interface GlobalHeaderProps {
+  onSearch?: (query: string) => void;
+  isLoading?: boolean;
+}
+const GlobalHeader: React.FC<GlobalHeaderProps> = ({
+  onSearch,
+  isLoading = false
+}) => {
+  const navigate = useNavigate();
+  const isMobile = useIsMobile();
+  const handleSearch = (query: string) => {
+    if (onSearch) {
+      onSearch(query);
+    } else {
+      // Navigate to search page with query
+      navigate(`/search?q=${encodeURIComponent(query)}`);
+    }
+  };
+  return <header className="sticky top-0 left-0 right-0 z-50 bg-motortrend-dark w-full px-4 sm:px-0 py-2.5 sm:py-3 shadow-md">
+      <div className="flex items-center max-w-[980px] mx-auto w-full gap-1.5 sm:gap-4">
+        {/* Logo */}
+        <div className="flex-shrink-0">
+          <Link to="/" aria-label="MOTORTREND Home">
+            <img src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" alt="MotorTrend Logo" className="h-8 sm:h-7 w-auto" />
+          </Link>
         </div>
-
-        {/* Search Bar (Mobile/Desktop) */}
-        {searchOpen && (
-          <div className="pb-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search cars, articles, videos..."
-                className="w-full px-4 py-2 pl-10 bg-white/10 border border-white/20 rounded-md text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-motortrend-red focus:border-transparent"
-                autoFocus
-              />
-              <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/60" />
-            </div>
-          </div>
-        )}
+        {/* Search bar always visible, full width on mobile */}
+        <div className="flex-1 min-w-0">
+          {!isMobile && <SearchBar onSearch={handleSearch} isLoading={isLoading} variant="header" />}
+        </div>
+        {/* Navigation - mobile hamburger or desktop links */}
+        <div className="flex items-center">
+          <MainNavigation />
+        </div>
       </div>
-    </header>
-  );
+    </header>;
 };
-
 export default GlobalHeader;

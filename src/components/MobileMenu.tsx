@@ -1,13 +1,14 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, Home, Car, PlayCircle, User, X } from "lucide-react";
+import { ChevronDown, Home, Car, PlayCircle, User } from "lucide-react";
+import { X } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 interface MenuItemProps {
   label: string;
   path: string;
-  icon?: React.ComponentType<any>;
+  icon?: React.ElementType;
   subItems?: Array<{ label: string; path: string }>;
 }
 
@@ -62,13 +63,6 @@ export const MobileMenu = () => {
     { label: "HOT ROD", path: "/videos/hot-rod" },
   ];
 
-  // Custom garage icon component
-  const GarageIcon: React.FC<any> = ({ size = 18 }) => (
-    <svg xmlns="http://www.w3.org/2000/svg" height={size} viewBox="0 -960 960 960" width={size} fill="currentColor" className="inline">
-      <path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/>
-    </svg>
-  );
-
   // Menu items with icons and submenus
   const menuItems: MenuItemProps[] = [
     { label: "Home", path: "/", icon: Home },
@@ -76,7 +70,15 @@ export const MobileMenu = () => {
     { label: "Cars", path: "/cars", icon: Car, subItems: carsSubmenu },
     { label: "Videos", path: "/videos", icon: PlayCircle, subItems: videosSubmenu },
     { label: "Profile", path: "/profile", icon: User },
-    { label: "My Garage", path: "/garage", icon: GarageIcon },
+    { 
+      label: "My Garage", 
+      path: "/garage", 
+      icon: () => (
+        <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18" fill="currentColor" className="inline">
+          <path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/>
+        </svg>
+      )
+    },
   ];
 
   return (
@@ -133,7 +135,7 @@ export const MobileMenu = () => {
                           className="flex-1 flex items-center gap-3 px-6 py-3 text-base font-medium text-white hover:bg-white/5 transition-colors"
                           tabIndex={0}
                         >
-                          {item.icon && <item.icon size={18} />}
+                          {item.icon && React.createElement(item.icon, { size: 18 })}
                           {item.label}
                         </Link>
                       </div>
@@ -163,7 +165,7 @@ export const MobileMenu = () => {
                     to={item.path}
                     className="flex items-center gap-3 px-6 py-3 text-base font-medium text-white hover:bg-white/5 transition-colors"
                   >
-                    {item.icon && <item.icon size={18} />}
+                    {item.icon && React.createElement(item.icon, { size: 18 })}
                     {item.label}
                   </Link>
                 )}

@@ -178,33 +178,6 @@ export type Database = {
         }
         Relationships: []
       }
-      profiles: {
-        Row: {
-          avatar: string | null
-          created_at: string | null
-          email: string | null
-          id: string
-          name: string | null
-          updated_at: string | null
-        }
-        Insert: {
-          avatar?: string | null
-          created_at?: string | null
-          email?: string | null
-          id: string
-          name?: string | null
-          updated_at?: string | null
-        }
-        Update: {
-          avatar?: string | null
-          created_at?: string | null
-          email?: string | null
-          id?: string
-          name?: string | null
-          updated_at?: string | null
-        }
-        Relationships: []
-      }
       user_garage: {
         Row: {
           created_at: string | null

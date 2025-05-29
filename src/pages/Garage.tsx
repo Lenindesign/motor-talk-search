@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
-import { useAuth } from "../contexts/AuthContext";
 import PersonalizationDialog from "../components/PersonalizationDialog";
 import GarageHeader from "../components/garage/GarageHeader";
 import ProfileSidebar from "../components/garage/ProfileSidebar";
@@ -210,9 +209,7 @@ const getMotorTrendDataForCar = (carTitle: string) => {
     categoryRank: 8
   };
 };
-
 const Garage = () => {
-  const { user } = useAuth();
   const {
     savedItems,
     updateSavedItem
@@ -222,15 +219,12 @@ const Garage = () => {
     toast
   } = useToast();
 
-  // Get user data from auth context instead of localStorage
+  // Mock user data - in a real app, this would come from auth context or API
   const userData = {
-    name: user?.user_metadata?.name || user?.email || "User",
-    email: user?.email || "",
-    avatar: user?.user_metadata?.avatar || "/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png",
-    joined: user?.created_at ? new Date(user.created_at).toLocaleDateString('en-US', { 
-      month: 'long', 
-      year: 'numeric' 
-    }) : "Recently"
+    name: localStorage.getItem("userName") || "John Driver",
+    email: localStorage.getItem("userEmail") || "john.driver@example.com",
+    avatar: "/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png",
+    joined: "January 2023"
   };
 
   // Effect to add MotorTrend data to all cars
@@ -271,5 +265,4 @@ const Garage = () => {
     </div>
   );
 };
-
 export default Garage;
