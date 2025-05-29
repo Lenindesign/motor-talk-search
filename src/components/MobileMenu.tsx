@@ -1,14 +1,13 @@
 
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, Home, Car, PlayCircle, User } from "lucide-react";
-import { X } from "lucide-react";
+import { ChevronDown, Home, Car, PlayCircle, User, X } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 interface MenuItemProps {
   label: string;
   path: string;
-  icon?: React.ComponentType<{ size?: number }>;
+  icon?: React.ComponentType<any>;
   subItems?: Array<{ label: string; path: string }>;
 }
 
@@ -64,7 +63,7 @@ export const MobileMenu = () => {
   ];
 
   // Custom garage icon component
-  const GarageIcon: React.FC<{ size?: number }> = ({ size = 18 }) => (
+  const GarageIcon: React.FC<any> = ({ size = 18 }) => (
     <svg xmlns="http://www.w3.org/2000/svg" height={size} viewBox="0 -960 960 960" width={size} fill="currentColor" className="inline">
       <path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/>
     </svg>
