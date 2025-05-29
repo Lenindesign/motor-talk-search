@@ -14,7 +14,7 @@ const CardsTab = () => {
     imageUrl: '/lovable-uploads/63b8496b-1701-478b-bdda-3cb3dc187a2a.png',
     price: '$28,500',
     category: 'Sedan',
-    year: 2024,
+    year: '2024',
     mileage: '15,000 miles',
     fuelType: 'Hybrid',
     drivetrain: 'FWD',
