@@ -117,11 +117,7 @@ export const MobileMenu = () => {
                         to={item.path}
                         className="flex items-center gap-3 px-6 py-3 text-base font-medium text-white hover:bg-white/5 transition-colors pr-12"
                       >
-                        {item.icon && (
-                          typeof item.icon === 'function' && item.icon.toString().includes('svg') 
-                            ? item.icon()
-                            : React.createElement(item.icon as React.ComponentType<{ size: number }>, { size: 18 })
-                        )}
+                        {item.icon && React.createElement(item.icon, { size: 18 })}
                         {item.label}
                       </Link>
                       <button
@@ -162,11 +158,12 @@ export const MobileMenu = () => {
                     to={item.path}
                     className="flex items-center gap-3 px-6 py-3 text-base font-medium text-white hover:bg-white/5 transition-colors"
                   >
-                    {item.icon && (
-                      typeof item.icon === 'function' && item.icon.toString().includes('svg') 
+                    {item.icon && 
+                      (typeof item.icon === 'function' 
                         ? item.icon()
-                        : React.createElement(item.icon as React.ComponentType<{ size: number }>, { size: 18 })
-                    )}
+                        : React.createElement(item.icon, { size: 18 })
+                      )
+                    }
                     {item.label}
                   </Link>
                 )}
