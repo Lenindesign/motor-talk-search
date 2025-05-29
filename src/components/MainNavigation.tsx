@@ -78,12 +78,38 @@ const MainNavigation = () => {
     </>
   );
 
+  // Main menu items
   const menuItems = [
     { label: 'Home', path: '/', icon: Home },
+    { label: 'News', path: '/news', icon: null },
     { label: 'Cars', path: '/buyers-guide', icon: Car },
     { label: 'Videos', path: '/videos', icon: PlayCircle },
     { label: 'Profile', path: '/profile', icon: User }, 
     { label: 'My Garage', path: '/garage', icon: null }
+  ];
+  
+  // Submenu categories
+  const newsSubmenu = [
+    { label: 'SUV News', path: '/suv-news' },
+    { label: 'Truck News', path: '/truck-news' },
+    { label: 'Sedan News', path: '/sedan-news' },
+    { label: 'Electric Car News', path: '/electric-car-news' },
+    { label: 'Hybrid Car News', path: '/hybrid-car-news' }
+  ];
+  
+  const carsSubmenu = [
+    { label: 'Car Finder', path: '/car-finder' },
+    { label: 'Compare Cars', path: '/compare-cars' },
+    { label: 'Ultimate Car Rankings', path: '/rankings' },
+    { label: 'Best Sedans', path: '/best-sedans' },
+    { label: 'Best SUVs', path: '/best-suvs' },
+    { label: 'Best Trucks', path: '/best-trucks' },
+    { label: 'Cars for Sale', path: '/cars-for-sale' },
+    { label: 'Sell Your Car', path: '/sell-your-car' },
+    { label: 'MotorTrend Certified', path: '/certified' },
+    { label: 'IntelliChoice Awards', path: '/intellichoice' },
+    { label: 'Gear Shopping', path: '/gear' },
+    { label: 'Shopping Tools', path: '/shopping-tools' }
   ];
 
   if (isMobile) {
@@ -137,20 +163,54 @@ const MainNavigation = () => {
                 <div className="flex-1 overflow-y-auto py-4">
                   {menuItems.map((item) => {
                     const isActiveMobile = item.path === '/' ? location.pathname === item.path : location.pathname.startsWith(item.path);
+                    const isNews = item.label === 'News';
+                    const isCars = item.label === 'Cars';
+                    
                     return (
-                      <Link 
-                        key={item.path}
-                        to={item.path} 
-                        className={`flex items-center gap-3 px-6 py-3 text-base font-medium transition-colors
-                          ${isActiveMobile ? 'text-motortrend-red bg-white/5' : 'text-white hover:bg-white/5'}`}
-                      >
-                        {item.label === 'My Garage' ? (
-                          <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18" fill="currentColor" className="inline"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/></svg>
-                        ) : (
-                          item.icon && <item.icon size={18} />
+                      <div key={item.path} className="mb-1">
+                        <Link 
+                          to={item.path} 
+                          className={`flex items-center gap-3 px-6 py-3 text-base font-medium transition-colors
+                            ${isActiveMobile ? 'text-motortrend-red bg-white/5' : 'text-white hover:bg-white/5'}`}
+                        >
+                          {item.label === 'My Garage' ? (
+                            <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18" fill="currentColor" className="inline"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/></svg>
+                          ) : (
+                            item.icon && <item.icon size={18} />
+                          )}
+                          {item.label}
+                        </Link>
+                        
+                        {/* News Submenu */}
+                        {isNews && (
+                          <div className="pl-6 border-l border-gray-800 ml-8 mt-1">
+                            {newsSubmenu.map(subItem => (
+                              <Link
+                                key={subItem.path}
+                                to={subItem.path}
+                                className="flex items-center gap-3 px-6 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                              >
+                                {subItem.label}
+                              </Link>
+                            ))}
+                          </div>
                         )}
-                        {item.label}
-                      </Link>
+                        
+                        {/* Cars Submenu */}
+                        {isCars && (
+                          <div className="pl-6 border-l border-gray-800 ml-8 mt-1">
+                            {carsSubmenu.map(subItem => (
+                              <Link
+                                key={subItem.path}
+                                to={subItem.path}
+                                className="flex items-center gap-3 px-6 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                              >
+                                {subItem.label}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     );
                   })}
                 </div>
@@ -166,7 +226,21 @@ const MainNavigation = () => {
     <TooltipProvider delayDuration={150}>
       <nav className="hidden sm:flex items-center space-x-6">
         {/* Category Links */}
-        <NavLink href="/news">News</NavLink>
+        <NavLink 
+          href="/news" 
+          hasDropdown 
+          dropdownContent={
+            <div className="py-2">
+              <Link to="/suv-news" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">SUV News</Link>
+              <Link to="/truck-news" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Truck News</Link>
+              <Link to="/sedan-news" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Sedan News</Link>
+              <Link to="/electric-car-news" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Electric Car News</Link>
+              <Link to="/hybrid-car-news" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Hybrid Car News</Link>
+            </div>
+          }
+        >
+          News
+        </NavLink>
         <NavLink 
           href="/buyers-guide" 
           hasDropdown 
