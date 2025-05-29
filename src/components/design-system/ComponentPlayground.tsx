@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -11,6 +11,11 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Check, Plus, Download, ExternalLink, Settings } from 'lucide-react';
 import CodeSnippet from './CodeSnippet';
+import ArticleCard from '@/components/ArticleCard';
+import { CarData } from '@/components/CarCard';
+import GarageCarCard from '@/components/CarCard';
+import VideoCard from '@/components/VideoCard';
+import PhotoCard from '@/components/PhotoCard';
 
 interface PropertyControl {
   type: 'select' | 'boolean' | 'text' | 'range';
@@ -94,6 +99,17 @@ const ComponentPlayground = () => {
           label: 'Description'
         }
       }
+    },
+    contentCard: {
+      name: 'Content Card',
+      description: 'Different card types used throughout the application',
+      properties: {
+        cardType: {
+          type: 'select',
+          label: 'Card Type',
+          options: ['article', 'photo', 'video', 'newCar', 'usedCar']
+        }
+      }
     }
   };
   
@@ -107,8 +123,80 @@ const ComponentPlayground = () => {
     withHeader: true,
     withFooter: false,
     title: 'Card Title',
-    description: 'Card Description'
+    description: 'Card Description',
+    cardType: 'article'
   });
+  
+  // Sample data for different card types
+  const sampleData = {
+    article: {
+      id: 'art1',
+      title: 'Best SUVs for Families in 2025',
+      imageUrl: 'https://www.motortrend.com/files/67eeb24ae58cfc000822372c/bestmidsizesuvs.jpg',
+      date: '2025-03-15',
+      category: 'SUV',
+      author: 'Jane Smith',
+      readTime: '5 min read'
+    },
+    photo: {
+      id: 'ph1',
+      title: '2025 Porsche 911 GT3 RS - Track Ready',
+      imageUrl: 'https://www.motortrend.com/files/679a40fb03dfa1000846f1f8/2025porsche911gt3weissach1.jpg',
+      date: '2025-04-02',
+      category: 'Sports Car',
+      photoCount: 24,
+      photographer: 'Michael Johnson',
+      position: '1',
+      make: 'Porsche',
+      carModel: '911 GT3 RS',
+      year: '2025'
+    },
+    video: {
+      id: 'vid1',
+      title: '2025 Rivian R2 Off-Road Test: Better Than a Jeep?',
+      imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65ebc644c7bc5b000866ad3e/0051-rivian-r2-first-look-fullcut-thumbnail-1920x1080.jpg',
+      date: '2025-03-28',
+      category: 'SUV',
+      duration: '12:48',
+      views: '245K',
+      channelName: 'MotorTrend',
+      description: 'We take the all-new Rivian R2 off-road to see how it compares to traditional off-roaders',
+      url: '#video-player'
+    },
+    newCar: {
+      id: '1',
+      title: '2025 Tesla Model 3 Performance',
+      imageUrl: 'https://media.ed.edmunds-media.com/tesla/model-3/2025/oem/2025_tesla_model-3_sedan_long-range_fq_oem_1_1600.jpg',
+      price: '$54,990',
+      category: 'Electric',
+      year: '2025',
+      fuelType: 'Electric',
+      drivetrain: 'AWD',
+      location: 'San Francisco, CA',
+      bodyStyle: 'Sedan',
+      isNew: true,
+      motorTrendScore: 9.2,
+      motorTrendRank: 1,
+      motorTrendCategoryRank: 1
+    },
+    usedCar: {
+      id: '2',
+      title: '2022 Toyota Camry XSE',
+      imageUrl: 'https://www.motortrend.com/uploads/2021/12/2022-Toyota-Camry-SE-23.jpg',
+      price: '$28,500',
+      category: 'Sedan',
+      year: '2022',
+      mileage: '15,000 miles',
+      fuelType: 'Hybrid',
+      drivetrain: 'FWD',
+      location: 'Los Angeles, CA',
+      bodyStyle: 'Sedan',
+      isNew: false,
+      motorTrendScore: 8.5,
+      motorTrendRank: 3,
+      motorTrendCategoryRank: 1
+    }
+  };
   
   // Handle property changes
   const handlePropertyChange = (property: string, value: any) => {
@@ -216,6 +304,231 @@ export function CardDemo() {
       return { tsx: tsxCode, tailwind: tailwindCode };
     }
     
+    if (selectedComponent === 'contentCard') {
+      const { cardType } = properties;
+      
+      let tsxCode = '';
+      let tailwindCode = '';
+      
+      if (cardType === 'article') {
+        tsxCode = `import ArticleCard from '@/components/ArticleCard';
+
+export function ArticleCardDemo() {
+  const article = {
+    id: 'art1',
+    title: 'Best SUVs for Families in 2025',
+    imageUrl: 'https://www.motortrend.com/files/67eeb24ae58cfc000822372c/bestmidsizesuvs.jpg',
+    date: '2025-03-15',
+    category: 'SUV',
+    author: 'Jane Smith',
+    readTime: '5 min read'
+  };
+
+  return <ArticleCard article={article} />;
+}`;
+
+        tailwindCode = `<!-- Article Card Component -->
+<div class="overflow-hidden rounded-lg border bg-card shadow-sm transition-shadow hover:shadow-md">
+  <div class="aspect-w-16 aspect-h-9 relative">
+    <img 
+      src="https://www.motortrend.com/files/67eeb24ae58cfc000822372c/bestmidsizesuvs.jpg" 
+      alt="Best SUVs for Families in 2025" 
+      class="object-cover w-full h-full"
+    />
+    <span class="absolute top-2 left-2 rounded-full px-2.5 py-0.5 bg-primary/90 text-xs font-semibold text-white">
+      SUV
+    </span>
+  </div>
+  <div class="p-4">
+    <h3 class="font-bold text-lg line-clamp-2 mb-2">Best SUVs for Families in 2025</h3>
+    <div class="flex items-center text-sm text-muted-foreground space-x-3">
+      <span>Mar 15, 2025</span>
+      <span>•</span>
+      <span>5 min read</span>
+    </div>
+  </div>
+</div>`;
+      } else if (cardType === 'photo') {
+        tsxCode = `import PhotoCard from '@/components/PhotoCard';
+
+export function PhotoCardDemo() {
+  const photo = {
+    id: 'ph1',
+    title: '2025 Porsche 911 GT3 RS - Track Ready',
+    imageUrl: 'https://www.motortrend.com/files/679a40fb03dfa1000846f1f8/2025porsche911gt3weissach1.jpg',
+    date: '2025-04-02',
+    category: 'Sports Car',
+    photoCount: 24,
+    photographer: 'Michael Johnson',
+    position: '1',
+    make: 'Porsche',
+    carModel: '911 GT3 RS',
+    year: '2025'
+  };
+
+  return <PhotoCard photo={photo} />;
+}`;
+
+        tailwindCode = `<!-- Photo Card Component -->
+<div class="overflow-hidden rounded-lg border bg-card shadow-sm transition-shadow hover:shadow-md">
+  <div class="aspect-w-16 aspect-h-9 relative">
+    <img 
+      src="https://www.motortrend.com/files/679a40fb03dfa1000846f1f8/2025porsche911gt3weissach1.jpg" 
+      alt="2025 Porsche 911 GT3 RS - Track Ready" 
+      class="object-cover w-full h-full"
+    />
+    <div class="absolute top-2 right-2 rounded-full px-2.5 py-0.5 bg-black/70 text-xs font-semibold text-white flex items-center">
+      <svg class="w-3 h-3 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"/>
+      </svg>
+      24 Photos
+    </div>
+  </div>
+  <div class="p-4">
+    <h3 class="font-bold text-lg line-clamp-2 mb-2">2025 Porsche 911 GT3 RS - Track Ready</h3>
+    <div class="flex items-center text-sm text-muted-foreground space-x-3">
+      <span>Sports Car</span>
+      <span>•</span>
+      <span>Apr 2, 2025</span>
+    </div>
+  </div>
+</div>`;
+      } else if (cardType === 'video') {
+        tsxCode = `import VideoCard from '@/components/VideoCard';
+
+export function VideoCardDemo() {
+  const video = {
+    id: 'vid1',
+    title: '2025 Rivian R2 Off-Road Test: Better Than a Jeep?',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65ebc644c7bc5b000866ad3e/0051-rivian-r2-first-look-fullcut-thumbnail-1920x1080.jpg',
+    date: '2025-03-28',
+    category: 'SUV',
+    duration: '12:48',
+    views: '245K',
+    channelName: 'MotorTrend',
+    description: 'We take the all-new Rivian R2 off-road to see how it compares to traditional off-roaders',
+    url: '#video-player'
+  };
+
+  return <VideoCard video={video} />;
+}`;
+
+        tailwindCode = `<!-- Video Card Component -->
+<div class="overflow-hidden rounded-lg border bg-card shadow-sm transition-shadow hover:shadow-md">
+  <div class="aspect-w-16 aspect-h-9 relative group">
+    <img 
+      src="https://d2kde5ohu8qb21.cloudfront.net/files/65ebc644c7bc5b000866ad3e/0051-rivian-r2-first-look-fullcut-thumbnail-1920x1080.jpg" 
+      alt="2025 Rivian R2 Off-Road Test" 
+      class="object-cover w-full h-full"
+    />
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="h-16 w-16 rounded-full bg-primary/90 flex items-center justify-center group-hover:scale-110 transition-transform">
+        <svg class="h-8 w-8 text-white" viewBox="0 0 24 24" fill="currentColor">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+      </div>
+    </div>
+    <div class="absolute bottom-2 right-2 rounded-sm px-1.5 py-0.5 bg-black/80 text-xs font-medium text-white">
+      12:48
+    </div>
+  </div>
+  <div class="p-4">
+    <h3 class="font-bold text-lg line-clamp-2 mb-2">2025 Rivian R2 Off-Road Test: Better Than a Jeep?</h3>
+    <div class="flex items-center text-sm text-muted-foreground space-x-3">
+      <span>MotorTrend</span>
+      <span>•</span>
+      <span>245K views</span>
+    </div>
+  </div>
+</div>`;
+      } else if (cardType === 'newCar' || cardType === 'usedCar') {
+        const isNew = cardType === 'newCar';
+        const car = isNew ? 
+          {
+            id: '1',
+            title: '2025 Tesla Model 3 Performance',
+            imageUrl: 'https://media.ed.edmunds-media.com/tesla/model-3/2025/oem/2025_tesla_model-3_sedan_long-range_fq_oem_1_1600.jpg',
+            price: '$54,990',
+            category: 'Electric',
+            year: '2025',
+            isNew: true
+          } : 
+          {
+            id: '2',
+            title: '2022 Toyota Camry XSE',
+            imageUrl: 'https://www.motortrend.com/uploads/2021/12/2022-Toyota-Camry-SE-23.jpg',
+            price: '$28,500',
+            category: 'Sedan',
+            year: '2022',
+            mileage: '15,000 miles',
+            isNew: false
+          };
+          
+        tsxCode = `import GarageCarCard from '@/components/CarCard';
+import { CarData } from '@/components/CarCard';
+
+export function ${isNew ? 'NewCarCardDemo' : 'UsedCarCardDemo'}() {
+  const car: CarData = {
+    id: '${car.id}',
+    title: '${car.title}',
+    imageUrl: '${car.imageUrl}',
+    price: '${car.price}',
+    category: '${car.category}',
+    year: '${car.year}',${!isNew ? `
+    mileage: '${car.mileage}',` : ''}
+    fuelType: '${isNew ? 'Electric' : 'Hybrid'}',
+    drivetrain: '${isNew ? 'AWD' : 'FWD'}',
+    location: '${isNew ? 'San Francisco, CA' : 'Los Angeles, CA'}',
+    bodyStyle: 'Sedan',
+    isNew: ${isNew},
+    motorTrendScore: ${isNew ? '9.2' : '8.5'},
+    motorTrendRank: ${isNew ? '1' : '3'},
+    motorTrendCategoryRank: 1
+  };
+
+  return <GarageCarCard car={car} type="${isNew ? 'new' : 'used'}" />;
+}`;
+
+        tailwindCode = `<!-- ${isNew ? 'New' : 'Used'} Car Card Component -->
+<div class="overflow-hidden rounded-lg border bg-card shadow-sm transition-shadow hover:shadow-md">
+  <div class="aspect-w-16 aspect-h-9 relative">
+    <img 
+      src="${car.imageUrl}" 
+      alt="${car.title}" 
+      class="object-cover w-full h-full"
+    />
+    ${isNew ? '<span class="absolute top-2 left-2 rounded-full px-2.5 py-0.5 bg-green-600 text-xs font-semibold text-white">New</span>' : ''}
+    <button class="absolute top-2 right-2 rounded-full p-1.5 bg-white/80 hover:bg-white shadow-sm">
+      <svg class="w-5 h-5 text-neutral-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+      </svg>
+    </button>
+  </div>
+  <div class="p-4">
+    <div class="flex justify-between items-start mb-2">
+      <h3 class="font-bold text-lg line-clamp-2">${car.title}</h3>
+      <span class="font-bold text-lg text-primary">${car.price}</span>
+    </div>
+    <div class="flex items-center text-sm text-muted-foreground space-x-2 mb-3">
+      <span>${car.category}</span>
+      <span>•</span>
+      <span>${car.year}</span>${!isNew ? `
+      <span>•</span>
+      <span>${car.mileage}</span>` : ''}
+    </div>
+    <div class="flex items-center">
+      <div class="text-sm font-medium bg-neutral-100 rounded px-2 py-0.5 flex items-center">
+        <span class="text-primary font-bold mr-1">${isNew ? '9.2' : '8.5'}</span>
+        <span>MT Score</span>
+      </div>
+    </div>
+  </div>
+</div>`;
+      }
+      
+      return { tsx: tsxCode, tailwind: tailwindCode };
+    }
+    
     return { tsx: '// Select a component to see code', tailwind: '// Select a component to see code' };
   };
   
@@ -263,13 +576,50 @@ export function CardDemo() {
             <p>Card content goes here</p>
           </CardContent>
           {withFooter && (
-            <div className="flex justify-between p-6 pt-0">
+            <CardFooter className="flex justify-between">
               <Button variant="outline">Cancel</Button>
               <Button>Save</Button>
-            </div>
+            </CardFooter>
           )}
         </Card>
       );
+    }
+    
+    if (selectedComponent === 'contentCard') {
+      const { cardType } = properties;
+      const cardData = sampleData[cardType as keyof typeof sampleData];
+      
+      if (cardType === 'article') {
+        return (
+          <div className="w-full max-w-md mx-auto p-1">
+            <ArticleCard article={cardData as any} />
+          </div>
+        );
+      }
+      
+      if (cardType === 'photo') {
+        return (
+          <div className="w-full max-w-md mx-auto p-1">
+            <PhotoCard photo={cardData as any} />
+          </div>
+        );
+      }
+      
+      if (cardType === 'video') {
+        return (
+          <div className="w-full max-w-md mx-auto p-1">
+            <VideoCard video={cardData as any} />
+          </div>
+        );
+      }
+      
+      if (cardType === 'newCar' || cardType === 'usedCar') {
+        return (
+          <div className="w-full max-w-md mx-auto p-1">
+            <GarageCarCard car={cardData as CarData} type={cardType === 'newCar' ? 'new' : 'used'} />
+          </div>
+        );
+      }
     }
     
     return null;
