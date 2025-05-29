@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import OverviewTab from '@/components/design-system/OverviewTab';
 import ColorsTab from '@/components/design-system/ColorsTab';
 import TypographyTab from '@/components/design-system/TypographyTab';
@@ -12,8 +13,9 @@ import IconsTab from '@/components/design-system/IconsTab';
 import AnimationsTab from '@/components/design-system/AnimationsTab';
 import TokensTab from '@/components/design-system/TokensTab';
 import PatternsTab from '@/components/design-system/PatternsTab';
+import PlaygroundTab from '@/components/design-system/PlaygroundTab';
 import AccessibilityTab from '@/components/design-system/AccessibilityTab';
-import { Download, Github } from 'lucide-react';
+import { Download, Github, Code, Palette, BookOpen, FileText } from 'lucide-react';
 
 const DesignSystem = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -42,18 +44,55 @@ const DesignSystem = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-11 mb-8 gap-1">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="tokens">Tokens</TabsTrigger>
-            <TabsTrigger value="colors">Colors</TabsTrigger>
-            <TabsTrigger value="typography">Typography</TabsTrigger>
-            <TabsTrigger value="spacing">Spacing</TabsTrigger>
-            <TabsTrigger value="components">Components</TabsTrigger>
-            <TabsTrigger value="patterns">Patterns</TabsTrigger>
-            <TabsTrigger value="cards">Cards</TabsTrigger>
-            <TabsTrigger value="icons">Icons</TabsTrigger>
-            <TabsTrigger value="animations">Animations</TabsTrigger>
-            <TabsTrigger value="accessibility">A11y</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 lg:grid-cols-12 mb-8 gap-1">
+            <TabsTrigger value="overview" className="flex items-center gap-1.5">
+              <BookOpen className="h-3.5 w-3.5 md:mr-1" />
+              <span className="hidden md:inline">Overview</span>
+            </TabsTrigger>
+            <TabsTrigger value="tokens" className="flex items-center gap-1.5">
+              <FileText className="h-3.5 w-3.5 md:mr-1" />
+              <span className="hidden md:inline">Tokens</span>
+            </TabsTrigger>
+            <TabsTrigger value="colors" className="flex items-center gap-1.5">
+              <Palette className="h-3.5 w-3.5 md:mr-1" />
+              <span className="hidden md:inline">Colors</span>
+            </TabsTrigger>
+            <TabsTrigger value="typography" className="flex items-center gap-1.5">
+              <span className="font-serif font-bold text-xs md:mr-1">A</span>
+              <span className="hidden md:inline">Typography</span>
+            </TabsTrigger>
+            <TabsTrigger value="spacing" className="flex items-center gap-1.5">
+              <span className="text-xs">⟷</span>
+              <span className="hidden md:inline">Spacing</span>
+            </TabsTrigger>
+            <TabsTrigger value="components" className="flex items-center gap-1.5">
+              <span className="text-xs">⬚</span>
+              <span className="hidden md:inline">Components</span>
+            </TabsTrigger>
+            <TabsTrigger value="patterns" className="flex items-center gap-1.5">
+              <span className="text-xs">⌘</span>
+              <span className="hidden md:inline">Patterns</span>
+            </TabsTrigger>
+            <TabsTrigger value="playground" className="flex items-center gap-1.5">
+              <Code className="h-3.5 w-3.5 md:mr-1" />
+              <span className="hidden md:inline">Playground</span>
+            </TabsTrigger>
+            <TabsTrigger value="cards" className="flex items-center gap-1.5">
+              <span className="text-xs">❏</span>
+              <span className="hidden md:inline">Cards</span>
+            </TabsTrigger>
+            <TabsTrigger value="icons" className="flex items-center gap-1.5">
+              <span className="text-xs">★</span>
+              <span className="hidden md:inline">Icons</span>
+            </TabsTrigger>
+            <TabsTrigger value="animations" className="flex items-center gap-1.5">
+              <span className="text-xs">⟳</span>
+              <span className="hidden md:inline">Animations</span>
+            </TabsTrigger>
+            <TabsTrigger value="accessibility" className="flex items-center gap-1.5">
+              <span className="text-xs">A11y</span>
+              <span className="hidden md:inline">Accessibility</span>
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">
@@ -94,6 +133,10 @@ const DesignSystem = () => {
 
           <TabsContent value="patterns">
             <PatternsTab />
+          </TabsContent>
+
+          <TabsContent value="playground">
+            <PlaygroundTab />
           </TabsContent>
 
           <TabsContent value="accessibility">
