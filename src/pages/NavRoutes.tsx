@@ -1,23 +1,28 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './HomePage';
+import CarDetailsPage from './CarDetailsPage';
+import ArticleDetailsPage from './ArticleDetailsPage';
+import VideoDetailsPage from './VideoDetailsPage';
+import PhotoDetailsPage from './PhotoDetailsPage';
+import GaragePage from './GaragePage';
+import BuyersGuide from './BuyersGuide';
+import DesignSystem from './DesignSystem';
 
-import React from "react";
-
-interface NavRouteProps {
-  path: string;
-  title: string;
-}
-
-const NavRoutes: React.FC<NavRouteProps> = ({ path, title }) => {
+const NavRoutes: React.FC = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-motortrend-gray">
-      <h1 className="text-3xl font-bold text-motortrend-dark mb-4">{title}</h1>
-      <p className="text-lg text-gray-600">This page is under construction.</p>
-      <a 
-        href="/"
-        className="mt-6 bg-motortrend-dark text-white px-4 py-2 rounded hover:bg-opacity-90 transition-colors"
-      >
-        Back to Home
-      </a>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/car/:id" element={<CarDetailsPage />} />
+        <Route path="/article/:id" element={<ArticleDetailsPage />} />
+        <Route path="/video/:id" element={<VideoDetailsPage />} />
+        <Route path="/photo/:id" element={<PhotoDetailsPage />} />
+        <Route path="/garage" element={<GaragePage />} />
+        <Route path="/buyers-guide" element={<BuyersGuide />} />
+        <Route path="/design-system" element={<DesignSystem />} />
+      </Routes>
+    </Router>
   );
 };
 
