@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import SearchBar from "./SearchBar";
 
@@ -41,11 +42,14 @@ function useScrollDirection(throttleMs = 80) {
 }
 
 interface MobileStickySearchProps {
-  onSearch: (query: string) => void;
+  onSearch?: (query: string) => void;
   isLoading?: boolean;
 }
 
-const MobileStickySearch: React.FC<MobileStickySearchProps> = ({ onSearch, isLoading = false }) => {
+const MobileStickySearch: React.FC<MobileStickySearchProps> = ({ 
+  onSearch = () => {}, 
+  isLoading = false 
+}) => {
   const direction = useScrollDirection(80);
   const [visible, setVisible] = useState(true);
 
@@ -69,7 +73,6 @@ const MobileStickySearch: React.FC<MobileStickySearchProps> = ({ onSearch, isLoa
         willChange: "transform",
       }}
     >
-
       <div className="py-2 w-full">
         <div className="rounded-2xl bg-white px-4 shadow">
           <SearchBar onSearch={onSearch} isLoading={isLoading} />
