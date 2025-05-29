@@ -289,9 +289,11 @@ const MainNavigation = () => {
         >
           Cars
         </NavLink>
+        {/* Videos dropdown - hidden at 980px or below using custom nav-md breakpoint */}
         <NavLink 
           href="/videos" 
           hasDropdown 
+          className="hidden nav-md:block" 
           dropdownContent={
             <div className="py-2">
               <Link to="/videos/latest" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Latest Videos</Link>
