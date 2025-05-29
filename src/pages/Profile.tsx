@@ -16,7 +16,7 @@ import ProfilePictureUpload from "../components/ProfilePictureUpload";
 import RecentActivity from "../components/RecentActivity";
 import UserAchievements from "../components/UserAchievements";
 import UserPoints from "../components/UserPoints";
-import { User, Settings, Car, Bookmark, Save, Palette, Activity, Award } from "lucide-react";
+import { User, Settings, Car, Bookmark, Palette, Activity, Award } from "lucide-react";
 import ArticleCard from "../components/ArticleCard";
 import CarCard from "../components/CarCard";
 import PhotoCard from "../components/PhotoCard";
@@ -24,6 +24,7 @@ import VideoCard from "../components/VideoCard";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MyGarageSkinny from "../components/profile/MyGarageSkinny";
 import GarageContent from '../components/garage/GarageContent';
+
 const Profile = () => {
   const {
     savedItems,
@@ -187,7 +188,7 @@ const Profile = () => {
                     </div>
                     
                     {filteredItems.length === 0 ? <div className="text-center py-10">
-                        <Save size={48} className="mx-auto text-gray-300 mb-4" />
+                        <Bookmark size={48} className="mx-auto text-gray-300 mb-4" />
                         <h3 className="text-lg font-medium text-gray-700 mb-2">No saved items yet</h3>
                         <p className="text-gray-500 max-w-md mx-auto">
                           Use the bookmark button on articles, cars, videos, and photos to collect them here
@@ -310,4 +311,5 @@ const Profile = () => {
       <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
     </>;
 };
+
 export default Profile;
