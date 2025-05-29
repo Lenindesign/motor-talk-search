@@ -52,16 +52,23 @@ const Search = () => {
     }
   }, [searchHistory.length]);
 
+  // Track previous URL query to prevent duplicate searches
+  const previousQueryRef = useRef<string | null>(null);
+  
   // Check for URL query parameter and perform search automatically
   useEffect(() => {
     const queryFromUrl = searchParams.get('q');
 
     if (queryFromUrl && queryFromUrl.trim()) {
       const trimmedQuery = queryFromUrl.trim();
-
+      
+      // If this is the same query we just processed, don't search again
+      if (previousQueryRef.current === trimmedQuery) {
+        return;
+      }
+      
       if (isSearching) {
         // If a search is already in progress, defer to it.
-        // The useEffect will re-run when isSearching becomes false.
         return;
       }
 
@@ -72,6 +79,8 @@ const Search = () => {
       );
 
       if (!queryExistsInHistory) {
+        // Store the current query to prevent duplicate processing
+        previousQueryRef.current = trimmedQuery;
         handleSearch(trimmedQuery);
       }
     }
@@ -81,6 +90,9 @@ const Search = () => {
   const handleSearch = (rawQuery: string) => {
     const query = rawQuery.trim();
     if (!query) return;
+    
+    // Update the previousQueryRef to prevent URL-triggered duplicates
+    previousQueryRef.current = query;
 
     if (isSearching) {
       // If already processing this exact query, return.
