@@ -65,7 +65,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
         <div className="flex-grow space-y-2">
           <div className="flex items-start justify-between">
             <RouterLink to={linkPath} className="flex-grow">
-              <h3 className="text-lg line-clamp-2 hover:text-motortrend-red transition-colors font-semibold">
+              <h3 className="text-lg line-clamp-2 transition-colors font-semibold text-motortrend-dark">
                 {car.title}
               </h3>
             </RouterLink>
