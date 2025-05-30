@@ -49,7 +49,7 @@ const Profile = () => {
   // Form setup for account settings
   const form = useForm({
     defaultValues: {
-      name: localStorage.getItem("userName") || "John Driver",
+      name: localStorage.getItem("userName") || "Greg Driver",
       email: localStorage.getItem("userEmail") || "john.driver@example.com"
     }
   });
