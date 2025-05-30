@@ -55,15 +55,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
   }
   return <BaseCard type={type === 'new' ? 'newCar' : 'usedCar' as CardType} className={cn('flex flex-col w-full h-full bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200', className)} isSaved={isSaved} onToggleSave={toggleSave} onClick={() => window.location.href = linkPath}>
       <div className="relative pt-[56.25%]">
-        <img 
-          src={currentImage} 
-          alt={car.title} 
-          className={cn(
-            'absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:scale-105', 
-            imageLoading ? 'opacity-0' : 'opacity-100'
-          )} 
-          loading={priority ? "eager" : "lazy"} 
-        />
+        <img src={currentImage} alt={car.title} className={cn('absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:scale-105', imageLoading ? 'opacity-0' : 'opacity-100')} loading={priority ? "eager" : "lazy"} />
         {car.isNew && <div className="absolute top-2 right-2">
             
           </div>}
@@ -73,7 +65,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
         <div className="flex-grow space-y-2">
           <div className="flex items-start justify-between">
             <RouterLink to={linkPath} className="flex-grow">
-              <h3 className="font-bold text-lg line-clamp-2 hover:text-motortrend-red transition-colors">
+              <h3 className="text-lg line-clamp-2 hover:text-motortrend-red transition-colors font-semibold">
                 {car.title}
               </h3>
             </RouterLink>
