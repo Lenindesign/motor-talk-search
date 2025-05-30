@@ -5,10 +5,12 @@ import { useAutocomplete, Suggestion } from "../hooks/use-autocomplete";
 import AutocompleteSuggestions from "./AutocompleteSuggestions";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import { useToast } from "@/hooks/use-toast";
+
 interface QuickAddCarProps {
   onAddCar?: () => void;
   activeTab?: 'all' | 'owned' | 'testDriven' | 'interested';
 }
+
 const QuickAddCar: React.FC<QuickAddCarProps> = ({
   onAddCar,
   activeTab = 'interested'
@@ -35,6 +37,7 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
       setOwnership(activeTab as 'owned' | 'testDriven' | 'interested');
     }
   }, [activeTab]);
+
   const {
     suggestions,
     isLoading: suggestionsLoading,
@@ -85,6 +88,7 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
         return {};
     }
   };
+
   const handleAddCar = (suggestion: Suggestion) => {
     if (suggestion.type === 'newCar' || suggestion.type === 'carModel') {
       if (!isSaved(suggestion.id, 'newCar')) {
@@ -128,6 +132,7 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
       onAddCar();
     }
   };
+
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     handleKeyDown(e);
     if (e.key === 'Enter' && selectedIndex >= 0 && selectedIndex < suggestions.length) {
@@ -137,9 +142,10 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
       setShowSuggestions(false);
     }
   };
+
   const filteredSuggestions = suggestions.filter(suggestion => suggestion.type === 'newCar' || suggestion.type === 'carModel' || suggestion.type === 'carMake').slice(0, 8); // Limit to prevent overwhelming UI
 
-  return <div className="w-full max-w-md mx-auto">
+  return <div className="w-full">
       {/* Ownership selector */}
       <div className="flex mb-2 justify-center text-sm">
         <span className="mr-2 text-gray-500 py-[15px] px-[14px]">Add as:</span>
@@ -156,24 +162,24 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
         </div>
       </div>
       
-      <div className="relative flex">
+      <div className="relative flex w-full">
         <div className="relative flex-1">
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500">
             <Search size={18} />
           </div>
           <input type="text" value={query} onChange={e => {
           setQuery(e.target.value);
           setShowSuggestions(true);
-        }} onFocus={() => setShowSuggestions(true)} onKeyDown={handleInputKeyDown} placeholder="Search for make, model, or trim..." className="w-full rounded-l-md border border-input px-10 py-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-motortrend-red h-11" />
+        }} onFocus={() => setShowSuggestions(true)} onKeyDown={handleInputKeyDown} placeholder="Search for make, model, or trim..." className="w-full rounded-full border border-input px-12 py-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-motortrend-red h-11" />
           {query && <button onClick={() => {
           setQuery('');
           setShowSuggestions(false);
-        }} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors">
+        }} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors">
               <span className="sr-only">Clear</span>
               <span aria-hidden="true">&times;</span>
             </button>}
         </div>
-        <Button className="rounded-l-none bg-red-500 hover:bg-red-600" onClick={() => {
+        <Button className="ml-2 rounded-full bg-red-500 hover:bg-red-600 px-4" onClick={() => {
         if (query && filteredSuggestions.length > 0) {
           handleAddCar(filteredSuggestions[0]);
         } else {
@@ -187,9 +193,10 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
         </Button>
       </div>
       
-      {showSuggestions && filteredSuggestions.length > 0 && <div className="absolute z-10 bg-white w-full max-w-md shadow-lg rounded-b-md">
+      {showSuggestions && filteredSuggestions.length > 0 && <div className="absolute z-10 bg-white w-full shadow-lg rounded-b-md mt-1">
           <AutocompleteSuggestions suggestions={filteredSuggestions} selectedIndex={selectedIndex} isLoading={suggestionsLoading} onSelect={suggestion => handleAddCar(suggestion)} onMouseEnter={index => setSelectedIndex(index)} />
         </div>}
     </div>;
 };
+
 export default QuickAddCar;
