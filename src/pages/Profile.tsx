@@ -24,6 +24,7 @@ import VideoCard from "../components/VideoCard";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MyGarageSkinny from "../components/profile/MyGarageSkinny";
 import GarageContent from '../components/garage/GarageContent';
+
 const Profile = () => {
   const {
     savedItems,
@@ -67,7 +68,7 @@ const Profile = () => {
   const userData = {
     name: form.watch("name"),
     email: form.watch("email"),
-    avatar: "/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png",
+    avatar: "https://d2kde5ohu8qb21.cloudfront.net/files/6839e7e53277480008013d30/greg.jpg",
     joined: "January 2023"
   };
   const handleUnsave = (id: string, type: SavedItemType) => {
