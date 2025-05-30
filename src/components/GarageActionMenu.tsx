@@ -177,7 +177,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
                     }}
                   >
                     <Calendar size={14} />
-                    Schedule Appointment
+                    Book Appointment
                   </Button>
                   <Button
                     variant="outline"
