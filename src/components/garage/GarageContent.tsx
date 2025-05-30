@@ -3,7 +3,6 @@ import { Car, BookOpen, Sparkles, ArrowRightLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSavedItems, SavedItem, SavedItemType } from "../../contexts/SavedItemsContext";
-
 import CarComparisonTable from "./CarComparisonTable";
 import GarageCompare from "../GarageCompare";
 import QuickAddCar from "../QuickAddCar";
@@ -189,10 +188,9 @@ const GarageContent = () => {
   const displayCars = getDisplayCars();
   const filteredArticles = getRelatedArticles();
   const navigate = useNavigate();
-  return (
-    <>
+  return <>
       <Card className="shadow-sm flex-1">
-      <CardHeader className="flex flex-row justify-between items-center pb-2">
+      <CardHeader className="flex flex-row justify-between items-center pb-0">
         <div>
           <CardTitle className="flex items-center gap-2 text-xl">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z" /></svg>
@@ -223,14 +221,14 @@ const GarageContent = () => {
         {showComparison ? <div className="mt-2">
             <CarComparisonTable cars={getSelectedCarData()} />
           </div> :
-      // Regular Garage View
-      <>
+        // Regular Garage View
+        <>
 
             
             {contentView === 'garage' && <>
                 {/* Add Another Car */}
                 <div className="mb-6">
-                  <h3 className="mb-4 text-center font-semibold text-2xl">Add another car</h3>
+                  
                   <QuickAddCar activeTab={activeTab} />
                 </div>
                 
@@ -244,13 +242,13 @@ const GarageContent = () => {
                 <h3 className="text-lg font-medium mb-4">Articles Related to Your Garage</h3>
                 {filteredArticles.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredArticles.map(article => <ArticleCard key={article.id} article={{
-              id: article.id,
-              title: article.title,
-              imageUrl: article.imageUrl,
-              date: article.date,
-              category: article.category
-              // featured and photoCount are optional and not in mock data
-            }} />)}
+                id: article.id,
+                title: article.title,
+                imageUrl: article.imageUrl,
+                date: article.date,
+                category: article.category
+                // featured and photoCount are optional and not in mock data
+              }} />)}
                   </div> : <div className="text-center py-10 bg-gray-50 rounded-lg">
                     <BookOpen size={48} className="mx-auto text-gray-300 mb-4" />
                     <h3 className="text-lg font-medium text-gray-700 mb-2">No related articles</h3>
@@ -262,7 +260,6 @@ const GarageContent = () => {
           </>}
       </CardContent>
     </Card>
-    </>
-  );
+    </>;
 };
 export default GarageContent;
