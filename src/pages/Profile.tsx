@@ -123,12 +123,12 @@ const Profile = () => {
                         Profile
                       </Button>
                       
-                      <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2" onClick={() => setPersonalizationOpen(true)}>
+                      <Button variant="outline" size="sm" onClick={() => setPersonalizationOpen(true)} className="w-full flex items-center justify-center gap-2 text-sm">
                         <Palette size={16} />
                         Personalize
                       </Button>
                       
-                      <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2">
+                      <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 text-sm">
                         <Settings size={16} />
                         Settings
                       </Button>
