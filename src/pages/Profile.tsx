@@ -50,7 +50,7 @@ const Profile = () => {
   const form = useForm({
     defaultValues: {
       name: localStorage.getItem("userName") || "Greg Driver",
-      email: localStorage.getItem("userEmail") || "john.driver@example.com"
+      email: localStorage.getItem("userEmail") || "greg.driver@example.com"
     }
   });
   const onSubmit = (data: {
