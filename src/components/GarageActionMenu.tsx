@@ -8,11 +8,13 @@ import { useSavedItems } from "../contexts/SavedItemsContext";
 import { useToast } from "@/hooks/use-toast";
 import { CarData } from "./CarCard";
 import { useNavigate } from 'react-router-dom';
+
 interface GarageActionMenuProps {
   car: CarData;
   type: 'new' | 'used';
   className?: string;
 }
+
 const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
   car,
   type,
@@ -31,6 +33,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
   const navigate = useNavigate();
   const savedItem = getSavedItemById(car.id);
   const currentOwnership = savedItem?.metadata?.ownership as 'owned' | 'testDriven' | 'interested' | undefined;
+
   const handleAddToGarage = (ownership: 'owned' | 'testDriven' | 'interested') => {
     const itemType = type === 'new' ? 'newCar' : 'usedCar';
     if (savedItem) {
@@ -73,6 +76,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
     }
     setOpen(false);
   };
+
   const handleScheduleTestDrive = () => {
     toast({
       title: "Scheduling Test Drive",
@@ -80,6 +84,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
     });
     setOpen(false);
   };
+
   const handleContactDealer = () => {
     toast({
       title: "Contacting Dealer",
@@ -87,6 +92,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
     });
     setOpen(false);
   };
+
   const getButtonText = () => {
     if (currentOwnership === 'owned') return 'Owned';
     if (currentOwnership === 'testDriven') return 'Test Drive';
@@ -95,7 +101,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
   };
 
   const getButtonVariant = () => {
-    if (currentOwnership) return 'default';
+    if (currentOwnership) return 'secondary';
     return 'outline';
   };
 
@@ -105,7 +111,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
         <Button
           variant={getButtonVariant()}
           size="lg"
-          className={`gap-1 px-6 py-3 rounded-xl font-semibold transition-all duration-200 ${className}`}
+          className={`gap-1 px-6 py-3 rounded-xl font-semibold transition-all duration-200 text-gray-900 hover:text-gray-900 ${className}`}
           onClick={e => {
             e.stopPropagation();
           }}
@@ -123,7 +129,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
               <Button
                 variant={currentOwnership === 'owned' ? 'default' : 'ghost'}
                 size="sm"
-                className="w-full justify-start gap-2"
+                className="w-full justify-start gap-2 text-gray-900 hover:text-gray-900"
                 onClick={e => {
                   e.stopPropagation();
                   handleAddToGarage('owned');
@@ -135,7 +141,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
               <Button
                 variant={currentOwnership === 'testDriven' ? 'default' : 'ghost'}
                 size="sm"
-                className="w-full justify-start gap-2"
+                className="w-full justify-start gap-2 text-gray-900 hover:text-gray-900"
                 onClick={e => {
                   e.stopPropagation();
                   handleAddToGarage('testDriven');
@@ -147,7 +153,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
               <Button
                 variant={currentOwnership === 'interested' ? 'default' : 'ghost'}
                 size="sm"
-                className="w-full justify-start gap-2"
+                className="w-full justify-start gap-2 text-gray-900 hover:text-gray-900"
                 onClick={e => {
                   e.stopPropagation();
                   handleAddToGarage('interested');
@@ -164,7 +170,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full justify-start gap-2"
+                    className="w-full justify-start gap-2 text-gray-900 hover:text-gray-900"
                     onClick={e => {
                       e.stopPropagation();
                       handleScheduleTestDrive();
@@ -176,7 +182,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full justify-start gap-2"
+                    className="w-full justify-start gap-2 text-gray-900 hover:text-gray-900"
                     onClick={e => {
                       e.stopPropagation();
                       handleContactDealer();
