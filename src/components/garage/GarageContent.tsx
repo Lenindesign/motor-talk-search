@@ -190,7 +190,7 @@ const GarageContent = () => {
   const navigate = useNavigate();
   return <>
       <Card className="shadow-sm flex-1">
-      <CardHeader className="flex flex-row justify-between items-center pb-0">
+      <CardHeader className="flex flex-row justify-between items-center">
         <div>
           <CardTitle className="flex items-center gap-2 text-xl">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z" /></svg>
@@ -216,7 +216,7 @@ const GarageContent = () => {
         </div>
       </CardHeader>
 
-      <CardContent className="pt-0">
+      <CardContent className="">
         {/* Comparison View */}
         {showComparison ? <div className="mt-2">
             <CarComparisonTable cars={getSelectedCarData()} />
