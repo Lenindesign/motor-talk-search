@@ -3,7 +3,7 @@ import { Car, BookOpen, Sparkles, ArrowRightLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSavedItems, SavedItem, SavedItemType } from "../../contexts/SavedItemsContext";
-import GarageStats from "../GarageStats";
+
 import CarComparisonTable from "./CarComparisonTable";
 import GarageCompare from "../GarageCompare";
 import QuickAddCar from "../QuickAddCar";
@@ -225,7 +225,7 @@ const GarageContent = () => {
           </div> :
       // Regular Garage View
       <>
-            <GarageStats activeTab={activeTab} onTabChange={setActiveTab} />
+
             
             {contentView === 'garage' && <>
                 {/* Add Another Car */}
