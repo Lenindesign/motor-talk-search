@@ -1,3 +1,4 @@
+
 import { ArticleData } from "../components/ArticleCard";
 import { CarData } from "../components/CarCard";
 import { PhotoData } from "../components/PhotoCard";
@@ -160,14 +161,14 @@ export const mockUsedCars: CarData[] = [
   },
   {
     id: "used-4",
-    title: "2022 BMW M3 Competition",
-    imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    title: "2025 Honda Accord Hybrid",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d37b47ff34400082301e7/19-2025-honda-accord-front-view.jpg",
     price: "$72,900",
-    category: "Sports Sedan",
-    year: "2022",
+    category: "Hybrid Sedan",
+    year: "2025",
     mileage: "12,876 mi",
-    fuelType: "Gasoline",
-    drivetrain: "RWD",
+    fuelType: "Hybrid",
+    drivetrain: "FWD",
     location: "Miami, FL",
     bodyStyle: "Sedan",
   },
