@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Search, Plus, Car } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -15,6 +14,58 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 interface GarageQuickAddProps {
   onAddCar?: () => void;
 }
+
+// Helper function to get car image based on title
+const getCarImageByTitle = (title: string): string => {
+  // First try to find exact match in mock data
+  const exactMatch = [...mockNewCars, ...mockUsedCars].find(car => 
+    car.title.toLowerCase() === title.toLowerCase()
+  );
+  
+  if (exactMatch) {
+    return exactMatch.imageUrl;
+  }
+
+  // Try to find partial match
+  const partialMatch = [...mockNewCars, ...mockUsedCars].find(car => 
+    title.toLowerCase().includes(car.title.toLowerCase().split(' ').slice(-2).join(' ').toLowerCase()) ||
+    car.title.toLowerCase().includes(title.toLowerCase().split(' ').slice(-2).join(' ').toLowerCase())
+  );
+  
+  if (partialMatch) {
+    return partialMatch.imageUrl;
+  }
+
+  // Fallback to brand-specific images based on make
+  const lowerTitle = title.toLowerCase();
+  
+  if (lowerTitle.includes('honda')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/679d37b47ff34400082301e7/19-2025-honda-accord-front-view.jpg';
+  } else if (lowerTitle.includes('hyundai') || lowerTitle.includes('ioniq')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/683a13b525213f0008ca3bff/001-2025-hyundai-ioniq-5-xrt-lead.jpg';
+  } else if (lowerTitle.includes('ford')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/67803d741f7f8d00081b8228/2025fordmustanggtdspiritofamerica8.png';
+  } else if (lowerTitle.includes('toyota')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/65a4c435544c890008b8417b/2025-toyota-crown-signia-suv-reveal-4.jpg';
+  } else if (lowerTitle.includes('bmw')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/66f1b4fea063c100087ac1dc/002-2025-bmw-i5-m60-front-view.jpg';
+  } else if (lowerTitle.includes('lucid')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/67eebe7faf98e400084a3e75/001-2025-lucid-air-pure-front-three-quarter-static-lead.jpg';
+  } else if (lowerTitle.includes('rivian')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/6700323d9326e80008726afc/018-2025-rivian-r1s-dual-max.jpg';
+  } else if (lowerTitle.includes('tesla')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/663515bddbe9350008773b00/002-2023-tesla-model-y.jpg';
+  } else if (lowerTitle.includes('porsche')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/65c44b3fb907d30008f1b5b9/2022-porsche-911-gt3-9.jpg';
+  } else if (lowerTitle.includes('jeep')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/65c37e5d81670a0008bdb6df/2020-jeep-wrangler-unlimited-rubicon-ecodiesel-22.jpg';
+  } else if (lowerTitle.includes('audi')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/65c42d9dadc7280009f459e8/2021-audi-rs-e-tron-gt-prototype-20.jpg';
+  }
+
+  // Generic fallback image
+  return 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3';
+};
 
 const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
   const [query, setQuery] = useState('');
@@ -43,27 +94,21 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
         const matchingCar = mockNewCars.find(car => car.id === suggestion.id) || 
                            mockUsedCars.find(car => car.id === suggestion.id);
 
-        if (!matchingCar) {
-          toast({
-            title: "Error",
-            description: "Could not find car details. Please try again.",
-            variant: "destructive"
-          });
-          return;
-        }
+        // Get the appropriate image
+        const carImageUrl = matchingCar ? matchingCar.imageUrl : getCarImageByTitle(suggestion.text);
 
         addSavedItem({
           id: suggestion.id,
           title: suggestion.text,
           type: 'newCar',
-          imageUrl: matchingCar.imageUrl,
+          imageUrl: carImageUrl,
           savedAt: new Date().toISOString(),
           metadata: {
-            price: matchingCar.price,
-            category: matchingCar.category,
-            year: matchingCar.year || new Date().getFullYear().toString(),
+            price: matchingCar?.price || '$' + Math.floor(20000 + Math.random() * 60000).toLocaleString(),
+            category: matchingCar?.category || 'Vehicle',
+            year: matchingCar?.year || new Date().getFullYear().toString(),
             ownership: ownership,
-            bodyStyle: matchingCar.bodyStyle
+            bodyStyle: matchingCar?.bodyStyle
           }
         });
         

@@ -5,11 +5,64 @@ import { useAutocomplete, Suggestion } from "../hooks/use-autocomplete";
 import AutocompleteSuggestions from "./AutocompleteSuggestions";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import { useToast } from "@/hooks/use-toast";
+import { mockNewCars, mockUsedCars } from '@/services/mockData';
 
 interface QuickAddCarProps {
   onAddCar?: () => void;
   activeTab?: 'all' | 'owned' | 'testDriven' | 'interested';
 }
+
+// Helper function to get car image based on title
+const getCarImageByTitle = (title: string): string => {
+  // First try to find exact match in mock data
+  const exactMatch = [...mockNewCars, ...mockUsedCars].find(car => 
+    car.title.toLowerCase() === title.toLowerCase()
+  );
+  
+  if (exactMatch) {
+    return exactMatch.imageUrl;
+  }
+
+  // Try to find partial match
+  const partialMatch = [...mockNewCars, ...mockUsedCars].find(car => 
+    title.toLowerCase().includes(car.title.toLowerCase().split(' ').slice(-2).join(' ').toLowerCase()) ||
+    car.title.toLowerCase().includes(title.toLowerCase().split(' ').slice(-2).join(' ').toLowerCase())
+  );
+  
+  if (partialMatch) {
+    return partialMatch.imageUrl;
+  }
+
+  // Fallback to brand-specific images based on make
+  const lowerTitle = title.toLowerCase();
+  
+  if (lowerTitle.includes('honda')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/679d37b47ff34400082301e7/19-2025-honda-accord-front-view.jpg';
+  } else if (lowerTitle.includes('hyundai') || lowerTitle.includes('ioniq')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/683a13b525213f0008ca3bff/001-2025-hyundai-ioniq-5-xrt-lead.jpg';
+  } else if (lowerTitle.includes('ford')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/67803d741f7f8d00081b8228/2025fordmustanggtdspiritofamerica8.png';
+  } else if (lowerTitle.includes('toyota')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/65a4c435544c890008b8417b/2025-toyota-crown-signia-suv-reveal-4.jpg';
+  } else if (lowerTitle.includes('bmw')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/66f1b4fea063c100087ac1dc/002-2025-bmw-i5-m60-front-view.jpg';
+  } else if (lowerTitle.includes('lucid')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/67eebe7faf98e400084a3e75/001-2025-lucid-air-pure-front-three-quarter-static-lead.jpg';
+  } else if (lowerTitle.includes('rivian')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/6700323d9326e80008726afc/018-2025-rivian-r1s-dual-max.jpg';
+  } else if (lowerTitle.includes('tesla')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/663515bddbe9350008773b00/002-2023-tesla-model-y.jpg';
+  } else if (lowerTitle.includes('porsche')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/65c44b3fb907d30008f1b5b9/2022-porsche-911-gt3-9.jpg';
+  } else if (lowerTitle.includes('jeep')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/65c37e5d81670a0008bdb6df/2020-jeep-wrangler-unlimited-rubicon-ecodiesel-22.jpg';
+  } else if (lowerTitle.includes('audi')) {
+    return 'https://d2kde5ohu8qb21.cloudfront.net/files/65c42d9dadc7280009f459e8/2021-audi-rs-e-tron-gt-prototype-20.jpg';
+  }
+
+  // Generic fallback image
+  return 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3';
+};
 
 const QuickAddCar: React.FC<QuickAddCarProps> = ({
   onAddCar,
@@ -92,24 +145,32 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
   const handleAddCar = (suggestion: Suggestion) => {
     if (suggestion.type === 'newCar' || suggestion.type === 'carModel') {
       if (!isSaved(suggestion.id, 'newCar')) {
+        // Find matching car from mock data
+        const matchingCar = mockNewCars.find(car => car.id === suggestion.id) || 
+                           mockUsedCars.find(car => car.id === suggestion.id);
+
+        // Get the appropriate image
+        const carImageUrl = matchingCar ? matchingCar.imageUrl : getCarImageByTitle(suggestion.text);
+
         // Generate specs based on body style
         const specs = bodyStyle ? generateSpecsForBodyStyle(bodyStyle) : {};
 
         // Common fields for all cars
         const fuelType = Math.random() > 0.3 ? Math.floor(20 + Math.random() * 15) + " city / " + Math.floor(25 + Math.random() * 15) + " hwy" : "Electric - " + Math.floor(85 + Math.random() * 50) + " MPGe";
         const drivetrain = ['FWD', 'RWD', 'AWD', '4WD'][Math.floor(Math.random() * 4)];
+        
         addSavedItem({
           id: suggestion.id,
           title: suggestion.text,
           type: 'newCar',
-          imageUrl: '/placeholder.svg',
+          imageUrl: carImageUrl,
           savedAt: new Date().toISOString(),
           metadata: {
-            price: '$' + Math.floor(20000 + Math.random() * 60000).toLocaleString(),
-            category: suggestion.type === 'carModel' ? 'Model' : 'New Car',
-            year: new Date().getFullYear().toString(),
+            price: matchingCar?.price || '$' + Math.floor(20000 + Math.random() * 60000).toLocaleString(),
+            category: matchingCar?.category || suggestion.type === 'carModel' ? 'Model' : 'New Car',
+            year: matchingCar?.year || new Date().getFullYear().toString(),
             ownership: ownership,
-            bodyStyle: bodyStyle,
+            bodyStyle: matchingCar?.bodyStyle || bodyStyle,
             fuelType: fuelType,
             drivetrain: drivetrain,
             ...specs
