@@ -31,7 +31,7 @@ export const mockArticles: ArticleData[] = [
   {
     id: "4",
     title: "2025 Tesla Cybertruck Owner Review: Living With the Future",
-    imageUrl: "https://di-uploads-pod16.dealerinspire.com/vikingmotors/uploads/2019/09/diy-car-maintenance.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67a2776e659f9800084efe53/39-2025-tesla-cybertruck-front-view.jpg",
     date: "April 28, 2025",
     category: "Long-Term Test",
     photoCount: 12,
@@ -39,14 +39,14 @@ export const mockArticles: ArticleData[] = [
   {
     id: "5",
     title: "Hybrid vs. Electric: Which Is Right For You in 2025?",
-    imageUrl: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65b8df47ba5411000890c695/camry-hybrid-vs-kona-electric.jpg",
     date: "April 25, 2025",
     category: "Comparison",
   },
   {
     id: "6",
     title: "Future of Off-Roading: Electric 4x4s Put to the Test",
-    imageUrl: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65baf60fa70c820008b0c38b/2017-mercedes-benz-g-550-off-roading-04.jpg",
     date: "April 22, 2025",
     category: "Adventure",
     photoCount: 8,
@@ -54,7 +54,7 @@ export const mockArticles: ArticleData[] = [
   {
     id: "7",
     title: "2025 Lucid Air: In-Depth Technology Overview",
-    imageUrl: "https://di-uploads-pod16.dealerinspire.com/vikingmotors/uploads/2019/09/diy-car-maintenance.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67c22302ae874400087d4ca9/23-2025-lucid-air-front-view.jpg",
     date: "May 10, 2025",
     category: "Technology",
   },
@@ -65,7 +65,7 @@ export const mockNewCars: CarData[] = [
   {
     id: "new-1",
     title: "2025 Lucid Air Grand Touring",
-    imageUrl: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67eebe7faf98e400084a3e75/001-2025-lucid-air-pure-front-three-quarter-static-lead.jpg",
     price: "$87,400",
     category: "Electric Sedan",
     isNew: true,
@@ -74,7 +74,7 @@ export const mockNewCars: CarData[] = [
   {
     id: "new-2",
     title: "2025 Rivian R1S",
-    imageUrl: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/6700323d9326e80008726afc/018-2025-rivian-r1s-dual-max.jpg",
     price: "$76,000",
     category: "Electric SUV",
     isNew: true,
@@ -83,7 +83,7 @@ export const mockNewCars: CarData[] = [
   {
     id: "new-3",
     title: "2025 BMW i5 eDrive40",
-    imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/66f1b4fea063c100087ac1dc/002-2025-bmw-i5-m60-front-view.jpg",
     price: "$65,700",
     category: "Electric Sedan",
     isNew: true,
@@ -92,7 +92,7 @@ export const mockNewCars: CarData[] = [
   {
     id: "new-4",
     title: "2025 Ford Mustang 60th Anniversary Edition",
-    imageUrl: "https://hips.hearstapps.com/hmg-prod/images/2025-ford-mustang-60th-anniversary-exterior-66227932bb88e.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67803d741f7f8d00081b8228/2025fordmustanggtdspiritofamerica8.png",
     price: "$42,990", 
     category: "Sports Car",
     isNew: true,
@@ -101,7 +101,7 @@ export const mockNewCars: CarData[] = [
   {
     id: "new-5",
     title: "2025 Toyota Crown Signia",
-    imageUrl: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a4c435544c890008b8417b/2025-toyota-crown-signia-suv-reveal-4.jpg",
     price: "$39,950",
     category: "Luxury Crossover",
     isNew: true,
@@ -110,7 +110,7 @@ export const mockNewCars: CarData[] = [
   {
     id: "new-6",
     title: "2025 Hyundai Ioniq 6 Limited",
-    imageUrl: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/683a154500b694000887672d/008-2025-hyundai-ioniq-5-xrt.jpg",
     price: "$53,650",
     category: "Electric Sedan",
     isNew: true,
@@ -123,7 +123,7 @@ export const mockUsedCars: CarData[] = [
   {
     id: "used-1",
     title: "2023 Tesla Model Y Performance",
-    imageUrl: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/663515bddbe9350008773b00/002-2023-tesla-model-y.jpg",
     price: "$53,900",
     category: "Electric SUV",
     year: "2023",
@@ -136,7 +136,7 @@ export const mockUsedCars: CarData[] = [
   {
     id: "used-2",
     title: "2022 Porsche 911 Carrera 4S",
-    imageUrl: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65c44b3fb907d30008f1b5b9/2022-porsche-911-gt3-9.jpg",
     price: "$124,500",
     category: "Sports Car",
     year: "2022",
@@ -149,7 +149,7 @@ export const mockUsedCars: CarData[] = [
   {
     id: "used-3",
     title: "2021 Ford F-150 Raptor",
-    imageUrl: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/6679efdd03729c0008b14be8/031-2021-ford-f-150-raptor.jpg",
     price: "$65,800",
     category: "Pickup Truck",
     year: "2021",
@@ -162,7 +162,7 @@ export const mockUsedCars: CarData[] = [
   {
     id: "used-4",
     title: "2025 Honda Accord Hybrid",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d37b47ff34400082301e7/19-2025-honda-accord-front-view.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/671a7554264766000986939b/008-2025-honda-accord-hybrid.jpg",
     price: "$72,900",
     category: "Hybrid Sedan",
     year: "2025",
@@ -175,7 +175,7 @@ export const mockUsedCars: CarData[] = [
   {
     id: "used-5",
     title: "2020 Jeep Wrangler Unlimited Rubicon",
-    imageUrl: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65c37e5d81670a0008bdb6df/2020-jeep-wrangler-unlimited-rubicon-ecodiesel-22.jpg",
     price: "$45,500",
     category: "SUV",
     year: "2020",
@@ -188,7 +188,7 @@ export const mockUsedCars: CarData[] = [
   {
     id: "used-6",
     title: "2021 Audi e-tron GT",
-    imageUrl: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65c42d9dadc7280009f459e8/2021-audi-rs-e-tron-gt-prototype-20.jpg",
     price: "$89,700",
     category: "Electric Sports Car",
     year: "2021",
@@ -204,7 +204,7 @@ export const mockUsedCars: CarData[] = [
 export const mockPhotos: PhotoData[] = [
   {
     id: "1",
-    imageUrl: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a1ee783da2cd0008171982/2023-aston-martin-v12-vantage-track-driving-4.jpg",
     title: "2023 Aston Martin Vantage at Sunset",
     position: "1/14",
     make: "Aston Martin",
@@ -213,7 +213,7 @@ export const mockPhotos: PhotoData[] = [
   },
   {
     id: "2",
-    imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/659f01cce758ec0008136065/tunerevo-anaheim-bmw-i8.jpg",
     title: "2022 BMW i8 Front Angle",
     position: "2/14",
     make: "BMW",
@@ -222,7 +222,7 @@ export const mockPhotos: PhotoData[] = [
   },
   {
     id: "3",
-    imageUrl: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/659f167267366d0008dd93b1/2023-mercedes-benz-amg-gt63-4-door-coupe-interior-15.jpg",
     title: "2023 Mercedes-AMG GT Interior",
     position: "3/14",
     make: "Mercedes-Benz",
@@ -231,7 +231,7 @@ export const mockPhotos: PhotoData[] = [
   },
   {
     id: "4",
-    imageUrl: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a0be80e0fe3e00085a93e8/2023-porsche-911-gt3-rs-6.jpg",
     title: "2023 Porsche 911 GT3 RS Track Day",
     position: "4/14",
     make: "Porsche",
@@ -240,7 +240,7 @@ export const mockPhotos: PhotoData[] = [
   },
   {
     id: "5",
-    imageUrl: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/659fa24d59558a0008c53288/ferrari-sf90-spider-first-test-44.jpg",
     title: "2023 Ferrari SF90 Stradale",
     position: "5/14",
     make: "Ferrari",
@@ -249,7 +249,7 @@ export const mockPhotos: PhotoData[] = [
   },
   {
     id: "6",
-    imageUrl: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a27391ad70b4000865f8e9/2022-lamborghini-countach-lpi-800-4-7.jpg",
     title: "2022 Lamborghini Huracán EVO",
     position: "6/14",
     make: "Lamborghini",
@@ -267,7 +267,7 @@ export const mockPhotos: PhotoData[] = [
   },
   {
     id: "8",
-    imageUrl: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65c5333cf028450008666d96/2022-jaguar-f-type-r-dynamic-p450-13.jpg",
     title: "2022 Jaguar F-Type R Coupe",
     position: "8/14",
     make: "Jaguar",
@@ -281,37 +281,37 @@ export const mockVideos: VideoData[] = [
   {
     id: "1",
     title: "2025 BMW M5 First Drive Review",
-    imageUrl: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67296714564fe600071c8de3/003-2025-bmw-m5-touring-wagon.jpg",
     duration: "12:45",
   },
   {
     id: "2",
     title: "Electric Off-Road Comparison: Rivian R1T vs Ford F-150 Lightning",
-    imageUrl: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b7c45f3431cf0008c8eb4c/2025-rivian-r1t-app-19.jpg",
     duration: "18:32",
   },
   {
     id: "3",
     title: "Supercar Drag Race: Ferrari vs Lamborghini vs McLaren",
-    imageUrl: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/68349f24aa8f18000865fec2/1996-mclaren-f1-gtr-110.jpg",
     duration: "8:54",
   },
   {
     id: "4",
     title: "2025 Lucid Air: In-Depth Technology Overview",
-    imageUrl: "https://images.unsplash.com/photo-1593941707882-a5bac6861d75?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67c222dbae874400087d4c90/3-2025-lucid-air-side-view.jpg",
     duration: "14:17",
   },
   {
     id: "5",
     title: "DIY Car Maintenance Tips Every Owner Should Know",
-    imageUrl: "https://di-uploads-pod16.dealerinspire.com/vikingmotors/uploads/2019/09/diy-car-maintenance.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65cedb67c7bc5b00085f8763/010-ls-porting-diy-706-heads-chamber.jpg",
     duration: "10:05",
   },
   {
     id: "6",
     title: "Best Car Audio Systems of 2025",
-    imageUrl: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65b987bcc668c90008d34e06/2018-volvo-xc60-t6-audio.jpg",
     duration: "16:28",
   },
 ];

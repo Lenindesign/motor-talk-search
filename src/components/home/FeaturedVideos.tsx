@@ -21,7 +21,7 @@ const videoItems: VideoData[] = [{
   id: '3',
   title: 'Best Off-Road SUVs of 2025: Ultimate Comparison',
   duration: '18:22',
-  imageUrl: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&h=400',
+  imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/6824ecc20fb9100008e4a010/2026toyotabzwoodlandevsuvelectricoffroad-4.jpg',
   views: '156K',
   publishDate: '3 days ago'
 }];

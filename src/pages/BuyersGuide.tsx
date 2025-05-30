@@ -64,7 +64,7 @@ const BuyersGuide: React.FC = () => {
   const defaultNewCars: CarData[] = [{
     id: 'new-1',
     title: '2025 Ford Mustang GT',
-    imageUrl: 'https://images.unsplash.com/photo-1494976688602-30db25b13217?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65a457a12936a70008a96a14/030-2025-ford-mustang-gtd.jpg',
     price: '$45,995',
     category: 'Sports Car',
     bodyStyle: 'Sports Car',
@@ -92,7 +92,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'new-3',
     title: '2025 Tesla Model 3 Performance',
-    imageUrl: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/6793fa8794846c00084135f8/3-2025-tesla-model-s-front-view.jpg',
     price: '$52,990',
     category: 'Electric Sedan',
     bodyStyle: 'Sedan',
@@ -106,7 +106,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'new-4',
     title: '2025 Toyota Supra',
-    imageUrl: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/66cf9fe3818d95000860c4e9/2025-toyota-gr-supra-gt4-evo2-17.jpg',
     price: '$56,500',
     category: 'Sports Car',
     bodyStyle: 'Coupe',
@@ -120,7 +120,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'new-5',
     title: '2025 Porsche 911 Carrera',
-    imageUrl: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/67ead63126b4b600088db946/2025-porsche-911-carrera-s-first-drive-cartegena-yellow-coupe-11.jpg',
     price: '$116,050',
     category: 'Luxury Sports Car',
     bodyStyle: 'Coupe',
@@ -134,7 +134,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'new-6',
     title: '2025 Honda Civic Type R',
-    imageUrl: 'https://images.unsplash.com/photo-1677051707209-2a7d3d1e9c6c?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/22-2025-honda-civic-type-r-front-view.jpg',
     price: '$44,795',
     category: 'Sport Compact',
     bodyStyle: 'Hatchback',
@@ -148,7 +148,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'new-7',
     title: '2025 Chevrolet Corvette Z06',
-    imageUrl: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/673bbb24c432220008be9aae/2-2025-chevrolet-corvette-z06-front-view.jpg',
     price: '$109,295',
     category: 'Supercar',
     bodyStyle: 'Coupe',
@@ -162,7 +162,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'new-8',
     title: '2025 Audi RS e-tron GT',
-    imageUrl: 'https://images.unsplash.com/photo-1617814076668-4af3ff1dd44f?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/67ec4bd56ffccf0008567e3a/29-2025-audi-rs-e-tron-gt-performance-first-drive.jpg',
     price: '$148,595',
     category: 'Electric Performance',
     bodyStyle: 'Sedan',
@@ -176,7 +176,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'new-9',
     title: '2025 Lexus LFA Successor',
-    imageUrl: 'https://images.unsplash.com/photo-1542362567-b07e54358753?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/6811672b34acc00008264914/005-2025-lexus-rx500h.jpg',
     price: '$375,000',
     category: 'Hypercar',
     bodyStyle: 'Coupe',
@@ -190,7 +190,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'new-10',
     title: '2025 Volkswagen ID.4 Pro S',
-    imageUrl: 'https://images.unsplash.com/photo-1617469767053-8f35065dab23?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/6760ab27fe4b93000856f155/12-2025-volkswagen-id4-side-view.jpg',
     price: '$48,995',
     category: 'Electric SUV',
     bodyStyle: 'SUV',
@@ -204,7 +204,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'new-11',
     title: '2025 Hyundai Ioniq 6 Limited',
-    imageUrl: 'https://images.unsplash.com/photo-1669128951892-6b4bfae17a3d?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/683a154500b694000887672d/008-2025-hyundai-ioniq-5-xrt.jpg',
     price: '$52,650',
     category: 'Electric Sedan',
     bodyStyle: 'Sedan',
@@ -233,7 +233,7 @@ const BuyersGuide: React.FC = () => {
   const defaultUsedCars: CarData[] = [{
     id: 'used-1',
     title: '2023 Tesla Model 3 Long Range',
-    imageUrl: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/6700323d9326e80008726afc/018-2025-rivian-r1s-dual-max.jpg',
     price: '$38,995',
     category: 'Electric',
     bodyStyle: 'Sedan',
@@ -249,7 +249,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'used-2',
     title: '2022 BMW M3 Competition',
-    imageUrl: 'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65c756c95279ce0008c1d934/2022-bmw-m3-competition-awd-14.jpg',
     price: '$69,900',
     category: 'Luxury Sports Sedan',
     bodyStyle: 'Sedan',
@@ -265,7 +265,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'used-3',
     title: '2021 Porsche Taycan 4S',
-    imageUrl: 'https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65c7d839b8c39c0008f85a5d/2021-porsche-taycan-4s-4.jpg',
     price: '$84,995',
     category: 'Electric Performance',
     bodyStyle: 'Sedan',
@@ -281,7 +281,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'used-4',
     title: '2022 Audi RS7',
-    imageUrl: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65a0604a505b900008c79973/2022-audi-rs7-exclusive-edition.jpg',
     price: '$112,500',
     category: 'Luxury Performance',
     bodyStyle: 'Sedan', // Changed from 'Sportback' to match allowed types
@@ -297,7 +297,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'used-5',
     title: '2020 Chevrolet Corvette C8',
-    imageUrl: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65caec805279ce00085232ac/2020-chevrolet-corvette-c8-front-three-quarter-1.jpg',
     price: '$72,990',
     category: 'Sports Car',
     bodyStyle: 'Coupe',
@@ -313,7 +313,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'used-6',
     title: '2022 Ford Mustang Mach-E GT',
-    imageUrl: 'https://images.unsplash.com/photo-1630990325544-73a3d6a7c3a8?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/659f10463791830008482e3b/2021-ford-mustang-mach-e-gt-pvoty22-17.jpg',
     price: '$59,995',
     category: 'Electric SUV',
     bodyStyle: 'SUV',
@@ -329,7 +329,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'used-7',
     title: '2021 Lexus LC 500',
-    imageUrl: 'https://images.unsplash.com/photo-1542362567-b07e54358753?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65c3be99c42fd50008f653b8/2021-lexus-lc-500-convertible-2.jpg',
     price: '$78,900',
     category: 'Luxury Sports Car',
     bodyStyle: 'Coupe',
@@ -345,7 +345,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'used-8',
     title: '2022 Mercedes-AMG E63 S',
-    imageUrl: 'https://images.unsplash.com/photo-1617814076668-4af3ff1dd44f?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65b2b969e2114d000968bcc5/2022-mercedes-amg-black-series-nurburgring-record-14.jpg',
     price: '$98,500',
     category: 'Luxury Performance',
     bodyStyle: 'Sedan',
@@ -361,7 +361,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'used-9',
     title: '2021 Volkswagen Golf R',
-    imageUrl: 'https://images.unsplash.com/photo-1617469767053-8f35065dab23?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/680fea874a0f450008c6b797/27-2025-volkswagen-golf-r-black-first-drive.jpg',
     price: '$42,995',
     category: 'Hot Hatch',
     bodyStyle: 'Hatchback',
@@ -377,7 +377,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'used-10',
     title: '2020 Toyota Supra',
-    imageUrl: 'https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65dc5e41915e0300087609b7/2020-toyota-gr-supra-09.jpg',
     price: '$49,995',
     category: 'Sports Car',
     bodyStyle: 'Coupe',
@@ -393,7 +393,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'used-11',
     title: '2022 Lucid Air Grand Touring',
-    imageUrl: 'https://images.unsplash.com/photo-1669128951892-6b4bfae17a3d?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65a4f63eed15000008b723b0/033-2022-lucid-air-touring-roadtrip-1.jpg',
     price: '$119,900',
     category: 'Electric Luxury',
     bodyStyle: 'Sedan',
@@ -409,7 +409,7 @@ const BuyersGuide: React.FC = () => {
   }, {
     id: 'used-12',
     title: '2021 Dodge Challenger SRT Hellcat',
-    imageUrl: 'https://images.unsplash.com/photo-1612544448445-b8232cff3b6a?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65a3274d05d2660008f06eda/jailbreak-2022-dodge-charger-challenger-srt-hellcat-redeye-widebody-3.jpg',
     price: '$64,995',
     category: 'Muscle Car',
     bodyStyle: 'Coupe',

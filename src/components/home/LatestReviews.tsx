@@ -17,19 +17,19 @@ interface ReviewItem {
 const reviewItems: ArticleData[] = [{
   id: '1',
   title: '2024 Honda Accord Hybrid Review: The Smart Choice',
-  imageUrl: 'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=600&h=400',
+  imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65a469ea7f8e48000893d711/032-2024-honda-accord-hybrid-front-three-quarters-in-action.jpg',
   category: 'Review',
   date: 'May 5, 2025'
 }, {
   id: '2',
   title: 'Hyundai Santa Fe XRT Off-Road Review: Surprisingly...',
-  imageUrl: 'https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=600&h=400',
+  imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/66bbf44b13acd10008772522/18-2025-hyundai-santa-fe-xrt-front-view.jpg',
   category: 'Guide',
   date: 'May 3, 2025'
 }, {
   id: '3',
   title: '2025 BMW X5 Long-Term Test: 6 Months Later',
-  imageUrl: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=600&h=400',
+  imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/663a6303d2a27f000a207787/003-2024-bmw-x5-m-competiition.jpg',
   category: 'Long-Term Test',
   date: 'May 1, 2025'
 }];

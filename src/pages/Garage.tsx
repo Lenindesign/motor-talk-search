@@ -14,31 +14,38 @@ const motorTrendData = {
     score: 8.7,
     rank: 3,
     categoryRank: 1
+  
   },
   "Toyota Camry": {
     score: 8.5,
     rank: 5,
     categoryRank: 2
+  
   },
   "Honda Accord": {
     score: 8.8,
     rank: 2,
-    categoryRank: 1
+    categoryRank: 1,
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d37b47ff34400082301e7/19-2025-honda-accord-front-view.jpg"
+  
   },
   "Toyota Corolla": {
     score: 8.3,
     rank: 7,
     categoryRank: 3
+  
   },
   "Ford F-150": {
     score: 8.9,
     rank: 1,
     categoryRank: 1
+  
   },
   "Chevrolet Silverado": {
     score: 8.6,
     rank: 4,
     categoryRank: 2
+  
   },
   "Ram 1500": {
     score: 8.5,
@@ -223,7 +230,7 @@ const Garage = () => {
   const userData = {
     name: localStorage.getItem("userName") || "John Driver",
     email: localStorage.getItem("userEmail") || "john.driver@example.com",
-    avatar: "/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png",
+    avatar: "https://d2kde5ohu8qb21.cloudfront.net/files/6839e7e53277480008013d30/greg.jpg",
     joined: "January 2023"
   };
 

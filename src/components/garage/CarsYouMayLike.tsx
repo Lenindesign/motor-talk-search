@@ -5,7 +5,7 @@ const newCars: CarData[] = [
   {
     id: "new1",
     title: "2025 Honda Accord",
-    imageUrl: "/lovable-uploads/honda-accord-2025.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d37b47ff34400082301e7/19-2025-honda-accord-front-view.jpg",
     price: "$29,500",
     category: "Sedan",
     year: "2025",
@@ -14,7 +14,7 @@ const newCars: CarData[] = [
   {
     id: "new2",
     title: "2025 Toyota RAV4",
-    imageUrl: "/lovable-uploads/toyota-rav4-2025.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67085deec30a8c000841b88a/1-2025-toyota-rav4-front-view.jpg",
     price: "$31,200",
     category: "SUV",
     year: "2025",
@@ -23,7 +23,7 @@ const newCars: CarData[] = [
   {
     id: "new3",
     title: "2025 Ford F-150",
-    imageUrl: "/lovable-uploads/ford-f150-2025.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/675b76362025cd0008d6d19e/007-2025-ford-f-150-raptor.jpg",
     price: "$41,000",
     category: "Truck",
     year: "2025",
@@ -35,7 +35,7 @@ const usedCars: CarData[] = [
   {
     id: "used1",
     title: "2022 Tesla Model 3",
-    imageUrl: "/lovable-uploads/tesla-model3-2022.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a1ed591fb4e70008536b0a/2022-tesla-model-y-dual-motor-performance-12.jpg",
     price: "$37,900",
     category: "EV",
     year: "2022",
@@ -44,7 +44,7 @@ const usedCars: CarData[] = [
   {
     id: "used2",
     title: "2021 Jeep Wrangler",
-    imageUrl: "/lovable-uploads/jeep-wrangler-2021.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65c80a5bf9293d0008e6af89/2021-jeep-wrangler-high-altitude-1.jpg",
     price: "$34,300",
     category: "SUV",
     year: "2021",
@@ -53,7 +53,7 @@ const usedCars: CarData[] = [
   {
     id: "used3",
     title: "2020 BMW 3 Series",
-    imageUrl: "/lovable-uploads/bmw-3series-2020.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65c27f411d18020008241114/2020-bmw-2-series-gran-coupe-m240i-in-snapper-rocks-blue-3.jpg",
     price: "$29,750",
     category: "Sedan",
     year: "2020",

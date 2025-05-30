@@ -9,7 +9,7 @@ const guideItems: CarData[] = [{
   id: 'new-1',
   title: '2025 Lucid Air Grand Touring',
   price: '$87,400',
-  imageUrl: 'https://images.unsplash.com/photo-1617654112368-307921291f42?auto=format&fit=crop&w=400&h=300',
+  imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/67eebefe5107540008d18c50/020-2025-lucid-air-pure.jpg',
   isNew: true,
   year: "2025",
   category: 'Luxury Sedan'
@@ -17,7 +17,7 @@ const guideItems: CarData[] = [{
   id: 'new-2',
   title: '2025 Rivian R1S',
   price: '$76,000',
-  imageUrl: 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&w=400&h=300',
+  imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/67003206c86c06000844d0f6/001-2025-rivian-r1s-dual-max-lead.jpg',
   isNew: true,
   year: "2025",
   category: 'Electric SUV'
@@ -25,7 +25,7 @@ const guideItems: CarData[] = [{
   id: 'new-3',
   title: '2025 BMW i5 eDrive40',
   price: '$65,700',
-  imageUrl: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=400&h=300',
+  imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/66f1b4fea063c100087ac1dc/002-2025-bmw-i5-m60-front-view.jpg',
   isNew: true,
   year: "2025",
   category: 'Electric Sedan'
@@ -33,7 +33,7 @@ const guideItems: CarData[] = [{
   id: 'new-4',
   title: '2025 Ford Mustang GT',
   price: '$42,990',
-  imageUrl: 'https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&w=400&h=300',
+  imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/668fe41a96736e0008669212/2025fordmustanggtdgoodwood4.png',
   isNew: true,
   year: "2025",
   category: 'Sports Car'
