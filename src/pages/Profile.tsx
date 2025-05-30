@@ -46,6 +46,16 @@ const Profile = () => {
     }
   }, [profileImage]);
 
+  // Set default name to Greg Driver if not already set
+  useEffect(() => {
+    if (!localStorage.getItem("userName")) {
+      localStorage.setItem("userName", "Greg Driver");
+    }
+    if (!localStorage.getItem("userEmail")) {
+      localStorage.setItem("userEmail", "greg.driver@example.com");
+    }
+  }, []);
+
   // Form setup for account settings
   const form = useForm({
     defaultValues: {
