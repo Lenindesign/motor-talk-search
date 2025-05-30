@@ -108,7 +108,7 @@ const Profile = () => {
                     </div>
                     
                     <div className="w-full mt-4 space-y-3">
-                      <Button variant="default" size="sm" className="w-full flex items-center justify-center gap-2">
+                      <Button variant="default" size="sm" className="w-full flex items-center justify-center gap-2 text-motortrend-light bg-motortrend-dark">
                         <User size={16} />
                         Profile
                       </Button>
