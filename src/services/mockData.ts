@@ -110,7 +110,7 @@ export const mockNewCars: CarData[] = [
   {
     id: "new-6",
     title: "2025 Hyundai Ioniq 6 Limited",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/683a154500b694000887672d/008-2025-hyundai-ioniq-5-xrt.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/683a13b525213f0008ca3bff/001-2025-hyundai-ioniq-5-xrt-lead.jpg",
     price: "$53,650",
     category: "Electric Sedan",
     isNew: true,
