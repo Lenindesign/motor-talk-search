@@ -62,8 +62,8 @@ export function useAutocomplete(query: string) {
             newSuggestions.push({
               id: `make-${make.id}`,
               text: make.name,
-              type: 'carMake'
-              // No imageUrl for makes
+              type: 'carMake',
+              imageUrl: make.imageUrl
             });
           }
           
@@ -76,7 +76,7 @@ export function useAutocomplete(query: string) {
                 id: `model-${model.id}`,
                 text: modelText,
                 type: 'carModel',
-                // No imageUrl for models
+                imageUrl: model.imageUrl,
                 makeId: make.id
               });
             }

@@ -3,6 +3,7 @@
 export interface CarMake {
   id: string;
   name: string;
+  imageUrl?: string;
   models: CarModel[];
 }
 
@@ -10,51 +11,56 @@ export interface CarModel {
   id: string;
   name: string;
   year: number;
+  imageUrl?: string;
 }
 
 export const carMakes: CarMake[] = [
   {
     id: "make-1",
     name: "Honda",
+    imageUrl: "https://cdn.motortrend.com/logos/honda.png",
     models: [
-      { id: "honda-1", name: "Civic", year: 2025 },
-      { id: "honda-2", name: "Accord", year: 2025 },
-      { id: "honda-3", name: "CR-V", year: 2025 },
-      { id: "honda-4", name: "Pilot", year: 2025 },
-      { id: "honda-5", name: "HR-V", year: 2024 }
+      { id: "honda-1", name: "Civic", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/22-2025-honda-civic-type-r-front-view.jpg" },
+      { id: "honda-2", name: "Accord", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-honda-accord-front-view.jpg" },
+      { id: "honda-3", name: "CR-V", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-honda-crv-front-view.jpg" },
+      { id: "honda-4", name: "Pilot", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-honda-pilot-front-view.jpg" },
+      { id: "honda-5", name: "HR-V", year: 2024, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2024-honda-hrv-front-view.jpg" }
     ]
   },
   {
     id: "make-2",
     name: "Toyota",
+    imageUrl: "https://cdn.motortrend.com/logos/toyota.png",
     models: [
-      { id: "toyota-1", name: "Camry", year: 2025 },
-      { id: "toyota-2", name: "Corolla", year: 2025 },
-      { id: "toyota-3", name: "RAV4", year: 2025 },
-      { id: "toyota-4", name: "Highlander", year: 2025 },
-      { id: "toyota-5", name: "Tacoma", year: 2024 }
+      { id: "toyota-1", name: "Camry", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-toyota-camry-front-view.jpg" },
+      { id: "toyota-2", name: "Corolla", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-toyota-corolla-front-view.jpg" },
+      { id: "toyota-3", name: "RAV4", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-toyota-rav4-front-view.jpg" },
+      { id: "toyota-4", name: "Highlander", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-toyota-highlander-front-view.jpg" },
+      { id: "toyota-5", name: "Tacoma", year: 2024, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2024-toyota-tacoma-front-view.jpg" }
     ]
   },
   {
     id: "make-3",
     name: "Ford",
+    imageUrl: "https://cdn.motortrend.com/logos/ford.png",
     models: [
-      { id: "ford-1", name: "F-150", year: 2025 },
-      { id: "ford-2", name: "Mustang", year: 2025 },
-      { id: "ford-3", name: "Explorer", year: 2025 },
-      { id: "ford-4", name: "Escape", year: 2024 },
-      { id: "ford-5", name: "Bronco", year: 2025 }
+      { id: "ford-1", name: "F-150", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-ford-f150-front-view.jpg" },
+      { id: "ford-2", name: "Mustang", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-ford-mustang-front-view.jpg" },
+      { id: "ford-3", name: "Explorer", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-ford-explorer-front-view.jpg" },
+      { id: "ford-4", name: "Escape", year: 2024, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2024-ford-escape-front-view.jpg" },
+      { id: "ford-5", name: "Bronco", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-ford-bronco-front-view.jpg" }
     ]
   },
   {
     id: "make-4",
     name: "Chevrolet",
+    imageUrl: "https://cdn.motortrend.com/logos/chevrolet.png",
     models: [
-      { id: "chevy-1", name: "Silverado", year: 2025 },
-      { id: "chevy-2", name: "Equinox", year: 2025 },
-      { id: "chevy-3", name: "Malibu", year: 2024 },
-      { id: "chevy-4", name: "Tahoe", year: 2025 },
-      { id: "chevy-5", name: "Corvette", year: 2025 }
+      { id: "chevy-1", name: "Silverado", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-chevrolet-silverado-front-view.jpg" },
+      { id: "chevy-2", name: "Equinox", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-chevrolet-equinox-front-view.jpg" },
+      { id: "chevy-3", name: "Malibu", year: 2024, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2024-chevrolet-malibu-front-view.jpg" },
+      { id: "chevy-4", name: "Tahoe", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-chevrolet-tahoe-front-view.jpg" },
+      { id: "chevy-5", name: "Corvette", year: 2025, imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/2025-chevrolet-corvette-front-view.jpg" }
     ]
   },
   {
