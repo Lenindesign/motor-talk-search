@@ -1,4 +1,3 @@
-
 import React, { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Play, Eye } from 'lucide-react';
@@ -7,7 +6,6 @@ import { useOptimizedImageLoader } from '../hooks/useOptimizedImageLoader';
 import BaseCard from './ui/BaseCard';
 import CardSkeleton from './ui/CardSkeleton';
 import { cn } from '@/lib/utils';
-
 export interface VideoData {
   id: string;
   title: string;
@@ -21,7 +19,6 @@ export interface VideoData {
     publishDate?: string;
   };
 }
-
 export interface VideoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   video: VideoData;
   className?: string;
@@ -29,7 +26,6 @@ export interface VideoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   isLoading?: boolean;
   priority?: boolean;
 }
-
 const VideoCard: React.FC<VideoCardProps> = memo(({
   video,
   className,
@@ -38,13 +34,17 @@ const VideoCard: React.FC<VideoCardProps> = memo(({
   priority = false
 }) => {
   const navigate = useNavigate();
-  
-  const { currentImage, isLoading: imageLoading } = useOptimizedImageLoader({
+  const {
+    currentImage,
+    isLoading: imageLoading
+  } = useOptimizedImageLoader({
     imageUrl: video.imageUrl,
     priority
   });
-
-  const { isSaved, toggleSave } = useCardSave({
+  const {
+    isSaved,
+    toggleSave
+  } = useCardSave({
     id: video.id,
     type: 'video',
     title: video.title,
@@ -55,31 +55,13 @@ const VideoCard: React.FC<VideoCardProps> = memo(({
       publishDate: video.publishDate
     }
   });
-
   const handleClick = onClick || (() => navigate(`/video/${video.id}`));
-
   if (isLoading) {
     return <CardSkeleton className={className} />;
   }
-
-  return (
-    <BaseCard 
-      type="video" 
-      className={cn('group relative hover:shadow-xl transition-shadow duration-300 cursor-pointer', className)} 
-      isSaved={isSaved} 
-      onToggleSave={toggleSave}
-      onClick={handleClick}
-    >
+  return <BaseCard type="video" className={cn('group relative hover:shadow-xl transition-shadow duration-300 cursor-pointer', className)} isSaved={isSaved} onToggleSave={toggleSave} onClick={handleClick}>
       <div className="relative pt-[56.25%]">
-        <img 
-          src={currentImage} 
-          alt={video.title} 
-          className={cn(
-            "absolute inset-0 w-full h-full object-cover transition-opacity duration-300",
-            imageLoading ? "opacity-0" : "opacity-100"
-          )}
-          loading={priority ? "eager" : "lazy"}
-        />
+        <img src={currentImage} alt={video.title} className={cn("absolute inset-0 w-full h-full object-cover transition-opacity duration-300", imageLoading ? "opacity-0" : "opacity-100")} loading={priority ? "eager" : "lazy"} />
         <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors flex items-center justify-center">
           <div className="bg-motortrend-red/90 group-hover:bg-motortrend-red rounded-full p-3 transition-colors">
             <Play className="text-white ml-0.5" />
@@ -90,24 +72,19 @@ const VideoCard: React.FC<VideoCardProps> = memo(({
         </div>
       </div>
       <div className="p-4">
-        <h3 className="font-bold leading-tight text-gray-900 mb-1 line-clamp-2 text-lg">
+        <h3 className="leading-tight text-gray-900 mb-1 line-clamp-2 text-lg font-semibold">
           {video.title}
         </h3>
         <div className="flex items-center text-sm text-gray-500">
           <span className="mr-3">MotorTrend</span>
-          {video.views && (
-            <>
+          {video.views && <>
               <Eye className="mr-1" size={14} />
               <span className="mr-3">{video.views} views</span>
-            </>
-          )}
+            </>}
           {video.publishDate && <span>{video.publishDate}</span>}
         </div>
       </div>
-    </BaseCard>
-  );
+    </BaseCard>;
 });
-
 VideoCard.displayName = 'VideoCard';
-
 export default VideoCard;
