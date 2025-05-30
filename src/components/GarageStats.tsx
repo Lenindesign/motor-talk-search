@@ -6,7 +6,7 @@ interface GarageStatsProps {
   activeTab?: 'all' | 'owned' | 'testDriven' | 'interested';
 }
 
-// Pill-shaped badges with solid colors that act as clickable buttons
+// Segmented control style tabs similar to iOS design
 const GarageStats: React.FC<GarageStatsProps> = ({
   onTabChange,
   activeTab = 'all'
@@ -41,28 +41,32 @@ const GarageStats: React.FC<GarageStatsProps> = ({
       count: interestedCount
     }
   ] as const;
+
   return (
     <div className="flex w-full mb-6">
-      {tabData.map(tab => (
-        <button
-          key={tab.id}
-          onClick={() => onTabChange?.(tab.id)}
-          className={`flex-1 px-4 py-2 rounded-full typography-caption font-medium transition-colors flex items-center justify-center gap-2 mx-1 ${
-            activeTab === tab.id 
-              ? 'bg-color-primary-1 text-white' 
-              : 'bg-color-neutral-6 text-color-neutral-3 hover:bg-color-neutral-5'
-          }`}
-        >
-          {tab.label}
-          <span className={`px-2 py-0.5 rounded-full typography-small font-semibold ${
-            activeTab === tab.id 
-              ? 'bg-white/20 text-white' 
-              : 'bg-color-neutral-7 text-color-neutral-4'
-          }`}>
-            {tab.count}
-          </span>
-        </button>
-      ))}
+      {/* Segmented control container with background */}
+      <div className="flex w-full bg-color-neutral-6 rounded-xl p-1 gap-1">
+        {tabData.map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => onTabChange?.(tab.id)}
+            className={`flex-1 px-3 py-2.5 rounded-lg typography-small font-medium transition-all duration-200 flex items-center justify-center gap-2 ${
+              activeTab === tab.id 
+                ? 'bg-white text-color-neutral-1 shadow-sm' 
+                : 'text-color-neutral-3 hover:text-color-neutral-2'
+            }`}
+          >
+            {tab.label}
+            <span className={`min-w-[20px] h-5 px-1.5 rounded-full typography-caption font-semibold flex items-center justify-center ${
+              activeTab === tab.id 
+                ? 'bg-color-neutral-1 text-white' 
+                : 'bg-color-neutral-5 text-color-neutral-3'
+            }`}>
+              {tab.count}
+            </span>
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
