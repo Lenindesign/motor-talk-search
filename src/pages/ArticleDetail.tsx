@@ -153,7 +153,7 @@ const ArticleDetail: React.FC = () => {
         {/* Article Header */}
         <header className="mb-8">
           <div className="mb-4">
-            <span className="inline-block bg-motortrend-red text-white px-3 py-1 rounded-full text-sm font-semibold uppercase tracking-wide">
+            <span className="inline-block bg-motortrend-red text-white rounded-full font-semibold uppercase tracking-wide text-xs py-[12px] px-[24px]">
               {article.category}
             </span>
           </div>
