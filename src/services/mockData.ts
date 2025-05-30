@@ -9,7 +9,7 @@ export const mockArticles: ArticleData[] = [
   {
     id: "1",
     title: "2025 Ferrari 12Cilindri First Look: The 819-HP Replacement for the 812 Superfast",
-    imageUrl: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/68000bec7be0880008e8056a/8-2025-ferrari-296-gtb-front-view.jpg",
     date: "May 5, 2025",
     category: "Review",
     featured: true,
