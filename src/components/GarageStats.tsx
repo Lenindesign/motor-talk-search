@@ -19,40 +19,45 @@ const GarageStats: React.FC<GarageStatsProps> = ({
   const testDrivenCount = savedCars.filter(car => car.metadata?.ownership === 'testDriven').length;
   const interestedCount = savedCars.filter(car => car.metadata?.ownership === 'interested').length;
   const allCount = savedCars.length;
-  const tabData = [{
-    id: 'all',
-    label: 'All',
-    count: allCount
-  }, {
-    id: 'owned',
-    label: 'Owned',
-    count: ownedCount
-  }, {
-    id: 'testDriven',
-    label: 'Test Drive',
-    count: testDrivenCount
-  }, {
-    id: 'interested',
-    label: 'Interested',
-    count: interestedCount
-  }] as const;
+  const tabData = [
+    {
+      id: 'all',
+      label: 'All',
+      count: allCount
+    },
+    {
+      id: 'owned',
+      label: 'Owned',
+      count: ownedCount
+    },
+    {
+      id: 'testDriven',
+      label: 'Test Drive',
+      count: testDrivenCount
+    },
+    {
+      id: 'interested',
+      label: 'Interested',
+      count: interestedCount
+    }
+  ] as const;
   return (
     <div className="flex w-full mb-6">
       {tabData.map(tab => (
         <button
           key={tab.id}
           onClick={() => onTabChange?.(tab.id)}
-          className={`flex-1 px-4 py-2 rounded-full text-sm font-medium transition-colors flex items-center justify-center gap-2 mx-1 ${
+          className={`flex-1 px-4 py-2 rounded-full typography-caption font-medium transition-colors flex items-center justify-center gap-2 mx-1 ${
             activeTab === tab.id 
-              ? 'bg-motortrend-red text-white' 
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              ? 'bg-color-primary-1 text-white' 
+              : 'bg-color-neutral-6 text-color-neutral-3 hover:bg-color-neutral-5'
           }`}
         >
           {tab.label}
-          <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
+          <span className={`px-2 py-0.5 rounded-full typography-small font-semibold ${
             activeTab === tab.id 
               ? 'bg-white/20 text-white' 
-              : 'bg-gray-200 text-gray-600'
+              : 'bg-color-neutral-7 text-color-neutral-4'
           }`}>
             {tab.count}
           </span>

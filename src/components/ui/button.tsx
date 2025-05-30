@@ -6,19 +6,19 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg typography-caption font-semibold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg typography-button2 font-semibold ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-modern hover:shadow-modern-lg",
+        default: "bg-color-primary-1 text-white hover:bg-color-primary-2 shadow-modern hover:shadow-modern-lg",
         destructive:
-          "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-modern hover:shadow-modern-lg",
+          "bg-color-error-2 text-white hover:bg-color-error-1 shadow-modern hover:shadow-modern-lg",
         outline:
-          "border border-neutral-4 bg-background hover:bg-neutral-7 hover:text-accent-foreground shadow-modern hover:shadow-modern-lg",
+          "border border-color-neutral-4 bg-color-neutral-8 hover:bg-color-neutral-7 hover:text-color-neutral-1 shadow-modern hover:shadow-modern-lg",
         secondary:
-          "bg-neutral-7 text-neutral-2 hover:bg-neutral-6 shadow-modern hover:shadow-modern-lg",
-        ghost: "hover:bg-neutral-7 hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-color-neutral-7 text-color-neutral-2 hover:bg-color-neutral-6 shadow-modern hover:shadow-modern-lg",
+        ghost: "hover:bg-color-neutral-7 hover:text-color-neutral-1",
+        link: "text-color-primary-1 underline-offset-4 hover:underline",
       },
       size: {
         default: "h-11 px-6 py-3",
