@@ -24,7 +24,6 @@ import VideoCard from "../components/VideoCard";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MyGarageSkinny from "../components/profile/MyGarageSkinny";
 import GarageContent from '../components/garage/GarageContent';
-
 const Profile = () => {
   const {
     savedItems,
@@ -186,7 +185,7 @@ const Profile = () => {
                         <p className="text-gray-500 max-w-md mx-auto">
                           Use the bookmark button on articles, cars, videos, and photos to collect them here
                         </p>
-                        <Button className="mt-4" onClick={() => navigate("/")}>
+                        <Button onClick={() => navigate("/")} className="mt-4 text-motortrend-dark">
                           Browse Content
                         </Button>
                       </div> : <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -304,5 +303,4 @@ const Profile = () => {
       <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
     </>;
 };
-
 export default Profile;
