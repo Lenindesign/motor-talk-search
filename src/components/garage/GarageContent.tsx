@@ -190,23 +190,22 @@ const GarageContent = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Card className="shadow-modern flex-1 border-0 md:border">
-        <CardHeader className="flex flex-col space-y-4 md:flex-row md:justify-between md:items-center py-4 md:py-8 px-4 md:pt-8">
-          <div className="text-center md:text-left">
-            <CardTitle className="flex items-center justify-center md:justify-start gap-2 typography-title text-color-neutral-1 text-xl md:text-2xl">
+      <Card className="shadow-modern flex-1">
+        <CardHeader className="flex flex-row justify-between items-center py-0 pt-8">
+          <div>
+            <CardTitle className="flex items-center gap-2 typography-title text-color-neutral-1">
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
                 <path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z" />
               </svg>
               {showComparison ? "Car Comparison" : "My Garage"}
             </CardTitle>
-            <CardDescription className="typography-body text-color-neutral-4 text-center md:text-left px-0 mt-1">
+            <CardDescription className="typography-body text-color-neutral-4 text-left px-0">
               {showComparison ? "Compare your selected vehicles side by side" : "View, manage, and get insights about your vehicles"}
             </CardDescription>
           </div>
-          
-          <div className="flex gap-2 justify-center md:justify-end">
+          <div className="flex gap-2">
             {showComparison ? (
-              <Button variant="outline" onClick={() => setShowComparison(false)} size="sm">
+              <Button variant="outline" onClick={() => setShowComparison(false)}>
                 Back to Garage
               </Button>
             ) : (
@@ -238,7 +237,7 @@ const GarageContent = () => {
           </div>
         </CardHeader>
 
-        <CardContent className="py-2 px-4">
+        <CardContent className="py-[4px]">
           {/* Comparison View */}
           {showComparison ? (
             <div className="mt-2">
@@ -249,8 +248,8 @@ const GarageContent = () => {
             <>
               {contentView === 'garage' && (
                 <>
-                  {/* Add Another Car - More compact on mobile */}
-                  <div className="mb-4 md:mb-6">
+                  {/* Add Another Car */}
+                  <div className="mb-6">
                     <QuickAddCar activeTab={activeTab} />
                   </div>
                   
