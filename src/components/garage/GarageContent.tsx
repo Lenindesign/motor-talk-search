@@ -189,7 +189,7 @@ const GarageContent = () => {
   const filteredArticles = getRelatedArticles();
   const navigate = useNavigate();
   return <div className="max-w-[980px] mx-auto">
-      <Card className="shadow-modern flex-1 border-0 md:border px-0">
+      <Card className="">
         <CardHeader className="pb-0">
           <div className="text-center md:text-left">
             <CardTitle className="flex items-center justify-center md:justify-start gap-2 typography-title text-color-neutral-1 md:text-2xl text-4xl text-center">
