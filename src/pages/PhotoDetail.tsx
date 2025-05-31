@@ -75,8 +75,8 @@ const PhotoDetail: React.FC = () => {
     photo.imageUrl,
     "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=500&auto=format&fit=crop&q=60",
     "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=500&auto=format&fit=crop&q=60",
-    "https://images.unsplash.com/photo-1549399137-1db5b832fff8?w=500&auto=format&fit=crop&q=60",
-    "https://images.unsplash.com/photo-1558618047-5c5c4e74e245?w=500&auto=format&fit=crop&q=60"
+    "https://d2kde5ohu8qb21.cloudfront.net/files/683a0abf00b694000887671f/024-2025-aston-martin-vanquish.jpg?w=500&auto=format&fit=crop&q=60",
+    "https://d2kde5ohu8qb21.cloudfront.net/files/65b819aba0798d000828ef2f/2008-honda-element-02.jpg?w=500&auto=format&fit=crop&q=60"
   ];
 
   return (
@@ -193,10 +193,7 @@ const PhotoDetail: React.FC = () => {
                     <Share size={16} className="mr-2" />
                     Share
                   </Button>
-                  <Button variant="outline" size="sm" className="border-gray-600 text-white hover:bg-gray-800">
-                    <Download size={16} className="mr-2" />
-                    Download
-                  </Button>
+
                 </div>
               </CardContent>
             </Card>

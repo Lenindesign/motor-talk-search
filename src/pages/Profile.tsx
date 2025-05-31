@@ -116,12 +116,12 @@ const Profile = () => {
                     </div>
                     
                     <div className="w-full mt-4 space-y-3">
-                      <Button variant="default" size="sm" className="w-full flex items-center justify-center gap-2 text-white bg-motortrend-dark text-sm">
+                      <Button variant="default" size="sm" className="w-full flex items-center justify-center gap-2 text-white bg-motortrend-dark text-sm font-semibold">
                         <User size={16} />
                         Profile
                       </Button>
                       
-                      <Button variant="outline" size="sm" onClick={() => setPersonalizationOpen(true)} className="w-full flex items-center justify-center gap-2 text-gray-900 bg-white border-gray-300 hover:bg-gray-50 text-sm">
+                      <Button variant="outline" size="sm" onClick={() => setPersonalizationOpen(true)} className="w-full flex items-center justify-center gap-2 text-gray-900 bg-white border-gray-300 hover:bg-gray-50 text-sm font-semibold">
                         <Palette size={16} />
                         Personalize
                       </Button>
@@ -172,16 +172,16 @@ const Profile = () => {
                     <div className="flex justify-between items-center mb-4">
                       <h2 className="text-xl font-bold">Saved Items</h2>
                       <div className="flex gap-2">
-                        <Button variant={filterType === "all" ? "default" : "outline"} size="sm" onClick={() => setFilterType("all")} className={filterType === "all" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}>
+                        <Button variant={filterType === "all" ? "default" : "outline"} size="sm" onClick={() => setFilterType("all")}>
                           All
                         </Button>
-                        <Button variant={filterType === "article" ? "default" : "outline"} size="sm" onClick={() => setFilterType("article")} className={filterType === "article" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}>
+                        <Button variant={filterType === "article" ? "default" : "outline"} size="sm" onClick={() => setFilterType("article")}>
                           Articles
                         </Button>
-                        <Button variant={filterType === "newCar" ? "default" : "outline"} size="sm" onClick={() => setFilterType("newCar")} className={filterType === "newCar" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}>
+                        <Button variant={filterType === "newCar" ? "default" : "outline"} size="sm" onClick={() => setFilterType("newCar")}>
                           New Cars
                         </Button>
-                        <Button variant={filterType === "usedCar" ? "default" : "outline"} size="sm" onClick={() => setFilterType("usedCar")} className={filterType === "usedCar" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}>
+                        <Button variant={filterType === "usedCar" ? "default" : "outline"} size="sm" onClick={() => setFilterType("usedCar")}>
                           Used Cars
                         </Button>
                       </div>

@@ -263,12 +263,14 @@ const GarageContent = () => {
                   />
                   
                   {/* Compare Cars */}
-                  <GarageCompare 
-                    savedCars={savedCars} 
-                    selectedCars={selectedCars} 
-                    onToggleCar={(id, type) => handleToggleCarForComparison(id, type)} 
-                    onCompare={handleCompare} 
-                  />
+                  <div className="mt-4">
+                    <GarageCompare 
+                      savedCars={savedCars} 
+                      selectedCars={selectedCars} 
+                      onToggleCar={(id, type) => handleToggleCarForComparison(id, type)} 
+                      onCompare={handleCompare} 
+                    />
+                  </div>
                 </>
               )}
               

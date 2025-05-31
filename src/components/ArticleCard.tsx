@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Camera } from 'lucide-react';
 import { useCardSave } from '../hooks/useCardSave';
 import { useOptimizedImageLoader } from '../hooks/useOptimizedImageLoader';
-import BaseCard from './ui/BaseCard';
+import { Card } from './ui/card';
 import CardSkeleton from './ui/CardSkeleton';
 import { cn } from '@/lib/utils';
 export interface ArticleData {
@@ -61,26 +61,39 @@ const ArticleCard: React.FC<ArticleCardProps> = memo(({
   });
   const handleClick = onClick || (() => navigate(`/article/${article.id}`));
   if (isLoading) {
-    return <CardSkeleton className={className} />;
+    return <Card isLoading className={className} />;
   }
-  return <BaseCard type="article" className={className} isSaved={isSaved} onToggleSave={toggleSave} onClick={handleClick}>
-      <div className="relative pt-[56.25%]">
-        <img src={currentImage} alt={article.title} className={cn("absolute inset-0 w-full h-full object-cover transition-opacity duration-300", imageLoading ? "opacity-0" : "opacity-100")} loading={priority ? "eager" : "lazy"} />
-        {article.photoCount && <div className="absolute top-2 right-2 bg-black/70 text-white px-2 py-1 rounded flex items-center text-xs">
-            <Camera className="mr-1" size={12} />
-            <span>{article.photoCount}</span>
-          </div>}
+  return <Card
+    variant="article"
+    className={className}
+    isSaved={isSaved}
+    onToggleSave={toggleSave}
+    imageUrl={currentImage}
+    metadata={{
+      category: article.category,
+      date: article.date,
+      photoCount: article.photoCount ? String(article.photoCount) : undefined,
+      featured: article.featured ? 'Yes' : undefined
+    }}
+    onClick={handleClick}
+  >
+    {/* Overlays absolutely positioned on top of Card image */}
+    {article.photoCount && (
+      <div className="absolute top-2 right-2 z-10 bg-black/70 text-white px-2 py-1 rounded flex items-center text-xs pointer-events-none">
+        <Camera className="mr-1" size={12} />
+        <span>{article.photoCount}</span>
       </div>
-      <div className="p-4">
-        <h3 className="leading-tight text-gray-900 mb-2 line-clamp-2 text-base font-semibold">
-          {article.title}
-        </h3>
-        <div className="flex items-center justify-between text-sm text-gray-500">
-          <span className="font-medium">{article.category}</span>
-          <span>{article.date}</span>
-        </div>
+    )}
+    <div className="p-4">
+      <h3 className="leading-tight text-gray-900 mb-2 line-clamp-2 text-base font-semibold">
+        {article.title}
+      </h3>
+      <div className="flex items-center justify-between text-sm text-gray-500">
+        <span className="font-medium">{article.category}</span>
+        <span>{article.date}</span>
       </div>
-    </BaseCard>;
+    </div>
+  </Card>;
 });
 ArticleCard.displayName = 'ArticleCard';
 export default ArticleCard;

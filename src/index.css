@@ -209,13 +209,24 @@
     letter-spacing: -0.005em;
   }
 
-  /* Button typography */
-  button {
-    font-family: var(--font-button);
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    font-synthesis-weight: none;
-  }
+/* Button typography - moved to root to fix nesting error */
+button {
+  /* Ensure readable text on white backgrounds globally */
+  background-clip: padding-box;
+  font-family: var(--font-button);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  font-synthesis-weight: none;
+}
+/* Fix: All buttons with white or near-white backgrounds should have dark text */
+button.bg-white,
+button[style*="background-color: #fff"],
+button[style*="background-color: #ffffff"],
+button[style*="background-color: var(--color-neutral-8)"],
+button.bg-neutral-8 {
+  color: var(--color-neutral-1) !important;
+}
+
 
   /* Caption typography */
   .caption {
@@ -618,7 +629,7 @@
 
   .typography-button1 {
     font-family: var(--font-button);
-    font-weight: bold;
+    font-weight: semi-bold;
     font-size: 1rem; /* 16px */
     line-height: 1rem; /* 16px */
     font-synthesis-weight: none;
@@ -627,7 +638,7 @@
 
   .typography-button2 {
     font-family: var(--font-button);
-    font-weight: bold;
+    font-weight: semi-bold;
     font-size: 0.875rem; /* 14px */
     line-height: 1rem; /* 16px */
     font-synthesis-weight: none;
