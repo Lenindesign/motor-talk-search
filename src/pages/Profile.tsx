@@ -24,7 +24,6 @@ import VideoCard from "../components/VideoCard";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MyGarageSkinny from "../components/profile/MyGarageSkinny";
 import GarageContent from '../components/garage/GarageContent';
-
 const Profile = () => {
   const {
     savedItems,
@@ -102,7 +101,7 @@ const Profile = () => {
       <main className="max-w-[980px] mx-auto py-8 px-0">
           <div className="flex flex-col md:flex-row gap-8">
             {/* Profile Sidebar */}
-            <aside className="w-full md:w-64 space-y-6">
+            <aside className="w-full md:w-64 space-y-6 px-[8px]">
               <Card className="overflow-hidden">
                 <CardContent className="p-6">
                   <div className="flex flex-col items-center text-center">
@@ -175,36 +174,16 @@ const Profile = () => {
                     <div className="flex justify-between items-center mb-4">
                       <h2 className="text-xl font-bold">Saved Items</h2>
                       <div className="flex gap-2">
-                        <Button 
-                          variant={filterType === "all" ? "default" : "outline"} 
-                          size="sm" 
-                          onClick={() => setFilterType("all")} 
-                          className={filterType === "all" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}
-                        >
+                        <Button variant={filterType === "all" ? "default" : "outline"} size="sm" onClick={() => setFilterType("all")} className={filterType === "all" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}>
                           All
                         </Button>
-                        <Button 
-                          variant={filterType === "article" ? "default" : "outline"} 
-                          size="sm" 
-                          onClick={() => setFilterType("article")} 
-                          className={filterType === "article" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}
-                        >
+                        <Button variant={filterType === "article" ? "default" : "outline"} size="sm" onClick={() => setFilterType("article")} className={filterType === "article" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}>
                           Articles
                         </Button>
-                        <Button 
-                          variant={filterType === "newCar" ? "default" : "outline"} 
-                          size="sm" 
-                          onClick={() => setFilterType("newCar")}
-                          className={filterType === "newCar" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}
-                        >
+                        <Button variant={filterType === "newCar" ? "default" : "outline"} size="sm" onClick={() => setFilterType("newCar")} className={filterType === "newCar" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}>
                           New Cars
                         </Button>
-                        <Button 
-                          variant={filterType === "usedCar" ? "default" : "outline"} 
-                          size="sm" 
-                          onClick={() => setFilterType("usedCar")}
-                          className={filterType === "usedCar" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}
-                        >
+                        <Button variant={filterType === "usedCar" ? "default" : "outline"} size="sm" onClick={() => setFilterType("usedCar")} className={filterType === "usedCar" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}>
                           Used Cars
                         </Button>
                       </div>
@@ -334,5 +313,4 @@ const Profile = () => {
       <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
     </>;
 };
-
 export default Profile;
