@@ -6,7 +6,6 @@ import AutocompleteSuggestions from "./AutocompleteSuggestions";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import { useToast } from "@/hooks/use-toast";
 import { mockNewCars, mockUsedCars } from '@/services/mockData';
-
 interface QuickAddCarProps {
   onAddCar?: () => void;
   activeTab?: 'all' | 'owned' | 'testDriven' | 'interested';
@@ -15,27 +14,19 @@ interface QuickAddCarProps {
 // Helper function to get car image based on title
 const getCarImageByTitle = (title: string): string => {
   // First try to find exact match in mock data
-  const exactMatch = [...mockNewCars, ...mockUsedCars].find(car => 
-    car.title.toLowerCase() === title.toLowerCase()
-  );
-  
+  const exactMatch = [...mockNewCars, ...mockUsedCars].find(car => car.title.toLowerCase() === title.toLowerCase());
   if (exactMatch) {
     return exactMatch.imageUrl;
   }
 
   // Try to find partial match
-  const partialMatch = [...mockNewCars, ...mockUsedCars].find(car => 
-    title.toLowerCase().includes(car.title.toLowerCase().split(' ').slice(-2).join(' ').toLowerCase()) ||
-    car.title.toLowerCase().includes(title.toLowerCase().split(' ').slice(-2).join(' ').toLowerCase())
-  );
-  
+  const partialMatch = [...mockNewCars, ...mockUsedCars].find(car => title.toLowerCase().includes(car.title.toLowerCase().split(' ').slice(-2).join(' ').toLowerCase()) || car.title.toLowerCase().includes(title.toLowerCase().split(' ').slice(-2).join(' ').toLowerCase()));
   if (partialMatch) {
     return partialMatch.imageUrl;
   }
 
   // Fallback to brand-specific images based on make
   const lowerTitle = title.toLowerCase();
-  
   if (lowerTitle.includes('honda')) {
     return 'https://d2kde5ohu8qb21.cloudfront.net/files/679d37b47ff34400082301e7/19-2025-honda-accord-front-view.jpg';
   } else if (lowerTitle.includes('hyundai') || lowerTitle.includes('ioniq')) {
@@ -63,7 +54,6 @@ const getCarImageByTitle = (title: string): string => {
   // Generic fallback image
   return 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3';
 };
-
 const QuickAddCar: React.FC<QuickAddCarProps> = ({
   onAddCar,
   activeTab = 'interested'
@@ -90,7 +80,6 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
       setOwnership(activeTab as 'owned' | 'testDriven' | 'interested');
     }
   }, [activeTab]);
-
   const {
     suggestions,
     isLoading: suggestionsLoading,
@@ -141,13 +130,11 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
         return {};
     }
   };
-
   const handleAddCar = (suggestion: Suggestion) => {
     if (suggestion.type === 'newCar' || suggestion.type === 'carModel') {
       if (!isSaved(suggestion.id, 'newCar')) {
         // Find matching car from mock data
-        const matchingCar = mockNewCars.find(car => car.id === suggestion.id) || 
-                           mockUsedCars.find(car => car.id === suggestion.id);
+        const matchingCar = mockNewCars.find(car => car.id === suggestion.id) || mockUsedCars.find(car => car.id === suggestion.id);
 
         // Get the appropriate image
         const carImageUrl = matchingCar ? matchingCar.imageUrl : getCarImageByTitle(suggestion.text);
@@ -158,7 +145,6 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
         // Common fields for all cars
         const fuelType = Math.random() > 0.3 ? Math.floor(20 + Math.random() * 15) + " city / " + Math.floor(25 + Math.random() * 15) + " hwy" : "Electric - " + Math.floor(85 + Math.random() * 50) + " MPGe";
         const drivetrain = ['FWD', 'RWD', 'AWD', '4WD'][Math.floor(Math.random() * 4)];
-        
         addSavedItem({
           id: suggestion.id,
           title: suggestion.text,
@@ -193,7 +179,6 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
       onAddCar();
     }
   };
-
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     handleKeyDown(e);
     if (e.key === 'Enter' && selectedIndex >= 0 && selectedIndex < suggestions.length) {
@@ -203,7 +188,6 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
       setShowSuggestions(false);
     }
   };
-
   const filteredSuggestions = suggestions.filter(suggestion => suggestion.type === 'newCar' || suggestion.type === 'carModel' || suggestion.type === 'carMake').slice(0, 8); // Limit to prevent overwhelming UI
 
   return <div className="w-full">
@@ -240,7 +224,7 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
               <span aria-hidden="true">&times;</span>
             </button>}
         </div>
-        <Button className="ml-2 rounded-full bg-red-500 hover:bg-red-600 px-4" onClick={() => {
+        <Button onClick={() => {
         if (query && filteredSuggestions.length > 0) {
           handleAddCar(filteredSuggestions[0]);
         } else {
@@ -249,7 +233,7 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
             description: "Type and select a car from the suggestions"
           });
         }
-      }}>
+      }} className="ml-2 rounded-full px-4 bg-motortrend-red">
           <Plus size={18} className="mr-1" /> Add Car
         </Button>
       </div>
@@ -259,5 +243,4 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
         </div>}
     </div>;
 };
-
 export default QuickAddCar;
