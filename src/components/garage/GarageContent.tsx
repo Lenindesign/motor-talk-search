@@ -188,7 +188,7 @@ const GarageContent = () => {
   const displayCars = getDisplayCars();
   const filteredArticles = getRelatedArticles();
   const navigate = useNavigate();
-  return <div className="max-w-[980px] mx-auto pt-8 py-0">
+  return <div className="">
       <Card className="py-0">
         <CardHeader className="pb-0">
           <div className="text-center md:text-left">
