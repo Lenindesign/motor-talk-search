@@ -190,7 +190,7 @@ const GarageContent = () => {
   const navigate = useNavigate();
   return <>
       <Card className="shadow-modern flex-1 border-0 md:border">
-        <CardHeader className="">
+        <CardHeader className="pb-0">
           <div className="text-center md:text-left">
             <CardTitle className="flex items-center justify-center md:justify-start gap-2 typography-title text-color-neutral-1 text-xl md:text-2xl">
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
