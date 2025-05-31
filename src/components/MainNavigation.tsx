@@ -1,8 +1,10 @@
+
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useIsMobile } from "../hooks/use-mobile";
 import { Menu, X, User, Home, Car, Wrench, Star, PlayCircle, ChevronDown } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   Tooltip,
   TooltipContent,
@@ -270,7 +272,10 @@ const MainNavigation = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link to="/profile" aria-label="Profile" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors mr-1">
-                <User size={22} />
+                <Avatar className="h-6 w-6">
+                  <AvatarImage src="/personas/gearhead-greg.jpg" alt="Greg Driver" />
+                  <AvatarFallback className="bg-gray-600 text-white text-xs">GD</AvatarFallback>
+                </Avatar>
               </Link>
             </TooltipTrigger>
             <TooltipContent side="bottom">
@@ -357,11 +362,14 @@ const MainNavigation = () => {
               <p>My Garage</p>
             </TooltipContent>
           </Tooltip>
-          {/* Profile Icon */}
+          {/* Profile Avatar */}
           <Tooltip>
             <TooltipTrigger asChild>
               <Link to="/profile" aria-label="Profile" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors">
-                <User size={22} />
+                <Avatar className="h-6 w-6">
+                  <AvatarImage src="/personas/gearhead-greg.jpg" alt="Greg Driver" />
+                  <AvatarFallback className="bg-gray-600 text-white text-xs">GD</AvatarFallback>
+                </Avatar>
               </Link>
             </TooltipTrigger>
             <TooltipContent side="bottom">
