@@ -13,38 +13,32 @@ const motorTrendData = {
     score: 8.7,
     rank: 3,
     categoryRank: 1
-  
   },
   "Toyota Camry": {
     score: 8.5,
     rank: 5,
     categoryRank: 2
-  
   },
   "Honda Accord": {
     score: 8.8,
     rank: 2,
     categoryRank: 1,
     imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d37b47ff34400082301e7/19-2025-honda-accord-front-view.jpg"
-  
   },
   "Toyota Corolla": {
     score: 8.3,
     rank: 7,
     categoryRank: 3
-  
   },
   "Ford F-150": {
     score: 8.9,
     rank: 1,
     categoryRank: 1
-  
   },
   "Chevrolet Silverado": {
     score: 8.6,
     rank: 4,
     categoryRank: 2
-  
   },
   "Ram 1500": {
     score: 8.5,
@@ -215,11 +209,15 @@ const getMotorTrendDataForCar = (carTitle: string) => {
     categoryRank: 8
   };
 };
-
 const Garage = () => {
-  const { savedItems, updateSavedItem } = useSavedItems();
+  const {
+    savedItems,
+    updateSavedItem
+  } = useSavedItems();
   const [personalizationOpen, setPersonalizationOpen] = useState(false);
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
 
   // Mock user data - in a real app, this would come from auth context or API
   const userData = {
@@ -248,12 +246,10 @@ const Garage = () => {
       });
     });
   }, [savedItems, updateSavedItem]);
-
-  return (
-    <MainLayout isGaragePage={true}>
+  return <MainLayout isGaragePage={true}>
       <div className="min-h-screen">
         {/* Mobile-first layout */}
-        <div className="block md:hidden px-4 py-4">
+        <div className="block md:hidden py-[16px] px-[8px]">
           <GarageContent />
         </div>
 
@@ -263,11 +259,7 @@ const Garage = () => {
             <div className="flex flex-col md:flex-row gap-8">
               {/* Sidebar (ProfileSidebar + UserPoints) */}
               <aside className="w-full md:w-64 space-y-6">
-                <ProfileSidebar 
-                  userData={userData} 
-                  savedItemsCount={savedItems.length} 
-                  onPersonalizeClick={() => setPersonalizationOpen(true)} 
-                />
+                <ProfileSidebar userData={userData} savedItemsCount={savedItems.length} onPersonalizeClick={() => setPersonalizationOpen(true)} />
               </aside>
               
               {/* Main Content (GarageContent) */}
@@ -279,13 +271,8 @@ const Garage = () => {
         </div>
 
         {/* Personalization Dialog */}
-        <PersonalizationDialog 
-          open={personalizationOpen} 
-          onOpenChange={setPersonalizationOpen} 
-        />
+        <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
       </div>
-    </MainLayout>
-  );
+    </MainLayout>;
 };
-
 export default Garage;
