@@ -188,7 +188,8 @@ const GarageContent = () => {
   const displayCars = getDisplayCars();
   const filteredArticles = getRelatedArticles();
   const navigate = useNavigate();
-  return <>
+  return (
+    <div className="max-w-[980px] mx-auto">
       <Card className="shadow-modern flex-1 border-0 md:border px-0">
         <CardHeader className="pb-0">
           <div className="text-center md:text-left">
@@ -259,6 +260,8 @@ const GarageContent = () => {
             </>)}
         </CardContent>
       </Card>
-    </>;
+    </div>
+  );
 };
+
 export default GarageContent;
