@@ -6,7 +6,7 @@ import ArticleCard, { ArticleData } from '@/components/ArticleCard';
 const newsItems: ArticleData[] = [{
   id: '1',
   title: '2025 Ferrari 12Cilindri First Look: The B12-HP...',
-  imageUrl: 'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?auto=format&fit=crop&w=400&h=300',
+  imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/67c792b5c0c336000846d4ae/47-2025-ferrari-sf90-front-view.jpg',
   category: 'Review',
   date: 'May 8, 2025'
 }, {
