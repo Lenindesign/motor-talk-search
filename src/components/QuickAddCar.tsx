@@ -233,7 +233,7 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
             description: "Type and select a car from the suggestions"
           });
         }
-      }} className="ml-2 rounded-full px-4 bg-motortrend-red">
+      }} className="ml-2 rounded-full px-4 bg-motortrend-red rounded-r-lg">
           <Plus size={18} className="mr-1" /> Add Car
         </Button>
       </div>
