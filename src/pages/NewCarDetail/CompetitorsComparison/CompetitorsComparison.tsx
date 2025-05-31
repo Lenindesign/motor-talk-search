@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { mockCompetitors, comparisonMetrics } from './utils';
 const CompetitorsComparison: React.FC = () => {
@@ -92,6 +93,11 @@ const CompetitorsComparison: React.FC = () => {
           </div>
         </CardContent>
       </Card>
-    </div>;
+    <div className="flex justify-center mt-8">
+      <Button variant="outline" size="lg" className="px-8 py-4 text-lg shadow-modern hover:shadow-modern-lg" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+        See Full Comparison
+      </Button>
+    </div>
+  </div>;
 };
 export default CompetitorsComparison;
