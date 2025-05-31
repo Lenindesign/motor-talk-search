@@ -108,7 +108,17 @@ const AutocompleteSuggestions: React.FC<AutocompleteSuggestionsProps> = ({
                     onClick={() => onSelect(suggestion)}
                     onMouseEnter={() => onMouseEnter(currentIndex)}
                   >
-                    {getIconForSuggestionType(suggestion.type)}
+                    {suggestion.imageUrl ? (
+                      <img
+                        src={suggestion.imageUrl}
+                        alt={suggestion.text}
+                        className="w-8 h-8 rounded object-cover border border-gray-200 bg-gray-50"
+                        style={{ minWidth: 32, minHeight: 32 }}
+                        onError={e => { e.currentTarget.src = '/fallback-car.png'; }}
+                      />
+                    ) : (
+                      getIconForSuggestionType(suggestion.type)
+                    )}
                     <span>{suggestion.text}</span>
                   </div>
                 );
