@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { getAllContent } from "../services/mockData";
+import * as mockDataModule from "../services/mockData";
 import { carMakes } from "../services/carData";
 
 // Type for rich search suggestions in the mega dropdown
@@ -45,7 +45,7 @@ export function useAutocomplete(query: string) {
       try {
         // In a real app, this would be an API call
         // For now, we'll use the mock data
-        const allContent = getAllContent();
+        const allContent = mockDataModule.getAllContent();
         
         // Simulate network delay
         await new Promise(resolve => setTimeout(resolve, 200));
@@ -53,11 +53,25 @@ export function useAutocomplete(query: string) {
         // Create suggestions from mock data
         const newSuggestions: Suggestion[] = [];
         
+        // Track count for each content type to limit to 3 results per type
+        const contentTypeCounts: Record<Suggestion["type"], number> = {
+          newCar: 0,
+          usedCar: 0,
+          article: 0,
+          video: 0,
+          photo: 0,
+          carMake: 0,
+          carModel: 0,
+          popular: 0
+        };
+        
         // Add car makes and models suggestions
         const lowerCaseQuery = query.toLowerCase();
         
-        // Add car make suggestions
-        carMakes.forEach(make => {
+        // Add car make suggestions - limited to 3
+        for (const make of carMakes) {
+          if (contentTypeCounts.carMake >= 3) break;
+          
           if (make.name.toLowerCase().includes(lowerCaseQuery)) {
             newSuggestions.push({
               id: `make-${make.id}`,
@@ -65,10 +79,13 @@ export function useAutocomplete(query: string) {
               type: 'carMake',
               imageUrl: make.imageUrl
             });
+            contentTypeCounts.carMake++;
           }
           
-          // Add car model suggestions
-          make.models.forEach(model => {
+          // Add car model suggestions - limited to 3
+          for (const model of make.models) {
+            if (contentTypeCounts.carModel >= 3) break;
+            
             const modelText = `${model.year} ${make.name} ${model.name}`;
             if (modelText.toLowerCase().includes(lowerCaseQuery) || 
                 model.name.toLowerCase().includes(lowerCaseQuery)) {
@@ -79,26 +96,15 @@ export function useAutocomplete(query: string) {
                 imageUrl: model.imageUrl,
                 makeId: make.id
               });
+              contentTypeCounts.carModel++;
             }
-          });
-        });
-        
-        // Add article-based suggestions
-        allContent.articles.forEach(article => {
-          if (article.title.toLowerCase().includes(lowerCaseQuery)) {
-            newSuggestions.push({
-              id: `article-${article.id}`,
-              text: article.title,
-              type: 'article',
-              imageUrl: article.imageUrl,
-              category: article.category,
-              date: article.date
-            });
           }
-        });
+        }
         
-        // Add car-based suggestions from mock data
-        allContent.newCars.forEach(car => {
+        // Add new car-based suggestions from mock data - limited to 3
+        for (const car of allContent.newCars) {
+          if (contentTypeCounts.newCar >= 3) break;
+          
           if (car.title && car.title.toLowerCase().includes(lowerCaseQuery)) {
             newSuggestions.push({
               id: `newcar-${car.id}`,
@@ -108,10 +114,14 @@ export function useAutocomplete(query: string) {
               category: car.category,
               price: car.price
             });
+            contentTypeCounts.newCar++;
           }
-        });
+        };
         
-        allContent.usedCars.forEach(car => {
+        // Add used car-based suggestions - limited to 3
+        for (const car of allContent.usedCars) {
+          if (contentTypeCounts.usedCar >= 3) break;
+          
           if (car.title && car.title.toLowerCase().includes(lowerCaseQuery)) {
             newSuggestions.push({
               id: `usedcar-${car.id}`,
@@ -122,24 +132,31 @@ export function useAutocomplete(query: string) {
               price: car.price
               // Add other used car specific fields if needed, e.g., mileage, year
             });
+            contentTypeCounts.usedCar++;
           }
-        });
+        };
 
-        // Add photo-based suggestions
-        allContent.photos.forEach(photo => {
-          if (photo.title.toLowerCase().includes(lowerCaseQuery)) {
+        // Add article-based suggestions - limited to 3
+        for (const article of allContent.articles) {
+          if (contentTypeCounts.article >= 3) break;
+          
+          if (article.title.toLowerCase().includes(lowerCaseQuery)) {
             newSuggestions.push({
-              id: `photo-${photo.id}`,
-              text: photo.title,
-              type: 'photo',
-              imageUrl: photo.imageUrl,
-              date: photo.year
+              id: `article-${article.id}`,
+              text: article.title,
+              type: 'article',
+              imageUrl: article.imageUrl,
+              category: article.category,
+              date: article.date
             });
+            contentTypeCounts.article++;
           }
-        });
+        };
 
-        // Add video-based suggestions
-        allContent.videos.forEach(video => {
+        // Add video-based suggestions - limited to 3
+        for (const video of allContent.videos) {
+          if (contentTypeCounts.video >= 3) break;
+          
           if (video.title.toLowerCase().includes(lowerCaseQuery)) {
             newSuggestions.push({
               id: `video-${video.id}`,
@@ -149,8 +166,25 @@ export function useAutocomplete(query: string) {
               duration: video.duration,
               date: video.publishDate
             });
+            contentTypeCounts.video++;
           }
-        });
+        };
+
+        // Add photo-based suggestions - limited to 3
+        for (const photo of allContent.photos) {
+          if (contentTypeCounts.photo >= 3) break;
+          
+          if (photo.title.toLowerCase().includes(lowerCaseQuery)) {
+            newSuggestions.push({
+              id: `photo-${photo.id}`,
+              text: photo.title,
+              type: 'photo',
+              imageUrl: photo.imageUrl,
+              date: photo.year
+            });
+            contentTypeCounts.photo++;
+          }
+        };
 
         // Limit to first 10 suggestions for better UX, prioritizing car makes and models
         // TODO: Consider a more sophisticated limiting strategy for mega dropdown (e.g., N per category)

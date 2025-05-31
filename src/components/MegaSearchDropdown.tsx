@@ -67,7 +67,8 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
     return groups;
   }, {} as Record<Suggestion["type"], Suggestion[]>);
 
-  const typeOrder: Suggestion["type"][] = ['carMake', 'carModel', 'newCar', 'usedCar', 'article', 'video', 'photo', 'popular']; 
+  // Order of content types in dropdown - new cars first, followed by used cars, articles, videos, and photos
+  const typeOrder: Suggestion["type"][] = ['newCar', 'usedCar', 'article', 'video', 'photo', 'carMake', 'carModel', 'popular'];
   
   let globalSuggestionIndex = -1; 
 
@@ -81,7 +82,7 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
           const typeLabel = (() => {
             switch (type) {
               case 'carMake': return 'Car Makes';
-              case 'carModel': return 'Car Models';
+              case 'carModel': return 'New Car Model';
               case 'newCar': return 'New Cars';
               case 'usedCar': return 'Used Cars';
               case 'article': return 'Articles';

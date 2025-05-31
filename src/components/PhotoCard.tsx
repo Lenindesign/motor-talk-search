@@ -15,6 +15,7 @@ export interface PhotoData {
   make: string;
   carModel: string;
   year: string;
+  detailUrl?: string;
   metadata?: {
     position?: string;
     make?: string;

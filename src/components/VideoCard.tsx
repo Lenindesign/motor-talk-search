@@ -13,6 +13,7 @@ export interface VideoData {
   duration: string;
   views?: string;
   publishDate?: string;
+  detailUrl?: string;
   metadata?: {
     duration?: string;
     views?: string;

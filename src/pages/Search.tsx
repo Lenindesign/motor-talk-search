@@ -24,6 +24,7 @@ interface SearchResult {
 const Search = () => {
   const [searchParams] = useSearchParams();
   const [searchHistory, setSearchHistory] = useState<SearchResult[]>([]);
+  // Honda Accord result count state removed as it's no longer needed
   const [isSearching, setIsSearching] = useState(false);
   const [activeContentTypes, setActiveContentTypes] = useState<Record<string, ContentType>>({});
   const [content, setContent] = useState({
@@ -145,14 +146,64 @@ const Search = () => {
         const contentType = determineContentType(query);
 
         // Filter content based on the query, but keep all content types populated
+        const lowerQuery = query.toLowerCase();
+        // Check for Honda Accord searches - include just 'accord' to get more results
+        const isHondaAccordSearch = lowerQuery.includes('honda accord') || 
+                                   (lowerQuery.includes('honda') && lowerQuery.includes('accord')) || 
+                                   lowerQuery === 'accord' || 
+                                   lowerQuery === 'honda';
+        
+        // Special handling for Honda Accord searches
         const filteredContent = {
-          articles: query.toLowerCase().includes("article") ? mockArticles : content.articles,
-          newCars: query.toLowerCase().includes("new") || contentType === "newCars" ? mockNewCars : content.newCars,
-          usedCars: query.toLowerCase().includes("used") || contentType === "usedCars" ? mockUsedCars : content.usedCars,
-          photos: query.toLowerCase().includes("photo") || contentType === "photos" ? mockPhotos : content.photos,
-          videos: query.toLowerCase().includes("video") || contentType === "videos" ? mockVideos : content.videos
+          // For articles, include any that mention Honda or Accord or have IDs starting with 'honda-'
+          articles: isHondaAccordSearch 
+            ? mockArticles.filter(article => 
+                article.title.toLowerCase().includes('honda') || 
+                article.title.toLowerCase().includes('accord') ||
+                article.id.toLowerCase().startsWith('honda-') ||
+                article.id.toLowerCase() === 'v1' ||
+                article.id.toLowerCase() === 'v2' ||
+                article.id.toLowerCase() === 'v3' ||
+                article.id.toLowerCase() === 'v4')
+            : lowerQuery.includes("article") ? mockArticles : content.articles,
+            
+          // For new cars, include any that mention Honda or Accord or have IDs starting with 'honda-'
+          newCars: isHondaAccordSearch
+            ? mockNewCars.filter(car => 
+                car.title.toLowerCase().includes('honda') || 
+                car.title.toLowerCase().includes('accord') ||
+                car.id.toLowerCase().startsWith('honda-'))
+            : lowerQuery.includes("new") || contentType === "newCars" ? mockNewCars : content.newCars,
+            
+          // For used cars, include any that mention Honda or Accord or have IDs starting with 'honda-'
+          usedCars: isHondaAccordSearch
+            ? mockUsedCars.filter(car => 
+                car.title.toLowerCase().includes('honda') || 
+                car.title.toLowerCase().includes('accord') ||
+                car.id.toLowerCase().startsWith('honda-'))
+            : lowerQuery.includes("used") || contentType === "usedCars" ? mockUsedCars : content.usedCars,
+            
+          // For photos, include any that have Honda as make or Accord as model or in title
+          photos: isHondaAccordSearch
+            ? mockPhotos.filter(photo => 
+                (photo.make && photo.make.toLowerCase().includes('honda')) || 
+                (photo.carModel && photo.carModel.toLowerCase().includes('accord')) ||
+                (photo.title && photo.title.toLowerCase().includes('accord')) ||
+                (photo.title && photo.title.toLowerCase().includes('honda')) ||
+                photo.id.toLowerCase().startsWith('honda-'))
+            : lowerQuery.includes("photo") || contentType === "photos" ? mockPhotos : content.photos,
+            
+          // For videos, include any that mention Honda or Accord or have IDs starting with 'honda-'
+          videos: isHondaAccordSearch
+            ? mockVideos.filter(video => 
+                video.title.toLowerCase().includes('honda') || 
+                video.title.toLowerCase().includes('accord') ||
+                video.id.toLowerCase().startsWith('honda-'))
+            : lowerQuery.includes("video") || contentType === "videos" ? mockVideos : content.videos
         };
 
+        // Honda Accord search filtering is still applied, but we no longer count or display the results
+        
         // Update content with the filtered content
         setContent(filteredContent);
 
@@ -253,6 +304,7 @@ const Search = () => {
                       
                       {result.type === "search" && result.contentType && (
                         <div className="overflow-hidden rounded-lg bg-white p-4 shadow-md">
+                          {/* Search results content */}
                           <ContentTabs activeTab={activeContentTypes[result.id] || result.contentType} onTabChange={tab => handleTabChange(result.id, tab)} />
                           <ContentGrid type={activeContentTypes[result.id] || result.contentType} content={content} loadMore={handleLoadMore} isLoadingMore={loadingMore} hasMore={hasMore} />
                         </div>

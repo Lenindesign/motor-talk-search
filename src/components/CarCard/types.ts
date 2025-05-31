@@ -11,6 +11,9 @@ export interface CarData {
   fuelType?: string;
   drivetrain?: string;
   location?: string;
+  make?: string;
+  model?: string;
+  detailUrl?: string;
   
   // Body style and basic specs
   bodyStyle?: 'SUV' | 'Sedan' | 'Truck' | 'Sports Car' | 'Minivan' | 'Crossover' | 'Coupe' | 'Convertible' | 'Hatchback' | 'Wagon';

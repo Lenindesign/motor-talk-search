@@ -14,6 +14,22 @@ export interface ArticleData {
   category: string;
   featured?: boolean;
   photoCount?: number;
+  detailUrl?: string;
+  content?: {
+    subtitle?: string;
+    author?: string;
+    authorTitle?: string;
+    readTime?: string;
+    sections?: Array<{
+      type?: string;
+      content?: string;
+      title?: string;
+      data?: Array<{ label?: string; value?: string }>;
+      author?: string;
+      description?: string;
+      buttonText?: string;
+    }>;
+  };
   metadata?: {
     category?: string;
     date?: string;
