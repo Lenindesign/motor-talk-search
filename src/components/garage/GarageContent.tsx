@@ -189,7 +189,7 @@ const GarageContent = () => {
   const filteredArticles = getRelatedArticles();
   const navigate = useNavigate();
   return <>
-      <Card className="shadow-modern flex-1 border-0 md:border">
+      <Card className="shadow-modern flex-1 border-0 md:border px-0">
         <CardHeader className="pb-0">
           <div className="text-center md:text-left">
             <CardTitle className="flex items-center justify-center md:justify-start gap-2 typography-title text-color-neutral-1 md:text-2xl text-center text-3xl">
@@ -216,7 +216,7 @@ const GarageContent = () => {
           </div>
         </CardHeader>
 
-        <CardContent className="pt-2">
+        <CardContent className="pt-2 px-[8px]">
           {/* Comparison View */}
           {showComparison ? <div className="mt-2">
               <CarComparisonTable cars={getSelectedCarData()} />
