@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useIsMobile } from "../hooks/use-mobile";
@@ -273,7 +272,7 @@ const MainNavigation = () => {
             <TooltipTrigger asChild>
               <Link to="/profile" aria-label="Profile" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors mr-1">
                 <Avatar className="h-6 w-6">
-                  <AvatarImage src="/personas/gearhead-greg.jpg" alt="Greg Driver" />
+                  <AvatarImage src="https://d2kde5ohu8qb21.cloudfront.net/files/6839e7e53277480008013d30/greg.jpg" alt="Greg Driver" />
                   <AvatarFallback className="bg-gray-600 text-white text-xs">GD</AvatarFallback>
                 </Avatar>
               </Link>
@@ -367,7 +366,7 @@ const MainNavigation = () => {
             <TooltipTrigger asChild>
               <Link to="/profile" aria-label="Profile" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors">
                 <Avatar className="h-6 w-6">
-                  <AvatarImage src="/personas/gearhead-greg.jpg" alt="Greg Driver" />
+                  <AvatarImage src="https://d2kde5ohu8qb21.cloudfront.net/files/6839e7e53277480008013d30/greg.jpg" alt="Greg Driver" />
                   <AvatarFallback className="bg-gray-600 text-white text-xs">GD</AvatarFallback>
                 </Avatar>
               </Link>
