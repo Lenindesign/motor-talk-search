@@ -63,7 +63,7 @@ const BrowseByCategory: React.FC = () => {
         </h2>
       </div>
 
-      <div className="!mt-0 grid grid-cols-3 md:grid-cols-3 gap-6">
+      <div className="!mt-0 grid grid-cols-2 md:grid-cols-3 gap-6">
         {categories.map(category => <Link key={category.id} to={category.link} className="group">
             <div className="bg-white rounded-2xl p-6 text-center shadow-modern hover:shadow-modern-lg transition-all duration-300 group-hover:-translate-y-1">
               <div className="w-12 h-12 rounded-full bg-motortrend-red/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-motortrend-red group-hover:text-white transition-colors">
