@@ -97,7 +97,7 @@ const Profile = () => {
         {/* Spacer for fixed header + search bar on mobile */}
       
       <main className="max-w-[980px] mx-auto px-0 py-0">
-          <div className="pt-8">
+          <div className="flex flex-col md:flex-row gap-8">
             {/* Profile Sidebar */}
             <aside className="w-full md:w-64 space-y-6 px-[8px]">
               <Card className="overflow-hidden">
