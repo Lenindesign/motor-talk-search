@@ -215,7 +215,7 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
           <input type="text" value={query} onChange={e => {
           setQuery(e.target.value);
           setShowSuggestions(true);
-        }} onFocus={() => setShowSuggestions(true)} onKeyDown={handleInputKeyDown} placeholder="Search for make, model, or trim..." className="w-full rounded-full border border-input px-12 py-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-motortrend-red h-11" />
+        }} onFocus={() => setShowSuggestions(true)} onKeyDown={handleInputKeyDown} placeholder="Search for make, model, or trim..." className="w-full rounded-full border border-input px-12 py-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-motortrend-red h-11 rounded-r-lg" />
           {query && <button onClick={() => {
           setQuery('');
           setShowSuggestions(false);
@@ -233,7 +233,7 @@ const QuickAddCar: React.FC<QuickAddCarProps> = ({
             description: "Type and select a car from the suggestions"
           });
         }
-      }} className="ml-2 rounded-full px-4 bg-motortrend-red rounded-r-lg">
+      }} className="ml-2 rounded-full px-4 bg-motortrend-red rounded-l-lg">
           <Plus size={18} className="mr-1" /> Add Car
         </Button>
       </div>
