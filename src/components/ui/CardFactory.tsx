@@ -1,6 +1,6 @@
 
 import React from 'react';
-import BaseCard from './BaseCard';
+import { Card } from './card';
 import { CardType } from '@/styles/cardStyles';
 import { cn } from '@/lib/utils';
 import { CarData, CarCardProps } from '../CarCard/types';
@@ -103,8 +103,8 @@ const CardFactory: React.FC<CardFactoryProps> = ({
   });
 
   return (
-    <BaseCard
-      type={type}
+    <Card
+      variant={type}
       className={cn(
         'group relative',
         className
@@ -115,7 +115,7 @@ const CardFactory: React.FC<CardFactoryProps> = ({
       metadata={metadata}
     >
       {children}
-    </BaseCard>
+    </Card>
   );
 };
 
