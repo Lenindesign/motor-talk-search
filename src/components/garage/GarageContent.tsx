@@ -188,75 +188,126 @@ const GarageContent = () => {
   const displayCars = getDisplayCars();
   const filteredArticles = getRelatedArticles();
   const navigate = useNavigate();
-  return <>
-      <Card className="shadow-modern flex-1 border-0 md:border">
-        <CardHeader className="flex flex-col space-y-4 md:flex-row md:justify-between md:items-center py-4 md:py-8 px-4 md:pt-8">
-          <div className="text-center md:text-left">
-            <CardTitle className="flex items-center justify-center md:justify-start gap-2 typography-title text-color-neutral-1 text-xl md:text-2xl">
+  return (
+    <>
+      <Card className="shadow-modern flex-1">
+        <CardHeader className="flex flex-row justify-between items-center py-0 pt-8">
+          <div>
+            <CardTitle className="flex items-center gap-2 typography-title text-color-neutral-1">
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
                 <path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z" />
               </svg>
               {showComparison ? "Car Comparison" : "My Garage"}
             </CardTitle>
-            <CardDescription className="typography-body text-color-neutral-4 text-center md:text-left px-0 mt-1">
+            <CardDescription className="typography-body text-color-neutral-4 text-left px-0">
               {showComparison ? "Compare your selected vehicles side by side" : "View, manage, and get insights about your vehicles"}
             </CardDescription>
           </div>
-          
-          <div className="flex gap-2 justify-center md:justify-end">
-            {showComparison ? <Button variant="outline" onClick={() => setShowComparison(false)} size="sm">
+          <div className="flex gap-2">
+            {showComparison ? (
+              <Button variant="outline" onClick={() => setShowComparison(false)}>
                 Back to Garage
-              </Button> : <>
+              </Button>
+            ) : (
+              <>
                 <div className="flex gap-2">
-                  
+                  <Button 
+                    variant={contentView === 'garage' ? 'default' : 'outline'} 
+                    size="sm" 
+                    onClick={() => navigate('/buyers-guide')} 
+                    className="flex items-center gap-1"
+                  >
+                    <Car size={16} />
+                    <span className="hidden sm:inline">Cars</span>
+                  </Button>
                 </div>
                 
-                {contentView === 'garage' && <GarageFilters minScore={minScore} sortByScore={sortByScore} showFilters={showFilters} onMinScoreChange={setMinScore} onSortByScoreChange={setSortByScore} onToggleFilters={() => setShowFilters(!showFilters)} />}
-              </>}
+                {contentView === 'garage' && (
+                  <GarageFilters 
+                    minScore={minScore} 
+                    sortByScore={sortByScore} 
+                    showFilters={showFilters} 
+                    onMinScoreChange={setMinScore} 
+                    onSortByScoreChange={setSortByScore} 
+                    onToggleFilters={() => setShowFilters(!showFilters)} 
+                  />
+                )}
+              </>
+            )}
           </div>
         </CardHeader>
 
-        <CardContent className="py-2 px-[8px]">
+        <CardContent className="py-[4px]">
           {/* Comparison View */}
-          {showComparison ? <div className="mt-2">
+          {showComparison ? (
+            <div className="mt-2">
               <CarComparisonTable cars={getSelectedCarData()} />
-            </div> : (/* Regular Garage View */
-        <>
-              {contentView === 'garage' && <>
-                  {/* Add Another Car - More compact on mobile */}
-                  <div className="mb-4 md:mb-6">
+            </div>
+          ) : (
+            /* Regular Garage View */
+            <>
+              {contentView === 'garage' && (
+                <>
+                  {/* Add Another Car */}
+                  <div className="mb-6">
                     <QuickAddCar activeTab={activeTab} />
                   </div>
                   
-                  <GarageTabContent activeTab={activeTab} onTabChange={setActiveTab} displayCars={displayCars} savedItemToCarData={savedItemToCarData} minScore={minScore} />
+                  <GarageTabContent 
+                    activeTab={activeTab} 
+                    onTabChange={setActiveTab} 
+                    displayCars={displayCars} 
+                    savedItemToCarData={savedItemToCarData} 
+                    minScore={minScore} 
+                  />
                   
                   {/* Compare Cars */}
-                  <GarageCompare savedCars={savedCars} selectedCars={selectedCars} onToggleCar={(id, type) => handleToggleCarForComparison(id, type)} onCompare={handleCompare} />
-                </>}
+                  <GarageCompare 
+                    savedCars={savedCars} 
+                    selectedCars={selectedCars} 
+                    onToggleCar={(id, type) => handleToggleCarForComparison(id, type)} 
+                    onCompare={handleCompare} 
+                  />
+                </>
+              )}
               
               <CarsYouMayLike />
               
-              {contentView === 'articles' && <div className="mt-6">
+              {contentView === 'articles' && (
+                <div className="mt-6">
                   <h3 className="typography-title text-color-neutral-1 mb-4">Articles Related to Your Garage</h3>
-                  {filteredArticles.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {filteredArticles.map(article => <ArticleCard key={article.id} article={{
-                id: article.id,
-                title: article.title,
-                imageUrl: article.imageUrl,
-                date: article.date,
-                category: article.category
-              }} />)}
-                    </div> : <div className="text-center py-10 bg-color-neutral-7 rounded-lg">
+                  {filteredArticles.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {filteredArticles.map(article => (
+                        <ArticleCard 
+                          key={article.id} 
+                          article={{
+                            id: article.id,
+                            title: article.title,
+                            imageUrl: article.imageUrl,
+                            date: article.date,
+                            category: article.category
+                          }} 
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-10 bg-color-neutral-7 rounded-lg">
                       <BookOpen size={48} className="mx-auto text-color-neutral-5 mb-4" />
                       <h3 className="typography-subtitle1 text-color-neutral-2 mb-2">No related articles</h3>
                       <p className="typography-body text-color-neutral-4 max-w-md mx-auto">
                         Add cars to your garage to see articles related to your vehicles
                       </p>
-                    </div>}
-                </div>}
-            </>)}
+                    </div>
+                  )}
+                </div>
+              )}
+            </>
+          )}
         </CardContent>
       </Card>
-    </>;
+    </>
+  );
 };
+
 export default GarageContent;

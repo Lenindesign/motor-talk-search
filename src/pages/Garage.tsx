@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import PersonalizationDialog from "../components/PersonalizationDialog";
+import GarageHeader from "../components/garage/GarageHeader";
 import ProfileSidebar from "../components/garage/ProfileSidebar";
 import GarageContent from "../components/garage/GarageContent";
-import MainLayout from "../components/MainLayout";
+import { useCarMakes, useCarModelsByMakeId } from "../hooks/use-car-database";
 import { useToast } from "@/hooks/use-toast";
 
 // Mock MotorTrend data - in a real app would come from an API
@@ -13,32 +14,38 @@ const motorTrendData = {
     score: 8.7,
     rank: 3,
     categoryRank: 1
+  
   },
   "Toyota Camry": {
     score: 8.5,
     rank: 5,
     categoryRank: 2
+  
   },
   "Honda Accord": {
     score: 8.8,
     rank: 2,
     categoryRank: 1,
     imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d37b47ff34400082301e7/19-2025-honda-accord-front-view.jpg"
+  
   },
   "Toyota Corolla": {
     score: 8.3,
     rank: 7,
     categoryRank: 3
+  
   },
   "Ford F-150": {
     score: 8.9,
     rank: 1,
     categoryRank: 1
+  
   },
   "Chevrolet Silverado": {
     score: 8.6,
     rank: 4,
     categoryRank: 2
+  
   },
   "Ram 1500": {
     score: 8.5,
@@ -209,7 +216,6 @@ const getMotorTrendDataForCar = (carTitle: string) => {
     categoryRank: 8
   };
 };
-
 const Garage = () => {
   const {
     savedItems,
@@ -247,42 +253,23 @@ const Garage = () => {
       });
     });
   }, [savedItems, updateSavedItem]);
-
   return (
-    <div className="min-h-screen bg-color-neutral-8">
-      {/* Mobile-first layout */}
-      <div className="block md:hidden py-[16px] px-[8px]">
-        <GarageContent />
-      </div>
-
-      {/* Desktop layout */}
-      <div className="hidden md:block">
-        <main className="max-w-[980px] mx-auto py-8 px-0">
-          <div className="flex flex-col md:flex-row gap-8">
-            {/* Sidebar (ProfileSidebar + UserPoints) */}
-            <aside className="w-full md:w-64 space-y-6">
-              <ProfileSidebar 
-                userData={userData} 
-                savedItemsCount={savedItems.length} 
-                onPersonalizeClick={() => setPersonalizationOpen(true)} 
-              />
-            </aside>
-            
-            {/* Main Content (GarageContent) */}
-            <div className="flex-1">
-              <GarageContent />
-            </div>
+    <div className="">
+      <main className="max-w-[980px] mx-auto py-8 px-0">
+        <div className="flex flex-col md:flex-row gap-8">
+          {/* Sidebar (ProfileSidebar + UserPoints) */}
+          <aside className="w-full md:w-64 space-y-6">
+            <ProfileSidebar userData={userData} savedItemsCount={savedItems.length} onPersonalizeClick={() => setPersonalizationOpen(true)} />
+          </aside>
+          {/* Main Content (GarageContent) */}
+          <div className="flex-1">
+            <GarageContent />
           </div>
-        </main>
-      </div>
-
+        </div>
+      </main>
       {/* Personalization Dialog */}
-      <PersonalizationDialog 
-        open={personalizationOpen} 
-        onOpenChange={setPersonalizationOpen} 
-      />
+      <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
     </div>
   );
 };
-
 export default Garage;
