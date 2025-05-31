@@ -1,7 +1,8 @@
 
 import React from "react";
 import { Suggestion } from "../hooks/use-autocomplete"; 
-import { Search, Newspaper, Car, CarFront, Factory, Image as ImageIcon, Video as VideoIcon } from "lucide-react"; 
+import { Search, Newspaper, Car, CarFront, Factory, Image as ImageIcon, Video as VideoIcon } from "lucide-react";
+import { Skeleton } from "./ui/skeleton";
 
 interface MegaSearchDropdownProps { 
   suggestions: Suggestion[]; 
@@ -24,10 +25,36 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
 
   if (isLoading) {
     return (
-      <div className={`absolute left-0 right-0 ${positionClasses} w-[calc(100vw-40px)] max-w-2xl max-h-96 overflow-y-auto rounded-md bg-white shadow-lg z-50 p-2 dark:bg-gray-800 border dark:border-gray-700`}>
-        <div className="flex items-center justify-center p-4">
-          <div className="animate-spin h-5 w-5 border-2 border-motortrend-red border-t-transparent rounded-full"></div>
-          <span className="ml-2 text-sm text-gray-500 dark:text-gray-400">Loading suggestions...</span>
+      <div className={`absolute left-0 right-0 ${positionClasses} w-[calc(100vw-40px)] max-w-2xl max-h-96 overflow-y-auto rounded-md bg-white shadow-lg z-50 p-4 dark:bg-gray-800 border dark:border-gray-700 transition-standard`}>
+        <div className="space-y-3">
+          {/* Loading state for popular searches */}
+          <div className="mb-4">
+            <Skeleton variant="text" width="30%" className="mb-2 typography-h4" />
+            <div className="space-y-2">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <Skeleton variant="circular" width={18} height={18} />
+                  <Skeleton variant="text" width={`${Math.floor(Math.random() * 30) + 50}%`} />
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          {/* Loading state for articles */}
+          <div className="mb-4">
+            <Skeleton variant="text" width="25%" className="mb-2 typography-h4" />
+            <div className="space-y-3">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="flex gap-3">
+                  <Skeleton variant="rectangular" width={48} height={48} className="rounded-md" />
+                  <div className="flex-1 space-y-1">
+                    <Skeleton variant="text" width={`${Math.floor(Math.random() * 20) + 70}%`} />
+                    <Skeleton variant="text" width="40%" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -73,7 +100,7 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
   let globalSuggestionIndex = -1; 
 
   return (
-    <div className={`absolute left-0 right-0 ${positionClasses} w-[calc(100vw-40px)] max-w-2xl max-h-[70vh] overflow-y-auto rounded-md bg-white shadow-2xl z-50 dark:bg-gray-800 border dark:border-gray-700`}>
+    <div className={`absolute left-0 right-0 ${positionClasses} w-[calc(100vw-40px)] max-w-2xl max-h-[70vh] overflow-y-auto rounded-md bg-white shadow-2xl z-50 dark:bg-gray-800 border dark:border-gray-700 transition-standard`}>
       <ul className="py-1">
         {typeOrder.map(type => {
           const typeSuggestions = groupedSuggestions[type];
@@ -96,7 +123,7 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
           return (
             <li key={type} className="pt-1 mb-2">
               {typeLabel && (
-                <div className="px-4 py-2 text-xs font-semibold text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 sticky top-0 z-10">
+                <div className="px-4 py-2 typography-caption text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 sticky top-0 z-10 font-semibold">
                   {typeLabel}
                 </div>
               )}
@@ -138,8 +165,8 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
                         </div>
                       )}
                       <div className="flex-grow overflow-hidden">
-                        <span className="font-medium truncate block">{suggestion.text}</span>
-                        {secondaryText && <span className="text-xs text-gray-500 dark:text-gray-400 truncate block">{secondaryText}</span>}
+                        <span className="typography-body-sm font-medium truncate block">{suggestion.text}</span>
+                        {secondaryText && <span className="typography-caption text-gray-500 dark:text-gray-400 truncate block">{secondaryText}</span>}
                       </div>
                     </li>
                   );

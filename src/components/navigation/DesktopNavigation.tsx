@@ -75,6 +75,8 @@ const DesktopNavigation = () => {
         </NavLink>
         {/* Icons */}
         <div className="flex items-center space-x-2 ml-4">
+          {/* Hamburger Menu - Moved to first position */}
+          <HamburgerMenu />
           {/* My Garage Icon */}
           <Tooltip>
             <TooltipTrigger asChild>
@@ -86,7 +88,7 @@ const DesktopNavigation = () => {
               <p>My Garage</p>
             </TooltipContent>
           </Tooltip>
-          {/* Profile Avatar */}
+          {/* Profile Avatar - Moved to last position */}
           <Tooltip>
             <TooltipTrigger asChild>
               <Link to="/profile" aria-label="Profile" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors">
@@ -100,8 +102,6 @@ const DesktopNavigation = () => {
               <p>Profile</p>
             </TooltipContent>
           </Tooltip>
-          {/* Hamburger Menu */}
-          <HamburgerMenu />
         </div>
       </nav>
       </div>

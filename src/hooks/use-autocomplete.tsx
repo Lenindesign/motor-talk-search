@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import * as mockDataModule from "../services/mockData";
 import { carMakes } from "../services/carData";
 
@@ -22,24 +22,16 @@ export function useAutocomplete(query: string) {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(-1);
   
-  // Popular searches that always appear when the input is empty
-  const popularSearches: Suggestion[] = [
+  // Popular searches that always appear when the input is empty - memoized to prevent recreation on each render
+  const popularSearches = useMemo<Suggestion[]>(() => [
     { id: 'pop-1', text: 'New SUVs', type: 'popular' },
     { id: 'pop-2', text: 'Electric cars', type: 'popular' },
     { id: 'pop-3', text: 'Best sedans', type: 'popular' },
     { id: 'pop-4', text: 'Car buying tips', type: 'popular' }
-  ];
+  ], []);
 
-  useEffect(() => {
-    // Reset selection when query changes
-    setSelectedIndex(-1);
-    
-    if (!query.trim()) {
-      setSuggestions(popularSearches);
-      return;
-    }
-
-    const fetchSuggestions = async () => {
+  // Memoize the fetchSuggestions function to prevent recreation on each render
+  const fetchSuggestions = useCallback(async () => {
       setIsLoading(true);
       
       try {
@@ -195,18 +187,28 @@ export function useAutocomplete(query: string) {
       } finally {
         setIsLoading(false);
       }
-    };
+    }, [query, popularSearches]);
 
+  // Effect to handle search when query changes
+  useEffect(() => {
+    // Reset selection when query changes
+    setSelectedIndex(-1);
+    
+    if (!query.trim()) {
+      setSuggestions(popularSearches);
+      return;
+    }
+    
     // Debounce the fetch operation to avoid excessive API calls
     const timer = setTimeout(() => {
       fetchSuggestions();
     }, 300);
 
     return () => clearTimeout(timer);
-  }, [query]);
+  }, [query, fetchSuggestions, popularSearches]);
 
-  // Handle keyboard navigation
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  // Handle keyboard navigation - memoized to prevent recreation on each render
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault(); // Prevent cursor from moving
       setSelectedIndex(prev => 
@@ -216,13 +218,14 @@ export function useAutocomplete(query: string) {
       e.preventDefault(); // Prevent cursor from moving
       setSelectedIndex(prev => (prev > 0 ? prev - 1 : 0));
     }
-  };
+  }, [suggestions.length]);
 
-  return {
+  // Memoize the return value to prevent unnecessary re-renders in consuming components
+  return useMemo(() => ({
     suggestions,
     isLoading,
     selectedIndex,
     setSelectedIndex,
     handleKeyDown
-  };
+  }), [suggestions, isLoading, selectedIndex, handleKeyDown]);
 }

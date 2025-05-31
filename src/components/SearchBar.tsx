@@ -172,7 +172,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               }}
               onBlur={() => setIsFocused(false)}
               onKeyDown={handleInputKeyDown}
-              className={`w-full rounded-full border-2 border-motortrend-red bg-white py-2.5 pl-10 ${inputPaddingRightClass} text-sm shadow-sm transition-all duration-300 ease-in-out focus:ring-2 focus:ring-motortrend-red/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:border-motortrend-red`}
+              className={`w-full rounded-full border-2 border-motortrend-red bg-white py-2.5 pl-10 ${inputPaddingRightClass} typography-body-sm shadow-sm transition-standard focus:ring-2 focus:ring-motortrend-red/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:border-motortrend-red`}
               placeholder="Search..."
               disabled={isLoading || voiceSearch} 
               ref={currentInputRef}
@@ -229,7 +229,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                         type="button"
                         variant="ghost"
                         size="icon"
-                        className={`h-8 w-8 rounded-full p-0 text-gray-500 hover:bg-gray-200 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 ${variant === 'header' ? 'mr-1' : ''}`}
+                        className={`h-8 w-8 rounded-full p-0 text-gray-500 hover:bg-gray-200 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 transition-fast focus-ring ${variant === 'header' ? 'mr-1' : ''}`}
                         onClick={clearSearch}
                         aria-label="Clear search"
                       >
@@ -285,7 +285,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               }}
               onBlur={() => setIsFocused(false)}
               onKeyDown={handleInputKeyDown}
-              className={`w-full rounded-full border-2 border-motortrend-red bg-white py-3 pl-10 ${inputPaddingRightClass} text-base shadow-sm transition-all duration-300 ease-in-out focus:ring-2 focus:ring-motortrend-red/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:border-motortrend-red`}
+              className={`w-full rounded-full border-2 border-motortrend-red bg-white py-3 pl-10 ${inputPaddingRightClass} typography-body shadow-sm transition-standard focus:ring-2 focus:ring-motortrend-red/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:border-motortrend-red`}
               placeholder="Search for cars, news, reviews..."
               disabled={isLoading || voiceSearch}
               ref={currentInputRef}
@@ -323,7 +323,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="h-8 w-8 rounded-full p-0 text-gray-500 hover:bg-gray-200 hover:text-gray-700 disabled:text-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:disabled:text-gray-500"
+                      className="h-8 w-8 rounded-full p-0 text-gray-500 hover:bg-gray-200 hover:text-gray-700 disabled:text-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:disabled:text-gray-500 transition-fast focus-ring"
                       onClick={handleVoiceSearch}
                       aria-label="Search by voice"
                       disabled={isLoading}
@@ -340,7 +340,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                 type="submit"
                 variant={query.trim() ? "default" : "ghost"} 
                 size="icon"
-                className={`ml-1 h-8 w-8 rounded-full p-0 ${query.trim() ? 'bg-primary text-white hover:bg-primary/90' : 'text-gray-500 hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700'}`}
+                className={`ml-1 h-8 w-8 rounded-full p-0 transition-fast focus-ring ${query.trim() ? 'bg-primary text-white hover:bg-primary/90' : 'text-gray-500 hover:bg-gray-200 dark:text-gray-400 dark:hover:bg-gray-700'}`}
                 disabled={isLoading || !query.trim()}
                 aria-label="Submit search"
               >

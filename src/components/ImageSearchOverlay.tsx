@@ -49,15 +49,15 @@ const ImageSearchOverlay: React.FC<ImageSearchOverlayProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-gray-800">
+      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-gray-800 transition-standard">
         <DialogHeader>
-          <DialogTitle className="text-lg font-semibold text-gray-900 dark:text-white">Search by Image</DialogTitle>
-          <DialogDescription className="text-sm text-gray-500 dark:text-gray-400">
+          <DialogTitle className="typography-h3 text-gray-900 dark:text-white">Search by Image</DialogTitle>
+          <DialogDescription className="typography-body-sm text-gray-500 dark:text-gray-400">
             Upload a photo of a car or use your camera to identify it.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <Button variant="outline" onClick={handleUploadClick} className="w-full justify-start text-left dark:hover:bg-gray-700">
+          <Button variant="outline" onClick={handleUploadClick} className="w-full justify-start text-left dark:hover:bg-gray-700 typography-body transition-standard focus-ring">
             <Upload className="mr-2 h-5 w-5" />
             Upload an image
           </Button>
@@ -68,14 +68,14 @@ const ImageSearchOverlay: React.FC<ImageSearchOverlayProps> = ({
             accept="image/*"
             className="hidden"
           />
-          <Button variant="outline" onClick={handleTakePhoto} className="w-full justify-start text-left dark:hover:bg-gray-700">
+          <Button variant="outline" onClick={handleTakePhoto} className="w-full justify-start text-left dark:hover:bg-gray-700 typography-body transition-standard focus-ring">
             <Camera className="mr-2 h-5 w-5" />
             Take a photo
           </Button>
         </div>
         <DialogFooter className="sm:justify-end">
           <DialogClose asChild>
-            <Button type="button" variant="ghost" onClick={onClose} className="dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300">
+            <Button type="button" variant="ghost" onClick={onClose} className="dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 typography-body-sm transition-standard focus-ring">
               Cancel
             </Button>
           </DialogClose>
