@@ -192,13 +192,13 @@ const GarageContent = () => {
       <Card className="shadow-modern flex-1 border-0 md:border">
         <CardHeader className="pb-0">
           <div className="text-center md:text-left">
-            <CardTitle className="flex items-center justify-center md:justify-start gap-2 typography-title text-color-neutral-1 text-xl md:text-2xl">
+            <CardTitle className="flex items-center justify-center md:justify-start gap-2 typography-title text-color-neutral-1 md:text-2xl text-center text-3xl">
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
                 <path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z" />
               </svg>
               {showComparison ? "Car Comparison" : "My Garage"}
             </CardTitle>
-            <CardDescription className="typography-body text-color-neutral-4 text-center md:text-left px-0 mt-1">
+            <CardDescription className="typography-body text-color-neutral-4 md:text-left px-0 mt-1 text-center">
               {showComparison ? "Compare your selected vehicles side by side" : "View, manage, and get insights about your vehicles"}
             </CardDescription>
           </div>
