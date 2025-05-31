@@ -209,6 +209,7 @@ const getMotorTrendDataForCar = (carTitle: string) => {
     categoryRank: 8
   };
 };
+
 const Garage = () => {
   const {
     savedItems,
@@ -246,33 +247,42 @@ const Garage = () => {
       });
     });
   }, [savedItems, updateSavedItem]);
-  return <MainLayout isGaragePage={true}>
-      <div className="min-h-screen">
-        {/* Mobile-first layout */}
-        <div className="block md:hidden py-[16px] px-[8px]">
-          <GarageContent />
-        </div>
 
-        {/* Desktop layout */}
-        <div className="hidden md:block">
-          <main className="max-w-[980px] mx-auto py-8 px-0">
-            <div className="flex flex-col md:flex-row gap-8">
-              {/* Sidebar (ProfileSidebar + UserPoints) */}
-              <aside className="w-full md:w-64 space-y-6">
-                <ProfileSidebar userData={userData} savedItemsCount={savedItems.length} onPersonalizeClick={() => setPersonalizationOpen(true)} />
-              </aside>
-              
-              {/* Main Content (GarageContent) */}
-              <div className="flex-1">
-                <GarageContent />
-              </div>
-            </div>
-          </main>
-        </div>
-
-        {/* Personalization Dialog */}
-        <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
+  return (
+    <div className="min-h-screen bg-color-neutral-8">
+      {/* Mobile-first layout */}
+      <div className="block md:hidden py-[16px] px-[8px]">
+        <GarageContent />
       </div>
-    </MainLayout>;
+
+      {/* Desktop layout */}
+      <div className="hidden md:block">
+        <main className="max-w-[980px] mx-auto py-8 px-0">
+          <div className="flex flex-col md:flex-row gap-8">
+            {/* Sidebar (ProfileSidebar + UserPoints) */}
+            <aside className="w-full md:w-64 space-y-6">
+              <ProfileSidebar 
+                userData={userData} 
+                savedItemsCount={savedItems.length} 
+                onPersonalizeClick={() => setPersonalizationOpen(true)} 
+              />
+            </aside>
+            
+            {/* Main Content (GarageContent) */}
+            <div className="flex-1">
+              <GarageContent />
+            </div>
+          </div>
+        </main>
+      </div>
+
+      {/* Personalization Dialog */}
+      <PersonalizationDialog 
+        open={personalizationOpen} 
+        onOpenChange={setPersonalizationOpen} 
+      />
+    </div>
+  );
 };
+
 export default Garage;
