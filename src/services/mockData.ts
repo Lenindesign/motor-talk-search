@@ -6,50 +6,6 @@ import { VideoData } from "../components/VideoCard";
 
 // Mock Articles
 export const mockArticles: ArticleData[] = [
-  // --- Honda Articles ---
-  {
-    id: "honda-article-1",
-    title: "2025 Honda Accord Review: The Midsize Sedan Benchmark",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d37ac7ff34400082301e3/16-2025-honda-accord-top-view.jpg",
-    date: "May 15, 2025",
-    category: "Review",
-    featured: true,
-  },
-  {
-    id: "honda-article-2",
-    title: "2025 Honda CR-V Hybrid: Family SUV Gets Smarter",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/6807e90a5275530008bc0a89/002-2026-honda-crv.jpg",
-    date: "May 10, 2025",
-    category: "Hybrid",
-  },
-  {
-    id: "honda-article-3",
-    title: "2024 Honda Civic Type R: Hot Hatch King?",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d316690e08b0008b8a28b/1-2025-honda-civic-type-r-front-view.jpg",
-    date: "April 28, 2025",
-    category: "Performance",
-  },
-  {
-    id: "honda-article-4",
-    title: "Honda Pilot 2024: Three-Row SUV for the Family",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65f803940315ac000873e138/01-2025-honda-pilot-black-edition.jpg",
-    date: "April 20, 2025",
-    category: "SUV",
-  },
-  {
-    id: "honda-article-5",
-    title: "2025 Honda Odyssey: Still the Minivan to Beat?",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/6712c28ec3fea600083e5009/001-2025-honda-odyssey-elite.jpg",
-    date: "April 10, 2025",
-    category: "Minivan",
-  },
-  {
-    id: "honda-article-6",
-    title: "2025 Honda Ridgeline: Truck Utility, Honda Comfort",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/672d075cd198830008ca7125/23-2025-honda-ridgeline-front-view.jpg",
-    date: "March 30, 2025",
-    category: "Truck",
-  },
   {
     id: "1",
     title: "2025 Ferrari 12Cilindri First Look: The 819-HP Replacement for the 812 Superfast",
@@ -106,67 +62,6 @@ export const mockArticles: ArticleData[] = [
 
 // Mock New Cars with high-quality automotive images
 export const mockNewCars: CarData[] = [
-  // --- Honda New Cars ---
-  {
-    id: "honda-new-1",
-    title: "2025 Honda Accord Touring",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/671a7554264766000986939b/008-2025-honda-accord-hybrid.jpg",
-    price: "$37,000",
-    category: "Sedan",
-    isNew: true,
-    bodyStyle: "Sedan",
-    year: "2025",
-  },
-  {
-    id: "honda-new-2",
-    title: "2025 Honda CR-V Hybrid",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/68388e3f67366d0008aebdad/001-best-selling-cars-states-honda-crv-motortrend-ryan-lugo-design.jpg",
-    price: "$34,500",
-    category: "SUV",
-    isNew: true,
-    bodyStyle: "SUV",
-    year: "2025",
-  },
-  {
-    id: "honda-new-3",
-    title: "2025 Honda Civic Type R",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31ae0c91990008185451/22-2025-honda-civic-type-r-front-view.jpg",
-    price: "$44,795",
-    category: "Sport Compact",
-    isNew: true,
-    bodyStyle: "Hatchback",
-    year: "2025",
-  },
-  {
-    id: "honda-new-4",
-    title: "2025 Honda Pilot Elite",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65f803940315ac000873e138/01-2025-honda-pilot-black-edition.jpg",
-    price: "$50,000",
-    category: "SUV",
-    isNew: true,
-    bodyStyle: "SUV",
-    year: "2025",
-  },
-  {
-    id: "honda-new-5",
-    title: "2025 Honda Odyssey EX-L",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/669aafc8cdb3c60008f17f07/2025hondaodysseyminivan20.png",
-    price: "$41,000",
-    category: "Minivan",
-    isNew: true,
-    bodyStyle: "Minivan",
-    year: "2025",
-  },
-  {
-    id: "honda-new-6",
-    title: "2025 Honda Ridgeline Black Edition",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/672d075ece8ea400088fd122/24-2025-honda-ridgeline-side-view.jpg",
-    price: "$46,500",
-    category: "Truck",
-    isNew: true,
-    bodyStyle: "Truck",
-    year: "2025",
-  },
   {
     id: "new-1",
     title: "2025 Lucid Air Grand Touring",
@@ -225,85 +120,6 @@ export const mockNewCars: CarData[] = [
 
 // Mock Used Cars with high-quality automotive images
 export const mockUsedCars: CarData[] = [
-  // --- Honda Used Cars ---
-  {
-    id: "honda-used-1",
-    title: "2022 Honda Accord EX-L",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a34be80d8ef10008504e24/2022-honda-accord-hybrid-sport-003.jpg",
-    price: "$27,500",
-    category: "Sedan",
-    year: "2022",
-    mileage: "18,200 mi",
-    fuelType: "Gasoline",
-    drivetrain: "FWD",
-    location: "Los Angeles, CA",
-    bodyStyle: "Sedan",
-  },
-  {
-    id: "honda-used-2",
-    title: "2021 Honda CR-V Touring",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65cf764c8d38e9000841c15d/2012-honda-crv-front-view2.jpg",
-    price: "$25,900",
-    category: "SUV",
-    year: "2021",
-    mileage: "22,000 mi",
-    fuelType: "Gasoline",
-    drivetrain: "AWD",
-    location: "San Diego, CA",
-    bodyStyle: "SUV",
-  },
-  {
-    id: "honda-used-3",
-    title: "2020 Honda Civic Si",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65c2804a53c45c0008da655c/2020-honda-civic-si-06.jpg",
-    price: "$19,800",
-    category: "Sport Compact",
-    year: "2020",
-    mileage: "30,500 mi",
-    fuelType: "Gasoline",
-    drivetrain: "FWD",
-    location: "San Jose, CA",
-    bodyStyle: "Sedan",
-  },
-  {
-    id: "honda-used-4",
-    title: "2023 Honda Pilot Touring",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/659f19132cad330008ca88c6/2023-honda-pilot-elite-1.jpg",
-    price: "$38,700",
-    category: "SUV",
-    year: "2023",
-    mileage: "12,800 mi",
-    fuelType: "Gasoline",
-    drivetrain: "AWD",
-    location: "San Francisco, CA",
-    bodyStyle: "SUV",
-  },
-  {
-    id: "honda-used-5",
-    title: "2021 Honda Odyssey Elite",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a44d83b4af830008ae6d1d/2024-honda-odyssey-side-view-010.jpg",
-    price: "$31,200",
-    category: "Minivan",
-    year: "2021",
-    mileage: "28,400 mi",
-    fuelType: "Gasoline",
-    drivetrain: "FWD",
-    location: "Oakland, CA",
-    bodyStyle: "Minivan",
-  },
-  {
-    id: "honda-used-6",
-    title: "2020 Honda Ridgeline RTL-E",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a1f2c4a02d960009c91a06/2023-honda-ridgeline-sport-hpd-20-motion.jpg",
-    price: "$33,800",
-    category: "Truck",
-    year: "2020",
-    mileage: "35,900 mi",
-    fuelType: "Gasoline",
-    drivetrain: "AWD",
-    location: "Sacramento, CA",
-    bodyStyle: "Truck",
-  },
   {
     id: "used-1",
     title: "2023 Tesla Model Y Performance",
@@ -386,61 +202,6 @@ export const mockUsedCars: CarData[] = [
 
 // Mock Photos with enhanced metadata and high-quality automotive images
 export const mockPhotos: PhotoData[] = [
-  // --- Honda Photos ---
-  {
-    id: "honda-photo-1",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/671a7554264766000986939b/008-2025-honda-accord-hybrid.jpg",
-    title: "2025 Honda Accord Hybrid Front View",
-    position: "1/6",
-    make: "Honda",
-    carModel: "Accord",
-    year: "2025"
-  },
-  {
-    id: "honda-photo-2",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/6787f2342a8b790008a4202b/2025-honda-cr-v-front-view-1.jpg",
-    title: "2025 Honda CR-V Hybrid Front Angle",
-    position: "2/6",
-    make: "Honda",
-    carModel: "CR-V",
-    year: "2025"
-  },
-  {
-    id: "honda-photo-3",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d317290e08b0008b8a28c/3-2025-honda-civic-type-r-front-view.jpg",
-    title: "2025 Honda Civic Type R",
-    position: "3/6",
-    make: "Honda",
-    carModel: "Civic Type R",
-    year: "2025"
-  },
-  {
-    id: "honda-photo-4",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65b709ac9e852f000896101a/2016-honda-pilot-16.jpg",
-    title: "2024 Honda Pilot Front View",
-    position: "4/6",
-    make: "Honda",
-    carModel: "Pilot",
-    year: "2024"
-  },
-  {
-    id: "honda-photo-5",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/6712c2acbf21860008e085a1/013-2025-honda-odyssey-elite.jpg",
-    title: "2025 Honda Odyssey Front View",
-    position: "5/6",
-    make: "Honda",
-    carModel: "Odyssey",
-    year: "2025"
-  },
-  {
-    id: "honda-photo-6",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65b9a9104c372d0008b64bb0/2017-honda-ridgeline-rtl-e-gas-station-stop-02.jpg",
-    title: "2025 Honda Ridgeline Front View",
-    position: "6/6",
-    make: "Honda",
-    carModel: "Ridgeline",
-    year: "2025"
-  },
   {
     id: "1",
     imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a1ee783da2cd0008171982/2023-aston-martin-v12-vantage-track-driving-4.jpg",
@@ -517,189 +278,38 @@ export const mockPhotos: PhotoData[] = [
 
 // Mock Videos with high-quality automotive thumbnails
 export const mockVideos: VideoData[] = [
-  // --- Honda Videos ---
   {
-    id: "honda-video-1",
-    title: "2025 Honda Accord Touring Test Drive",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/671a7554264766000986939b/008-2025-honda-accord-hybrid.jpg",
-    duration: "13:05",
-  },
-  {
-    id: "honda-video-2",
-    title: "2025 Honda CR-V Hybrid vs. Toyota RAV4 Hybrid Comparison",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a16d3ee28b82000847aa29/2023-honda-cr-v-hybrid-vs-2023-toyota-rav4-hybrid-comparison-55.jpg",
-    duration: "12:22",
-  },
-  {
-    id: "honda-video-3",
-    title: "2025 Honda Civic Type R Track Review",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d31a066f0e90008e579f4/18-2025-honda-civic-type-r-side-view.jpg",
-    duration: "10:30",
-  },
-  {
-    id: "honda-video-4",
-    title: "2024 Honda Pilot Full Family Test",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65b6a5e53b36ca00083f8272/2016-honda-pilot-front-three-quarter-03.jpg",
-    duration: "15:00",
-  },
-  {
-    id: "honda-video-5",
-    title: "2025 Honda Odyssey: Best Minivan Features",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67801f81e5984c0008196817/020-2025-honda-odyssey-interior.jpg",
-    duration: "11:55",
-  },
-  {
-    id: "honda-video-6",
-    title: "2025 Honda Ridgeline Off-Road Test",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65dc2e6437e1e800087bfcca/2017-honda-ridgeline-rtl-e-blizzard-07.jpg",
-    duration: "13:40",
-  },
-  // --- Car Reviews Category ---
-  {
-    id: "review-1",
+    id: "1",
     title: "2025 BMW M5 First Drive Review",
     imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67296714564fe600071c8de3/003-2025-bmw-m5-touring-wagon.jpg",
     duration: "12:45",
   },
   {
-    id: "review-2",
-    title: "2025 Mercedes EQS SUV Review: Luxury Electric Flagship",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67bde8b188aa6d00084aba44/mercedes-benzeqssemi-solid-statebatterytest11.png",
-    duration: "14:20",
-  },
-  {
-    id: "review-3",
-    title: "2025 Audi RS6 Avant Performance Review",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/6685ed60b2d9990008368b70/0105-audi-rs6-gt-track-drive-thumbnail-1920x1080.jpg",
-    duration: "15:30",
-  },
-  // --- Track & Performance Category ---
-  {
-    id: "track-1",
-    title: "Lamborghini Revuelto: 1000HP Hypercar Track Test",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/66b6901ea3735500089a5155/0116-lamborghini-revuelto-drive-thumbnail-1920x1080-v1.jpg",
-    duration: "15:18",
-  },
-  {
-    id: "track-2",
-    title: "Ferrari 296 GTB Track Performance Analysis",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/658ad91d57af9a00085e6ac4/ferrari-296-gtb-action-2.jpg",
-    duration: "17:22",
-  },
-  {
-    id: "track-3",
-    title: "McLaren Artura Track Day: Hybrid Performance Tested",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a16e363e3c42000895dcb4/2023-mclaren-artura-performance-track-test.jpg",
-    duration: "14:10",
-  },
-  // --- Off-Road & Adventure Category ---
-  {
-    id: "offroad-1",
-    title: "Toyota Tacoma TRD Pro vs. Ford Ranger Raptor: Off-Road Showdown",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/662067c76159e7000883aef9/0033-tacoma-vs-ranger-vs-colorado-comparo-thumbnail-1920x1080.jpg",
-    duration: "21:45",
-  },
-  {
-    id: "offroad-2",
-    title: "Jeep Wrangler Rubicon 392 Off-Road Adventure",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/675b763a3e60930008889114/011-2025-jeep-gladiator-rubicon-x.jpg",
-    duration: "18:55",
-  },
-  {
-    id: "offroad-3",
-    title: "Land Rover Defender 130 Outback Adventure",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65c6e59b4dd34d0008f05bed/2023-land-rover-defender-130-outbound-v8-action.jpg",
-    duration: "19:30",
-  },
-  // --- Classic Cars & Restorations Category ---
-  {
-    id: "classic-1",
-    title: "Classic Porsche 911 Restoration Project",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/682cf399bc0f41000786b8ce/024-2025-aston-martin-vantage-porsche-911.jpg",
-    duration: "22:15",
-  },
-  {
-    id: "classic-2",
-    title: "Ferrari 250 GTO: The Classic Restoration Story",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65bb23089677b70008f8b3b0/1962-ferrari-250-gto-side.jpg",
-    duration: "25:40",
-  },
-  {
-    id: "classic-3",
-    title: "Classic Ford Mustang Shelby GT500 Restoration",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/66ea0c29f96f07000863ed69/032-1967-ford-mustang-cobra-ruffian-green-shelby-vintage-flares.jpg",
-    duration: "20:30",
-  },
-  // --- EVs & Future Tech Category ---
-  {
-    id: "ev-1",
-    title: "2025 Porsche Taycan: The Ultimate EV Sports Car?",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65f1c6af2c8f3500089e03be/2025-porsche-taycan-turbo-gt-nurburgring-10.jpg",
-    duration: "14:22",
-  },
-  {
-    id: "ev-2",
+    id: "2",
     title: "Electric Off-Road Comparison: Rivian R1T vs Ford F-150 Lightning",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/64a8c2fe3aec69000819c3d0/rivian-r1t-vs-ford-f-150-lightning-comparison.jpg",
-    duration: "18:30",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b7c45f3431cf0008c8eb4c/2025-rivian-r1t-app-19.jpg",
+    duration: "18:32",
   },
   {
-    id: "ev-3",
-    title: "Future Electric Hypercars: Rimac Nevera vs Lotus Evija",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/6656edb9dec73100084dcdcf/rimac-nevera-acceleration-run.jpg",
-    duration: "16:45",
-  },
-  // --- Motorsports Category ---
-  {
-    id: "motorsport-1",
-    title: "F1 2025 Season Preview: New Cars, New Rules",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a1ea77ba9631000891c1fa/f1-2023-british-gp-race-start.jpg",
-    duration: "24:10",
-  },
-  {
-    id: "motorsport-2",
-    title: "Le Mans 24 Hour Race Highlights",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/673252085459e4000863b22c/2018-lemans-toyota-gazoo-racing-win-01.jpg",
-    duration: "28:35",
-  },
-  {
-    id: "motorsport-3",
-    title: "NASCAR Cup Series: Race Day Analysis",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65bbdd8eca6887000869df14/nascar-at-sonoma-raceway-16.jpg",
-    duration: "22:50",
-  },
-  {
-    id: "original-1",
-    title: "2025 BMW M5 First Drive Review",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67296714564fe600071c8de3/003-2025-bmw-m5-touring-wagon.jpg",
-    duration: "12:45",
-  },
-  {
-    id: "original-2",
-    title: "Electric Off-Road Comparison: Rivian R1T vs Ford F-150 Lightning",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/64a8c2fe3aec69000819c3d0/rivian-r1t-vs-ford-f-150-lightning-comparison.jpg",
-    duration: "18:30",
-  },
-  {
-    id: "original-3",
+    id: "3",
     title: "Supercar Drag Race: Ferrari vs Lamborghini vs McLaren",
     imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/68349f24aa8f18000865fec2/1996-mclaren-f1-gtr-110.jpg",
     duration: "8:54",
   },
   {
-    id: "original-4",
+    id: "4",
     title: "2025 Lucid Air: In-Depth Technology Overview",
     imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67c222dbae874400087d4c90/3-2025-lucid-air-side-view.jpg",
     duration: "14:17",
   },
   {
-    id: "original-5",
+    id: "5",
     title: "DIY Car Maintenance Tips Every Owner Should Know",
     imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65cedb67c7bc5b00085f8763/010-ls-porting-diy-706-heads-chamber.jpg",
     duration: "10:05",
   },
   {
-    id: "original-6",
+    id: "6",
     title: "Best Car Audio Systems of 2025",
     imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65b987bcc668c90008d34e06/2018-volvo-xc60-t6-audio.jpg",
     duration: "16:28",
