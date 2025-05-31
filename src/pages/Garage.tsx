@@ -4,6 +4,7 @@ import PersonalizationDialog from "../components/PersonalizationDialog";
 import ProfileSidebar from "../components/garage/ProfileSidebar";
 import GarageContent from "../components/garage/GarageContent";
 import MainLayout from "../components/MainLayout";
+import GarageHeader from "../components/garage/GarageHeader";
 import { useToast } from "@/hooks/use-toast";
 
 // Mock MotorTrend data - in a real app would come from an API

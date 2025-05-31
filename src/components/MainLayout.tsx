@@ -18,13 +18,16 @@ const MainLayout: React.FC<MainLayoutProps> = ({
 }) => {
   return (
     <div className="flex flex-col min-h-screen bg-color-neutral-8">
-      {/* Fixed nav bar */}
-      <GlobalHeader onSearch={onSearch} isLoading={isLoading} />
-      <MobileStickySearch onSearch={onSearch} isLoading={isLoading} />
-      
+      {/* Fixed nav bar (hide for garage page) */}
+      {!isGaragePage && (
+        <>
+          <GlobalHeader onSearch={onSearch} isLoading={isLoading} />
+          <MobileStickySearch onSearch={onSearch} isLoading={isLoading} />
+        </>
+      )}
       {/* Conditional spacer - smaller for garage page */}
       <div 
-        style={{ height: isGaragePage ? 60 : 80 }} 
+        style={{ height: isGaragePage ? 0 : 80 }} 
         className="sm:hidden py-[12px]" 
       />
       
