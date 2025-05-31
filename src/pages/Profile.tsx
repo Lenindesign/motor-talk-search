@@ -95,10 +95,8 @@ const Profile = () => {
       <div className="min-h-screen bg-motortrend-gray">
         
         {/* Spacer for fixed header + search bar on mobile */}
-      <div className="sm:hidden" style={{
-        height: 112
-      }} />
-      <main className="max-w-[980px] mx-auto py-8 px-0">
+      
+      <main className="max-w-[980px] mx-auto px-0 py-0">
           <div className="flex flex-col md:flex-row gap-8">
             {/* Profile Sidebar */}
             <aside className="w-full md:w-64 space-y-6 px-[8px]">
