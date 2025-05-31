@@ -174,10 +174,10 @@ const Profile = () => {
                     <div className="flex justify-between items-center mb-4">
                       <h2 className="text-xl font-bold">Saved Items</h2>
                       <div className="flex gap-2">
-                        <Button variant={filterType === "all" ? "default" : "outline"} size="sm" onClick={() => setFilterType("all")} className="bg-motortrend-dark">
+                        <Button variant={filterType === "all" ? "default" : "outline"} size="sm" onClick={() => setFilterType("all")} className="bg-motortrend-light">
                           All
                         </Button>
-                        <Button variant={filterType === "article" ? "default" : "outline"} size="sm" onClick={() => setFilterType("article")}>
+                        <Button variant={filterType === "article" ? "default" : "outline"} size="sm" onClick={() => setFilterType("article")} className="bg-motortrend-dark">
                           Articles
                         </Button>
                         <Button variant={filterType === "newCar" ? "default" : "outline"} size="sm" onClick={() => setFilterType("newCar")}>
