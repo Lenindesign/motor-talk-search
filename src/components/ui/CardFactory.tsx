@@ -59,6 +59,12 @@ const createCardProps = (
         type: 'used',
         ...restProps
       } as CarCardProps;
+    case 'car':
+      return {
+        car: data as CarData,
+        type: 'new', // Default to new for generic car type
+        ...restProps
+      } as CarCardProps;
     case 'article':
       return {
         article: data as ArticleData,
@@ -76,6 +82,26 @@ const createCardProps = (
       } as PhotoCardProps;
     default:
       throw new Error(`Unknown card type: ${type}`);
+  }
+};
+
+// Helper function to map CardType to Card variant
+const getCardVariant = (type: CardType): "article" | "photo" | "video" | "newCar" | "usedCar" | "default" => {
+  switch (type) {
+    case 'article':
+      return 'article';
+    case 'photo':
+      return 'photo';
+    case 'video':
+      return 'video';
+    case 'newCar':
+      return 'newCar';
+    case 'usedCar':
+      return 'usedCar';
+    case 'car':
+      return 'newCar'; // Default to newCar for generic car type
+    default:
+      return 'default';
   }
 };
 
@@ -104,7 +130,7 @@ const CardFactory: React.FC<CardFactoryProps> = ({
 
   return (
     <Card
-      variant={type}
+      variant={getCardVariant(type)}
       className={cn(
         'group relative',
         className
