@@ -1,6 +1,8 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GlobalHeader from '@/components/GlobalHeader';
+import SubNavBar from '@/components/SubNavBar';
+import GlobalFooter from '@/components/GlobalFooter';
 import MobileStickySearch from '@/components/MobileStickySearch';
 
 interface MainLayoutProps {
@@ -57,8 +59,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, isLoading = false }) 
 
   return (
     <div className="flex flex-col min-h-screen bg-neutral-8">
-      <div ref={headerRef} className="relative w-full">
+      <div ref={headerRef} className="relative w-full" style={{ zIndex: 50, position: 'relative' }}>
         <GlobalHeader onSearch={handleSearch} isLoading={isLoading} />
+      </div>
+
+      {/* Subnavigation bar wrapper - ensure lower z-index than dropdown */}
+      <div className="w-full" style={{ position: 'relative', zIndex: 30 }}>
+        <SubNavBar />
       </div>
 
       {/* Add a spacer div to push content below fixed header */}
@@ -88,6 +95,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, isLoading = false }) 
         <div className="sm:hidden" style={{ height: '60px' }} />
         {children}
       </main>
+
     </div>
   );
 };

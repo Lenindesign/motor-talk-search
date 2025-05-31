@@ -266,16 +266,16 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
             </Button>
           </div>
           {showSuggestions && filteredSuggestions.length > 0 && (
-            <div className="absolute left-0 right-0 z-10">
-              <AutocompleteSuggestions
-                suggestions={filteredSuggestions}
-                selectedIndex={selectedIndex}
-                isLoading={suggestionsLoading || makesLoading}
-                onSelect={(suggestion) => handleAddCar(suggestion)}
-                onMouseEnter={(index) => setSelectedIndex(index)}
-              />
-            </div>
-          )}
+  <div className="absolute left-0 right-0 z-10 max-w-[632px] mx-auto">
+    <AutocompleteSuggestions
+      suggestions={filteredSuggestions}
+      selectedIndex={selectedIndex}
+      isLoading={suggestionsLoading || makesLoading}
+      onSelect={(suggestion) => handleAddCar(suggestion)}
+      onMouseEnter={(index) => setSelectedIndex(index)}
+    />
+  </div>
+)}
         </div>
       </CardContent>
     </Card>

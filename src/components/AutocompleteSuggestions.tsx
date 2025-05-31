@@ -67,7 +67,7 @@ const AutocompleteSuggestions: React.FC<AutocompleteSuggestionsProps> = ({
   let currentIndex = -1;
   
   return (
-    <div className="absolute left-0 right-0 top-full mt-1 max-h-60 overflow-y-auto rounded-md bg-white shadow-lg z-50">
+    <div className="absolute left-0 right-0 top-full mt-1 max-h-60 overflow-y-auto rounded-md bg-white shadow-lg z-50 max-w-[632px] w-full">
       <ul className="py-1">
         {typeOrder.map(type => {
           const typeSuggestions = groupedSuggestions[type] || [];

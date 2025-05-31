@@ -5,7 +5,7 @@ import { mockCompetitors, comparisonMetrics } from './utils';
 const CompetitorsComparison: React.FC = () => {
   const currentVehicle = {
     name: 'Our Vehicle',
-    imageUrl: '/images/our-vehicle.jpg',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/67c222d600145b000869b9f8/1-2025-lucid-air-front-view.jpg',
     price: 85000,
     specs: {
       engine: '400 HP Electric Motor',

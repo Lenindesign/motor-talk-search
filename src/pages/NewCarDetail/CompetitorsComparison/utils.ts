@@ -1,7 +1,7 @@
 export const mockCompetitors = [
   {
     name: 'Tesla Model X',
-    imageUrl: '/src/assets/images/competitors/model-x.jpg',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/67b65c0a261b1300083ef8f6/2-2025-tesla-model-x-front-view.jpg',
     price: 114990,
     specs: {
       engine: 'Dual Motor AWD',
@@ -26,7 +26,7 @@ export const mockCompetitors = [
   },
   {
     name: 'Ford Mustang Mach-E',
-    imageUrl: '/src/assets/images/competitors/mustang-mache.jpg',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/6706b8e3a4085900087fad94/001-2024-ford-mustang-mach-e-rally-front-quarter-motion.jpg',
     price: 60900,
     specs: {
       engine: 'Dual Motor AWD',
@@ -51,7 +51,7 @@ export const mockCompetitors = [
   },
   {
     name: 'BMW iX',
-    imageUrl: '/src/assets/images/competitors/bmw-ix.jpg',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/6835e17a0e1d380008f5cb0b/32-2026bmwm2cs-oem.jpg',
     price: 83200,
     specs: {
       engine: 'Dual Motor AWD',

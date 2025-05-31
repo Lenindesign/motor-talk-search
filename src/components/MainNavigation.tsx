@@ -50,7 +50,7 @@ const NavLink = ({ href, children, className = "", hasDropdown = false, dropdown
         {/* Dropdown Container */}
         <div 
           className={`absolute top-full left-0 w-64 bg-motortrend-dark border border-gray-700 rounded-md shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${isHovered ? 'opacity-100 translate-y-0 max-h-[500px]' : 'opacity-0 -translate-y-2 max-h-0 pointer-events-none'}`}
-          style={{ zIndex: 1000 }}
+          style={{ zIndex: 1050 }}
         >
           {dropdownContent}
         </div>
