@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import PersonalizationDialog from "../components/PersonalizationDialog";
-import GarageHeader from "../components/garage/GarageHeader";
 import ProfileSidebar from "../components/garage/ProfileSidebar";
 import GarageContent from "../components/garage/GarageContent";
-import { useCarMakes, useCarModelsByMakeId } from "../hooks/use-car-database";
+import MainLayout from "../components/MainLayout";
 import { useToast } from "@/hooks/use-toast";
 
 // Mock MotorTrend data - in a real app would come from an API
@@ -216,15 +215,11 @@ const getMotorTrendDataForCar = (carTitle: string) => {
     categoryRank: 8
   };
 };
+
 const Garage = () => {
-  const {
-    savedItems,
-    updateSavedItem
-  } = useSavedItems();
+  const { savedItems, updateSavedItem } = useSavedItems();
   const [personalizationOpen, setPersonalizationOpen] = useState(false);
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
 
   // Mock user data - in a real app, this would come from auth context or API
   const userData = {
@@ -253,23 +248,44 @@ const Garage = () => {
       });
     });
   }, [savedItems, updateSavedItem]);
+
   return (
-    <div className="">
-      <main className="max-w-[980px] mx-auto py-8 px-0">
-        <div className="flex flex-col md:flex-row gap-8">
-          {/* Sidebar (ProfileSidebar + UserPoints) */}
-          <aside className="w-full md:w-64 space-y-6">
-            <ProfileSidebar userData={userData} savedItemsCount={savedItems.length} onPersonalizeClick={() => setPersonalizationOpen(true)} />
-          </aside>
-          {/* Main Content (GarageContent) */}
-          <div className="flex-1">
-            <GarageContent />
-          </div>
+    <MainLayout isGaragePage={true}>
+      <div className="min-h-screen">
+        {/* Mobile-first layout */}
+        <div className="block md:hidden px-4 py-4">
+          <GarageContent />
         </div>
-      </main>
-      {/* Personalization Dialog */}
-      <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
-    </div>
+
+        {/* Desktop layout */}
+        <div className="hidden md:block">
+          <main className="max-w-[980px] mx-auto py-8 px-0">
+            <div className="flex flex-col md:flex-row gap-8">
+              {/* Sidebar (ProfileSidebar + UserPoints) */}
+              <aside className="w-full md:w-64 space-y-6">
+                <ProfileSidebar 
+                  userData={userData} 
+                  savedItemsCount={savedItems.length} 
+                  onPersonalizeClick={() => setPersonalizationOpen(true)} 
+                />
+              </aside>
+              
+              {/* Main Content (GarageContent) */}
+              <div className="flex-1">
+                <GarageContent />
+              </div>
+            </div>
+          </main>
+        </div>
+
+        {/* Personalization Dialog */}
+        <PersonalizationDialog 
+          open={personalizationOpen} 
+          onOpenChange={setPersonalizationOpen} 
+        />
+      </div>
+    </MainLayout>
   );
 };
+
 export default Garage;
