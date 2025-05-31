@@ -47,7 +47,7 @@ const GarageStats: React.FC<GarageStatsProps> = ({
               <span className="hidden md:inline">{tab.label}</span>
               <span className="md:hidden">{tab.shortLabel}</span>
             </span>
-            <span className={`min-w-[28px] h-6 rounded-full font-semibold flex items-center justify-center text-base ${activeTab === tab.id ? 'bg-gray-800 text-white' : 'bg-gray-300 text-gray-600'}`}>
+            <span className="text-xl">
               {tab.count}
             </span>
           </button>)}
