@@ -84,28 +84,28 @@ const ComponentsTab = () => {
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="space-y-2">
-              <Button className="w-full">Primary</Button>
-              <Button variant="secondary" className="w-full">Secondary</Button>
-              <Button variant="outline" className="w-full">Outline</Button>
-              <Button variant="ghost" className="w-full">Ghost</Button>
+              <Button className="w-full text-white">Primary</Button>
+              <Button variant="secondary" className="w-full text-gray-900">Secondary</Button>
+              <Button variant="outline" className="w-full text-gray-900 bg-white border-gray-300 hover:bg-gray-50">Outline</Button>
+              <Button variant="ghost" className="w-full text-gray-900 hover:bg-gray-100">Ghost</Button>
             </div>
             <div className="space-y-2">
-              <Button size="sm" className="w-full">Small</Button>
-              <Button size="default" className="w-full">Default</Button>
-              <Button size="lg" className="w-full">Large</Button>
-              <Button size="icon"><Plus size={16} /></Button>
+              <Button size="sm" className="w-full text-white">Small</Button>
+              <Button size="default" className="w-full text-white">Default</Button>
+              <Button size="lg" className="w-full text-white">Large</Button>
+              <Button size="icon" className="text-white"><Plus size={16} /></Button>
             </div>
             <div className="space-y-2">
               <Button disabled className="w-full">Disabled</Button>
-              <Button variant="destructive" className="w-full">Destructive</Button>
-              <Button variant="link" className="w-full">Link</Button>
+              <Button variant="destructive" className="w-full text-white">Destructive</Button>
+              <Button variant="link" className="w-full text-color-primary-1">Link</Button>
             </div>
             <div className="space-y-2">
-              <Button className="w-full">
+              <Button className="w-full text-white">
                 <Download size={16} />
                 With Icon
               </Button>
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full text-gray-900 bg-white border-gray-300 hover:bg-gray-50">
                 Loading...
               </Button>
             </div>

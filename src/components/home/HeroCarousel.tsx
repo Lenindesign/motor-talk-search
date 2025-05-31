@@ -183,4 +183,5 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
       </div>
     </div>;
 };
+
 export default HeroCarousel;

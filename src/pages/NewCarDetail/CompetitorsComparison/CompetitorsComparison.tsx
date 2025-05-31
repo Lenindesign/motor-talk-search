@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { mockCompetitors, comparisonMetrics } from './utils';
+
 const CompetitorsComparison: React.FC = () => {
   const currentVehicle = {
     name: 'Our Vehicle',
@@ -94,10 +95,16 @@ const CompetitorsComparison: React.FC = () => {
         </CardContent>
       </Card>
     <div className="flex justify-center mt-8">
-      <Button variant="outline" size="lg" className="px-8 py-4 text-lg shadow-modern hover:shadow-modern-lg" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
+      <Button 
+        variant="outline" 
+        size="lg" 
+        className="px-8 py-4 text-lg shadow-modern hover:shadow-modern-lg text-gray-900 bg-white border-gray-300 hover:bg-gray-50" 
+        onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+      >
         See Full Comparison
       </Button>
     </div>
   </div>;
 };
+
 export default CompetitorsComparison;

@@ -24,6 +24,7 @@ import VideoCard from "../components/VideoCard";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MyGarageSkinny from "../components/profile/MyGarageSkinny";
 import GarageContent from '../components/garage/GarageContent';
+
 const Profile = () => {
   const {
     savedItems,
@@ -118,17 +119,17 @@ const Profile = () => {
                     </div>
                     
                     <div className="w-full mt-4 space-y-3">
-                      <Button variant="default" size="sm" className="w-full flex items-center justify-center gap-2 text-motortrend-light bg-motortrend-dark text-sm">
+                      <Button variant="default" size="sm" className="w-full flex items-center justify-center gap-2 text-white bg-motortrend-dark text-sm">
                         <User size={16} />
                         Profile
                       </Button>
                       
-                      <Button variant="outline" size="sm" onClick={() => setPersonalizationOpen(true)} className="w-full flex items-center justify-center gap-2 text-sm">
+                      <Button variant="outline" size="sm" onClick={() => setPersonalizationOpen(true)} className="w-full flex items-center justify-center gap-2 text-gray-900 bg-white border-gray-300 hover:bg-gray-50 text-sm">
                         <Palette size={16} />
                         Personalize
                       </Button>
                       
-                      <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 text-sm">
+                      <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 text-gray-900 bg-white border-gray-300 hover:bg-gray-50 text-sm">
                         <Settings size={16} />
                         Settings
                       </Button>
@@ -174,16 +175,36 @@ const Profile = () => {
                     <div className="flex justify-between items-center mb-4">
                       <h2 className="text-xl font-bold">Saved Items</h2>
                       <div className="flex gap-2">
-                        <Button variant={filterType === "all" ? "default" : "outline"} size="sm" onClick={() => setFilterType("all")} className="">
+                        <Button 
+                          variant={filterType === "all" ? "default" : "outline"} 
+                          size="sm" 
+                          onClick={() => setFilterType("all")} 
+                          className={filterType === "all" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}
+                        >
                           All
                         </Button>
-                        <Button variant={filterType === "article" ? "default" : "outline"} size="sm" onClick={() => setFilterType("article")} className="">
+                        <Button 
+                          variant={filterType === "article" ? "default" : "outline"} 
+                          size="sm" 
+                          onClick={() => setFilterType("article")} 
+                          className={filterType === "article" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}
+                        >
                           Articles
                         </Button>
-                        <Button variant={filterType === "newCar" ? "default" : "outline"} size="sm" onClick={() => setFilterType("newCar")}>
+                        <Button 
+                          variant={filterType === "newCar" ? "default" : "outline"} 
+                          size="sm" 
+                          onClick={() => setFilterType("newCar")}
+                          className={filterType === "newCar" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}
+                        >
                           New Cars
                         </Button>
-                        <Button variant={filterType === "usedCar" ? "default" : "outline"} size="sm" onClick={() => setFilterType("usedCar")}>
+                        <Button 
+                          variant={filterType === "usedCar" ? "default" : "outline"} 
+                          size="sm" 
+                          onClick={() => setFilterType("usedCar")}
+                          className={filterType === "usedCar" ? "text-white bg-color-primary-1" : "text-gray-900 bg-white border-gray-300 hover:bg-gray-50"}
+                        >
                           Used Cars
                         </Button>
                       </div>
@@ -195,7 +216,7 @@ const Profile = () => {
                         <p className="text-gray-500 max-w-md mx-auto">
                           Use the bookmark button on articles, cars, videos, and photos to collect them here
                         </p>
-                        <Button onClick={() => navigate("/")} className="mt-4 text-motortrend-dark">
+                        <Button onClick={() => navigate("/")} className="mt-4 text-white bg-color-primary-1 hover:bg-color-primary-2">
                           Browse Content
                         </Button>
                       </div> : <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
@@ -294,11 +315,11 @@ const Profile = () => {
                                 </FormControl>
                               </FormItem>} />
                           <div className="flex items-center justify-between pt-2">
-                            <Button type="button" variant="outline" onClick={() => setPersonalizationOpen(true)} className="flex items-center gap-2">
+                            <Button type="button" variant="outline" onClick={() => setPersonalizationOpen(true)} className="flex items-center gap-2 text-gray-900 bg-white border-gray-300 hover:bg-gray-50">
                               <Palette size={16} />
                               Personalize Experience
                             </Button>
-                            <Button type="submit">Save Changes</Button>
+                            <Button type="submit" className="text-white bg-color-primary-1 hover:bg-color-primary-2">Save Changes</Button>
                           </div>
                         </form>
                       </Form>
@@ -313,4 +334,5 @@ const Profile = () => {
       <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
     </>;
 };
+
 export default Profile;
