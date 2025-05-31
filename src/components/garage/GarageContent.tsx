@@ -216,7 +216,7 @@ const GarageContent = () => {
           </div>
         </CardHeader>
 
-        <CardContent className="py-2 px-4">
+        <CardContent className="pt-2">
           {/* Comparison View */}
           {showComparison ? <div className="mt-2">
               <CarComparisonTable cars={getSelectedCarData()} />
