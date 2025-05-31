@@ -249,8 +249,8 @@ const Garage = () => {
   }, [savedItems, updateSavedItem]);
   return <MainLayout isGaragePage={true}>
       <div className="min-h-screen">
-        {/* Mobile-first layout */}
-        <div className="px-0 py-0">
+        {/* Responsive layout */}
+        <div className="md:hidden px-0 py-0">
           <GarageContent />
         </div>
 
