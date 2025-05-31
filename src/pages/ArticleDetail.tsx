@@ -149,7 +149,7 @@ const ArticleDetail: React.FC = () => {
         <Progress value={readingProgress} className="h-1 rounded-none bg-transparent" />
       </div>
 
-      <main className="max-w-[720px] mx-auto px-0 py-[32px]">
+      <main className="max-w-[720px] mx-auto px-[16px] py-[6px]">
         {/* Article Header */}
         <header className="mb-8">
           <div className="mb-4">
