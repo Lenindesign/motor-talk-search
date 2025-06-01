@@ -504,6 +504,34 @@ button.bg-neutral-8 {
   }
 }
 
+/* Design System Token Carousel Styles */
+.token-tabs-slider .slick-track {
+  display: flex;
+  align-items: center;
+}
+
+.token-tabs-slider .slick-slide {
+  height: auto;
+}
+
+.token-tabs-slider [data-state="active"],
+.custom-tabs-list button.active {
+  background-color: var(--primary-2) !important;
+  color: white !important;
+}
+
+/* Add active class to the currently selected tab button */
+.custom-tabs-list button {
+  position: relative;
+}
+
+/* Update active state when tab is selected */
+[data-state="active"] ~ .custom-tabs-list button[data-tab="colors"],
+[value="colors"][data-state="active"] ~ .custom-tabs-list button[onclick*="colors"] {
+  background-color: var(--primary-2) !important;
+  color: white !important;
+}
+
 /* Custom keyframes for new animations */
 @keyframes accordion-down {
   from {

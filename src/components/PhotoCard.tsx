@@ -82,18 +82,13 @@ const PhotoCard: React.FC<PhotoCardProps> = memo(({
           </span>
         </div>
         
-        {/* Overlay: title in bottom gradient */}
-        <div className="absolute bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-black/80 to-transparent p-3 pointer-events-none">
-          <div className="flex items-center">
-            <h3 className="font-bold leading-tight text-white line-clamp-2 text-base">{photo.title}</h3>
-          </div>
-        </div>
+        {/* No gradient overlay */}
       </div>
       
-      {/* Card content below image */}
-      <div className="p-4">
-        <div className="flex items-center typography-body-sm text-gray-400">
-          <span className="font-medium">{photo.make} {photo.carModel}</span>
+      {/* Card content below image - headline moved here */}
+      <div className="p-4 bg-motortrend-dark rounded-b-xl">
+        <div className="flex items-center">
+          <h3 className="font-semibold leading-tight text-white line-clamp-2 text-base">{photo.title}</h3>
         </div>
       </div>
     </Card>

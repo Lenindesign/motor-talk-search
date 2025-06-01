@@ -57,13 +57,27 @@ const BuyersGuide: React.FC = () => {
     }
   }, [apiSearchResults, apiLoading, searchTerm]);
 
-  // Handle search
+  // Handle search with debounce
   const handleSearch = (query: string) => {
-    console.log('Searching for:', query);
+    console.log('Input changed to:', query);
     setSearchTerm(query);
-    if (query.trim()) {
+    
+    // Only show toast and trigger search if query has meaningful content
+    if (query.trim() && query.trim().length > 2) {
       toast.success('Searching vehicles...', {
         description: `Looking for "${query}" in our database`
+      });
+    }
+  };
+  
+  // Handle search form submission
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log('Search submitted for:', searchTerm);
+    
+    if (searchTerm.trim() && searchTerm.trim().length > 2) {
+      toast.success('Searching vehicles...', {
+        description: `Looking for "${searchTerm}" in our database`
       });
     }
   };
@@ -522,20 +536,31 @@ const BuyersGuide: React.FC = () => {
         
         {/* Search and filters */}
         <div className="mb-6">
-          <div className="flex flex-col md:flex-row gap-4">
-            <div className="relative flex-grow">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-              <Input placeholder="Search by make, model (e.g., VW, BMW, Ford)..." value={searchTerm} onChange={e => handleSearch(e.target.value)} className="pl-10 pr-4 py-2" />
+          <form onSubmit={handleSearchSubmit}>
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="relative flex-grow">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input 
+                  placeholder="Search by make, model (e.g., VW, BMW, Ford)..." 
+                  value={searchTerm} 
+                  onChange={e => handleSearch(e.target.value)}
+                  className="pl-10 pr-4 py-2" 
+                />
+              </div>
+              <Button type="submit" variant="default" className="flex items-center gap-2">
+                <Search className="h-4 w-4" />
+                Search
+              </Button>
+              <Button type="button" variant="outline" className="flex items-center gap-2">
+                <Filter className="h-4 w-4" />
+                Filters
+              </Button>
+              <Button type="button" variant="outline" className="flex items-center gap-2">
+                <ArrowUpDown className="h-4 w-4" />
+                Sort
+              </Button>
             </div>
-            <Button variant="outline" className="flex items-center gap-2">
-              <Filter className="h-4 w-4" />
-              Filters
-            </Button>
-            <Button variant="outline" className="flex items-center gap-2">
-              <ArrowUpDown className="h-4 w-4" />
-              Sort
-            </Button>
-          </div>
+          </form>
         </div>
         
         {/* Search results info */}

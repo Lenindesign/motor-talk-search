@@ -1,17 +1,115 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { Check, Copy } from 'lucide-react';
-import { useState } from 'react';
+import { Check, Copy, ChevronLeft, ChevronRight } from 'lucide-react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const TokensTab = () => {
   const [copiedToken, setCopiedToken] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<string>("colors");
 
   const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedToken(text);
-    setTimeout(() => setCopiedToken(null), 2000);
+    try {
+      // Try using the modern Clipboard API first
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text)
+          .then(() => {
+            setCopiedToken(text);
+            setTimeout(() => setCopiedToken(null), 2000);
+          })
+          .catch(err => {
+            console.error('Failed to copy: ', err);
+            fallbackCopyToClipboard(text);
+          });
+      } else {
+        // Fall back to the older execCommand method
+        fallbackCopyToClipboard(text);
+      }
+    } catch (err) {
+      console.error('Copy failed: ', err);
+      fallbackCopyToClipboard(text);
+    }
+  };
+
+  const fallbackCopyToClipboard = (text: string) => {
+    try {
+      // Create a temporary textarea element
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      
+      // Make the textarea out of viewport
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      
+      // Select and copy the text
+      textArea.focus();
+      textArea.select();
+      const successful = document.execCommand('copy');
+      
+      // Clean up
+      document.body.removeChild(textArea);
+      
+      if (successful) {
+        setCopiedToken(text);
+        setTimeout(() => setCopiedToken(null), 2000);
+      } else {
+        console.error('Fallback copy failed');
+      }
+    } catch (err) {
+      console.error('Fallback copy failed: ', err);
+    }
+  };
+  
+  const handleTabChange = (tabValue: string) => {
+    setActiveTab(tabValue);
+    const tabTrigger = document.querySelector(`[value="${tabValue}"]`) as HTMLElement;
+    if (tabTrigger) {
+      tabTrigger.click();
+    }
+  };
+
+  const sliderRef = useRef<Slider>(null);
+
+  const sliderSettings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
+
+  const goToPrev = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickPrev();
+    }
+  };
+
+  const goToNext = () => {
+    if (sliderRef.current) {
+      sliderRef.current.slickNext();
+    }
   };
 
   // Design token categories
@@ -189,17 +287,112 @@ const TokensTab = () => {
             visual design attributes. We use them in place of hard-coded values to ensure flexibility and consistency.
           </p>
           
-          <Tabs defaultValue="colors" className="w-full">
-            <TabsList className="grid grid-cols-4 md:grid-cols-8 mb-4">
-              <TabsTrigger value="colors">Colors</TabsTrigger>
-              <TabsTrigger value="spacing">Spacing</TabsTrigger>
-              <TabsTrigger value="typography">Typography</TabsTrigger>
-              <TabsTrigger value="borders">Borders</TabsTrigger>
-              <TabsTrigger value="shadows">Shadows</TabsTrigger>
-              <TabsTrigger value="z-index">Z-Index</TabsTrigger>
-              <TabsTrigger value="animation">Animation</TabsTrigger>
-              <TabsTrigger value="breakpoints">Breakpoints</TabsTrigger>
-            </TabsList>
+          <Tabs defaultValue="colors" className="w-full" onValueChange={setActiveTab} value={activeTab}>
+            <div className="relative mb-4">
+              <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-8 w-8 rounded-full bg-neutral-7 hover:bg-neutral-6"
+                  onClick={goToPrev}
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+              </div>
+              
+              <div className="px-10">
+                <TabsList className="hidden">  {/* Hidden original TabsList for accessibility */}
+                  <TabsTrigger value="colors">Colors</TabsTrigger>
+                  <TabsTrigger value="spacing">Spacing</TabsTrigger>
+                  <TabsTrigger value="typography">Typography</TabsTrigger>
+                  <TabsTrigger value="borders">Borders</TabsTrigger>
+                  <TabsTrigger value="shadows">Shadows</TabsTrigger>
+                  <TabsTrigger value="z-index">Z-Index</TabsTrigger>
+                  <TabsTrigger value="animation">Animation</TabsTrigger>
+                  <TabsTrigger value="breakpoints">Breakpoints</TabsTrigger>
+                </TabsList>
+                
+                <div className="custom-tabs-list">
+                  <Slider ref={sliderRef} {...sliderSettings} className="token-tabs-slider">
+                    <div className="px-1">
+                      <button 
+                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'colors' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                        onClick={() => handleTabChange('colors')}
+                      >
+                        Colors
+                      </button>
+                    </div>
+                    <div className="px-1">
+                      <button 
+                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'spacing' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                        onClick={() => handleTabChange('spacing')}
+                      >
+                        Spacing
+                      </button>
+                    </div>
+                    <div className="px-1">
+                      <button 
+                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'typography' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                        onClick={() => handleTabChange('typography')}
+                      >
+                        Typography
+                      </button>
+                    </div>
+                    <div className="px-1">
+                      <button 
+                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'borders' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                        onClick={() => handleTabChange('borders')}
+                      >
+                        Borders
+                      </button>
+                    </div>
+                    <div className="px-1">
+                      <button 
+                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'shadows' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                        onClick={() => handleTabChange('shadows')}
+                      >
+                        Shadows
+                      </button>
+                    </div>
+                    <div className="px-1">
+                      <button 
+                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'z-index' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                        onClick={() => handleTabChange('z-index')}
+                      >
+                        Z-Index
+                      </button>
+                    </div>
+                    <div className="px-1">
+                      <button 
+                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'animation' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                        onClick={() => handleTabChange('animation')}
+                      >
+                        Animation
+                      </button>
+                    </div>
+                    <div className="px-1">
+                      <button 
+                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'breakpoints' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                        onClick={() => handleTabChange('breakpoints')}
+                      >
+                        Breakpoints
+                      </button>
+                    </div>
+                  </Slider>
+                </div>
+              </div>
+              
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10">
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-8 w-8 rounded-full bg-neutral-7 hover:bg-neutral-6"
+                  onClick={goToNext}
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
             
             <TabsContent value="colors">
               <TokenCard 

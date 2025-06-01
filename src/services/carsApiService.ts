@@ -106,7 +106,14 @@ export const fetchCarDetailsFromApi = async (make?: string, model?: string, year
 
 // Search cars by query
 export const searchCarsFromApi = async (query: string): Promise<CarData[]> => {
+  // If query is too short, don't search
+  if (!query || query.trim().length < 3) {
+    console.log('Query too short, skipping search');
+    return [];
+  }
+
   try {
+    console.log('Starting search for:', query);
     
     // Map common abbreviations to full names
     const makeMapping: { [key: string]: string[] } = {
@@ -151,7 +158,7 @@ export const searchCarsFromApi = async (query: string): Promise<CarData[]> => {
     };
     
     // Convert query to lowercase for matching
-    const lowerQuery = query.toLowerCase();
+    const lowerQuery = query.toLowerCase().trim();
     
     // Check if query matches any make abbreviation
     const matchingMakes = Object.entries(makeMapping)
@@ -160,53 +167,109 @@ export const searchCarsFromApi = async (query: string): Promise<CarData[]> => {
     
     // If we have matching makes, search for those specifically
     if (matchingMakes.length > 0) {
+      console.log('Found matching makes:', matchingMakes);
+      
+      // Create queries for each matching make
       const makeQueries = matchingMakes.map(make => 
         `${API_BASE_URL}/cars?make=${encodeURIComponent(make)}&limit=50`
       );
       
-      const responses = await Promise.all(
-        makeQueries.map(url => fetch(url, {
-          headers: {
-            'X-Api-Key': API_KEY,
-          },
-        }))
-      );
-      
-      const results = await Promise.all(
-        responses.map(res => res.json())
-      );
-      
-      // Flatten and deduplicate results
-      const allCars = results.flat();
-      const uniqueCars = [...new Map(allCars.map(car => 
-        [`${car.make} ${car.model} ${car.year}`, car]
-      )).values()];
-      
-      return uniqueCars;
+      try {
+        const responses = await Promise.all(
+          makeQueries.map(url => fetch(url, {
+            headers: {
+              'X-Api-Key': API_KEY,
+            },
+          }))
+        );
+        
+        // Check if all responses are ok
+        const failedResponses = responses.filter(res => !res.ok);
+        if (failedResponses.length > 0) {
+          console.error('Some API requests failed:', failedResponses.map(res => res.statusText));
+        }
+        
+        // Process successful responses
+        const validResponses = responses.filter(res => res.ok);
+        const results = await Promise.all(
+          validResponses.map(res => res.json())
+        );
+        
+        // Flatten and deduplicate results
+        const allCars = results.flat();
+        console.log(`Found ${allCars.length} cars for makes:`, matchingMakes);
+        
+        const uniqueCars = [...new Map(allCars.map(car => 
+          [`${car.make} ${car.model} ${car.year}`, car]
+        )).values()];
+        
+        return uniqueCars;
+      } catch (error) {
+        console.error('Error fetching by make:', error);
+        // Fall back to general search if make-specific search fails
+      }
     }
 
-    // If no make match, do a general search
+    // If no make match or make search failed, do a general search
+    console.log('Performing general search for:', query);
     try {
-      console.log('Searching for:', query);
-      const response = await fetch(`${API_BASE_URL}/cars?search=${encodeURIComponent(query)}&limit=50`, {
+      // Try exact match first
+      const exactMatchResponse = await fetch(`${API_BASE_URL}/cars?make=${encodeURIComponent(lowerQuery)}&limit=50`, {
         headers: {
           'X-Api-Key': API_KEY,
         },
       });
-      console.log('API Response Status:', response.status, response.statusText);
-
-      if (!response.ok) {
-        throw new Error(`API request failed: ${response.statusText}`);
+      
+      if (exactMatchResponse.ok) {
+        const exactMatchCars: CarData[] = await exactMatchResponse.json();
+        if (exactMatchCars.length > 0) {
+          console.log(`Found ${exactMatchCars.length} cars with exact make match`);
+          return exactMatchCars;
+        }
       }
-
-      const cars: CarData[] = await response.json();
-      return cars;
+      
+      // Then try model search
+      const modelSearchResponse = await fetch(`${API_BASE_URL}/cars?model=${encodeURIComponent(lowerQuery)}&limit=50`, {
+        headers: {
+          'X-Api-Key': API_KEY,
+        },
+      });
+      
+      if (modelSearchResponse.ok) {
+        const modelMatchCars: CarData[] = await modelSearchResponse.json();
+        if (modelMatchCars.length > 0) {
+          console.log(`Found ${modelMatchCars.length} cars with model match`);
+          return modelMatchCars;
+        }
+      }
+      
+      // Finally try general search
+      const generalSearchResponse = await fetch(`${API_BASE_URL}/cars?limit=50`, {
+        headers: {
+          'X-Api-Key': API_KEY,
+        },
+      });
+      
+      if (!generalSearchResponse.ok) {
+        throw new Error(`API request failed: ${generalSearchResponse.statusText}`);
+      }
+      
+      const allCars: CarData[] = await generalSearchResponse.json();
+      
+      // Filter results client-side based on query
+      const filteredCars = allCars.filter(car => {
+        const makeModel = `${car.make} ${car.model}`.toLowerCase();
+        return makeModel.includes(lowerQuery);
+      });
+      
+      console.log(`Found ${filteredCars.length} cars with general search and filtering`);
+      return filteredCars;
     } catch (error) {
-      console.error('Error searching cars:', error);
+      console.error('Error in general search:', error);
       return [];
     }
   } catch (error) {
-    console.error('Error searching cars:', error);
+    console.error('Error in search process:', error);
     return [];
   }
 };

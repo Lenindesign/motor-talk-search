@@ -37,7 +37,10 @@ export function useCarSearchApi(query: string) {
   return useQuery({
     queryKey: ['carSearchApi', query],
     queryFn: () => query ? searchCarsFromApi(query) : Promise.resolve([]),
-    enabled: query.length > 2,
+    enabled: query.trim().length > 2,
     staleTime: 1000 * 60 * 5, // Cache for 5 minutes
+    retry: 2,
+    retryDelay: 1000,
+    refetchOnWindowFocus: false,
   });
 }
