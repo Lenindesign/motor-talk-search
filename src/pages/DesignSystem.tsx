@@ -12,16 +12,17 @@ import IconsTab from '@/components/design-system/IconsTab';
 import AnimationsTab from '@/components/design-system/AnimationsTab';
 import TokensTab from '@/components/design-system/TokensTab';
 import PatternsTab from '@/components/design-system/PatternsTab';
+import SearchTab from '@/components/design-system/SearchTab';
 import PlaygroundTab from '@/components/design-system/PlaygroundTab';
 import AccessibilityTab from '@/components/design-system/AccessibilityTab';
-import { Download, Github, Code, Palette, BookOpen, FileText } from 'lucide-react';
+import { Download, Github, Code, Palette, BookOpen, FileText, Search } from 'lucide-react';
 
 const DesignSystem = () => {
   const [activeTab, setActiveTab] = useState('overview');
   
   return (
     <div className="min-h-screen bg-color-neutral-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-[980px] mx-auto">
         <div className="p-6 pb-0">
           <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
@@ -94,6 +95,10 @@ const DesignSystem = () => {
                   <span className="text-xs mr-2">⌘</span>
                   Patterns
                 </TabsTrigger>
+                <TabsTrigger value="search" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-color-primary-2 px-4 py-3">
+                  <Search className="h-4 w-4 mr-2" />
+                  Search
+                </TabsTrigger>
                 
                 <div className="p-4 typography-small text-color-neutral-4 uppercase tracking-wider mt-2 text-left w-full">Resources</div>
                 <TabsTrigger value="playground" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-color-primary-2 px-4 py-3">
@@ -147,8 +152,12 @@ const DesignSystem = () => {
                 <TokensTab />
               </TabsContent>
 
-              <TabsContent value="patterns">
+              <TabsContent value="patterns" className="p-6">
                 <PatternsTab />
+              </TabsContent>
+              
+              <TabsContent value="search" className="p-6">
+                <SearchTab />
               </TabsContent>
 
               <TabsContent value="playground">

@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { mockArticles } from '@/services/mockData';
+import '@/styles/progress-bar.css';
 const ArticleDetail: React.FC = () => {
   const {
     id
@@ -145,18 +146,18 @@ const ArticleDetail: React.FC = () => {
       
 
       {/* Reading Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 z-50">
-        <Progress value={readingProgress} className="h-1 rounded-none bg-transparent" />
+      <div className="fixed top-0 left-0 right-0 z-50 progress-indicator-red">
+        <Progress 
+          value={readingProgress} 
+          className="h-3 rounded-none bg-gray-200" 
+        />
       </div>
 
       <main className="max-w-[720px] mx-auto px-[16px] py-[6px]">
         {/* Article Header */}
         <header className="mb-8">
-          <div className="mb-4">
-            <span className="inline-block bg-motortrend-red text-white rounded-full font-semibold uppercase tracking-wide text-xs py-[12px] px-[24px]">
-              {article.category}
-            </span>
-          </div>
+          {/* Guide flag removed while maintaining padding */}
+          <div className="mb-4"></div>
 
           <h1 className="md:text-5xl font-bold text-gray-900 mb-4 leading-tight text-3xl">
             {article.title}

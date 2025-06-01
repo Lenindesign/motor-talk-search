@@ -5,6 +5,8 @@ import VideoCard from '@/components/VideoCard';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Flame, Star, Car, Mountain, Wrench, Zap, Flag, TrendingUp, Clock } from 'lucide-react';
 import { mockVideos } from '@/services/mockData';
+import VideosPageWrapper from '@/components/VideosPageWrapper';
+import '@/styles/videos-dark-mode.css';
 
 const Videos: React.FC = () => {
   // Example category filters (replace with real tags/categories if available)
@@ -18,8 +20,7 @@ const Videos: React.FC = () => {
   const trending = mockVideos.slice(3, 6);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      
+    <VideosPageWrapper>
       <main className="max-w-[980px] mx-auto px-0 py-[32px]">
         {/* Hero Carousel */}
         <div className="mb-10">
@@ -105,11 +106,11 @@ const Videos: React.FC = () => {
         ].map(({ title, icon, videos }) => (
           <section className="mb-10" key={title}>
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="flex items-center gap-2 text-2xl font-bold">
-                {icon}
+              <h2 className="flex items-center gap-2 text-2xl font-bold text-white">
+                <span className="text-motortrend-red">{icon}</span>
                 {title}
               </h2>
-              <Button variant="ghost" className="flex items-center gap-2">
+              <Button variant="ghost" className="flex items-center gap-2 text-gray-300 hover:text-white hover:bg-gray-800">
                 View All
                 <ArrowRight size={16} />
               </Button>
@@ -118,7 +119,7 @@ const Videos: React.FC = () => {
               {videos.length > 0 ? (
                 videos.map(video => <VideoCard key={video.id} video={video} />)
               ) : (
-                <div className="col-span-3 text-gray-400 text-center py-8">
+                <div className="col-span-3 text-gray-500 text-center py-8 border border-gray-800 rounded-lg">
                   No videos in this category yet.
                 </div>
               )}
@@ -126,7 +127,7 @@ const Videos: React.FC = () => {
           </section>
         ))}
       </main>
-    </div>
+    </VideosPageWrapper>
   );
 };
 

@@ -1,0 +1,4 @@
+/* Custom progress bar styling */
+.progress-indicator-red [data-radix-progress-indicator] {
+  background-color: #e32c26 !important; /* MotorTrend red */
+}

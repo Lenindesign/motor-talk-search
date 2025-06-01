@@ -105,10 +105,24 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
           savedAt: new Date().toISOString(),
           metadata: {
             price: matchingCar?.price || '$' + Math.floor(20000 + Math.random() * 60000).toLocaleString(),
-            category: matchingCar?.category || 'Vehicle',
+            category: matchingCar?.category || (suggestion.text.toLowerCase().includes('electric') ? 'Electric' : 'Vehicle'),
             year: matchingCar?.year || new Date().getFullYear().toString(),
             ownership: ownership,
-            bodyStyle: matchingCar?.bodyStyle
+            bodyStyle: matchingCar?.bodyStyle,
+            // New car specs
+            msrp: matchingCar?.msrp || '$' + Math.floor(25000 + Math.random() * 70000).toLocaleString(),
+            mpg: matchingCar?.mpg || (suggestion.text.toLowerCase().includes('electric') ? null : Math.floor(20 + Math.random() * 15) + ' city / ' + Math.floor(25 + Math.random() * 20) + ' hwy'),
+            mpge: matchingCar?.mpge || (suggestion.text.toLowerCase().includes('electric') ? Math.floor(90 + Math.random() * 40).toString() : null),
+            range: matchingCar?.range || (suggestion.text.toLowerCase().includes('electric') ? Math.floor(200 + Math.random() * 150) + ' miles' : null),
+            engine: matchingCar?.engine || (suggestion.text.toLowerCase().includes('electric') ? 'Electric Motor' : suggestion.text.toLowerCase().includes('hybrid') ? 'Hybrid' : '2.0L 4-cylinder'),
+            horsepower: matchingCar?.horsepower || Math.floor(180 + Math.random() * 300) + ' hp',
+            transmission: matchingCar?.transmission || (suggestion.text.toLowerCase().includes('electric') ? 'Single-speed automatic' : 'Automatic'),
+            fuelType: matchingCar?.fuelType || (suggestion.text.toLowerCase().includes('electric') ? 'Electric' : suggestion.text.toLowerCase().includes('hybrid') ? 'Hybrid' : 'Gasoline'),
+            drivetrain: matchingCar?.drivetrain || (Math.random() > 0.5 ? 'FWD' : 'AWD'),
+            // MotorTrend ratings
+            motorTrendScore: matchingCar?.motorTrendScore || (Math.floor(75 + Math.random() * 25) / 10).toFixed(1),
+            motorTrendRank: matchingCar?.motorTrendRank || '#' + Math.floor(1 + Math.random() * 5),
+            motorTrendCategoryRank: matchingCar?.motorTrendCategoryRank || true
           }
         });
         

@@ -62,7 +62,7 @@ const VideoCard: React.FC<VideoCardProps> = memo(({
   }
   return <Card
     variant="video"
-    className={cn('group relative hover:shadow-xl transition-shadow duration-300 cursor-pointer', className)}
+    className={cn('group relative hover:shadow-xl transition-shadow duration-300 cursor-pointer bg-gray-800 border-gray-700', className)}
     isSaved={isSaved}
     onToggleSave={toggleSave}
     metadata={{
@@ -87,11 +87,10 @@ const VideoCard: React.FC<VideoCardProps> = memo(({
     </div>
     {/* Card content below image */}
     <div className="p-4">
-      <h3 className="leading-tight text-gray-900 mb-1 line-clamp-2 text-lg font-semibold">
+      <h3 className="leading-tight text-white mb-1 line-clamp-2 text-lg font-semibold">
         {video.title}
       </h3>
-      <div className="flex items-center text-sm text-gray-500">
-        <span className="mr-3">MotorTrend</span>
+      <div className="flex items-center text-sm text-gray-400">
         {video.views && <>
             <Eye className="mr-1" size={14} />
             <span className="mr-3">{video.views} views</span>

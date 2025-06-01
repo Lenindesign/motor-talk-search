@@ -45,8 +45,22 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
       fuelType: car.fuelType,
       drivetrain: car.drivetrain,
       location: car.location,
+      dealerName: car.dealerName,
+      dealerLocation: car.dealerLocation,
       bodyStyle: car.bodyStyle,
-      isNew: car.isNew
+      isNew: car.isNew,
+      // New car specs
+      msrp: car.msrp,
+      mpg: car.mpg,
+      mpge: car.mpge,
+      range: car.range,
+      engine: car.engine,
+      horsepower: car.horsepower,
+      transmission: car.transmission,
+      // MotorTrend ratings
+      motorTrendScore: car.motorTrendScore,
+      motorTrendRank: car.motorTrendRank,
+      motorTrendCategoryRank: car.motorTrendCategoryRank
     }
   });
   const linkPath = type === 'new' ? `/new-car/${car.id}` : `/used-car/${car.id}`;
@@ -67,6 +81,8 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
       fuelType: car.fuelType,
       drivetrain: car.drivetrain,
       location: car.location,
+      dealerName: car.dealerName,
+      dealerLocation: car.dealerLocation,
       bodyStyle: car.bodyStyle,
       isNew: car.isNew ? 'Yes' : 'No'
     }}
@@ -81,13 +97,13 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
               {car.title}
             </h3>
           </RouterLink>
-          <span className="text-lg font-semibold ml-2 flex-shrink-0 text-motortrend-dark">
-            {car.price}
-          </span>
         </div>
-        <RouterLink to={linkPath} className="text-gray-600 hover:text-motortrend-red transition-colors">
-          {car.category}
-        </RouterLink>
+        {/* Only show category for used cars since new cars already show it in the ranking */}
+        {type !== 'new' && (
+          <RouterLink to={linkPath} className="text-gray-600 hover:text-motortrend-red transition-colors">
+            {car.category}
+          </RouterLink>
+        )}
         <CarSpecs car={car} type={type} />
       </div>
     </div>

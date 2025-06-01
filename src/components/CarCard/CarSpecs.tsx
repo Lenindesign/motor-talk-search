@@ -17,12 +17,12 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
       {/* Basic specs that appear only for used cars */}
       {!isNewCar && (
         <div className="flex flex-wrap gap-2 text-sm text-gray-600">
-          {car.year && (
+          {car.price && (
             <div className="flex items-center">
-              <Calendar size={14} className="mr-1 text-motortrend-dark" />
-              <span>{car.year}</span>
+              <span>{car.price}</span>
             </div>
           )}
+          {/* Year removed since it's already in the headline */}
           {car.mileage && (
             <div className="flex items-center">
               <Gauge size={14} className="mr-1 text-motortrend-dark" />
@@ -35,16 +35,16 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
               <span>{car.fuelType}</span>
             </div>
           )}
-          {car.drivetrain && (
-            <div className="flex items-center">
-              <Settings size={14} className="mr-1 text-motortrend-dark" />
-              <span>{car.drivetrain}</span>
+          {car.dealerName && (
+            <div className="flex items-center font-medium">
+              <MapPin size={14} className="mr-1 text-motortrend-red" />
+              <span>Dealer: {car.dealerName}</span>
             </div>
           )}
-          {car.location && (
-            <div className="flex items-center">
-              <MapPin size={14} className="mr-1 text-motortrend-dark" />
-              <span>{car.location}</span>
+          {!car.dealerName && car.location && (
+            <div className="flex items-center font-medium">
+              <MapPin size={14} className="mr-1 text-motortrend-red" />
+              <span>Dealer: {car.location}</span>
             </div>
           )}
         </div>

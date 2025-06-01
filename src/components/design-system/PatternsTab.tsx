@@ -89,54 +89,7 @@ const PatternsTab = () => {
                   </Card>
                 </div>
                 
-                <div>
-                  <h3 className="typography-title text-neutral-1 mb-2">Mobile Navigation</h3>
-                  <p className="typography-body text-neutral-4 mb-3">
-                    Consistent navigation patterns for mobile devices.
-                  </p>
-                  <ResponsivePreview defaultDevice="mobile">
-                    <div className="flex flex-col h-full">
-                      {/* Header */}
-                      <div className="p-4 border-b flex justify-between items-center">
-                        <div>
-                          <svg width="120" height="24" viewBox="0 0 120 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="120" height="24" fill="#E90C17"/>
-                            <path d="M12 6H108V18H12V6Z" fill="white"/>
-                          </svg>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <button className="p-2">
-                            <Search size={20} />
-                          </button>
-                          <button className="p-2">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                              <line x1="4" x2="20" y1="12" y2="12" />
-                              <line x1="4" x2="20" y1="6" y2="6" />
-                              <line x1="4" x2="20" y1="18" y2="18" />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                      
-                      {/* Content Area */}
-                      <div className="flex-1 bg-neutral-7 p-4">
-                        <div className="h-40 bg-white rounded shadow flex items-center justify-center">
-                          Content Area
-                        </div>
-                      </div>
-                      
-                      {/* Bottom Navigation */}
-                      <div className="grid grid-cols-5 border-t">
-                        {['Home', 'Search', 'News', 'Videos', 'Profile'].map((item, i) => (
-                          <div key={i} className={`flex flex-col items-center py-2 text-xs ${i === 0 ? 'text-primary-2' : 'text-neutral-4'}`}>
-                            <div className="w-5 h-5 mb-1"></div>
-                            {item}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </ResponsivePreview>
-                </div>
+
               </div>
             </TabsContent>
             

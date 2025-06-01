@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import GarageStats from '@/components/GarageStats';
 import ArticleCard from '@/components/ArticleCard';
 import { CarData } from '@/components/CarCard';
-import GarageCarCard from '@/components/CarCard';
+import CarCard from '@/components/CarCard';
 import VideoCard from '@/components/VideoCard';
 import PhotoCard from '@/components/PhotoCard';
 
@@ -23,9 +23,16 @@ const CardsTab = () => {
     location: 'San Francisco, CA',
     bodyStyle: 'Sedan',
     isNew: true,
-    motorTrendScore: 9.2,
-    motorTrendRank: 1,
-    motorTrendCategoryRank: 1
+    motorTrendScore: '9.2',
+    motorTrendRank: '1',
+    motorTrendCategoryRank: true,
+    // New car specs
+    msrp: 'From $54,990',
+    mpge: 'Up to 134 city / 126 highway',
+    range: '315 to 341 mi battery-only',
+    engine: 'Electric',
+    horsepower: '450 to 510 hp',
+    transmission: '1-speed automatic'
   };
 
   // Used Car Card Sample Data
@@ -42,9 +49,9 @@ const CardsTab = () => {
     location: 'Los Angeles, CA',
     bodyStyle: 'Sedan',
     isNew: false,
-    motorTrendScore: 8.5,
-    motorTrendRank: 3,
-    motorTrendCategoryRank: 1
+    motorTrendScore: '8.5',
+    motorTrendRank: '3',
+    motorTrendCategoryRank: true
   };
 
   // Generic Car Card Sample Data (could be new or used)
@@ -60,9 +67,16 @@ const CardsTab = () => {
     location: 'Detroit, MI',
     bodyStyle: 'Coupe',
     isNew: true,
-    motorTrendScore: 8.8,
-    motorTrendRank: 2,
-    motorTrendCategoryRank: 1
+    motorTrendScore: '8.8',
+    motorTrendRank: '2',
+    motorTrendCategoryRank: true,
+    // New car specs
+    msrp: 'From $46,800',
+    mpg: 'Up to 15 city / 24 highway',
+    engine: '5.0L V8',
+    horsepower: '486 hp',
+    transmission: '6-speed manual',
+    range: '320 mi fuel tank'
   };
 
   // Article Card Sample Data
@@ -120,7 +134,7 @@ const CardsTab = () => {
             <h4 className="typography-title text-neutral-1 mb-2">New Car Card</h4>
             <p className="text-neutral-4 text-sm mb-4">Displays new car listings with pricing, specs, and MT ratings</p>
             <div className="max-w-md">
-              <GarageCarCard car={sampleNewCarData} type="new" />
+              <CarCard car={sampleNewCarData} type="new" />
             </div>
             <div className="mt-4 bg-neutral-9 p-4 rounded-md">
               <h5 className="font-medium mb-2">Elements:</h5>
@@ -141,7 +155,7 @@ const CardsTab = () => {
             <h4 className="typography-title text-neutral-1 mb-2">Used Car Card</h4>
             <p className="text-neutral-4 text-sm mb-4">Displays pre-owned vehicles with mileage, condition, and location</p>
             <div className="max-w-md">
-              <GarageCarCard car={sampleUsedCarData} type="used" />
+              <CarCard car={sampleUsedCarData} type="used" />
             </div>
             <div className="mt-4 bg-neutral-9 p-4 rounded-md">
               <h5 className="font-medium mb-2">Elements:</h5>
@@ -152,27 +166,6 @@ const CardsTab = () => {
                 <li>• <strong>Price:</strong> Current asking price</li>
                 <li>• <strong>History indicators:</strong> Accident history, owners</li>
                 <li>• <strong>Condition rating:</strong> Vehicle condition assessment</li>
-              </ul>
-            </div>
-          </div>
-          <Separator />
-
-          {/* Generic Car Card */}
-          <div>
-            <h4 className="typography-title text-neutral-1 mb-2">Car Card (Alternative Style)</h4>
-            <p className="text-neutral-4 text-sm mb-4">Alternative styling for new car cards used in search results and comparisons</p>
-            <div className="max-w-md">
-              <GarageCarCard car={sampleCarData} type="new" />
-            </div>
-            <div className="mt-4 bg-neutral-9 p-4 rounded-md">
-              <h5 className="font-medium mb-2">Elements:</h5>
-              <ul className="text-sm space-y-1">
-                <li>• <strong>Vehicle photo:</strong> Main exterior shot</li>
-                <li>• <strong>Model name:</strong> Make, model, and trim</li>
-                <li>• <strong>Price range:</strong> MSRP or market value</li>
-                <li>• <strong>Basic specs:</strong> Year, category, fuel type</li>
-                <li>• <strong>Compare button:</strong> Add to comparison tool</li>
-                <li>• <strong>Save option:</strong> Bookmark for later viewing</li>
               </ul>
             </div>
           </div>

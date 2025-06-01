@@ -14,6 +14,22 @@ export interface CarData {
   make?: string;
   model?: string;
   detailUrl?: string;
+  dealerName?: string;
+  dealerLocation?: string;
+  
+  // New car specs
+  msrp?: string;
+  mpg?: string;
+  mpge?: string;
+  range?: string;
+  engine?: string;
+  horsepower?: string;
+  transmission?: string;
+  
+  // MotorTrend ratings
+  motorTrendScore?: string;
+  motorTrendRank?: string;
+  motorTrendCategoryRank?: boolean;
   
   // Body style and basic specs
   bodyStyle?: 'SUV' | 'Sedan' | 'Truck' | 'Sports Car' | 'Minivan' | 'Crossover' | 'Coupe' | 'Convertible' | 'Hatchback' | 'Wagon';
@@ -44,10 +60,7 @@ export interface CarData {
   slidingDoorFeatures?: string;
   familyFeatures?: string;
   
-  // MotorTrend scores and rankings
-  motorTrendScore?: number;
-  motorTrendRank?: number;
-  motorTrendCategoryRank?: number;
+
   
   // Image optimization settings
   width?: number;

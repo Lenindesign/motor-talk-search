@@ -23,13 +23,15 @@ const UsedCarDetail = lazy(() => import("./pages/UsedCarDetail"));
 const PhotoDetail = lazy(() => import("./pages/PhotoDetail"));
 const VideoDetail = lazy(() => import("./pages/VideoDetail"));
 const DesignSystem = lazy(() => import("./pages/DesignSystem"));
+const TestCarCard = lazy(() => import("./components/TestCarCard"));
+const TestCard = lazy(() => import("./pages/TestCard"));
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
 import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 import MainLayout from "./components/MainLayout";
 import GlobalFooter from "./components/GlobalFooter";
 
 function App() {
-  return <div className="w-full min-h-screen bg-motortrend-gray bg-motortrend-gray">
+  return <div className="w-full min-h-screen bg-motortrend-gray">
       <BrowserRouter>
         <PersonalizationProvider>
           <SavedItemsProvider>
@@ -60,6 +62,8 @@ function App() {
                     <Route path="/photo/:id" element={<PhotoDetail />} />
                     <Route path="/video/:id" element={<VideoDetail />} />
                     <Route path="/design-system" element={<DesignSystem />} />
+                    <Route path="/test-car-card" element={<TestCarCard />} />
+                    <Route path="/test-card" element={<TestCard />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </Suspense>

@@ -73,6 +73,14 @@ const GarageContent = () => {
       location: item.metadata?.location,
       bodyStyle: item.metadata?.bodyStyle as any,
       isNew: item.type === 'newCar',
+      // New car specs
+      msrp: item.metadata?.msrp,
+      mpg: item.metadata?.mpg,
+      mpge: item.metadata?.mpge,
+      range: item.metadata?.range,
+      engine: item.metadata?.engine,
+      horsepower: item.metadata?.horsepower,
+      transmission: item.metadata?.transmission,
       // SUV specs
       cargoCapacity: item.metadata?.cargoCapacity,
       cargoCapacityFolded: item.metadata?.cargoCapacityFolded,
@@ -190,15 +198,15 @@ const GarageContent = () => {
   const navigate = useNavigate();
   return <div className="">
       <Card className="py-0">
-        <CardHeader className="pb-0">
-          <div className="text-center md:text-left">
-            <CardTitle className="flex items-center justify-center md:justify-start gap-2 typography-title text-color-neutral-1 md:text-2xl text-4xl text-center">
-              <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+        <CardHeader className="p-6 pb-0">
+          <div className="text-center px-4 py-2">
+            <CardTitle className="flex items-center justify-center gap-2 typography-title text-color-neutral-1 text-5xl mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="currentColor">
                 <path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z" />
               </svg>
               {showComparison ? "Car Comparison" : "My Garage"}
             </CardTitle>
-            <CardDescription className="typography-body text-color-neutral-4 md:text-left px-0 mt-1 text-center text-lg">
+            <CardDescription className="typography-body text-color-neutral-4 text-center text-lg mb-2">
               {showComparison ? "Compare your selected vehicles side by side" : "View, manage, and get insights about your vehicles"}
             </CardDescription>
           </div>
@@ -216,7 +224,7 @@ const GarageContent = () => {
           </div>
         </CardHeader>
 
-        <CardContent className="pt-2 px-[8px]">
+        <CardContent className="pt-0 px-[8px] -mt-14">
           {/* Comparison View */}
           {showComparison ? <div className="mt-2">
               <CarComparisonTable cars={getSelectedCarData()} />
@@ -224,7 +232,7 @@ const GarageContent = () => {
         <>
               {contentView === 'garage' && <>
                   {/* Add Another Car - More compact on mobile */}
-                  <div className="mb-4 md:mb-6">
+                  <div className="mb-2 md:mb-3">
                     <QuickAddCar activeTab={activeTab} />
                   </div>
                   

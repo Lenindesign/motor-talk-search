@@ -1,0 +1,31 @@
+/* Dark mode styles for Videos page */
+body.videos-page-dark-mode {
+  background-color: #111827; /* bg-gray-900 */
+  color: white;
+}
+
+/* Override any container backgrounds */
+body.videos-page-dark-mode .bg-motortrend-gray,
+body.videos-page-dark-mode .bg-color-neutral-8 {
+  background-color: #111827 !important;
+}
+
+/* Style adjustments for cards in dark mode */
+body.videos-page-dark-mode .card {
+  background-color: #1f2937; /* bg-gray-800 */
+  border-color: #374151; /* border-gray-700 */
+}
+
+/* Text color adjustments */
+body.videos-page-dark-mode h1,
+body.videos-page-dark-mode h2,
+body.videos-page-dark-mode h3,
+body.videos-page-dark-mode h4,
+body.videos-page-dark-mode p {
+  color: white;
+}
+
+/* Accent colors for icons */
+body.videos-page-dark-mode .section-icon {
+  color: #ef4444; /* text-red-500 */
+}

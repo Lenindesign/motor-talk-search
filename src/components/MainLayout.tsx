@@ -2,6 +2,7 @@
 import React from "react";
 import GlobalHeader from "@/components/GlobalHeader";
 import MobileStickySearch from "@/components/MobileStickySearch";
+import Container from "@/components/Container";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -33,7 +34,9 @@ const MainLayout: React.FC<MainLayoutProps> = ({
       
       {/* Main content */}
       <main className="flex-1">
-        {children}
+        <Container>
+          {children}
+        </Container>
       </main>
     </div>
   );

@@ -13,7 +13,7 @@ import { Check, Plus, Download, ExternalLink, Settings } from 'lucide-react';
 import CodeSnippet from './CodeSnippet';
 import ArticleCard from '@/components/ArticleCard';
 import { CarData } from '@/components/CarCard';
-import GarageCarCard from '@/components/CarCard';
+import CarCard from '@/components/CarCard';
 import VideoCard from '@/components/VideoCard';
 import PhotoCard from '@/components/PhotoCard';
 interface PropertyControl {
@@ -171,9 +171,9 @@ const ComponentPlayground = () => {
       location: 'San Francisco, CA',
       bodyStyle: 'Sedan',
       isNew: true,
-      motorTrendScore: 9.2,
-      motorTrendRank: 1,
-      motorTrendCategoryRank: 1
+      motorTrendScore: '9.2',
+      motorTrendRank: '1',
+      motorTrendCategoryRank: true,
     },
     usedCar: {
       id: '2',
@@ -188,9 +188,9 @@ const ComponentPlayground = () => {
       location: 'Los Angeles, CA',
       bodyStyle: 'Sedan',
       isNew: false,
-      motorTrendScore: 8.5,
-      motorTrendRank: 3,
-      motorTrendCategoryRank: 1
+      motorTrendScore: '8.5',
+      motorTrendRank: '3',
+      motorTrendCategoryRank: true
     }
   };
 
@@ -449,7 +449,7 @@ export function VideoCardDemo() {
           mileage: '15,000 miles',
           isNew: false
         };
-        tsxCode = `import GarageCarCard from '@/components/CarCard';
+        tsxCode = `import CarCard from '@/components/CarCard';
 import { CarData } from '@/components/CarCard';
 
 export function ${isNew ? 'NewCarCardDemo' : 'UsedCarCardDemo'}() {
@@ -468,10 +468,18 @@ export function ${isNew ? 'NewCarCardDemo' : 'UsedCarCardDemo'}() {
     isNew: ${isNew},
     motorTrendScore: ${isNew ? '9.2' : '8.5'},
     motorTrendRank: ${isNew ? '1' : '3'},
-    motorTrendCategoryRank: 1
+    motorTrendCategoryRank: 1,
+    // New car specs
+    msrp: '${isNew ? 'From $54,990' : 'From $46,800'}',
+    mpg: '${!isNew ? 'Up to 15 city / 24 highway' : ''}',
+    mpge: '${isNew ? 'Up to 134 city / 126 highway' : ''}',
+    range: '${isNew ? '315 to 341 mi battery-only' : '320 mi fuel tank'}',
+    engine: '${isNew ? 'Electric' : '5.0L V8'}',
+    horsepower: '${isNew ? '450 to 510 hp' : '486 hp'}',
+    transmission: '${isNew ? '1-speed automatic' : '6-speed manual'}'
   };
 
-  return <GarageCarCard car={car} type="${isNew ? 'new' : 'used'}" />;
+  return <CarCard car={car} type="${isNew ? 'new' : 'used'}" />;
 }`;
         tailwindCode = `<!-- ${isNew ? 'New' : 'Used'} Car Card Component -->
 <div class="overflow-hidden rounded-lg border bg-card shadow-sm transition-shadow hover:shadow-md">
@@ -588,7 +596,7 @@ export function ${isNew ? 'NewCarCardDemo' : 'UsedCarCardDemo'}() {
       }
       if (cardType === 'newCar' || cardType === 'usedCar') {
         return <div className="w-full max-w-md mx-auto p-1">
-            <GarageCarCard car={cardData as CarData} type={cardType === 'newCar' ? 'new' : 'used'} />
+            <CarCard car={cardData as CarData} type={cardType === 'newCar' ? 'new' : 'used'} />
           </div>;
       }
     }

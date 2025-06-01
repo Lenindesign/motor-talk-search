@@ -12,70 +12,76 @@ const OverviewTab = () => {
           <CardTitle>Personas</CardTitle>
           <CardDescription>Representative users that guide our design focus</CardDescription>
         </CardHeader>
-        <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <CardContent className="flex flex-col space-y-4">
           {/* Gearhead Greg */}
-          <div className="border border-neutral-6 rounded-lg bg-neutral-900 text-white overflow-hidden flex flex-col">
-            <div className="w-full h-52 bg-cover" style={{backgroundImage: 'url("https://d2kde5ohu8qb21.cloudfront.net/files/6837f71dd9decc00084879bc/image9.jpg")', backgroundPosition: 'center 15%', borderBottom: '1px solid #222'}}></div>
-            <div className="p-6 flex-1 flex flex-col">
-              <div className="flex items-center mb-3">
-                <div className="bg-yellow-400 rounded-full w-7 h-7 flex items-center justify-center font-bold text-neutral-900 mr-3">1</div>
-                <div>
-                  <h3 className="text-2xl font-bold leading-tight">Gearhead Greg</h3>
-                  <div className="text-sm font-medium">(Enthusiast User)</div>
+          <div className="border border-neutral-6 rounded-lg bg-white shadow-sm overflow-hidden transition-standard hover:shadow-md">
+            <div className="flex flex-col md:flex-row">
+              <div className="md:w-1/3 h-40 md:h-auto bg-cover" style={{backgroundImage: 'url("https://d2kde5ohu8qb21.cloudfront.net/files/6837f71dd9decc00084879bc/image9.jpg")', backgroundPosition: 'center 15%'}}></div>
+              <div className="p-6 flex-1">
+                <div className="flex items-center mb-3">
+                  <div className="bg-motortrend-dark text-white rounded-full w-7 h-7 flex items-center justify-center font-bold mr-3">1</div>
+                  <div>
+                    <h3 className="typography-h3 text-color-neutral-1">Gearhead Greg</h3>
+                    <div className="typography-caption text-color-neutral-3">(Enthusiast User)</div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1">
+                  <div className="typography-body-sm"><span className="font-medium">Age:</span> 25–50</div>
+                  <div className="typography-body-sm"><span className="font-medium">Occupation:</span> Engineer, mechanic, or hobbyist</div>
+                  <div className="typography-body-sm"><span className="font-medium">Behaviors:</span> Consumes deep reviews, engine specs, dyno tests</div>
+                  <div className="typography-body-sm"><span className="font-medium">Goals:</span> Stay on top of industry news, tune their ride</div>
+                  <div className="typography-body-sm"><span className="font-medium">Channels:</span> Desktop, YouTube, forums</div>
+                  <div className="typography-body-sm"><span className="font-medium">Needs:</span> Detailed performance data, mod guides</div>
                 </div>
               </div>
-              <ul className="text-sm space-y-1 mb-3">
-                <li><b>Age:</b> 25–50</li>
-                <li><b>Occupation:</b> Engineer, mechanic, or hobbyist</li>
-                <li><b>Behaviors:</b> Consumes deep reviews, engine specs, dyno tests, DIY articles</li>
-                <li><b>Goals:</b> Stay on top of industry news, tune their ride, join discussions</li>
-                <li><b>Channels:</b> Desktop, YouTube, forums</li>
-                <li><b>Needs:</b> Detailed performance data, mod guides, comment sections</li>
-                <li><b>Sites Visited:</b> <a className="underline" href="https://www.motortrend.com/" target="_blank" rel="noopener noreferrer">MotorTrend</a>, <a className="underline" href="https://jalopnik.com/" target="_blank" rel="noopener noreferrer">Jalopnik</a>, YouTube (Donut Media, Engineering Explained), Reddit (r/cars)</li>
-              </ul>
             </div>
           </div>
+          
           {/* Practical Paula */}
-          <div className="border border-neutral-6 rounded-lg bg-neutral-900 text-white overflow-hidden flex flex-col">
-            <div className="w-full h-52 bg-cover" style={{backgroundImage: 'url("https://d2kde5ohu8qb21.cloudfront.net/files/6837f71f7a1c810008179900/image10.jpg")', backgroundPosition: 'center 25%', borderBottom: '1px solid #222'}}></div>
-            <div className="p-6 flex-1 flex flex-col">
-              <div className="flex items-center mb-3">
-                <div className="bg-yellow-400 rounded-full w-7 h-7 flex items-center justify-center font-bold text-neutral-900 mr-3">2</div>
-                <div>
-                  <h3 className="text-2xl font-bold leading-tight">Practical Paula</h3>
-                  <div className="text-sm font-medium">(Everyday Car Shopper)</div>
+          <div className="border border-neutral-6 rounded-lg bg-white shadow-sm overflow-hidden transition-standard hover:shadow-md">
+            <div className="flex flex-col md:flex-row">
+              <div className="md:w-1/3 h-40 md:h-auto bg-cover" style={{backgroundImage: 'url("https://d2kde5ohu8qb21.cloudfront.net/files/6837f71f7a1c810008179900/image10.jpg")', backgroundPosition: 'center 25%'}}></div>
+              <div className="p-6 flex-1">
+                <div className="flex items-center mb-3">
+                  <div className="bg-motortrend-dark text-white rounded-full w-7 h-7 flex items-center justify-center font-bold mr-3">2</div>
+                  <div>
+                    <h3 className="typography-h3 text-color-neutral-1">Practical Paula</h3>
+                    <div className="typography-caption text-color-neutral-3">(Everyday Car Shopper)</div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1">
+                  <div className="typography-body-sm"><span className="font-medium">Age:</span> 35–55</div>
+                  <div className="typography-body-sm"><span className="font-medium">Occupation:</span> Working parent</div>
+                  <div className="typography-body-sm"><span className="font-medium">Behaviors:</span> Compares safety, price, reliability</div>
+                  <div className="typography-body-sm"><span className="font-medium">Goals:</span> Buy or lease a safe, affordable family car</div>
+                  <div className="typography-body-sm"><span className="font-medium">Channels:</span> Mobile, Google Search, Facebook</div>
+                  <div className="typography-body-sm"><span className="font-medium">Needs:</span> Clear rankings, buying guides, dealership info</div>
                 </div>
               </div>
-              <ul className="text-sm space-y-1 mb-3">
-                <li><b>Age:</b> 35–55</li>
-                <li><b>Occupation:</b> Working parent</li>
-                <li><b>Behaviors:</b> Compares safety, price, reliability of new cars</li>
-                <li><b>Goals:</b> Buy or lease a safe, affordable car for the family</li>
-                <li><b>Channels:</b> Mobile, Google Search, Facebook</li>
-                <li><b>Needs:</b> Clear rankings, buying guides, dealership info</li>
-                <li><b>Sites Visited:</b> <a className="underline" href="https://www.motortrend.com/" target="_blank" rel="noopener noreferrer">MotorTrend</a>, Edmunds, Kelley Blue Book, Consumer Reports</li>
-              </ul>
             </div>
           </div>
+          
           {/* Social Sara */}
-          <div className="border border-neutral-6 rounded-lg bg-neutral-900 text-white overflow-hidden flex flex-col">
-            <div className="w-full h-52 bg-cover" style={{backgroundImage: 'url("https://d2kde5ohu8qb21.cloudfront.net/files/6837f71e7a1c8100081798fe/image11.jpg")', backgroundPosition: 'center 20%', borderBottom: '1px solid #222'}}></div>
-            <div className="p-6 flex-1 flex flex-col">
-              <div className="flex items-center mb-3">
-                <div className="bg-yellow-400 rounded-full w-7 h-7 flex items-center justify-center font-bold text-neutral-900 mr-3">3</div>
-                <div>
-                  <h3 className="text-2xl font-bold leading-tight">Social Sara</h3>
-                  <div className="text-sm font-medium">(Social Media Auto Enthusiast)</div>
+          <div className="border border-neutral-6 rounded-lg bg-white shadow-sm overflow-hidden transition-standard hover:shadow-md">
+            <div className="flex flex-col md:flex-row">
+              <div className="md:w-1/3 h-40 md:h-auto bg-cover" style={{backgroundImage: 'url("https://d2kde5ohu8qb21.cloudfront.net/files/6837f71e7a1c8100081798fe/image11.jpg")', backgroundPosition: 'center 20%'}}></div>
+              <div className="p-6 flex-1">
+                <div className="flex items-center mb-3">
+                  <div className="bg-motortrend-dark text-white rounded-full w-7 h-7 flex items-center justify-center font-bold mr-3">3</div>
+                  <div>
+                    <h3 className="typography-h3 text-color-neutral-1">Social Sara</h3>
+                    <div className="typography-caption text-color-neutral-3">(Social Media Auto Enthusiast)</div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-1">
+                  <div className="typography-body-sm"><span className="font-medium">Age:</span> 22-35</div>
+                  <div className="typography-body-sm"><span className="font-medium">Occupation:</span> 9-to-5 office clerk</div>
+                  <div className="typography-body-sm"><span className="font-medium">Habits:</span> Scrolls TikTok/IG Reels, saves car clips</div>
+                  <div className="typography-body-sm"><span className="font-medium">Goals:</span> Keep up with car buzz, dream about next ride</div>
+                  <div className="typography-body-sm"><span className="font-medium">Channels:</span> TikTok, IG Reels, YouTube Shorts</div>
+                  <div className="typography-body-sm"><span className="font-medium">Needs:</span> Short videos, bold thumbnails, one-tap sharing</div>
                 </div>
               </div>
-              <ul className="text-sm space-y-1 mb-3">
-                <li><b>Occupation:</b> 9-to-5 office clerk</li>
-                <li><b>Habits:</b> Scrolls TikTok/IG Reels on breaks, saves funny car clips, emoji-reacts to Reddit r/cars posts</li>
-                <li><b>Goals:</b> Unwind, keep up with car buzz, dream about her next practical-but-fun ride</li>
-                <li><b>Channels:</b> TikTok, IG Reels, YouTube Shorts, Reddit mobile</li>
-                <li><b>Needs:</b> 30-90 s captioned videos, bold thumbnails, one-tap save/share</li>
-                <li><b>Go-to sites/apps:</b> TikTok, Instagram, Reddit r/cars, YouTube Shorts</li>
-              </ul>
             </div>
           </div>
         </CardContent>
