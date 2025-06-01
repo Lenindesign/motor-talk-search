@@ -91,10 +91,6 @@ const VideoCard: React.FC<VideoCardProps> = memo(({
         {video.title}
       </h3>
       <div className="flex items-center text-sm text-gray-400">
-        {video.views && <>
-            <Eye className="mr-1" size={14} />
-            <span className="mr-3">{video.views} views</span>
-          </>}
         {video.publishDate && <span>{video.publishDate}</span>}
       </div>
     </div>

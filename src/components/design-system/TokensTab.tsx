@@ -20,7 +20,17 @@ const TokensTab = () => {
     { name: 'MotorTrend Red', value: '#e90c17', token: '--color-primary-2' },
     { name: 'Light Red', value: '#ff858a', token: '--color-primary-3' },
     { name: 'Neutral Dark', value: '#141416', token: '--color-neutral-1' },
-    // ... other colors
+    { name: 'Neutral Gray', value: '#23262f', token: '--color-neutral-2' },
+    { name: 'Neutral Medium', value: '#4e5566', token: '--color-neutral-3' },
+    { name: 'Neutral Text', value: '#777e90', token: '--color-neutral-4' },
+    { name: 'Neutral Light', value: '#b1b5c3', token: '--color-neutral-5' },
+    { name: 'Neutral Border', value: '#e6e8ec', token: '--color-neutral-6' },
+    { name: 'Neutral Background', value: '#f4f5f6', token: '--color-neutral-7' },
+    { name: 'Neutral White', value: '#fcfcfd', token: '--color-neutral-8' },
+    { name: 'Success Green', value: '#58bd7d', token: '--color-success' },
+    { name: 'Warning Yellow', value: '#ffb800', token: '--color-warning' },
+    { name: 'Error Red', value: '#ff4747', token: '--color-error' },
+    { name: 'Info Blue', value: '#3b82f6', token: '--color-info' },
   ];
 
   const spacingTokens = [
@@ -36,25 +46,95 @@ const TokensTab = () => {
   const typographyTokens = [
     { name: 'Font Family Primary', value: 'Poppins, sans-serif', token: '--font-primary' },
     { name: 'Font Family Secondary', value: 'Geist, sans-serif', token: '--font-secondary' },
-    { name: 'Font Size Base', value: '16px', token: '--font-size-base' },
+    { name: 'Font Family Mono', value: 'Roboto Mono, monospace', token: '--font-mono' },
+    { name: 'Font Size XS', value: '0.75rem', token: '--font-size-xs' },
+    { name: 'Font Size SM', value: '0.875rem', token: '--font-size-sm' },
+    { name: 'Font Size Base', value: '1rem', token: '--font-size-base' },
+    { name: 'Font Size LG', value: '1.125rem', token: '--font-size-lg' },
+    { name: 'Font Size XL', value: '1.25rem', token: '--font-size-xl' },
+    { name: 'Font Size 2XL', value: '1.5rem', token: '--font-size-2xl' },
+    { name: 'Font Size 3XL', value: '1.875rem', token: '--font-size-3xl' },
+    { name: 'Font Size 4XL', value: '2.25rem', token: '--font-size-4xl' },
+    { name: 'Font Size 5XL', value: '3rem', token: '--font-size-5xl' },
+    { name: 'Font Weight Light', value: '300', token: '--font-weight-light' },
     { name: 'Font Weight Regular', value: '400', token: '--font-weight-regular' },
     { name: 'Font Weight Medium', value: '500', token: '--font-weight-medium' },
+    { name: 'Font Weight Semibold', value: '600', token: '--font-weight-semibold' },
     { name: 'Font Weight Bold', value: '700', token: '--font-weight-bold' },
+    { name: 'Font Weight Black', value: '900', token: '--font-weight-black' },
+    { name: 'Line Height Tight', value: '1.25', token: '--line-height-tight' },
+    { name: 'Line Height Normal', value: '1.5', token: '--line-height-normal' },
+    { name: 'Line Height Relaxed', value: '1.75', token: '--line-height-relaxed' },
+    { name: 'Letter Spacing Tight', value: '-0.025em', token: '--letter-spacing-tight' },
+    { name: 'Letter Spacing Normal', value: '0', token: '--letter-spacing-normal' },
+    { name: 'Letter Spacing Wide', value: '0.025em', token: '--letter-spacing-wide' },
+    { name: 'Letter Spacing Wider', value: '0.05em', token: '--letter-spacing-wider' },
   ];
 
   const borderTokens = [
+    { name: 'Border Radius None', value: '0', token: '--border-radius-none' },
+    { name: 'Border Radius XS', value: '0.125rem', token: '--border-radius-xs' },
     { name: 'Border Radius Small', value: '0.25rem', token: '--border-radius-sm' },
     { name: 'Border Radius Default', value: '0.5rem', token: '--border-radius-default' },
     { name: 'Border Radius Large', value: '0.75rem', token: '--border-radius-lg' },
     { name: 'Border Radius XL', value: '1rem', token: '--border-radius-xl' },
+    { name: 'Border Radius 2XL', value: '1.5rem', token: '--border-radius-2xl' },
     { name: 'Border Radius Full', value: '9999px', token: '--border-radius-full' },
+    { name: 'Border Width 0', value: '0px', token: '--border-width-0' },
+    { name: 'Border Width 1', value: '1px', token: '--border-width-1' },
+    { name: 'Border Width 2', value: '2px', token: '--border-width-2' },
+    { name: 'Border Width 4', value: '4px', token: '--border-width-4' },
+    { name: 'Border Width 8', value: '8px', token: '--border-width-8' },
+    { name: 'Border Style Solid', value: 'solid', token: '--border-style-solid' },
+    { name: 'Border Style Dashed', value: 'dashed', token: '--border-style-dashed' },
+    { name: 'Border Style Dotted', value: 'dotted', token: '--border-style-dotted' },
   ];
 
   const shadowTokens = [
+    { name: 'Shadow None', value: 'none', token: '--shadow-none' },
     { name: 'Shadow Small', value: '0 1px 2px rgba(0,0,0,0.05)', token: '--shadow-sm' },
     { name: 'Shadow Medium', value: '0 4px 6px -1px rgba(0,0,0,0.1)', token: '--shadow-md' },
     { name: 'Shadow Large', value: '0 10px 15px -3px rgba(0,0,0,0.1)', token: '--shadow-lg' },
     { name: 'Shadow XL', value: '0 20px 25px -5px rgba(0,0,0,0.1)', token: '--shadow-xl' },
+    { name: 'Shadow 2XL', value: '0 25px 50px -12px rgba(0,0,0,0.25)', token: '--shadow-2xl' },
+    { name: 'Shadow Inner', value: 'inset 0 2px 4px 0 rgba(0,0,0,0.06)', token: '--shadow-inner' },
+    { name: 'Shadow Focus', value: '0 0 0 3px rgba(233,12,23,0.5)', token: '--shadow-focus' },
+  ];
+
+  const zIndexTokens = [
+    { name: 'Z-Index Auto', value: 'auto', token: '--z-auto' },
+    { name: 'Z-Index 0', value: '0', token: '--z-0' },
+    { name: 'Z-Index 10', value: '10', token: '--z-10' },
+    { name: 'Z-Index 20', value: '20', token: '--z-20' },
+    { name: 'Z-Index 30', value: '30', token: '--z-30' },
+    { name: 'Z-Index 40', value: '40', token: '--z-40' },
+    { name: 'Z-Index 50', value: '50', token: '--z-50' },
+    { name: 'Z-Index Dropdown', value: '1000', token: '--z-dropdown' },
+    { name: 'Z-Index Sticky', value: '1100', token: '--z-sticky' },
+    { name: 'Z-Index Fixed', value: '1200', token: '--z-fixed' },
+    { name: 'Z-Index Modal', value: '1300', token: '--z-modal' },
+    { name: 'Z-Index Popover', value: '1400', token: '--z-popover' },
+    { name: 'Z-Index Tooltip', value: '1500', token: '--z-tooltip' },
+  ];
+
+  const animationTokens = [
+    { name: 'Transition Duration Fast', value: '100ms', token: '--duration-fast' },
+    { name: 'Transition Duration Normal', value: '200ms', token: '--duration-normal' },
+    { name: 'Transition Duration Slow', value: '300ms', token: '--duration-slow' },
+    { name: 'Transition Duration Slower', value: '500ms', token: '--duration-slower' },
+    { name: 'Easing Linear', value: 'linear', token: '--ease-linear' },
+    { name: 'Easing In', value: 'cubic-bezier(0.4, 0, 1, 1)', token: '--ease-in' },
+    { name: 'Easing Out', value: 'cubic-bezier(0, 0, 0.2, 1)', token: '--ease-out' },
+    { name: 'Easing In-Out', value: 'cubic-bezier(0.4, 0, 0.2, 1)', token: '--ease-in-out' },
+  ];
+
+  const breakpointTokens = [
+    { name: 'Breakpoint XS', value: '320px', token: '--breakpoint-xs' },
+    { name: 'Breakpoint SM', value: '640px', token: '--breakpoint-sm' },
+    { name: 'Breakpoint MD', value: '768px', token: '--breakpoint-md' },
+    { name: 'Breakpoint LG', value: '1024px', token: '--breakpoint-lg' },
+    { name: 'Breakpoint XL', value: '1280px', token: '--breakpoint-xl' },
+    { name: 'Breakpoint 2XL', value: '1536px', token: '--breakpoint-2xl' },
   ];
 
   // Custom token card component for reusability
@@ -110,12 +190,15 @@ const TokensTab = () => {
           </p>
           
           <Tabs defaultValue="colors" className="w-full">
-            <TabsList className="grid grid-cols-5 mb-4">
+            <TabsList className="grid grid-cols-4 md:grid-cols-8 mb-4">
               <TabsTrigger value="colors">Colors</TabsTrigger>
               <TabsTrigger value="spacing">Spacing</TabsTrigger>
               <TabsTrigger value="typography">Typography</TabsTrigger>
               <TabsTrigger value="borders">Borders</TabsTrigger>
               <TabsTrigger value="shadows">Shadows</TabsTrigger>
+              <TabsTrigger value="z-index">Z-Index</TabsTrigger>
+              <TabsTrigger value="animation">Animation</TabsTrigger>
+              <TabsTrigger value="breakpoints">Breakpoints</TabsTrigger>
             </TabsList>
             
             <TabsContent value="colors">
@@ -155,6 +238,30 @@ const TokensTab = () => {
                 title="Shadow Tokens" 
                 description="Elevation and depth through consistent shadow values" 
                 tokens={shadowTokens} 
+              />
+            </TabsContent>
+            
+            <TabsContent value="z-index">
+              <TokenCard 
+                title="Z-Index Tokens" 
+                description="Control the stacking order of elements with consistent z-index values" 
+                tokens={zIndexTokens} 
+              />
+            </TabsContent>
+            
+            <TabsContent value="animation">
+              <TokenCard 
+                title="Animation Tokens" 
+                description="Consistent timing and easing functions for animations and transitions" 
+                tokens={animationTokens} 
+              />
+            </TabsContent>
+            
+            <TabsContent value="breakpoints">
+              <TokenCard 
+                title="Breakpoint Tokens" 
+                description="Standard screen size breakpoints for responsive design" 
+                tokens={breakpointTokens} 
               />
             </TabsContent>
           </Tabs>

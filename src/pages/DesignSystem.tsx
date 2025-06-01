@@ -22,8 +22,8 @@ const DesignSystem = () => {
   
   return (
     <div className="min-h-screen bg-color-neutral-8">
-      <div className="max-w-[980px] mx-auto">
-        <div className="p-6 pb-0">
+      <div className="w-full">
+        <div className="py-6 px-0">
           <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="typography-hero text-color-neutral-1 mb-4 md:mb-0 uppercase">DESIGN SYSTEM</h1>
@@ -32,22 +32,12 @@ const DesignSystem = () => {
                 Built with atomic design principles and modern design tokens.
               </p>
             </div>
-            <div className="flex gap-3">
-              <Button variant="outline" className="flex items-center gap-2">
-                <Download size={16} />
-                Design Assets
-              </Button>
-              <Button variant="outline" className="flex items-center gap-2">
-                <Github size={16} />
-                Component Code
-              </Button>
-            </div>
           </div>
         </div>
 
         <div className="flex flex-col md:flex-row">
           {/* Left Sidebar Navigation */}
-          <div className="md:w-1/3 lg:w-1/4 md:min-h-[calc(100vh-160px)] md:border-r border-color-neutral-6">
+          <div className="md:w-1/3 lg:w-1/4 md:min-h-[calc(100vh-160px)] md:border-r border-color-neutral-6 md:sticky md:top-0 md:self-start md:max-h-screen md:overflow-y-auto">
             <Tabs value={activeTab} onValueChange={setActiveTab} orientation="vertical" className="w-full p-4">
               <TabsList className="flex flex-col h-auto p-0 bg-transparent">
                 <div className="p-4 typography-small text-color-neutral-4 uppercase tracking-wider text-left w-full">Getting Started</div>
@@ -114,7 +104,7 @@ const DesignSystem = () => {
           </div>
           
           {/* Content Area */}
-          <div className="md:w-2/3 lg:w-3/4 p-6">
+          <div className="md:w-2/3 lg:w-3/4 py-6 px-0">
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsContent value="overview">
                 <OverviewTab />
@@ -152,11 +142,11 @@ const DesignSystem = () => {
                 <TokensTab />
               </TabsContent>
 
-              <TabsContent value="patterns" className="p-6">
+              <TabsContent value="patterns" className="py-6 px-0">
                 <PatternsTab />
               </TabsContent>
               
-              <TabsContent value="search" className="p-6">
+              <TabsContent value="search" className="py-6 px-0">
                 <SearchTab />
               </TabsContent>
 
