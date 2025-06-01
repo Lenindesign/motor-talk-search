@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link } from "react-router-dom";
 import { User, Car, Settings, Palette } from "lucide-react";
@@ -5,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import UserPoints from "../UserPoints";
+
 interface ProfileSidebarProps {
   userData: {
     name: string;
@@ -14,13 +16,24 @@ interface ProfileSidebarProps {
   };
   savedItemsCount: number;
   onPersonalizeClick: () => void;
+  onSettingsClick?: () => void;
 }
 
 const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
   userData,
   savedItemsCount,
-  onPersonalizeClick
+  onPersonalizeClick,
+  onSettingsClick
 }) => {
+  const handleSettingsClick = () => {
+    if (onSettingsClick) {
+      onSettingsClick();
+    } else {
+      // Default behavior: navigate to profile page with settings tab
+      window.location.href = '/profile#settings';
+    }
+  };
+
   return (
     <>
       <aside className="w-full md:w-64 space-y-6">
@@ -48,7 +61,7 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
                   <Palette size={16} />
                   Personalize
                 </Button>
-                <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2">
+                <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2" onClick={handleSettingsClick}>
                   <Settings size={16} />
                   Settings
                 </Button>

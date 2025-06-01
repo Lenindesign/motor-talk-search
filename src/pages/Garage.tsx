@@ -210,6 +210,7 @@ const getMotorTrendDataForCar = (carTitle: string) => {
     categoryRank: 8
   };
 };
+
 const Garage = () => {
   const {
     savedItems,
@@ -247,6 +248,12 @@ const Garage = () => {
       });
     });
   }, [savedItems, updateSavedItem]);
+
+  const handleSettingsClick = () => {
+    // Navigate to profile page with settings tab active
+    window.location.href = '/profile#settings';
+  };
+
   return <MainLayout isGaragePage={true}>
       <div className="min-h-screen">
         {/* Responsive layout */}
@@ -260,7 +267,12 @@ const Garage = () => {
             <div className="flex flex-col md:flex-row gap-8">
               {/* Sidebar (ProfileSidebar + UserPoints) */}
               <aside className="w-full md:w-64 space-y-6">
-                <ProfileSidebar userData={userData} savedItemsCount={savedItems.length} onPersonalizeClick={() => setPersonalizationOpen(true)} />
+                <ProfileSidebar 
+                  userData={userData} 
+                  savedItemsCount={savedItems.length} 
+                  onPersonalizeClick={() => setPersonalizationOpen(true)}
+                  onSettingsClick={handleSettingsClick}
+                />
               </aside>
               
               {/* Main Content (GarageContent) */}
