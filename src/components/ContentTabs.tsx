@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export type ContentType = "all" | "articles" | "newCars" | "usedCars" | "photos" | "videos";
 
@@ -19,20 +20,20 @@ const ContentTabs: React.FC<ContentTabsProps> = ({ activeTab, onTabChange }) => 
   ];
 
   return (
-    <div className="mb-4 flex overflow-x-auto scrollbar-none pb-1 border-b border-gray-200">
-      {tabs.map((tab) => (
-        <button
-          key={tab.id}
-          onClick={() => onTabChange(tab.id)}
-          className={`whitespace-nowrap px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium rounded-t-md transition-colors ${
-            activeTab === tab.id
-              ? 'bg-motortrend-dark text-white'
-              : 'bg-transparent text-gray-600 hover:bg-gray-100'
-          }`}
-        >
-          {tab.label}
-        </button>
-      ))}
+    <div className="mb-4">
+      <Tabs value={activeTab} onValueChange={onTabChange} className="w-full">
+        <TabsList className="grid w-full grid-cols-6 h-auto p-1">
+          {tabs.map((tab) => (
+            <TabsTrigger
+              key={tab.id}
+              value={tab.id}
+              className="text-xs sm:text-sm font-medium px-2 py-2 data-[state=active]:bg-color-primary-2 data-[state=active]:text-white"
+            >
+              {tab.label}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
     </div>
   );
 };
