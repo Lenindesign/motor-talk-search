@@ -1,0 +1,89 @@
+/* Shorts experience styling */
+.shorts-page {
+  background-color: #000000;
+  color: #fcfcfd; /* --color-neutral-8 from your design system */
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+}
+
+/* Create a full-screen overlay to ensure no white space is visible */
+.shorts-page::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000000;
+  z-index: -1;
+}
+
+.shorts-container {
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.shorts-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.short-video-container {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.video-wrapper {
+  position: relative;
+  max-height: 90vh;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Motortrend brand color for active elements */
+.motortrend-red {
+  color: #c11b17; /* --color-primary-1 from your design system */
+}
+
+/* Animation for like button */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.like-animation {
+  animation: pulse 0.5s ease-in-out;
+}
+
+/* Progress bar for video */
+.video-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: #c11b17; /* --color-primary-1 */
+  transition: width 0.1s linear;
+}

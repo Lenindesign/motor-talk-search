@@ -20,9 +20,10 @@ const Videos = lazy(() => import("./pages/Videos"));
 const ArticleDetail = lazy(() => import("./pages/ArticleDetail"));
 const NewCarDetail = lazy(() => import("./pages/NewCarDetail"));
 const UsedCarDetail = lazy(() => import("./pages/UsedCarDetail"));
-const PhotoDetail = lazy(() => import("./pages/PhotoDetail"));
-const VideoDetail = lazy(() => import("./pages/VideoDetail"));
-const DesignSystem = lazy(() => import("./pages/DesignSystem"));
+const PhotoDetail = lazy(() => import('./pages/PhotoDetail'));
+const VideoDetail = lazy(() => import('./pages/VideoDetail'));
+const Shorts = lazy(() => import('./pages/Shorts'));
+const DesignSystem = lazy(() => import('./pages/DesignSystem'));
 const TestCarCard = lazy(() => import("./components/TestCarCard"));
 const TestCard = lazy(() => import("./pages/TestCard"));
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
@@ -61,6 +62,7 @@ function App() {
                     <Route path="/used-car/:id" element={<UsedCarDetail />} />
                     <Route path="/photo/:id" element={<PhotoDetail />} />
                     <Route path="/video/:id" element={<VideoDetail />} />
+                    <Route path="/shorts/:id" element={<Shorts />} />
                     <Route path="/design-system" element={<DesignSystem />} />
                     <Route path="/test-car-card" element={<TestCarCard />} />
                     <Route path="/test-card" element={<TestCard />} />

@@ -1849,6 +1849,105 @@ export const mockVideos: VideoData[] = [
 ];
 
 /**
+ * MOCK SHORT VIDEOS DATA
+ * 
+ * This section contains all short video mock data used in the application.
+ * Short videos are in 9:16 ratio format for vertical viewing similar to YouTube Shorts.
+ */
+export const mockShortVideos: VideoData[] = [
+  {
+    id: "short-1",
+    title: "2025 Aston Martin Vanquish",
+    subtitle: "Beauty is more than skin deep in the 824-hp, V-12-powered super coupe.",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/683a0abf00b694000887671f/024-2025-aston-martin-vanquish.jpg",
+    videoUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/683cc217daf62b0008cecc0c/short-1.mp4",
+    duration: "0:45",
+    tag: "Performance",
+    tagColor: "bg-blue-700",
+    author: "Alex Rodriguez",
+    readTime: "1 min",
+    publishDate: "2 days ago",
+    views: "243K",
+    detailUrl: "/shorts/short-1"
+  },
+  {
+    id: "short-2",
+    title: "Slate FN EV truck 12",
+    subtitle: "Passenger reactions to the brutal acceleration of Lamborghini's latest hypercar",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/6822196368220b000875baa0/slatefnevtruck12.jpg",
+    videoUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/683cc216daf62b0008cecc0a/shorts2.mp4",
+    duration: "0:38",
+    tag: "Reaction",
+    tagColor: "bg-red-700",
+    author: "Maria Chen",
+    readTime: "1 min",
+    publishDate: "3 days ago",
+    views: "189K",
+    detailUrl: "/shorts/short-2"
+  },
+  {
+    id: "short-3",
+    title: "2025 Cadillac Escalade IQ road trip SF LA",
+    subtitle: "Electric truck shows off its surprising drift capabilities on a closed course",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67dddb04b641230008206fa2/49-2025-cadillac-escalade-iq-road-trip-sf-la.jpg",
+    videoUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/683cc2152e586f000898f614/shorts3.mp4",
+    duration: "0:52",
+    tag: "Off-Road",
+    tagColor: "bg-green-700",
+    author: "Carlos Ramirez",
+    readTime: "1 min",
+    publishDate: "1 week ago",
+    views: "412K",
+    detailUrl: "/shorts/short-3"
+  },
+  {
+    id: "short-4",
+    title: "2025 Nissan Armada Pro 4x",
+    subtitle: "The glorious sound of Ferrari's naturally aspirated V12 engine at full throttle",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67e5de98a550c0000829d20e/12-2025-nissan-armada-pro-4x.jpg",
+    videoUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/683cc2132e586f000898f613/shorts4.mp4",
+    duration: "0:41",
+    tag: "Sound",
+    tagColor: "bg-yellow-600",
+    author: "Marco Rossi",
+    readTime: "1 min",
+    publishDate: "5 days ago",
+    views: "325K",
+    detailUrl: "/shorts/short-4"
+  },
+  {
+    id: "short-5",
+    title: "TRI Stanford Tandem Drifting Toyota Supra AI tech 3",
+    subtitle: "Watch this BMW M5 create clouds of tire smoke in an impressive burnout display",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/66a78e647d9bc4000a64f5d4/tristanfordtandemdriftingtoyotasupraaitech3.png",
+    videoUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/683cd4362ef98c00086e5a3a/drifting101withtoyotagazooracing-kengushiontheartoforganizedchaos.mp4",
+    duration: "0:35",
+    tag: "Performance",
+    tagColor: "bg-purple-700",
+    author: "James Wilson",
+    readTime: "1 min",
+    publishDate: "1 day ago",
+    views: "156K",
+    detailUrl: "/shorts/short-5"
+  },
+  {
+    id: "short-6",
+    title: "The InEVitable",
+    subtitle: "Electric power vs traditional muscle in this epic truck tug of war battle",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67c08eabe4ca5a00087a0c61/0782-mt-inevitable-thumbnail-s14-ep07.png",
+    videoUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/683cc211daf62b0008cecc06/shorts-6.mp4",
+    duration: "0:48",
+    tag: "Comparison",
+    tagColor: "bg-blue-600",
+    author: "Sarah Johnson",
+    readTime: "1 min",
+    publishDate: "4 days ago",
+    views: "521K",
+    detailUrl: "/shorts/short-6"
+  }
+];
+
+/**
  * CHAT RESPONSES AND UTILITY FUNCTIONS
  * 
  * This section contains predefined chat responses for common queries

@@ -9,8 +9,14 @@ import { cn } from '@/lib/utils';
 export interface VideoData {
   id: string;
   title: string;
+  subtitle?: string;
   imageUrl: string;
+  videoUrl?: string;
   duration: string;
+  tag?: string;
+  tagColor?: string;
+  author?: string;
+  readTime?: string;
   views?: string;
   publishDate?: string;
   detailUrl?: string;

@@ -3,10 +3,11 @@ import React from 'react';
 import HeroCarousel from '@/components/home/HeroCarousel';
 import VideoCard from '@/components/VideoCard';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Flame, Star, Car, Mountain, Wrench, Zap, Flag, TrendingUp, Clock } from 'lucide-react';
-import { mockVideos } from '@/services/mockData';
+import { ArrowRight, Flame, Star, Car, Mountain, Wrench, Zap, Flag, TrendingUp, Clock, Video, Play } from 'lucide-react';
+import { mockVideos, mockShortVideos } from '@/services/mockData';
 import VideosPageWrapper from '@/components/VideosPageWrapper';
 import '@/styles/videos-dark-mode.css';
+import { Link } from 'react-router-dom';
 
 const Videos: React.FC = () => {
   // Example category filters (replace with real tags/categories if available)
@@ -18,6 +19,8 @@ const Videos: React.FC = () => {
   const evs = mockVideos.filter(v => v.title.toLowerCase().includes('ev') || v.title.toLowerCase().includes('electric')).slice(0, 3);
   const motorsports = mockVideos.filter(v => v.title.toLowerCase().includes('motorsport') || v.title.toLowerCase().includes('race')).slice(0, 3);
   const trending = mockVideos.slice(3, 6);
+  // Short videos with 9:16 aspect ratio
+  const shorts = mockShortVideos;
 
   return (
     <VideosPageWrapper>
@@ -60,6 +63,44 @@ const Videos: React.FC = () => {
             }
           ]} />
         </div>
+
+        {/* Shorts Section - 9:16 Aspect Ratio */}
+        <section className="mb-10">
+          <div className="mb-4 flex items-center justify-between">
+            <h2 className="flex items-center gap-2 text-2xl font-bold text-white">
+              <span className="text-motortrend-red"><Video size={24} /></span>
+              Shorts
+            </h2>
+            <Button variant="ghost" className="flex items-center gap-2 text-gray-300 hover:text-white hover:bg-gray-800" asChild>
+              <Link to="/shorts/short-1">
+                View All
+                <ArrowRight size={16} />
+              </Link>
+            </Button>
+          </div>
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-6">
+            {shorts.map(video => (
+              <Link 
+                key={video.id} 
+                to={`/shorts/${video.id}`}
+                className="block aspect-[9/16] relative overflow-hidden rounded-lg hover:opacity-90 transition-opacity"
+              >
+                <img 
+                  src={video.imageUrl} 
+                  alt={video.title} 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-2">
+                  <div className="flex items-center gap-1 mb-1">
+                    <Play size={14} className="text-white" />
+                    <span className="text-xs text-white">{video.duration}</span>
+                  </div>
+                  <h3 className="text-sm font-medium text-white line-clamp-2">{video.title}</h3>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         {/* Section Helper */}
         {[
