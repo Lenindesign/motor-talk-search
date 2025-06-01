@@ -1,20 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ChevronUp, ChevronDown, Heart, MessageSquare, Share2, Bookmark, X } from 'lucide-react';
+import { ChevronUp, ChevronDown, Heart, MessageSquare, Share2, Bookmark, X, Play, Pause, Volume2, VolumeX, ThumbsUp, ThumbsDown, MoreVertical } from 'lucide-react';
 import { mockShortVideos } from '@/services/mockData';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useSavedItems } from '@/contexts/SavedItemsContext';
 import '@/styles/shorts.css';
 
-const Shorts: React.FC = () => {
+const Shorts = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
+  
+  // Find the current video and its index
+  const currentVideoIndex = mockShortVideos.findIndex(video => video.id === id);
+  const [activeIndex, setActiveIndex] = useState(currentVideoIndex !== -1 ? currentVideoIndex : 0);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
+  const [likeCount, setLikeCount] = useState<Record<string, number>>({});
+  const [dislikeCount, setDislikeCount] = useState<Record<string, number>>({});
+  const [userLiked, setUserLiked] = useState<Record<string, boolean>>({});
+  const [userDisliked, setUserDisliked] = useState<Record<string, boolean>>({});
+  
+  // Refs for videos and container
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
 
   // Find starting index based on URL param
   useEffect(() => {
@@ -92,9 +102,8 @@ const Shorts: React.FC = () => {
     }
     
     // Play the current video if isPlaying is true
-    const video = videoRefs.current[activeIndex];
-    if (video && isPlaying) {
-      video.play().catch(err => console.error('Error playing video:', err));
+    if (isPlaying) {
+      playVideo(activeIndex);
     }
   }, [activeIndex, navigate, id, isPlaying]);
 
@@ -105,12 +114,16 @@ const Shorts: React.FC = () => {
       currentVideo.pause();
     }
     
+    let nextIndex;
     if (activeIndex < mockShortVideos.length - 1) {
-      setActiveIndex(activeIndex + 1);
+      nextIndex = activeIndex + 1;
     } else {
       // Loop back to the first video when at the end
-      setActiveIndex(0);
+      nextIndex = 0;
     }
+    
+    setActiveIndex(nextIndex);
+    setTimeout(() => playVideo(nextIndex), 50); // Small delay to ensure state is updated
   };
 
   const navigateToPrev = () => {
@@ -120,12 +133,16 @@ const Shorts: React.FC = () => {
       currentVideo.pause();
     }
     
+    let prevIndex;
     if (activeIndex > 0) {
-      setActiveIndex(activeIndex - 1);
+      prevIndex = activeIndex - 1;
     } else {
       // Loop back to the last video when at the beginning
-      setActiveIndex(mockShortVideos.length - 1);
+      prevIndex = mockShortVideos.length - 1;
     }
+    
+    setActiveIndex(prevIndex);
+    setTimeout(() => playVideo(prevIndex), 50); // Small delay to ensure state is updated
   };
 
   const togglePlayPause = () => {
@@ -140,30 +157,118 @@ const Shorts: React.FC = () => {
     }
   };
 
+  const playVideo = (index: number) => {
+    // Pause all videos first
+    videoRefs.current.forEach(video => {
+      if (video) video.pause();
+    });
+
+    // Play the active video
+    const video = videoRefs.current[index];
+    if (video) {
+      video.currentTime = 0; // Reset to beginning
+      video.muted = isMuted; // Apply current mute state
+      video.play().catch(error => {
+        console.error('Error playing video:', error);
+      });
+      setIsPlaying(true);
+    }
+  };
+
   const handleVideoClick = () => {
     togglePlayPause();
+  };
+
+  const toggleMute = () => {
+    const video = videoRefs.current[activeIndex];
+    if (video) {
+      video.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  const handleLike = (videoId: string) => {
+    setUserLiked(prev => {
+      const wasLiked = prev[videoId] || false;
+      const newState = {...prev, [videoId]: !wasLiked};
+      
+      // Update like count
+      setLikeCount(prevCounts => {
+        const currentCount = prevCounts[videoId] || 0;
+        return {
+          ...prevCounts,
+          [videoId]: wasLiked ? currentCount - 1 : currentCount + 1
+        };
+      });
+      
+      // If user had previously disliked, remove the dislike
+      if (!wasLiked && userDisliked[videoId]) {
+        setUserDisliked(prevDislikes => ({
+          ...prevDislikes,
+          [videoId]: false
+        }));
+        
+        setDislikeCount(prevCounts => {
+          const currentCount = prevCounts[videoId] || 0;
+          return {
+            ...prevCounts,
+            [videoId]: Math.max(0, currentCount - 1)
+          };
+        });
+      }
+      
+      return newState;
+    });
+  };
+
+  const handleDislike = (videoId: string) => {
+    setUserDisliked(prev => {
+      const wasDisliked = prev[videoId] || false;
+      const newState = {...prev, [videoId]: !wasDisliked};
+      
+      // Update dislike count
+      setDislikeCount(prevCounts => {
+        const currentCount = prevCounts[videoId] || 0;
+        return {
+          ...prevCounts,
+          [videoId]: wasDisliked ? currentCount - 1 : currentCount + 1
+        };
+      });
+      
+      // If user had previously liked, remove the like
+      if (!wasDisliked && userLiked[videoId]) {
+        setUserLiked(prevLikes => ({
+          ...prevLikes,
+          [videoId]: false
+        }));
+        
+        setLikeCount(prevCounts => {
+          const currentCount = prevCounts[videoId] || 0;
+          return {
+            ...prevCounts,
+            [videoId]: Math.max(0, currentCount - 1)
+          };
+        });
+      }
+      
+      return newState;
+    });
   };
 
   const handleSave = (videoId: string) => {
     const video = mockShortVideos.find(v => v.id === videoId);
     if (!video) return;
 
-    const savedItem = {
-      id: video.id,
-      title: video.title,
-      type: 'video' as const,
-      imageUrl: video.imageUrl,
-      savedAt: new Date().toISOString(),
-      metadata: {
-        duration: video.duration,
-        views: video.views,
-        publishDate: video.publishDate
-      }
-    };
-
-    if (isSaved(video.id, 'video')) {
-      removeSavedItem(video.id, 'video');
+    if (isSaved(videoId, 'video')) {
+      removeSavedItem(videoId, 'video');
     } else {
+      const savedItem = {
+        id: video.id,
+        title: video.title,
+        type: 'video' as const,
+        imageUrl: video.imageUrl,
+        savedAt: new Date().toISOString()
+      };
       addSavedItem(savedItem);
     }
   };
@@ -241,9 +346,7 @@ const Shorts: React.FC = () => {
                   {!isPlaying && isActive && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/30">
                       <div className="bg-white/20 rounded-full p-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white">
-                          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                        </svg>
+                        <Play size={32} className="text-white" />
                       </div>
                     </div>
                   )}
@@ -253,26 +356,59 @@ const Shorts: React.FC = () => {
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
                   <h3 className="text-white text-lg font-bold mb-2">{video.title}</h3>
                   <div className="flex items-center text-white/80 text-sm">
-                    <span>{video.views} views</span>
+                    <span>@MotorTrendWatch</span>
                     <span className="mx-2">•</span>
                     <span>{video.publishDate}</span>
                   </div>
                 </div>
 
-                {/* Interaction buttons */}
-                <div className="absolute right-4 bottom-24 flex flex-col items-center space-y-6">
+                {/* Video controls - top */}
+                <div className="absolute top-4 right-4 flex space-x-2">
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="bg-black/30 text-white hover:bg-black/50 rounded-full h-10 w-10"
+                    onClick={toggleMute}
+                  >
+                    {isMuted ? <VolumeX size={20} className="text-white" /> : <Volume2 size={20} className="text-white" />}
+                  </Button>
+                </div>
+
+                {/* Interaction buttons - right side */}
+                <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center space-y-6">
+                  {/* Like button */}
                   <div className="flex flex-col items-center">
                     <Button 
                       variant="ghost" 
                       size="icon" 
-                      className="bg-black/30 text-white hover:bg-black/50 rounded-full h-12 w-12"
-                      onClick={() => {}}
+                      className={cn(
+                        "bg-black/30 hover:bg-black/50 rounded-full h-12 w-12",
+                        userLiked[video.id] ? "text-white bg-gray-700" : "text-white"
+                      )}
+                      onClick={() => handleLike(video.id)}
                     >
-                      <Heart size={24} className="text-white" />
+                      <ThumbsUp size={24} className={userLiked[video.id] ? "fill-white text-black" : "text-white"} />
                     </Button>
-                    <span className="text-white text-xs mt-1">24.5K</span>
+                    <span className="text-white text-xs mt-1">{likeCount[video.id] || 0}</span>
                   </div>
 
+                  {/* Dislike button */}
+                  <div className="flex flex-col items-center">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className={cn(
+                        "bg-black/30 hover:bg-black/50 rounded-full h-12 w-12",
+                        userDisliked[video.id] ? "text-white bg-gray-700" : "text-white"
+                      )}
+                      onClick={() => handleDislike(video.id)}
+                    >
+                      <ThumbsDown size={24} className={userDisliked[video.id] ? "fill-white text-black" : "text-white"} />
+                    </Button>
+                    <span className="text-white text-xs mt-1">Dislike</span>
+                  </div>
+
+                  {/* Comments button */}
                   <div className="flex flex-col items-center">
                     <Button 
                       variant="ghost" 
@@ -282,9 +418,10 @@ const Shorts: React.FC = () => {
                     >
                       <MessageSquare size={24} className="text-white" />
                     </Button>
-                    <span className="text-white text-xs mt-1">1.2K</span>
+                    <span className="text-white text-xs mt-1">19</span>
                   </div>
 
+                  {/* Share button */}
                   <div className="flex flex-col items-center">
                     <Button 
                       variant="ghost" 
@@ -297,6 +434,7 @@ const Shorts: React.FC = () => {
                     <span className="text-white text-xs mt-1">Share</span>
                   </div>
 
+                  {/* Save button */}
                   <div className="flex flex-col items-center">
                     <Button 
                       variant="ghost" 
@@ -310,6 +448,18 @@ const Shorts: React.FC = () => {
                       <Bookmark size={24} className={isVideoSaved ? "fill-motortrend-red text-motortrend-red" : "text-white"} />
                     </Button>
                     <span className="text-white text-xs mt-1">Save</span>
+                  </div>
+                  
+                  {/* More options button */}
+                  <div className="flex flex-col items-center">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="bg-black/30 text-white hover:bg-black/50 rounded-full h-12 w-12"
+                      onClick={() => {}}
+                    >
+                      <MoreVertical size={24} className="text-white" />
+                    </Button>
                   </div>
                 </div>
               </div>
