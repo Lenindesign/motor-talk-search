@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Heart, Calendar, Phone, MapPin, ChevronDown } from 'lucide-react';
 import { Button } from "@/components/ui/button";
@@ -129,7 +130,9 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
               <Button
                 variant={currentOwnership === 'owned' ? 'default' : 'ghost'}
                 size="sm"
-                className="w-full justify-start gap-2 text-gray-900 hover:text-gray-900"
+                className={`w-full justify-start gap-2 text-gray-900 hover:text-gray-900 ${
+                  currentOwnership === 'owned' ? 'bg-black text-white hover:bg-black hover:text-white' : ''
+                }`}
                 onClick={e => {
                   e.stopPropagation();
                   handleAddToGarage('owned');
@@ -141,7 +144,9 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
               <Button
                 variant={currentOwnership === 'testDriven' ? 'default' : 'ghost'}
                 size="sm"
-                className="w-full justify-start gap-2 text-gray-900 hover:text-gray-900"
+                className={`w-full justify-start gap-2 text-gray-900 hover:text-gray-900 ${
+                  currentOwnership === 'testDriven' ? 'bg-black text-white hover:bg-black hover:text-white' : ''
+                }`}
                 onClick={e => {
                   e.stopPropagation();
                   handleAddToGarage('testDriven');
@@ -153,7 +158,9 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
               <Button
                 variant={currentOwnership === 'interested' ? 'default' : 'ghost'}
                 size="sm"
-                className="w-full justify-start gap-2 text-gray-900 hover:text-gray-900"
+                className={`w-full justify-start gap-2 text-gray-900 hover:text-gray-900 ${
+                  currentOwnership === 'interested' ? 'bg-black text-white hover:bg-black hover:text-white' : ''
+                }`}
                 onClick={e => {
                   e.stopPropagation();
                   handleAddToGarage('interested');
