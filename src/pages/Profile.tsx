@@ -24,19 +24,18 @@ import VideoCard from "../components/VideoCard";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MyGarageSkinny from "../components/profile/MyGarageSkinny";
 import GarageContent from '../components/garage/GarageContent';
+
 const Profile = () => {
-  const {
-    savedItems,
-    removeSavedItem
-  } = useSavedItems();
-  const {
-    preferences
-  } = usePersonalization();
+  const { savedItems, removeSavedItem } = useSavedItems();
+  const { preferences } = usePersonalization();
   const navigate = useNavigate();
   const isMobile = useIsMobile();
   const [activeTab, setActiveTab] = useState("saved");
   const [personalizationOpen, setPersonalizationOpen] = useState(false);
   const [profileImage, setProfileImage] = useState<string | undefined>(localStorage.getItem("userProfileImage") || undefined);
+
+  // Filter by current tab - fix the filter logic
+  const [filterType, setFilterType] = useState<SavedItemType | 'all'>('all');
 
   // Save profile image to localStorage when it changes
   useEffect(() => {
@@ -62,14 +61,10 @@ const Profile = () => {
       email: localStorage.getItem("userEmail") || "greg.driver@example.com"
     }
   });
-  const onSubmit = (data: {
-    name: string;
-    email: string;
-  }) => {
+
+  const onSubmit = (data: { name: string; email: string; }) => {
     localStorage.setItem("userName", data.name);
     localStorage.setItem("userEmail", data.email);
-
-    // Show a success message or notification
     console.log("Profile updated:", data);
   };
 
@@ -80,23 +75,33 @@ const Profile = () => {
     avatar: "https://d2kde5ohu8qb21.cloudfront.net/files/6839e7e53277480008013d30/greg.jpg",
     joined: "January 2023"
   };
+
   const handleUnsave = (id: string, type: SavedItemType) => {
     removeSavedItem(id, type);
   };
+
+  // Fix the filter function to properly handle all item types
   const filterItemsByType = (type: SavedItemType | 'all') => {
     if (type === 'all') return savedItems;
+    
+    // Handle car types - both newCar and usedCar should be shown when filtering for either
+    if (type === 'newCar') {
+      return savedItems.filter(item => item.type === 'newCar');
+    }
+    if (type === 'usedCar') {
+      return savedItems.filter(item => item.type === 'usedCar');
+    }
+    
+    // Handle other content types
     return savedItems.filter(item => item.type === type);
   };
 
-  // Filter by current tab
-  const [filterType, setFilterType] = useState<SavedItemType | 'all'>('all');
   const filteredItems = filterItemsByType(filterType);
-  return <>
+
+  return (
+    <>
       <div className="min-h-screen bg-motortrend-gray">
-        
-        {/* Spacer for fixed header + search bar on mobile */}
-      
-      <main className="max-w-[980px] mx-auto px-0 py-0 pt-8">
+        <main className="max-w-[980px] mx-auto px-0 py-0 pt-8">
           <div className="flex flex-col md:flex-row gap-8">
             {/* Profile Sidebar */}
             <aside className="w-full md:w-64 space-y-6 px-[8px]">
@@ -144,7 +149,6 @@ const Profile = () => {
             <div className="flex-1">
               <Tabs defaultValue="saved" className="w-full">
                 <TabsList className="w-full justify-start border-b rounded-none overflow-x-auto whitespace-nowrap scrollbar-hide flex-nowrap">
-
                   <TabsTrigger value="saved" className="flex items-center gap-1">
                     <Bookmark size={16} />
                     <span>Saved Items</span>
@@ -171,84 +175,144 @@ const Profile = () => {
                   <div className="bg-white p-4 rounded-lg shadow">
                     <div className="flex justify-between items-center mb-4">
                       <h2 className="text-xl font-bold">Saved Items</h2>
-                      <div className="flex gap-2">
-                        <Button variant={filterType === "all" ? "default" : "outline"} size="sm" onClick={() => setFilterType("all")}>
-                          All
+                      <div className="flex gap-2 flex-wrap">
+                        <Button 
+                          variant={filterType === "all" ? "default" : "outline"} 
+                          size="sm" 
+                          onClick={() => setFilterType("all")}
+                        >
+                          All ({savedItems.length})
                         </Button>
-                        <Button variant={filterType === "article" ? "default" : "outline"} size="sm" onClick={() => setFilterType("article")}>
-                          Articles
+                        <Button 
+                          variant={filterType === "article" ? "default" : "outline"} 
+                          size="sm" 
+                          onClick={() => setFilterType("article")}
+                        >
+                          Articles ({savedItems.filter(item => item.type === 'article').length})
                         </Button>
-                        <Button variant={filterType === "newCar" ? "default" : "outline"} size="sm" onClick={() => setFilterType("newCar")}>
-                          New Cars
+                        <Button 
+                          variant={filterType === "newCar" ? "default" : "outline"} 
+                          size="sm" 
+                          onClick={() => setFilterType("newCar")}
+                        >
+                          New Cars ({savedItems.filter(item => item.type === 'newCar').length})
                         </Button>
-                        <Button variant={filterType === "usedCar" ? "default" : "outline"} size="sm" onClick={() => setFilterType("usedCar")}>
-                          Used Cars
+                        <Button 
+                          variant={filterType === "usedCar" ? "default" : "outline"} 
+                          size="sm" 
+                          onClick={() => setFilterType("usedCar")}
+                        >
+                          Used Cars ({savedItems.filter(item => item.type === 'usedCar').length})
+                        </Button>
+                        <Button 
+                          variant={filterType === "photo" ? "default" : "outline"} 
+                          size="sm" 
+                          onClick={() => setFilterType("photo")}
+                        >
+                          Photos ({savedItems.filter(item => item.type === 'photo').length})
+                        </Button>
+                        <Button 
+                          variant={filterType === "video" ? "default" : "outline"} 
+                          size="sm" 
+                          onClick={() => setFilterType("video")}
+                        >
+                          Videos ({savedItems.filter(item => item.type === 'video').length})
                         </Button>
                       </div>
                     </div>
                     
-                    {filteredItems.length === 0 ? <div className="text-center py-10">
+                    {filteredItems.length === 0 ? (
+                      <div className="text-center py-10">
                         <Bookmark size={48} className="mx-auto text-gray-300 mb-4" />
-                        <h3 className="text-lg font-medium text-gray-700 mb-2">No saved items yet</h3>
+                        <h3 className="text-lg font-medium text-gray-700 mb-2">
+                          {filterType === 'all' ? 'No saved items yet' : `No ${filterType === 'newCar' ? 'new cars' : filterType === 'usedCar' ? 'used cars' : filterType + 's'} saved yet`}
+                        </h3>
                         <p className="text-gray-500 max-w-md mx-auto">
-                          Use the bookmark button on articles, cars, videos, and photos to collect them here
+                          {filterType === 'all' 
+                            ? 'Use the bookmark button on articles, cars, videos, and photos to collect them here'
+                            : `Save some ${filterType === 'newCar' ? 'new cars' : filterType === 'usedCar' ? 'used cars' : filterType + 's'} to see them here`
+                          }
                         </p>
                         <Button onClick={() => navigate("/")} className="mt-4 text-white bg-color-primary-1 hover:bg-color-primary-2 bg-black">
                           Browse Content
                         </Button>
-                      </div> : <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
                         {filteredItems.map(item => {
-                      switch (item.type) {
-                        case 'article':
-                          return <ArticleCard key={item.id} article={{
-                            id: item.id,
-                            imageUrl: item.imageUrl,
-                            title: item.title,
-                            date: item.metadata?.date || '',
-                            category: item.metadata?.category || '',
-                            featured: item.metadata?.featured,
-                            photoCount: item.metadata?.photoCount
-                          }} />;
-                        case 'photo':
-                          return <PhotoCard key={item.id} photo={{
-                            id: item.id,
-                            imageUrl: item.imageUrl,
-                            title: item.title,
-                            position: item.metadata?.position || '',
-                            make: item.metadata?.make || '',
-                            carModel: item.metadata?.carModel || '',
-                            year: item.metadata?.year || ''
-                          }} />;
-                        case 'video':
-                          return <VideoCard key={item.id} video={{
-                            id: item.id,
-                            imageUrl: item.imageUrl,
-                            title: item.title,
-                            duration: item.metadata?.duration || '',
-                            views: item.metadata?.views,
-                            publishDate: item.metadata?.publishDate
-                          }} />;
-                        case 'newCar':
-                        case 'usedCar':
-                          return <CarCard key={item.id} car={{
-                            id: item.id,
-                            imageUrl: item.imageUrl,
-                            title: item.title,
-                            price: item.metadata?.price || '',
-                            category: item.metadata?.category || '',
-                            year: item.metadata?.year,
-                            mileage: item.metadata?.mileage,
-                            fuelType: item.metadata?.fuelType,
-                            drivetrain: item.metadata?.drivetrain,
-                            location: item.metadata?.location,
-                            bodyStyle: item.metadata?.bodyStyle as any,
-                            isNew: item.type === 'newCar' ? true : false
-                          }} type={item.type === 'newCar' ? 'new' : 'used'} />;
-                        default:
-                          return null;
-                      }
-                    })}
-                      </div>}
+                          switch (item.type) {
+                            case 'article':
+                              return (
+                                <ArticleCard 
+                                  key={item.id} 
+                                  article={{
+                                    id: item.id,
+                                    imageUrl: item.imageUrl,
+                                    title: item.title,
+                                    date: item.metadata?.date || '',
+                                    category: item.metadata?.category || '',
+                                    featured: item.metadata?.featured,
+                                    photoCount: item.metadata?.photoCount
+                                  }} 
+                                />
+                              );
+                            case 'photo':
+                              return (
+                                <PhotoCard 
+                                  key={item.id} 
+                                  photo={{
+                                    id: item.id,
+                                    imageUrl: item.imageUrl,
+                                    title: item.title,
+                                    position: item.metadata?.position || '',
+                                    make: item.metadata?.make || '',
+                                    carModel: item.metadata?.carModel || '',
+                                    year: item.metadata?.year || ''
+                                  }} 
+                                />
+                              );
+                            case 'video':
+                              return (
+                                <VideoCard 
+                                  key={item.id} 
+                                  video={{
+                                    id: item.id,
+                                    imageUrl: item.imageUrl,
+                                    title: item.title,
+                                    duration: item.metadata?.duration || '',
+                                    views: item.metadata?.views,
+                                    publishDate: item.metadata?.publishDate
+                                  }} 
+                                />
+                              );
+                            case 'newCar':
+                            case 'usedCar':
+                              return (
+                                <CarCard 
+                                  key={item.id} 
+                                  car={{
+                                    id: item.id,
+                                    imageUrl: item.imageUrl,
+                                    title: item.title,
+                                    price: item.metadata?.price || '',
+                                    category: item.metadata?.category || '',
+                                    year: item.metadata?.year,
+                                    mileage: item.metadata?.mileage,
+                                    fuelType: item.metadata?.fuelType,
+                                    drivetrain: item.metadata?.drivetrain,
+                                    location: item.metadata?.location,
+                                    bodyStyle: item.metadata?.bodyStyle as any,
+                                    isNew: item.type === 'newCar'
+                                  }} 
+                                  type={item.type === 'newCar' ? 'new' : 'used'} 
+                                />
+                              );
+                            default:
+                              return null;
+                          }
+                        })}
+                      </div>
+                    )}
                   </div>
                 </TabsContent>
                 
@@ -275,28 +339,43 @@ const Profile = () => {
                     <CardContent>
                       <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                          <FormField control={form.control} name="name" render={({
-                          field
-                        }) => <FormItem>
+                          <FormField 
+                            control={form.control} 
+                            name="name" 
+                            render={({ field }) => (
+                              <FormItem>
                                 <FormLabel>Name</FormLabel>
                                 <FormControl>
                                   <Input {...field} />
                                 </FormControl>
-                              </FormItem>} />
-                          <FormField control={form.control} name="email" render={({
-                          field
-                        }) => <FormItem>
+                              </FormItem>
+                            )} 
+                          />
+                          <FormField 
+                            control={form.control} 
+                            name="email" 
+                            render={({ field }) => (
+                              <FormItem>
                                 <FormLabel>Email Address</FormLabel>
                                 <FormControl>
                                   <Input {...field} type="email" />
                                 </FormControl>
-                              </FormItem>} />
+                              </FormItem>
+                            )} 
+                          />
                           <div className="flex items-center justify-between pt-2">
-                            <Button type="button" variant="outline" onClick={() => setPersonalizationOpen(true)} className="flex items-center gap-2 text-gray-900 bg-white border-gray-300 hover:bg-gray-50">
+                            <Button 
+                              type="button" 
+                              variant="outline" 
+                              onClick={() => setPersonalizationOpen(true)} 
+                              className="flex items-center gap-2 text-gray-900 bg-white border-gray-300 hover:bg-gray-50"
+                            >
                               <Palette size={16} />
                               Personalize Experience
                             </Button>
-                            <Button type="submit" className="text-white bg-color-primary-1 hover:bg-color-primary-2">Save Changes</Button>
+                            <Button type="submit" className="text-white bg-color-primary-1 hover:bg-color-primary-2">
+                              Save Changes
+                            </Button>
                           </div>
                         </form>
                       </Form>
@@ -309,6 +388,8 @@ const Profile = () => {
         </main>
       </div>
       <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
-    </>;
+    </>
+  );
 };
+
 export default Profile;
