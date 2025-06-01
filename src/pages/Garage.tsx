@@ -1,8 +1,10 @@
+
 import React, { useState, useEffect } from "react";
 import { useSavedItems } from "../contexts/SavedItemsContext";
 import PersonalizationDialog from "../components/PersonalizationDialog";
 import ProfileSidebar from "../components/garage/ProfileSidebar";
 import GarageContent from "../components/garage/GarageContent";
+import GarageSettings from "../components/garage/GarageSettings";
 import MainLayout from "../components/MainLayout";
 import GarageHeader from "../components/garage/GarageHeader";
 import { useToast } from "@/hooks/use-toast";
@@ -217,6 +219,7 @@ const Garage = () => {
     updateSavedItem
   } = useSavedItems();
   const [personalizationOpen, setPersonalizationOpen] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const {
     toast
   } = useToast();
@@ -250,15 +253,30 @@ const Garage = () => {
   }, [savedItems, updateSavedItem]);
 
   const handleSettingsClick = () => {
-    // Navigate to profile page with settings tab active
-    window.location.href = '/profile#settings';
+    setShowSettings(true);
+  };
+
+  const handleBackToGarage = () => {
+    setShowSettings(false);
   };
 
   return <MainLayout isGaragePage={true}>
       <div className="min-h-screen">
         {/* Responsive layout */}
         <div className="md:hidden px-0 py-0">
-          <GarageContent />
+          {showSettings ? (
+            <div className="p-4">
+              <button 
+                onClick={handleBackToGarage}
+                className="mb-4 text-blue-600 hover:text-blue-800"
+              >
+                ← Back to Garage
+              </button>
+              <GarageSettings />
+            </div>
+          ) : (
+            <GarageContent />
+          )}
         </div>
 
         {/* Desktop layout */}
@@ -275,9 +293,21 @@ const Garage = () => {
                 />
               </aside>
               
-              {/* Main Content (GarageContent) */}
+              {/* Main Content */}
               <div className="flex-1">
-                <GarageContent />
+                {showSettings ? (
+                  <div>
+                    <button 
+                      onClick={handleBackToGarage}
+                      className="mb-6 text-blue-600 hover:text-blue-800 font-medium"
+                    >
+                      ← Back to Garage
+                    </button>
+                    <GarageSettings />
+                  </div>
+                ) : (
+                  <GarageContent />
+                )}
               </div>
             </div>
           </main>
