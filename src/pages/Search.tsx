@@ -11,7 +11,6 @@ import { LayoutDashboard } from "lucide-react";
 import { determineContentType, generateChatResponse, getAllContent, mockArticles, mockNewCars, mockUsedCars, mockPhotos, mockVideos } from "../services/mockData";
 import { useIsMobile } from "../hooks/use-mobile";
 
-
 interface SearchResult {
   id: string;
   query: string;
@@ -303,7 +302,7 @@ const Search = () => {
                       )}
                       
                       {result.type === "search" && result.contentType && (
-                        <div className="overflow-hidden rounded-lg bg-white p-4 shadow-md">
+                        <div className="overflow-hidden rounded-lg bg-white p-4 shadow-md relative z-10">
                           {/* Search results content */}
                           <ContentTabs activeTab={activeContentTypes[result.id] || result.contentType} onTabChange={tab => handleTabChange(result.id, tab)} />
                           <ContentGrid type={activeContentTypes[result.id] || result.contentType} content={content} loadMore={handleLoadMore} isLoadingMore={loadingMore} hasMore={hasMore} />
@@ -316,7 +315,7 @@ const Search = () => {
             </div>
           </div>
           
-          <div className="sticky bottom-0 left-0 right-0 z-10 bg-gradient-to-t from-motortrend-gray to-transparent p-4 pb-6">
+          <div className="sticky bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-motortrend-gray to-transparent p-4 pb-6">
             <div className="max-w-[980px] mx-auto w-full">
               <SearchBar 
                 onSearch={handleSearch} 
