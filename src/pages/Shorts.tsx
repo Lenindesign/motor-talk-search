@@ -12,8 +12,11 @@ const Shorts = () => {
   const navigate = useNavigate();
   const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
   
-  // Find the current video and its index
-  const currentVideoIndex = mockShortVideos.findIndex(video => video.id === id);
+  // Ensure we only use exactly 6 videos for the shorts experience
+  const MAX_SHORTS = 6;
+  
+  // Find the current video and its index within the first 6 videos
+  const currentVideoIndex = mockShortVideos.slice(0, MAX_SHORTS).findIndex(video => video.id === id);
   const [activeIndex, setActiveIndex] = useState(currentVideoIndex !== -1 ? currentVideoIndex : 0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
@@ -114,8 +117,9 @@ const Shorts = () => {
       currentVideo.pause();
     }
     
+    // Calculate next index ensuring we only use the first 6 videos
     let nextIndex;
-    if (activeIndex < mockShortVideos.length - 1) {
+    if (activeIndex < MAX_SHORTS - 1) {
       nextIndex = activeIndex + 1;
     } else {
       // Loop back to the first video when at the end
@@ -123,7 +127,8 @@ const Shorts = () => {
     }
     
     setActiveIndex(nextIndex);
-    setTimeout(() => playVideo(nextIndex), 50); // Small delay to ensure state is updated
+    // Use a small delay to ensure state is updated before playing
+    setTimeout(() => playVideo(nextIndex), 50);
   };
 
   const navigateToPrev = () => {
@@ -133,16 +138,18 @@ const Shorts = () => {
       currentVideo.pause();
     }
     
+    // Calculate previous index ensuring we only use the first 6 videos
     let prevIndex;
     if (activeIndex > 0) {
       prevIndex = activeIndex - 1;
     } else {
-      // Loop back to the last video when at the beginning
-      prevIndex = mockShortVideos.length - 1;
+      // Loop back to video #6 when at the beginning
+      prevIndex = MAX_SHORTS - 1;
     }
     
     setActiveIndex(prevIndex);
-    setTimeout(() => playVideo(prevIndex), 50); // Small delay to ensure state is updated
+    // Use a small delay to ensure state is updated before playing
+    setTimeout(() => playVideo(prevIndex), 50);
   };
 
   const togglePlayPause = () => {
@@ -290,11 +297,11 @@ const Shorts = () => {
         </Button>
       </div>
 
-      <div className="navigation-controls fixed right-4 top-1/2 transform -translate-y-1/2 z-40">
+      <div className="navigation-controls fixed left-4 top-1/2 transform -translate-y-1/2 z-50">
         <Button 
           variant="ghost" 
           size="icon" 
-          className="bg-black/50 text-white hover:bg-black/70 rounded-full mb-2"
+          className="bg-black/50 text-white hover:bg-black/70 rounded-full mb-2 h-12 w-12"
           onClick={navigateToPrev}
         >
           <ChevronUp size={24} />
@@ -302,7 +309,7 @@ const Shorts = () => {
         <Button 
           variant="ghost" 
           size="icon" 
-          className="bg-black/50 text-white hover:bg-black/70 rounded-full"
+          className="bg-black/50 text-white hover:bg-black/70 rounded-full h-12 w-12"
           onClick={navigateToNext}
         >
           <ChevronDown size={24} />
@@ -313,7 +320,7 @@ const Shorts = () => {
         ref={containerRef}
         className="shorts-container h-screen overflow-y-scroll snap-y snap-mandatory"
       >
-        {mockShortVideos.map((video, index) => {
+        {mockShortVideos.slice(0, MAX_SHORTS).map((video, index) => {
           const isActive = index === activeIndex;
           const isVideoSaved = isSaved(video.id, 'video');
 
