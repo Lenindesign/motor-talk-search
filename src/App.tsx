@@ -26,6 +26,7 @@ const Shorts = lazy(() => import('./pages/Shorts'));
 const DesignSystem = lazy(() => import('./pages/DesignSystem'));
 const TestCarCard = lazy(() => import("./components/TestCarCard"));
 const TestCard = lazy(() => import("./pages/TestCard"));
+const BestSUVs = lazy(() => import("./pages/BestSUVs"));
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
 import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 import MainLayout from "./components/MainLayout";
@@ -55,6 +56,7 @@ function App() {
                     <Route path="/cars" element={<CarDatabase />} />
                     <Route path="/research/:id" element={<CarResearch />} />
                     <Route path="/buyers-guide" element={<BuyersGuide />} />
+                    <Route path="/best-suvs" element={<BestSUVs />} />
                     <Route path="/news" element={<News />} />
                     <Route path="/videos" element={<Videos />} />
                     <Route path="/article/:id" element={<ArticleDetail />} />
