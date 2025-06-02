@@ -173,8 +173,8 @@ const Profile = () => {
                 
                 <TabsContent value="saved" className="space-y-6">
                   <div className="bg-white p-4 rounded-lg shadow">
-                    <div className="flex justify-between items-center mb-4">
-                      <h2 className="text-xl font-bold">Saved Items</h2>
+                    <div className="mb-4">
+                      <h2 className="text-xl font-semibold mb-3">Saved Items</h2>
                       <div className="flex gap-2 flex-wrap">
                         <Button 
                           variant={filterType === "all" ? "default" : "outline"} 
@@ -301,8 +301,22 @@ const Profile = () => {
                                     fuelType: item.metadata?.fuelType,
                                     drivetrain: item.metadata?.drivetrain,
                                     location: item.metadata?.location,
+                                    dealerName: item.metadata?.dealerName,
+                                    dealerLocation: item.metadata?.dealerLocation,
                                     bodyStyle: item.metadata?.bodyStyle as any,
-                                    isNew: item.type === 'newCar'
+                                    isNew: item.type === 'newCar',
+                                    // Add new car specs that are shown in My Garage
+                                    msrp: item.metadata?.msrp,
+                                    mpg: item.metadata?.mpg,
+                                    mpge: item.metadata?.mpge,
+                                    range: item.metadata?.range,
+                                    engine: item.metadata?.engine,
+                                    horsepower: item.metadata?.horsepower,
+                                    transmission: item.metadata?.transmission,
+                                    // MotorTrend ratings
+                                    motorTrendScore: item.metadata?.motorTrendScore,
+                                    motorTrendRank: item.metadata?.motorTrendRank,
+                                    motorTrendCategoryRank: item.metadata?.motorTrendCategoryRank
                                   }} 
                                   type={item.type === 'newCar' ? 'new' : 'used'} 
                                 />
