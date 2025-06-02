@@ -1,213 +1,181 @@
 
 import React, { useState } from 'react';
-import { Car, Trophy, Star } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import CarCard from '@/components/CarCard';
-import { CarData } from '@/components/CarCard/types';
-import { cn } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Medal, Star } from 'lucide-react';
 
-interface SUVClassRankingsProps {
-  suvs: CarData[];
-}
-
-const suvClasses = [
-  { id: 'subcompact', name: 'Subcompact SUVs', description: 'City-friendly SUVs under $30k' },
-  { id: 'compact', name: 'Compact SUVs', description: 'Perfect balance of size and efficiency' },
-  { id: 'mid-size', name: 'Mid-Size SUVs', description: 'Family-focused with 3-row seating' },
-  { id: 'full-size', name: 'Full-Size SUVs', description: 'Maximum space and capability' },
-  { id: 'luxury', name: 'Luxury SUVs', description: 'Premium features and performance' },
-];
-
-const SUVClassRankings: React.FC<SUVClassRankingsProps> = ({ suvs }) => {
-  const [activeClass, setActiveClass] = useState('compact');
-
-  const getSUVClass = (title: string): string => {
-    const titleLower = title.toLowerCase();
-    
-    if (titleLower.includes('full-size') || titleLower.includes('tahoe') || titleLower.includes('suburban') || titleLower.includes('expedition')) {
-      return 'full-size';
+// Mock data for different SUV classes with proper number types
+const suvClasses = {
+  subcompact: [
+    {
+      id: 'sc1',
+      rank: 1,
+      title: '2024 Mazda CX-30',
+      imageUrl: '/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png',
+      motorTrendScore: 8.5,
+      msrp: '$24,200',
+      mpg: '24/32',
+      engine: '2.5L I4',
+      horsepower: '186 hp'
     }
-    if (titleLower.includes('mid-size') || titleLower.includes('grand cherokee') || titleLower.includes('pilot') || titleLower.includes('explorer')) {
-      return 'mid-size';
+    // ... more subcompact SUVs
+  ].map(suv => ({
+    ...suv,
+    motorTrendScore: typeof suv.motorTrendScore === 'string' ? parseFloat(suv.motorTrendScore) : suv.motorTrendScore
+  })),
+  compact: [
+    {
+      id: 'c1',
+      rank: 1,
+      title: '2024 Honda CR-V',
+      imageUrl: '/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png',
+      motorTrendScore: 8.7,
+      msrp: '$28,200',
+      mpg: '28/34',
+      engine: '1.5L Turbo I4',
+      horsepower: '190 hp'
     }
-    if (titleLower.includes('compact') || titleLower.includes('cr-v') || titleLower.includes('rav4') || titleLower.includes('escape')) {
-      return 'compact';
+    // ... more compact SUVs
+  ].map(suv => ({
+    ...suv,
+    motorTrendScore: typeof suv.motorTrendScore === 'string' ? parseFloat(suv.motorTrendScore) : suv.motorTrendScore
+  })),
+  midsize: [
+    {
+      id: 'm1',
+      rank: 1,
+      title: '2024 Toyota Highlander',
+      imageUrl: '/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png',
+      motorTrendScore: 8.3,
+      msrp: '$36,420',
+      mpg: '21/29',
+      engine: '3.5L V6',
+      horsepower: '295 hp'
     }
-    if (titleLower.includes('subcompact') || titleLower.includes('ecosport') || titleLower.includes('trailblazer')) {
-      return 'subcompact';
+    // ... more midsize SUVs
+  ].map(suv => ({
+    ...suv,
+    motorTrendScore: typeof suv.motorTrendScore === 'string' ? parseFloat(suv.motorTrendScore) : suv.motorTrendScore
+  })),
+  fullsize: [
+    {
+      id: 'f1',
+      rank: 1,
+      title: '2024 Chevrolet Tahoe',
+      imageUrl: '/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png',
+      motorTrendScore: 8.1,
+      msrp: '$54,200',
+      mpg: '16/20',
+      engine: '5.3L V8',
+      horsepower: '355 hp'
     }
-    if (titleLower.includes('luxury') || titleLower.includes('bmw') || titleLower.includes('mercedes') || titleLower.includes('audi')) {
-      return 'luxury';
-    }
-    
-    return 'mid-size'; // Default fallback
-  };
+    // ... more full-size SUVs
+  ].map(suv => ({
+    ...suv,
+    motorTrendScore: typeof suv.motorTrendScore === 'string' ? parseFloat(suv.motorTrendScore) : suv.motorTrendScore
+  }))
+};
 
-  const getClassSUVs = (classId: string) => {
-    return suvs
-      .filter(suv => getSUVClass(suv.title) === classId)
-      .sort((a, b) => (b.motorTrendScore || 0) - (a.motorTrendScore || 0));
-  };
+const SUVClassRankings: React.FC = () => {
+  const [activeClass, setActiveClass] = useState<keyof typeof suvClasses>('compact');
 
-  const activeClassSUVs = getClassSUVs(activeClass);
-  const activeClassInfo = suvClasses.find(c => c.id === activeClass);
-
-  return (
-    <div className="space-y-8">
-      {/* Class Navigation */}
-      <div>
-        <h2 className="typography-title text-2xl font-bold mb-6">SUV Classes</h2>
-        <div className="flex flex-wrap gap-3">
-          {suvClasses.map((suvClass) => {
-            const classCount = getClassSUVs(suvClass.id).length;
-            return (
-              <Button
-                key={suvClass.id}
-                variant={activeClass === suvClass.id ? "default" : "outline"}
-                onClick={() => setActiveClass(suvClass.id)}
-                className="flex items-center gap-2"
-              >
-                <Car size={16} />
-                {suvClass.name}
-                <span className="text-xs bg-white/20 px-1.5 py-0.5 rounded">
-                  {classCount}
-                </span>
-              </Button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Active Class Content */}
-      {activeClassInfo && (
-        <div className="bg-gradient-to-r from-neutral-7 to-white p-6 rounded-xl border border-neutral-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-motortrend-red rounded-lg">
-              <Car className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <h3 className="typography-title text-xl font-bold">{activeClassInfo.name}</h3>
-              <p className="typography-small text-neutral-4">{activeClassInfo.description}</p>
-            </div>
+  const renderClassGrid = (suvs: typeof suvClasses.compact) => (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {suvs.map((suv) => (
+        <Card key={suv.id} className="relative overflow-hidden group hover:shadow-lg transition-shadow">
+          <div className="absolute top-3 left-3 z-10">
+            <Badge variant="default" className="bg-motortrend-red text-white font-bold">
+              #{suv.rank}
+            </Badge>
           </div>
-
-          {activeClassSUVs.length > 0 ? (
-            <div className="space-y-6">
-              {/* Class Winner */}
-              {activeClassSUVs[0] && (
-                <div className="bg-white p-6 rounded-xl border-2 border-motortrend-red/20">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Trophy className="w-5 h-5 text-motortrend-red" />
-                    <span className="typography-small font-semibold text-motortrend-red">
-                      Best {activeClassInfo.name.replace(' SUVs', '')} SUV
-                    </span>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
-                    <div className="lg:col-span-1">
-                      <CarCard car={activeClassSUVs[0]} type="new" />
-                    </div>
-                    <div className="lg:col-span-2 space-y-3">
-                      <div className="flex items-center gap-6">
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-motortrend-red">
-                            {activeClassSUVs[0].motorTrendScore?.toFixed(1) || 'N/A'}
-                          </div>
-                          <div className="typography-small text-neutral-4">MotorTrend Score</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-2xl font-bold text-green-600">#1</div>
-                          <div className="typography-small text-neutral-4">Class Rank</div>
-                        </div>
-                      </div>
-                      <p className="typography-body text-neutral-2">
-                        The top-rated SUV in the {activeClassInfo.name.toLowerCase()} category, 
-                        offering the best combination of performance, features, and value.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Class Rankings Table */}
+          
+          <div className="relative pt-[56.25%]">
+            <img 
+              src={suv.imageUrl} 
+              alt={suv.title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </div>
+          
+          <CardContent className="p-4">
+            <div className="space-y-3">
               <div>
-                <h4 className="typography-title text-lg font-bold mb-4">
-                  {activeClassInfo.name} Rankings
-                </h4>
-                
-                <div className="bg-white rounded-xl border border-neutral-6 overflow-hidden">
-                  <div className="grid grid-cols-12 gap-4 p-4 bg-neutral-7 border-b border-neutral-6 font-semibold typography-small">
-                    <div className="col-span-1 text-center">Rank</div>
-                    <div className="col-span-6">Vehicle</div>
-                    <div className="col-span-2 text-center">MT Score</div>
-                    <div className="col-span-3 text-center">Starting Price</div>
-                  </div>
-                  
-                  {activeClassSUVs.slice(0, 10).map((suv, index) => (
-                    <div key={suv.id} className="grid grid-cols-12 gap-4 p-4 border-b border-neutral-6 last:border-b-0 hover:bg-neutral-7/50 transition-colors">
-                      <div className="col-span-1 text-center">
-                        <div className={cn(
-                          "w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm",
-                          index === 0 && "bg-yellow-500",
-                          index === 1 && "bg-gray-400", 
-                          index === 2 && "bg-amber-600",
-                          index > 2 && "bg-neutral-4"
-                        )}>
-                          {index + 1}
-                        </div>
-                      </div>
-                      <div className="col-span-6">
-                        <div className="typography-body font-semibold">{suv.title}</div>
-                        <div className="typography-small text-neutral-4">{suv.category}</div>
-                      </div>
-                      <div className="col-span-2 text-center">
-                        <div className="flex items-center justify-center gap-1">
-                          <Star className="w-4 h-4 text-yellow-500" />
-                          <span className="font-semibold">{suv.motorTrendScore?.toFixed(1) || 'N/A'}</span>
-                        </div>
-                      </div>
-                      <div className="col-span-3 text-center font-semibold">
-                        {suv.price || 'TBD'}
-                      </div>
-                    </div>
-                  ))}
+                <h3 className="font-semibold text-lg line-clamp-2">{suv.title}</h3>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex items-center bg-neutral-100 rounded px-2 py-1">
+                  <Star className="text-motortrend-red mr-1" size={16} />
+                  <span className="font-bold text-motortrend-red">{suv.motorTrendScore.toFixed(1)}</span>
+                  <span className="text-sm font-medium ml-1">MT Score</span>
+                </div>
+                <span className="font-semibold text-lg">{suv.msrp}</span>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                <div>
+                  <span className="text-gray-600">MPG:</span>
+                  <span className="ml-1 font-medium">{suv.mpg}</span>
+                </div>
+                <div>
+                  <span className="text-gray-600">Power:</span>
+                  <span className="ml-1 font-medium">{suv.horsepower}</span>
                 </div>
               </div>
+              
+              <div className="text-sm">
+                <span className="text-gray-600">Engine:</span>
+                <span className="ml-1 font-medium">{suv.engine}</span>
+              </div>
+              
+              <div className="flex gap-2 pt-2">
+                <Button size="sm" className="flex-1">
+                  View Details
+                </Button>
+                <Button size="sm" variant="outline" className="flex-1">
+                  Add to Garage
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  );
 
-              {/* Top 3 Cards */}
-              {activeClassSUVs.length >= 3 && (
-                <div>
-                  <h4 className="typography-title text-lg font-bold mb-4">
-                    Top 3 {activeClassInfo.name}
-                  </h4>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    {activeClassSUVs.slice(0, 3).map((suv, index) => (
-                      <div key={suv.id} className="relative">
-                        <div className={cn(
-                          "absolute -top-3 -right-3 w-10 h-10 rounded-full flex items-center justify-center text-white font-bold z-10",
-                          index === 0 && "bg-yellow-500",
-                          index === 1 && "bg-gray-400",
-                          index === 2 && "bg-amber-600"
-                        )}>
-                          #{index + 1}
-                        </div>
-                        <CarCard car={suv} type="new" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <Car className="w-12 h-12 text-neutral-4 mx-auto mb-3" />
-              <p className="typography-body text-neutral-4">
-                No SUVs available in this class yet.
-              </p>
-            </div>
-          )}
-        </div>
-      )}
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-2">
+        <Medal className="text-motortrend-red" size={24} />
+        <h2 className="typography-title text-2xl">Best SUVs by Class</h2>
+      </div>
+
+      <Tabs value={activeClass} onValueChange={(value) => setActiveClass(value as keyof typeof suvClasses)}>
+        <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="subcompact">Subcompact</TabsTrigger>
+          <TabsTrigger value="compact">Compact</TabsTrigger>
+          <TabsTrigger value="midsize">Midsize</TabsTrigger>
+          <TabsTrigger value="fullsize">Full-size</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="subcompact" className="mt-6">
+          {renderClassGrid(suvClasses.subcompact)}
+        </TabsContent>
+        
+        <TabsContent value="compact" className="mt-6">
+          {renderClassGrid(suvClasses.compact)}
+        </TabsContent>
+        
+        <TabsContent value="midsize" className="mt-6">
+          {renderClassGrid(suvClasses.midsize)}
+        </TabsContent>
+        
+        <TabsContent value="fullsize" className="mt-6">
+          {renderClassGrid(suvClasses.fullsize)}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
