@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Car, BookOpen, Sparkles, ArrowRightLeft } from "lucide-react";
+import { Car, BookOpen, Sparkles, ArrowRightLeft, Search, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { useSavedItems, SavedItem, SavedItemType } from "../../contexts/SavedItemsContext";
 import CarComparisonTable from "./CarComparisonTable";
 import GarageCompare from "../GarageCompare";
@@ -42,6 +43,7 @@ const GarageContent = () => {
     savedItems
   } = useSavedItems();
   const [activeTab, setActiveTab] = useState<'all' | 'owned' | 'testDriven' | 'interested'>('all');
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
   // Add filtering states
   const [minScore, setMinScore] = useState<number>(0);
@@ -109,13 +111,21 @@ const GarageContent = () => {
     };
   };
 
-  // Filter and sort cars based on user selections
+  // Enhanced filter and sort cars with search functionality
   const getDisplayCars = () => {
     let filteredCars = [...savedCars];
 
     // Filter by tab
     if (activeTab !== 'all') {
       filteredCars = filteredCars.filter(car => car.metadata?.ownership === activeTab);
+    }
+
+    // Filter by search query
+    if (searchQuery.trim()) {
+      filteredCars = filteredCars.filter(car => 
+        car.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        car.metadata?.category?.toLowerCase().includes(searchQuery.toLowerCase())
+      );
     }
 
     // Filter by minimum score
@@ -196,77 +206,114 @@ const GarageContent = () => {
   const displayCars = getDisplayCars();
   const filteredArticles = getRelatedArticles();
   const navigate = useNavigate();
-  return <div className="">
-      <Card className="py-0">
-        <CardHeader className="p-6 pb-0">
-          <div className="text-center px-4 py-2">
-            <CardTitle className="flex items-center justify-center gap-2 typography-title text-color-neutral-1 text-5xl mb-3">
-              <svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="currentColor">
-                <path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z" />
-              </svg>
-              {showComparison ? "Car Comparison" : "My Garage"}
-            </CardTitle>
-            <CardDescription className="typography-body text-color-neutral-4 text-center text-lg mb-2">
-              {showComparison ? "Compare your selected vehicles side by side" : "View, manage, and get insights about your vehicles"}
-            </CardDescription>
-          </div>
-          
-          <div className="flex gap-2 justify-center md:justify-end">
-            {showComparison ? <Button variant="outline" onClick={() => setShowComparison(false)} size="sm">
-                Back to Garage
-              </Button> : <>
-                <div className="flex gap-2">
-                  
-                </div>
-                
-                {contentView === 'garage' && <GarageFilters minScore={minScore} sortByScore={sortByScore} showFilters={showFilters} onMinScoreChange={setMinScore} onSortByScoreChange={setSortByScore} onToggleFilters={() => setShowFilters(!showFilters)} />}
-              </>}
-          </div>
-        </CardHeader>
+  return (
+    <div className="max-w-7xl mx-auto">
+      {/* Simplified Header */}
+      <div className="mb-6">
+        <div className="text-center mb-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-motortrend-dark mb-2 flex items-center justify-center gap-3">
+            <Car size={32} className="text-motortrend-red" />
+            My Garage
+          </h1>
+          <p className="text-gray-600 text-lg">
+            Manage your vehicles, compare specs, and discover new cars
+          </p>
+        </div>
 
-        <CardContent className="pt-0 px-[8px] -mt-14">
-          {/* Comparison View */}
-          {showComparison ? <div className="mt-2">
-              <CarComparisonTable cars={getSelectedCarData()} />
-            </div> : (/* Regular Garage View */
+        {/* Compact Action Bar */}
+        <div className="bg-white rounded-xl border shadow-sm p-4 mb-4">
+          <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+            {/* Search and Add Car */}
+            <div className="flex flex-1 gap-3 w-full md:w-auto">
+              <div className="relative flex-1 max-w-md">
+                <Search size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                <Input
+                  placeholder="Search your cars..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              <QuickAddCar activeTab={activeTab} />
+            </div>
+
+            {/* Filters */}
+            <div className="flex gap-2">
+              <GarageFilters 
+                minScore={minScore}
+                sortByScore={sortByScore}
+                showFilters={showFilters}
+                onMinScoreChange={setMinScore}
+                onSortByScoreChange={setSortByScore}
+                onToggleFilters={() => setShowFilters(!showFilters)}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      {showComparison ? (
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-2xl font-bold text-motortrend-dark">Car Comparison</h2>
+            <Button variant="outline" onClick={() => setShowComparison(false)}>
+              Back to Garage
+            </Button>
+          </div>
+          <CarComparisonTable cars={getSelectedCarData()} />
+        </div>
+      ) : (
         <>
-              {contentView === 'garage' && <>
-                  {/* Add Another Car - More compact on mobile */}
-                  <div className="mb-2 md:mb-3">
-                    <QuickAddCar activeTab={activeTab} />
+          {/* Tab Content */}
+          <div className="mb-6">
+            <GarageTabContent 
+              activeTab={activeTab}
+              onTabChange={setActiveTab}
+              displayCars={displayCars}
+              savedItemToCarData={savedItemToCarData}
+              minScore={minScore}
+            />
+          </div>
+
+          {/* Compare Section - More Prominent */}
+          {savedCars.length > 1 && (
+            <div className="mb-8">
+              <Card className="border-2 border-motortrend-red/20 bg-gradient-to-r from-motortrend-red/5 to-transparent">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <h3 className="text-xl font-bold text-motortrend-dark flex items-center gap-2">
+                        <ArrowRightLeft size={20} className="text-motortrend-red" />
+                        Compare Your Cars
+                      </h3>
+                      <p className="text-gray-600">Select vehicles to compare side by side</p>
+                    </div>
+                    <Button 
+                      onClick={handleCompare}
+                      disabled={selectedCars.length < 2}
+                      className="bg-motortrend-red hover:bg-motortrend-red/90"
+                    >
+                      Compare Selected ({selectedCars.length})
+                    </Button>
                   </div>
-                  
-                  <GarageTabContent activeTab={activeTab} onTabChange={setActiveTab} displayCars={displayCars} savedItemToCarData={savedItemToCarData} minScore={minScore} />
-                  
-                  {/* Compare Cars */}
-                  <div className="mt-4">
-                    <GarageCompare savedCars={savedCars} selectedCars={selectedCars} onToggleCar={(id, type) => handleToggleCarForComparison(id, type)} onCompare={handleCompare} />
-                  </div>
-                </>}
-              
-              <CarsYouMayLike />
-              
-              {contentView === 'articles' && <div className="mt-6">
-                  <h3 className="typography-title text-color-neutral-1 mb-4">Articles Related to Your Garage</h3>
-                  {filteredArticles.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {filteredArticles.map(article => <ArticleCard key={article.id} article={{
-                id: article.id,
-                title: article.title,
-                imageUrl: article.imageUrl,
-                date: article.date,
-                category: article.category
-              }} />)}
-                    </div> : <div className="text-center py-10 bg-color-neutral-7 rounded-lg">
-                      <BookOpen size={48} className="mx-auto text-color-neutral-5 mb-4" />
-                      <h3 className="typography-subtitle1 text-color-neutral-2 mb-2">No related articles</h3>
-                      <p className="typography-body text-color-neutral-4 max-w-md mx-auto">
-                        Add cars to your garage to see articles related to your vehicles
-                      </p>
-                    </div>}
-                </div>}
-            </>)}
-        </CardContent>
-      </Card>
-    </div>;
+                  <GarageCompare 
+                    savedCars={savedCars}
+                    selectedCars={selectedCars}
+                    onToggleCar={(id, type) => handleToggleCarForComparison(id, type)}
+                    onCompare={handleCompare}
+                  />
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Recommendations */}
+          <CarsYouMayLike />
+        </>
+      )}
+    </div>
+  );
 };
+
 export default GarageContent;

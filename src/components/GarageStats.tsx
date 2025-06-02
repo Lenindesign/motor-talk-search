@@ -1,57 +1,49 @@
+
 import React from 'react';
 import { useSavedItems } from "../contexts/SavedItemsContext";
+
 interface GarageStatsProps {
   onTabChange?: (value: 'all' | 'owned' | 'testDriven' | 'interested') => void;
   activeTab?: 'all' | 'owned' | 'testDriven' | 'interested';
 }
 
-// Segmented control style tabs matching the provided design
 const GarageStats: React.FC<GarageStatsProps> = ({
   onTabChange,
   activeTab = 'all'
 }) => {
-  const {
-    savedItems
-  } = useSavedItems();
+  const { savedItems } = useSavedItems();
   const savedCars = savedItems.filter(item => item.type === 'newCar' || item.type === 'usedCar');
+  
   const ownedCount = savedCars.filter(car => car.metadata?.ownership === 'owned').length;
   const testDrivenCount = savedCars.filter(car => car.metadata?.ownership === 'testDriven').length;
   const interestedCount = savedCars.filter(car => car.metadata?.ownership === 'interested').length;
   const allCount = savedCars.length;
-  const tabData = [{
-    id: 'all',
-    label: 'All',
-    shortLabel: 'All',
-    count: allCount
-  }, {
-    id: 'owned',
-    label: 'Owned',
-    shortLabel: 'Own',
-    count: ownedCount
-  }, {
-    id: 'testDriven',
-    label: 'Test Drive',
-    shortLabel: 'Test',
-    count: testDrivenCount
-  }, {
-    id: 'interested',
-    label: 'Interested',
-    shortLabel: 'Want',
-    count: interestedCount
-  }] as const;
-  return <div className="flex w-full mb-4 md:mb-6">
-      {/* Segmented control container with light gray background */}
-      <div className="flex w-full bg-gray-100 rounded-lg p-1">
-        {tabData.map(tab => <button key={tab.id} onClick={() => onTabChange?.(tab.id)} className={`flex-1 px-2 md:px-4 py-2 rounded-md typography-small font-medium transition-all duration-200 flex items-center justify-center gap-1 md:gap-2 min-w-0 ${activeTab === tab.id ? 'bg-white text-gray-900 shadow-sm border border-gray-200' : 'text-gray-600 hover:text-gray-800 hover:bg-gray-50'}`}>
-            <span className="truncate text-xs md:text-sm">
-              <span className="hidden md:inline">{tab.label}</span>
-              <span className="md:hidden">{tab.shortLabel}</span>
-            </span>
-            <span className="text-xl">
-              {tab.count}
-            </span>
-          </button>)}
-      </div>
-    </div>;
+
+  const tabData = [
+    { id: 'all', label: 'All Vehicles', count: allCount },
+    { id: 'owned', label: 'Owned', count: ownedCount },
+    { id: 'testDriven', label: 'Test Driven', count: testDrivenCount },
+    { id: 'interested', label: 'Interested', count: interestedCount }
+  ] as const;
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+      {tabData.map(tab => (
+        <button
+          key={tab.id}
+          onClick={() => onTabChange?.(tab.id)}
+          className={`p-4 rounded-lg border-2 transition-all duration-200 text-left ${
+            activeTab === tab.id
+              ? 'border-motortrend-red bg-motortrend-red/5 text-motortrend-red'
+              : 'border-gray-200 bg-white hover:border-gray-300 text-gray-700 hover:bg-gray-50'
+          }`}
+        >
+          <div className="text-2xl font-bold mb-1">{tab.count}</div>
+          <div className="text-sm font-medium">{tab.label}</div>
+        </button>
+      ))}
+    </div>
+  );
 };
+
 export default GarageStats;

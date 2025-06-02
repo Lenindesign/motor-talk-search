@@ -1,9 +1,10 @@
+
 import React from "react";
 import CarCard from "../CarCard";
 import { SavedItem } from "../../contexts/SavedItemsContext";
 import { CarData } from "../CarCard/types";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Info } from "lucide-react";
+import { Info, Car } from "lucide-react";
 import GarageStats from "../GarageStats";
 
 interface GarageTabContentProps {
@@ -116,36 +117,56 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
   });
 
   return (
-    <div className="mt-6">
-      <GarageStats activeTab={activeTab} onTabChange={onTabChange} />
+    <div>
+      {/* Improved Stats/Tabs Section */}
+      <div className="bg-white rounded-xl border shadow-sm p-6 mb-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold text-motortrend-dark">Your Vehicles</h2>
+          <div className="text-sm text-gray-500">
+            {validCars.length} {validCars.length === 1 ? 'vehicle' : 'vehicles'}
+          </div>
+        </div>
+        
+        <GarageStats activeTab={activeTab} onTabChange={onTabChange} />
+        
+        {validCars.length > 0 && (
+          <Alert className="mt-4 bg-blue-50 border-blue-200">
+            <Info className="h-4 w-4 text-blue-600" />
+            <AlertDescription className="text-blue-800">
+              Click on any vehicle card to view detailed specifications and reviews.
+            </AlertDescription>
+          </Alert>
+        )}
+      </div>
       
-      {/* Notification alert for proper car viewing */}
-      {validCars.length > 0 && (
-        <Alert className="mb-4 bg-blue-50 border-blue-200">
-          <Info className="h-4 w-4 text-blue-600" />
-          <AlertDescription className="text-blue-800">
-            Click on any vehicle card to view detailed information on the research page.
-          </AlertDescription>
-        </Alert>
-      )}
-      
-      {/* Responsive grid for car cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
-        {validCars.length > 0 ? (
-          enhancedCarData.map(car => (
+      {/* Car Grid */}
+      {validCars.length > 0 ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+          {enhancedCarData.map(car => (
             <CarCard 
               key={car.id} 
               car={car} 
               type={car.isNew ? 'new' : 'used'} 
             />
-          ))
-        ) : (
-          <div className="text-center p-6 col-span-full bg-white rounded-xl border shadow-sm">
-            <h3 className="text-xl font-semibold mb-1">You have no cars in your garage</h3>
-            <p className="text-gray-600">Add your first car by using the button above.</p>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-12 bg-white rounded-xl border shadow-sm">
+          <Car size={64} className="mx-auto text-gray-300 mb-4" />
+          <h3 className="text-xl font-semibold text-gray-700 mb-2">
+            {activeTab === 'all' ? 'No vehicles in your garage' : `No ${activeTab} vehicles`}
+          </h3>
+          <p className="text-gray-500 mb-6">
+            {activeTab === 'all' 
+              ? 'Start building your garage by adding your first vehicle'
+              : `Add vehicles and mark them as ${activeTab} to see them here`
+            }
+          </p>
+          <div className="max-w-sm mx-auto">
+            {/* QuickAddCar would go here if needed */}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
