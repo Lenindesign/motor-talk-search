@@ -1,4 +1,3 @@
-
 import React from "react";
 import { SlidersHorizontal, Filter } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
@@ -6,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
-
 interface GarageFiltersProps {
   minScore: number;
   sortByScore: boolean;
@@ -15,7 +13,6 @@ interface GarageFiltersProps {
   onSortByScoreChange: (value: boolean) => void;
   onToggleFilters: () => void;
 }
-
 const GarageFilters: React.FC<GarageFiltersProps> = ({
   minScore,
   sortByScore,
@@ -24,13 +21,9 @@ const GarageFilters: React.FC<GarageFiltersProps> = ({
   onSortByScoreChange,
   onToggleFilters
 }) => {
-  return (
-    <Popover>
+  return <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2">
-          <SlidersHorizontal size={16} />
-          Filters
-        </Button>
+        
       </PopoverTrigger>
       <PopoverContent className="w-80" align="end">
         <div className="space-y-6">
@@ -44,14 +37,7 @@ const GarageFilters: React.FC<GarageFiltersProps> = ({
             <Label className="text-sm font-medium">
               Minimum MT Score: {minScore.toFixed(1)}
             </Label>
-            <Slider
-              value={[minScore]}
-              onValueChange={(value) => onMinScoreChange(value[0])}
-              max={10}
-              min={0}
-              step={0.1}
-              className="w-full"
-            />
+            <Slider value={[minScore]} onValueChange={value => onMinScoreChange(value[0])} max={10} min={0} step={0.1} className="w-full" />
           </div>
 
           {/* Sort Toggle */}
@@ -59,16 +45,10 @@ const GarageFilters: React.FC<GarageFiltersProps> = ({
             <Label htmlFor="sort-by-score" className="text-sm font-medium">
               Sort by MT Score
             </Label>
-            <Switch
-              id="sort-by-score"
-              checked={sortByScore}
-              onCheckedChange={onSortByScoreChange}
-            />
+            <Switch id="sort-by-score" checked={sortByScore} onCheckedChange={onSortByScoreChange} />
           </div>
         </div>
       </PopoverContent>
-    </Popover>
-  );
+    </Popover>;
 };
-
 export default GarageFilters;
