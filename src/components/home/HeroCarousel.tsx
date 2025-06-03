@@ -134,9 +134,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                         {slide.title}
                       </h1>
                       
-                      <Button size="lg" className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg py-0">
-                        Read Full Story
-                      </Button>
+                      <Button size="lg" className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg py-0">Full Story</Button>
                     </div>
                   </div>
                 </div>
