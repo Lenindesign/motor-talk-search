@@ -1,32 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
 
-import { Button } from "@/components/ui/button";
-import { CardTitle, CardDescription } from "@/components/ui/card";
-import MainNavigation from "../MainNavigation";
-import SearchBar from "../SearchBar";
-import { useIsMobile } from "../../hooks/use-mobile";
+import React from 'react';
 
-const GarageHeader = () => {
-  const isMobile = useIsMobile();
-  
+const GarageHeader: React.FC = () => {
   return (
-    <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
-      <div className="flex items-center justify-between max-w-[980px] mx-auto w-full">
-        <div className="flex items-center">
-          {isMobile && <MainNavigation />}
-          <Link to="/" className="flex-shrink-0">
-            <img src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" alt="MotorTrend Logo" className="h-7 w-auto hover:opacity-80 transition-opacity" />
-          </Link>
-          <div className="hidden sm:flex ml-6">
-            <MainNavigation />
-          </div>
-        </div>
-        <div className="hidden sm:block ml-4">
-          <SearchBar onSearch={query => console.log(query)} isLoading={false} variant="header" />
-        </div>
-      </div>
-    </header>
+    <div className="text-center mb-6">
+      <h1 className="text-3xl md:text-4xl font-bold text-motortrend-dark mb-2 flex items-center justify-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32" fill="currentColor" className="text-motortrend-dark">
+          <path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/>
+        </svg>
+        My Garage
+      </h1>
+      <p className="text-gray-600 text-lg">
+        Manage your vehicles, compare specs, and discover new cars
+      </p>
+    </div>
   );
 };
 
