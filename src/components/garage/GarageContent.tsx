@@ -208,8 +208,8 @@ const GarageContent = () => {
       <div className="mb-6">
         <div className="text-center mb-6">
           <h1 className="text-3xl md:text-4xl font-bold text-motortrend-dark mb-2 flex items-center justify-center gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32" fill="currentColor" className="text-motortrend-dark">
-              <path d="M160-120v-480l320-240 320-240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/>
+            <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 0 24 24" width="32" fill="currentColor" className="text-motortrend-dark">
+              <path d="M12 2l10 4.5v3l-10-4.5L2 9.5v-3L12 2zm0 2.18L4.06 7.5 12 10.82 19.94 7.5 12 4.18zM2 12l10 4.5L22 12v3l-10 4.5L2 15v-3zm0 6l10 4.5L22 18v3l-10 4.5L2 21v-3z"/>
             </svg>
             My Garage
           </h1>
