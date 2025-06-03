@@ -170,21 +170,7 @@ const PhotoDetail: React.FC = () => {
             </Card>
 
             {/* Navigation */}
-            <Card className="bg-gray-900 border-gray-700 text-white">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold mb-4">Navigation</h3>
-                <div className="space-y-2">
-                  <Button variant="outline" className="w-full justify-start border-gray-600 text-white hover:bg-gray-800" onClick={() => navigatePhoto('prev')}>
-                    <ChevronLeft size={16} className="mr-2" />
-                    Previous Photo
-                  </Button>
-                  <Button variant="outline" className="w-full justify-start border-gray-600 text-white hover:bg-gray-800" onClick={() => navigatePhoto('next')}>
-                    <ChevronRight size={16} className="mr-2" />
-                    Next Photo
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            
           </div>
         </div>
       </main>
