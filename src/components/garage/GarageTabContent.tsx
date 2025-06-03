@@ -1,4 +1,3 @@
-
 import React from "react";
 import CarCard from "../CarCard";
 import { SavedItem } from "../../contexts/SavedItemsContext";
@@ -139,9 +138,9 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
         )}
       </div>
       
-      {/* Car Grid */}
+      {/* Car Grid - Updated to show 2 columns on desktop */}
       {validCars.length > 0 ? (
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {enhancedCarData.map(car => (
             <CarCard 
               key={car.id} 
