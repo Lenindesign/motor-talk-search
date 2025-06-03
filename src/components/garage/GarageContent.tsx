@@ -122,10 +122,7 @@ const GarageContent = () => {
 
     // Filter by search query
     if (searchQuery.trim()) {
-      filteredCars = filteredCars.filter(car => 
-        car.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        car.metadata?.category?.toLowerCase().includes(searchQuery.toLowerCase())
-      );
+      filteredCars = filteredCars.filter(car => car.title.toLowerCase().includes(searchQuery.toLowerCase()) || car.metadata?.category?.toLowerCase().includes(searchQuery.toLowerCase()));
     }
 
     // Filter by minimum score
@@ -206,8 +203,7 @@ const GarageContent = () => {
   const displayCars = getDisplayCars();
   const filteredArticles = getRelatedArticles();
   const navigate = useNavigate();
-  return (
-    <div className="max-w-7xl mx-auto">
+  return <div className="max-w-7xl mx-auto">
       {/* Simplified Header */}
       <div className="mb-6">
         <div className="text-center mb-6">
@@ -225,36 +221,20 @@ const GarageContent = () => {
           <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
             {/* Search and Add Car */}
             <div className="flex flex-1 gap-3 w-full md:w-auto">
-              <div className="relative flex-1 max-w-md">
-                <Search size={18} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                <Input
-                  placeholder="Search your cars..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
+              
               <QuickAddCar activeTab={activeTab} />
             </div>
 
             {/* Filters */}
             <div className="flex gap-2">
-              <GarageFilters 
-                minScore={minScore}
-                sortByScore={sortByScore}
-                showFilters={showFilters}
-                onMinScoreChange={setMinScore}
-                onSortByScoreChange={setSortByScore}
-                onToggleFilters={() => setShowFilters(!showFilters)}
-              />
+              <GarageFilters minScore={minScore} sortByScore={sortByScore} showFilters={showFilters} onMinScoreChange={setMinScore} onSortByScoreChange={setSortByScore} onToggleFilters={() => setShowFilters(!showFilters)} />
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      {showComparison ? (
-        <div className="mb-6">
+      {showComparison ? <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold text-motortrend-dark">Car Comparison</h2>
             <Button variant="outline" onClick={() => setShowComparison(false)}>
@@ -262,23 +242,14 @@ const GarageContent = () => {
             </Button>
           </div>
           <CarComparisonTable cars={getSelectedCarData()} />
-        </div>
-      ) : (
-        <>
+        </div> : <>
           {/* Tab Content */}
           <div className="mb-6">
-            <GarageTabContent 
-              activeTab={activeTab}
-              onTabChange={setActiveTab}
-              displayCars={displayCars}
-              savedItemToCarData={savedItemToCarData}
-              minScore={minScore}
-            />
+            <GarageTabContent activeTab={activeTab} onTabChange={setActiveTab} displayCars={displayCars} savedItemToCarData={savedItemToCarData} minScore={minScore} />
           </div>
 
           {/* Compare Section - More Prominent */}
-          {savedCars.length > 1 && (
-            <div className="mb-8">
+          {savedCars.length > 1 && <div className="mb-8">
               <Card className="border-2 border-motortrend-red/20 bg-gradient-to-r from-motortrend-red/5 to-transparent">
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between mb-4">
@@ -289,31 +260,18 @@ const GarageContent = () => {
                       </h3>
                       <p className="text-gray-600">Select vehicles to compare side by side</p>
                     </div>
-                    <Button 
-                      onClick={handleCompare}
-                      disabled={selectedCars.length < 2}
-                      className="bg-motortrend-red hover:bg-motortrend-red/90"
-                    >
+                    <Button onClick={handleCompare} disabled={selectedCars.length < 2} className="bg-motortrend-red hover:bg-motortrend-red/90">
                       Compare Selected ({selectedCars.length})
                     </Button>
                   </div>
-                  <GarageCompare 
-                    savedCars={savedCars}
-                    selectedCars={selectedCars}
-                    onToggleCar={(id, type) => handleToggleCarForComparison(id, type)}
-                    onCompare={handleCompare}
-                  />
+                  <GarageCompare savedCars={savedCars} selectedCars={selectedCars} onToggleCar={(id, type) => handleToggleCarForComparison(id, type)} onCompare={handleCompare} />
                 </CardContent>
               </Card>
-            </div>
-          )}
+            </div>}
 
           {/* Recommendations */}
           <CarsYouMayLike />
-        </>
-      )}
-    </div>
-  );
+        </>}
+    </div>;
 };
-
 export default GarageContent;
