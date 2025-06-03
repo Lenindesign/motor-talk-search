@@ -26,7 +26,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
     }} className="sm:hidden py-[12px]" />
       
       {/* Main content */}
-      <main className="flex-1 bg-black">
+      <main className="">
         <Container>
           {children}
         </Container>
