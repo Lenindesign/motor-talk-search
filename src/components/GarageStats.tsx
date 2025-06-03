@@ -34,8 +34,8 @@ const GarageStats: React.FC<GarageStatsProps> = ({
           onClick={() => onTabChange?.(tab.id)}
           className={`p-4 rounded-lg border-2 transition-all duration-200 text-left ${
             activeTab === tab.id
-              ? 'border-motortrend-black bg-motortrend-black/5 text-motortrend-red'
-              : 'border-gray-200 bg-black hover:border-gray-300 text-gray-700 hover:bg-gray-50'
+              ? 'border-motortrend-black bg-motortrend-black text-motortrend-white'
+              : 'border-gray-200 bg-white hover:border-gray-300 text-gray-700 hover:bg-gray-50'
           }`}
         >
           <div className="text-2xl font-bold mb-1">{tab.count}</div>
