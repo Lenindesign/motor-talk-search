@@ -30,7 +30,7 @@ const VehicleOverview: React.FC<VehicleOverviewProps> = ({
   return (
     <div className="space-y-6">
         <Card>
-          <CardContent className="p-6 space-y-6">
+          <CardContent className="space-y-6">
             <div>
               <h2 className="text-lg font-bold text-neutral-1 mb-4">Vehicle Overview</h2>
               <div className="space-y-4">

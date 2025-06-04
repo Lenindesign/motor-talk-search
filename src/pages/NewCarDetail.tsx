@@ -104,7 +104,7 @@ const NewCarDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <main className="max-w-[980px] mx-auto w-full px-4 py-4 pt-[80px] md:pt-[100px] md:px-6 lg:px-4">
+      <main className="max-w-[980px] mx-auto w-full pt-[80px] md:pt-[100px]">
         {/* Breadcrumb Navigation */}
         <div className="flex items-center mb-5 overflow-x-auto whitespace-nowrap py-1 text-xs md:text-sm">
           <Link to="/cars" className="text-neutral-4 hover:text-motortrend-red transition-colors">
@@ -119,9 +119,9 @@ const NewCarDetail: React.FC = () => {
         </div>
         
         {/* Sticky Navigation */}
-        <nav className="sticky top-[56px] md:top-[64px] z-50 bg-white border-b border-neutral-200 shadow-sm mb-6 -mx-4 md:-mx-6 lg:-mx-4">
+        <nav className="sticky top-[56px] md:top-[64px] z-50 bg-white border-b border-neutral-200 shadow-sm mb-6">
           <div className="max-w-[980px] mx-auto">
-            <div className="flex space-x-2 overflow-x-auto p-2 px-4 md:px-6 lg:px-4 hide-scrollbar">
+            <div className="flex space-x-2 overflow-x-auto p-2 hide-scrollbar">
               {sections.map((section) => (
                 <button
                   key={section.id}
