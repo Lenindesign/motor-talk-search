@@ -1996,6 +1996,12 @@ export const generateChatResponse = (query: string): string => {
     responseText = `You can find the latest automotive news in our articles section. We recently published an article titled "${createSearchLink(mockArticles[0].title)}".`; // Assuming mockArticles[0] is the Ferrari one
   } else if (lowerQuery.includes("electric cars") || lowerQuery.includes("evs")) {
     responseText = `We have many articles and listings for electric cars. Check out the article "${createSearchLink("Electric SUVs With the Longest Range in 2025")}" or browse our new EV inventory like the ${createSearchLink("2025 Lucid Air Grand Touring")} and ${createSearchLink("2025 Rivian R1S")}.`;
+  } else if (lowerQuery.includes("safety") || lowerQuery.includes("safety features") || lowerQuery.includes("adas")) {
+    responseText = `Modern vehicles come with numerous advanced safety features. Here are the key ones to look for:\n\nMust-Have Features:\n• Forward Collision Warning\n• Automatic Emergency Braking\n• Blind Spot Warning\n• Lane Departure Warning\n\nBest Safety-Rated Brands:\n• Volvo\n• Subaru\n• Genesis\n\nCheck out our article "${createSearchLink("2025 Car Safety Technology Guide")}" for more details.`;
+  } else if (lowerQuery.includes("best suv") || lowerQuery.includes("top suv")) {
+    responseText = `Here are our top SUV picks for 2025:\n\nLuxury:\n• ${createSearchLink("2025 Genesis GV80")} - Best Overall\n• ${createSearchLink("2025 BMW X5")} - Best Performance\n\nMainstream:\n• ${createSearchLink("2025 Hyundai Palisade")} - Best Value\n• ${createSearchLink("2025 Honda CR-V")} - Most Reliable\n\nElectric:\n• ${createSearchLink("2025 Rivian R1S")} - Best Electric SUV`;
+  } else if (lowerQuery.includes("performance") || lowerQuery.includes("fast") || lowerQuery.includes("sports car")) {
+    responseText = `Here are our top performance car picks for 2025:\n\nSupercars:\n• ${createSearchLink("2025 Ferrari 296 GTB")} - Best Overall\n• ${createSearchLink("2025 Porsche 911 GT3 RS")} - Best Track Car\n\nSports Cars:\n• ${createSearchLink("2025 Chevrolet Corvette Z06")} - Best Value\n• ${createSearchLink("2025 Toyota GR Supra")} - Best Daily Driver\n\nCheck out our "${createSearchLink("2025 Performance Car Buyers Guide")}" for more details.`;
   } else if (lowerQuery.includes("list of cars") || lowerQuery.includes("show me some cars") || lowerQuery.includes("list of year make models")) {
     const exampleCars = [
       mockNewCars.length > 0 ? createSearchLink(mockNewCars[0].title) : null,

@@ -88,10 +88,21 @@ const DesktopNavigation = () => {
               <p>My Garage</p>
             </TooltipContent>
           </Tooltip>
+          {/* Chat Icon */}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link to="/chat" aria-label="Chat" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors mr-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">
+              <p>Chat with Motor Talk</p>
+            </TooltipContent>
+          </Tooltip>
           {/* Profile Avatar - Moved to last position */}
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link to="/profile" aria-label="Profile" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors">
+              <Link to="/profile" aria-label="Profile" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors mr-1">
                 <Avatar className="h-6 w-6">
                   <AvatarImage src="https://d2kde5ohu8qb21.cloudfront.net/files/6839e7e53277480008013d30/greg.jpg" alt="Greg Driver" />
                   <AvatarFallback className="bg-gray-600 text-white text-xs">GD</AvatarFallback>

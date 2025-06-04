@@ -15,7 +15,7 @@ interface ImageLoaderState {
 
 export const useOptimizedImageLoader = ({
   imageUrl,
-  fallbackImageUrl = 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3',
+  fallbackImageUrl = 'https://d2kde5ohu8qb21.cloudfront.net/files/672be0dfdd3c320008c2e967/4-2025-mercedes-maybach-eqs-class-suv-front-view.jpg',
   priority = false
 }: UseOptimizedImageLoaderProps) => {
   const [state, setState] = useState<ImageLoaderState>({
