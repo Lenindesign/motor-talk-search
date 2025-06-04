@@ -94,8 +94,15 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
     return groups;
   }, {} as Record<Suggestion["type"], Suggestion[]>);
 
-  // Order of content types in dropdown - new cars first, followed by used cars, articles, videos, and photos
-  const typeOrder: Suggestion["type"][] = ['newCar', 'usedCar', 'article', 'video', 'photo', 'carMake', 'carModel', 'popular'];
+  // Order of content types in dropdown - car models first for Honda searches
+  const getTypeOrder = (): Suggestion["type"][] => {
+    const query = suggestions.find(s => s.type === 'newCar')?.text.toLowerCase() || '';
+    if (query.includes('honda')) {
+      return ['newCar', 'usedCar', 'article', 'video', 'photo', 'carMake', 'popular'] as Suggestion["type"][];
+    }
+    return ['newCar', 'usedCar', 'article', 'video', 'photo', 'carMake', 'popular'] as Suggestion["type"][];
+  };
+  const typeOrder = getTypeOrder();
   
   let globalSuggestionIndex = -1; 
 
@@ -109,7 +116,6 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
           const typeLabel = (() => {
             switch (type) {
               case 'carMake': return 'Car Makes';
-              case 'carModel': return 'New Car Model';
               case 'newCar': return 'New Cars';
               case 'usedCar': return 'Used Cars';
               case 'article': return 'Articles';

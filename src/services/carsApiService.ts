@@ -261,9 +261,25 @@ export const searchCarsFromApi = async (query: string): Promise<CarData[]> => {
         const makeModel = `${car.make} ${car.model}`.toLowerCase();
         return makeModel.includes(lowerQuery);
       });
-      
-      console.log(`Found ${filteredCars.length} cars with general search and filtering`);
-      return filteredCars;
+
+      // Sort results to prioritize Honda and Honda Accord
+      const sortedCars = filteredCars.sort((a, b) => {
+        // If searching for Honda
+        if (lowerQuery.includes('honda')) {
+          if (a.make.toLowerCase() === 'honda' && b.make.toLowerCase() !== 'honda') return -1;
+          if (a.make.toLowerCase() !== 'honda' && b.make.toLowerCase() === 'honda') return 1;
+
+          // If specifically searching for Accord
+          if (lowerQuery.includes('accord')) {
+            if (a.make.toLowerCase() === 'honda' && a.model.toLowerCase() === 'accord') return -1;
+            if (b.make.toLowerCase() === 'honda' && b.model.toLowerCase() === 'accord') return 1;
+          }
+        }
+        return 0;
+      });
+        
+      console.log(`Found ${sortedCars.length} cars with general search and filtering`);
+      return sortedCars;
     } catch (error) {
       console.error('Error in general search:', error);
       return [];
