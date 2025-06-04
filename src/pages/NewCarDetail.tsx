@@ -11,8 +11,8 @@ import RatingsTab from './NewCarDetail/RatingsTab';
 import ComparisonTab from './NewCarDetail/ComparisonTab';
 import CompetitorsComparison from './NewCarDetail/CompetitorsComparison/CompetitorsComparison';
 import ReviewsTab from './NewCarDetail/ReviewsTab';
-import TrimsTab from './NewCarDetail/TrimsTab';
 import SpecsTab from './NewCarDetail/SpecsTab';
+import TrimLevels from './NewCarDetail/TrimLevels';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { Button } from '@/components/ui/button';
 import PricingModule from './NewCarDetail/PricingModule';
@@ -178,7 +178,6 @@ const NewCarDetail: React.FC = () => {
               <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Class Comparison</h2>
               <ComparisonTab carTitle={car.title} carCategory={car.category} />
             </div>
-
             
             {/* Competitors Section */}
             <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="competitors">
@@ -203,17 +202,11 @@ const NewCarDetail: React.FC = () => {
               <SpecsTab />
             </div>
             
-            {/* Trims Section */}
-            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="trims">
-              <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Trims</h2>
-              <TrimsTab 
-                trims={processedTrims} 
-                selectedTrim={selectedTrim} 
-                onTrimSelect={setSelectedTrim} 
-                selectedTrimData={selectedTrimData} 
-              />
+            {/* Trim Levels Section */}
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6">
+              <TrimLevels carTitle={car.title} />
             </div>
-            
+
             {/* Pricing Module Section */}
             <PricingModule 
               car={car} 
