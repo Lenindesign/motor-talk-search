@@ -1,8 +1,8 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import React, { useState } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import { mockCompetitors, comparisonMetrics } from './utils';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { mockCompetitors } from './utils';
 
 const CompetitorsComparison: React.FC = () => {
   const currentVehicle = {
@@ -22,89 +22,111 @@ const CompetitorsComparison: React.FC = () => {
     pros: ['Premium interior', 'Advanced tech features', 'Excellent range'],
     cons: ['Expensive options', 'Learning curve for tech', 'Firm ride']
   };
-  return <div className="space-y-6">
-      {/* Comparison Grid */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Class Comparison</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            {/* Current Vehicle */}
-            <Card className="h-full">
-              <CardContent className="p-4">
-                <div className="flex flex-col items-center">
-                  <img src={currentVehicle.imageUrl} alt={currentVehicle.name} className="w-32 h-20 object-cover rounded-lg mb-2" />
-                  <h4 className="font-semibold text-lg">{currentVehicle.name}</h4>
-                  <p className="text-gray-500 text-lg font-semibold">
-                    ${currentVehicle.price.toLocaleString()} MSRP
-                  </p>
-                </div>
-                <div className="space-y-2 mt-4">
-                  <h5 className="font-medium text-green-600 text-base">Pros</h5>
-                  <ul className="space-y-1 text-sm text-gray-600">
-                    {currentVehicle.pros.map((pro, index) => <li key={index} className="flex items-center">
-                        <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                        {pro}
-                      </li>)}
-                  </ul>
-                </div>
-                <div className="space-y-2 mt-4">
-                  <h5 className="font-medium text-red-600 text-base">Cons</h5>
-                  <ul className="space-y-1 text-sm text-gray-600">
-                    {currentVehicle.cons.map((con, index) => <li key={index} className="flex items-center">
-                        <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
-                        {con}
-                      </li>)}
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 2;
+  const totalPages = Math.ceil((mockCompetitors.length + 1) / itemsPerPage);
+  
+  const handlePrevious = () => {
+    setCurrentPage(prev => (prev === 0 ? totalPages - 1 : prev - 1));
+  };
+  
+  const handleNext = () => {
+    setCurrentPage(prev => (prev === totalPages - 1 ? 0 : prev + 1));
+  };
+  
+  // Combine current vehicle with competitors for pagination
+  const allVehicles = [currentVehicle, ...mockCompetitors];
+  const displayedVehicles = allVehicles.slice(
+    currentPage * itemsPerPage, 
+    Math.min((currentPage + 1) * itemsPerPage, allVehicles.length)
+  );
 
-            {/* Competitors */}
-            {mockCompetitors.map(competitor => <Card key={competitor.name} className="h-full">
-                <CardContent className="p-4">
-                  <div className="flex flex-col items-center">
-                    <img src={competitor.imageUrl} alt={competitor.name} className="w-32 h-20 object-cover rounded-lg mb-2" />
-                    <h4 className="font-semibold text-lg text-left">{competitor.name}</h4>
-                    <p className="text-gray-500 text-lg font-semibold">
-                      ${competitor.price.toLocaleString()} MSRP
-                    </p>
-                  </div>
-                  <div className="space-y-2 mt-4">
-                    <h5 className="font-medium text-green-600 text-base">Pros</h5>
-                    <ul className="space-y-1 text-sm text-gray-600">
-                      {competitor.pros.map((pro, index) => <li key={index} className="flex items-center">
-                          <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                          {pro}
-                        </li>)}
-                    </ul>
-                  </div>
-                  <div className="space-y-2 mt-4">
-                    <h5 className="font-medium text-red-600 text-base">Cons</h5>
-                    <ul className="space-y-1 text-sm text-gray-600">
-                      {competitor.cons.map((con, index) => <li key={index} className="flex items-center">
-                          <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
-                          {con}
-                        </li>)}
-                    </ul>
-                  </div>
-                </CardContent>
-              </Card>)}
-          </div>
-        </CardContent>
-      </Card>
-    <div className="flex justify-center mt-8">
+  return (
+    <div className="space-y-6">
+      <h3 className="text-sm text-neutral-1 font-semibold mb-3">Class Comparison</h3>
+      
+      {/* Carousel Navigation */}
+      <div className="flex items-center justify-between mb-4">
+        <div className="text-xs text-neutral-3">
+          {currentPage + 1} of {totalPages}
+        </div>
+        <div className="flex space-x-2">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="h-8 w-8 p-0 rounded-full" 
+            onClick={handlePrevious}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="h-8 w-8 p-0 rounded-full" 
+            onClick={handleNext}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+      </div>
+      
+      {/* Comparison Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {displayedVehicles.map((vehicle, index) => (
+          <Card key={index} className="overflow-hidden border border-neutral-6 shadow-sm">
+            <CardContent className="p-4">
+              <div className="flex flex-col items-center mb-3">
+                <img 
+                  src={vehicle.imageUrl} 
+                  alt={vehicle.name} 
+                  className="w-full h-32 object-cover rounded-md mb-3" 
+                />
+                <h4 className="text-sm font-semibold text-neutral-1">{vehicle.name}</h4>
+                <p className="text-xs text-neutral-3 font-medium">
+                  ${vehicle.price.toLocaleString()} MSRP
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <h5 className="text-xs font-medium text-green-600 mb-1.5">Pros</h5>
+                  <ul className="space-y-1">
+                    {vehicle.pros.map((pro, idx) => (
+                      <li key={idx} className="flex items-center">
+                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                        <span className="text-xs text-neutral-2">{pro}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div>
+                  <h5 className="text-xs font-medium text-red-500 mb-1.5">Cons</h5>
+                  <ul className="space-y-1">
+                    {vehicle.cons.map((con, idx) => (
+                      <li key={idx} className="flex items-center">
+                        <span className="w-1.5 h-1.5 bg-red-500 rounded-full mr-1.5"></span>
+                        <span className="text-xs text-neutral-2">{con}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    <div className="flex justify-center mt-6">
       <Button 
         variant="outline" 
-        size="lg" 
-        className="px-8 py-4 text-lg shadow-modern hover:shadow-modern-lg text-gray-900 bg-white border-gray-300 hover:bg-gray-50" 
-        onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+        size="sm" 
+        className="text-xs px-4 py-2 text-neutral-1 bg-white border-neutral-6 hover:bg-neutral-8 transition-colors" 
       >
         See Full Comparison
       </Button>
     </div>
-  </div>;
+  </div>
+  );
 };
 
 export default CompetitorsComparison;

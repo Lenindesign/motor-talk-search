@@ -5,7 +5,7 @@ import { User, Car, Settings, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import UserPoints from "../UserPoints";
+
 
 interface ProfileSidebarProps {
   userData: {
@@ -70,7 +70,7 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
           </CardContent>
         </Card>
       </aside>
-      <UserPoints />
+
     </>
   );
 };

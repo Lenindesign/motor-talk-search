@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ChevronRight, FileText, Car, Star, Settings, Zap, Shield, Users, MapPin, Wrench, CheckCircle2 } from 'lucide-react';
 
 import { mockNewCars } from '@/services/mockData';
 import { CarData } from '@/components/CarCard';
@@ -15,6 +15,8 @@ import ReviewsTab from './NewCarDetail/ReviewsTab';
 import TrimsTab from './NewCarDetail/TrimsTab';
 import SpecsTab from './NewCarDetail/SpecsTab';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
+import { Button } from '@/components/ui/button';
+import PricingModule from './NewCarDetail/PricingModule';
 
 const NewCarDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -102,28 +104,30 @@ const NewCarDetail: React.FC = () => {
   const overallRating = expertRatings.reduce((acc, rating) => acc + rating.score, 0) / expertRatings.length;
 
   return (
-    <div className="min-h-screen bg-neutral-8">
-      
-      <main className="max-w-[980px] mx-auto w-full px-0 py-[16px] pt-[120px]">
-        {/* Car Header */}
-        <div className="mb-12 lg:mb-16">
-          <CarHeader car={car} carData={carData} selectedTrimPrice={selectedTrimData.price} overallRating={overallRating} />
+    <div className="min-h-screen bg-white">
+      <main className="max-w-[980px] mx-auto w-full px-4 py-4 pt-[80px] md:pt-[100px] md:px-6 lg:px-4">
+        {/* Breadcrumb Navigation */}
+        <div className="flex items-center mb-5 overflow-x-auto whitespace-nowrap py-1 text-xs md:text-sm">
+          <Link to="/cars" className="text-neutral-4 hover:text-motortrend-red transition-colors">
+            Cars
+          </Link>
+          <ChevronRight size={12} className="mx-1 text-neutral-4 flex-shrink-0" />
+          <Link to={`/cars/${car.category.toLowerCase().replace(' ', '-')}`} className="text-neutral-4 hover:text-motortrend-red transition-colors">
+            {car.category}
+          </Link>
+          <ChevronRight size={12} className="mx-1 text-neutral-4 flex-shrink-0" />
+          <span className="text-neutral-3 truncate">{car.title}</span>
         </div>
-
-        {/* Quick Stats Summary */}
-        <div className="mb-12 lg:mb-16">
-          <QuickStats overallRating={overallRating} ownerRating={ownerReviews.overallScore} />
-        </div>
-
+        
         {/* Sticky Navigation */}
-        <nav className="fixed top-[64px] left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-neutral-200 shadow-sm">
-          <div className="max-w-[980px] mx-auto px-4">
-            <div className="flex space-x-4 overflow-x-auto p-2">
+        <nav className="sticky top-[56px] md:top-[64px] z-50 bg-white border-b border-neutral-200 shadow-sm mb-6 -mx-4 md:-mx-6 lg:-mx-4">
+          <div className="max-w-[980px] mx-auto">
+            <div className="flex space-x-2 overflow-x-auto p-2 px-4 md:px-6 lg:px-4 hide-scrollbar">
               {sections.map((section) => (
                 <button
                   key={section.id}
                   onClick={() => scrollToSection(section.id)}
-                  className={`typography-caption font-medium px-4 py-2 rounded-lg transition-all duration-200 ${
+                  className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
                     activeSection === section.id
                       ? 'bg-motortrend-red text-white shadow-sm'
                       : 'hover:bg-motortrend-red/10'
@@ -135,43 +139,168 @@ const NewCarDetail: React.FC = () => {
             </div>
           </div>
         </nav>
+        
+        {/* Car Header with Image and Primary Info */}
+        <div className="mb-6">
+          <CarHeader car={car} carData={carData} selectedTrimPrice={selectedTrimData.price} overallRating={overallRating} />
+        </div>
 
-        {/* Content Sections */}
-        <div className="space-y-12">
-          <section id="overview" className="pt-8">
-            <h2 className="typography-display text-neutral-1 mb-4">Overview</h2>
-            <OverviewTab carTitle={car.title} />
-          </section>
+        {/* Main Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
+          {/* Main Content Area */}
+          <div className="lg:col-span-8">
+            {/* Vehicle Overview Stats */}
+            <div className="mb-6" id="overview">
+              <QuickStats overallRating={overallRating} ownerRating={ownerReviews.overallScore} />
+            </div>
+            
+            {/* Vehicle Description */}
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6">
+              <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">About {car.title}</h2>
+              <OverviewTab carTitle={car.title} />
+            </div>
+            
+            {/* Expert Ratings Section */}
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="ratings">
+              <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Expert Ratings</h2>
+              <RatingsTab />
+            </div>
+            
+            {/* Class Comparison */}
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="comparison">
+              <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Class Comparison</h2>
+              <ComparisonTab carTitle={car.title} carCategory={car.category} />
+            </div>
+            
+            {/* Competitors Section */}
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="competitors">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-lg md:text-xl text-neutral-1 font-bold">Compare with Competitors</h2>
+                <Button variant="ghost" size="sm" className="text-motortrend-red text-xs px-2">
+                  View All <ChevronRight size={14} className="ml-1" />
+                </Button>
+              </div>
+              <CompetitorsComparison />
+            </div>
+            
+            {/* Owner Reviews Section */}
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="reviews">
+              <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Owner Reviews</h2>
+              <ReviewsTab />
+            </div>
+            
+            {/* Specifications Section */}
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="specs">
+              <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Specifications</h2>
+              <SpecsTab />
+            </div>
+            
+            {/* Trims Section */}
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="trims">
+              <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Trims</h2>
+              <TrimsTab 
+                trims={processedTrims} 
+                selectedTrim={selectedTrim} 
+                onTrimSelect={setSelectedTrim} 
+                selectedTrimData={selectedTrimData} 
+              />
+            </div>
+            
+            {/* Pricing Module Section */}
+            <PricingModule 
+              car={car} 
+              selectedTrimPrice={selectedTrimData.price}
+              destinationFee={1395}
+            />
+          </div>
+          
+          {/* Sidebar */}
+          <div className="lg:col-span-4">
+            {/* Quick Links */}
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden mb-6">
+              <div className="p-4 bg-neutral-7 border-b border-neutral-6">
+                <h3 className="typography-body-large font-semibold text-neutral-1">Quick Links</h3>
+              </div>
+              <div className="p-4">
+                <div className="flex flex-col space-y-2">
+                  <Button variant="ghost" size="sm" className="justify-start w-full">
+                    <FileText size={16} className="mr-2" /> Owner's Manual
+                  </Button>
+                  <Button variant="ghost" size="sm" className="justify-start w-full">
+                    <MapPin size={16} className="mr-2" /> Find a Dealer
+                  </Button>
+                  <Button variant="ghost" size="sm" className="justify-start w-full">
+                    <Car size={16} className="mr-2" /> Build & Price
+                  </Button>
+                  <Button variant="ghost" size="sm" className="justify-start w-full">
+                    <Wrench size={16} className="mr-2" /> Service Centers
+                  </Button>
+                </div>
+              </div>
+            </div>
 
-          <section id="ratings" className="pt-8">
-            <h2 className="typography-display text-neutral-1 mb-4">Expert Ratings</h2>
-            <RatingsTab />
-          </section>
+            {/* Key Features */}
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden mb-6">
+              <div className="p-4 bg-neutral-7 border-b border-neutral-6">
+                <h3 className="typography-body-large font-semibold text-neutral-1">Key Features</h3>
+              </div>
+              <div className="p-4">
+                <ul className="space-y-3">
+                  <li className="flex">
+                    <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-neutral-2">All-wheel drive with dual motors</span>
+                  </li>
+                  <li className="flex">
+                    <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-neutral-2">15.5-inch touchscreen infotainment</span>
+                  </li>
+                  <li className="flex">
+                    <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-neutral-2">Advanced driver assistance features</span>
+                  </li>
+                  <li className="flex">
+                    <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-neutral-2">Over-the-air software updates</span>
+                  </li>
+                  <li className="flex">
+                    <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-neutral-2">Premium audio system with 14 speakers</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
 
-          <section id="comparison" className="pt-8">
-            <h2 className="typography-display text-neutral-1 mb-4">Class Comparison</h2>
-            <ComparisonTab carTitle={car.title} carCategory={car.category} />
-          </section>
-
-          <section id="competitors" className="pt-8">
-            <h2 className="typography-display text-neutral-1 mb-4">Competitors</h2>
-            <CompetitorsComparison />
-          </section>
-
-          <section id="reviews" className="pt-8">
-            <h2 className="typography-display text-neutral-1 mb-4">Owner Reviews</h2>
-            <ReviewsTab />
-          </section>
-
-          <section id="specs" className="pt-8">
-            <h2 className="typography-display text-neutral-1 mb-4">Specifications</h2>
-            <SpecsTab />
-          </section>
-
-          <section id="trims" className="pt-8">
-            <h2 className="typography-display text-neutral-1 mb-4">Trims & Pricing</h2>
-            <TrimsTab trims={processedTrims} selectedTrim={selectedTrim} onTrimSelect={setSelectedTrim} selectedTrimData={selectedTrimData} />
-          </section>
+            {/* Similar Cars */}
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden">
+              <div className="p-4 bg-neutral-7 border-b border-neutral-6">
+                <h3 className="typography-body-large font-semibold text-neutral-1">Similar Cars</h3>
+              </div>
+              <div className="p-4 space-y-4">
+                {mockNewCars.slice(0, 3).map((similarCar) => (
+                  <Link 
+                    key={similarCar.id} 
+                    to={`/cars/new/${similarCar.id}`} 
+                    className="flex items-center bg-neutral-8 rounded-lg p-3 hover:shadow-md transition-shadow duration-200"
+                  >
+                    <div className="w-16 h-12 flex-shrink-0 mr-3">
+                      <img 
+                        src={similarCar.imageUrl || 'https://via.placeholder.com/300x180?text=Car+Image'} 
+                        alt={similarCar.title} 
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <div className="flex-grow">
+                      <p className="text-sm font-medium text-neutral-1">{similarCar.title}</p>
+                      <p className="text-xs text-neutral-3">${similarCar.price.toLocaleString()}</p>
+                    </div>
+                  </Link>
+                ))}
+                <Button variant="outline" size="sm" className="w-full mt-4">
+                  View All Similar Vehicles
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </main>
     </div>

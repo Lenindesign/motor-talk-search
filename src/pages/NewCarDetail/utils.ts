@@ -42,10 +42,10 @@ export const expertRatings = [
 
 export const classComparison = [
   { metric: 'Price', thisVehicle: 85, classAverage: 70, unit: 'k' },
-  { metric: 'Fuel Economy', thisVehicle: 92, classAverage: 75, unit: 'MPGe' },
-  { metric: 'Cargo Space', thisVehicle: 78, classAverage: 80, unit: 'cu ft' },
-  { metric: 'Safety Rating', thisVehicle: 95, classAverage: 85, unit: '/5' },
-  { metric: 'Technology', thisVehicle: 90, classAverage: 75, unit: '/10' }
+  { metric: 'MPG', thisVehicle: 92, classAverage: 75, unit: 'e' },
+  { metric: 'Cargo', thisVehicle: 28, classAverage: 30, unit: 'ft³' },
+  { metric: 'Safety', thisVehicle: 9.5, classAverage: 8.5, unit: '/10' },
+  { metric: 'Tech', thisVehicle: 90, classAverage: 75, unit: '%' }
 ];
 
 export const ownerReviews = {

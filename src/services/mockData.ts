@@ -895,7 +895,7 @@ export const mockArticles: ArticleData[] = [
   {
     id: "2",
     title: "Electric SUVs With the Longest Range in 2025",
-    imageUrl: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3",
+    imageUrl: "https://file.kelleybluebookimages.com/kbb/base/house/2025/2025-Rivian-R1S-FrontSide_RIVR1S2501_640x480.jpg",
     date: "May 3, 2025",
     category: "Guide",
   },

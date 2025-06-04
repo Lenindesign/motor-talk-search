@@ -14,7 +14,50 @@ export interface CarModel {
   imageUrl?: string;
 }
 
+export interface CarSpecs {
+  msrp?: number;
+  estPayment?: number;
+  range?: number;
+  mpge?: number;
+  mpg?: number;
+  motorTrendScore?: number;
+  rank?: string;
+}
+
+export interface CarModel extends CarSpecs {
+  id: string;
+  name: string;
+  year: number;
+  imageUrl?: string;
+}
+
+export interface CarMake {
+  id: string;
+  name: string;
+  imageUrl?: string;
+  models: CarModel[];
+}
+
 export const carMakes: CarMake[] = [
+  {
+    id: "rivian",
+    name: "Rivian",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/683a457708afc700082e5cff/rivian.png",
+    models: [
+      { 
+        id: "rivian-r1s-2025", 
+        name: "R1S", 
+        year: 2025, 
+        imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-rivian-r1s-front-view.jpg",
+        msrp: 76000,
+        estPayment: 1291,
+        range: 410,
+        mpge: 115,
+        motorTrendScore: 8.9,
+        rank: "#1 in Electric SUV"
+      }
+    ]
+  },
   {
     id: "make-1",
     name: "Honda",

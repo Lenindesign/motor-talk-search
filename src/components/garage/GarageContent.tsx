@@ -9,6 +9,7 @@ import { toast } from "@/components/ui/use-toast";
 import GarageHeader from "./GarageHeader";
 import GarageActionBar from "./GarageActionBar";
 import GarageComparisonSection from "./GarageComparisonSection";
+import PaymentCalculator from "./PaymentCalculator";
 
 const GarageContent = () => {
   const { savedItems } = useSavedItems();
@@ -197,6 +198,11 @@ const GarageContent = () => {
 
           {/* Recommendations */}
           <CarsYouMayLike />
+          
+          {/* Payment Calculator */}
+          <div className="mt-8">
+            <PaymentCalculator />
+          </div>
         </>
       )}
     </div>

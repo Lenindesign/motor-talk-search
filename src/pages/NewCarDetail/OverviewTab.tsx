@@ -19,13 +19,15 @@ const OverviewTab: React.FC<OverviewTabProps> = ({
               combining cutting-edge electric technology with luxurious comfort and 
               impressive performance capabilities.
             </p>
-            <div className="grid grid-cols-2 gap-4">
-              {Object.entries(mockSpecs).map(([key, value]) => <div key={key} className="border-b pb-2">
-                  <dt className="font-semibold text-sm text-gray-600 capitalize">
+            <div className="space-y-3">
+              {Object.entries(mockSpecs).map(([key, value]) => (
+                <div key={key} className="flex flex-row items-center border-b pb-2">
+                  <dt className="font-semibold text-sm text-gray-600 capitalize w-1/3">
                     {key.replace(/([A-Z])/g, ' $1').trim()}
                   </dt>
-                  <dd className="text-gray-900">{value}</dd>
-                </div>)}
+                  <dd className="text-gray-900 w-2/3">{value}</dd>
+                </div>
+              ))}
             </div>
           </CardContent>
         </Card>

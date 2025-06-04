@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useCardSave } from '../hooks/useCardSave';
 import { useOptimizedImageLoader } from '../hooks/useOptimizedImageLoader';
 import CarSpecs from './CarCard/CarSpecs';
@@ -9,6 +9,8 @@ import CardSkeleton from './ui/CardSkeleton';
 import { CardType } from '@/styles/cardStyles';
 import { cn } from '@/lib/utils';
 import { CarData, CarCardProps } from './CarCard/types';
+import { Button } from './ui/button';
+import { Search } from 'lucide-react';
 
 // Re-export types for backward compatibility
 export type { CarData, CarCardProps } from './CarCard/types';
@@ -22,6 +24,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
   isLoading = false,
   className
 }) => {
+  const navigate = useNavigate();
   const {
     currentImage,
     isLoading: imageLoading
@@ -86,7 +89,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
       bodyStyle: car.bodyStyle,
       isNew: car.isNew ? 'Yes' : 'No'
     }}
-    onClick={() => window.location.href = linkPath}
+    onClick={() => navigate(linkPath)}
   >
     <div className="relative w-full h-full">
 
@@ -105,9 +108,28 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
           </RouterLink>
         )}
         <CarSpecs car={car} type={type} />
+        <Button
+          variant="outline"
+          className="w-full mt-4 mb-6 bg-white hover:bg-gray-50 border-motortrend-red text-motortrend-red hover:text-motortrend-dark hover:border-motortrend-dark"
+          onClick={(e) => {
+            e.stopPropagation();
+            // Extract make and model from title (e.g. "2025 Rivian R1S")
+            const titleParts = car.title.split(' ');
+            if (titleParts.length >= 3) {
+              const year = titleParts[0];
+              const make = titleParts[1];
+              const model = titleParts.slice(2).join(' ');
+              const carId = `${make.toLowerCase()}-${model.toLowerCase()}-${year}`;
+              navigate(`/find-best-price/${carId}`);
+            }
+          }}
+        >
+          <Search className="w-4 h-4 mr-2" />
+          Find Best Price
+        </Button>
       </div>
     </div>
-    <div className="mt-3 pt-3 px-4 pb-4 border-t border-gray-100">
+    <div className="px-4 pb-4">
       <GarageActionMenu car={car} type={type} className="w-full" />
     </div>
   </Card>;

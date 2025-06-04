@@ -109,7 +109,7 @@ const CarsYouMayLike: React.FC = () => {
       <h2 className="text-2xl font-bold mb-4">Cars You May Like</h2>
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-2">New Cars</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
           {newCars.map(car => <CarCard key={car.id} car={car} type="new" />)}
         </div>
       </div>

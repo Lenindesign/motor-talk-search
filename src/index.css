@@ -622,6 +622,16 @@ button.bg-neutral-8 {
   .main-container {
     @apply max-w-screen-xl px-4 sm:px-6;
   }
+  
+  /* Hide scrollbars for cleaner UI */
+  .hide-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
 
   .ripple {
     @apply overflow-hidden relative;

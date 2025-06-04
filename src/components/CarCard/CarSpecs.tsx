@@ -7,6 +7,16 @@ interface CarSpecsProps {
   type: 'new' | 'used';
 }
 
+const calculateEstimatedPayment = (price: number) => {
+  const loanTerm = 60; // 60 months
+  const apr = 0.05; // 5% APR
+  const downPayment = price * 0.1; // 10% down payment
+  const loanAmount = price - downPayment;
+  const monthlyRate = apr / 12;
+  const payment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, loanTerm)) / (Math.pow(1 + monthlyRate, loanTerm) - 1);
+  return Math.round(payment);
+};
+
 const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
   // Display different specs based on car type
   // Prioritize the type prop over the isNew property
@@ -18,9 +28,20 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
       {!isNewCar && (
         <div className="flex flex-wrap gap-2 text-sm text-gray-600">
           {car.price && (
-            <div className="flex items-center">
-              <span>{car.price}</span>
-            </div>
+            <>
+              <div className="flex items-center">
+                <DollarSign size={14} className="mr-1 text-motortrend-dark" />
+                <span className="font-medium">Price:</span>
+                <span className="ml-1">{car.price}</span>
+              </div>
+              <div className="flex items-center">
+                <DollarSign size={14} className="mr-1 text-motortrend-red" />
+                <span className="font-medium">Est. Payment:</span>
+                <span className="ml-1">
+                  ${calculateEstimatedPayment(parseInt(car.price.replace(/[^0-9]/g, '')))}/mo
+                </span>
+              </div>
+            </>
           )}
           {/* Year removed since it's already in the headline */}
           {car.mileage && (
@@ -76,6 +97,18 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
               <DollarSign size={14} className="mr-1 text-motortrend-dark" />
               <span className="font-medium">MSRP:</span>
               <span className="ml-1">{car.msrp}</span>
+            </div>
+          )}
+
+          {/* Show estimated monthly payment for new cars */}
+          {car.msrp && (
+            <div className="flex items-center">
+              <DollarSign size={14} className="mr-1 text-motortrend-red" />
+              <span className="font-medium">Est. Payment:</span>
+              <span className="ml-1">
+                ${calculateEstimatedPayment(parseInt(car.msrp.replace(/[^0-9]/g, '')))}
+                /mo
+              </span>
             </div>
           )}
           

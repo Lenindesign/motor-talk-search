@@ -27,8 +27,10 @@ const DesignSystem = lazy(() => import('./pages/DesignSystem'));
 const TestCarCard = lazy(() => import("./components/TestCarCard"));
 const TestCard = lazy(() => import("./pages/TestCard"));
 const BestSUVs = lazy(() => import("./pages/BestSUVs"));
+const CarConnect = lazy(() => import("./pages/CarConnect"));
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
 import { PersonalizationProvider } from "./contexts/PersonalizationContext";
+import { CarProvider } from "./contexts/CarContext";
 import MainLayout from "./components/MainLayout";
 import GlobalFooter from "./components/GlobalFooter";
 
@@ -36,7 +38,8 @@ function App() {
   return <div className="w-full min-h-screen bg-motortrend-gray">
       <BrowserRouter>
         <PersonalizationProvider>
-          <SavedItemsProvider>
+          <CarProvider>
+            <SavedItemsProvider>
              <MainLayout>
                 {/* Loading fallback for lazy-loaded components */}
                 <Suspense fallback={
@@ -57,6 +60,7 @@ function App() {
                     <Route path="/research/:id" element={<CarResearch />} />
                     <Route path="/buyers-guide" element={<BuyersGuide />} />
                     <Route path="/best-suvs" element={<BestSUVs />} />
+                    <Route path="/find-best-price/:carId" element={<CarConnect />} />
                     <Route path="/news" element={<News />} />
                     <Route path="/videos" element={<Videos />} />
                     <Route path="/article/:id" element={<ArticleDetail />} />
@@ -73,7 +77,8 @@ function App() {
                 </Suspense>
               </MainLayout>
               <GlobalFooter />
-          </SavedItemsProvider>
+            </SavedItemsProvider>
+          </CarProvider>
         </PersonalizationProvider>
       </BrowserRouter>
     </div>;

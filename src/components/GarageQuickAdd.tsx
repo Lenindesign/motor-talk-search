@@ -64,7 +64,7 @@ const getCarImageByTitle = (title: string): string => {
   }
 
   // Generic fallback image
-  return 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3';
+  return 'https://file.kelleybluebookimages.com/kbb/base/house/2025/2025-Rivian-R1S-FrontSide_RIVR1S2501_640x480.jpg';
 };
 
 const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {

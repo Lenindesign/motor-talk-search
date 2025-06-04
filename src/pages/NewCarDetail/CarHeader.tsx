@@ -1,5 +1,6 @@
 import React from 'react';
-import { Star, Calculator, MapPin, Share } from 'lucide-react';
+import { MapPin, Share, Calendar, Award } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import GarageActionMenu from '@/components/GarageActionMenu';
 import { CarData } from '@/components/CarCard';
@@ -8,81 +9,131 @@ interface CarHeaderProps {
   car: {
     id: string;
     title: string;
-    price: string;
     category: string;
     imageUrl: string;
   };
   carData: CarData;
-  selectedTrimPrice: string;
   overallRating: number;
 }
 
 const CarHeader: React.FC<CarHeaderProps> = ({
   car,
   carData,
-  selectedTrimPrice,
   overallRating
 }) => {
-  return <div className="bg-white rounded-2xl shadow-modern-lg overflow-hidden border-modern">
-      <div className="relative">
-        <div className="aspect-[16/9] lg:aspect-[21/9] overflow-hidden">
-          <img src={car.imageUrl} alt={car.title} className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105" />
-        </div>
-        
-        {/* Gradient overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-        
-        {/* Content overlay */}
-        <div className="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="inline-flex items-center px-3 py-1.5 rounded-full bg-green-600 text-white typography-small font-semibold tracking-wide">
-              NEW 2025
+  const navigate = useNavigate();
+  return (
+    <div className="flex flex-col md:flex-row gap-6">
+      {/* Left side - Car Images */}
+      <div className="flex-1">
+        <div className="relative">
+          {/* 360 Badge */}
+          <div className="absolute top-4 right-4 z-10">
+            <span className="inline-flex items-center px-2 py-1 rounded-md bg-white/90 backdrop-blur-sm text-xs font-medium">
+              360°
             </span>
-            <div className="flex items-center">
-              <Star size={18} className="fill-yellow-400 text-yellow-400 mr-2" />
-              <span className="text-white typography-body font-medium">
-                {overallRating.toFixed(1)}/10 Expert Rating
-              </span>
-            </div>
           </div>
           
-          <h1 className="text-4xl text-white">
-            {car.title}
-          </h1>
+          {/* Main Image */}
+          <div className="aspect-[16/10] rounded-lg overflow-hidden">
+            <img 
+              src={car.imageUrl} 
+              alt={car.title} 
+              className="w-full h-full object-cover object-center" 
+            />
+          </div>
           
-          <div className="flex items-center gap-6 text-neutral-6">
-            <span className="typography-display text-white font-bold text-lg">
-              {selectedTrimPrice}
-            </span>
-            <span className="typography-body-large text-neutral-300">
-              {car.category}
-            </span>
+          {/* Thumbnails */}
+          <div className="flex gap-2 mt-2 overflow-x-auto pb-2">
+            <div className="flex-none w-24 aspect-[4/3] rounded-lg overflow-hidden">
+              <img src={car.imageUrl} alt="" className="w-full h-full object-cover" />
+            </div>
+            <div className="flex-none w-24 aspect-[4/3] rounded-lg overflow-hidden">
+              <img src={car.imageUrl} alt="" className="w-full h-full object-cover" />
+            </div>
+            <div className="flex-none w-24 aspect-[4/3] rounded-lg overflow-hidden">
+              <img src={car.imageUrl} alt="" className="w-full h-full object-cover" />
+            </div>
+            <div className="flex-none w-24 aspect-[4/3] rounded-lg overflow-hidden relative">
+              <img src={car.imageUrl} alt="" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-white text-sm font-medium">
+                +279
+              </div>
+            </div>
           </div>
         </div>
       </div>
       
-      {/* Action Buttons */}
-      <div className="card-spacing border-t border-neutral-6/30">
-        <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-6">
-          <Button size="lg" className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-6 py-3 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg">
-            <Calculator size={18} className="mr-3" />
-            Build & Price
+      {/* Right side - Car Info */}
+      <div className="w-full md:w-[400px] flex flex-col gap-4">
+        {/* Basic Info */}
+        <div>
+          <h1 className="text-xl md:text-2xl font-bold mb-2">
+            {car.title}
+          </h1>
+          
+          <div className="flex items-center gap-3">
+            <span className="text-sm">
+              {car.category}
+            </span>
+            <div className="h-3 w-px bg-neutral-4"></div>
+            <div className="flex items-center">
+              <Calendar size={14} className="mr-1" />
+              <span className="text-sm">2025</span>
+            </div>
+          </div>
+        </div>
+        
+        {/* Pricing Section */}
+        <div className="bg-white rounded-lg p-4 space-y-4">
+          {/* Year and Type Selectors */}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <select className="w-full border rounded-lg px-3 py-2 text-sm">
+                <option>2025 - New</option>
+              </select>
+            </div>
+            <div>
+              <select className="w-full border rounded-lg px-3 py-2 text-sm">
+                <option>Electric</option>
+              </select>
+            </div>
+          </div>
+          
+          {/* Trim Selector */}
+          <div>
+            <select className="w-full border rounded-lg px-3 py-2 text-sm">
+              <option>Dual-Motor - $78,000 MSRP</option>
+              <option>Performance Dual-Motor - $89,000 MSRP</option>
+              <option>Max Pack Dual-Motor - $93,000 MSRP</option>
+              <option>Performance Max Pack - $99,000 MSRP</option>
+            </select>
+          </div>
+          
+          {/* Suggested Price */}
+          <div className="space-y-1">
+            <p className="text-sm">Edmunds suggests you pay</p>
+            <p className="text-2xl font-bold">$76,500</p>
+          </div>
+          
+          {/* Find Price Button */}
+          <Button 
+            className="w-full" 
+            onClick={() => navigate(`/find-best-price/${car.title.toLowerCase().replace(/ /g, '-')}-${carData.year}`)}
+          >
+            Find Best Price
           </Button>
           
-          <Button variant="outline" size="lg" className="border-neutral-4 text-neutral-2 hover:bg-neutral-7 px-6 py-3 rounded-xl font-semibold transition-all duration-200">
-            <MapPin size={18} className="mr-3" />
-            Find Dealer
-          </Button>
-          
-          <GarageActionMenu car={carData} type="new" />
-          
-          <Button variant="outline" size="lg" className="border-neutral-4 text-neutral-2 hover:bg-neutral-7 rounded-xl font-semibold transition-all duration-200">
-            <Share size={18} className="mr-3" />
-            Share
-          </Button>
+          {/* Additional Info */}
+          <div className="text-xs space-y-1">
+            <p>12 for sale near you</p>
+            <p>Prices based on sales in CA thru 5/19/25</p>
+            <p>Final assembly in Normal, Illinois</p>
+          </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 };
 
 export default CarHeader;
