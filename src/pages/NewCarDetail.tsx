@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, FileText, Car, Star, Settings, Zap, Shield, Users, MapPin, Wrench, CheckCircle2 } from 'lucide-react';
 
 import { mockNewCars } from '@/services/mockData';
+import { PaymentCalculator } from '@/components/PaymentCalculator/PaymentCalculator';
 import { CarData } from '@/components/CarCard';
 import { getBodyStyle, mockTrims, expertRatings, ownerReviews } from './NewCarDetail/utils';
 import CarHeader from './NewCarDetail/CarHeader';
@@ -11,11 +12,12 @@ import RatingsTab from './NewCarDetail/RatingsTab';
 import ComparisonTab from './NewCarDetail/ComparisonTab';
 import CompetitorsComparison from './NewCarDetail/CompetitorsComparison/CompetitorsComparison';
 import ReviewsTab from './NewCarDetail/ReviewsTab';
-import SpecsTab from './NewCarDetail/SpecsTab';
+
 import TrimLevels from './NewCarDetail/TrimLevels';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { Button } from '@/components/ui/button';
 import PricingModule from './NewCarDetail/PricingModule';
+import CostOfOwnership from '@/components/CostOfOwnership/CostOfOwnership';
 
 const NewCarDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -66,8 +68,9 @@ const NewCarDetail: React.FC = () => {
     { id: 'comparison', title: 'Class Comparison' },
     { id: 'competitors', title: 'Competitors' },
     { id: 'reviews', title: 'Owner Reviews' },
-    { id: 'specs', title: 'Specifications' },
-    { id: 'trims', title: 'Trims & Pricing' }
+
+    { id: 'trims', title: 'Trims & Pricing' },
+    { id: 'cost', title: 'Cost of Ownership' }
   ];
 
   useEffect(() => {
@@ -166,6 +169,17 @@ const NewCarDetail: React.FC = () => {
                 }}
               />
             </div>
+
+            {/* Payment Calculator */}
+            <div className="mb-6">
+              <PaymentCalculator 
+                car={{
+                  ...car,
+                  msrp: selectedTrimData.price,
+                  imageUrl: car.imageUrl
+                }}
+              />
+            </div>
             
             {/* Expert Ratings Section */}
             <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="ratings">
@@ -196,23 +210,36 @@ const NewCarDetail: React.FC = () => {
               <ReviewsTab />
             </div>
             
-            {/* Specifications Section */}
-            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="specs">
-              <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Specifications</h2>
-              <SpecsTab />
-            </div>
+
             
             {/* Trim Levels Section */}
             <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6">
               <TrimLevels carTitle={car.title} />
             </div>
 
-            {/* Pricing Module Section */}
-            <PricingModule 
-              car={car} 
-              selectedTrimPrice={selectedTrimData.price}
-              destinationFee={1395}
-            />
+            {/* Cost of Ownership Section */}
+            <div id="cost" className="mb-6">
+              <CostOfOwnership
+                initialPrice={parseInt(car.price.replace(/\D/g, ''))} 
+                costBreakdown={[
+                  { category: 'Depreciation', amount: 42000, percentage: 52, color: 'bg-indigo-500' },
+                  { category: 'Electricity', amount: 4800, percentage: 6, color: 'bg-emerald-500' },
+                  { category: 'Insurance', amount: 24000, percentage: 30, color: 'bg-amber-500' },
+                  { category: 'Maintenance', amount: 9600, percentage: 12, color: 'bg-orange-500' }
+                ]}
+                depreciationData={[
+                  { year: 0, value: parseInt(car.price.replace(/\D/g, '')) },
+                  // EVs typically depreciate faster in first year
+                  { year: 1, value: parseInt(car.price.replace(/\D/g, '')) * 0.80 },
+                  // But then stabilize due to battery longevity and tech value
+                  { year: 3, value: parseInt(car.price.replace(/\D/g, '')) * 0.65 },
+                  { year: 5, value: parseInt(car.price.replace(/\D/g, '')) * 0.52 },
+                  { year: 7, value: parseInt(car.price.replace(/\D/g, '')) * 0.45 }
+                ]}
+              />
+            </div>
+
+
           </div>
           
           {/* Sidebar */}

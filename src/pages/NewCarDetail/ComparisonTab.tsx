@@ -76,7 +76,7 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({
                         {item.thisVehicle}{item.unit}
                       </span>
                     </div>
-                    <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div className={`h-full rounded-full transition-all duration-300 ${thisVehicleBarColor}`} style={{
                     width: `${Math.max(0, Math.min(thisVehicleWidth, 100))}%`
                   }} />
@@ -91,7 +91,7 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({
                         {item.classAverage}{item.unit}
                       </span>
                     </div>
-                    <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                       <div className="h-full rounded-full bg-gray-400 transition-all duration-300" style={{
                     width: `${Math.max(0, Math.min(classAverageWidth, 100))}%`
                   }} />
@@ -132,8 +132,8 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({
                         </div>
                         
                         <div className={`flex items-center px-1.5 py-0.5 rounded-full ${isBetter ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-500'}`}>
-                          {isBetter ? <TrendingUp size={10} className="mr-0.5" /> : <TrendingDown size={10} className="mr-0.5" />}
-                          <span className="text-[9px] font-medium">{formatPercentage(Math.abs(percentage))}</span>
+                          {isBetter ? <TrendingUp size={12} className="mr-0.5" /> : <TrendingDown size={12} className="mr-0.5" />}
+                          <span className="text-[12px] font-medium">{formatPercentage(Math.abs(percentage))}</span>
                         </div>
                         
                         <div className="text-center w-1/3">

@@ -948,6 +948,17 @@ export const mockArticles: ArticleData[] = [
  * 1. Honda Accord specific new cars (IDs honda-accord-new-*)
  * 2. Other popular new car models with high-quality automotive images
  */
+export const carPhotos = [
+  'https://d2kde5ohu8qb21.cloudfront.net/files/67003206c86c06000844d0f6/001-2025-rivian-r1s-dual-max-lead.jpg',
+  'https://d2kde5ohu8qb21.cloudfront.net/files/6700320e1aa2a60008acbe19/003-2025-rivian-r1s-dual-max-interior-dash.jpg',
+  'https://d2kde5ohu8qb21.cloudfront.net/files/67003210c86c06000844d0fa/004-2025-rivian-r1s-dual-max-front-seats.jpg',
+  'https://d2kde5ohu8qb21.cloudfront.net/files/670032149326e80008726afa/005-2025-rivian-r1s-dual-max-wheel.jpg',
+  'https://d2kde5ohu8qb21.cloudfront.net/files/6700322f7c0e35000864c375/013-2025-rivian-r1s-dual-max.jpg',
+  'https://d2kde5ohu8qb21.cloudfront.net/files/67003232bad16c000811746b/014-2025-rivian-r1s-dual-max.jpg',
+  'https://d2kde5ohu8qb21.cloudfront.net/files/670032411aa2a60008acbe1c/019-2025-rivian-r1s-dual-max-front-view.jpg',
+  'https://d2kde5ohu8qb21.cloudfront.net/files/670032441aa2a60008acbe1e/020-2025-rivian-r1s-dual-max.jpg'
+];
+
 export const mockNewCars: CarData[] = [
   // --- Honda Accord New Cars ---
   {
