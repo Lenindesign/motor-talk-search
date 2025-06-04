@@ -27,11 +27,19 @@ const CarHeader: React.FC<CarHeaderProps> = ({
       {/* Left side - Car Images */}
       <div className="lg:col-span-2">
         <div className="relative">
-          {/* 360 Badge */}
-          <div className="absolute top-4 right-4 z-10">
-            <span className="inline-flex items-center px-2 py-1 rounded-md bg-white/90 backdrop-blur-sm text-xs font-medium">
-              360°
-            </span>
+          {/* MT Score Badge */}
+          <div className="absolute top-4 right-4 z-10 space-y-2">
+            <div className="flex flex-col items-end">
+              <div className="w-32 flex items-center justify-center px-3 py-2 rounded-lg bg-white/90 backdrop-blur-sm">
+                <div className="text-center">
+                  <span className="text-2xl font-bold text-green-600">{overallRating}</span>
+                  <span className="text-sm text-gray-600">/10</span>
+                </div>
+              </div>
+              <div className="w-32 mt-1 px-2 py-1 rounded-md bg-white/90 backdrop-blur-sm text-xs font-medium text-gray-700 text-center">
+                #2 of 12 {car.category}s
+              </div>
+            </div>
           </div>
           
           {/* Main Image */}
@@ -67,8 +75,8 @@ const CarHeader: React.FC<CarHeaderProps> = ({
       {/* Right side - Car Info */}
       <div className="lg:col-span-1">
         <div className="space-y-4">
-          {/* Basic Info */}
-          <div>
+        {/* Basic Info */}
+        <div>
           <h1 className="text-xl md:text-2xl font-bold mb-2">
             {car.title}
           </h1>
@@ -85,17 +93,19 @@ const CarHeader: React.FC<CarHeaderProps> = ({
           </div>
         </div>
         
-          {/* Pricing Section */}
-          <div className="bg-white rounded-lg p-4 space-y-4">
+        {/* Pricing Section */}
+        <div className="bg-white rounded-lg space-y-4">
           {/* Year and Type Selectors */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <select className="w-full border rounded-lg px-3 py-2 text-sm">
+              <select className="w-full border rounded-lg pl-3 pr-12 py-2 text-sm appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20fill%3D%22none%22%3E%0A%20%20%3Cpath%20d%3D%22M3.5%205.25L7%208.75L10.5%205.25%22%20stroke%3D%22%23374151%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3C%2Fsvg%3E')] bg-[position:right_12px_center] bg-no-repeat">
+
                 <option>2025 - New</option>
               </select>
             </div>
             <div>
-              <select className="w-full border rounded-lg px-3 py-2 text-sm">
+              <select className="w-full border rounded-lg pl-3 pr-12 py-2 text-sm appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20fill%3D%22none%22%3E%0A%20%20%3Cpath%20d%3D%22M3.5%205.25L7%208.75L10.5%205.25%22%20stroke%3D%22%23374151%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3C%2Fsvg%3E')] bg-[position:right_12px_center] bg-no-repeat">
+
                 <option>Electric</option>
               </select>
             </div>
@@ -103,7 +113,7 @@ const CarHeader: React.FC<CarHeaderProps> = ({
           
           {/* Trim Selector */}
           <div>
-            <select className="w-full border rounded-lg px-3 py-2 text-sm">
+            <select className="w-full border rounded-lg pl-3 pr-12 py-2 text-sm appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20fill%3D%22none%22%3E%0A%20%20%3Cpath%20d%3D%22M3.5%205.25L7%208.75L10.5%205.25%22%20stroke%3D%22%23374151%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%2F%3E%0A%3C%2Fsvg%3E')] bg-[position:right_12px_center] bg-no-repeat">
               <option>Dual-Motor - $78,000 MSRP</option>
               <option>Performance Dual-Motor - $89,000 MSRP</option>
               <option>Max Pack Dual-Motor - $93,000 MSRP</option>

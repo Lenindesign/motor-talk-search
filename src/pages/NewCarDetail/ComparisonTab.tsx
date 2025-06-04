@@ -62,7 +62,7 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({
             return <div key={item.metric} className="space-y-1.5 pb-2 border-b border-gray-200 last:border-b-0 last:pb-0">
                   <div className="flex justify-between items-center">
                     <span className="font-semibold text-base text-gray-700">{item.metric}</span>
-                    <span className={`font-semibold text-xs ${isThisVehicleBetterByDefault ? 'text-green-600' : percentageDiff === 0 ? 'text-gray-600' : 'text-red-600'}`}>
+                    <span className={`font-semibold text-sm ${isThisVehicleBetterByDefault ? 'text-green-600' : percentageDiff === 0 ? 'text-gray-600' : 'text-red-600'}`}>
                       {formatPercentage(percentageDiff)}
                       {percentageDiff !== 0 ? isThisVehicleBetterByDefault ? ' Better' : ' Worse' : ' Average'}
                     </span>
@@ -70,13 +70,13 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({
 
                   {/* This Vehicle's Bar */}
                   <div className="space-y-0.5">
-                    <div className="flex justify-between text-xs text-gray-600">
+                    <div className="flex justify-between text-sm text-gray-600">
                       <span className="truncate">{carTitle}</span>
                       <span className={`font-medium ${thisVehicleBarColor.includes('green') ? 'text-green-700' : thisVehicleBarColor.includes('red') ? 'text-red-700' : 'text-sky-700'}`}>
                         {item.thisVehicle}{item.unit}
                       </span>
                     </div>
-                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
                       <div className={`h-full rounded-full transition-all duration-300 ${thisVehicleBarColor}`} style={{
                     width: `${Math.max(0, Math.min(thisVehicleWidth, 100))}%`
                   }} />
@@ -85,13 +85,13 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({
 
                   {/* Class Average Bar */}
                   <div className="space-y-0.5 mt-1">
-                    <div className="flex justify-between text-xs text-gray-600">
+                    <div className="flex justify-between text-sm text-gray-600">
                       <span className="truncate">{carCategory} Avg</span>
                       <span className="font-medium text-gray-700">
                         {item.classAverage}{item.unit}
                       </span>
                     </div>
-                    <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
                       <div className="h-full rounded-full bg-gray-400 transition-all duration-300" style={{
                     width: `${Math.max(0, Math.min(classAverageWidth, 100))}%`
                   }} />

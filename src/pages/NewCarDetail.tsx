@@ -178,6 +178,7 @@ const NewCarDetail: React.FC = () => {
               <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Class Comparison</h2>
               <ComparisonTab carTitle={car.title} carCategory={car.category} />
             </div>
+
             
             {/* Competitors Section */}
             <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="competitors">
