@@ -23,9 +23,9 @@ const CarHeader: React.FC<CarHeaderProps> = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col md:flex-row gap-6">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
       {/* Left side - Car Images */}
-      <div className="flex-1">
+      <div className="lg:col-span-2">
         <div className="relative">
           {/* 360 Badge */}
           <div className="absolute top-4 right-4 z-10">
@@ -65,9 +65,10 @@ const CarHeader: React.FC<CarHeaderProps> = ({
       </div>
       
       {/* Right side - Car Info */}
-      <div className="w-full md:w-[400px] flex flex-col gap-4">
-        {/* Basic Info */}
-        <div>
+      <div className="lg:col-span-1">
+        <div className="space-y-4">
+          {/* Basic Info */}
+          <div>
           <h1 className="text-xl md:text-2xl font-bold mb-2">
             {car.title}
           </h1>
@@ -84,8 +85,8 @@ const CarHeader: React.FC<CarHeaderProps> = ({
           </div>
         </div>
         
-        {/* Pricing Section */}
-        <div className="bg-white rounded-lg p-4 space-y-4">
+          {/* Pricing Section */}
+          <div className="bg-white rounded-lg p-4 space-y-4">
           {/* Year and Type Selectors */}
           <div className="grid grid-cols-2 gap-3">
             <div>
@@ -130,6 +131,7 @@ const CarHeader: React.FC<CarHeaderProps> = ({
             <p>Prices based on sales in CA thru 5/19/25</p>
             <p>Final assembly in Normal, Illinois</p>
           </div>
+        </div>
         </div>
       </div>
     </div>

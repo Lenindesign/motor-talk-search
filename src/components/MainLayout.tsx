@@ -14,7 +14,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   isLoading = false,
   isGaragePage = false
 }) => {
-  return <div className="flex flex-col min-h-screen bg-color-neutral-8">
+  return <div className="flex flex-col min-h-screen bg-white">
       {/* Fixed nav bar (hide for garage page) */}
       {!isGaragePage && <>
           <GlobalHeader onSearch={onSearch} isLoading={isLoading} />

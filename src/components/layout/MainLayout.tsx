@@ -58,7 +58,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, isLoading = false }) 
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-neutral-8">
+    <div className="flex flex-col min-h-screen bg-white">
       <div ref={headerRef} className="relative w-full" style={{ zIndex: 50, position: 'relative' }}>
         <GlobalHeader onSearch={handleSearch} isLoading={isLoading} />
       </div>

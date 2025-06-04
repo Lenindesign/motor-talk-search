@@ -26,7 +26,7 @@ const NewCarDetail: React.FC = () => {
 
   if (!car) {
     return (
-      <div className="min-h-screen bg-neutral-8">
+      <div className="min-h-screen bg-white">
         
         <main className="content-container section-spacing">
           <div className="text-center space-element">
@@ -103,8 +103,8 @@ const NewCarDetail: React.FC = () => {
   const overallRating = expertRatings.reduce((acc, rating) => acc + rating.score, 0) / expertRatings.length;
 
   return (
-    <div className="min-h-screen bg-white">
-      <main className="max-w-[980px] mx-auto w-full pt-[80px] md:pt-[100px]">
+    <div className="min-h-screen bg-white w-full">
+      <main className="max-w-[980px] mx-auto w-full pt-[20px] md:pt-[20px]">
         {/* Breadcrumb Navigation */}
         <div className="flex items-center mb-5 overflow-x-auto whitespace-nowrap py-1 text-xs md:text-sm">
           <Link to="/cars" className="text-neutral-4 hover:text-motortrend-red transition-colors">
@@ -145,9 +145,9 @@ const NewCarDetail: React.FC = () => {
         </div>
 
         {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
           {/* Main Content Area */}
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-2">
             {/* Vehicle Overview */}
             <div id="overview" className="mb-6">
               <VehicleOverview 
@@ -222,7 +222,7 @@ const NewCarDetail: React.FC = () => {
           </div>
           
           {/* Sidebar */}
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-1">
             {/* Quick Links */}
             <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden mb-6">
               <div className="p-4 bg-neutral-7 border-b border-neutral-6">

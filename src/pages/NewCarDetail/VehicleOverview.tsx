@@ -29,7 +29,7 @@ const VehicleOverview: React.FC<VehicleOverviewProps> = ({
   const [expanded, setExpanded] = useState(false);
   return (
     <div className="space-y-6">
-        <Card>
+        <Card className="bg-white shadow-sm border border-neutral-6 rounded-xl overflow-hidden">
           <CardContent className="space-y-6">
             <div>
               <h2 className="text-lg font-bold text-neutral-1 mb-4">Vehicle Overview</h2>
