@@ -64,11 +64,11 @@ const NewCarDetail: React.FC = () => {
 
   const sections = [
     { id: 'overview', title: 'Overview' },
+    { id: 'payment-calculator', title: 'Payment Calculator' },
     { id: 'ratings', title: 'Expert Ratings' },
     { id: 'comparison', title: 'Class Comparison' },
     { id: 'competitors', title: 'Competitors' },
     { id: 'reviews', title: 'Owner Reviews' },
-
     { id: 'trims', title: 'Trims & Pricing' },
     { id: 'cost', title: 'Cost of Ownership' }
   ];
@@ -170,8 +170,9 @@ const NewCarDetail: React.FC = () => {
               />
             </div>
 
-            {/* Payment Calculator */}
-            <div className="mb-6">
+            {/* Payment Calculator Section */}
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="payment-calculator">
+              <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Payment Calculator</h2>
               <PaymentCalculator 
                 car={{
                   ...car,
