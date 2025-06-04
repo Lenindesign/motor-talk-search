@@ -120,14 +120,7 @@ const CarHeader: React.FC<CarHeaderProps> = ({
           {/* Vehicle Title */}
           <div className="space-y-1">
             <h1 className="text-2xl font-bold text-neutral-1">{car.title}</h1>
-            <div className="flex items-center gap-2 text-sm text-neutral-3">
-              <span>Electric SUV</span>
-              <span>|</span>
-              <span className="flex items-center gap-1">
-                <Calendar size={14} className="text-neutral-3" />
-                2025
-              </span>
-            </div>
+
           </div>
 
           {/* Divider */}
