@@ -6,8 +6,7 @@ import { mockNewCars } from '@/services/mockData';
 import { CarData } from '@/components/CarCard';
 import { getBodyStyle, mockTrims, expertRatings, ownerReviews } from './NewCarDetail/utils';
 import CarHeader from './NewCarDetail/CarHeader';
-import QuickStats from './NewCarDetail/QuickStats';
-import OverviewTab from './NewCarDetail/OverviewTab';
+import VehicleOverview from './NewCarDetail/VehicleOverview';
 import RatingsTab from './NewCarDetail/RatingsTab';
 import ComparisonTab from './NewCarDetail/ComparisonTab';
 import CompetitorsComparison from './NewCarDetail/CompetitorsComparison/CompetitorsComparison';
@@ -142,22 +141,30 @@ const NewCarDetail: React.FC = () => {
         
         {/* Car Header with Image and Primary Info */}
         <div className="mb-6">
-          <CarHeader car={car} carData={carData} selectedTrimPrice={selectedTrimData.price} overallRating={overallRating} />
+            <CarHeader car={car} carData={carData} overallRating={expertRatings[0].score} />
         </div>
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-6">
           {/* Main Content Area */}
           <div className="lg:col-span-8">
-            {/* Vehicle Overview Stats */}
-            <div className="mb-6" id="overview">
-              <QuickStats overallRating={overallRating} ownerRating={ownerReviews.overallScore} />
-            </div>
-            
-            {/* Vehicle Description */}
-            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6">
-              <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">About {car.title}</h2>
-              <OverviewTab carTitle={car.title} />
+            {/* Vehicle Overview */}
+            <div id="overview" className="mb-6">
+              <VehicleOverview 
+                overallRating={expertRatings[0].score}
+                ownerRating={ownerReviews.overallScore}
+                carTitle={car.title}
+                specs={{
+                  engine: '400 HP Electric Motor',
+                  acceleration: '4.2 seconds 0-60 mph',
+                  range: '405 miles EPA estimated',
+                  charging: '350kW DC Fast Charging',
+                  drivetrain: 'All-Wheel Drive',
+                  seating: '5 passengers',
+                  cargo: '28.1 cu ft',
+                  warranty: '4 years/50,000 miles'
+                }}
+              />
             </div>
             
             {/* Expert Ratings Section */}

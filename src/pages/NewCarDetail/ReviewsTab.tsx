@@ -44,48 +44,75 @@ const ReviewsTab: React.FC = () => {
   const displayedReviews = showMore ? mockReviews : mockReviews.slice(0, 3);
   return <div className="space-y-6">
       {/* Summary Card */}
-      <Card>
-        <CardHeader>
+      <Card className="overflow-hidden">
+        <CardHeader className="border-b border-neutral-6 bg-neutral-7">
           <div className="flex justify-between items-center">
-            <CardTitle>Owner Reviews Summary</CardTitle>
-            <span className="text-sm text-gray-500">{ownerReviews.totalReviews} reviews</span>
+            <div className="space-y-1">
+              <CardTitle className="text-lg">Owner Reviews Summary</CardTitle>
+              <p className="text-sm text-neutral-3">{ownerReviews.totalReviews.toLocaleString()} verified owner reviews</p>
+            </div>
           </div>
         </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <div className="text-center mb-4">
-                <div className="text-4xl font-bold">{ownerReviews.overallScore}</div>
-                <div className="text-gray-500">out of 5 stars</div>
+        <CardContent className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Rating Score and Distribution */}
+            <div className="space-y-6">
+              <div className="flex items-baseline gap-3">
+                <span className="text-5xl font-bold text-neutral-1">{ownerReviews.overallScore}</span>
+                <div className="space-y-0.5">
+                  <div className="flex">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <svg key={star} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <div className="text-sm text-neutral-3">out of 5</div>
+                </div>
               </div>
+              
               <div className="space-y-2">
-                {ownerReviews.ratingDistribution.map(rating => <div key={rating.stars} className="flex items-center space-x-2">
-                    <span className="text-sm w-8">{rating.stars}★</span>
-                    <Progress value={rating.count / ownerReviews.totalReviews * 100} className="flex-1 h-2" />
-                    <span className="text-sm text-gray-500 w-12">{rating.count}</span>
-                  </div>)}
+                {ownerReviews.ratingDistribution.map(rating => (
+                  <div key={rating.stars} className="flex items-center gap-3">
+                    <div className="flex items-center gap-1 w-12">
+                      <span className="text-sm font-medium text-neutral-2">{rating.stars}</span>
+                      <svg className="w-3.5 h-3.5 text-yellow-400 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                      </svg>
+                    </div>
+                    <Progress 
+                      value={rating.count / ownerReviews.totalReviews * 100} 
+                      className="flex-1 h-2 bg-neutral-6"
+                    />
+                    <span className="text-sm text-neutral-3 w-12 text-right">{rating.count}</span>
+                  </div>
+                ))}
               </div>
             </div>
-            <div>
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h4 className="font-semibold text-green-600 mb-2">Top Pros</h4>
-                  <ul className="space-y-1">
-                    {ownerReviews.topPros.map((pro, index) => <li key={index} className="text-sm flex items-center">
-                        <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                        {pro}
-                      </li>)}
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-red-600 mb-2">Top Cons</h4>
-                  <ul className="space-y-1">
-                    {ownerReviews.topCons.map((con, index) => <li key={index} className="text-sm flex items-center">
-                        <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
-                        {con}
-                      </li>)}
-                  </ul>
-                </div>
+
+            {/* Pros and Cons */}
+            <div className="grid grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <h4 className="text-sm font-semibold text-green-600">Top Pros</h4>
+                <ul className="space-y-3">
+                  {ownerReviews.topPros.map((pro, index) => (
+                    <li key={index} className="flex items-center gap-2 text-sm text-neutral-2">
+                      <span className="flex-none w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                      <span>{pro}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="space-y-4">
+                <h4 className="text-sm font-semibold text-red-600">Top Cons</h4>
+                <ul className="space-y-3">
+                  {ownerReviews.topCons.map((con, index) => (
+                    <li key={index} className="flex items-center gap-2 text-sm text-neutral-2">
+                      <span className="flex-none w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+                      <span>{con}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
@@ -93,46 +120,68 @@ const ReviewsTab: React.FC = () => {
       </Card>
 
       {/* Individual Reviews */}
-      {displayedReviews.map((review, index) => <Card key={index}>
-          <CardHeader className="flex flex-col">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-2">
-                <div className="text-2xl">{review.rating}★</div>
-                <div className="text-sm text-gray-500">{review.date}</div>
+      {displayedReviews.map((review, index) => (
+        <Card key={index} className="overflow-hidden">
+          <CardHeader className="flex flex-col border-b border-neutral-6 pb-4">
+            <div className="flex justify-between items-center gap-4">
+              <div className="flex items-baseline gap-3">
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <svg 
+                      key={i} 
+                      className={`w-4 h-4 ${i < review.rating ? 'text-yellow-400' : 'text-neutral-6'} fill-current`}
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
+                    </svg>
+                  ))}
+                </div>
+                <div className="text-sm text-neutral-3">{review.date}</div>
               </div>
-              <div className="text-sm font-medium">{review.author}</div>
+              <div className="text-sm font-medium text-neutral-1">{review.author}</div>
             </div>
           </CardHeader>
-          <CardContent>
-            <p className="mb-4 text-base">{review.content}</p>
-            <div className="flex justify-between items-start">
-              <div>
-                <h4 className="font-semibold text-green-600 mb-2">Pros</h4>
-                <ul className="space-y-1">
-                  {review.pros.map((pro, index) => <li key={index} className="text-sm flex items-center">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                      {pro}
-                    </li>)}
+          <CardContent className="p-6 space-y-6">
+            <p className="text-base text-neutral-2 leading-relaxed">{review.content}</p>
+            <div className="grid grid-cols-2 gap-6">
+              <div className="space-y-4">
+                <h4 className="text-sm font-semibold text-green-600">Pros</h4>
+                <ul className="space-y-3">
+                  {review.pros.map((pro, index) => (
+                    <li key={index} className="flex items-center gap-2 text-sm text-neutral-2">
+                      <span className="flex-none w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+                      <span>{pro}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
-              <div>
-                <h4 className="font-semibold text-red-600 mb-2">Cons</h4>
-                <ul className="space-y-1">
-                  {review.cons.map((con, index) => <li key={index} className="text-sm flex items-center">
-                      <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
-                      {con}
-                    </li>)}
+              <div className="space-y-4">
+                <h4 className="text-sm font-semibold text-red-600">Cons</h4>
+                <ul className="space-y-3">
+                  {review.cons.map((con, index) => (
+                    <li key={index} className="flex items-center gap-2 text-sm text-neutral-2">
+                      <span className="flex-none w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+                      <span>{con}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
           </CardContent>
-        </Card>)}
+        </Card>
+      ))}
 
-      {!showMore && <div className="text-center">
-          <Button onClick={() => setShowMore(true)} variant="outline" className="mt-4">
+      {!showMore && (
+        <div className="text-center">
+          <Button 
+            onClick={() => setShowMore(true)} 
+            variant="outline" 
+            className="min-w-[200px] bg-white hover:bg-neutral-8"
+          >
             Load More Reviews
           </Button>
-        </div>}
+        </div>
+      )}
     </div>;
 };
 export default ReviewsTab;

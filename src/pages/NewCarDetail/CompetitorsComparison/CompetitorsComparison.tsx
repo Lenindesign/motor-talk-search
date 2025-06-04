@@ -43,10 +43,10 @@ const CompetitorsComparison: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <h3 className="text-sm text-neutral-1 font-semibold mb-3">Class Comparison</h3>
+      <h3 className="text-sm text-neutral-1 font-semibold mb-2">Class Comparison</h3>
       
       {/* Carousel Navigation */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-2">
         <div className="text-xs text-neutral-3">
           {currentPage + 1} of {totalPages}
         </div>

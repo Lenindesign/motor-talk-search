@@ -21,11 +21,11 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({
     return `${sign}${value.toFixed(1)}%`;
   };
   return <div className="space-y-8">
-      {/* Overall Comparison Header */}
       <Card>
-        <CardHeader className="pb-2">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
+        <CardContent className="p-4">
+          {/* Overall Comparison Header */}
+          <div className="mb-6">
+            <div className="flex items-center gap-2 mb-1">
               <span className="text-xl font-bold">{carTitle} vs Average {carCategory}</span>
               <span className={`text-base font-semibold ${overallScore >= 0 ? 'text-green-600' : 'text-red-500'}`}>
                 {formatPercentage(overallScore)}
@@ -33,10 +33,9 @@ const ComparisonTab: React.FC<ComparisonTabProps> = ({
             </div>
             <p className="text-xs text-gray-500">Overall score based on weighted average of all metrics</p>
           </div>
-        </CardHeader>
-        <CardContent className="pt-0">
+
           {/* New Horizontal Bar Chart Section */}
-          <div className="space-y-4 pt-2">
+          <div className="space-y-4">
             {classComparison.map(item => {
             const thisVehicleValue = item.thisVehicle;
             const classAverageValue = item.classAverage;

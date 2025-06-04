@@ -57,13 +57,11 @@ const PaymentCalculator: React.FC<PaymentCalculatorProps> = ({ car, selectedTrim
 
   return (
     <Card className="overflow-hidden shadow-modern border-modern">
-      <CardHeader className="bg-neutral-7 border-b border-neutral-6 p-4">
-        <CardTitle className="flex items-center text-lg font-semibold">
+      <CardContent className="p-4 space-y-6">
+        <div className="flex items-center text-lg font-semibold">
           <Landmark className="mr-2 h-5 w-5 text-primary" />
           Payment Calculator
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4 p-4">
+        </div>
         <div className="p-3 border rounded-md bg-muted/20">
           <div className="flex items-center space-x-3">
             {car.imageUrl ? (

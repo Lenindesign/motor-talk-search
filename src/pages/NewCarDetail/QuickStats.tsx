@@ -12,12 +12,12 @@ const QuickStats: React.FC<QuickStatsProps> = ({
 }) => {
   return (
     <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5">
-      <h2 className="text-lg text-neutral-1 font-bold mb-3">Vehicle Overview</h2>
+      <h2 className="text-lg text-neutral-1 font-bold mb-4">Vehicle Overview</h2>
       
       <div className="space-y-4">
         {/* Ratings Section */}
         <div className="border-b border-neutral-6 pb-4">
-          <h3 className="text-sm text-neutral-1 font-semibold mb-3">Ratings</h3>
+          <h3 className="text-sm text-neutral-1 font-semibold mb-2">Ratings</h3>
           
           <div className="space-y-4">
             <div>

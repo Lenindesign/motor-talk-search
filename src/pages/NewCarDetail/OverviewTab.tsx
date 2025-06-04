@@ -19,7 +19,7 @@ const OverviewTab: React.FC<OverviewTabProps> = ({
               combining cutting-edge electric technology with luxurious comfort and 
               impressive performance capabilities.
             </p>
-            <div className="space-y-3">
+            <div className="space-y-4">
               {Object.entries(mockSpecs).map(([key, value]) => (
                 <div key={key} className="flex flex-row items-center border-b pb-2">
                   <dt className="font-semibold text-sm text-gray-600 capitalize w-1/3">

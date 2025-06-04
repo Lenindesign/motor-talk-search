@@ -22,17 +22,19 @@ const PricingModule: React.FC<PricingModuleProps> = ({
   
   return (
     <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="pricing">
-      <h2 className="text-base md:text-lg text-neutral-1 font-bold mb-4">Pricing & Payment Options</h2>
-      
-      <Tabs defaultValue="pricing" className="w-full">
-        <TabsList className="w-full grid grid-cols-3 mb-4">
-          <TabsTrigger value="pricing" className="text-xs">Pricing</TabsTrigger>
-          <TabsTrigger value="incentives" className="text-xs">Incentives</TabsTrigger>
-          <TabsTrigger value="calculator" className="text-xs">Payment Calculator</TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="pricing" className="pt-2">
-          <div className="space-y-4">
+      <div className="space-y-6">
+        <h2 className="text-base md:text-lg text-neutral-1 font-bold">Pricing & Payment Options</h2>
+
+        <Tabs defaultValue="pricing" className="w-full">
+          <TabsList className="w-full grid grid-cols-3 mb-4">
+            <TabsTrigger value="pricing" className="text-xs">Pricing</TabsTrigger>
+            <TabsTrigger value="incentives" className="text-xs">Incentives</TabsTrigger>
+            <TabsTrigger value="calculator" className="text-xs">Payment Calculator</TabsTrigger>
+          </TabsList>
+
+          
+          <TabsContent value="pricing">
+            <div className="space-y-4">
             <div className="flex justify-between items-start">
               <div>
                 <h3 className="text-sm font-medium">Base MSRP</h3>
@@ -91,7 +93,7 @@ const PricingModule: React.FC<PricingModuleProps> = ({
           </div>
         </TabsContent>
         
-        <TabsContent value="incentives" className="pt-2">
+        <TabsContent value="incentives">
           <div className="space-y-4">
             <div className="flex justify-between items-start">
               <div>
@@ -133,10 +135,11 @@ const PricingModule: React.FC<PricingModuleProps> = ({
           </div>
         </TabsContent>
         
-        <TabsContent value="calculator" className="pt-2">
+        <TabsContent value="calculator">
           <PaymentCalculator car={car} selectedTrimPrice={selectedTrimPrice} />
         </TabsContent>
       </Tabs>
+      </div>
     </div>
   );
 };
