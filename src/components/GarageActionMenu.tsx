@@ -112,7 +112,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
         <Button
           variant={getButtonVariant()}
           size="lg"
-          className={`gap-1 px-6 py-3 rounded-xl font-semibold transition-all duration-200 text-gray-900 hover:text-gray-900 ${className}`}
+          className={`gap-1 font-semibold transition-all duration-200 text-gray-900 hover:text-gray-900 ${className}`}
           onClick={e => {
             e.stopPropagation();
           }}

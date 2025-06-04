@@ -91,9 +91,10 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
     }}
     onClick={() => navigate(linkPath)}
   >
-    <div className="relative w-full h-full">
-
-      <div className="p-4 flex flex-col flex-grow space-y-2">
+    <div className="relative w-full h-full flex flex-col">
+      <div className="p-4 flex-1 flex flex-col min-h-0">
+        {/* Use grid with consistent gap instead of space-y for better spacing control */}
+        <div className="grid gap-2">
         <div className="flex items-start justify-between">
           <RouterLink to={linkPath} className="flex-grow">
             <h3 className="text-lg line-clamp-2 transition-colors font-semibold text-motortrend-dark">
@@ -108,9 +109,15 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
           </RouterLink>
         )}
         <CarSpecs car={car} type={type} />
+
+        </div>
+      </div>
+      {/* Fixed bottom section */}
+      <div className="p-4 pt-0 mt-auto">
         <Button
           variant="outline"
-          className="w-full mt-4 mb-6 bg-white hover:bg-gray-50 border-motortrend-red text-motortrend-red hover:text-motortrend-dark hover:border-motortrend-dark"
+          size="lg"
+          className="w-full mb-4 bg-white hover:bg-gray-50 border-motortrend-red text-motortrend-red hover:text-motortrend-dark hover:border-motortrend-dark rounded-xl"
           onClick={(e) => {
             e.stopPropagation();
             // Extract make and model from title (e.g. "2025 Rivian R1S")
@@ -127,10 +134,8 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
           <Search className="w-4 h-4 mr-2" />
           Find Best Price
         </Button>
+        <GarageActionMenu car={car} type={type} className="w-full" />
       </div>
-    </div>
-    <div className="px-4 pb-4">
-      <GarageActionMenu car={car} type={type} className="w-full" />
     </div>
   </Card>;
 });

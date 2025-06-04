@@ -2002,6 +2002,25 @@ export const generateChatResponse = (query: string): string => {
     responseText = `Here are our top SUV picks for 2025:\n\nLuxury:\n• ${createSearchLink("2025 Genesis GV80")} - Best Overall\n• ${createSearchLink("2025 BMW X5")} - Best Performance\n\nMainstream:\n• ${createSearchLink("2025 Hyundai Palisade")} - Best Value\n• ${createSearchLink("2025 Honda CR-V")} - Most Reliable\n\nElectric:\n• ${createSearchLink("2025 Rivian R1S")} - Best Electric SUV`;
   } else if (lowerQuery.includes("performance") || lowerQuery.includes("fast") || lowerQuery.includes("sports car")) {
     responseText = `Here are our top performance car picks for 2025:\n\nSupercars:\n• ${createSearchLink("2025 Ferrari 296 GTB")} - Best Overall\n• ${createSearchLink("2025 Porsche 911 GT3 RS")} - Best Track Car\n\nSports Cars:\n• ${createSearchLink("2025 Chevrolet Corvette Z06")} - Best Value\n• ${createSearchLink("2025 Toyota GR Supra")} - Best Daily Driver\n\nCheck out our "${createSearchLink("2025 Performance Car Buyers Guide")}" for more details.`;
+  } else if (lowerQuery.includes("accord")) {
+    // Handle Accord-specific queries
+    if (lowerQuery.includes("new")) {
+      const accordNewCars = mockNewCars.filter(car => car.title.toLowerCase().includes("accord"));
+      if (accordNewCars.length > 0) {
+        responseText = `Here are our available new Honda Accord models:\n\n${accordNewCars.map(car => `• ${createSearchLink(car.title, car.title + " new car")}`).join('\n')}\n\nClick any model to see more details.`;
+      } else {
+        responseText = `I can help you find new Honda Accord models. Try searching for "${createSearchLink("2025 Honda Accord new car")}" to see our latest inventory.`;
+      }
+    } else if (lowerQuery.includes("used")) {
+      const accordUsedCars = mockUsedCars.filter(car => car.title.toLowerCase().includes("accord"));
+      if (accordUsedCars.length > 0) {
+        responseText = `Here are our available used Honda Accord models:\n\n${accordUsedCars.map(car => `• ${createSearchLink(car.title, car.title + " used car")}`).join('\n')}\n\nClick any model to see more details.`;
+      } else {
+        responseText = `I can help you find used Honda Accord models. Try searching for "${createSearchLink("Honda Accord used cars")}" to see our inventory.`;
+      }
+    } else {
+      responseText = `I can help you find Honda Accord models. Are you interested in ${createSearchLink("new Accord models", "Honda Accord new cars")} or ${createSearchLink("used Accord models", "Honda Accord used cars")}?`;
+    }
   } else if (lowerQuery.includes("list of cars") || lowerQuery.includes("show me some cars") || lowerQuery.includes("list of year make models")) {
     const exampleCars = [
       mockNewCars.length > 0 ? createSearchLink(mockNewCars[0].title) : null,
@@ -2051,8 +2070,8 @@ export const determineContentType = (query: string): ContentType => {
   const lowerQuery = query.toLowerCase();
   
   // Special cases for Honda Accord car searches
-  if (lowerQuery.includes("honda accord") && lowerQuery.includes("new car")) return "newCars";
-  if (lowerQuery.includes("honda accord") && (lowerQuery.includes("used car") || lowerQuery.includes("used cars"))) return "usedCars";
+  if (lowerQuery.includes("accord") && (lowerQuery.includes("new car") || lowerQuery.includes("new cars"))) return "newCars";
+  if (lowerQuery.includes("accord") && (lowerQuery.includes("used car") || lowerQuery.includes("used cars"))) return "usedCars";
   
   if (lowerQuery.includes("article") || lowerQuery.includes("news") || lowerQuery.includes("review")) return "articles";
   // Prioritize used cars for generic car searches
