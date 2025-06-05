@@ -1,6 +1,7 @@
 
 import React from 'react';
 import ArticleSubNavigation from '@/components/ArticleSubNavigation';
+import NavigationProgressBar from '@/components/article/NavigationProgressBar';
 import ScrollToTopButton from '@/components/article/ScrollToTopButton';
 
 interface ArticleDetailLayoutProps {
@@ -29,12 +30,9 @@ const ArticleDetailLayout: React.FC<ArticleDetailLayoutProps> = ({
         />
       )}
 
-      {/* Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-gray-100 z-50">
-        <div 
-          className="h-full bg-motortrend-red transition-all duration-200"
-          style={{ width: `${readingProgress}%` }}
-        />
+      {/* Progress Bar - positioned under sticky nav */}
+      <div className="sticky z-50" style={{ top: 'calc(4rem + 80px)' }}>
+        <NavigationProgressBar readingProgress={readingProgress} />
       </div>
 
       {/* Main Content */}
