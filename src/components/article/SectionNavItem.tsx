@@ -33,10 +33,10 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
     <button
       onClick={onClick}
       className={cn(
-        "flex items-center space-x-2 rounded-lg text-sm font-medium transition-all duration-200 border-2",
+        "flex items-center space-x-3 rounded-lg text-sm font-medium transition-all duration-200 border-2 min-w-0",
         "hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-motortrend-red",
         isCompact 
-          ? "px-3 py-2 whitespace-nowrap focus:ring-offset-1" 
+          ? "px-4 py-3 whitespace-nowrap focus:ring-offset-1" 
           : "p-3 focus:ring-offset-2",
         isActive 
           ? "bg-motortrend-red text-white shadow-md border-motortrend-red" 
@@ -46,7 +46,7 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
       {section.thumbnail && (
         <div className={cn(
           "rounded overflow-hidden flex-shrink-0",
-          isCompact ? "w-8 h-8" : "w-10 h-10"
+          isCompact ? "w-10 h-10" : "w-12 h-12"
         )}>
           <img 
             src={section.thumbnail} 
@@ -55,23 +55,26 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
           />
         </div>
       )}
-      <span className={cn(
-        "truncate font-semibold",
-        isCompact ? "max-w-32" : "",
-        isActive ? "text-white" : ""
-      )}>
-        {section.title}
-      </span>
       
-      {/* Section Progress Indicator */}
-      {showProgress && isActive && sectionProgress > 0 && (
-        <div className="w-12 h-1 bg-white/30 rounded-full overflow-hidden">
-          <div 
-            className="h-full bg-white transition-all duration-200"
-            style={{ width: `${sectionProgress}%` }}
-          />
-        </div>
-      )}
+      <div className="flex flex-col items-start min-w-0 flex-1">
+        <span className={cn(
+          "truncate font-semibold text-left leading-tight",
+          isCompact ? "max-w-48 text-sm" : "max-w-64",
+          isActive ? "text-white" : ""
+        )}>
+          {section.title}
+        </span>
+        
+        {/* Section Progress Indicator */}
+        {showProgress && isActive && sectionProgress > 0 && (
+          <div className="w-full h-1 bg-white/30 rounded-full overflow-hidden mt-1">
+            <div 
+              className="h-full bg-white transition-all duration-300"
+              style={{ width: `${sectionProgress}%` }}
+            />
+          </div>
+        )}
+      </div>
     </button>
   );
 };
