@@ -6,6 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { mockArticles, mockComments } from '@/services/mockData';
 import { BuyersGuideCard } from '@/components/BuyersGuideCard';
 import { CommentsSection } from '@/components/CommentsSection';
+import ArticleSubNavigation from '@/components/ArticleSubNavigation';
 
 interface Comment {
   id: string;
@@ -202,8 +203,8 @@ const ArticleDetail: React.FC = () => {
     };
     
     return (
-      <article key={article.id} className="max-w-3xl mx-auto px-4 py-8">
-        <header className="mb-8">
+      <article key={article.id} data-article-id={article.id} className="max-w-3xl mx-auto px-4 py-8">
+        <header className="mb-8" id="introduction">
           <h1 className="text-3xl font-bold mb-4">{article.title}</h1>
           <div className="flex items-center text-gray-600 text-sm mb-6">
             <User size={16} className="mr-1" />
@@ -271,9 +272,20 @@ const ArticleDetail: React.FC = () => {
     );
   };
 
+  const currentArticle = mockArticles.find(a => a.id === id);
+
   // Main render
   return (
     <div className="min-h-screen bg-white">
+      {/* Sub Navigation Bar */}
+      {currentArticle && (
+        <ArticleSubNavigation
+          articleId={currentArticle.id}
+          imageUrl={currentArticle.imageUrl}
+          readingProgress={readingProgress}
+        />
+      )}
+
       {/* Progress Bar */}
       <div className="fixed top-0 left-0 right-0 h-1 bg-gray-100 z-50">
         <div 
@@ -283,7 +295,7 @@ const ArticleDetail: React.FC = () => {
       </div>
 
       {/* Main Content */}
-      <main className="pt-12 pb-20">
+      <main className="pt-4 pb-20">
         {loadedIndexes.map((index) => {
           const article = mockArticles[index];
           return article ? renderArticle(article, index) : null;
