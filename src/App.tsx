@@ -33,13 +33,15 @@ import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 import { CarProvider } from "./contexts/CarContext";
 import MainLayout from "./components/MainLayout";
 import GlobalFooter from "./components/GlobalFooter";
+import { Toaster } from "@/components/ui/toaster";
 function App() {
   return <div className="">
       <BrowserRouter>
         <PersonalizationProvider>
           <CarProvider>
             <SavedItemsProvider>
-             <MainLayout>
+              <MainLayout>
+                <Toaster />
                 {/* Loading fallback for lazy-loaded components */}
                 <Suspense fallback={<div className="flex items-center justify-center w-full h-screen bg-background">
                     <div className="flex flex-col items-center space-y-4">
