@@ -49,7 +49,8 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
       toast({
         title: "Updated in garage",
         description: `${car.title} moved to ${ownership === 'testDriven' ? 'Test Drive' : ownership} collection.`,
-        action: <Button variant="outline" size="sm" onClick={() => navigate('/garage')}>My Garage</Button>
+        action: <Button variant="outline" size="sm" onClick={() => navigate('/garage')}>My Garage</Button>,
+        duration: 3000
       });
     } else {
       // Add new item
@@ -74,7 +75,8 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
       toast({
         title: "Added to garage",
         description: `${car.title} added to your ${ownership === 'testDriven' ? 'Test Drive' : ownership} collection.`,
-        action: <Button variant="outline" size="sm" onClick={() => navigate('/garage')}>My Garage</Button>
+        action: <Button variant="outline" size="sm" onClick={() => navigate('/garage')}>My Garage</Button>,
+        duration: 3000
       });
     }
     setOpen(false);
@@ -83,7 +85,8 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
   const handleScheduleTestDrive = () => {
     toast({
       title: "Scheduling Test Drive",
-      description: "Connecting you with local dealers for a test drive appointment."
+      description: "Connecting you with local dealers for a test drive appointment.",
+      duration: 3000
     });
     setOpen(false);
   };
@@ -91,7 +94,8 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
   const handleContactDealer = () => {
     toast({
       title: "Contacting Dealer",
-      description: "Opening dealer contact information."
+      description: "Opening dealer contact information.",
+      duration: 3000
     });
     setOpen(false);
   };
