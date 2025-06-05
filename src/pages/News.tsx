@@ -1,17 +1,14 @@
-
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, TrendingUp, Clock, Star, Video, Image } from 'lucide-react';
-
 import HeroCarousel from '@/components/home/HeroCarousel';
 import ArticleCard from '@/components/ArticleCard';
 import VideoCard from '@/components/VideoCard';
 import PhotoCard from '@/components/PhotoCard';
 import CarCard from '@/components/CarCard';
 import { mockArticles, mockVideos, mockPhotos, mockNewCars } from '@/services/mockData';
-
 const News: React.FC = () => {
   const [activeTab, setActiveTab] = useState('latest');
 
@@ -32,45 +29,39 @@ const News: React.FC = () => {
 
   // Latest cars section (first 3 cars)
   const latestCars = mockNewCars.slice(0, 3);
-
-  return (
-    <div className="min-h-screen bg-gray-50">
+  return <div className="min-h-screen bg-transparent">
       
       <main className="max-w-[980px] mx-auto px-0 py-[32px]">
         {/* Hero Carousel */}
         <div className="mb-8">
-          <HeroCarousel slides={[
-            {
-              id: 'n1',
-              title: '2025 Porsche Macan EV: First Drive',
-              subtitle: 'Porsche enters the electric SUV market with a bang. Here\'s how the Macan EV stacks up.',
-              imageUrl: 'https://cdn.motor1.com/images/mgl/8ANLNB/s1/2024-porsche-macan-ev.jpg',
-              tag: 'First Drive',
-              tagColor: 'bg-blue-700',
-              author: 'Alexandra Smith',
-              readTime: '3 hours ago'
-            },
-            {
-              id: 'n2',
-              title: 'Inside the 2025 Detroit Auto Show',
-              subtitle: 'The biggest reveals, surprises, and electric debuts from Detroit.',
-              imageUrl: 'https://www.usnews.com/dims4/USNEWS/1f68db0/2147483647/thumbnail/970x647/quality/85/?url=https%3A%2F%2Fwww.usnews.com%2Fcmsmedia%2Fff%2Fb8%2F1541dfa646598a340d0e1d5cd797%2Fmaverick-lobo-2.jpg',
-              tag: 'Event',
-              tagColor: 'bg-green-700',
-              author: 'Brian Lee',
-              readTime: '5 hours ago'
-            },
-            {
-              id: 'n3',
-              title: 'How Autonomous Tech is Changing Road Trips',
-              subtitle: 'From hands-free driving to smart navigation, a look at the new era of travel.',
-              imageUrl: 'https://images.unsplash.com/photo-1461632830798-3adb3034e4c8?auto=format&fit=crop&w=1200&q=80',
-              tag: 'Tech',
-              tagColor: 'bg-purple-700',
-              author: 'Dana Patel',
-              readTime: '7 hours ago'
-            }
-          ]} />
+          <HeroCarousel slides={[{
+          id: 'n1',
+          title: '2025 Porsche Macan EV: First Drive',
+          subtitle: 'Porsche enters the electric SUV market with a bang. Here\'s how the Macan EV stacks up.',
+          imageUrl: 'https://cdn.motor1.com/images/mgl/8ANLNB/s1/2024-porsche-macan-ev.jpg',
+          tag: 'First Drive',
+          tagColor: 'bg-blue-700',
+          author: 'Alexandra Smith',
+          readTime: '3 hours ago'
+        }, {
+          id: 'n2',
+          title: 'Inside the 2025 Detroit Auto Show',
+          subtitle: 'The biggest reveals, surprises, and electric debuts from Detroit.',
+          imageUrl: 'https://www.usnews.com/dims4/USNEWS/1f68db0/2147483647/thumbnail/970x647/quality/85/?url=https%3A%2F%2Fwww.usnews.com%2Fcmsmedia%2Fff%2Fb8%2F1541dfa646598a340d0e1d5cd797%2Fmaverick-lobo-2.jpg',
+          tag: 'Event',
+          tagColor: 'bg-green-700',
+          author: 'Brian Lee',
+          readTime: '5 hours ago'
+        }, {
+          id: 'n3',
+          title: 'How Autonomous Tech is Changing Road Trips',
+          subtitle: 'From hands-free driving to smart navigation, a look at the new era of travel.',
+          imageUrl: 'https://images.unsplash.com/photo-1461632830798-3adb3034e4c8?auto=format&fit=crop&w=1200&q=80',
+          tag: 'Tech',
+          tagColor: 'bg-purple-700',
+          author: 'Dana Patel',
+          readTime: '7 hours ago'
+        }]} />
         </div>
 
         {/* Main Content Tabs */}
@@ -92,25 +83,19 @@ const News: React.FC = () => {
 
           <TabsContent value="latest">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {latestNews.map(article => (
-                <ArticleCard key={article.id} article={article} />
-              ))}
+              {latestNews.map(article => <ArticleCard key={article.id} article={article} />)}
             </div>
           </TabsContent>
 
           <TabsContent value="trending">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {trendingNews.map(article => (
-                <ArticleCard key={article.id} article={article} />
-              ))}
+              {trendingNews.map(article => <ArticleCard key={article.id} article={article} />)}
             </div>
           </TabsContent>
 
           <TabsContent value="for-you">
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {forYouNews.map(article => (
-                <ArticleCard key={article.id} article={article} />
-              ))}
+              {forYouNews.map(article => <ArticleCard key={article.id} article={article} />)}
             </div>
           </TabsContent>
         </Tabs>
@@ -128,9 +113,7 @@ const News: React.FC = () => {
             </Button>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {featuredVideos.map(video => (
-              <VideoCard key={video.id} video={video} />
-            ))}
+            {featuredVideos.map(video => <VideoCard key={video.id} video={video} />)}
           </div>
         </section>
 
@@ -147,9 +130,7 @@ const News: React.FC = () => {
             </Button>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {featuredPhotos.map(photo => (
-              <PhotoCard key={photo.id} photo={photo} />
-            ))}
+            {featuredPhotos.map(photo => <PhotoCard key={photo.id} photo={photo} />)}
           </div>
         </section>
 
@@ -163,14 +144,10 @@ const News: React.FC = () => {
             </Button>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {latestCars.map(car => (
-              <CarCard key={car.id} car={car} type="new" />
-            ))}
+            {latestCars.map(car => <CarCard key={car.id} car={car} type="new" />)}
           </div>
         </section>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default News;
