@@ -41,7 +41,7 @@ const SectionNavItem = forwardRef<HTMLButtonElement, SectionNavItemProps>(({
           : "p-3",
         isActive 
           ? "bg-motortrend-dark text-white shadow-md hover:text-motortrend-dark" 
-          : "text-gray-700 hover:text-motortrend-red hover:bg-gray-100"
+          : "text-gray-700 hover:bg-gray-100"
       )}
     >
       {section.thumbnail && (
