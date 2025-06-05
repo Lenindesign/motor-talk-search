@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import DealerList from './components/DealerList';
@@ -57,6 +56,41 @@ const CarConnect = () => {
   return (
     <div className="container mx-auto px-0 py-8">
       <div className="max-w-5xl mx-auto">
+        {/* Header with Car Info */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              Find the Best Price
+            </h1>
+            <p className="text-gray-600">
+              Connect with certified dealers and get the best deal on your vehicle.
+            </p>
+          </div>
+          
+          {selectedCar?.make && selectedCar?.model && (
+            <div className="flex items-center gap-4">
+              <div className="text-right">
+                <h2 className="text-xl font-semibold text-gray-900">
+                  {selectedCar.make.name} {selectedCar.model.name}
+                </h2>
+                <p className="text-gray-600">{selectedCar.model.year}</p>
+                {selectedCar.model.msrp && (
+                  <p className="text-lg font-bold text-motortrend-red">
+                    ${selectedCar.model.msrp.toLocaleString()}
+                  </p>
+                )}
+              </div>
+              <div className="w-24 h-16 rounded-lg overflow-hidden bg-gray-100">
+                <img
+                  src={currentImage}
+                  alt={`${selectedCar.make.name} ${selectedCar.model.name}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          )}
+        </div>
+
         {selectedCar?.make && selectedCar?.model && (
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <div className="p-6">
