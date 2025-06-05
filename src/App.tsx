@@ -1,4 +1,3 @@
-
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
@@ -34,23 +33,20 @@ import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 import { CarProvider } from "./contexts/CarContext";
 import MainLayout from "./components/MainLayout";
 import GlobalFooter from "./components/GlobalFooter";
-
 function App() {
-  return <div className="w-full min-h-screen bg-motortrend-gray">
+  return <div className="">
       <BrowserRouter>
         <PersonalizationProvider>
           <CarProvider>
             <SavedItemsProvider>
              <MainLayout>
                 {/* Loading fallback for lazy-loaded components */}
-                <Suspense fallback={
-                  <div className="flex items-center justify-center w-full h-screen bg-background">
+                <Suspense fallback={<div className="flex items-center justify-center w-full h-screen bg-background">
                     <div className="flex flex-col items-center space-y-4">
                       <div className="w-10 h-10 border-4 border-primary rounded-full border-t-transparent animate-spin"></div>
                       <p className="text-sm text-muted-foreground">Loading...</p>
                     </div>
-                  </div>
-                }>
+                  </div>}>
                   <Routes>
                     <Route path="/" element={<Index />} />
                     <Route path="/search" element={<Search />} />
@@ -85,5 +81,4 @@ function App() {
       </BrowserRouter>
     </div>;
 }
-
 export default App;
