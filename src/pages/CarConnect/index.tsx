@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import DealerList from './components/DealerList';
@@ -20,6 +21,7 @@ const CarConnect = () => {
   const { carId } = useParams<{ carId: string }>();
   const { selectedCar, setSelectedCar } = useCarContext();
   const [selectedDealer, setSelectedDealer] = useState<Dealer | null>(null);
+  const [dealersLoaded, setDealersLoaded] = useState(false);
 
   useEffect(() => {
     if (carId) {
@@ -38,6 +40,14 @@ const CarConnect = () => {
       }
     }
   }, [carId, setSelectedCar]);
+
+  // Handle auto-selecting first dealer when dealers are loaded
+  const handleDealersLoaded = (dealers: Dealer[]) => {
+    if (dealers.length > 0 && !selectedDealer) {
+      setSelectedDealer(dealers[0]);
+    }
+    setDealersLoaded(true);
+  };
 
   const { currentImage } = useOptimizedImageLoader({
     imageUrl: selectedCar?.model?.imageUrl || selectedCar?.make?.imageUrl || 'https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-rivian-r1s-front-view.jpg',
@@ -139,6 +149,7 @@ const CarConnect = () => {
               carId={carId}
               selectedDealer={selectedDealer}
               onDealerSelect={setSelectedDealer}
+              onDealersLoaded={handleDealersLoaded}
             />
           </div>
 

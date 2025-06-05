@@ -9,9 +9,10 @@ interface DealerListProps {
   carId?: string;
   selectedDealer: Dealer | null;
   onDealerSelect: (dealer: Dealer) => void;
+  onDealersLoaded?: (dealers: Dealer[]) => void;
 }
 
-const DealerList = ({ carId, selectedDealer, onDealerSelect }: DealerListProps) => {
+const DealerList = ({ carId, selectedDealer, onDealerSelect, onDealersLoaded }: DealerListProps) => {
   const [dealers, setDealers] = useState<Dealer[]>([]);
   const [loading, setLoading] = useState(true);
   const [showReviews, setShowReviews] = useState<string | null>(null);
@@ -24,6 +25,10 @@ const DealerList = ({ carId, selectedDealer, onDealerSelect }: DealerListProps) 
         // In a real app, this would be an API call
         await new Promise(resolve => setTimeout(resolve, 1000));
         setDealers(mockDealers);
+        // Call the callback to notify parent that dealers are loaded
+        if (onDealersLoaded) {
+          onDealersLoaded(mockDealers);
+        }
       } catch (error) {
         console.error('Error fetching dealers:', error);
       } finally {
@@ -32,7 +37,7 @@ const DealerList = ({ carId, selectedDealer, onDealerSelect }: DealerListProps) 
     };
 
     fetchDealers();
-  }, [carId]);
+  }, [carId, onDealersLoaded]);
 
   if (loading) {
     return (
