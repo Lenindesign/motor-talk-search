@@ -58,18 +58,10 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
       
       <div className="flex flex-col items-start min-w-0 flex-1">
         <span className={cn(
-          "font-semibold text-left leading-tight text-xs line-clamp-2",
-          "max-w-48 overflow-hidden",
+          "truncate font-semibold text-left leading-tight",
+          isCompact ? "max-w-48 text-sm" : "max-w-64",
           isActive ? "text-white" : ""
-        )}
-        style={{
-          fontSize: '12px',
-          display: '-webkit-box',
-          WebkitLineClamp: 2,
-          WebkitBoxOrient: 'vertical',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis'
-        }}>
+        )}>
           {section.title}
         </span>
       </div>
