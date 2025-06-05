@@ -8,6 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { mockArticles, mockComments } from '@/services/mockData';
 import { CommentsSection } from '@/components/CommentsSection';
 import { BuyersGuideCard } from '@/components/BuyersGuideCard';
+import ArticleSubNav from '@/components/ArticleSubNav';
 import '@/styles/progress-bar.css';
 
 export default function ArticleDetail(): JSX.Element {
@@ -17,11 +18,13 @@ export default function ArticleDetail(): JSX.Element {
   const [readingProgress, setReadingProgress] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  // For numeric IDs, show a Honda Accord article
-  const isNumericId = id && !isNaN(Number(id));
-  const article = isNumericId
-    ? mockArticles.find((a) => a.title.toLowerCase().includes('honda accord')) || mockArticles[0]
-    : mockArticles.find((a) => a.id === id) || mockArticles[0];
+  // Get current article and related articles
+  const currentArticleIndex = mockArticles.findIndex((a) => a.id === id);
+  const articlesInSeries = mockArticles
+    .filter((a) => a.category === mockArticles[currentArticleIndex]?.category)
+    .slice(0, 5);
+
+  const article = mockArticles[currentArticleIndex] || mockArticles[0];
   const isArticleSaved = isSaved(id || '', 'article');
 
   const handleSave = () => {
@@ -61,7 +64,12 @@ export default function ArticleDetail(): JSX.Element {
 
   if (!article) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-white">
+        <ArticleSubNav
+          currentArticleIndex={currentArticleIndex}
+          articles={articlesInSeries}
+          readingProgress={readingProgress}
+        />
         <main className="container mx-auto px-4 py-8">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Article Not Found</h1>
