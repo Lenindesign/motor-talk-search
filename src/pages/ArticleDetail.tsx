@@ -145,10 +145,7 @@ export default function ArticleDetail(): JSX.Element {
               <Calendar size={16} className="mr-2" />
               <span>{article.date}</span>
             </div>
-            <div className="flex items-center">
-              <Clock size={16} className="mr-2" />
-              <span>{mockContent.readTime}</span>
-            </div>
+
             <a href="#comments" className="flex items-center hover:text-motortrend-red transition-colors">
               <MessageSquare size={16} className="mr-2" />
               <span>{mockComments.reduce((count, comment) => count + 1 + (comment.replies?.length || 0), 0)} comments</span>
