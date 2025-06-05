@@ -1,9 +1,8 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { useSectionNavigation } from '@/hooks/useSectionNavigation';
 import NavigationProgressBar from '@/components/article/NavigationProgressBar';
 import SectionNavItem from '@/components/article/SectionNavItem';
-import ExpandableSectionsMenu from '@/components/article/ExpandableSectionsMenu';
 
 interface ArticleSubNavigationProps {
   articleId: string;
@@ -18,7 +17,6 @@ const ArticleSubNavigation: React.FC<ArticleSubNavigationProps> = ({
   readingProgress,
   onSectionClick
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const {
     sections,
     activeSectionId,
@@ -38,30 +36,19 @@ const ArticleSubNavigation: React.FC<ArticleSubNavigationProps> = ({
       <NavigationProgressBar readingProgress={readingProgress} />
 
       {/* Navigation Bar */}
-      <div className="relative">
-        <div className="flex items-center justify-between px-4 py-3 bg-white">
-          <div className="flex items-center space-x-4 overflow-x-auto scrollbar-none">
-            {sections.slice(0, isExpanded ? sections.length : 4).map((section) => (
-              <SectionNavItem
-                key={section.id}
-                section={section}
-                isActive={activeSectionId === section.id}
-                sectionProgress={sectionProgress[section.id] || 0}
-                onClick={() => onSectionItemClick(section.id)}
-                showProgress={true}
-                size="compact"
-              />
-            ))}
-          </div>
-
-          <ExpandableSectionsMenu
-            sections={sections}
-            activeSectionId={activeSectionId}
-            sectionProgress={sectionProgress}
-            onSectionClick={onSectionItemClick}
-            isExpanded={isExpanded}
-            onToggleExpanded={() => setIsExpanded(!isExpanded)}
-          />
+      <div className="px-4 py-3 bg-white">
+        <div className="flex items-center space-x-4 overflow-x-auto scrollbar-none">
+          {sections.map((section) => (
+            <SectionNavItem
+              key={section.id}
+              section={section}
+              isActive={activeSectionId === section.id}
+              sectionProgress={sectionProgress[section.id] || 0}
+              onClick={() => onSectionItemClick(section.id)}
+              showProgress={true}
+              size="compact"
+            />
+          ))}
         </div>
       </div>
     </div>

@@ -33,14 +33,14 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
     <button
       onClick={onClick}
       className={cn(
-        "flex items-center space-x-2 rounded-lg text-sm font-medium transition-all duration-200",
+        "flex items-center space-x-2 rounded-lg text-sm font-medium transition-all duration-200 border-2",
         "hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-motortrend-red",
         isCompact 
           ? "px-3 py-2 whitespace-nowrap focus:ring-offset-1" 
           : "p-3 focus:ring-offset-2",
         isActive 
-          ? "bg-motortrend-red text-white shadow-md" 
-          : "text-gray-700 hover:text-motortrend-red"
+          ? "bg-motortrend-red text-white shadow-md border-motortrend-red" 
+          : "text-gray-700 hover:text-motortrend-red border-transparent hover:border-gray-200"
       )}
     >
       {section.thumbnail && (
@@ -56,8 +56,9 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
         </div>
       )}
       <span className={cn(
-        "truncate",
-        isCompact ? "max-w-32" : ""
+        "truncate font-semibold",
+        isCompact ? "max-w-32" : "",
+        isActive ? "text-white" : ""
       )}>
         {section.title}
       </span>
