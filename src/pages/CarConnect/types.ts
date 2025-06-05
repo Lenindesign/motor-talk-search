@@ -1,3 +1,4 @@
+
 export interface Dealer {
   id: string;
   name: string;
@@ -9,6 +10,15 @@ export interface Dealer {
   imageUrl?: string;
   unreadMessages?: number;
   verified?: boolean;
+  reviews?: DealerReview[];
+}
+
+export interface DealerReview {
+  id: string;
+  author: string;
+  rating: number;
+  content: string;
+  date: string;
 }
 
 export interface Message {
