@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { useSectionNavigation } from '@/hooks/useSectionNavigation';
-import NavigationProgressBar from '@/components/article/NavigationProgressBar';
 import SectionNavItem from '@/components/article/SectionNavItem';
 
 interface ArticleSubNavigationProps {
@@ -32,9 +31,6 @@ const ArticleSubNavigation: React.FC<ArticleSubNavigationProps> = ({
 
   return (
     <div className="sticky top-16 z-40 bg-white border-b border-gray-200 shadow-sm">
-      {/* Progress Bar */}
-      <NavigationProgressBar readingProgress={readingProgress} />
-
       {/* Navigation Bar */}
       <div className="px-4 py-3 bg-white">
         <div className="flex items-center space-x-4 overflow-x-auto scrollbar-none">
