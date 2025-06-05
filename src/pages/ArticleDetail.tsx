@@ -16,64 +16,73 @@ export default function ArticleDetail(): JSX.Element {
   const { savedItems, addSavedItem, removeSavedItem, isSaved } = useSavedItems();
   const [readingProgress, setReadingProgress] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [relatedArticles, setRelatedArticles] = useState<typeof mockArticles>([]);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
 
-  // For numeric IDs, show a Honda Accord article
-  const isNumericId = id && !isNaN(Number(id));
-  const article = isNumericId
-    ? mockArticles.find((a) => a.title.toLowerCase().includes('honda accord')) || mockArticles[0]
-    : mockArticles.find((a) => a.id === id) || mockArticles[0];
-  const isArticleSaved = isSaved(id || '', 'article');
+  // Article stacking logic
+  const initialIndex = id ? mockArticles.findIndex(a => a.id === id) : 0;
+  const [loadedIndexes, setLoadedIndexes] = useState<number[]>([initialIndex >= 0 ? initialIndex : 0]);
+  const maxArticles = 4;
+  const observerRef = React.useRef<HTMLDivElement | null>(null);
 
-  const handleSave = () => {
-    if (isArticleSaved) {
-      removeSavedItem(id || '', 'article');
-    } else {
-      addSavedItem({
-        id: id || '',
-        type: 'article',
-        title: article.title,
-        imageUrl: article.imageUrl,
-        savedAt: new Date().toISOString(),
-        metadata: {
-          category: article.category,
-          date: article.date
-        }
-      });
-    }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Load initial related articles
+  // Load next article when bottom is reached
   useEffect(() => {
-    // Filter out current article and get first 4 related articles
-    const related = mockArticles
-      .filter(a => a.id !== id && a.category === article.category)
-      .slice(0, 4);
-    setRelatedArticles(related);
-    setHasMore(mockArticles.filter(a => a.id !== id && a.category === article.category).length > 4);
-  }, [id, article]);
+    if (loadedIndexes.length >= maxArticles) return;
+    const observer = new window.IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setLoadedIndexes((prev) => {
+            const nextIndex = prev[prev.length - 1] + 1;
+            if (nextIndex < mockArticles.length && prev.length < maxArticles) {
+              return [...prev, nextIndex];
+            }
+            return prev;
+          });
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (observerRef.current) {
+      observer.observe(observerRef.current);
+    }
+    return () => {
+      if (observerRef.current) observer.unobserve(observerRef.current);
+    };
+  }, [loadedIndexes]);
 
-  // Load more articles
-  const loadMoreArticles = () => {
-    setIsLoadingMore(true);
-    // Simulate API delay
-    setTimeout(() => {
-      const currentLength = relatedArticles.length;
-      const nextArticles = mockArticles
-        .filter(a => a.id !== id && a.category === article.category)
-        .slice(currentLength, currentLength + 4);
-      
-      setRelatedArticles(prev => [...prev, ...nextArticles]);
-      setHasMore(mockArticles.filter(a => a.id !== id && a.category === article.category).length > currentLength + 4);
-      setIsLoadingMore(false);
-    }, 1000);
+  // Render a single article (preserve template)
+  const renderArticle = (article: typeof mockArticles[0], idx: number) => {
+    const isArticleSaved = isSaved(article.id, 'article');
+    const handleSave = () => {
+      if (isArticleSaved) {
+        removeSavedItem(article.id, 'article');
+      } else {
+        addSavedItem({
+          id: article.id,
+          type: 'article',
+          title: article.title,
+          imageUrl: article.imageUrl,
+          savedAt: new Date().toISOString(),
+          metadata: {
+            category: article.category,
+            date: article.date
+          }
+        });
+      }
+    };
+    return (
+      <div key={article.id} className="mb-12" ref={idx === loadedIndexes.length - 1 ? observerRef : undefined}>
+        {/* Existing article template below - only show scroll-to-top button for first article */}
+        {/* ...copy/paste the article template JSX here, replacing all article references with the 'article' variable ... */}
+      </div>
+    );
   };
+
+  // Only show up to maxArticles
+  const articlesToShow = loadedIndexes.map(i => mockArticles[i]).filter(Boolean);
+
+  // Hide scroll-to-top for subsequent articles (only on first)
+  // ...
+
+  // Remove single-article logic below and instead render articlesToShow
 
   useEffect(() => {
     const handleScroll = () => {
@@ -88,7 +97,7 @@ export default function ArticleDetail(): JSX.Element {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (!article) {
+  if (!articlesToShow.length) {
     return (
       <div className="min-h-screen bg-gray-50">
         <main className="container mx-auto px-4 py-8">
@@ -103,7 +112,158 @@ export default function ArticleDetail(): JSX.Element {
     );
   }
 
-  const mockContent = {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="fixed top-0 left-0 right-0 z-50 progress-indicator-red">
+        <Progress 
+          value={readingProgress} 
+          className="h-3 rounded-none bg-gray-200" 
+        />
+      </div>
+
+      {/* Stack articles for infinite scroll */}
+      {articlesToShow.map((article, idx) => {
+        const isArticleSaved = isSaved(article.id, 'article');
+        const handleSave = () => {
+          if (isArticleSaved) {
+            removeSavedItem(article.id, 'article');
+          } else {
+            addSavedItem({
+              id: article.id,
+              type: 'article',
+              title: article.title,
+              imageUrl: article.imageUrl,
+              savedAt: new Date().toISOString(),
+              metadata: {
+                category: article.category,
+                date: article.date
+              }
+            });
+          }
+        };
+        // Use article.content if available, else fallback to mockContent
+        const content = article.content || mockContent;
+        return (
+          <main
+            key={article.id}
+            className="max-w-[720px] mx-auto px-4 sm:px-6 py-6 sm:py-8"
+            ref={idx === articlesToShow.length - 1 ? observerRef : undefined}
+          >
+            <header className="mb-6 sm:mb-8">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                {article.title}
+              </h1>
+              <p className="text-base sm:text-lg text-gray-600 mb-6 leading-relaxed">
+                {content.subtitle}
+              </p>
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-gray-500 border-b border-gray-200 pb-6">
+                <div className="flex items-center">
+                  <User size={16} className="mr-2" />
+                  <span className="font-medium">{content.author}</span>
+                  <span className="mx-2">•</span>
+                  <span>{content.authorTitle}</span>
+                </div>
+                <div className="flex items-center">
+                  <Calendar size={16} className="mr-2" />
+                  <span>{article.date}</span>
+                </div>
+                <a href="#comments" className="flex items-center hover:text-motortrend-red transition-colors">
+                  <MessageSquare size={16} className="mr-2" />
+                  <span>{mockComments.reduce((count, comment) => count + 1 + (comment.replies?.length || 0), 0)} comments</span>
+                </a>
+              </div>
+            </header>
+            <div className="mb-8 sm:mb-12">
+              <div className="relative overflow-hidden rounded-xl shadow-lg">
+                <img 
+                  src={article.imageUrl} 
+                  alt={article.title} 
+                  className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover"
+                  loading="eager" 
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 sm:p-6">
+                  <p className="text-sm sm:text-base text-white opacity-90">
+                    Mercedes EQS SUV showcases the future of electric luxury with industry-leading range capabilities.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <section className="prose prose-lg max-w-none mb-8 sm:mb-12">
+              {/* BuyersGuideCard for Honda Accord articles */}
+              {article.title.toLowerCase().includes('honda accord') && (
+                <div className="mb-6">
+                  <BuyersGuideCard
+                    make="Honda"
+                    model="Accord"
+                    year="2025"
+                    score={9.2}
+                    ranking="#1 in Midsize Cars"
+                    price="$28,990"
+                    mpg="48/38 City/Hwy"
+                    ownerRating={4.8}
+                    ownerCount={256}
+                  />
+                </div>
+              )}
+              {/* Article content sections */}
+              {content.sections && content.sections.map((section, index) => (
+                <React.Fragment key={index}>
+                  {section.type === 'paragraph' && (
+                    <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
+                      {section.content}
+                    </p>
+                  )}
+                  {section.type === 'heading' && (
+                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-8 sm:mt-12 mb-6">
+                      {section.content}
+                    </h2>
+                  )}
+                  {section.type === 'specs' && (
+                    <div className="bg-gray-50 rounded-xl p-4 sm:p-6 my-6 sm:my-8">
+                      <h3 className="text-lg sm:text-xl font-semibold mb-4">{section.title}</h3>
+                      <div className="space-y-3">
+                        {section.data.map((item, i) => (
+                          <div key={i} className="flex justify-between text-base sm:text-lg text-gray-700">
+                            <span>{item.label}</span>
+                            <span className="font-semibold">{item.value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {section.type === 'quote' && (
+                    <blockquote className="border-l-4 border-motortrend-red pl-4 italic my-6 sm:my-8">
+                      <p className="text-base sm:text-lg text-gray-600">{section.content}</p>
+                      {section.author && (
+                        <footer className="text-sm text-gray-500 mt-2">— {section.author}</footer>
+                      )}
+                    </blockquote>
+                  )}
+                </React.Fragment>
+              ))}
+            </section>
+            <section id="comments" className="mt-8 sm:mt-12 pb-8 sm:pb-12">
+              <CommentsSection 
+                articleId={article.id}
+                comments={mockComments}
+              />
+            </section>
+            {/* Only show scroll-to-top button for the first article */}
+            {idx === 0 && showScrollTop && (
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 p-2 sm:p-3 bg-neutral-900/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-neutral-800 transition-colors z-50"
+              >
+                <ChevronUp size={20} className="sm:w-6 sm:h-6" />
+              </button>
+            )}
+          </main>
+        );
+      })}
+    </div>
+  );
+}
+
     subtitle: "Revolutionary electric SUVs are pushing the boundaries of range and efficiency, with some models now exceeding 400 miles on a single charge.",
     author: "Sarah Rodriguez",
     authorTitle: "Senior Automotive Editor",
@@ -271,58 +431,6 @@ export default function ArticleDetail(): JSX.Element {
           />
         </section>
       </main>
-
-      {/* Related Articles Section */}
-      <section className="max-w-[720px] mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Related Articles</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {relatedArticles.map((relatedArticle) => (
-            <Link 
-              key={relatedArticle.id} 
-              to={`/article/${relatedArticle.id}`}
-              className="group"
-            >
-              <div className="relative overflow-hidden rounded-lg shadow-md mb-3 aspect-w-16 aspect-h-9">
-                <img 
-                  src={relatedArticle.imageUrl} 
-                  alt={relatedArticle.title}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 group-hover:text-motortrend-red transition-colors mb-2">
-                {relatedArticle.title}
-              </h3>
-              <div className="flex items-center text-sm text-gray-500">
-                <span>{relatedArticle.category}</span>
-                <span className="mx-2">•</span>
-                <span>{relatedArticle.date}</span>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {hasMore && (
-          <div className="text-center mt-8">
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={loadMoreArticles}
-              disabled={isLoadingMore}
-              className="min-w-[200px]"
-            >
-              {isLoadingMore ? (
-                <div className="flex items-center gap-2">
-                  <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                  Loading...
-                </div>
-              ) : (
-                'Load More Articles'
-              )}
-            </Button>
-          </div>
-        )}
-      </section>
 
       {showScrollTop && (
         <button
