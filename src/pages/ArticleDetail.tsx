@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Calendar, User, Share, Bookmark, MessageSquare, Clock, ChevronUp } from 'lucide-react';
 import { useSavedItems } from '../contexts/SavedItemsContext';
@@ -16,11 +16,14 @@ export default function ArticleDetail(): JSX.Element {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { savedItems, addSavedItem, removeSavedItem, isSaved } = useSavedItems();
-  const [readingProgress, setReadingProgress] = useState(0);
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
   // Find current article
   const article = mockArticles.find((a) => a.id === id) || mockArticles[0];
+
+  const [readingProgress, setReadingProgress] = useState<{ [key: string]: number }>({});
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [activeArticleId, setActiveArticleId] = useState<string>(article.id);
+  const [visibleArticles, setVisibleArticles] = useState<string[]>([article.id]);
+  const articleRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
   
   // Get related articles from the same category
   const articlesInSeries = mockArticles
@@ -56,16 +59,57 @@ export default function ArticleDetail(): JSX.Element {
 
   useEffect(() => {
     const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const currentScroll = window.scrollY;
-      const progress = (currentScroll / totalScroll) * 100;
-      setReadingProgress(progress);
-      setShowScrollTop(currentScroll > 300);
+      const currentScroll = window.scrollY + window.innerHeight / 2; // Use middle of viewport
+      setShowScrollTop(window.scrollY > 300);
+
+      // Find which article is currently most visible
+      let maxVisibleArticle = activeArticleId;
+      let maxVisibleRatio = 0;
+
+      Object.entries(articleRefs.current).forEach(([id, ref]) => {
+        if (ref) {
+          const rect = ref.getBoundingClientRect();
+          const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+          const ratio = visibleHeight / rect.height;
+
+          if (ratio > maxVisibleRatio) {
+            maxVisibleRatio = ratio;
+            maxVisibleArticle = id;
+          }
+
+          // Calculate progress for this article
+          const articleTop = rect.top + window.scrollY;
+          const articleBottom = articleTop + rect.height;
+          const viewportBottom = window.scrollY + window.innerHeight;
+          const progress = Math.min(
+            100,
+            Math.max(
+              0,
+              ((viewportBottom - articleTop) / (articleBottom - articleTop + window.innerHeight)) * 100
+            )
+          );
+
+          setReadingProgress(prev => ({
+            ...prev,
+            [id]: progress
+          }));
+
+          // Check if article is becoming visible
+          if (!visibleArticles.includes(id) && ratio > 0) {
+            setVisibleArticles(prev => [...prev, id]);
+          }
+        }
+      });
+
+      if (maxVisibleArticle !== activeArticleId) {
+        setActiveArticleId(maxVisibleArticle);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [activeArticleId, visibleArticles]);
 
   if (!article) {
     return (
@@ -74,6 +118,7 @@ export default function ArticleDetail(): JSX.Element {
           currentArticleIndex={currentArticleIndex}
           articles={allArticles}
           readingProgress={readingProgress}
+          activeArticleId={id || ''}
         />
         <main className="container mx-auto px-4 py-8">
           <div className="text-center">
@@ -139,11 +184,18 @@ export default function ArticleDetail(): JSX.Element {
       <main className="max-w-[720px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Show all articles */}
         {allArticles.map((articleItem, index) => (
-          <ArticleContent
+          <div
             key={articleItem.id}
-            article={articleItem}
-            isFirst={index === 0}
-          />
+            ref={el => articleRefs.current[articleItem.id] = el}
+          >
+            {visibleArticles.includes(articleItem.id) && (
+              <ArticleContent
+                key={articleItem.id}
+                article={articleItem}
+                isFirst={index === 0}
+              />
+            )}
+          </div>
         ))}
 
         {/* Comments section */}

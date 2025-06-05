@@ -12,13 +12,15 @@ interface ArticleSubNavProps {
     imageUrl: string;
     category: string;
   }>;
-  readingProgress: number;
+  readingProgress: { [key: string]: number };
+  activeArticleId: string;
 }
 
 const ArticleSubNav: React.FC<ArticleSubNavProps> = ({
   currentArticleIndex,
   articles,
   readingProgress,
+  activeArticleId,
 }) => {
   return (
     <div className="sticky top-16 z-50 w-full bg-white border-b border-neutral-200 shadow-sm">
@@ -27,8 +29,8 @@ const ArticleSubNav: React.FC<ArticleSubNavProps> = ({
         {/* Progress bar */}
         <div className="absolute bottom-0 left-0 w-full h-1 bg-neutral-100">
           <div
-            className="h-full bg-motortrend-red transition-all duration-300 ease-in-out"
-            style={{ width: `${readingProgress}%` }}
+            className="h-full bg-motortrend-red transition-all duration-300"
+            style={{ width: `${readingProgress[activeArticleId] || 0}%` }}
           />
         </div>
 
