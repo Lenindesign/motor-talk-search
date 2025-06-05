@@ -39,7 +39,7 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
           ? "px-4 py-3 focus:ring-offset-1" 
           : "p-3 focus:ring-offset-2",
         isActive 
-          ? "bg-motortrend-red text-white shadow-md border-motortrend-red" 
+          ? "bg-motortrend-dark text-white shadow-md border-motortrend-dark" 
           : "text-gray-700 hover:text-motortrend-red border-transparent hover:border-gray-200"
       )}
     >
