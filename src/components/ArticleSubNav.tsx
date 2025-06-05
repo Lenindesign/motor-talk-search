@@ -21,7 +21,8 @@ const ArticleSubNav: React.FC<ArticleSubNavProps> = ({
   readingProgress,
 }) => {
   return (
-    <div className="sticky top-16 z-40 w-full bg-white border-b border-neutral-200 shadow-sm">
+    <div className="sticky top-16 z-50 w-full bg-white border-b border-neutral-200 shadow-sm">
+      <div className="absolute inset-0 bg-white"></div>
       <div className="relative">
         {/* Progress bar */}
         <div className="absolute bottom-0 left-0 w-full h-1 bg-neutral-100">

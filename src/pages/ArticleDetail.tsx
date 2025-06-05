@@ -131,7 +131,7 @@ export default function ArticleDetail(): JSX.Element {
     <div className="min-h-screen bg-white">
       <ArticleSubNav
         currentArticleIndex={currentArticleIndex}
-        articles={articlesInSeries}
+        articles={allArticles}
         readingProgress={readingProgress}
       />
 
