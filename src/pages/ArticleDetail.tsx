@@ -1,14 +1,11 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useSavedItems } from '../contexts/SavedItemsContext';
-import { mockArticles, mockComments } from '@/services/mockData';
-import { CommentsSection } from '@/components/CommentsSection';
-import ArticleSubNavigation from '@/components/ArticleSubNavigation';
-import ArticleHeader from '@/components/article/ArticleHeader';
-import ArticleContent from '@/components/article/ArticleContent';
-import ArticleActions from '@/components/article/ArticleActions';
-import ScrollToTopButton from '@/components/article/ScrollToTopButton';
+import { mockArticles } from '@/services/mockData';
+import ArticleDetailLayout from '@/components/article/ArticleDetailLayout';
+import ArticleDetailHeader from '@/components/article/ArticleDetailHeader';
+import ArticleRenderer from '@/components/article/ArticleRenderer';
+import ArticleLazyLoader from '@/components/article/ArticleLazyLoader';
 import { useArticleProgress } from '@/hooks/useArticleProgress';
 
 interface ContentSection {
@@ -29,10 +26,8 @@ interface ArticleContent {
 
 const ArticleDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
   const { readingProgress, showScrollTop, scrollToTop } = useArticleProgress();
   const [loadedIndexes, setLoadedIndexes] = useState<number[]>([]);
-  const observerRef = useRef<HTMLDivElement>(null);
   const maxArticles = 4;
 
   // Fallback mockContent for articles missing content
@@ -88,120 +83,56 @@ const ArticleDetail: React.FC = () => {
     }
   }, [id]);
 
-  // Load next article when bottom is reached
-  useEffect(() => {
-    if (loadedIndexes.length >= maxArticles || !observerRef.current) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) {
-          setLoadedIndexes((prev) => {
-            const nextIndex = prev[prev.length - 1] + 1;
-            if (nextIndex < mockArticles.length && prev.length < maxArticles) {
-              return [...prev, nextIndex];
-            }
-            return prev;
-          });
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(observerRef.current);
-    return () => observer.disconnect();
-  }, [loadedIndexes, maxArticles]);
-
-  // Render a single article
-  const renderArticle = (article: typeof mockArticles[0], idx: number) => {
-    const isArticleSaved = isSaved(article.id, 'article');
-    const content = (article.content || mockContent) as ArticleContent;
-    
-    const handleSave = () => {
-      if (isArticleSaved) {
-        removeSavedItem(article.id, 'article');
-      } else {
-        addSavedItem({
-          id: article.id,
-          type: 'article',
-          title: article.title,
-          imageUrl: article.imageUrl,
-          savedAt: new Date().toISOString(),
-          metadata: {
-            category: article.category || '',
-            date: article.date
-          }
-        });
+  const handleLoadMore = () => {
+    setLoadedIndexes((prev) => {
+      const nextIndex = prev[prev.length - 1] + 1;
+      if (nextIndex < mockArticles.length && prev.length < maxArticles) {
+        return [...prev, nextIndex];
       }
-    };
-    
-    return (
-      <article key={article.id} data-article-id={article.id} className="max-w-3xl mx-auto px-4 py-8">
-        <ArticleHeader
-          title={article.title}
-          author={content.author}
-          date={article.date}
-          commentsCount={mockComments.length}
-          imageUrl={article.imageUrl}
-          showBuyersGuide={article.title.toLowerCase().includes('honda accord')}
-        />
-
-        <ArticleContent
-          subtitle={content.subtitle}
-          sections={content.sections}
-        />
-
-        <ArticleActions
-          isArticleSaved={isArticleSaved}
-          readTime={content.readTime}
-          onSave={handleSave}
-        />
-
-        <CommentsSection comments={mockComments} articleId={article.id} />
-      </article>
-    );
+      return prev;
+    });
   };
 
   const currentArticle = mockArticles.find(a => a.id === id);
 
-  // Main render
-  return (
-    <div className="min-h-screen bg-white">
-      {/* Sub Navigation Bar */}
-      {currentArticle && (
-        <ArticleSubNavigation
-          articleId={currentArticle.id}
-          imageUrl={currentArticle.imageUrl}
-          readingProgress={readingProgress}
-        />
-      )}
-
-      {/* Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 h-1 bg-gray-100 z-50">
-        <div 
-          className="h-full bg-motortrend-red transition-all duration-200"
-          style={{ width: `${readingProgress}%` }}
-        />
+  if (!currentArticle) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Article Not Found</h1>
+          <p className="text-gray-600">The article you're looking for doesn't exist.</p>
+        </div>
       </div>
+    );
+  }
 
-      {/* Main Content */}
-      <main className="pt-4 pb-20">
-        {loadedIndexes.map((index) => {
-          const article = mockArticles[index];
-          return article ? renderArticle(article, index) : null;
-        })}
-        
-        {/* Observer target for lazy loading */}
-        {loadedIndexes.length < maxArticles && loadedIndexes.length < mockArticles.length && (
-          <div ref={observerRef} className="h-20" />
-        )}
-      </main>
-
-      {/* Scroll to Top Button */}
-      <ScrollToTopButton
-        showScrollTop={showScrollTop}
-        scrollToTop={scrollToTop}
+  return (
+    <ArticleDetailLayout
+      currentArticle={currentArticle}
+      readingProgress={readingProgress}
+      showScrollTop={showScrollTop}
+      scrollToTop={scrollToTop}
+    >
+      <ArticleDetailHeader car={currentArticle} />
+      
+      {loadedIndexes.map((index) => {
+        const article = mockArticles[index];
+        return article ? (
+          <ArticleRenderer
+            key={article.id}
+            article={article}
+            mockContent={mockContent}
+          />
+        ) : null;
+      })}
+      
+      <ArticleLazyLoader
+        loadedIndexes={loadedIndexes}
+        maxArticles={maxArticles}
+        totalArticles={mockArticles.length}
+        onLoadMore={handleLoadMore}
       />
-    </div>
+    </ArticleDetailLayout>
   );
 };
 
