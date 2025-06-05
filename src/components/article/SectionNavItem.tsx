@@ -33,14 +33,14 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
     <button
       onClick={onClick}
       className={cn(
-        "flex items-center space-x-3 rounded-lg text-sm font-medium transition-all duration-200 border-2 min-w-0 flex-shrink-0",
+        "flex items-center space-x-3 rounded-lg text-sm font-medium transition-all duration-200 min-w-0 flex-shrink-0",
         "focus:outline-none focus:ring-2 focus:ring-motortrend-red",
         isCompact 
           ? "px-4 py-3 focus:ring-offset-1" 
           : "p-3 focus:ring-offset-2",
         isActive 
-          ? "bg-motortrend-dark text-white shadow-md border-motortrend-dark hover:text-motortrend-dark" 
-          : "text-gray-700 hover:text-motortrend-red hover:bg-gray-100 border-transparent hover:border-gray-200"
+          ? "bg-motortrend-dark text-white shadow-md hover:text-motortrend-dark" 
+          : "text-gray-700 hover:text-motortrend-red hover:bg-gray-100"
       )}
     >
       {section.thumbnail && (
