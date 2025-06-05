@@ -3,6 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { ownerReviews } from './utils';
+import { CommentsSection } from '@/components/CommentsSection';
+import { mockComments } from '@/services/mockData';
 const mockReviews = [{
   author: 'John Smith',
   rating: 5,
@@ -42,7 +44,9 @@ const mockReviews = [{
 const ReviewsTab: React.FC = () => {
   const [showMore, setShowMore] = useState(false);
   const displayedReviews = showMore ? mockReviews : mockReviews.slice(0, 3);
-  return <div className="space-y-6">
+
+  return (
+    <div className="space-y-8">
       {/* Summary Card */}
       <Card className="overflow-hidden">
         <CardHeader className="border-b border-neutral-6 bg-neutral-7">
@@ -182,6 +186,12 @@ const ReviewsTab: React.FC = () => {
           </Button>
         </div>
       )}
-    </div>;
-};
+      {/* User Comments Section */}
+      <div className="mt-12">
+        <CommentsSection articleId="rivian-r1s-2025" comments={mockComments} />
+      </div>
+    </div>
+  );
+}
+
 export default ReviewsTab;

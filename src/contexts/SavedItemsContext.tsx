@@ -103,6 +103,41 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
 
   // Initialize mock user data for demonstration
   const initializeMockUserData = () => {
+    // Mock garage cars
+    const mockCars: SavedItem[] = [
+      {
+        id: "car1",
+        title: "2024 Toyota Camry",
+        type: "newCar",
+        imageUrl: "https://placehold.co/600x400?text=Toyota+Camry",
+        savedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+        metadata: {
+          price: "29995",
+          year: "2024",
+          mileage: "0",
+          fuelType: "Gasoline",
+          drivetrain: "FWD",
+          location: "San Francisco, CA"
+        }
+      },
+      {
+        id: "car2",
+        title: "2023 Honda CR-V",
+        type: "newCar",
+        imageUrl: "https://placehold.co/600x400?text=Honda+CR-V",
+        savedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+        metadata: {
+          price: "32995",
+          year: "2023",
+          mileage: "0",
+          fuelType: "Hybrid",
+          drivetrain: "AWD",
+          location: "San Francisco, CA"
+        }
+      }
+    ];
+    setSavedItems(mockCars);
+
     // Mock achievements
     const achievements: UserAchievement[] = [
       {

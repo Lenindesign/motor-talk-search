@@ -948,6 +948,105 @@ export const mockArticles: ArticleData[] = [
  * 1. Honda Accord specific new cars (IDs honda-accord-new-*)
  * 2. Other popular new car models with high-quality automotive images
  */
+interface Comment {
+  id: string;
+  author: {
+    name: string;
+    avatar: string;
+  };
+  content: string;
+  timestamp: string;
+  likes: number;
+  dislikes: number;
+  replies?: Comment[];
+}
+
+export const mockComments: Comment[] = [
+  {
+    id: '1',
+    author: {
+      name: 'John Smith',
+      avatar: 'https://i.pravatar.cc/150?u=john',
+    },
+    content: "The new design language is stunning! I especially love how they've integrated the LED lighting elements. The interior quality looks top-notch too.",
+    timestamp: '2025-06-04T10:30:00Z',
+    likes: 42,
+    dislikes: 2,
+    replies: [
+      {
+        id: '1-1',
+        author: {
+          name: 'Sarah Johnson',
+          avatar: 'https://i.pravatar.cc/150?u=sarah',
+        },
+        content: "I test drove one last week - the build quality is amazing. The new infotainment system is super responsive too.",
+        timestamp: '2025-06-04T11:15:00Z',
+        likes: 28,
+        dislikes: 0,
+      },
+      {
+        id: '1-2',
+        author: {
+          name: 'Mike Chen',
+          avatar: 'https://i.pravatar.cc/150?u=mike_chen',
+        },
+        content: "The only thing I'm not sure about is the piano black trim - it looks great but shows fingerprints easily.",
+        timestamp: '2025-06-04T12:30:00Z',
+        likes: 15,
+        dislikes: 1,
+      }
+    ],
+  },
+  {
+    id: '2',
+    author: {
+      name: 'Emily Rodriguez',
+      avatar: 'https://i.pravatar.cc/150?u=emily',
+    },
+    content: 'Those fuel economy numbers are impressive! Anyone getting similar results in real-world driving?',
+    timestamp: '2025-06-04T09:45:00Z',
+    likes: 35,
+    dislikes: 1,
+    replies: [
+      {
+        id: '2-1',
+        author: {
+          name: 'David Kim',
+          avatar: 'https://i.pravatar.cc/150?u=david',
+        },
+        content: "I'm averaging about 52 mpg in mixed driving. Even better than the EPA estimates!",
+        timestamp: '2025-06-04T10:20:00Z',
+        likes: 22,
+        dislikes: 0,
+      }
+    ]
+  },
+  {
+    id: '3',
+    author: {
+      name: 'Alex Thompson',
+      avatar: 'https://i.pravatar.cc/150?u=alex',
+    },
+    content: 'Great review! Would love to see a comparison with the new Camry hybrid. The segment is really heating up.',
+    timestamp: '2025-06-04T08:15:00Z',
+    likes: 29,
+    dislikes: 2,
+    replies: [
+      {
+        id: '3-1',
+        author: {
+          name: 'Lisa Martinez',
+          avatar: 'https://i.pravatar.cc/150?u=lisa',
+        },
+        content: "We're working on a detailed comparison as we speak. Stay tuned!",
+        timestamp: '2025-06-04T09:00:00Z',
+        likes: 18,
+        dislikes: 0,
+      }
+    ]
+  },
+];
+
 export const carPhotos = [
   'https://d2kde5ohu8qb21.cloudfront.net/files/67003206c86c06000844d0f6/001-2025-rivian-r1s-dual-max-lead.jpg',
   'https://d2kde5ohu8qb21.cloudfront.net/files/6700320e1aa2a60008acbe19/003-2025-rivian-r1s-dual-max-interior-dash.jpg',

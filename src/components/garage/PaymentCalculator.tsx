@@ -81,9 +81,17 @@ const PaymentCalculator: React.FC = () => {
     }
   };
   const { savedItems } = useSavedItems();
+  
+  // Filter garage cars
+  const garageCars = useMemo(() => 
+    savedItems.filter((item) => item.type === 'newCar' || item.type === 'usedCar'), 
+    [savedItems]
+  );
+
   const [selectedCarId, setSelectedCarId] = useState<string | undefined>(undefined);
   const [activeTab, setActiveTab] = useState<'finance' | 'lease'>('finance');
-  const [searchMode, setSearchMode] = useState<'garage' | 'search'>('garage');
+  // Default to garage mode if there are cars, otherwise search mode
+  const [searchMode, setSearchMode] = useState<'garage' | 'search'>(garageCars.length > 0 ? 'garage' : 'search');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [customVehicle, setCustomVehicle] = useState<CarData | null>(null);
   const [customPrice, setCustomPrice] = useState<string>('');
@@ -109,10 +117,6 @@ const PaymentCalculator: React.FC = () => {
     handleKeyDown
   } = useAutocomplete(searchQuery);
 
-  const garageCars = useMemo(() => 
-    savedItems.filter((item) => item.type === 'newCar' || item.type === 'usedCar'), 
-    [savedItems]
-  );
 
   const selectedCar = useMemo(() => {
     if (searchMode === 'garage') {
@@ -127,6 +131,13 @@ const PaymentCalculator: React.FC = () => {
     const num = parseFloat(numericString);
     return isNaN(num) ? 0 : num;
   };
+
+  // Set the first garage car as default when component mounts
+  useEffect(() => {
+    if (garageCars.length > 0 && !selectedCarId) {
+      setSelectedCarId(garageCars[0].id);
+    }
+  }, [garageCars]);
 
   useEffect(() => {
     if (selectedCar) {
