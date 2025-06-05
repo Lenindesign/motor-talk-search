@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
 interface ArticleSection {
@@ -19,22 +19,23 @@ interface SectionNavItemProps {
   size?: 'compact' | 'large';
 }
 
-const SectionNavItem: React.FC<SectionNavItemProps> = ({
+const SectionNavItem = forwardRef<HTMLButtonElement, SectionNavItemProps>(({
   section,
   isActive,
   sectionProgress,
   onClick,
   showProgress = false,
   size = 'compact'
-}) => {
+}, ref) => {
   const isCompact = size === 'compact';
   
   return (
     <button
+      ref={ref}
       onClick={onClick}
       className={cn(
         "flex items-center space-x-3 rounded-lg text-sm font-medium transition-all duration-200 min-w-0 flex-shrink-0",
-        "focus:outline-none",
+        "focus:outline-none focus:ring-0",
         isCompact 
           ? "px-4 py-3" 
           : "p-3",
@@ -78,6 +79,8 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
       </div>
     </button>
   );
-};
+});
+
+SectionNavItem.displayName = 'SectionNavItem';
 
 export default SectionNavItem;
