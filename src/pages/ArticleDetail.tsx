@@ -9,6 +9,7 @@ import { mockArticles, mockComments } from '@/services/mockData';
 import { CommentsSection } from '@/components/CommentsSection';
 import { BuyersGuideCard } from '@/components/BuyersGuideCard';
 import ArticleSubNav from '@/components/ArticleSubNav';
+import ArticleContent from '@/components/ArticleContent';
 import '@/styles/progress-bar.css';
 
 export default function ArticleDetail(): JSX.Element {
@@ -136,116 +137,16 @@ export default function ArticleDetail(): JSX.Element {
       />
 
       <main className="max-w-[720px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        <header className="mb-6 sm:mb-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-            {article.title}
-          </h1>
+        {/* Show all articles */}
+        {allArticles.map((articleItem, index) => (
+          <ArticleContent
+            key={articleItem.id}
+            article={articleItem}
+            isFirst={index === 0}
+          />
+        ))}
 
-          <p className="text-base sm:text-lg text-gray-600 mb-6 leading-relaxed">
-            {mockContent.subtitle}
-          </p>
-
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-gray-500 border-b border-gray-200 pb-6">
-            <div className="flex items-center">
-              <User size={16} className="mr-2" />
-              <span className="font-medium">{mockContent.author}</span>
-              <span className="mx-2">•</span>
-              <span>{mockContent.authorTitle}</span>
-            </div>
-            <div className="flex items-center">
-              <Calendar size={16} className="mr-2" />
-              <span>{article.date}</span>
-            </div>
-
-            <a href="#comments" className="flex items-center hover:text-motortrend-red transition-colors">
-              <MessageSquare size={16} className="mr-2" />
-              <span>{mockComments.reduce((count, comment) => count + 1 + (comment.replies?.length || 0), 0)} comments</span>
-            </a>
-          </div>
-        </header>
-
-        <div className="mb-8 sm:mb-12">
-          <div className="relative overflow-hidden rounded-xl shadow-lg">
-            <img 
-              src={article.imageUrl} 
-              alt={article.title} 
-              className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover"
-              loading="eager" 
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 sm:p-6">
-              <p className="text-sm sm:text-base text-white opacity-90">
-                Mercedes EQS SUV showcases the future of electric luxury with industry-leading range capabilities.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <section className="prose prose-lg max-w-none mb-8 sm:mb-12">
-          {/* First show the BuyersGuideCard */}
-          {article.title.toLowerCase().includes('honda accord') && (
-            <div className="mb-6">
-              <BuyersGuideCard
-                make="Honda"
-                model="Accord"
-                year="2025"
-                score={9.2}
-                ranking="#1 in Midsize Cars"
-                price="$28,990"
-                mpg="48/38 City/Hwy"
-                ownerRating={4.8}
-                ownerCount={256}
-              />
-            </div>
-          )}
-
-          {/* Then show the article content */}
-          {mockContent.sections.map((section, index) => {
-            
-            return (
-              <React.Fragment key={index}>
-                {section.type === 'paragraph' && (
-                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
-                    {section.content}
-                  </p>
-                )}
-                
-
-                
-                {section.type === 'heading' && (
-                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-8 sm:mt-12 mb-6">
-                    {section.content}
-                  </h2>
-                )}
-                
-                {section.type === 'specs' && (
-                  <div className="bg-gray-50 rounded-xl p-4 sm:p-6 my-6 sm:my-8">
-                    <h3 className="text-lg sm:text-xl font-semibold mb-4">{section.title}</h3>
-                    <div className="space-y-3">
-                      {section.data.map((item, i) => (
-                        <div key={i} className="flex justify-between items-center">
-                          <span className="text-sm sm:text-base text-gray-600">{item.label}</span>
-                          <span className="text-sm sm:text-base font-medium">{item.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                
-                {section.type === 'quote' && (
-                  <blockquote className="border-l-4 border-motortrend-red pl-4 italic my-6 sm:my-8">
-                    <p className="text-base sm:text-lg text-gray-600">{section.content}</p>
-                    {section.author && (
-                      <footer className="text-sm text-gray-500 mt-2">— {section.author}</footer>
-                    )}
-                  </blockquote>
-                )}
-              </React.Fragment>
-            );
-
-            return null;
-          })}
-        </section>
-
+        {/* Comments section */}
         <section id="comments" className="mt-8 sm:mt-12 pb-8 sm:pb-12">
           <CommentsSection 
             articleId={id || ''}
