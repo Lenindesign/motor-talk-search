@@ -109,7 +109,7 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
         id: "car1",
         title: "2024 Toyota Camry",
         type: "newCar",
-        imageUrl: "https://placehold.co/600x400?text=Toyota+Camry",
+        imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a1d8a69afa860008125caf/2024-toyota-camry-xse-hybrid-front-view-18.jpg",
         savedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
         metadata: {
           price: "29995",
@@ -124,7 +124,7 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
         id: "car2",
         title: "2023 Honda CR-V",
         type: "newCar",
-        imageUrl: "https://placehold.co/600x400?text=Honda+CR-V",
+        imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a1bc4ca305c1000897c335/2024-honda-cr-v-hybrid-front-view-62.jpeg",
         savedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
         metadata: {
           price: "32995",
