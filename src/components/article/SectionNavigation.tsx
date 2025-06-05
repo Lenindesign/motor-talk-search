@@ -33,11 +33,11 @@ const SectionNavigation: React.FC<SectionNavigationProps> = ({
   });
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={className}>
       <ScrollArea className="w-full">
         <div 
           ref={containerRef}
-          className="flex space-x-2 p-4 overflow-x-auto scrollbar-hide"
+          className="flex space-x-2 overflow-x-auto scrollbar-hide"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {sections.map((section, index) => (
@@ -48,6 +48,7 @@ const SectionNavigation: React.FC<SectionNavigationProps> = ({
               isActive={section.id === activeSection}
               sectionProgress={0}
               onClick={() => onSectionClick(section.id)}
+              showProgress={true}
               size="compact"
             />
           ))}
