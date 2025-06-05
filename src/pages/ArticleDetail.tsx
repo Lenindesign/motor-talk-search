@@ -1,20 +1,15 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { ChevronUp, User, Calendar, MessageSquare, Share, Bookmark } from 'lucide-react';
+
+import React, { useState, useEffect, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import { useSavedItems } from '../contexts/SavedItemsContext';
-import { Progress } from '@/components/ui/progress';
 import { mockArticles, mockComments } from '@/services/mockData';
-import { BuyersGuideCard } from '@/components/BuyersGuideCard';
 import { CommentsSection } from '@/components/CommentsSection';
 import ArticleSubNavigation from '@/components/ArticleSubNavigation';
-
-interface Comment {
-  id: string;
-  author: string;
-  content: string;
-  date: string;
-  avatar?: string;
-}
+import ArticleHeader from '@/components/article/ArticleHeader';
+import ArticleContent from '@/components/article/ArticleContent';
+import ArticleActions from '@/components/article/ArticleActions';
+import ScrollToTopButton from '@/components/article/ScrollToTopButton';
+import { useArticleProgress } from '@/hooks/useArticleProgress';
 
 interface ContentSection {
   type: 'paragraph' | 'heading' | 'quote' | 'specs';
@@ -34,10 +29,8 @@ interface ArticleContent {
 
 const ArticleDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
-  const [readingProgress, setReadingProgress] = useState(0);
-  const [showScrollTop, setShowScrollTop] = useState(false);
+  const { readingProgress, showScrollTop, scrollToTop } = useArticleProgress();
   const [loadedIndexes, setLoadedIndexes] = useState<number[]>([]);
   const observerRef = useRef<HTMLDivElement>(null);
   const maxArticles = 4;
@@ -95,20 +88,6 @@ const ArticleDetail: React.FC = () => {
     }
   }, [id]);
 
-  // Track scroll progress and show/hide scroll-to-top button
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-      setReadingProgress(Math.min(100, Math.max(0, progress)));
-      setShowScrollTop(scrollTop > 300);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   // Load next article when bottom is reached
   useEffect(() => {
     if (loadedIndexes.length >= maxArticles || !observerRef.current) return;
@@ -132,11 +111,6 @@ const ArticleDetail: React.FC = () => {
     return () => observer.disconnect();
   }, [loadedIndexes, maxArticles]);
 
-  // Handle scroll to top
-  const scrollToTop = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, []);
-
   // Render a single article
   const renderArticle = (article: typeof mockArticles[0], idx: number) => {
     const isArticleSaved = isSaved(article.id, 'article');
@@ -159,113 +133,28 @@ const ArticleDetail: React.FC = () => {
         });
       }
     };
-
-    const renderContentSection = (section: ContentSection, index: number) => {
-      switch (section.type) {
-        case 'heading':
-          return (
-            <h2 key={index} className="text-2xl font-bold mt-8 mb-4">
-              {section.content}
-            </h2>
-          );
-        case 'quote':
-          return (
-            <blockquote key={index} className="border-l-4 border-motortrend-red pl-4 my-6 italic">
-              <p className="text-lg">"{section.content}"</p>
-              {section.author && (
-                <footer className="text-right mt-2 text-gray-600">— {section.author}</footer>
-              )}
-            </blockquote>
-          );
-        case 'specs':
-          return (
-            <div key={index} className="bg-gray-50 p-6 rounded-lg my-6">
-              {section.title && (
-                <h3 className="text-xl font-semibold mb-4">{section.title}</h3>
-              )}
-              <div className="grid gap-4">
-                {section.data?.map((item, i) => (
-                  <div key={i} className="flex justify-between border-b border-gray-100 pb-2">
-                    <span className="font-medium">{item.label}</span>
-                    <span className="text-gray-700">{item.value}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          );
-        default:
-          return (
-            <p key={index} className="my-4 leading-relaxed">
-              {section.content}
-            </p>
-          );
-      }
-    };
     
     return (
       <article key={article.id} data-article-id={article.id} className="max-w-3xl mx-auto px-4 py-8">
-        <header className="mb-8" id="introduction">
-          <h1 className="text-3xl font-bold mb-4">{article.title}</h1>
-          <div className="flex items-center text-gray-600 text-sm mb-6">
-            <User size={16} className="mr-1" />
-            <span>{content.author}</span>
-            <span className="mx-2">•</span>
-            <Calendar size={16} className="mr-1" />
-            <span>{article.date}</span>
-            <span className="mx-2">•</span>
-            <MessageSquare size={16} className="mr-1" />
-            <span>{mockComments.length} comments</span>
-          </div>
-          <img
-            src={article.imageUrl}
-            alt={article.title}
-            className="w-full h-64 md:h-96 object-cover rounded-lg mb-6"
-          />
-          
-          {article.title.toLowerCase().includes('honda accord') && (
-            <div className="mb-6">
-              <BuyersGuideCard
-                make="Honda"
-                model="Accord"
-                year="2025"
-                score={9.2}
-                ranking="#1 in Midsize Cars"
-                price="$28,990"
-                mpg="48/38 City/Hwy"
-                ownerRating={4.8}
-                ownerCount={256}
-              />
-            </div>
-          )}
+        <ArticleHeader
+          title={article.title}
+          author={content.author}
+          date={article.date}
+          commentsCount={mockComments.length}
+          imageUrl={article.imageUrl}
+          showBuyersGuide={article.title.toLowerCase().includes('honda accord')}
+        />
 
-          <div className="prose max-w-none">
-            <p className="text-xl text-gray-700 mb-6">{content.subtitle}</p>
-            {content.sections.map((section, index) => renderContentSection(section, index))}
-          </div>
+        <ArticleContent
+          subtitle={content.subtitle}
+          sections={content.sections}
+        />
 
-          <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={handleSave}
-                className="flex items-center text-gray-600 hover:text-motortrend-red transition-colors"
-                aria-label={isArticleSaved ? 'Remove from saved' : 'Save article'}
-              >
-                <Bookmark
-                  size={20}
-                  className={`mr-1 ${isArticleSaved ? 'fill-current text-motortrend-red' : ''}`}
-                />
-                {isArticleSaved ? 'Saved' : 'Save'}
-              </button>
-              <button className="flex items-center text-gray-600 hover:text-motortrend-red transition-colors">
-                <Share size={20} className="mr-1" />
-                Share
-              </button>
-            </div>
-            <div className="text-sm text-gray-500">
-              {content.readTime}
-            </div>
-          </div>
-        </header>
+        <ArticleActions
+          isArticleSaved={isArticleSaved}
+          readTime={content.readTime}
+          onSave={handleSave}
+        />
 
         <CommentsSection comments={mockComments} articleId={article.id} />
       </article>
@@ -308,15 +197,10 @@ const ArticleDetail: React.FC = () => {
       </main>
 
       {/* Scroll to Top Button */}
-      {showScrollTop && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-6 right-6 bg-motortrend-red text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition-colors z-40"
-          aria-label="Scroll to top"
-        >
-          <ChevronUp size={24} />
-        </button>
-      )}
+      <ScrollToTopButton
+        showScrollTop={showScrollTop}
+        scrollToTop={scrollToTop}
+      />
     </div>
   );
 };
