@@ -1,42 +1,24 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import NavLink from "./NavLink";
 import HamburgerMenu from "./HamburgerMenu";
-
 const DesktopNavigation = () => {
-  return (
-    <TooltipProvider delayDuration={150}>
+  return <TooltipProvider delayDuration={150}>
       <div className="flex items-center justify-between w-full">
         <nav className="hidden sm:flex items-center space-x-6">
           {/* Category Links */}
-          <NavLink 
-            href="/news" 
-            hasDropdown 
-            dropdownContent={
-            <div className="py-2">
+          <NavLink href="/news" hasDropdown dropdownContent={<div className="py-2">
               <Link to="/suv-news" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">SUV News</Link>
               <Link to="/truck-news" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Truck News</Link>
               <Link to="/sedan-news" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Sedan News</Link>
               <Link to="/electric-car-news" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Electric Car News</Link>
               <Link to="/hybrid-car-news" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Hybrid Car News</Link>
-            </div>
-          }
-        >
+            </div>}>
           News
         </NavLink>
-        <NavLink 
-          href="/buyers-guide" 
-          hasDropdown 
-          dropdownContent={
-            <div className="py-2">
+        <NavLink href="/buyers-guide" hasDropdown dropdownContent={<div className="py-2">
               <Link to="/car-finder" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Car Finder</Link>
               <Link to="/compare-cars" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Compare Cars</Link>
               <Link to="/rankings" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Ultimate Car Rankings</Link>
@@ -49,17 +31,11 @@ const DesktopNavigation = () => {
               <Link to="/intellichoice" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">IntelliChoice Awards</Link>
               <Link to="/gear" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Gear Shopping</Link>
               <Link to="/shopping-tools" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Shopping Tools</Link>
-            </div>
-          }
-        >
+            </div>}>
           Cars
         </NavLink>
         {/* Videos dropdown - hidden at 980px or below using custom nav-md breakpoint */}
-        <NavLink 
-          href="/videos" 
-          hasDropdown 
-          dropdownContent={
-            <div className="py-2">
+        <NavLink href="/videos" hasDropdown dropdownContent={<div className="py-2">
               <Link to="/videos/latest" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Latest Videos</Link>
               <Link to="/videos/first-looks" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">First Looks</Link>
               <Link to="/videos/first-drives" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">First Drives</Link>
@@ -68,9 +44,7 @@ const DesktopNavigation = () => {
               <Link to="/videos/walkarounds" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">Walkarounds</Link>
               <Link to="/videos/inevitable" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">InEvitable</Link>
               <Link to="/videos/hot-rod" className="block px-4 py-2 text-sm text-white hover:bg-white/10 hover:text-motortrend-red">HOT ROD</Link>
-            </div>
-          }
-        >
+            </div>}>
           Videos
         </NavLink>
         {/* Icons */}
@@ -81,7 +55,7 @@ const DesktopNavigation = () => {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link to="/garage" aria-label="My Garage" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors">
-                <svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 -960 960 960" width="22" fill="currentColor"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" height="22" viewBox="0 -960 960 960" width="22" fill="currentColor"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z" /></svg>
               </Link>
             </TooltipTrigger>
             <TooltipContent side="bottom">
@@ -91,9 +65,7 @@ const DesktopNavigation = () => {
           {/* Chat Icon */}
           <Tooltip>
             <TooltipTrigger asChild>
-              <Link to="/chat" aria-label="Chat" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors mr-1">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-              </Link>
+              
             </TooltipTrigger>
             <TooltipContent side="bottom">
               <p>Chat with Motor Talk</p>
@@ -116,8 +88,6 @@ const DesktopNavigation = () => {
         </div>
       </nav>
       </div>
-    </TooltipProvider>
-  );
+    </TooltipProvider>;
 };
-
 export default DesktopNavigation;
