@@ -31,12 +31,12 @@ const ArticleSubNavigation: React.FC<ArticleSubNavigationProps> = ({
   if (sections.length === 0) return null;
 
   return (
-    <div className="sticky top-16 z-40 bg-white border-b border-gray-200 shadow-sm">
+    <div className="sticky top-16 z-40 bg-motortrend-dark border-b border-gray-700 shadow-sm">
       {/* Progress Bar */}
       <NavigationProgressBar readingProgress={readingProgress} />
 
       {/* Navigation Bar */}
-      <div className="px-4 py-3 bg-white">
+      <div className="px-4 py-3 bg-motortrend-dark">
         <div className="flex items-center space-x-4 overflow-x-auto scrollbar-none">
           {sections.map((section) => (
             <SectionNavItem
