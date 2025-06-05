@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { mockArticles } from '@/services/mockData';
 
 interface ArticleSection {
   id: string;
@@ -15,56 +16,53 @@ export const useSectionNavigation = (articleId: string, imageUrl: string) => {
   const [sectionProgress, setSectionProgress] = useState<Record<string, number>>({});
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // Extract articles from the page
-  const extractSections = useCallback(() => {
-    const extractAndSetSections = () => {
-      const articleElements = document.querySelectorAll('article[data-article-id]');
-      const extractedSections: ArticleSection[] = [];
+  // Create sections from all articles that will be loaded (up to 4 starting from current)
+  const createSectionsFromMockData = useCallback(() => {
+    const currentIndex = mockArticles.findIndex(a => a.id === articleId);
+    if (currentIndex === -1) return [];
 
-      console.log(`Found ${articleElements.length} article elements on page`);
+    const maxArticles = 4;
+    const sectionsToShow = mockArticles.slice(currentIndex, currentIndex + maxArticles);
+    
+    return sectionsToShow.map(article => ({
+      id: article.id,
+      title: article.title,
+      type: 'heading' as const,
+      thumbnail: article.imageUrl || imageUrl,
+      element: undefined // Will be set when article is rendered
+    }));
+  }, [articleId, imageUrl]);
 
-      articleElements.forEach((articleElement, index) => {
-        const articleId = articleElement.getAttribute('data-article-id');
-        const titleElement = articleElement.querySelector('h1');
-        const imageElement = articleElement.querySelector('img');
-        
-        console.log(`Processing article ${index + 1}:`, {
-          articleId,
-          title: titleElement?.textContent,
-          hasImage: !!imageElement
-        });
-        
-        if (articleId && titleElement) {
-          extractedSections.push({
-            id: articleId,
-            title: titleElement.textContent || 'Untitled Article',
-            type: 'heading',
-            thumbnail: imageElement?.src || imageUrl,
-            element: articleElement as HTMLElement
-          });
-        }
-      });
+  // Initialize sections from mock data on mount
+  useEffect(() => {
+    const initialSections = createSectionsFromMockData();
+    console.log('Setting initial sections from mock data:', initialSections);
+    setSections(initialSections);
+    
+    // Set the first article as active
+    if (initialSections.length > 0) {
+      setActiveSectionId(initialSections[0].id);
+    }
+  }, [createSectionsFromMockData]);
 
-      console.log('Final extracted sections:', extractedSections);
-      setSections(extractedSections);
-      
-      // Set the first article as active if none is set
-      if (extractedSections.length > 0 && !activeSectionId) {
-        setActiveSectionId(extractedSections[0].id);
-      }
-    };
+  // Update section elements when articles are rendered
+  const updateSectionElements = useCallback(() => {
+    const articleElements = document.querySelectorAll('article[data-article-id]');
+    console.log(`Found ${articleElements.length} rendered article elements`);
 
-    // Try multiple times with increasing delays to ensure all articles are loaded
-    setTimeout(extractAndSetSections, 100);
-    setTimeout(extractAndSetSections, 500);
-    setTimeout(extractAndSetSections, 1000);
-    setTimeout(extractAndSetSections, 2000);
-  }, [imageUrl, activeSectionId]);
+    setSections(prevSections => 
+      prevSections.map(section => {
+        const element = document.querySelector(`article[data-article-id="${section.id}"]`) as HTMLElement;
+        return {
+          ...section,
+          element: element || section.element
+        };
+      })
+    );
+  }, []);
 
   // Set up intersection observer for article tracking
   useEffect(() => {
-    extractSections();
-
     const observer = new IntersectionObserver(
       (entries) => {
         // Find the article with the highest intersection ratio
@@ -115,45 +113,37 @@ export const useSectionNavigation = (articleId: string, imageUrl: string) => {
 
     observerRef.current = observer;
 
-    // Observe all article elements with multiple attempts
+    // Observe article elements as they appear
     const observeArticles = () => {
       const articleElements = document.querySelectorAll('article[data-article-id]');
       console.log(`Observing ${articleElements.length} article elements`);
       articleElements.forEach(article => {
         observer.observe(article);
       });
+      updateSectionElements();
     };
 
-    // Try observing at different intervals to catch dynamically loaded content
-    setTimeout(observeArticles, 200);
-    setTimeout(observeArticles, 600);
-    setTimeout(observeArticles, 1200);
+    // Initial observation and multiple retries to catch lazy-loaded content
+    setTimeout(observeArticles, 100);
+    setTimeout(observeArticles, 500);
+    setTimeout(observeArticles, 1000);
+    setTimeout(observeArticles, 2000);
 
-    // Re-extract sections when the page loads and on scroll
-    const handleLoad = () => {
-      setTimeout(extractSections, 500);
-    };
+    // Listen for new articles being added to the DOM
+    const mutationObserver = new MutationObserver(() => {
+      setTimeout(observeArticles, 100);
+    });
 
-    const handleScroll = () => {
-      // Re-extract sections periodically when scrolling to catch any new articles
-      setTimeout(extractSections, 100);
-    };
-
-    if (document.readyState === 'complete') {
-      handleLoad();
-    } else {
-      window.addEventListener('load', handleLoad);
-    }
-
-    // Also listen for scroll events to detect new articles
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
 
     return () => {
       observer.disconnect();
-      window.removeEventListener('load', handleLoad);
-      window.removeEventListener('scroll', handleScroll);
+      mutationObserver.disconnect();
     };
-  }, [extractSections]);
+  }, [updateSectionElements]);
 
   const handleSectionClick = (sectionId: string, onSectionClick?: (sectionId: string) => void) => {
     const element = document.querySelector(`article[data-article-id="${sectionId}"]`);
@@ -167,6 +157,11 @@ export const useSectionNavigation = (articleId: string, imageUrl: string) => {
         behavior: 'smooth'
       });
 
+      setActiveSectionId(sectionId);
+      onSectionClick?.(sectionId);
+    } else {
+      // If article isn't rendered yet, scroll to trigger lazy loading
+      console.log(`Article ${sectionId} not found, may need to scroll to load it`);
       setActiveSectionId(sectionId);
       onSectionClick?.(sectionId);
     }
