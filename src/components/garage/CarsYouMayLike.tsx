@@ -3,7 +3,7 @@ import CarCard, { CarData } from "../CarCard";
 
 // Enhanced new cars with complete specs
 const newCars: CarData[] = [{
-  id: "new1",
+  id: "new-1",
   title: "2025 Honda Accord",
   imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/679d37b47ff34400082301e7/19-2025-honda-accord-front-view.jpg",
   price: "$29,500",
@@ -57,7 +57,7 @@ const newCars: CarData[] = [{
 
 // Enhanced used cars with appropriate specs
 const usedCars: CarData[] = [{
-  id: "used1",
+  id: "used-1",
   title: "2022 Tesla Model 3",
   imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a1ed591fb4e70008536b0a/2022-tesla-model-y-dual-motor-performance-12.jpg",
   price: "$37,900",
