@@ -37,8 +37,13 @@ const SectionNavigation: React.FC<SectionNavigationProps> = ({
       <ScrollArea className="w-full">
         <div 
           ref={containerRef}
-          className="flex space-x-2 overflow-x-auto scrollbar-hide"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex space-x-2 overflow-x-auto scrollbar-hide px-2"
+          style={{ 
+            scrollbarWidth: 'none', 
+            msOverflowStyle: 'none',
+            paddingLeft: '8px',
+            paddingRight: '8px'
+          }}
         >
           {sections.map((section, index) => (
             <SectionNavItem

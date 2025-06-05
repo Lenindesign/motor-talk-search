@@ -35,7 +35,7 @@ const ArticleSubNavigation: React.FC<ArticleSubNavigationProps> = ({
         sections={sections}
         activeSection={activeSectionId}
         onSectionClick={onSectionItemClick}
-        className="px-4 py-3"
+        className="px-2 py-3"
       />
     </div>
   );
