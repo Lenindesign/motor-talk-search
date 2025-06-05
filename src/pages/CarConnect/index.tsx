@@ -57,21 +57,6 @@ const CarConnect = () => {
   return (
     <div className="container mx-auto px-0 py-8">
       <div className="max-w-5xl mx-auto">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-bold text-gray-900">Find Best Price</h1>
-          {selectedCar?.make && selectedCar?.model && (
-            <div className="flex items-center gap-4">
-              <h2 className="text-xl font-semibold text-gray-700">
-                {selectedCar.make.name} {selectedCar.model.name} {selectedCar.model.year}
-              </h2>
-              <img
-                src={currentImage}
-                alt={`${selectedCar.make.name} ${selectedCar.model.name}`}
-                className="w-24 h-16 object-cover rounded-lg"
-              />
-            </div>
-          )}
-        </div>
         {selectedCar?.make && selectedCar?.model && (
           <div className="bg-white rounded-lg shadow-lg overflow-hidden">
             <div className="p-6">

@@ -48,7 +48,8 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
       });
       toast({
         title: "Updated in garage",
-        description: `${car.title} moved to ${ownership === 'testDriven' ? 'Test Drive' : ownership} collection.`
+        description: `${car.title} moved to ${ownership === 'testDriven' ? 'Test Drive' : ownership} collection.`,
+        action: <Button variant="outline" size="sm" onClick={() => navigate('/garage')}>My Garage</Button>
       });
     } else {
       // Add new item
@@ -72,7 +73,8 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
       });
       toast({
         title: "Added to garage",
-        description: `${car.title} added to your ${ownership === 'testDriven' ? 'Test Drive' : ownership} collection.`
+        description: `${car.title} added to your ${ownership === 'testDriven' ? 'Test Drive' : ownership} collection.`,
+        action: <Button variant="outline" size="sm" onClick={() => navigate('/garage')}>My Garage</Button>
       });
     }
     setOpen(false);
