@@ -33,18 +33,6 @@ export const useSectionNavigation = (articleId: string, imageUrl: string) => {
     }));
   }, [articleId, imageUrl]);
 
-  // Initialize sections from mock data on mount
-  useEffect(() => {
-    const initialSections = createSectionsFromMockData();
-    console.log('Setting initial sections from mock data:', initialSections);
-    setSections(initialSections);
-    
-    // Set the first article as active
-    if (initialSections.length > 0) {
-      setActiveSectionId(initialSections[0].id);
-    }
-  }, [createSectionsFromMockData]);
-
   // Update section elements when articles are rendered
   const updateSectionElements = useCallback(() => {
     const articleElements = document.querySelectorAll('article[data-article-id]');
@@ -60,6 +48,40 @@ export const useSectionNavigation = (articleId: string, imageUrl: string) => {
       })
     );
   }, []);
+
+  const handleSectionClick = useCallback((sectionId: string, onSectionClick?: (sectionId: string) => void) => {
+    const element = document.querySelector(`article[data-article-id="${sectionId}"]`);
+    if (element) {
+      const headerOffset = 120; // Account for sticky headers
+      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = elementPosition - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+
+      setActiveSectionId(sectionId);
+      onSectionClick?.(sectionId);
+    } else {
+      // If article isn't rendered yet, scroll to trigger lazy loading
+      console.log(`Article ${sectionId} not found, may need to scroll to load it`);
+      setActiveSectionId(sectionId);
+      onSectionClick?.(sectionId);
+    }
+  }, []);
+
+  // Initialize sections from mock data on mount
+  useEffect(() => {
+    const initialSections = createSectionsFromMockData();
+    console.log('Setting initial sections from mock data:', initialSections);
+    setSections(initialSections);
+    
+    // Set the first article as active
+    if (initialSections.length > 0) {
+      setActiveSectionId(initialSections[0].id);
+    }
+  }, [createSectionsFromMockData]);
 
   // Set up intersection observer for article tracking
   useEffect(() => {
@@ -144,28 +166,6 @@ export const useSectionNavigation = (articleId: string, imageUrl: string) => {
       mutationObserver.disconnect();
     };
   }, [updateSectionElements]);
-
-  const handleSectionClick = (sectionId: string, onSectionClick?: (sectionId: string) => void) => {
-    const element = document.querySelector(`article[data-article-id="${sectionId}"]`);
-    if (element) {
-      const headerOffset = 120; // Account for sticky headers
-      const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = elementPosition - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-
-      setActiveSectionId(sectionId);
-      onSectionClick?.(sectionId);
-    } else {
-      // If article isn't rendered yet, scroll to trigger lazy loading
-      console.log(`Article ${sectionId} not found, may need to scroll to load it`);
-      setActiveSectionId(sectionId);
-      onSectionClick?.(sectionId);
-    }
-  };
 
   return {
     sections,
