@@ -18,13 +18,17 @@ export default function ArticleDetail(): JSX.Element {
   const [readingProgress, setReadingProgress] = useState(0);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  // Get current article and related articles
-  const currentArticleIndex = mockArticles.findIndex((a) => a.id === id);
+  // Find current article
+  const article = mockArticles.find((a) => a.id === id) || mockArticles[0];
+  
+  // Get related articles from the same category
   const articlesInSeries = mockArticles
-    .filter((a) => a.category === mockArticles[currentArticleIndex]?.category)
-    .slice(0, 5);
-
-  const article = mockArticles[currentArticleIndex] || mockArticles[0];
+    .filter((a) => a.category === article.category && a.id !== article.id)
+    .slice(0, 4); // Get 4 related articles
+  
+  // Add current article to the beginning of the series
+  const allArticles = [article, ...articlesInSeries];
+  const currentArticleIndex = 0; // Current article is always first
   const isArticleSaved = isSaved(id || '', 'article');
 
   const handleSave = () => {
@@ -67,7 +71,7 @@ export default function ArticleDetail(): JSX.Element {
       <div className="min-h-screen bg-white">
         <ArticleSubNav
           currentArticleIndex={currentArticleIndex}
-          articles={articlesInSeries}
+          articles={allArticles}
           readingProgress={readingProgress}
         />
         <main className="container mx-auto px-4 py-8">
@@ -124,13 +128,12 @@ export default function ArticleDetail(): JSX.Element {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="fixed top-0 left-0 right-0 z-50 progress-indicator-red">
-        <Progress 
-          value={readingProgress} 
-          className="h-3 rounded-none bg-gray-200" 
-        />
-      </div>
+    <div className="min-h-screen bg-white">
+      <ArticleSubNav
+        currentArticleIndex={currentArticleIndex}
+        articles={articlesInSeries}
+        readingProgress={readingProgress}
+      />
 
       <main className="max-w-[720px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <header className="mb-6 sm:mb-8">
