@@ -37,9 +37,9 @@ export function BuyersGuideCard({
     <Card className="overflow-hidden bg-white">
       <div className="p-6 space-y-6">
         {/* Header */}
-        <div>
-          <h3 className="text-xl font-bold mb-2">{year} {make} {model}</h3>
-          <div className="flex items-center space-x-2 mb-4">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-xl font-bold">{year} {make} {model}</h3>
+          <div className="flex items-center space-x-1">
             <Award className="w-4 h-4 text-motortrend-red" />
             <span className="text-sm text-gray-600">{ranking}</span>
           </div>
