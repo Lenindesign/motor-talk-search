@@ -111,7 +111,7 @@ const NewCarDetail: React.FC = () => {
   }, []);
   const selectedTrimData = processedTrims.find(t => t.name === selectedTrim) || processedTrims[0];
   const overallRating = expertRatings.reduce((acc, rating) => acc + rating.score, 0) / expertRatings.length;
-  return <div className="min-h-screen bg-white w-full">
+  return <div className="">
       <main className="">
         {/* Breadcrumb Navigation */}
         <div className="flex items-center mb-5 overflow-x-auto whitespace-nowrap py-1 text-xs md:text-sm">
