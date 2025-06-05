@@ -7,10 +7,10 @@ import LatestReviews from '../components/home/LatestReviews';
 import FeaturedVideos from '../components/home/FeaturedVideos';
 import BrowseByCategory from '../components/home/BrowseByCategory';
 const Index = () => {
-  return <div className="flex min-h-screen flex-col bg-motortrend-gray w-full">
+  return <div className="flex min-h-screen flex-col w-full bg-transparent">
       
-      <main className="flex flex-1 flex-col">
-         <div className="max-w-[980px] mx-auto sm:px-6 lg:px-0 px-[8px] bg-transparent">
+      <main className="flex flex-1 flex-col bg-transparent">
+         <div className="bg-transparent">
             {/* Hero Carousel */}
              <div className="mb-8 pt-0 sm:pt-8">
                <HeroCarousel />
