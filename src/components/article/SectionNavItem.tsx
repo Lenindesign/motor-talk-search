@@ -34,13 +34,13 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
       onClick={onClick}
       className={cn(
         "flex items-center space-x-3 rounded-lg text-sm font-medium transition-all duration-200 border-2 min-w-0 flex-shrink-0",
-        "hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-motortrend-red",
+        "hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-motortrend-red",
         isCompact 
           ? "px-4 py-3 focus:ring-offset-1" 
           : "p-3 focus:ring-offset-2",
         isActive 
           ? "bg-motortrend-red text-white shadow-md border-motortrend-red" 
-          : "text-white hover:text-motortrend-red border-transparent hover:border-gray-600"
+          : "text-gray-700 hover:text-motortrend-red border-transparent hover:border-gray-200"
       )}
     >
       {section.thumbnail && (
@@ -61,7 +61,7 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
           className={cn(
             "text-left font-semibold leading-tight",
             isCompact ? "w-48" : "w-64",
-            isActive ? "text-white" : "text-white"
+            isActive ? "text-white" : ""
           )}
           style={{ 
             fontSize: '12px',
