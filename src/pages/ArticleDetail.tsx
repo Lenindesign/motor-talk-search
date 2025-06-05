@@ -1,269 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Calendar, User, Share, Bookmark, MessageSquare, Clock, ChevronUp } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { ChevronUp, User, Calendar, MessageSquare, Share, Bookmark } from 'lucide-react';
 import { useSavedItems } from '../contexts/SavedItemsContext';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { mockArticles, mockComments } from '@/services/mockData';
-import { CommentsSection } from '@/components/CommentsSection';
 import { BuyersGuideCard } from '@/components/BuyersGuideCard';
-import '@/styles/progress-bar.css';
+import { CommentsSection } from '@/components/CommentsSection';
 
-export default function ArticleDetail(): JSX.Element {
-  const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-  const { savedItems, addSavedItem, removeSavedItem, isSaved } = useSavedItems();
-  const [readingProgress, setReadingProgress] = useState(0);
-  const [showScrollTop, setShowScrollTop] = useState(false);
-
-  // Article stacking logic
-  const initialIndex = id ? mockArticles.findIndex(a => a.id === id) : 0;
-  const [loadedIndexes, setLoadedIndexes] = useState<number[]>([initialIndex >= 0 ? initialIndex : 0]);
-  const maxArticles = 4;
-  const observerRef = React.useRef<HTMLDivElement | null>(null);
-
-  // Load next article when bottom is reached
-  useEffect(() => {
-    if (loadedIndexes.length >= maxArticles) return;
-    const observer = new window.IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setLoadedIndexes((prev) => {
-            const nextIndex = prev[prev.length - 1] + 1;
-            if (nextIndex < mockArticles.length && prev.length < maxArticles) {
-              return [...prev, nextIndex];
-            }
-            return prev;
-          });
-        }
-      },
-      { threshold: 0.2 }
-    );
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
-    }
-    return () => {
-      if (observerRef.current) observer.unobserve(observerRef.current);
-    };
-  }, [loadedIndexes]);
-
-  // Render a single article (preserve template)
-  const renderArticle = (article: typeof mockArticles[0], idx: number) => {
-    const isArticleSaved = isSaved(article.id, 'article');
-    const handleSave = () => {
-      if (isArticleSaved) {
-        removeSavedItem(article.id, 'article');
-      } else {
-        addSavedItem({
-          id: article.id,
-          type: 'article',
-          title: article.title,
-          imageUrl: article.imageUrl,
-          savedAt: new Date().toISOString(),
-          metadata: {
-            category: article.category,
-            date: article.date
-          }
-        });
-      }
-    };
-    return (
-      <div key={article.id} className="mb-12" ref={idx === loadedIndexes.length - 1 ? observerRef : undefined}>
-        {/* Existing article template below - only show scroll-to-top button for first article */}
-        {/* ...copy/paste the article template JSX here, replacing all article references with the 'article' variable ... */}
-      </div>
-    );
-  };
-
-  // Only show up to maxArticles
-  const articlesToShow = loadedIndexes.map(i => mockArticles[i]).filter(Boolean);
-
-  // Hide scroll-to-top for subsequent articles (only on first)
-  // ...
-
-  // Remove single-article logic below and instead render articlesToShow
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const currentScroll = window.scrollY;
-      const progress = (currentScroll / totalScroll) * 100;
-      setReadingProgress(progress);
-      setShowScrollTop(currentScroll > 300);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  if (!articlesToShow.length) {
-    return (
-      <div className="min-h-screen bg-gray-50">
-        <main className="container mx-auto px-4 py-8">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Article Not Found</h1>
-            <Link to="/" className="text-motortrend-red hover:underline">
-              Return to Home
-            </Link>
-          </div>
-        </main>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="fixed top-0 left-0 right-0 z-50 progress-indicator-red">
-        <Progress 
-          value={readingProgress} 
-          className="h-3 rounded-none bg-gray-200" 
-        />
-      </div>
-
-      {/* Stack articles for infinite scroll */}
-      {articlesToShow.map((article, idx) => {
-        const isArticleSaved = isSaved(article.id, 'article');
-        const handleSave = () => {
-          if (isArticleSaved) {
-            removeSavedItem(article.id, 'article');
-          } else {
-            addSavedItem({
-              id: article.id,
-              type: 'article',
-              title: article.title,
-              imageUrl: article.imageUrl,
-              savedAt: new Date().toISOString(),
-              metadata: {
-                category: article.category,
-                date: article.date
-              }
-            });
-          }
-        };
-        // Use article.content if available, else fallback to mockContent
-        const content = article.content || mockContent;
-        return (
-          <main
-            key={article.id}
-            className="max-w-[720px] mx-auto px-4 sm:px-6 py-6 sm:py-8"
-            ref={idx === articlesToShow.length - 1 ? observerRef : undefined}
-          >
-            <header className="mb-6 sm:mb-8">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-                {article.title}
-              </h1>
-              <p className="text-base sm:text-lg text-gray-600 mb-6 leading-relaxed">
-                {content.subtitle}
-              </p>
-              <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-gray-500 border-b border-gray-200 pb-6">
-                <div className="flex items-center">
-                  <User size={16} className="mr-2" />
-                  <span className="font-medium">{content.author}</span>
-                  <span className="mx-2">•</span>
-                  <span>{content.authorTitle}</span>
-                </div>
-                <div className="flex items-center">
-                  <Calendar size={16} className="mr-2" />
-                  <span>{article.date}</span>
-                </div>
-                <a href="#comments" className="flex items-center hover:text-motortrend-red transition-colors">
-                  <MessageSquare size={16} className="mr-2" />
-                  <span>{mockComments.reduce((count, comment) => count + 1 + (comment.replies?.length || 0), 0)} comments</span>
-                </a>
-              </div>
-            </header>
-            <div className="mb-8 sm:mb-12">
-              <div className="relative overflow-hidden rounded-xl shadow-lg">
-                <img 
-                  src={article.imageUrl} 
-                  alt={article.title} 
-                  className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover"
-                  loading="eager" 
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 sm:p-6">
-                  <p className="text-sm sm:text-base text-white opacity-90">
-                    Mercedes EQS SUV showcases the future of electric luxury with industry-leading range capabilities.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <section className="prose prose-lg max-w-none mb-8 sm:mb-12">
-              {/* BuyersGuideCard for Honda Accord articles */}
-              {article.title.toLowerCase().includes('honda accord') && (
-                <div className="mb-6">
-                  <BuyersGuideCard
-                    make="Honda"
-                    model="Accord"
-                    year="2025"
-                    score={9.2}
-                    ranking="#1 in Midsize Cars"
-                    price="$28,990"
-                    mpg="48/38 City/Hwy"
-                    ownerRating={4.8}
-                    ownerCount={256}
-                  />
-                </div>
-              )}
-              {/* Article content sections */}
-              {content.sections && content.sections.map((section, index) => (
-                <React.Fragment key={index}>
-                  {section.type === 'paragraph' && (
-                    <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
-                      {section.content}
-                    </p>
-                  )}
-                  {section.type === 'heading' && (
-                    <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-8 sm:mt-12 mb-6">
-                      {section.content}
-                    </h2>
-                  )}
-                  {section.type === 'specs' && (
-                    <div className="bg-gray-50 rounded-xl p-4 sm:p-6 my-6 sm:my-8">
-                      <h3 className="text-lg sm:text-xl font-semibold mb-4">{section.title}</h3>
-                      <div className="space-y-3">
-                        {section.data.map((item, i) => (
-                          <div key={i} className="flex justify-between text-base sm:text-lg text-gray-700">
-                            <span>{item.label}</span>
-                            <span className="font-semibold">{item.value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {section.type === 'quote' && (
-                    <blockquote className="border-l-4 border-motortrend-red pl-4 italic my-6 sm:my-8">
-                      <p className="text-base sm:text-lg text-gray-600">{section.content}</p>
-                      {section.author && (
-                        <footer className="text-sm text-gray-500 mt-2">— {section.author}</footer>
-                      )}
-                    </blockquote>
-                  )}
-                </React.Fragment>
-              ))}
-            </section>
-            <section id="comments" className="mt-8 sm:mt-12 pb-8 sm:pb-12">
-              <CommentsSection 
-                articleId={article.id}
-                comments={mockComments}
-              />
-            </section>
-            {/* Only show scroll-to-top button for the first article */}
-            {idx === 0 && showScrollTop && (
-              <button
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 p-2 sm:p-3 bg-neutral-900/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-neutral-800 transition-colors z-50"
-              >
-                <ChevronUp size={20} className="sm:w-6 sm:h-6" />
-              </button>
-            )}
-          </main>
-        );
-      })}
-    </div>
-  );
+interface Comment {
+  id: string;
+  author: string;
+  content: string;
+  date: string;
+  avatar?: string;
 }
 
+interface ContentSection {
+  type: 'paragraph' | 'heading' | 'quote' | 'specs';
+  content?: string;
+  author?: string;
+  title?: string;
+  data?: Array<{ label: string; value: string }>;
+}
+
+interface ArticleContent {
+  subtitle: string;
+  author: string;
+  authorTitle: string;
+  readTime: string;
+  sections: ContentSection[];
+}
+
+const ArticleDetail: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { addSavedItem, removeSavedItem, isSaved } = useSavedItems();
+  const [readingProgress, setReadingProgress] = useState(0);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [loadedIndexes, setLoadedIndexes] = useState<number[]>([]);
+  const observerRef = useRef<HTMLDivElement>(null);
+  const maxArticles = 4;
+
+  // Fallback mockContent for articles missing content
+  const mockContent: ArticleContent = {
     subtitle: "Revolutionary electric SUVs are pushing the boundaries of range and efficiency, with some models now exceeding 400 miles on a single charge.",
     author: "Sarah Rodriguez",
     authorTitle: "Senior Automotive Editor",
@@ -288,6 +67,7 @@ export default function ArticleDetail(): JSX.Element {
       {
         type: 'specs',
         title: "Range Leaders: 2025 Models",
+        content: "",
         data: [
           { label: "Mercedes EQS SUV", value: "450 miles EPA" },
           { label: "Lucid Air Dream Range", value: "425 miles EPA" },
@@ -304,62 +84,143 @@ export default function ArticleDetail(): JSX.Element {
     ]
   };
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="fixed top-0 left-0 right-0 z-50 progress-indicator-red">
-        <Progress 
-          value={readingProgress} 
-          className="h-3 rounded-none bg-gray-200" 
-        />
-      </div>
+  // Initialize loadedIndexes with the current article
+  useEffect(() => {
+    if (id) {
+      const initialIndex = mockArticles.findIndex(a => a.id === id);
+      if (initialIndex >= 0) {
+        setLoadedIndexes([initialIndex]);
+      }
+    }
+  }, [id]);
 
-      <main className="max-w-[720px] mx-auto px-4 sm:px-6 py-6 sm:py-8">
-        <header className="mb-6 sm:mb-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-            {article.title}
-          </h1>
+  // Track scroll progress and show/hide scroll-to-top button
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      setReadingProgress(Math.min(100, Math.max(0, progress)));
+      setShowScrollTop(scrollTop > 300);
+    };
 
-          <p className="text-base sm:text-lg text-gray-600 mb-6 leading-relaxed">
-            {mockContent.subtitle}
-          </p>
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-gray-500 border-b border-gray-200 pb-6">
-            <div className="flex items-center">
-              <User size={16} className="mr-2" />
-              <span className="font-medium">{mockContent.author}</span>
-              <span className="mx-2">•</span>
-              <span>{mockContent.authorTitle}</span>
+  // Load next article when bottom is reached
+  useEffect(() => {
+    if (loadedIndexes.length >= maxArticles || !observerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setLoadedIndexes((prev) => {
+            const nextIndex = prev[prev.length - 1] + 1;
+            if (nextIndex < mockArticles.length && prev.length < maxArticles) {
+              return [...prev, nextIndex];
+            }
+            return prev;
+          });
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(observerRef.current);
+    return () => observer.disconnect();
+  }, [loadedIndexes, maxArticles]);
+
+  // Handle scroll to top
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  // Render a single article
+  const renderArticle = (article: typeof mockArticles[0], idx: number) => {
+    const isArticleSaved = isSaved(article.id, 'article');
+    const content = (article.content || mockContent) as ArticleContent;
+    
+    const handleSave = () => {
+      if (isArticleSaved) {
+        removeSavedItem(article.id, 'article');
+      } else {
+        addSavedItem({
+          id: article.id,
+          type: 'article',
+          title: article.title,
+          imageUrl: article.imageUrl,
+          savedAt: new Date().toISOString(),
+          metadata: {
+            category: article.category || '',
+            date: article.date
+          }
+        });
+      }
+    };
+
+    const renderContentSection = (section: ContentSection, index: number) => {
+      switch (section.type) {
+        case 'heading':
+          return (
+            <h2 key={index} className="text-2xl font-bold mt-8 mb-4">
+              {section.content}
+            </h2>
+          );
+        case 'quote':
+          return (
+            <blockquote key={index} className="border-l-4 border-motortrend-red pl-4 my-6 italic">
+              <p className="text-lg">"{section.content}"</p>
+              {section.author && (
+                <footer className="text-right mt-2 text-gray-600">— {section.author}</footer>
+              )}
+            </blockquote>
+          );
+        case 'specs':
+          return (
+            <div key={index} className="bg-gray-50 p-6 rounded-lg my-6">
+              {section.title && (
+                <h3 className="text-xl font-semibold mb-4">{section.title}</h3>
+              )}
+              <div className="grid gap-4">
+                {section.data?.map((item, i) => (
+                  <div key={i} className="flex justify-between border-b border-gray-100 pb-2">
+                    <span className="font-medium">{item.label}</span>
+                    <span className="text-gray-700">{item.value}</span>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="flex items-center">
-              <Calendar size={16} className="mr-2" />
-              <span>{article.date}</span>
-            </div>
-
-            <a href="#comments" className="flex items-center hover:text-motortrend-red transition-colors">
-              <MessageSquare size={16} className="mr-2" />
-              <span>{mockComments.reduce((count, comment) => count + 1 + (comment.replies?.length || 0), 0)} comments</span>
-            </a>
+          );
+        default:
+          return (
+            <p key={index} className="my-4 leading-relaxed">
+              {section.content}
+            </p>
+          );
+      }
+    };
+    
+    return (
+      <article key={article.id} className="max-w-3xl mx-auto px-4 py-8">
+        <header className="mb-8">
+          <h1 className="text-3xl font-bold mb-4">{article.title}</h1>
+          <div className="flex items-center text-gray-600 text-sm mb-6">
+            <User size={16} className="mr-1" />
+            <span>{content.author}</span>
+            <span className="mx-2">•</span>
+            <Calendar size={16} className="mr-1" />
+            <span>{article.date}</span>
+            <span className="mx-2">•</span>
+            <MessageSquare size={16} className="mr-1" />
+            <span>{mockComments.length} comments</span>
           </div>
-        </header>
-
-        <div className="mb-8 sm:mb-12">
-          <div className="relative overflow-hidden rounded-xl shadow-lg">
-            <img 
-              src={article.imageUrl} 
-              alt={article.title} 
-              className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover"
-              loading="eager" 
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 sm:p-6">
-              <p className="text-sm sm:text-base text-white opacity-90">
-                Mercedes EQS SUV showcases the future of electric luxury with industry-leading range capabilities.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <section className="prose prose-lg max-w-none mb-8 sm:mb-12">
-          {/* First show the BuyersGuideCard */}
+          <img
+            src={article.imageUrl}
+            alt={article.title}
+            className="w-full h-64 md:h-96 object-cover rounded-lg mb-6"
+          />
+          
           {article.title.toLowerCase().includes('honda accord') && (
             <div className="mb-6">
               <BuyersGuideCard
@@ -376,70 +237,76 @@ export default function ArticleDetail(): JSX.Element {
             </div>
           )}
 
-          {/* Then show the article content */}
-          {mockContent.sections.map((section, index) => {
-            
-            return (
-              <React.Fragment key={index}>
-                {section.type === 'paragraph' && (
-                  <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
-                    {section.content}
-                  </p>
-                )}
-                
+          <div className="prose max-w-none">
+            <p className="text-xl text-gray-700 mb-6">{content.subtitle}</p>
+            {content.sections.map((section, index) => renderContentSection(section, index))}
+          </div>
 
-                
-                {section.type === 'heading' && (
-                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mt-8 sm:mt-12 mb-6">
-                    {section.content}
-                  </h2>
-                )}
-                
-                {section.type === 'specs' && (
-                  <div className="bg-gray-50 rounded-xl p-4 sm:p-6 my-6 sm:my-8">
-                    <h3 className="text-lg sm:text-xl font-semibold mb-4">{section.title}</h3>
-                    <div className="space-y-3">
-                      {section.data.map((item, i) => (
-                        <div key={i} className="flex justify-between items-center">
-                          <span className="text-sm sm:text-base text-gray-600">{item.label}</span>
-                          <span className="text-sm sm:text-base font-medium">{item.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                
-                {section.type === 'quote' && (
-                  <blockquote className="border-l-4 border-motortrend-red pl-4 italic my-6 sm:my-8">
-                    <p className="text-base sm:text-lg text-gray-600">{section.content}</p>
-                    {section.author && (
-                      <footer className="text-sm text-gray-500 mt-2">— {section.author}</footer>
-                    )}
-                  </blockquote>
-                )}
-              </React.Fragment>
-            );
+          <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+            <div className="flex items-center space-x-4">
+              <button
+                onClick={handleSave}
+                className="flex items-center text-gray-600 hover:text-motortrend-red transition-colors"
+                aria-label={isArticleSaved ? 'Remove from saved' : 'Save article'}
+              >
+                <Bookmark
+                  size={20}
+                  className={`mr-1 ${isArticleSaved ? 'fill-current text-motortrend-red' : ''}`}
+                />
+                {isArticleSaved ? 'Saved' : 'Save'}
+              </button>
+              <button className="flex items-center text-gray-600 hover:text-motortrend-red transition-colors">
+                <Share size={20} className="mr-1" />
+                Share
+              </button>
+            </div>
+            <div className="text-sm text-gray-500">
+              {content.readTime}
+            </div>
+          </div>
+        </header>
 
-            return null;
-          })}
-        </section>
+        <CommentsSection comments={mockComments} articleId={article.id} />
+      </article>
+    );
+  };
 
-        <section id="comments" className="mt-8 sm:mt-12 pb-8 sm:pb-12">
-          <CommentsSection 
-            articleId={id || ''}
-            comments={mockComments}
-          />
-        </section>
+  // Main render
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Progress Bar */}
+      <div className="fixed top-0 left-0 right-0 h-1 bg-gray-100 z-50">
+        <div 
+          className="h-full bg-motortrend-red transition-all duration-200"
+          style={{ width: `${readingProgress}%` }}
+        />
+      </div>
+
+      {/* Main Content */}
+      <main className="pt-12 pb-20">
+        {loadedIndexes.map((index) => {
+          const article = mockArticles[index];
+          return article ? renderArticle(article, index) : null;
+        })}
+        
+        {/* Observer target for lazy loading */}
+        {loadedIndexes.length < maxArticles && loadedIndexes.length < mockArticles.length && (
+          <div ref={observerRef} className="h-20" />
+        )}
       </main>
 
+      {/* Scroll to Top Button */}
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 p-2 sm:p-3 bg-neutral-900/90 backdrop-blur-sm text-white rounded-full shadow-lg hover:bg-neutral-800 transition-colors z-50"
+          className="fixed bottom-6 right-6 bg-motortrend-red text-white p-3 rounded-full shadow-lg hover:bg-red-700 transition-colors z-40"
+          aria-label="Scroll to top"
         >
-          <ChevronUp size={20} className="sm:w-6 sm:h-6" />
+          <ChevronUp size={24} />
         </button>
       )}
     </div>
   );
-}
+};
+
+export default ArticleDetail;
