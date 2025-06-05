@@ -33,10 +33,10 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
     <button
       onClick={onClick}
       className={cn(
-        "flex items-center space-x-3 rounded-lg text-sm font-medium transition-all duration-200 border-2 min-w-0",
+        "flex items-center space-x-3 rounded-lg text-sm font-medium transition-all duration-200 border-2 min-w-0 flex-shrink-0",
         "hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-motortrend-red",
         isCompact 
-          ? "px-4 py-3 whitespace-nowrap focus:ring-offset-1" 
+          ? "px-4 py-3 focus:ring-offset-1" 
           : "p-3 focus:ring-offset-2",
         isActive 
           ? "bg-motortrend-red text-white shadow-md border-motortrend-red" 
@@ -59,8 +59,8 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
       <div className="flex flex-col items-start min-w-0 flex-1">
         <span 
           className={cn(
-            "text-left font-semibold leading-tight line-clamp-2",
-            isCompact ? "max-w-48" : "max-w-64",
+            "text-left font-semibold leading-tight",
+            isCompact ? "w-48" : "w-64",
             isActive ? "text-white" : ""
           )}
           style={{ 
@@ -69,7 +69,8 @@ const SectionNavItem: React.FC<SectionNavItemProps> = ({
             WebkitLineClamp: 2,
             WebkitBoxOrient: 'vertical',
             overflow: 'hidden',
-            textOverflow: 'ellipsis'
+            textOverflow: 'ellipsis',
+            lineHeight: '1.3'
           }}
         >
           {section.title}
