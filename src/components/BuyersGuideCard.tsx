@@ -36,24 +36,29 @@ export function BuyersGuideCard({
   return (
     <Card className="overflow-hidden bg-white">
       <div className="p-6 space-y-6">
-        {/* Header with MotorTrend Score */}
-        <div className="flex items-start justify-between">
-          <div>
-            <h3 className="text-xl font-bold mb-2">{year} {make} {model}</h3>
-            <div className="flex items-center space-x-2">
-              <Award className="w-4 h-4 text-motortrend-red" />
-              <span className="text-sm text-gray-600">{ranking}</span>
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-motortrend-red text-white font-bold text-lg mb-1">
-              {score}
-            </div>
-            <span className="text-xs text-gray-500">MT Score</span>
+        {/* Header */}
+        <div>
+          <h3 className="text-xl font-bold mb-2">{year} {make} {model}</h3>
+          <div className="flex items-center space-x-2 mb-4">
+            <Award className="w-4 h-4 text-motortrend-red" />
+            <span className="text-sm text-gray-600">{ranking}</span>
           </div>
         </div>
 
-        <Progress value={score * 10} className="h-2" />
+        {/* MotorTrend Score - styled like owner review */}
+        <div className="flex items-center space-x-4 bg-gray-50 p-3 rounded-lg">
+          <div>
+            <div className="flex items-center space-x-1 mb-1">
+              <Award className="w-4 h-4 fill-current text-motortrend-red" />
+              <span className="font-bold">{score}</span>
+              <span className="text-sm text-gray-500">/ 10</span>
+            </div>
+            <div className="flex items-center text-xs text-gray-500">
+              <span>MotorTrend Score</span>
+            </div>
+          </div>
+          <Progress value={score * 10} className="flex-1 h-1.5" />
+        </div>
 
         {/* Owner Rating */}
         <div className="flex items-center space-x-4 bg-gray-50 p-3 rounded-lg">

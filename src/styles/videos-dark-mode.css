@@ -2,12 +2,20 @@
 body.videos-page-dark-mode {
   background-color: #111827; /* bg-gray-900 */
   color: white;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
-/* Override any container backgrounds */
-body.videos-page-dark-mode .bg-motortrend-gray,
-body.videos-page-dark-mode .bg-color-neutral-8 {
-  background-color: #111827 !important;
+/* Only target specific containers that need dark backgrounds */
+body.videos-page-dark-mode .flex.flex-col.min-h-screen.bg-white,
+body.videos-page-dark-mode .container,
+body.videos-page-dark-mode main,
+body.videos-page-dark-mode .bg-white,
+body.videos-page-dark-mode .bg-motortrend-gray {
+  background-color: #111827;
 }
 
 /* Style adjustments for cards in dark mode */
@@ -16,16 +24,25 @@ body.videos-page-dark-mode .card {
   border-color: #374151; /* border-gray-700 */
 }
 
-/* Text color adjustments */
+/* Text color adjustments - more selective */
 body.videos-page-dark-mode h1,
 body.videos-page-dark-mode h2,
 body.videos-page-dark-mode h3,
 body.videos-page-dark-mode h4,
-body.videos-page-dark-mode p {
+body.videos-page-dark-mode p:not([class*="text-"]) {
   color: white;
 }
 
 /* Accent colors for icons */
 body.videos-page-dark-mode .section-icon {
   color: #ef4444; /* text-red-500 */
+}
+
+/* Fix for the side white spaces */
+body.videos-page-dark-mode #root {
+  background-color: #111827;
+}
+
+body.videos-page-dark-mode .max-w-\[980px\] {
+  background-color: #111827;
 }
