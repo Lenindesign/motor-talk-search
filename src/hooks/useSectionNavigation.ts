@@ -15,34 +15,37 @@ export const useSectionNavigation = (articleId: string, imageUrl: string) => {
   const [sectionProgress, setSectionProgress] = useState<Record<string, number>>({});
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  // Extract articles from the page instead of sections within an article
+  // Extract articles from the page
   const extractSections = useCallback(() => {
-    // Find all article elements on the page
-    const articleElements = document.querySelectorAll('article[data-article-id]');
-    const extractedSections: ArticleSection[] = [];
+    // Wait a bit for the DOM to be ready
+    setTimeout(() => {
+      const articleElements = document.querySelectorAll('article[data-article-id]');
+      const extractedSections: ArticleSection[] = [];
 
-    articleElements.forEach((articleElement) => {
-      const articleId = articleElement.getAttribute('data-article-id');
-      const titleElement = articleElement.querySelector('h1');
-      const imageElement = articleElement.querySelector('img');
+      articleElements.forEach((articleElement) => {
+        const articleId = articleElement.getAttribute('data-article-id');
+        const titleElement = articleElement.querySelector('h1');
+        const imageElement = articleElement.querySelector('img');
+        
+        if (articleId && titleElement) {
+          extractedSections.push({
+            id: articleId,
+            title: titleElement.textContent || 'Untitled Article',
+            type: 'heading',
+            thumbnail: imageElement?.src || imageUrl,
+            element: articleElement as HTMLElement
+          });
+        }
+      });
+
+      console.log('Extracted sections:', extractedSections);
+      setSections(extractedSections);
       
-      if (articleId && titleElement) {
-        extractedSections.push({
-          id: articleId,
-          title: titleElement.textContent || 'Untitled Article',
-          type: 'heading',
-          thumbnail: imageElement?.src || imageUrl,
-          element: articleElement as HTMLElement
-        });
+      // Set the first article as active if none is set
+      if (extractedSections.length > 0 && !activeSectionId) {
+        setActiveSectionId(extractedSections[0].id);
       }
-    });
-
-    setSections(extractedSections);
-    
-    // Set the first article as active if none is set
-    if (extractedSections.length > 0 && !activeSectionId) {
-      setActiveSectionId(extractedSections[0].id);
-    }
+    }, 500); // Increased delay to ensure articles are rendered
   }, [imageUrl, activeSectionId]);
 
   // Set up intersection observer for article tracking
@@ -99,16 +102,29 @@ export const useSectionNavigation = (articleId: string, imageUrl: string) => {
 
     observerRef.current = observer;
 
-    // Observe all article elements
+    // Observe all article elements with a delay
     setTimeout(() => {
       const articleElements = document.querySelectorAll('article[data-article-id]');
+      console.log('Found article elements:', articleElements.length);
       articleElements.forEach(article => {
         observer.observe(article);
       });
-    }, 100);
+    }, 600);
+
+    // Re-extract sections when the page loads
+    const handleLoad = () => {
+      setTimeout(extractSections, 1000);
+    };
+
+    if (document.readyState === 'complete') {
+      handleLoad();
+    } else {
+      window.addEventListener('load', handleLoad);
+    }
 
     return () => {
       observer.disconnect();
+      window.removeEventListener('load', handleLoad);
     };
   }, [extractSections]);
 
