@@ -135,11 +135,30 @@ const CarConnect = () => {
         )}
 
         {/* MotorTrend Guaranteed Banner */}
-        <div className="p-4 bg-white rounded-lg mt-6 mb-4">
-          <h2 className="text-xl font-semibold">MotorTrend Guaranteed</h2>
-          <p className="text-gray-600 mt-1">
-            Get the best price from our network of certified dealers.
-          </p>
+        <div className="p-4 bg-white rounded-lg mt-6 mb-4 flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-semibold">MotorTrend Guaranteed</h2>
+            <p className="text-gray-600 mt-1">
+              Get the best price from our network of certified dealers.
+            </p>
+          </div>
+          {selectedCar?.make && selectedCar?.model && (
+            <div className="flex items-center gap-3">
+              <img
+                src={currentImage}
+                alt={`${selectedCar.make.name} ${selectedCar.model.name}`}
+                className="w-16 h-12 object-cover rounded"
+              />
+              <div className="text-right">
+                <div className="text-sm font-medium text-gray-900">
+                  {selectedCar.make.name} {selectedCar.model.name}
+                </div>
+                <div className="text-xs text-gray-500">
+                  {selectedCar.model.year}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
