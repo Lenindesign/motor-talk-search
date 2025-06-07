@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown, Home, Car, PlayCircle, User } from "lucide-react";
 import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 interface MenuItemProps {
@@ -84,12 +85,12 @@ export const MobileMenu = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <button className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors" aria-label="Menu">
+        <Button variant="ghost" size="icon-sm" className="text-white hover:bg-motortrend-dark/50" aria-label="Menu">
           <span className="sr-only">Open main menu</span>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
           </svg>
-        </button>
+        </Button>
       </SheetTrigger>
       <SheetContent side="left" className="bg-motortrend-dark border-r border-gray-800 p-0 w-[280px]">
         <div className="flex flex-col h-full">
@@ -102,9 +103,9 @@ export const MobileMenu = () => {
               />
             </Link>
             <SheetTrigger asChild>
-              <button className="text-white hover:text-gray-300 focus:outline-none">
+              <Button variant="ghost" size="icon-sm" className="text-white hover:text-neutral-5">
                 <X size={20} />
-              </button>
+              </Button>
             </SheetTrigger>
           </div>
           <div className="flex-1 overflow-y-auto py-4">
@@ -114,25 +115,25 @@ export const MobileMenu = () => {
                   <>
                     <div className="relative">
                       <div className="relative flex items-center">
-                        <button
+                        <Button
+                          variant="ghost"
+                          size="icon-sm"
                           onClick={(e) => toggleExpand(item.label, e)}
-                          className="mr-2 p-2 text-white hover:text-gray-300 transition-colors z-10 hover:bg-white/10 rounded-md focus:outline-none"
+                          className="mr-2 text-white hover:text-neutral-5 hover:bg-neutral-8/10"
                           aria-label={`Toggle ${item.label} submenu`}
-                          tabIndex={0}
-                          type="button"
                         >
                           <ChevronDown
                             size={16}
                             className={`transition-transform duration-200 ml-2 ${
                               expandedItems[item.label]
-                                ? 'rotate-180 text-motortrend-red'
+                                ? 'rotate-180 text-primary'
                                 : 'text-white'
                             }`}
                           />
-                        </button>
+                        </Button>
                         <Link
                           to={item.path}
-                          className="flex-1 flex items-center gap-3 px-6 py-3 text-base font-medium text-white hover:bg-white/5 transition-colors"
+                          className="flex-1 flex items-center gap-3 px-6 py-3 typography-body text-white hover:bg-neutral-8/5 transition-colors"
                           tabIndex={0}
                         >
                           {item.icon && React.createElement(item.icon, { size: 18 })}
@@ -147,12 +148,12 @@ export const MobileMenu = () => {
                           : "max-h-0 opacity-0"
                       }`}
                     >
-                      <div className="pl-6 border-l border-gray-800 ml-8 mt-1 mb-2">
+                      <div className="pl-6 border-l border-neutral-3 ml-8 mt-1 mb-2">
                         {item.subItems.map((subItem) => (
                           <Link
                             key={subItem.path}
                             to={subItem.path}
-                            className="flex items-center gap-3 px-6 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                            className="flex items-center gap-3 px-6 py-2 typography-caption text-neutral-5 hover:text-white transition-colors"
                           >
                             {subItem.label}
                           </Link>
@@ -163,7 +164,7 @@ export const MobileMenu = () => {
                 ) : (
                   <Link
                     to={item.path}
-                    className="flex items-center gap-3 px-6 py-3 text-base font-medium text-white hover:bg-white/5 transition-colors"
+                    className="flex items-center gap-3 px-6 py-3 typography-body text-white hover:bg-neutral-8/5 transition-colors"
                   >
                     {item.icon && React.createElement(item.icon, { size: 18 })}
                     {item.label}

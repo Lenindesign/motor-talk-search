@@ -46,16 +46,16 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
         >
           {!isUser && processedMessageHtml ? (
             <p
-              className="text-sm sm:text-base font-normal text-left break-words"
+              className="typography-caption sm:typography-body text-left break-words"
               dangerouslySetInnerHTML={{ __html: processedMessageHtml }}
             />
           ) : (
-            <p className="text-sm sm:text-base font-normal text-left break-words">
+            <p className="typography-caption sm:typography-body text-left break-words">
               {message}
             </p>
           )}
           {timestamp && (
-            <p className="mt-1 text-xs opacity-70">{timestamp}</p>
+            <p className="mt-1 typography-caption-small opacity-70">{timestamp}</p>
           )}
         </div>
         {isUser && (

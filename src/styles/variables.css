@@ -1,8 +1,10 @@
 :root {
-  /* Colors */
+  /* Colors - Brand */
   --motortrend-red: #c11b17;
   --motortrend-red-hover: #e90c17;
   --motortrend-red-light: #ff858a;
+
+  /* Colors - Neutral */
   --neutral-1: #141416;
   --neutral-2: #23262f;
   --neutral-3: #353945;
@@ -12,17 +14,41 @@
   --neutral-7: #f4f5f6;
   --neutral-8: #fcfcfd;
 
+  /* Colors - Semantic */
+  --color-primary: var(--motortrend-red);
+  --color-primary-hover: var(--motortrend-red-hover);
+  --color-primary-light: var(--motortrend-red-light);
+  --color-text: var(--neutral-1);
+  --color-text-secondary: var(--neutral-4);
+  --color-background: var(--neutral-8);
+  --color-border: var(--neutral-6);
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+
   /* Typography */
   --font-display: 'Inter', sans-serif;
   --font-body: 'Inter', sans-serif;
 
-  /* Font Sizes */
+  /* Typography - Font Sizes */
   --font-size-2xl: clamp(1.5rem, 2vw, 1.875rem);
   --font-size-xl: clamp(1.25rem, 1.5vw, 1.5rem);
   --font-size-lg: clamp(1.125rem, 1.25vw, 1.25rem);
   --font-size-base: clamp(1rem, 1vw, 1rem);
   --font-size-sm: clamp(0.875rem, 0.875vw, 0.875rem);
   --font-size-xs: clamp(0.75rem, 0.75vw, 0.75rem);
+
+  /* Typography - Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+
+  /* Typography - Letter Spacing */
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
 
   /* Font Weights */
   --font-weight-light: 300;
@@ -31,7 +57,7 @@
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
 
-  /* Spacing */
+  /* Layout - Spacing */
   --spacing-1: 0.25rem;
   --spacing-2: 0.5rem;
   --spacing-3: 0.75rem;
@@ -42,6 +68,38 @@
   --spacing-12: 3rem;
   --spacing-16: 4rem;
   --spacing-20: 5rem;
+
+  /* Layout - Border Radius */
+  --radius-none: 0;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Layout - Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-inner: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  /* Layout - Z-Index */
+  --z-0: 0;
+  --z-10: 10;
+  --z-20: 20;
+  --z-30: 30;
+  --z-40: 40;
+  --z-50: 50;
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-fixed: 1200;
+  --z-modal: 1300;
+  --z-popover: 1400;
+  --z-tooltip: 1500;
 }
 
 /* Typography classes */

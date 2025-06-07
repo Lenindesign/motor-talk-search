@@ -139,7 +139,7 @@ const CarComparisonTable: React.FC<CarComparisonTableProps> = ({ cars }) => {
     <div>
       <div className="flex items-center gap-2 mb-4">
         <ArrowLeftRight size={18} className="text-motortrend-red" />
-        <h3 className="font-bold">Comparing {cars.length} Vehicles</h3>
+        <h3 className="typography-title">Comparing {cars.length} Vehicles</h3>
       </div>
       
       <div className="overflow-x-auto">
@@ -154,7 +154,7 @@ const CarComparisonTable: React.FC<CarComparisonTableProps> = ({ cars }) => {
                       <AvatarImage src={car.imageUrl || '/placeholder.svg'} alt={car.title} className="object-cover" />
                       <AvatarFallback>{car.title.substring(0, 2)}</AvatarFallback>
                     </Avatar>
-                    <span className="font-semibold">{car.title}</span>
+                    <span className="typography-caption">{car.title}</span>
                   </div>
                 </TableHead>
               ))}
@@ -164,13 +164,13 @@ const CarComparisonTable: React.FC<CarComparisonTableProps> = ({ cars }) => {
             {Object.entries(specCategories).map(([category, specs]) => (
               <React.Fragment key={category}>
                 <TableRow className="bg-gray-100">
-                  <TableCell colSpan={cars.length + 1} className="font-bold">
+                  <TableCell colSpan={cars.length + 1} className="typography-body-large">
                     {category}
                   </TableCell>
                 </TableRow>
                 {specs.map(spec => (
                   <TableRow key={spec}>
-                    <TableCell className="font-medium whitespace-nowrap">{formatSpecLabel(spec)}</TableCell>
+                    <TableCell className="typography-caption whitespace-nowrap">{formatSpecLabel(spec)}</TableCell>
                     {cars.map(car => {
                       const displayValue = formatSpecValue(car, spec);
                       const bestValueClass = getBestValueClass(cars, spec, car);

@@ -7,8 +7,9 @@ interface ContainerProps {
 }
 
 /**
- * Container component that applies a consistent max-width of 980px
+ * Container component that applies a consistent max-width of 1024px
  * Use this component to wrap content sections throughout the application
+ * Aligns with Tailwind's lg breakpoint
  */
 const Container: React.FC<ContainerProps> = ({
   children,
@@ -16,7 +17,7 @@ const Container: React.FC<ContainerProps> = ({
   as: Component = "div"
 }) => {
   return (
-    <Component className={`max-w-[980px] mx-auto w-full ${className}`}>
+    <Component className={`max-w-[1024px] mx-auto w-full ${className}`}>
       {children}
     </Component>
   );

@@ -124,7 +124,10 @@ const SearchBar: React.FC<SearchBarProps> = ({
     }
   };
   useEffect(() => {
-    if (currentInputRef?.current && !isLoading && variant === "main") {}
+    if (currentInputRef?.current && !isLoading && variant === "main") {
+      // Focus the input when it's ready and not loading
+      currentInputRef.current.focus();
+    }
   }, [isLoading, currentInputRef, variant]);
   return <div ref={wrapperRef} className="relative w-full">
       {variant === "header" ? <form onSubmit={handleSubmit} aria-label="Header search" className="w-full px-[16px]">
@@ -145,7 +148,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           if (query) {
             setShowSuggestions(true);
           }
-        }} onBlur={() => setIsFocused(false)} onKeyDown={handleInputKeyDown} className={`w-full rounded-full border-2 border-motortrend-red bg-white py-2.5 pl-10 ${inputPaddingRightClass} typography-body-sm shadow-sm transition-standard focus:ring-2 focus:ring-motortrend-red/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:border-motortrend-red`} placeholder="Search..." disabled={isLoading || voiceSearch} ref={currentInputRef} aria-autocomplete="list" aria-expanded={showSuggestions && suggestions.length > 0} aria-controls="autocomplete-suggestions" />
+        }} onBlur={() => setIsFocused(false)} onKeyDown={handleInputKeyDown} className={`w-full rounded-full border-2 border-motortrend-red bg-white py-2.5 pl-10 ${inputPaddingRightClass} typography-small shadow-sm transition-standard focus:ring-2 focus:ring-motortrend-red/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:border-motortrend-red`} placeholder="Search..." disabled={isLoading || voiceSearch} ref={currentInputRef} aria-autocomplete="list" aria-expanded={showSuggestions && suggestions.length > 0} aria-controls="autocomplete-suggestions" />
             <div className="absolute inset-y-0 right-0 flex items-center">
               <TooltipProvider>
                 <Tooltip>
@@ -167,7 +170,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Search by image</p>
+                    <p className="typography-caption">Search by image</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>

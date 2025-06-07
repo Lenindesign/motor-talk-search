@@ -108,8 +108,8 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
   };
 
   const getButtonVariant = () => {
-    if (currentOwnership) return 'secondary';
-    return 'outline';
+    if (currentOwnership) return 'solid-light';
+    return 'outline-black';
   };
 
   return (
@@ -118,7 +118,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
         <Button
           variant={getButtonVariant()}
           size="lg"
-          className={`gap-1 font-semibold transition-all duration-200 text-gray-900 hover:text-gray-900 ${className}`}
+          className={`gap-1 ${className}`}
           onClick={e => {
             e.stopPropagation();
           }}
@@ -131,26 +131,26 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
       <PopoverContent className="w-64 p-0" align="end">
         <Card>
           <CardContent className="p-2 space-y-2 px-2 py-2">
-            <div className="font-medium text-sm text-gray-900 mb-2">Add to Garage</div>
+            <div className="typography-caption-bold text-neutral-1 mb-2">Add to Garage</div>
             <div className="space-y-1">
               <Button
-                variant={currentOwnership === 'owned' ? 'default' : 'ghost'}
+                variant={currentOwnership === 'owned' ? 'solid' : 'ghost-black'}
                 size="sm"
-                className={`w-full justify-start gap-2 text-gray-900 hover:text-gray-900 ${
-                  currentOwnership === 'owned' ? 'bg-black text-white hover:bg-black hover:text-white' : ''
+                className={`w-full justify-start gap-2 text-neutral-1 hover:text-neutral-1 ${
+                  currentOwnership === 'owned' ? 'bg-neutral-1 text-white hover:bg-neutral-1 hover:text-white' : ''
                 }`}
                 onClick={e => {
                   e.stopPropagation();
                   handleAddToGarage('owned');
                 }}
               >
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-success rounded-full"></div>
                 Owned
               </Button>
               <Button
-                variant={currentOwnership === 'testDriven' ? 'default' : 'ghost'}
+                variant={currentOwnership === 'testDriven' ? 'solid' : 'ghost-black'}
                 size="sm"
-                className={`w-full justify-start gap-2 text-gray-900 hover:text-gray-900 ${
+                className={`w-full justify-start gap-2 text-neutral-1 hover:text-neutral-1 ${
                   currentOwnership === 'testDriven' ? 'bg-black text-white hover:bg-black hover:text-white' : ''
                 }`}
                 onClick={e => {
@@ -158,13 +158,13 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
                   handleAddToGarage('testDriven');
                 }}
               >
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-info rounded-full"></div>
                 Test Drive
               </Button>
               <Button
-                variant={currentOwnership === 'interested' ? 'default' : 'ghost'}
+                variant={currentOwnership === 'interested' ? 'solid' : 'ghost-black'}
                 size="sm"
-                className={`w-full justify-start gap-2 text-gray-900 hover:text-gray-900 ${
+                className={`w-full justify-start gap-2 text-neutral-1 hover:text-neutral-1 ${
                   currentOwnership === 'interested' ? 'bg-black text-white hover:bg-black hover:text-white' : ''
                 }`}
                 onClick={e => {
@@ -172,18 +172,18 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
                   handleAddToGarage('interested');
                 }}
               >
-                <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
+                <div className="w-2 h-2 bg-warning rounded-full"></div>
                 Interested
               </Button>
             </div>
             {currentOwnership === 'testDriven' && (
-              <div className="border-t pt-2 mt-2">
-                <div className="font-medium text-sm text-gray-900 mb-2">Test Drive Actions</div>
+              <div className="border-t border-neutral-6 pt-2 mt-2">
+                <div className="typography-caption-bold text-neutral-1 mb-2">Test Drive Actions</div>
                 <div className="space-y-1">
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full justify-start gap-2 text-gray-900 hover:text-gray-900"
+                    className="w-full justify-start gap-2 text-neutral-1 hover:text-neutral-1"
                     onClick={e => {
                       e.stopPropagation();
                       handleScheduleTestDrive();
@@ -195,7 +195,7 @@ const GarageActionMenu: React.FC<GarageActionMenuProps> = ({
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full justify-start gap-2 text-gray-900 hover:text-gray-900"
+                    className="w-full justify-start gap-2 text-neutral-1 hover:text-neutral-1"
                     onClick={e => {
                       e.stopPropagation();
                       handleContactDealer();

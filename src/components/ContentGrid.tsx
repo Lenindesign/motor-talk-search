@@ -4,6 +4,7 @@ import ArticleCard, { ArticleData } from "./ArticleCard";
 import CarCard, { CarData } from "./CarCard";
 import PhotoCard, { PhotoData } from "./PhotoCard";
 import VideoCard, { VideoData } from "./VideoCard";
+import { Button } from "@/components/ui/button";
 
 interface ContentGridProps {
   type: ContentType;
@@ -38,8 +39,8 @@ const ContentGrid: React.FC<ContentGridProps> = ({
   const renderEmptyState = () => (
     <div className="flex flex-col items-center justify-center py-8 text-center">
       <div className="text-4xl mb-4">📷</div>
-      <h3 className="text-lg font-bold text-gray-700 mb-2">No content available</h3>
-      <p className="text-gray-500 max-w-md">
+      <h3 className="typography-title text-neutral-2 mb-2">No content available</h3>
+      <p className="typography-body text-neutral-3 max-w-md">
         Try searching for something specific to find relevant {type === "all" ? "content" : type}
       </p>
     </div>
@@ -108,7 +109,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
           <div className="space-y-8">
             {content.articles.length > 0 && (
               <div>
-                <h3 className="mb-3 text-lg font-bold">Articles</h3>
+                <h3 className="mb-3 typography-subtitle">Articles</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {content.articles.slice(0, ITEMS_PER_CONTENT_TYPE).map((article) => (
                     <ArticleCard key={article.id} article={article} />
@@ -119,7 +120,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             
             {content.newCars.length > 0 && (
               <div>
-                <h3 className="mb-3 text-lg font-bold">New Cars</h3>
+                <h3 className="mb-3 typography-subtitle">New Cars</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {content.newCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
                     <CarCard key={car.id} car={car} type="new" />
@@ -130,7 +131,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             
             {content.usedCars.length > 0 && (
               <div>
-                <h3 className="mb-3 text-lg font-bold">Used Cars</h3>
+                <h3 className="mb-3 typography-subtitle">Used Cars</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {content.usedCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
                     <CarCard key={car.id} car={car} type="used" />
@@ -141,7 +142,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             
             {content.photos.length > 0 && (
               <div>
-                <h3 className="mb-3 text-lg font-bold">Photos</h3>
+                <h3 className="mb-3 typography-subtitle">Photos</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {content.photos.slice(0, ITEMS_PER_CONTENT_TYPE).map((photo) => (
                     <PhotoCard key={photo.id} photo={photo} />
@@ -152,7 +153,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             
             {content.videos.length > 0 && (
               <div>
-                <h3 className="mb-3 text-lg font-bold">Videos</h3>
+                <h3 className="mb-3 typography-subtitle">Videos</h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {content.videos.slice(0, ITEMS_PER_CONTENT_TYPE).map((video) => (
                     <VideoCard key={video.id} video={video} />
@@ -174,10 +175,10 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       
       {hasMore && (
         <div className="mt-6 flex justify-center">
-          <button
+          <Button
+            variant="outline"
             onClick={() => loadMore(type)}
             disabled={isLoadingMore}
-            className="rounded-full bg-white px-6 py-2 text-sm font-medium shadow hover:bg-gray-50 disabled:opacity-70"
           >
             {isLoadingMore ? (
               <span className="flex items-center gap-2">
@@ -200,12 +201,12 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             ) : (
               "Load More"
             )}
-          </button>
+          </Button>
         </div>
       )}
       
       {!hasMore && content[type === "all" ? "articles" : type].length > 0 && (
-        <p className="mt-6 text-center text-sm text-gray-500">
+        <p className="mt-6 text-center typography-caption text-neutral-4">
           No more content to load
         </p>
       )}

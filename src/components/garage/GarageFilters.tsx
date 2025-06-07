@@ -29,12 +29,12 @@ const GarageFilters: React.FC<GarageFiltersProps> = ({
         <div className="space-y-6">
           <div className="flex items-center gap-2">
             <Filter size={16} className="text-motortrend-red" />
-            <h3 className="font-semibold">Filter & Sort</h3>
+            <h3 className="typography-title">Filter & Sort</h3>
           </div>
           
           {/* Score Filter */}
           <div className="space-y-3">
-            <Label className="text-sm font-medium">
+            <Label className="typography-caption">
               Minimum MT Score: {minScore.toFixed(1)}
             </Label>
             <Slider value={[minScore]} onValueChange={value => onMinScoreChange(value[0])} max={10} min={0} step={0.1} className="w-full" />
@@ -42,7 +42,7 @@ const GarageFilters: React.FC<GarageFiltersProps> = ({
 
           {/* Sort Toggle */}
           <div className="flex items-center justify-between">
-            <Label htmlFor="sort-by-score" className="text-sm font-medium">
+            <Label htmlFor="sort-by-score" className="typography-caption">
               Sort by MT Score
             </Label>
             <Switch id="sort-by-score" checked={sortByScore} onCheckedChange={onSortByScoreChange} />

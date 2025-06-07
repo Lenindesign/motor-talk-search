@@ -114,45 +114,139 @@ const TokensTab = () => {
 
   // Design token categories
   const colorTokens = [
-    { name: 'Primary Red', value: '#c11b17', token: '--color-primary-1' },
-    { name: 'MotorTrend Red', value: '#e90c17', token: '--color-primary-2' },
-    { name: 'Light Red', value: '#ff858a', token: '--color-primary-3' },
-    { name: 'Neutral Dark', value: '#141416', token: '--color-neutral-1' },
-    { name: 'Neutral Gray', value: '#23262f', token: '--color-neutral-2' },
-    { name: 'Neutral Medium', value: '#4e5566', token: '--color-neutral-3' },
-    { name: 'Neutral Text', value: '#777e90', token: '--color-neutral-4' },
-    { name: 'Neutral Light', value: '#b1b5c3', token: '--color-neutral-5' },
-    { name: 'Neutral Border', value: '#e6e8ec', token: '--color-neutral-6' },
-    { name: 'Neutral Background', value: '#f4f5f6', token: '--color-neutral-7' },
-    { name: 'Neutral White', value: '#fcfcfd', token: '--color-neutral-8' },
-    { name: 'Success Green', value: '#58bd7d', token: '--color-success' },
-    { name: 'Warning Yellow', value: '#ffb800', token: '--color-warning' },
-    { name: 'Error Red', value: '#ff4747', token: '--color-error' },
-    { name: 'Info Blue', value: '#3b82f6', token: '--color-info' },
+    // Brand Colors
+    { 
+      name: '--motortrend-red', 
+      value: '#c11b17', 
+      description: 'Primary MotorTrend brand red color, used for main CTAs and key UI elements',
+      preview: <div className="h-8 rounded-md bg-[var(--motortrend-red)]" />
+    },
+    { 
+      name: '--motortrend-red-hover', 
+      value: '#e90c17', 
+      description: 'Hover state for MotorTrend red elements',
+      preview: <div className="h-8 rounded-md bg-[var(--motortrend-red-hover)]" />
+    },
+    { 
+      name: '--motortrend-red-light', 
+      value: '#ff858a', 
+      description: 'Light version of MotorTrend red, used for secondary elements',
+      preview: <div className="h-8 rounded-md bg-[var(--motortrend-red-light)]" />
+    },
+    
+    // Semantic Colors
+    { 
+      name: '--color-primary', 
+      value: 'var(--motortrend-red)', 
+      description: 'Semantic primary color (maps to MotorTrend red)',
+      preview: <div className="h-8 rounded-md bg-[var(--color-primary)]" />
+    },
+    { 
+      name: '--color-primary-hover', 
+      value: 'var(--motortrend-red-hover)', 
+      description: 'Semantic primary hover color (maps to MotorTrend red hover)',
+      preview: <div className="h-8 rounded-md bg-[var(--color-primary-hover)]" />
+    },
+    
+    // Neutral Colors
+    { 
+      name: '--neutral-1', 
+      value: '#141416', 
+      description: 'Darkest neutral, used for headings and primary text',
+      preview: <div className="h-8 rounded-md bg-neutral-1" />
+    },
+    { 
+      name: '--neutral-4', 
+      value: '#6e7481', 
+      description: 'Mid-tone neutral, used for secondary text and borders',
+      preview: <div className="h-8 rounded-md bg-neutral-4" />
+    },
+    { 
+      name: '--neutral-8', 
+      value: '#fcfcfd', 
+      description: 'Lightest neutral, used for backgrounds',
+      preview: <div className="h-8 rounded-md bg-neutral-8" />
+    },
+    
+    // Status Colors
+    { 
+      name: '--color-success', 
+      value: '#22c55e', 
+      description: 'Used for success states and positive actions',
+      preview: <div className="h-8 rounded-md bg-[var(--color-success)]" />
+    },
+    { 
+      name: '--color-error', 
+      value: '#ef4444', 
+      description: 'Used for error states and destructive actions',
+      preview: <div className="h-8 rounded-md bg-[var(--color-error)]" />
+    },
   ];
 
   const spacingTokens = [
-    { name: 'xs', value: '0.25rem', token: '--spacing-xs' },
-    { name: 'sm', value: '0.5rem', token: '--spacing-sm' },
-    { name: 'md', value: '1rem', token: '--spacing-md' },
-    { name: 'lg', value: '1.5rem', token: '--spacing-lg' },
-    { name: 'xl', value: '2rem', token: '--spacing-xl' },
-    { name: '2xl', value: '3rem', token: '--spacing-2xl' },
-    { name: '3xl', value: '4rem', token: '--spacing-3xl' },
+    { 
+      name: '--spacing-1', 
+      value: '0.25rem', 
+      description: '4px - Used for minimal spacing and tight layouts',
+      preview: <div className="h-1 w-full bg-neutral-4 rounded-full" />
+    },
+    { 
+      name: '--spacing-2', 
+      value: '0.5rem', 
+      description: '8px - Used for compact component padding',
+      preview: <div className="h-2 w-full bg-neutral-4 rounded-full" />
+    },
+    { 
+      name: '--spacing-4', 
+      value: '1rem', 
+      description: '16px - Base spacing unit, used for standard padding and margins',
+      preview: <div className="h-4 w-full bg-neutral-4 rounded-full" />
+    },
+    { 
+      name: '--spacing-6', 
+      value: '1.5rem', 
+      description: '24px - Used for larger component spacing',
+      preview: <div className="h-6 w-full bg-neutral-4 rounded-full" />
+    },
+    { 
+      name: '--spacing-8', 
+      value: '2rem', 
+      description: '32px - Used for section spacing',
+      preview: <div className="h-8 w-full bg-neutral-4 rounded-full" />
+    },
   ];
 
   const typographyTokens = [
-    { name: 'Font Family Primary', value: 'Poppins, sans-serif', token: '--font-primary' },
-    { name: 'Font Family Secondary', value: 'Geist, sans-serif', token: '--font-secondary' },
-    { name: 'Font Family Mono', value: 'Roboto Mono, monospace', token: '--font-mono' },
-    { name: 'Font Size XS', value: '0.75rem', token: '--font-size-xs' },
-    { name: 'Font Size SM', value: '0.875rem', token: '--font-size-sm' },
-    { name: 'Font Size Base', value: '1rem', token: '--font-size-base' },
-    { name: 'Font Size LG', value: '1.125rem', token: '--font-size-lg' },
-    { name: 'Font Size XL', value: '1.25rem', token: '--font-size-xl' },
-    { name: 'Font Size 2XL', value: '1.5rem', token: '--font-size-2xl' },
-    { name: 'Font Size 3XL', value: '1.875rem', token: '--font-size-3xl' },
-    { name: 'Font Size 4XL', value: '2.25rem', token: '--font-size-4xl' },
+    { 
+      name: '--font-display', 
+      value: 'var(--font-display)', 
+      description: 'Used for headlines and large text',
+      preview: <div className="typography-title">Display Font</div>
+    },
+    { 
+      name: '--font-body', 
+      value: 'var(--font-body)', 
+      description: 'Used for body text and general content',
+      preview: <div className="typography-body">Body Font</div>
+    },
+    { 
+      name: '--font-mono', 
+      value: 'var(--font-mono)', 
+      description: 'Used for code and technical content',
+      preview: <div className="typography-code">Mono Font</div>
+    },
+    { 
+      name: '--line-height-tight', 
+      value: '1.2', 
+      description: 'Used for headings and short text',
+      preview: <div className="typography-body leading-tight">Line Height Tight</div>
+    },
+    { 
+      name: '--line-height-normal', 
+      value: '1.5', 
+      description: 'Used for body text and general content',
+      preview: <div className="typography-body leading-normal">Line Height Normal</div>
+    },
     { name: 'Font Size 5XL', value: '3rem', token: '--font-size-5xl' },
     { name: 'Font Weight Light', value: '300', token: '--font-weight-light' },
     { name: 'Font Weight Regular', value: '400', token: '--font-weight-regular' },
@@ -236,7 +330,14 @@ const TokensTab = () => {
   ];
 
   // Custom token card component for reusability
-  const TokenCard = ({ title, description, tokens }: { title: string, description: string, tokens: any[] }) => (
+  interface Token {
+    name: string;
+    value: string;
+    description?: string;
+    preview?: React.ReactNode;
+  }
+
+  const TokenCard = ({ title, description, tokens }: { title: string, description: string, tokens: Token[] }) => (
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
@@ -245,21 +346,22 @@ const TokensTab = () => {
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {tokens.map((token) => (
-            <div key={token.token} className="p-3 border border-neutral-6 rounded-md">
+            <div key={token.name} className="p-3 border border-neutral-6 rounded-md">
               <div className="flex justify-between items-center">
                 <div className="flex-grow">
-                  <p className="typography-caption font-medium text-neutral-1">{token.name}</p>
-                  <p className="typography-small text-neutral-4">{token.value}</p>
-                  <p className="typography-small text-neutral-4 font-mono">{token.token}</p>
+                  <p className="typography-caption-bold text-neutral-1">{token.name}</p>
+                  <div className="typography-code text-neutral-4">{token.value}</div>
+                  {token.description && (
+                    <p className="typography-small text-neutral-4">{token.description}</p>
+                  )}
                 </div>
-                <Button 
-                  variant="ghost" 
-                  size="sm"
-                  onClick={() => copyToClipboard(`var(${token.token})`)}
-                  className="h-8 w-8 p-0"
-                >
-                  {copiedToken === `var(${token.token})` ? (
-                    <Check className="h-4 w-4 text-green-500" />
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  className="shrink-0"
+                  onClick={() => copyToClipboard(`var(${token.name})`)}>
+                  {copiedToken === token.name ? (
+                    <Check className="h-4 w-4 text-success" />
                   ) : (
                     <Copy className="h-4 w-4" />
                   )}
@@ -282,7 +384,7 @@ const TokensTab = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-neutral-4 mb-4">
+          <p className="typography-body text-neutral-4 mb-4">
             Design tokens are the visual design atoms of the design system — specifically, they are named entities that store 
             visual design attributes. We use them in place of hard-coded values to ensure flexibility and consistency.
           </p>
@@ -292,8 +394,8 @@ const TokensTab = () => {
               <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
                 <Button 
                   variant="ghost" 
-                  size="icon" 
-                  className="h-8 w-8 rounded-full bg-neutral-7 hover:bg-neutral-6"
+                  size="icon-sm" 
+                  className="shadow-sm hover:shadow-md"
                   onClick={goToPrev}
                 >
                   <ChevronLeft className="h-4 w-4" />
@@ -302,6 +404,7 @@ const TokensTab = () => {
               
               <div className="px-10">
                 <TabsList className="hidden">  {/* Hidden original TabsList for accessibility */}
+                  <TabsTrigger value="buttons">Buttons</TabsTrigger>
                   <TabsTrigger value="colors">Colors</TabsTrigger>
                   <TabsTrigger value="spacing">Spacing</TabsTrigger>
                   <TabsTrigger value="typography">Typography</TabsTrigger>
@@ -315,68 +418,87 @@ const TokensTab = () => {
                 <div className="custom-tabs-list">
                   <Slider ref={sliderRef} {...sliderSettings} className="token-tabs-slider">
                     <div className="px-1">
-                      <button 
-                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'colors' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                      <Button
+                        variant={activeTab === 'buttons' ? 'solid-primary' : 'ghost'}
+                        size="sm"
+                        className="w-full transition-all duration-200"
+                        onClick={() => handleTabChange('buttons')}
+                      >
+                        Buttons
+                      </Button>
+                    </div>
+                    <div className="px-1">
+                      <Button
+                        variant={activeTab === 'colors' ? 'solid-primary' : 'ghost'}
+                        size="sm"
+                        className="w-full transition-all duration-200"
                         onClick={() => handleTabChange('colors')}
                       >
                         Colors
-                      </button>
+                      </Button>
                     </div>
                     <div className="px-1">
-                      <button 
-                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'spacing' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                      <Button
+                        variant={activeTab === 'spacing' ? 'solid' : 'ghost'}
+                        className="w-full"
                         onClick={() => handleTabChange('spacing')}
                       >
                         Spacing
-                      </button>
+                      </Button>
                     </div>
                     <div className="px-1">
-                      <button 
-                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'typography' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                      <Button
+                        variant={activeTab === 'typography' ? 'solid' : 'ghost'}
+                        className="w-full"
                         onClick={() => handleTabChange('typography')}
                       >
                         Typography
-                      </button>
+                      </Button>
                     </div>
                     <div className="px-1">
-                      <button 
-                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'borders' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                      <Button
+                        variant={activeTab === 'borders' ? 'solid' : 'ghost'}
+                        className="w-full"
                         onClick={() => handleTabChange('borders')}
                       >
                         Borders
-                      </button>
+                      </Button>
                     </div>
                     <div className="px-1">
-                      <button 
-                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'shadows' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                      <Button
+                        variant={activeTab === 'shadows' ? 'solid' : 'ghost'}
+                        className="w-full"
                         onClick={() => handleTabChange('shadows')}
                       >
                         Shadows
-                      </button>
+                      </Button>
                     </div>
                     <div className="px-1">
-                      <button 
-                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'z-index' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                      <Button
+                        variant={activeTab === 'z-index' ? 'solid' : 'ghost'}
+                        className="w-full"
                         onClick={() => handleTabChange('z-index')}
                       >
                         Z-Index
-                      </button>
+                      </Button>
                     </div>
                     <div className="px-1">
-                      <button 
-                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'animation' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                      <Button
+                        variant={activeTab === 'animation' ? 'solid' : 'ghost'}
+                        className="w-full"
                         onClick={() => handleTabChange('animation')}
                       >
                         Animation
-                      </button>
+                      </Button>
                     </div>
                     <div className="px-1">
-                      <button 
-                        className={`w-full h-10 px-4 py-2 rounded-md font-medium text-sm transition-all focus:outline-none ${activeTab === 'breakpoints' ? 'bg-primary-2 text-white' : 'bg-neutral-7 text-neutral-1 hover:bg-neutral-6'}`}
+                      <Button
+                        variant={activeTab === 'breakpoints' ? 'solid' : 'ghost'}
+                        className="w-full"
                         onClick={() => handleTabChange('breakpoints')}
                       >
                         Breakpoints
-                      </button>
+                      </Button>
                     </div>
                   </Slider>
                 </div>
@@ -385,14 +507,37 @@ const TokensTab = () => {
               <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10">
                 <Button 
                   variant="ghost" 
-                  size="icon" 
-                  className="h-8 w-8 rounded-full bg-neutral-7 hover:bg-neutral-6"
+                  size="icon-sm" 
+                  className="shadow-sm hover:shadow-md"
                   onClick={goToNext}
                 >
                   <ChevronRight className="h-4 w-4" />
                 </Button>
               </div>
             </div>
+            
+            <TabsContent value="buttons">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Button Documentation</CardTitle>
+                  <CardDescription>
+                    For a comprehensive view of all button variants, sizes, and states, please visit the UI Components tab.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p className="typography-body text-neutral-4 mb-4">
+                    The UI Components section contains a complete demonstration of all button styles including:
+                  </p>
+                  <ul className="list-disc pl-6 space-y-2 text-neutral-4 typography-body-small">
+                    <li>Color variants (Red, Black, Primary)</li>
+                    <li>Style variants (Solid, Outline, Ghost, Minimal)</li>
+                    <li>Size options (Small to Extra Large)</li>
+                    <li>Icon buttons</li>
+                    <li>States (Disabled, Loading)</li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </TabsContent>
             
             <TabsContent value="colors">
               <TokenCard 
@@ -467,16 +612,17 @@ const TokensTab = () => {
           <CardDescription>How to implement design tokens in your components</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <h3 className="typography-title text-neutral-1 mb-2">CSS Implementation</h3>
-              <div className="bg-neutral-7 p-4 rounded-md font-mono text-sm mb-2 whitespace-pre overflow-x-auto">
+              <div className="typography-code mb-4 whitespace-pre overflow-x-auto shadow-sm border border-neutral-6">
 {`.button-primary {
-  background-color: var(--color-primary-2);
-  padding: var(--spacing-sm) var(--spacing-lg);
-  border-radius: var(--border-radius-default);
-  font-family: var(--font-primary);
+  background-color: var(--color-primary);
+  padding: var(--spacing-4) var(--spacing-6);
+  border-radius: var(--radius-xl);
+  font-family: var(--font-display);
   box-shadow: var(--shadow-sm);
+  transition: all var(--duration-normal) var(--ease-in-out);
 }`}
               </div>
               <p className="typography-small text-neutral-4">
@@ -485,7 +631,7 @@ const TokensTab = () => {
             </div>
             <div>
               <h3 className="typography-title text-neutral-1 mb-2">Tailwind Implementation</h3>
-              <div className="bg-neutral-7 p-4 rounded-md font-mono text-sm mb-2 whitespace-pre overflow-x-auto">
+              <div className="bg-neutral-7 p-4 rounded-md typography-code mb-2 whitespace-pre overflow-x-auto">
 {`<button 
   className="
     bg-primary-2

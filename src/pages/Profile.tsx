@@ -112,26 +112,26 @@ const Profile = () => {
                       <AvatarImage src={userData.avatar} alt={userData.name} className="object-cover" />
                       <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
                     </Avatar>
-                    <h2 className="text-xl font-bold">{userData.name}</h2>
-                    <p className="text-sm text-gray-500 mt-1">Member since {userData.joined}</p>
+                    <h2 className="typography-title">{userData.name}</h2>
+                    <p className="typography-caption text-neutral-4 mt-1">Member since {userData.joined}</p>
                     
                     <div className="w-full mt-6 flex justify-between items-center">
-                      <span className="text-sm font-medium">Saved Items</span>
-                      <span className="font-bold">{savedItems.length}</span>
+                      <span className="typography-caption">Saved Items</span>
+                      <span className="typography-body-large">{savedItems.length}</span>
                     </div>
                     
                     <div className="w-full mt-4 space-y-3">
-                      <Button variant="default" size="sm" className="w-full flex items-center justify-center gap-2 text-white bg-motortrend-dark text-sm font-semibold">
+                      <Button variant="default" size="sm" className="w-full flex items-center justify-center gap-2 text-white bg-motortrend-dark typography-caption">
                         <User size={16} />
                         Profile
                       </Button>
                       
-                      <Button variant="outline" size="sm" onClick={() => setPersonalizationOpen(true)} className="w-full flex items-center justify-center gap-2 text-gray-900 bg-white border-gray-300 hover:bg-gray-50 text-sm font-semibold">
+                      <Button variant="outline" size="sm" onClick={() => setPersonalizationOpen(true)} className="w-full flex items-center justify-center gap-2 text-neutral-1 bg-white border-neutral-3 hover:bg-gray-50 typography-caption">
                         <Palette size={16} />
                         Personalize
                       </Button>
                       
-                      <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 text-gray-900 bg-white border-gray-300 hover:bg-gray-50 text-sm">
+                      <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 text-neutral-1 bg-white border-neutral-3 hover:bg-gray-50 typography-caption">
                         <Settings size={16} />
                         Settings
                       </Button>
@@ -303,7 +303,7 @@ const Profile = () => {
                                     location: item.metadata?.location,
                                     dealerName: item.metadata?.dealerName,
                                     dealerLocation: item.metadata?.dealerLocation,
-                                    bodyStyle: item.metadata?.bodyStyle as any,
+                                    bodyStyle: item.metadata?.bodyStyle as 'SUV' | 'Sedan' | 'Truck' | 'Sports Car' | 'Minivan' | 'Crossover' | 'Coupe' | 'Convertible' | 'Hatchback' | 'Wagon',
                                     isNew: item.type === 'newCar',
                                     // Add new car specs that are shown in My Garage
                                     msrp: item.metadata?.msrp,

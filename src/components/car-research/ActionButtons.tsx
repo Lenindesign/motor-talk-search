@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSavedItems } from '@/contexts/SavedItemsContext';
 import { Button } from '@/components/ui/button';
+import { Vehicle } from '@/types/vehicle';
 import { 
   Car, 
   Heart, 
@@ -22,7 +23,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 
 interface ActionButtonsProps {
-  vehicle: any;
+  vehicle: Vehicle;
 }
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({ vehicle }) => {
@@ -122,8 +123,8 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ vehicle }) => {
         <div className="flex items-center justify-between">
           <div>
             <Badge variant="outline" className="bg-amber-500 text-white border-amber-600">PRO</Badge>
-            <h3 className="mt-2 text-lg font-bold">MotorTrend+ Premium</h3>
-            <p className="text-sm text-gray-700">Unlock expert reviews, price history, and unlimited comparisons</p>
+            <h3 className="mt-2 typography-subtitle">MotorTrend+ Premium</h3>
+            <p className="typography-caption text-neutral-3">Unlock expert reviews, price history, and unlimited comparisons</p>
           </div>
           <Button className="whitespace-nowrap" variant="default">
             Try Free
@@ -133,7 +134,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ vehicle }) => {
       
       {/* Main Actions */}
       <div className="rounded-lg bg-white p-6 shadow-md">
-        <h2 className="mb-4 text-lg font-semibold">Actions</h2>
+        <h2 className="mb-4 typography-subtitle">Actions</h2>
         
         <div className="grid grid-cols-2 gap-3">
           <Button 

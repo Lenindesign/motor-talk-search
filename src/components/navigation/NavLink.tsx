@@ -23,14 +23,14 @@ const NavLink = ({ href, children, className = "", hasDropdown = false, dropdown
     
     return (
       <div 
-        className={`relative group ${isVideosLink ? 'hidden nav-md:block' : ''}`}
+        className={`relative group ${isVideosLink ? 'hidden lg:block' : ''}`}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="flex items-center gap-1">
           <Link
             to={href}
-            className={`font-medium transition-colors hover:text-motortrend-red ${isActive ? 'text-motortrend-red' : 'text-white'} ${className}`}
+            className={`typography-button2 transition-colors hover:text-motortrend-red ${isActive ? 'text-motortrend-red' : 'text-white'} ${className}`}
           >
             {children}
           </Link>
@@ -42,7 +42,7 @@ const NavLink = ({ href, children, className = "", hasDropdown = false, dropdown
         
         {/* Dropdown Container */}
         <div 
-          className={`absolute top-full left-0 w-64 bg-motortrend-dark border border-gray-700 rounded-md shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${isHovered ? 'opacity-100 translate-y-0 max-h-[500px]' : 'opacity-0 -translate-y-2 max-h-0 pointer-events-none'}`}
+          className={`absolute top-full left-0 w-64 bg-motortrend-dark border border-neutral-2 rounded-md shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${isHovered ? 'opacity-100 translate-y-0 max-h-[500px]' : 'opacity-0 -translate-y-2 max-h-0 pointer-events-none'}`}
           style={{ zIndex: 1050 }}
         >
           {dropdownContent}

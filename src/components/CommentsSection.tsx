@@ -64,8 +64,8 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
       <div className="flex-1 space-y-2">
         <div className="flex items-center justify-between flex-wrap gap-2">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-semibold text-neutral-1">{comment.author.name}</span>
-            <span className="text-xs sm:text-sm text-neutral-3">
+            <span className="typography-body-large text-neutral-1">{comment.author.name}</span>
+            <span className="typography-small sm:typography-caption text-neutral-3">
               {new Date(comment.timestamp).toLocaleDateString()}
             </span>
           </div>
@@ -73,8 +73,8 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
             <MoreHorizontal size={18} />
           </button>
         </div>
-        <p className="text-sm sm:text-base text-neutral-2">{comment.content}</p>
-        <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm">
+        <p className="typography-caption sm:typography-body text-neutral-2">{comment.content}</p>
+        <div className="flex items-center gap-2 sm:gap-4">
           <button className="flex items-center gap-1 text-neutral-3 hover:text-neutral-1 transition-colors">
             <ThumbsUp size={14} className="sm:w-4 sm:h-4" />
             <span>{comment.likes}</span>
@@ -83,8 +83,8 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
             <ThumbsDown size={14} className="sm:w-4 sm:h-4" />
             <span>{comment.dislikes}</span>
           </button>
-          <button className="text-neutral-3 hover:text-neutral-1 transition-colors text-xs sm:text-sm">Reply</button>
-          <button className="flex items-center gap-1 text-neutral-3 hover:text-neutral-1 transition-colors ml-auto">
+          <button className="typography-small sm:typography-caption text-neutral-3 hover:text-neutral-1 transition-colors">Reply</button>
+          <button className="flex items-center gap-1 typography-small sm:typography-caption text-neutral-3 hover:text-neutral-1 transition-colors ml-auto">
             <Flag size={14} className="sm:w-4 sm:h-4" />
             <span className="hidden sm:inline">Report</span>
           </button>
@@ -97,8 +97,8 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
   );
 
   return (
-    <section className="py-6 sm:py-8 border-t border-neutral-200">
-      <h2 className="text-xl sm:text-2xl font-bold text-neutral-1 mb-4 sm:mb-6">Comments</h2>
+    <section className="py-6 sm:py-8 border-t border-neutral-6">
+      <h2 className="typography-title text-neutral-1 mb-4 sm:mb-6">Comments</h2>
       
       {/* Comment Form */}
       <form onSubmit={handleSubmitComment} className="space-y-3 sm:space-y-4">
@@ -106,13 +106,13 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
           value={newComment}
           onChange={(e) => setNewComment(e.target.value)}
           placeholder="Share your thoughts..."
-          className="min-h-[80px] sm:min-h-[100px] resize-none text-sm sm:text-base"
+          className="min-h-[80px] sm:min-h-[100px] resize-none typography-caption sm:typography-body"
         />
         <div className="flex justify-end">
           <Button 
             type="submit" 
             disabled={!newComment.trim()}
-            className="text-sm sm:text-base px-3 py-1.5 sm:px-4 sm:py-2"
+            className="typography-button2 sm:typography-button1 px-3 py-1.5 sm:px-4 sm:py-2"
           >
             Post Comment
           </Button>
@@ -122,7 +122,7 @@ export const CommentsSection: React.FC<CommentsSectionProps> = ({
       {/* Comments List */}
       <div className="mt-6 sm:mt-8 space-y-4 sm:space-y-6">
         {comments.length === 0 ? (
-          <p className="text-center text-neutral-3 py-6 sm:py-8 text-sm sm:text-base">Be the first to comment!</p>
+          <p className="text-center text-neutral-3 py-6 sm:py-8 typography-caption sm:typography-body">Be the first to comment!</p>
         ) : (
           comments.map((comment) => (
             <CommentCard key={comment.id} comment={comment} />

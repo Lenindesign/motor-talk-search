@@ -14,10 +14,21 @@ import { Slider } from '@/components/ui/slider';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Download, Plus, Info, AlertCircle } from 'lucide-react';
+import ButtonDemo from './ButtonDemo';
 
 const ComponentsTab = () => {
   return (
     <div className="space-y-6">
+      <Card>
+        <CardHeader>
+          <CardTitle>Buttons</CardTitle>
+          <CardDescription>Button variants, sizes, and states</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ButtonDemo />
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader>
           <CardTitle>Form Components</CardTitle>
@@ -76,42 +87,7 @@ const ComponentsTab = () => {
         </CardContent>
       </Card>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Button Variants</CardTitle>
-          <CardDescription>All button styles and states</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="space-y-2">
-              <Button className="w-full">Primary</Button>
-              <Button variant="secondary" className="w-full">Secondary</Button>
-              <Button variant="outline" className="w-full">Outline</Button>
-              <Button variant="ghost" className="w-full">Ghost</Button>
-            </div>
-            <div className="space-y-2">
-              <Button size="sm" className="w-full">Small</Button>
-              <Button size="default" className="w-full">Default</Button>
-              <Button size="lg" className="w-full">Large</Button>
-              <Button size="icon"><Plus size={16} /></Button>
-            </div>
-            <div className="space-y-2">
-              <Button disabled className="w-full">Disabled</Button>
-              <Button variant="destructive" className="w-full">Destructive</Button>
-              <Button variant="link" className="w-full">Link</Button>
-            </div>
-            <div className="space-y-2">
-              <Button className="w-full">
-                <Download size={16} />
-                With Icon
-              </Button>
-              <Button variant="outline" className="w-full">
-                Loading...
-              </Button>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Button section is now handled by the ButtonDemo component above */}
 
       <Card>
         <CardHeader>

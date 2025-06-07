@@ -37,7 +37,7 @@ const GarageContent = () => {
       fuelType: item.metadata?.fuelType,
       drivetrain: item.metadata?.drivetrain,
       location: item.metadata?.location,
-      bodyStyle: item.metadata?.bodyStyle as any,
+      bodyStyle: item.metadata?.bodyStyle as 'SUV' | 'Sedan' | 'Truck' | 'Sports Car' | 'Minivan' | 'Crossover' | 'Coupe' | 'Convertible' | 'Hatchback' | 'Wagon',
       isNew: item.type === 'newCar',
       msrp: item.metadata?.msrp,
       mpg: item.metadata?.mpg,
@@ -149,7 +149,7 @@ const GarageContent = () => {
   const displayCars = getDisplayCars();
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="w-full">
       {/* Header */}
       <div className="mb-6">
         <GarageHeader />
@@ -168,7 +168,7 @@ const GarageContent = () => {
       {showComparison ? (
         <div className="mb-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold text-motortrend-dark">Car Comparison</h2>
+            <h2 className="typography-title text-motortrend-dark">Car Comparison</h2>
             <Button variant="outline" onClick={() => setShowComparison(false)}>
               Back to Garage
             </Button>

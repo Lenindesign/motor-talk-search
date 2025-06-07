@@ -14,11 +14,11 @@ const ArticleActions: React.FC<ArticleActionsProps> = ({
   onSave
 }) => {
   return (
-    <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+    <div className="flex items-center justify-between mt-8 pt-6 border-t border-neutral-6">
       <div className="flex items-center space-x-4">
         <button
           onClick={onSave}
-          className="flex items-center text-gray-600 hover:text-motortrend-red transition-colors"
+          className="flex items-center typography-button2 text-neutral-3 hover:text-motortrend-red transition-colors"
           aria-label={isArticleSaved ? 'Remove from saved' : 'Save article'}
         >
           <Bookmark
@@ -27,12 +27,12 @@ const ArticleActions: React.FC<ArticleActionsProps> = ({
           />
           {isArticleSaved ? 'Saved' : 'Save'}
         </button>
-        <button className="flex items-center text-gray-600 hover:text-motortrend-red transition-colors">
+        <button className="flex items-center typography-button2 text-neutral-3 hover:text-motortrend-red transition-colors">
           <Share size={20} className="mr-1" />
           Share
         </button>
       </div>
-      <div className="text-sm text-gray-500">
+      <div className="typography-caption text-neutral-3">
         {readTime}
       </div>
     </div>

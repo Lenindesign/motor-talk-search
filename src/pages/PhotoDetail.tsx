@@ -46,7 +46,7 @@ const PhotoDetail: React.FC = () => {
         
         <main className="container mx-auto px-4 py-8">
           <div className="text-center">
-            <h1 className="text-2xl font-bold text-gray-900 mb-4">Photo Not Found</h1>
+            <h1 className="typography-title text-neutral-1 mb-4">Photo Not Found</h1>
             <Link to="/" className="text-motortrend-red hover:underline">
               Browse All Photos
             </Link>

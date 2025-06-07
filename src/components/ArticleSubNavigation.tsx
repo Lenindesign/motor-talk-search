@@ -30,7 +30,7 @@ const ArticleSubNavigation: React.FC<ArticleSubNavigationProps> = ({
   if (sections.length === 0) return null;
 
   return (
-    <div className="sticky top-16 z-40 bg-white border-b border-gray-200 shadow-sm">
+    <div className="sticky top-16 z-40 bg-white border-b border-neutral-6 shadow-sm">
       <SectionNavigation
         sections={sections}
         activeSection={activeSectionId}

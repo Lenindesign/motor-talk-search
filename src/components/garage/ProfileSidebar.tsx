@@ -44,24 +44,24 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
                 <AvatarImage src={userData.avatar} alt={userData.name} className="object-cover" />
                 <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
               </Avatar>
-              <h2 className="text-xl font-bold">{userData.name}</h2>
-              <p className="text-sm text-gray-500 mt-1">Member since {userData.joined}</p>
+              <h2 className="typography-title">{userData.name}</h2>
+              <p className="typography-caption text-neutral-4 mt-1">Member since {userData.joined}</p>
               <div className="w-full mt-6 flex justify-between items-center">
-                <span className="text-sm font-medium">Saved Items</span>
-                <span className="font-bold">{savedItemsCount}</span>
+                <span className="typography-caption">Saved Items</span>
+                <span className="typography-body-large">{savedItemsCount}</span>
               </div>
               <div className="w-full mt-4 space-y-3">
                 <Link to="/profile" className="w-full block">
-                  <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2">
+                  <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 typography-caption">
                     <User size={16} />
                     Profile
                   </Button>
                 </Link>
-                <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2" onClick={onPersonalizeClick}>
+                <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 typography-caption" onClick={onPersonalizeClick}>
                   <Palette size={16} />
                   Personalize
                 </Button>
-                <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2" onClick={handleSettingsClick}>
+                <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 typography-caption" onClick={handleSettingsClick}>
                   <Settings size={16} />
                   Settings
                 </Button>

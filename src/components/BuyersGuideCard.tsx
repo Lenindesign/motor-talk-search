@@ -38,10 +38,10 @@ export function BuyersGuideCard({
       <div className="p-6 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-xl font-bold">{year} {make} {model}</h3>
+          <h3 className="typography-title">{year} {make} {model}</h3>
           <div className="flex items-center space-x-1">
             <Award className="w-4 h-4 text-motortrend-red" />
-            <span className="text-sm text-gray-600">{ranking}</span>
+            <span className="typography-caption text-neutral-3">{ranking}</span>
           </div>
         </div>
 
@@ -50,10 +50,10 @@ export function BuyersGuideCard({
           <div>
             <div className="flex items-center space-x-1 mb-1">
               <Award className="w-4 h-4 fill-current text-motortrend-red" />
-              <span className="font-bold">{score}</span>
-              <span className="text-sm text-gray-500">/ 10</span>
+              <span className="typography-body-large">{score}</span>
+              <span className="typography-caption text-neutral-3">/ 10</span>
             </div>
-            <div className="flex items-center text-xs text-gray-500">
+            <div className="flex items-center typography-small text-neutral-3">
               <span>MotorTrend Score</span>
             </div>
           </div>
@@ -64,11 +64,11 @@ export function BuyersGuideCard({
         <div className="flex items-center space-x-4 bg-gray-50 p-3 rounded-lg">
           <div>
             <div className="flex items-center space-x-1 mb-1">
-              <Star className="w-4 h-4 fill-current text-yellow-400" />
-              <span className="font-bold">{ownerRating}</span>
-              <span className="text-sm text-gray-500">/ 5</span>
+              <Star className="w-4 h-4 fill-current text-warning" />
+              <span className="typography-body-large">{ownerRating}</span>
+              <span className="typography-caption text-neutral-3">/ 5</span>
             </div>
-            <div className="flex items-center text-xs text-gray-500">
+            <div className="flex items-center typography-small text-neutral-3">
               <Users className="w-3 h-3 mr-1" />
               {ownerCount} owner reviews
             </div>
@@ -79,12 +79,12 @@ export function BuyersGuideCard({
         {/* Key Stats */}
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-1">
-            <div className="text-sm text-gray-500">Starting Price</div>
-            <div className="font-semibold">{price}</div>
+            <div className="typography-caption text-neutral-3">Starting Price</div>
+            <div className="typography-body-large">{price}</div>
           </div>
           <div className="space-y-1">
-            <div className="text-sm text-gray-500">{isElectric ? 'Range' : 'MPG'}</div>
-            <div className="font-semibold flex items-center">
+            <div className="typography-caption text-neutral-3">{isElectric ? 'Range' : 'MPG'}</div>
+            <div className="typography-body-large flex items-center">
               {isElectric ? (
                 <>
                   <Battery className="w-4 h-4 mr-1" />

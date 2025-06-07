@@ -117,9 +117,19 @@ export const useSectionNavigation = (articleId: string, imageUrl: string) => {
             let visibilityScore = 0;
             
             if (entry.isIntersecting) {
+              // Calculate visible height (portion of element in viewport)
               const visibleHeight = Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
               const totalHeight = rect.height;
+              
+              // Normalize visibility score between 0-1 based on visible portion
               visibilityScore = Math.max(0, visibleHeight / totalHeight);
+              
+              // Enhanced scoring for elements near the top of the viewport
+              // This helps with the v1 route where elements might have different heights
+              if (rect.top >= 0 && rect.top < windowHeight * 0.5) {
+                // Bonus for elements near the top of the viewport
+                visibilityScore += 0.4;
+              }
               
               // Bonus for articles that are more centered in viewport
               const center = rect.top + rect.height / 2;
@@ -164,13 +174,14 @@ export const useSectionNavigation = (articleId: string, imageUrl: string) => {
         });
 
         // Only update if we have a clear winner with significant visibility
-        if (bestArticle && highestScore > 0.2) {
+        // Lowered threshold for better responsiveness, especially for /article/v1
+        if (bestArticle && highestScore > 0.15) {
           updateActiveSection(bestArticle);
         }
       },
       {
-        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
-        rootMargin: '-80px 0px -80px 0px' // Smaller margin for more precise detection
+        threshold: [0, 0.05, 0.1, 0.25, 0.5, 0.75, 1], // Added more granular thresholds
+        rootMargin: '-60px 0px -80px 0px' // Adjusted top margin for better detection
       }
     );
 
@@ -189,6 +200,8 @@ export const useSectionNavigation = (articleId: string, imageUrl: string) => {
     setTimeout(observeArticles, 100);
     setTimeout(observeArticles, 500);
     setTimeout(observeArticles, 1000);
+    // Additional observation for slower-loading content (especially for v1 route)
+    setTimeout(observeArticles, 2000);
 
     // Listen for new articles being added to the DOM
     const mutationObserver = new MutationObserver(() => {

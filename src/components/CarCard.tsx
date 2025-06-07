@@ -72,7 +72,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
   }
   return <Card
     variant={type === 'new' ? 'newCar' : 'usedCar'}
-    className={cn('flex flex-col w-full h-full bg-white rounded-t-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200', className)}
+    className={cn('flex flex-col w-full h-full bg-white rounded-t-xl shadow-sm border border-neutral-6 overflow-hidden hover:shadow-md transition-shadow duration-200', className)}
     isSaved={isSaved}
     onToggleSave={toggleSave}
     imageUrl={currentImage}
@@ -97,14 +97,14 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
         <div className="grid gap-2">
         <div className="flex items-start justify-between">
           <RouterLink to={linkPath} className="flex-grow">
-            <h3 className="text-lg line-clamp-2 transition-colors font-semibold text-motortrend-dark">
+            <h3 className="typography-subtitle line-clamp-2 transition-colors text-neutral-1">
               {car.title}
             </h3>
           </RouterLink>
         </div>
         {/* Only show category for used cars since new cars already show it in the ranking */}
         {type !== 'new' && (
-          <RouterLink to={linkPath} className="text-gray-600 hover:text-motortrend-red transition-colors">
+          <RouterLink to={linkPath} className="typography-caption text-neutral-3 hover:text-motortrend-red transition-colors">
             {car.category}
           </RouterLink>
         )}
@@ -115,9 +115,9 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
       {/* Fixed bottom section */}
       <div className="p-4 pt-0 mt-auto">
         <Button
-          variant="outline"
+          variant="outline-primary"
           size="lg"
-          className="w-full mb-4 bg-white hover:bg-gray-50 border-motortrend-red text-motortrend-red hover:text-motortrend-dark hover:border-motortrend-dark rounded-xl"
+          className="w-full mb-4"
           onClick={(e) => {
             e.stopPropagation();
             // Extract make and model from title (e.g. "2025 Rivian R1S")
@@ -131,7 +131,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
             }
           }}
         >
-          <Search className="w-4 h-4 mr-2" />
+          <Search />
           Find Best Price
         </Button>
         <GarageActionMenu car={car} type={type} className="w-full" />

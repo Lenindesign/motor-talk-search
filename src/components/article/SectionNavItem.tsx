@@ -34,7 +34,7 @@ const SectionNavItem = forwardRef<HTMLButtonElement, SectionNavItemProps>(({
       ref={ref}
       onClick={onClick}
       className={cn(
-        "flex items-center space-x-3 rounded-lg text-sm font-medium min-w-0 flex-shrink-0",
+        "flex items-center space-x-3 rounded-lg typography-caption-bold min-w-0 flex-shrink-0",
         "focus:outline-none focus:ring-0",
         "transition-all duration-300 ease-in-out",
         isCompact 
@@ -42,14 +42,13 @@ const SectionNavItem = forwardRef<HTMLButtonElement, SectionNavItemProps>(({
           : "p-3",
         isActive 
           ? "bg-motortrend-dark text-white shadow-lg" 
-          : "text-gray-700 hover:bg-gray-100 hover:shadow-md"
+          : "text-neutral-2 hover:bg-neutral-7 hover:shadow-md"
       )}
     >
       {section.thumbnail && (
         <div className={cn(
           "rounded overflow-hidden flex-shrink-0 transition-all duration-300",
-          isCompact ? "w-10 h-10" : "w-12 h-12",
-          isActive ? "ring-2 ring-white ring-opacity-50" : ""
+          isCompact ? "w-10 h-10" : "w-12 h-12"
         )}>
           <img 
             src={section.thumbnail} 
@@ -62,9 +61,9 @@ const SectionNavItem = forwardRef<HTMLButtonElement, SectionNavItemProps>(({
       <div className="flex flex-col items-start min-w-0 flex-1">
         <span 
           className={cn(
-            "text-left font-semibold leading-tight transition-colors duration-300",
+            "text-left typography-caption-bold leading-tight transition-colors duration-300",
             isCompact ? "w-48" : "w-64",
-            isActive ? "text-white" : "text-gray-700"
+            isActive ? "text-white" : "text-neutral-2"
           )}
           style={{ 
             fontSize: '12px',

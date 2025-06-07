@@ -1,5 +1,6 @@
 
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
 	darkMode: ["class"],
@@ -26,8 +27,7 @@ export default {
 			'xs': '480px',
 			'sm': '640px',
 			'md': '768px',
-			'nav-md': '980px',  // Custom breakpoint for hiding Videos nav at 980px
-			'lg': '1024px',
+			'lg': '1024px',  // Standard breakpoint for container max-width
 			'xl': '1280px',
 			'2xl': '1536px',
 		},
@@ -106,14 +106,14 @@ export default {
 					4: 'var(--color-info-4)',
 				},
 				neutral: {
-					1: 'var(--color-neutral-1)',
-					2: 'var(--color-neutral-2)',
-					3: 'var(--color-neutral-3)',
-					4: 'var(--color-neutral-4)',
-					5: 'var(--color-neutral-5)',
-					6: 'var(--color-neutral-6)',
-					7: 'var(--color-neutral-7)',
-					8: 'var(--color-neutral-8)',
+					1: 'var(--neutral-1)',
+					2: 'var(--neutral-2)',
+					3: 'var(--neutral-3)',
+					4: 'var(--neutral-4)',
+					5: 'var(--neutral-5)',
+					6: 'var(--neutral-6)',
+					7: 'var(--neutral-7)',
+					8: 'var(--neutral-8)',
 				},
 				success: {
 					1: 'var(--color-success-1)',
@@ -246,5 +246,5 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [tailwindcssAnimate],
 } satisfies Config;

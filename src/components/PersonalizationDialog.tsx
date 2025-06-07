@@ -79,7 +79,7 @@ const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
   return <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold">Personalize Your Experience</DialogTitle>
+          <DialogTitle className="typography-title">Personalize Your Experience</DialogTitle>
           <DialogClose className="absolute right-4 top-4">
             
           </DialogClose>
@@ -93,11 +93,11 @@ const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
           
           <TabsContent value="content" className="space-y-6 pt-4">
             <div>
-              <h3 className="text-lg font-medium mb-3">Favorite Categories</h3>
+              <h3 className="typography-title mb-3">Favorite Categories</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {categories.map(category => <div key={category} className="flex items-center space-x-2">
                     <Checkbox id={`category-${category}`} checked={tempPreferences.favoriteCategories.includes(category)} onCheckedChange={() => handleCategoryToggle(category)} />
-                    <label htmlFor={`category-${category}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    <label htmlFor={`category-${category}`} className="typography-caption leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                       {category}
                     </label>
                   </div>)}
@@ -105,11 +105,11 @@ const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
             </div>
             
             <div>
-              <h3 className="text-lg font-medium mb-3">Favorite Manufacturers</h3>
+              <h3 className="typography-title mb-3">Favorite Manufacturers</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                 {manufacturers.map(manufacturer => <div key={manufacturer} className="flex items-center space-x-2">
                     <Checkbox id={`manufacturer-${manufacturer}`} checked={tempPreferences.favoriteManufacturers.includes(manufacturer)} onCheckedChange={() => handleManufacturerToggle(manufacturer)} />
-                    <label htmlFor={`manufacturer-${manufacturer}`} className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    <label htmlFor={`manufacturer-${manufacturer}`} className="typography-caption leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                       {manufacturer}
                     </label>
                   </div>)}
@@ -119,7 +119,7 @@ const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
           
           <TabsContent value="display" className="space-y-6 pt-4">
             <div>
-              <h3 className="text-lg font-medium mb-3">Theme</h3>
+              <h3 className="typography-title mb-3">Theme</h3>
               <RadioGroup value={tempPreferences.theme} onValueChange={value => handleThemeChange(value as ThemeType)} className="flex space-x-4">
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="light" id="theme-light" />
@@ -137,19 +137,19 @@ const PersonalizationDialog: React.FC<PersonalizationDialogProps> = ({
             </div>
             
             <div>
-              <h3 className="text-lg font-medium mb-3">Font Size</h3>
+              <h3 className="typography-title mb-3">Font Size</h3>
               <RadioGroup value={tempPreferences.fontSize} onValueChange={value => handleFontSizeChange(value as FontSizeType)} className="flex space-x-4">
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="small" id="font-small" />
-                  <Label htmlFor="font-small" className="text-sm">Small</Label>
+                  <Label htmlFor="font-small" className="typography-caption">Small</Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="medium" id="font-medium" />
-                  <Label htmlFor="font-medium" className="text-base">Medium</Label>
+                  <Label htmlFor="font-medium" className="typography-body">Medium</Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="large" id="font-large" />
-                  <Label htmlFor="font-large" className="text-lg">Large</Label>
+                  <Label htmlFor="font-large" className="typography-body-large">Large</Label>
                 </div>
               </RadioGroup>
             </div>

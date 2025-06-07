@@ -6,7 +6,20 @@ export interface CardBaseProps {
   imageUrl: string;
   type: CardType;
   savedAt?: string;
-  metadata?: Record<string, any>;
+  metadata?: {
+    date?: string;
+    category?: string;
+    duration?: string;
+    description?: string;
+    photoCount?: number;
+    price?: string;
+    mileage?: string;
+    location?: string;
+    dealerName?: string;
+    [key: string]: string | number | undefined;
+  };
+  inGarage?: boolean;
+  garageStatus?: 'Owned' | 'Test Drive' | 'Interested';
 }
 
 export interface CardProps extends CardBaseProps {

@@ -29,7 +29,7 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
         <div className="space-y-3">
           {/* Loading state for popular searches */}
           <div className="mb-4">
-            <Skeleton variant="text" width="30%" className="mb-2 typography-h4" />
+            <Skeleton variant="text" width="30%" className="mb-2 typography-title" />
             <div className="space-y-2">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="flex items-center gap-2">
@@ -42,7 +42,7 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
           
           {/* Loading state for articles */}
           <div className="mb-4">
-            <Skeleton variant="text" width="25%" className="mb-2 typography-h4" />
+            <Skeleton variant="text" width="25%" className="mb-2 typography-title" />
             <div className="space-y-3">
               {[1, 2, 3].map((i) => (
                 <div key={i} className="flex gap-3">
@@ -129,7 +129,7 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
           return (
             <li key={type} className="pt-1 mb-2">
               {typeLabel && (
-                <div className="px-4 py-2 typography-caption text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 sticky top-0 z-10 font-semibold">
+                <div className="px-4 py-2 typography-caption text-neutral-4 dark:text-neutral-3 bg-neutral-7 dark:bg-neutral-2/50 sticky top-0 z-10">
                   {typeLabel}
                 </div>
               )}
@@ -153,7 +153,7 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
                   return (
                     <li 
                       key={suggestion.id}
-                      className={`rounded-md flex items-center gap-3 p-2 text-sm cursor-pointer dark:text-gray-100 ${ 
+                      className={`rounded-md flex items-center gap-3 p-2 typography-caption cursor-pointer dark:text-white ${ 
                         selectedIndex === currentGlobalIndex
                           ? "bg-motortrend-red bg-opacity-10 text-motortrend-red dark:bg-motortrend-red/20 dark:text-motortrend-red-300"
                           : "hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -166,13 +166,13 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
                       {suggestion.imageUrl ? (
                         <img src={suggestion.imageUrl} alt={suggestion.text} className="w-16 h-10 object-cover rounded-sm flex-shrink-0" /> 
                       ) : (
-                        <div className="w-16 h-10 flex-shrink-0 flex items-center justify-center bg-gray-100 dark:bg-gray-700 rounded-sm">
+                        <div className="w-16 h-10 flex-shrink-0 flex items-center justify-center bg-neutral-7 dark:bg-neutral-2 rounded-sm">
                           {getIconForSuggestionType(suggestion.type)} 
                         </div>
                       )}
                       <div className="flex-grow overflow-hidden">
-                        <span className="typography-body-sm font-medium truncate block">{suggestion.text}</span>
-                        {secondaryText && <span className="typography-caption text-gray-500 dark:text-gray-400 truncate block">{secondaryText}</span>}
+                        <span className="typography-body-small truncate block">{suggestion.text}</span>
+                        {secondaryText && <span className="typography-caption text-neutral-4 dark:text-neutral-3 truncate block">{secondaryText}</span>}
                       </div>
                     </li>
                   );

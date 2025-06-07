@@ -3,6 +3,7 @@ import React from "react";
 import { Star, ThumbsUp, MessageSquare, User } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 export interface UserReviewProps {
   id: string;
@@ -68,25 +69,25 @@ const UserReview: React.FC<UserReviewProps> = ({
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-sm font-medium">{userName}</p>
-              <p className="text-xs text-gray-500">{formatDate(date)}</p>
+              <p className="typography-caption-bold">{userName}</p>
+              <p className="typography-caption2 text-neutral-4">{formatDate(date)}</p>
             </div>
           </div>
           <div className="flex">{renderStars(rating)}</div>
         </div>
         
-        <h4 className="font-medium mt-3">{title}</h4>
-        <p className="text-sm mt-2 text-gray-700">{content}</p>
+        <h4 className="typography-body-bold mt-3">{title}</h4>
+        <p className="typography-body mt-2 text-neutral-3">{content}</p>
         
-        <div className="flex justify-between items-center mt-4 pt-2 border-t text-sm text-gray-500">
-          <button className="flex items-center hover:text-motortrend-red">
-            <ThumbsUp className="h-4 w-4 mr-1" />
+        <div className="flex justify-between items-center mt-4 pt-2 border-t typography-caption text-neutral-4">
+          <Button variant="ghost" size="sm" className="text-gray-500 hover:text-motortrend-red">
+            <ThumbsUp className="h-4 w-4" />
             <span>Helpful ({helpfulCount})</span>
-          </button>
-          <button className="flex items-center hover:text-motortrend-red">
-            <MessageSquare className="h-4 w-4 mr-1" />
+          </Button>
+          <Button variant="ghost" size="sm" className="text-gray-500 hover:text-motortrend-red">
+            <MessageSquare className="h-4 w-4" />
             <span>Reply</span>
-          </button>
+          </Button>
         </div>
       </CardContent>
     </Card>

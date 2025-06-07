@@ -16,17 +16,17 @@ interface PricingInfoProps {
 export const PricingInfo = ({ car }: PricingInfoProps) => {
   return (
     <Card className="p-4 md:p-5 mb-6">
-      <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-4">Pricing</h2>
+      <h2 className="typography-subtitle md:typography-title text-neutral-1 mb-4">Pricing</h2>
       <div className="space-y-4">
         <div className="flex justify-between items-center">
           <span className="text-neutral-2">MSRP</span>
-          <span className="font-semibold">{car.msrp}</span>
+          <span className="typography-body-bold">{car.msrp}</span>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-neutral-2">Destination Fee</span>
-          <span className="font-semibold">${car.destinationFee.toLocaleString()}</span>
+          <span className="typography-body-bold">${car.destinationFee.toLocaleString()}</span>
         </div>
-        <div className="flex justify-between items-center font-semibold">
+        <div className="flex justify-between items-center typography-body-bold">
           <span>Total Price</span>
           <span>{car.price}</span>
         </div>

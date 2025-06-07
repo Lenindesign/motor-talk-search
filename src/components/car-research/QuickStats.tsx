@@ -2,9 +2,10 @@
 import React from 'react';
 import { Shield, Fuel, Star } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Vehicle } from '@/types/vehicle';
 
 interface QuickStatsProps {
-  vehicle: any;
+  vehicle: Vehicle;
 }
 
 const QuickStats: React.FC<QuickStatsProps> = ({ vehicle }) => {
@@ -16,7 +17,7 @@ const QuickStats: React.FC<QuickStatsProps> = ({ vehicle }) => {
     }).format(price);
   };
   
-  const formatMPG = (mpg: any) => {
+  const formatMPG = (mpg: { city: number; highway: number } | undefined) => {
     if (vehicle.specs.fuel === 'Electric') {
       return `${vehicle.specs.range} mi range`;
     }
@@ -26,17 +27,17 @@ const QuickStats: React.FC<QuickStatsProps> = ({ vehicle }) => {
   return (
     <Card>
       <CardHeader className="pb-2">
-        <CardTitle className="text-lg">Quick Stats</CardTitle>
+        <CardTitle className="typography-subtitle">Quick Stats</CardTitle>
       </CardHeader>
       <CardContent>
         {/* Expert Rating */}
         <div className="mb-4 flex items-center">
           <div className="mr-3 flex h-12 w-12 items-center justify-center rounded-md bg-primary text-white">
-            <span className="text-xl font-bold">{vehicle.ratings.expert.overall}</span>
+            <span className="typography-title">{vehicle.ratings.expert.overall}</span>
           </div>
           <div>
-            <div className="text-sm text-gray-500">Expert Rating</div>
-            <div className="font-semibold">
+            <div className="typography-caption text-neutral-4">Expert Rating</div>
+            <div className="typography-body-bold">
               {vehicle.ratings.expert.overall >= 9 ? 'Outstanding' : 
                vehicle.ratings.expert.overall >= 8 ? 'Excellent' : 
                vehicle.ratings.expert.overall >= 7 ? 'Very Good' : 
@@ -50,12 +51,12 @@ const QuickStats: React.FC<QuickStatsProps> = ({ vehicle }) => {
           <div className="mr-3 flex h-12 w-12 items-center justify-center rounded-md bg-amber-500 text-white">
             <div className="flex items-center">
               <Star className="h-4 w-4 fill-white" />
-              <span className="ml-1 text-lg font-bold">{vehicle.ratings.user.average}</span>
+              <span className="ml-1 typography-subtitle">{vehicle.ratings.user.average}</span>
             </div>
           </div>
           <div>
-            <div className="text-sm text-gray-500">User Rating</div>
-            <div className="font-semibold">
+            <div className="typography-caption text-neutral-4">User Rating</div>
+            <div className="typography-body-bold">
               From {vehicle.ratings.user.count} owner reviews
             </div>
           </div>
@@ -64,11 +65,11 @@ const QuickStats: React.FC<QuickStatsProps> = ({ vehicle }) => {
         {/* Price Range */}
         <div className="mb-4 flex items-center">
           <div className="mr-3 rounded-md bg-gray-100 p-2">
-            <span className="text-xl font-bold text-gray-800">$</span>
+            <span className="typography-title text-neutral-1">$</span>
           </div>
           <div>
-            <div className="text-sm text-gray-500">Starting Price</div>
-            <div className="font-semibold">
+            <div className="typography-caption text-neutral-4">Starting Price</div>
+            <div className="typography-body-bold">
               {formatPrice(vehicle.price.base)} - {formatPrice(vehicle.price.asConfigured)}
             </div>
           </div>

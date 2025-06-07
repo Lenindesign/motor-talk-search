@@ -20,7 +20,7 @@ const SearchSuggestions: React.FC<SearchSuggestionProps> = ({ onSuggestionClick 
         <button
           key={suggestion}
           onClick={() => onSuggestionClick(suggestion)}
-          className="rounded-full border border-gray-400 bg-transparent px-4 py-2 typography-body-sm font-medium text-gray-800 hover:bg-motortrend-dark hover:text-white transition-standard focus-ring"
+          className="rounded-full border border-neutral-4 bg-transparent px-4 py-2 typography-caption text-neutral-1 hover:bg-motortrend-dark hover:text-white transition-standard focus-ring"
         >
           {suggestion}
         </button>

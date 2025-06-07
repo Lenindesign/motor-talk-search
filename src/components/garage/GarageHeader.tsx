@@ -3,15 +3,18 @@ import React from 'react';
 
 const GarageHeader: React.FC = () => {
   return (
-    <div className="text-center mb-6">
-      <h1 className="text-3xl md:text-4xl font-bold text-motortrend-dark mb-2 flex items-center justify-center gap-3">
-        <svg xmlns="http://www.w3.org/2000/svg" height="32" viewBox="0 -960 960 960" width="32" fill="currentColor" className="text-motortrend-dark">
+    <div className="text-center mb-8 pt-8">
+      <div className="inline-flex items-center justify-center gap-3 mb-4 bg-neutral-8 px-6 py-3 rounded-full shadow-sm border border-neutral-6">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor" className="text-primary">
           <path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/>
         </svg>
-        My Garage
+        <span className="typography-title text-neutral-1">My Garage</span>
+      </div>
+      <h1 className="typography-display text-neutral-1 mb-4">
+        Welcome to Your Garage
       </h1>
-      <p className="text-gray-600 text-lg">
-        Manage your vehicles, compare specs, and discover new cars
+      <p className="typography-body-large text-neutral-4 max-w-2xl mx-auto">
+        Manage your vehicles, compare specs, and discover new cars that match your interests
       </p>
     </div>
   );

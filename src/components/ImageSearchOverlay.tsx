@@ -49,15 +49,15 @@ const ImageSearchOverlay: React.FC<ImageSearchOverlayProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-gray-800 transition-standard">
+      <DialogContent className="sm:max-w-[425px] bg-white dark:bg-neutral-1 transition-standard">
         <DialogHeader>
-          <DialogTitle className="typography-h3 text-gray-900 dark:text-white">Search by Image</DialogTitle>
-          <DialogDescription className="typography-body-sm text-gray-500 dark:text-gray-400">
+          <DialogTitle className="typography-title text-neutral-1 dark:text-white">Search by Image</DialogTitle>
+          <DialogDescription className="typography-body-large text-neutral-4 dark:text-neutral-3">
             Upload a photo of a car or use your camera to identify it.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <Button variant="outline" onClick={handleUploadClick} className="w-full justify-start text-left dark:hover:bg-gray-700 typography-body transition-standard focus-ring">
+          <Button variant="outline" onClick={handleUploadClick} className="w-full justify-start text-left dark:hover:bg-neutral-2 typography-body-large transition-standard focus-ring">
             <Upload className="mr-2 h-5 w-5" />
             Upload an image
           </Button>
@@ -68,14 +68,14 @@ const ImageSearchOverlay: React.FC<ImageSearchOverlayProps> = ({
             accept="image/*"
             className="hidden"
           />
-          <Button variant="outline" onClick={handleTakePhoto} className="w-full justify-start text-left dark:hover:bg-gray-700 typography-body transition-standard focus-ring">
+          <Button variant="outline" onClick={handleTakePhoto} className="w-full justify-start text-left dark:hover:bg-neutral-2 typography-body-large transition-standard focus-ring">
             <Camera className="mr-2 h-5 w-5" />
             Take a photo
           </Button>
         </div>
         <DialogFooter className="sm:justify-end">
           <DialogClose asChild>
-            <Button type="button" variant="ghost" onClick={onClose} className="dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 typography-body-sm transition-standard focus-ring">
+            <Button type="button" variant="ghost" onClick={onClose} className="dark:text-neutral-3 dark:hover:bg-neutral-2 dark:hover:text-neutral-2 typography-caption transition-standard focus-ring">
               Cancel
             </Button>
           </DialogClose>

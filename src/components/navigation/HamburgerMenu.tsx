@@ -76,12 +76,12 @@ const HamburgerMenu = () => {
           </SheetTrigger>
         </TooltipTrigger>
         <TooltipContent side="bottom">
-          <p>Menu</p>
+          <p className="typography-caption">Menu</p>
         </TooltipContent>
       </Tooltip>
-      <SheetContent side="left" className="bg-motortrend-dark border-r border-gray-800 p-0 w-[280px]">
+      <SheetContent side="left" className="bg-motortrend-dark border-r border-neutral-2 p-0 w-[280px]">
         <div className="flex flex-col h-full">
-          <div className="p-6 border-b border-gray-800">
+          <div className="p-6 border-b border-neutral-2">
             <Link to="/">
               <img
                 src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png"
@@ -108,7 +108,7 @@ const HamburgerMenu = () => {
                         window.location.href = item.path;
                       }
                     }}
-                    className={`flex items-center justify-between w-full px-6 py-3 text-base font-medium transition-colors
+                    className={`flex items-center justify-between w-full px-6 py-3 typography-body transition-colors
                       ${isActiveMobile ? 'text-motortrend-red bg-white/5' : 'text-white hover:bg-white/5'}`}
                   >
                     <div className="flex items-center gap-3">
@@ -129,12 +129,12 @@ const HamburgerMenu = () => {
                   
                   {/* News Submenu */}
                   {isNews && expandedItems['News'] && (
-                    <div className="pl-6 border-l border-gray-800 ml-8 mt-1">
+                    <div className="pl-6 border-l border-neutral-2 ml-8 mt-1">
                       {newsSubmenu.map(subItem => (
                         <Link
                           key={subItem.path}
                           to={subItem.path}
-                          className="flex items-center gap-3 px-6 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                          className="flex items-center gap-3 px-6 py-2 typography-caption text-neutral-4 hover:text-white transition-colors"
                         >
                           {subItem.label}
                         </Link>
@@ -144,12 +144,12 @@ const HamburgerMenu = () => {
                   
                   {/* Videos Submenu */}
                   {item.label === 'Videos' && expandedItems['Videos'] && (
-                    <div className="pl-6 border-l border-gray-800 ml-8 mt-1">
+                    <div className="pl-6 border-l border-neutral-2 ml-8 mt-1">
                       {videosSubmenu.map(subItem => (
                         <Link
                           key={subItem.path}
                           to={subItem.path}
-                          className="flex items-center gap-3 px-6 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                          className="flex items-center gap-3 px-6 py-2 typography-caption text-neutral-4 hover:text-white transition-colors"
                         >
                           {subItem.label}
                         </Link>
@@ -159,12 +159,12 @@ const HamburgerMenu = () => {
                   
                   {/* Cars Submenu */}
                   {isCars && expandedItems['Cars'] && (
-                    <div className="pl-6 border-l border-gray-800 ml-8 mt-1">
+                    <div className="pl-6 border-l border-neutral-2 ml-8 mt-1">
                       {carsSubmenu.map(subItem => (
                         <Link
                           key={subItem.path}
                           to={subItem.path}
-                          className="flex items-center gap-3 px-6 py-2 text-sm font-medium text-gray-400 hover:text-white transition-colors"
+                          className="flex items-center gap-3 px-6 py-2 typography-caption text-neutral-4 hover:text-white transition-colors"
                         >
                           {subItem.label}
                         </Link>

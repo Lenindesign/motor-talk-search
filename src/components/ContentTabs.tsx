@@ -28,7 +28,7 @@ const ContentTabs: React.FC<ContentTabsProps> = ({ activeTab, onTabChange }) => 
             <TabsTrigger
               key={tab.id}
               value={tab.id}
-              className="text-xs sm:text-sm font-medium px-2 py-2 data-[state=active]:bg-neutral-800 data-[state=active]:text-white hover:bg-gray-200"
+              className="typography-caption-small sm:typography-caption px-2 py-2 data-[state=active]:bg-neutral-800 data-[state=active]:text-white hover:bg-gray-200"
             >
               {tab.label}
             </TabsTrigger>

@@ -22,8 +22,8 @@ const ArticleHeader: React.FC<ArticleHeaderProps> = ({
 }) => {
   return (
     <header className="mb-8" id="introduction">
-      <h1 className="text-3xl font-bold mb-4">{title}</h1>
-      <div className="flex items-center text-gray-600 text-sm mb-6">
+      <h1 className="typography-display mb-4">{title}</h1>
+      <div className="flex items-center text-neutral-4 typography-caption mb-6">
         <User size={16} className="mr-1" />
         <span>{author}</span>
         <span className="mx-2">•</span>

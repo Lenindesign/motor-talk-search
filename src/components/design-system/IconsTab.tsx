@@ -52,11 +52,16 @@ const IconsTab = () => {
           <CardDescription>Lucide React icons used throughout the application</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-16 py-8">
+            <div className="col-span-full mb-8">
+              <div className="h-px bg-neutral-6 w-full" />
+            </div>
             {icons.map((Icon, index) => (
-              <div key={index} className="flex flex-col items-center p-3 border border-neutral-6 rounded-lg hover:bg-neutral-7 transition-colors">
-                <Icon size={24} className="text-neutral-2 mb-2" />
-                <span className="typography-small text-neutral-4 text-center">
+              <div key={index} className="flex flex-col items-center group">
+                <div className="flex items-center justify-center h-16 mb-4 group-hover:-translate-y-1 transition-transform duration-200">
+                  <Icon size={24} className="text-neutral-3 group-hover:text-neutral-1 transition-colors duration-200" />
+                </div>
+                <span className="typography-small text-neutral-4 text-center whitespace-nowrap group-hover:text-neutral-2 transition-colors duration-200">
                   {Icon.displayName || Icon.name}
                 </span>
               </div>

@@ -20,7 +20,7 @@ const MyGarageSkinny = () => {
   return (
     <Card>
       <CardHeader className="pb-3">
-        <CardTitle className="text-lg flex items-center gap-2">
+        <CardTitle className="typography-title flex items-center gap-2">
           <Car size={18} />
           My Garage
         </CardTitle>
@@ -29,10 +29,10 @@ const MyGarageSkinny = () => {
         {savedCars.length === 0 ? (
           <div className="text-center py-4">
             <Car size={32} className="mx-auto text-gray-300 mb-2" />
-            <p className="text-sm text-gray-500 mb-3">No cars saved yet</p>
+            <p className="typography-caption text-neutral-4 mb-3">No cars saved yet</p>
             <Link 
               to="/buyers-guide" 
-              className="text-xs text-motortrend-red hover:underline"
+              className="typography-caption-small text-motortrend-red hover:underline"
             >
               Browse Cars
             </Link>
@@ -47,8 +47,8 @@ const MyGarageSkinny = () => {
                   className="w-12 h-8 object-cover rounded"
                 />
                 <div className="flex-1 min-w-0">
-                  <h4 className="text-sm font-medium truncate">{car.title}</h4>
-                  <p className="text-xs text-gray-500">{car.metadata?.price}</p>
+                  <h4 className="typography-caption truncate">{car.title}</h4>
+                  <p className="typography-caption-small text-neutral-4">{car.metadata?.price}</p>
                 </div>
                 <Link 
                   to={getResearchUrl(car.id)} 

@@ -71,7 +71,7 @@ const GarageCarCard: React.FC<GarageCarCardProps> = ({
   return (
     <Card
       variant={type === 'new' ? 'newCar' : 'usedCar'}
-      className={cn('flex flex-col w-full h-full bg-white rounded-t-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-200', className)}
+      className={cn('flex flex-col w-full h-full bg-white rounded-xl shadow-sm border border-neutral-6 overflow-hidden hover:shadow-md hover:border-neutral-5 transition-all duration-200', className)}
       isSaved={isSaved}
       onToggleSave={toggleSave}
       imageUrl={currentImage}
@@ -92,18 +92,25 @@ const GarageCarCard: React.FC<GarageCarCardProps> = ({
         <div className="p-4 flex flex-col flex-grow space-y-2">
           <div className="flex items-start justify-between">
             <RouterLink to={linkPath} className="flex-grow">
-              <h3 className="text-lg line-clamp-2 transition-colors font-semibold text-motortrend-dark">
+              <h3 className="typography-title line-clamp-2 transition-colors text-neutral-1 group-hover:text-primary">
                 {car.title}
               </h3>
             </RouterLink>
-            <span className="text-lg font-semibold ml-2 flex-shrink-0 text-motortrend-dark">
-              {car.price}
-            </span>
+            <div className="flex flex-col items-end ml-2">
+              <span className="typography-title text-primary">
+                {car.price}
+              </span>
+              {car.msrp && car.price !== car.msrp && (
+                <span className="typography-caption text-neutral-4 line-through">
+                  MSRP: {car.msrp}
+                </span>
+              )}
+            </div>
           </div>
           
           {/* Only show category for used cars since new cars already show it in the ranking */}
           {type !== 'new' && (
-            <RouterLink to={linkPath} className="text-gray-600 hover:text-motortrend-red transition-colors">
+            <RouterLink to={linkPath} className="typography-caption text-neutral-3 hover:text-motortrend-red transition-colors">
               {car.category}
             </RouterLink>
           )}
@@ -112,14 +119,14 @@ const GarageCarCard: React.FC<GarageCarCardProps> = ({
           {isNewCar && car.motorTrendScore && (
             <div className="flex flex-col space-y-2 mb-2">
               <div className="flex items-center bg-neutral-100 rounded px-2 py-1 w-fit">
-                <span className="text-motortrend-red font-bold mr-1">{car.motorTrendScore}</span>
-                <span className="text-sm font-medium">MT Score</span>
+                <span className="text-motortrend-red typography-title mr-1">{car.motorTrendScore}</span>
+                <span className="typography-caption">MT Score</span>
               </div>
               {car.motorTrendRank && (
-                <div className="flex items-center text-sm">
+                <div className="flex items-center">
                   <Medal size={14} className="mr-1 text-motortrend-dark" />
-                  <span className="font-medium">Rank:</span>
-                  <span className="ml-1 font-bold">{car.motorTrendRank}{car.motorTrendCategoryRank ? ` in ${car.category}` : ''}</span>
+                  <span className="typography-caption">Rank:</span>
+                  <span className="ml-1 typography-caption-bold">{car.motorTrendRank}{car.motorTrendCategoryRank ? ` in ${car.category}` : ''}</span>
                 </div>
               )}
             </div>
@@ -127,12 +134,12 @@ const GarageCarCard: React.FC<GarageCarCardProps> = ({
           
           {/* Additional specs for new cars */}
           {isNewCar && (
-            <div className="grid grid-cols-1 gap-y-2 text-sm border-t border-gray-100 pt-3">
+            <div className="grid grid-cols-1 gap-y-2 border-t border-neutral-6 pt-3">
               {/* Always show MSRP as the first spec for all cars */}
               {car.msrp && (
                 <div className="flex items-center">
                   <DollarSign size={14} className="mr-1 text-motortrend-dark" />
-                  <span className="font-medium">MSRP:</span>
+                  <span className="typography-caption">MSRP:</span>
                   <span className="ml-1">{car.msrp}</span>
                 </div>
               )}
@@ -141,14 +148,14 @@ const GarageCarCard: React.FC<GarageCarCardProps> = ({
               {car.fuelType === 'Electric' && car.range && (
                 <div className="flex items-center">
                   <Battery size={14} className="mr-1 text-motortrend-dark" />
-                  <span className="font-medium">Range:</span>
+                  <span className="typography-caption">Range:</span>
                   <span className="ml-1">{car.range}</span>
                 </div>
               )}
               {car.fuelType === 'Electric' && car.mpge && (
                 <div className="flex items-center">
                   <Zap size={14} className="mr-1 text-motortrend-dark" />
-                  <span className="font-medium">MPGe:</span>
+                  <span className="typography-caption">MPGe:</span>
                   <span className="ml-1">{car.mpge}</span>
                 </div>
               )}
@@ -157,14 +164,14 @@ const GarageCarCard: React.FC<GarageCarCardProps> = ({
               {car.fuelType !== 'Electric' && car.mpg && (
                 <div className="flex items-center">
                   <Fuel size={14} className="mr-1 text-motortrend-dark" />
-                  <span className="font-medium">MPG:</span>
+                  <span className="typography-caption">MPG:</span>
                   <span className="ml-1">{car.mpg}</span>
                 </div>
               )}
               {car.fuelType !== 'Electric' && car.engine && (
                 <div className="flex items-center">
                   <Car size={14} className="mr-1 text-motortrend-dark" />
-                  <span className="font-medium">Engine:</span>
+                  <span className="typography-caption">Engine:</span>
                   <span className="ml-1">{car.engine}</span>
                 </div>
               )}

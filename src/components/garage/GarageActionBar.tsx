@@ -23,9 +23,9 @@ const GarageActionBar: React.FC<GarageActionBarProps> = ({
   onToggleFilters
 }) => {
   return (
-    <div className="bg-white rounded-xl border shadow-sm p-4 mb-4">
+    <div className="bg-neutral-8 rounded-xl border border-neutral-6 shadow-sm mb-6 p-4">
       <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-        {/* Search and Add Car */}
+        {/* Quick Actions */}
         <div className="flex flex-1 gap-3 w-full md:w-auto">
           <QuickAddCar activeTab={activeTab} />
         </div>

@@ -18,7 +18,7 @@ const RecentActivity = () => {
           <CardDescription>Your recent interactions will appear here</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="text-center py-6 text-gray-500">
+          <div className="text-center py-6 typography-body-large text-neutral-4">
             No activity yet. Start interacting with content!
           </div>
         </CardContent>
@@ -55,10 +55,10 @@ const ActivityItem = ({ activity }: { activity: UserActivity }) => {
         {activityIcon}
       </div>
       <div className="flex-1">
-        <p className="text-sm">
-          You {activityLabel} {itemTypeLabel}: <span className="font-medium">{activity.itemTitle}</span>
+        <p className="typography-caption">
+          You {activityLabel} {itemTypeLabel}: <span className="typography-caption">{activity.itemTitle}</span>
         </p>
-        <p className="text-xs text-gray-500 mt-1">{timeAgo}</p>
+        <p className="typography-caption-small text-neutral-4 mt-1">{timeAgo}</p>
       </div>
     </div>
   );

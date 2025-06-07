@@ -6,6 +6,7 @@ import { CommentsSection } from '@/components/CommentsSection';
 import ArticleHeader from '@/components/article/ArticleHeader';
 import ArticleContent from '@/components/article/ArticleContent';
 import ArticleActions from '@/components/article/ArticleActions';
+import { ArticleData } from '@/types';
 
 interface ContentSection {
   type: 'paragraph' | 'heading' | 'quote' | 'specs';
@@ -24,7 +25,7 @@ interface ArticleContent {
 }
 
 interface ArticleRendererProps {
-  article: any;
+  article: ArticleData & { content?: ArticleContent };
   mockContent: ArticleContent;
 }
 

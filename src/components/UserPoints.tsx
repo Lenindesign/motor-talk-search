@@ -24,17 +24,17 @@ const UserPoints = () => {
   return (
     <Card>
       <CardHeader className="pb-3">
-        <CardTitle className="text-lg">Level & Points</CardTitle>
+        <CardTitle className="typography-title">Level & Points</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="flex justify-between items-center">
-          <span className="text-sm font-medium">Level {level}</span>
-          <span className="text-sm text-gray-500">{userPoints} points</span>
+          <span className="typography-caption">Level {level}</span>
+          <span className="typography-caption text-neutral-4">{userPoints} points</span>
         </div>
         <div className="space-y-2">
-          <div className="text-sm font-medium">{rankTitle}</div>
+          <div className="typography-caption">{rankTitle}</div>
           <Progress value={progressPercentage} className="h-2" />
-          <div className="text-xs text-gray-500">
+          <div className="typography-caption-small text-neutral-4">
             {pointsProgress}/{pointsRange} to next level
           </div>
         </div>

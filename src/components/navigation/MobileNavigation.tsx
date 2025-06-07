@@ -22,7 +22,7 @@ const MobileNavigation = () => {
             </Link>
           </TooltipTrigger>
           <TooltipContent side="bottom">
-            <p>My Garage</p>
+            <p className="typography-caption">My Garage</p>
           </TooltipContent>
         </Tooltip>
         <Tooltip>
@@ -32,7 +32,7 @@ const MobileNavigation = () => {
             </Link>
           </TooltipTrigger>
           <TooltipContent side="bottom">
-            <p>Chat with Motor Talk</p>
+            <p className="typography-caption">Chat with Motor Talk</p>
           </TooltipContent>
         </Tooltip>
         <Tooltip>
@@ -40,12 +40,12 @@ const MobileNavigation = () => {
             <Link to="/profile" aria-label="Profile" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors mr-1">
               <Avatar className="h-6 w-6">
                 <AvatarImage src="https://d2kde5ohu8qb21.cloudfront.net/files/6839e7e53277480008013d30/greg.jpg" alt="Greg Driver" />
-                <AvatarFallback className="bg-gray-600 text-white text-xs">GD</AvatarFallback>
+                <AvatarFallback className="bg-neutral-4 text-white typography-small">GD</AvatarFallback>
               </Avatar>
             </Link>
           </TooltipTrigger>
           <TooltipContent side="bottom">
-            <p>Profile</p>
+            <p className="typography-caption">Profile</p>
           </TooltipContent>
         </Tooltip>
       </div>

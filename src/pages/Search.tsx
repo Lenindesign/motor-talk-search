@@ -268,10 +268,10 @@ const Search = () => {
             <div className="max-w-[980px] mx-auto w-full pb-32 px-0 py-[16px]">
               {searchHistory.length === 0 ? (
                 <div className="flex flex-1 flex-col items-center justify-center space-y-6 px-[32px] py-[32px]">
-                  <h1 className="text-3xl font-bold text-motortrend-dark">
+                  <h1 className="typography-display text-motortrend-dark">
                     Welcome to MOTORTREND Search
                   </h1>
-                  <p className="max-w-md text-center text-gray-500 mb-4">
+                  <p className="max-w-md text-center typography-body text-neutral-3 mb-4">
                     Ask me anything about cars or search for automotive content
                   </p>
                   
@@ -281,8 +281,8 @@ const Search = () => {
                       <div className="flex items-center">
                         <LayoutDashboard className="h-5 w-5 mr-2" />
                         <div>
-                          <h3 className="font-medium">My Garage</h3>
-                          <p className="text-sm text-gray-500">Get personalized automotive content</p>
+                          <h3 className="typography-body-large">My Garage</h3>
+                          <p className="typography-caption text-neutral-3">Get personalized automotive content</p>
                         </div>
                       </div>
                       <Button size="sm">Go</Button>

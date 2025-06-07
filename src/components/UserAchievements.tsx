@@ -95,7 +95,7 @@ const UserAchievements = () => {
   return <div className="space-y-6">
       <div className="bg-motortrend-dark text-white p-4 rounded-lg">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Achievements</h2>
+          <h2 className="typography-title">Achievements</h2>
         </div>
 
         <div className="flex overflow-x-auto gap-2 p-1 mb-4">
@@ -115,7 +115,7 @@ const UserAchievements = () => {
 
         {activeTab === 'achievements' ? (
           <>
-            <h3 className="text-lg font-bold mb-2">Earned Badges</h3>
+            <h3 className="typography-title mb-2">Earned Badges</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               {earnedBadges.map(badge => <div key={badge.id} className="bg-motortrend-dark border border-gray-700 rounded-lg p-4 flex flex-col">
                   <div className="flex items-center gap-3 mb-2">
@@ -124,7 +124,7 @@ const UserAchievements = () => {
                 </div>
                 <div>
                   <h4 className="font-medium text-base">{badge.name}</h4>
-                  <p className="text-xs text-gray-400">
+                  <p className="typography-caption-small text-neutral-3">
                     Earned on {new Date(badge.earnedAt).toLocaleDateString('en-US', {
                   month: 'long',
                   day: 'numeric',
@@ -137,7 +137,7 @@ const UserAchievements = () => {
             </div>)}
         </div>
 
-        <h3 className="text-lg font-bold mb-2">Badges In Progress</h3>
+        <h3 className="typography-title mb-2">Badges In Progress</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           {badgesInProgress.map(badge => <div key={badge.id} className="bg-motortrend-dark border border-gray-700 rounded-lg p-4">
               <div className="flex items-center gap-3 mb-2">
@@ -150,7 +150,7 @@ const UserAchievements = () => {
                     <Progress value={badge.progress} className="h-1.5 flex-1" style={{
                   background: 'rgba(255, 255, 255, 0.1)'
                 }} />
-                    <span className="text-xs">{badge.progress}% complete</span>
+                    <span className="typography-caption-small">{badge.progress}% complete</span>
                   </div>
                 </div>
               </div>
@@ -159,26 +159,26 @@ const UserAchievements = () => {
         </div>
 
         <div className="bg-gray-800 rounded-lg p-4">
-          <h3 className="text-lg font-bold mb-4">Your Progress</h3>
+          <h3 className="typography-title mb-4">Your Progress</h3>
           <div className="mb-4">
             <div className="flex justify-between text-sm mb-1">
-              <span>1,250 points</span>
-              <span>1,500 points</span>
+              <span className="typography-caption">1,250 points</span>
+              <span className="typography-caption">1,500 points</span>
             </div>
             <Progress value={83} className="h-2" style={{
             background: 'rgba(255, 255, 255, 0.1)'
           }} />
-            <p className="text-xs text-gray-400 mt-1">250 points until Level 13</p>
+            <p className="typography-caption-small text-neutral-4 mt-1">250 points until Level 13</p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-gray-700 p-4 rounded-lg text-center">
-              <h4 className="text-2xl font-bold">3/8</h4>
-              <p className="text-xs text-gray-400">Badges Earned</p>
+              <h4 className="typography-heading">3/8</h4>
+              <p className="typography-caption-small text-neutral-4">Badges Earned</p>
             </div>
             <div className="bg-gray-700 p-4 rounded-lg text-center">
-              <h4 className="text-2xl font-bold">1,250</h4>
-              <p className="text-xs text-gray-400">Total Points</p>
+              <h4 className="typography-heading">1,250</h4>
+              <p className="typography-caption-small text-neutral-4">Total Points</p>
             </div>
           </div>
         </div>
