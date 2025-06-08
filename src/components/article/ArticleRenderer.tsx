@@ -4,28 +4,12 @@ import { useSavedItems } from '@/contexts/SavedItemsContext';
 import { mockComments } from '@/services/mockData';
 import { CommentsSection } from '@/components/CommentsSection';
 import ArticleHeader from '@/components/article/ArticleHeader';
-import ArticleContent from '@/components/article/ArticleContent';
+import ArticleContentView from '@/components/article/ArticleContent';
 import ArticleActions from '@/components/article/ArticleActions';
-import { ArticleData } from '@/types';
-
-interface ContentSection {
-  type: 'paragraph' | 'heading' | 'quote' | 'specs';
-  content?: string;
-  author?: string;
-  title?: string;
-  data?: Array<{ label: string; value: string }>;
-}
-
-interface ArticleContent {
-  subtitle: string;
-  author: string;
-  authorTitle: string;
-  readTime: string;
-  sections: ContentSection[];
-}
+import { ArticleData, ArticleContent, ContentSection } from '@/types';
 
 interface ArticleRendererProps {
-  article: ArticleData & { content?: ArticleContent };
+  article: ArticleData;
   mockContent: ArticleContent;
 }
 
@@ -64,9 +48,10 @@ const ArticleRenderer: React.FC<ArticleRendererProps> = ({
         commentsCount={mockComments.length}
         imageUrl={article.imageUrl}
         showBuyersGuide={article.title.toLowerCase().includes('honda accord')}
+        articleId={article.id}
       />
 
-      <ArticleContent
+      <ArticleContentView
         subtitle={content.subtitle}
         sections={content.sections}
       />
@@ -77,7 +62,9 @@ const ArticleRenderer: React.FC<ArticleRendererProps> = ({
         onSave={handleSave}
       />
 
-      <CommentsSection comments={mockComments} articleId={article.id} />
+      <div id="comments">
+        <CommentsSection comments={mockComments} articleId={article.id} />
+      </div>
     </article>
   );
 };

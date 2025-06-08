@@ -31,7 +31,7 @@ const News: React.FC = () => {
   const latestCars = mockNewCars.slice(0, 3);
   return <div className="min-h-screen bg-transparent">
       
-      <main className="max-w-[980px] mx-auto px-0 py-[32px]">
+      <main className="max-w-[1024px] mx-auto px-0 py-[32px]">
         {/* Hero Carousel */}
         <div className="mb-8">
           <HeroCarousel slides={[{

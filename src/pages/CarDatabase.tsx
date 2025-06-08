@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import type { CarData } from '@/components/CarCard';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import MainNavigation from "../components/MainNavigation";
 import { useIsMobile } from "../hooks/use-mobile";
 import SearchBar from "../components/SearchBar";
-import CarSelector from "../components/CarSelector";
 import CarSelectorApi from "../components/CarSelectorApi";
 import { useToast } from "@/hooks/use-toast";
 import { Database, Car, Search } from 'lucide-react';
@@ -19,7 +19,7 @@ const CarDatabase = () => {
     make: string | null;
     model: string | null;
     year: number | null;
-    details?: any[];
+    details?: CarData[];
   }>({
     make: null,
     model: null,
@@ -31,7 +31,7 @@ const CarDatabase = () => {
     make: string | null, 
     model: string | null, 
     year: number | null,
-    details?: any[]
+    details?: CarData[]
   }) => {
     setSelectedCar(selection);
   };
@@ -55,7 +55,7 @@ const CarDatabase = () => {
   return (
     <div className="min-h-screen bg-motortrend-gray">
       <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
-        <div className="flex items-center justify-between max-w-[980px] mx-auto w-full">
+        <div className="flex items-center justify-between mx-auto w-full">
           <div className="flex items-center">
             {isMobile && <MainNavigation />}
             <Link to="/" className="flex-shrink-0">
@@ -71,7 +71,7 @@ const CarDatabase = () => {
         </div>
       </header>
       
-      <main className="max-w-[980px] mx-auto px-4 py-8">
+      <main className="mx-auto px-4 py-8">
         <div className="mb-8 flex justify-between items-center">
           <h1 className="text-3xl font-bold flex items-center">
             <Database className="mr-2" /> Car Database (API Powered)

@@ -25,7 +25,7 @@ const BuyersGuide: React.FC = () => {
     if (apiSearchResults && apiSearchResults.length > 0) {
       console.log('API Search Results:', apiSearchResults);
       const transformedResults: CarData[] = apiSearchResults.map((car, index) => ({
-        id: `api-${car.make}-${car.model}-${car.year}-${index}`,
+        id: `${car.make.toLowerCase()}-${car.model.toLowerCase()}-${car.year}`,
         title: `${car.year} ${car.make} ${car.model}`,
         imageUrl: `https://images.unsplash.com/photo-1494976688602-30db25b13217?w=800&auto=format&fit=crop&q=80&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`,
         price: 'Contact Dealer',
@@ -84,7 +84,7 @@ const BuyersGuide: React.FC = () => {
 
   // Default cars for when there's no search
   const defaultNewCars: CarData[] = [{
-    id: 'new-1',
+    id: 'ford-mustang-2025',
     title: '2025 Ford Mustang GT',
     imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65a457a12936a70008a96a14/030-2025-ford-mustang-gtd.jpg',
     price: '$45,995',
@@ -531,7 +531,7 @@ const BuyersGuide: React.FC = () => {
   const displayedNewCars = searchTerm ? displayedSearchResults : defaultNewCars;
   const displayedUsedCars = searchTerm ? displayedSearchResults : defaultUsedCars;
   return <div className="bg-gray-50 min-h-screen">
-      <div className="max-w-[980px] mx-auto py-[32px] px-0">
+      <div className="max-w-[1024px] mx-auto py-[32px] px-0">
         <h1 className="text-2xl font-bold mb-6">Buyer's Guide</h1>
         
         {/* Search and filters */}
@@ -547,7 +547,7 @@ const BuyersGuide: React.FC = () => {
                   className="pl-10 pr-4 py-2" 
                 />
               </div>
-              <Button type="submit" variant="default" className="flex items-center gap-2">
+              <Button type="submit" variant="solid-primary" className="flex items-center gap-2">
                 <Search className="h-4 w-4" />
                 Search
               </Button>

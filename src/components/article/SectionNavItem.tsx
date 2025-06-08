@@ -35,14 +35,14 @@ const SectionNavItem = forwardRef<HTMLButtonElement, SectionNavItemProps>(({
       onClick={onClick}
       className={cn(
         "flex items-center space-x-3 rounded-lg typography-caption-bold min-w-0 flex-shrink-0",
-        "focus:outline-none focus:ring-0",
-        "transition-all duration-300 ease-in-out",
+        "focus:outline-none focus:ring-2 focus:ring-motortrend-red/20",
+        "transition-all duration-200 ease-out",
         isCompact 
           ? "px-4 py-3" 
           : "p-3",
         isActive 
-          ? "bg-motortrend-dark text-white shadow-lg" 
-          : "text-neutral-2 hover:bg-neutral-7 hover:shadow-md"
+          ? "bg-motortrend-dark text-white shadow-lg scale-[1.02] border border-motortrend-red/20" 
+          : "text-neutral-2 hover:bg-neutral-7 hover:shadow-md hover:scale-[1.01]"
       )}
     >
       {section.thumbnail && (

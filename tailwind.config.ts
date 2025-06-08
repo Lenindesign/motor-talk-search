@@ -33,14 +33,19 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				'sans': ['Geist', 'sans-serif'],
-				'heading': ['Poppins', 'sans-serif'],
-				'hero': ['var(--font-hero)', 'var(--font-heading)', 'Poppins', 'sans-serif'],
-				'body': ['var(--font-body)', 'Geist', 'sans-serif'],
-				'subtitle': ['var(--font-subtitle)', 'var(--font-heading)', 'Poppins', 'sans-serif'],
-				'button': ['var(--font-button)', 'var(--font-heading)', 'Poppins', 'sans-serif'],
-				'caption': ['var(--font-caption)', 'var(--font-body)', 'Geist', 'sans-serif'],
-				'email': ['Arial', 'sans-serif'],
+        // Base fonts
+        'sans': ['Geist', 'system-ui', 'sans-serif'],
+        'heading': ['Poppins', 'system-ui', 'sans-serif'],
+        
+        // Typography system
+        'body': ['var(--font-body)', 'Geist', 'system-ui', 'sans-serif'],
+        'hero': ['var(--font-hero)', 'Poppins', 'system-ui', 'sans-serif'],
+        'subtitle': ['var(--font-subtitle)', 'Poppins', 'system-ui', 'sans-serif'],
+        'button': ['var(--font-button)', 'Poppins', 'system-ui', 'sans-serif'],
+        'caption': ['var(--font-caption)', 'Geist', 'system-ui', 'sans-serif'],
+        
+        // Special cases
+        'email': ['Arial', 'system-ui', 'sans-serif']
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -106,14 +111,14 @@ export default {
 					4: 'var(--color-info-4)',
 				},
 				neutral: {
-					1: 'var(--neutral-1)',
-					2: 'var(--neutral-2)',
-					3: 'var(--neutral-3)',
-					4: 'var(--neutral-4)',
-					5: 'var(--neutral-5)',
-					6: 'var(--neutral-6)',
-					7: 'var(--neutral-7)',
-					8: 'var(--neutral-8)',
+					1: 'var(--color-neutral-1)',
+					2: 'var(--color-neutral-2)',
+					3: 'var(--color-neutral-3)',
+					4: 'var(--color-neutral-4)',
+					5: 'var(--color-neutral-5)',
+					6: 'var(--color-neutral-6)',
+					7: 'var(--color-neutral-7)',
+					8: 'var(--color-neutral-8)',
 				},
 				success: {
 					1: 'var(--color-success-1)',

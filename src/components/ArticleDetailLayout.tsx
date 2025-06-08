@@ -3,10 +3,11 @@ import React from 'react';
 import ArticleSubNavigation from '@/components/ArticleSubNavigation';
 import NavigationProgressBar from '@/components/article/NavigationProgressBar';
 import ScrollToTopButton from '@/components/article/ScrollToTopButton';
+import { ArticleData } from '@/types';
 
 interface ArticleDetailLayoutProps {
   children: React.ReactNode;
-  currentArticle: any;
+  currentArticle: ArticleData;
   readingProgress: number;
   showScrollTop: boolean;
   scrollToTop: () => void;

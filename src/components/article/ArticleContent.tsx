@@ -1,13 +1,7 @@
 
 import React from 'react';
 
-interface ContentSection {
-  type: 'paragraph' | 'heading' | 'quote' | 'specs';
-  content?: string;
-  author?: string;
-  title?: string;
-  data?: Array<{ label: string; value: string }>;
-}
+import { ContentSection } from '@/types';
 
 interface ArticleContentProps {
   subtitle: string;

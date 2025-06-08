@@ -29,7 +29,81 @@ interface ComponentConfig {
   description: string;
   properties: Record<string, PropertyControl>;
 }
+type ButtonVariant = 'solid' | 'solid-light' | 'outline-black' | 'ghost-black' | 
+  'solid-red' | 'solid-red-light' | 'outline-red' | 'ghost-red' | 
+  'solid-primary' | 'solid-primary-light' | 'outline-primary' | 'ghost-primary' | 
+  'outline' | 'ghost' | 'link' | 'minimal';
+
+type ButtonSize = 'sm' | 'md' | 'lg' | 'xl' | 'icon-sm' | 'icon' | 'icon-lg';
+
+type BadgeProperties = {
+  variant: ButtonVariant;
+  text: string;
+};
+
+type ButtonProperties = {
+  variant: ButtonVariant;
+  size: ButtonSize;
+  disabled: boolean;
+  withIcon: boolean;
+  text: string;
+};
+
+type CardProperties = {
+  withHeader: boolean;
+  withFooter: boolean;
+  title: string;
+  description: string;
+  cardType: string;
+};
+
+type ComponentProperties = ButtonProperties | BadgeProperties | CardProperties;
+
 const ComponentPlayground = () => {
+  const [selectedComponent, setSelectedComponent] = useState<keyof typeof components>('button');
+  const [buttonProps, setButtonProps] = useState<ButtonProperties>({
+    variant: 'solid',
+    size: 'md',
+    disabled: false,
+    withIcon: false,
+    text: 'Button Text'
+  });
+
+  const [badgeProps, setBadgeProps] = useState<BadgeProperties>({
+    variant: 'solid',
+    text: 'Badge Text'
+  });
+
+  const [cardProps, setCardProps] = useState<CardProperties>({
+    withHeader: true,
+    withFooter: false,
+    title: 'Card Title',
+    description: 'Card Description',
+    cardType: 'article'
+  });
+
+  const properties = selectedComponent === 'button' ? buttonProps :
+    selectedComponent === 'badge' ? badgeProps :
+    cardProps;
+
+  const setProperties = (newProps: Partial<ButtonProperties | BadgeProperties | CardProperties>) => {
+    if (selectedComponent === 'button') {
+      setButtonProps(prev => ({ ...prev, ...newProps }));
+    } else if (selectedComponent === 'badge') {
+      setBadgeProps(prev => ({ ...prev, ...newProps }));
+    } else {
+      setCardProps(prev => ({ ...prev, ...newProps }));
+    }
+  };
+
+  // Initial state for button
+    variant: 'solid',
+    size: 'md',
+    disabled: false,
+    withIcon: false,
+    text: 'Button Text'
+  });
+
   // Define available components for the playground
   const components: Record<string, ComponentConfig> = {
     button: {
@@ -39,12 +113,12 @@ const ComponentPlayground = () => {
         variant: {
           type: 'select',
           label: 'Variant',
-          options: ['default', 'secondary', 'outline', 'ghost', 'link', 'destructive']
+          options: ['solid', 'solid-light', 'outline-black', 'ghost-black', 'solid-red', 'solid-red-light', 'outline-red', 'ghost-red', 'solid-primary', 'solid-primary-light', 'outline-primary', 'ghost-primary', 'outline', 'ghost', 'link', 'minimal']
         },
         size: {
           type: 'select',
           label: 'Size',
-          options: ['sm', 'default', 'lg']
+          options: ['sm', 'md', 'lg', 'xl', 'icon-sm', 'icon', 'icon-lg']
         },
         disabled: {
           type: 'boolean',
@@ -67,7 +141,7 @@ const ComponentPlayground = () => {
         variant: {
           type: 'select',
           label: 'Variant',
-          options: ['default', 'secondary', 'outline', 'destructive']
+          options: ['solid', 'solid-light', 'outline-black', 'ghost-black', 'solid-red', 'solid-red-light', 'outline-red', 'ghost-red', 'solid-primary', 'solid-primary-light', 'outline-primary', 'ghost-primary', 'outline', 'ghost', 'link', 'minimal']
         },
         text: {
           type: 'text',
@@ -109,19 +183,6 @@ const ComponentPlayground = () => {
       }
     }
   };
-  const [selectedComponent, setSelectedComponent] = useState('button');
-  const [properties, setProperties] = useState<Record<string, any>>({
-    variant: 'default',
-    size: 'default',
-    disabled: false,
-    withIcon: false,
-    text: 'Button Text',
-    withHeader: true,
-    withFooter: false,
-    title: 'Card Title',
-    description: 'Card Description',
-    cardType: 'article'
-  });
 
   // Sample data for different card types
   const sampleData = {
@@ -195,7 +256,8 @@ const ComponentPlayground = () => {
   };
 
   // Handle property changes
-  const handlePropertyChange = (property: string, value: any) => {
+  const handlePropertyChange = (property: string, value: string | boolean | number) => {
+    setProperties({ [property]: value });
     setProperties(prev => ({
       ...prev,
       [property]: value
@@ -211,7 +273,7 @@ const ComponentPlayground = () => {
         disabled,
         withIcon,
         text
-      } = properties;
+      } = properties as ButtonProperties;
       const tsxCode = `import { Button } from "@/components/ui/button";
 ${withIcon ? 'import { Download } from "lucide-react";\n' : ''}
 export function ButtonDemo() {
@@ -224,13 +286,22 @@ export function ButtonDemo() {
     </Button>
   );
 }`;
-      const tailwindCode = `<button 
+    const tailwindCode = `<button 
   class="${variant === 'default' ? 'bg-primary text-white' : variant === 'destructive' ? 'bg-red-500 text-white' : variant === 'outline' ? 'border border-input bg-transparent' : variant === 'secondary' ? 'bg-secondary text-secondary-foreground' : variant === 'ghost' ? 'hover:bg-accent hover:text-accent-foreground' : ''} ${size === 'sm' ? 'h-8 text-xs px-3' : size === 'lg' ? 'h-12 px-6 text-base' : 'h-9 px-4 text-sm'} rounded-md font-medium shadow inline-flex items-center justify-center${disabled ? ' opacity-50 cursor-not-allowed' : ''}"${disabled ? ' disabled' : ''}>
   ${withIcon ? '<svg class="mr-2 h-4 w-4" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>' : ''}
   ${text}
 </button>`;
-      return {
-        tsx: tsxCode,
+    return {
+      tsx: tsxCode,
+      tailwind: tailwindCode
+    };
+  }
+  if (selectedComponent === 'badge') {
+    const {
+      variant,
+      text
+    } = properties as BadgeProperties;
+    const tsxCode = `import { Badge } from "@/components/ui/badge";
         tailwind: tailwindCode
       };
     }
@@ -238,7 +309,7 @@ export function ButtonDemo() {
       const {
         variant,
         text
-      } = properties;
+      } = properties as BadgeProperties;
       const tsxCode = `import { Badge } from "@/components/ui/badge";
 
 export function BadgeDemo() {
@@ -527,7 +598,7 @@ export function ${isNew ? 'NewCarCardDemo' : 'UsedCarCardDemo'}() {
       tailwind: '// Select a component to see code'
     };
   };
-  const snippets = generateSnippets();
+  const { tsx, tailwind } = generateSnippets();
 
   // Render component based on selected properties
   const renderComponent = () => {
@@ -539,19 +610,10 @@ export function ${isNew ? 'NewCarCardDemo' : 'UsedCarCardDemo'}() {
         withIcon,
         text
       } = properties;
-      return <Button variant={variant as any} size={size as any} disabled={disabled}>
-          {withIcon && <Download className="mr-2 h-4 w-4" />}
-          {text}
-        </Button>;
-    }
-    if (selectedComponent === 'badge') {
-      const {
-        variant,
-        text
-      } = properties;
-      return <Badge variant={variant as any}>
-          {text}
-        </Badge>;
+      return <Button variant={variant} size={size} disabled={disabled}>
+        {withIcon && <Download className="mr-2 h-4 w-4" />}
+        {text}
+      </Button>;
     }
     if (selectedComponent === 'card') {
       const {
@@ -664,7 +726,10 @@ export function ${isNew ? 'NewCarCardDemo' : 'UsedCarCardDemo'}() {
           {/* Code Snippets */}
           <div className="mt-8">
             <h3 className="font-medium text-sm mb-4">4. Get Code</h3>
-            <CodeSnippet tsx={snippets.tsx} tailwind={snippets.tailwind} caption="Copy and paste this code into your project" />
+            <div className="space-y-4">
+              <CodeSnippet code={tsx} language="tsx" caption="TypeScript/React" />
+              <CodeSnippet code={tailwind} language="html" caption="HTML/Tailwind" />
+            </div>
           </div>
         </CardContent>
       </Card>

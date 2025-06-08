@@ -6,44 +6,16 @@ import { useOptimizedImageLoader } from '../hooks/useOptimizedImageLoader';
 import { Card } from './ui/card';
 import CardSkeleton from './ui/CardSkeleton';
 import { cn } from '@/lib/utils';
-export interface ArticleData {
-  id: string;
-  title: string;
-  imageUrl: string;
-  date: string;
-  category: string;
-  featured?: boolean;
-  photoCount?: number;
-  detailUrl?: string;
-  content?: {
-    subtitle?: string;
-    author?: string;
-    authorTitle?: string;
-    readTime?: string;
-    sections?: Array<{
-      type?: string;
-      content?: string;
-      title?: string;
-      data?: Array<{ label?: string; value?: string }>;
-      author?: string;
-      description?: string;
-      buttonText?: string;
-    }>;
-  };
-  metadata?: {
-    category?: string;
-    date?: string;
-    photoCount?: number;
-    featured?: boolean;
-  };
-}
-export interface ArticleCardProps {
+import { ArticleData } from '@/types';
+
+interface ArticleCardProps {
   article: ArticleData;
   className?: string;
   onClick?: () => void;
   isLoading?: boolean;
   priority?: boolean;
 }
+
 const ArticleCard: React.FC<ArticleCardProps> = memo(({
   article,
   className,

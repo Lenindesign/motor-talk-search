@@ -117,26 +117,24 @@ export const useSectionNavigation = (articleId: string, imageUrl: string) => {
             let visibilityScore = 0;
             
             if (entry.isIntersecting) {
-              // Calculate visible height (portion of element in viewport)
-              const visibleHeight = Math.min(rect.bottom, windowHeight) - Math.max(rect.top, 0);
+              // Calculate visible height and viewport coverage
+              const visibleTop = Math.max(0, rect.top);
+              const visibleBottom = Math.min(rect.bottom, windowHeight);
+              const visibleHeight = visibleBottom - visibleTop;
               const totalHeight = rect.height;
               
-              // Normalize visibility score between 0-1 based on visible portion
+              // Base visibility score on visible portion
               visibilityScore = Math.max(0, visibleHeight / totalHeight);
               
               // Enhanced scoring for elements near the top of the viewport
-              // This helps with the v1 route where elements might have different heights
-              if (rect.top >= 0 && rect.top < windowHeight * 0.5) {
-                // Bonus for elements near the top of the viewport
-                visibilityScore += 0.4;
+              if (rect.top >= -50 && rect.top < windowHeight * 0.3) {
+                // Stronger bonus for elements at the top of the viewport
+                visibilityScore += 0.6;
               }
               
-              // Bonus for articles that are more centered in viewport
-              const center = rect.top + rect.height / 2;
-              const viewportCenter = windowHeight / 2;
-              const centerDistance = Math.abs(center - viewportCenter);
-              const centerBonus = Math.max(0, 1 - (centerDistance / viewportCenter));
-              visibilityScore += centerBonus * 0.3; // 30% bonus for centering
+              // Additional bonus for viewport coverage
+              const viewportBonus = visibleHeight / windowHeight;
+              visibilityScore += viewportBonus * 0.4; // 40% bonus for viewport coverage
             }
             
             visibilityMap.set(articleId, visibilityScore);
@@ -173,15 +171,14 @@ export const useSectionNavigation = (articleId: string, imageUrl: string) => {
           }
         });
 
-        // Only update if we have a clear winner with significant visibility
-        // Lowered threshold for better responsiveness, especially for /article/v1
-        if (bestArticle && highestScore > 0.15) {
+        // Update if we have a visible article with sufficient visibility
+        if (bestArticle && highestScore > 0.1) {
           updateActiveSection(bestArticle);
         }
       },
       {
-        threshold: [0, 0.05, 0.1, 0.25, 0.5, 0.75, 1], // Added more granular thresholds
-        rootMargin: '-60px 0px -80px 0px' // Adjusted top margin for better detection
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1], // More granular thresholds
+        rootMargin: '-40px 0px -40px 0px' // Smaller margins for more precise detection
       }
     );
 

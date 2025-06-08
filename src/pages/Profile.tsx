@@ -101,7 +101,7 @@ const Profile = () => {
   return (
     <>
       <div className="min-h-screen bg-motortrend-gray">
-        <main className="max-w-[980px] mx-auto px-0 py-0 pt-8">
+        <main className="mx-auto px-0 py-0 pt-8">
           <div className="flex flex-col md:flex-row gap-8">
             {/* Profile Sidebar */}
             <aside className="w-full md:w-64 space-y-6 px-[8px]">
@@ -121,17 +121,17 @@ const Profile = () => {
                     </div>
                     
                     <div className="w-full mt-4 space-y-3">
-                      <Button variant="default" size="sm" className="w-full flex items-center justify-center gap-2 text-white bg-motortrend-dark typography-caption">
+                      <Button variant="solid-primary" size="sm" className="w-full flex items-center justify-center gap-2 typography-caption">
                         <User size={16} />
                         Profile
                       </Button>
                       
-                      <Button variant="outline" size="sm" onClick={() => setPersonalizationOpen(true)} className="w-full flex items-center justify-center gap-2 text-neutral-1 bg-white border-neutral-3 hover:bg-gray-50 typography-caption">
+                      <Button variant="ghost-black" size="sm" onClick={() => setPersonalizationOpen(true)} className="w-full flex items-center justify-center gap-2 typography-caption">
                         <Palette size={16} />
                         Personalize
                       </Button>
                       
-                      <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 text-neutral-1 bg-white border-neutral-3 hover:bg-gray-50 typography-caption">
+                      <Button variant="ghost-black" size="sm" className="w-full flex items-center justify-center gap-2 typography-caption">
                         <Settings size={16} />
                         Settings
                       </Button>
@@ -178,7 +178,7 @@ const Profile = () => {
                       <div className="overflow-x-auto hide-scrollbar">
                         <div className="flex gap-2 pb-2 whitespace-nowrap">
                           <Button 
-                            variant={filterType === "all" ? "default" : "outline"} 
+                            variant={filterType === "all" ? "solid-primary" : "outline-black"} 
                             size="sm" 
                             onClick={() => setFilterType("all")}
                             className="flex-shrink-0"
@@ -186,7 +186,7 @@ const Profile = () => {
                             All ({savedItems.length})
                           </Button>
                           <Button 
-                            variant={filterType === "article" ? "default" : "outline"} 
+                            variant={filterType === "article" ? "solid-primary" : "outline-black"} 
                             size="sm" 
                             onClick={() => setFilterType("article")}
                             className="flex-shrink-0"
@@ -194,7 +194,7 @@ const Profile = () => {
                             Articles ({savedItems.filter(item => item.type === 'article').length})
                           </Button>
                           <Button 
-                            variant={filterType === "newCar" ? "default" : "outline"} 
+                            variant={filterType === "newCar" ? "solid-primary" : "ghost-black"} 
                             size="sm" 
                             onClick={() => setFilterType("newCar")}
                             className="flex-shrink-0"
@@ -202,7 +202,7 @@ const Profile = () => {
                             New Cars ({savedItems.filter(item => item.type === 'newCar').length})
                           </Button>
                           <Button 
-                            variant={filterType === "usedCar" ? "default" : "outline"} 
+                            variant={filterType === "usedCar" ? "solid-primary" : "ghost-black"} 
                             size="sm" 
                             onClick={() => setFilterType("usedCar")}
                             className="flex-shrink-0"
@@ -210,7 +210,7 @@ const Profile = () => {
                             Used Cars ({savedItems.filter(item => item.type === 'usedCar').length})
                           </Button>
                           <Button 
-                            variant={filterType === "photo" ? "default" : "outline"} 
+                            variant={filterType === "photo" ? "solid-red" : "ghost-red"} 
                             size="sm" 
                             onClick={() => setFilterType("photo")}
                             className="flex-shrink-0"
@@ -218,7 +218,7 @@ const Profile = () => {
                             Photos ({savedItems.filter(item => item.type === 'photo').length})
                           </Button>
                           <Button 
-                            variant={filterType === "video" ? "default" : "outline"} 
+                            variant={filterType === "video" ? "solid-red" : "ghost-red"} 
                             size="sm" 
                             onClick={() => setFilterType("video")}
                             className="flex-shrink-0"
@@ -388,7 +388,7 @@ const Profile = () => {
                           <div className="flex items-center justify-between pt-2">
                             <Button 
                               type="button" 
-                              variant="outline" 
+                              variant="outline-black" 
                               onClick={() => setPersonalizationOpen(true)} 
                               className="flex items-center gap-2 text-gray-900 bg-white border-gray-300 hover:bg-gray-50"
                             >

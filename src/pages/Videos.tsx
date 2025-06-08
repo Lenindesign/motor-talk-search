@@ -24,7 +24,7 @@ const Videos: React.FC = () => {
 
   return (
     <VideosPageWrapper>
-      <main className="w-full max-w-[980px] mx-auto px-0 py-[32px]">
+      <main className="w-full mx-auto px-0 py-[32px]">
         {/* Hero Carousel */}
         <div className="mb-10">
           <HeroCarousel slides={[

@@ -6,7 +6,25 @@ export interface SavedItem {
   imageUrl: string;
   type: SavedItemType;
   savedAt: string;
-  metadata: Record<string, any>;
+  metadata: Record<string, string | number | boolean | null>;
+}
+
+export interface ContentSection {
+  type: 'paragraph' | 'heading' | 'quote' | 'specs';
+  content?: string;
+  author?: string;
+  title?: string;
+  data?: Array<{ label?: string; value?: string }>;
+  description?: string;
+  buttonText?: string;
+}
+
+export interface ArticleContent {
+  subtitle?: string;
+  author?: string;
+  authorTitle?: string;
+  readTime?: string;
+  sections?: ContentSection[];
 }
 
 export interface ArticleData {
@@ -17,6 +35,7 @@ export interface ArticleData {
   category: string;
   featured?: boolean;
   photoCount?: number;
+  content?: ArticleContent;
 }
 
 export interface CarData {
@@ -41,4 +60,21 @@ export interface CarData {
   horsepowerTorque?: string;
   towingCapacity?: string;
   payloadCapacity?: string;
+}
+
+export interface Car {
+  id: string;
+  title: string;
+  year: string;
+  make: string;
+  model: string;
+  price: string;
+  imageUrl: string;
+  fallbackImageUrl?: string;
+  description?: string;
+  category?: string;
+  bodyStyle?: string;
+  fuelType?: string;
+  mileage?: string;
+  drivetrain?: string;
 }

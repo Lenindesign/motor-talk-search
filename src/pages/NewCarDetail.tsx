@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, FileText, Car, Star, Settings, Zap, Shield, Users, MapPin, Wrench, CheckCircle2 } from 'lucide-react';
 import { mockNewCars } from '@/services/mockData';
@@ -22,12 +22,76 @@ const NewCarDetail: React.FC = () => {
   } = useParams<{
     id: string;
   }>();
-  const car = mockNewCars.find(c => c.id === id);
   const [selectedTrim, setSelectedTrim] = useState('Base');
   const [activeSection, setActiveSection] = useState('overview');
-  const {
-    scrollToSection
-  } = useSmoothScroll();
+  const { scrollToSection } = useSmoothScroll();
+
+  const sections = useMemo(() => [
+    {
+      id: 'overview',
+      title: 'Overview'
+    },
+    {
+      id: 'payment-calculator',
+      title: 'Payment Calculator'
+    },
+    {
+      id: 'ratings',
+      title: 'Expert Ratings'
+    },
+    {
+      id: 'comparison',
+      title: 'Class Comparison'
+    },
+    {
+      id: 'competitors',
+      title: 'Competitors'
+    },
+    {
+      id: 'reviews',
+      title: 'Owner Reviews'
+    },
+    {
+      id: 'trims',
+      title: 'Trims & Pricing'
+    },
+    {
+      id: 'cost',
+      title: 'Cost of Ownership'
+    }
+  ], []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, {
+      threshold: 0.2,
+      rootMargin: "-10% 0px -70% 0px"
+    });
+
+    sections.forEach(section => {
+      const element = document.getElementById(section.id);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      sections.forEach(section => {
+        const element = document.getElementById(section.id);
+        if (element) {
+          observer.disconnect();
+        }
+      });
+    };
+  }, [sections]);
+
+  const car = mockNewCars.find(c => c.id === id);
+
   if (!car) {
     return <div className="min-h-screen bg-white">
         
@@ -59,59 +123,10 @@ const NewCarDetail: React.FC = () => {
     price: trim.name === 'Base' ? car.price : '$' + (parseInt(car.price.replace(/\D/g, '')) + trim.basePrice).toLocaleString(),
     features: trim.features
   }));
-  const sections = [{
-    id: 'overview',
-    title: 'Overview'
-  }, {
-    id: 'payment-calculator',
-    title: 'Payment Calculator'
-  }, {
-    id: 'ratings',
-    title: 'Expert Ratings'
-  }, {
-    id: 'comparison',
-    title: 'Class Comparison'
-  }, {
-    id: 'competitors',
-    title: 'Competitors'
-  }, {
-    id: 'reviews',
-    title: 'Owner Reviews'
-  }, {
-    id: 'trims',
-    title: 'Trims & Pricing'
-  }, {
-    id: 'cost',
-    title: 'Cost of Ownership'
-  }];
-  useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    }, {
-      threshold: 0.2,
-      rootMargin: "-10% 0px -70% 0px"
-    });
-    sections.forEach(section => {
-      const element = document.getElementById(section.id);
-      if (element) {
-        observer.observe(element);
-      }
-    });
-    return () => {
-      sections.forEach(section => {
-        const element = document.getElementById(section.id);
-        if (element) {
-          observer.unobserve(element);
-        }
-      });
-    };
-  }, []);
+
   const selectedTrimData = processedTrims.find(t => t.name === selectedTrim) || processedTrims[0];
   const overallRating = expertRatings.reduce((acc, rating) => acc + rating.score, 0) / expertRatings.length;
+
   return <div className="">
       <main className="">
         

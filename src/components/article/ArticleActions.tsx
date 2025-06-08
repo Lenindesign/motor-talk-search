@@ -14,7 +14,7 @@ const ArticleActions: React.FC<ArticleActionsProps> = ({
   onSave
 }) => {
   return (
-    <div className="flex items-center justify-between mt-8 pt-6 border-t border-neutral-6">
+    <div className="flex items-center justify-between mt-8 pt-6">
       <div className="flex items-center space-x-4">
         <button
           onClick={onSave}
