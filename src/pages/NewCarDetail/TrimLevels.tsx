@@ -47,7 +47,7 @@ const TrimLevels: React.FC<TrimLevelsProps> = ({ carTitle }) => {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-xl font-semibold">Pricing & Trim Levels</h2>
+        <h2 className="text-xl font-semibold">Trims & Pricing</h2>
         <p className="text-gray-600 mt-1 text-sm">
           The 2023 Toyota Camry is available in several trim levels with different features and price points.
         </p>

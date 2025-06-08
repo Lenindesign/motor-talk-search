@@ -92,7 +92,8 @@ const NewCarDetail: React.FC = () => {
         }
       });
     }, {
-      threshold: 0.5
+      threshold: 0.2,
+      rootMargin: "-10% 0px -70% 0px"
     });
     sections.forEach(section => {
       const element = document.getElementById(section.id);
@@ -182,7 +183,7 @@ const NewCarDetail: React.FC = () => {
             </div>
             
             {/* Owner Reviews Section */}
-            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="reviews">
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6 min-h-[300px]" id="reviews">
               <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Owner Reviews</h2>
               <ReviewsTab />
             </div>
@@ -190,7 +191,7 @@ const NewCarDetail: React.FC = () => {
 
             
             {/* Trim Levels Section */}
-            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6">
+            <div id="trims" className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6">
               <TrimLevels carTitle={car.title} />
             </div>
 

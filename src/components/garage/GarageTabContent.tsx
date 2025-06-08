@@ -45,7 +45,7 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
       <GarageStats activeTab={activeTab} onTabChange={onTabChange} />
       
       {/* Car Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {enhancedCarData.length > 0 ? (
           enhancedCarData.map(car => (
             <CarCard

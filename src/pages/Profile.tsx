@@ -174,50 +174,58 @@ const Profile = () => {
                 <TabsContent value="saved" className="space-y-6">
                   <div className="bg-white p-4 rounded-lg shadow">
                     <div className="mb-4">
-                      <h2 className="text-xl font-semibold mb-3">Saved Items</h2>
-                      <div className="flex gap-2 flex-wrap">
-                        <Button 
-                          variant={filterType === "all" ? "default" : "outline"} 
-                          size="sm" 
-                          onClick={() => setFilterType("all")}
-                        >
-                          All ({savedItems.length})
-                        </Button>
-                        <Button 
-                          variant={filterType === "article" ? "default" : "outline"} 
-                          size="sm" 
-                          onClick={() => setFilterType("article")}
-                        >
-                          Articles ({savedItems.filter(item => item.type === 'article').length})
-                        </Button>
-                        <Button 
-                          variant={filterType === "newCar" ? "default" : "outline"} 
-                          size="sm" 
-                          onClick={() => setFilterType("newCar")}
-                        >
-                          New Cars ({savedItems.filter(item => item.type === 'newCar').length})
-                        </Button>
-                        <Button 
-                          variant={filterType === "usedCar" ? "default" : "outline"} 
-                          size="sm" 
-                          onClick={() => setFilterType("usedCar")}
-                        >
-                          Used Cars ({savedItems.filter(item => item.type === 'usedCar').length})
-                        </Button>
-                        <Button 
-                          variant={filterType === "photo" ? "default" : "outline"} 
-                          size="sm" 
-                          onClick={() => setFilterType("photo")}
-                        >
-                          Photos ({savedItems.filter(item => item.type === 'photo').length})
-                        </Button>
-                        <Button 
-                          variant={filterType === "video" ? "default" : "outline"} 
-                          size="sm" 
-                          onClick={() => setFilterType("video")}
-                        >
-                          Videos ({savedItems.filter(item => item.type === 'video').length})
-                        </Button>
+                      <h2 className="typography-title mb-3">Saved Items</h2>
+                      <div className="overflow-x-auto hide-scrollbar">
+                        <div className="flex gap-2 pb-2 whitespace-nowrap">
+                          <Button 
+                            variant={filterType === "all" ? "default" : "outline"} 
+                            size="sm" 
+                            onClick={() => setFilterType("all")}
+                            className="flex-shrink-0"
+                          >
+                            All ({savedItems.length})
+                          </Button>
+                          <Button 
+                            variant={filterType === "article" ? "default" : "outline"} 
+                            size="sm" 
+                            onClick={() => setFilterType("article")}
+                            className="flex-shrink-0"
+                          >
+                            Articles ({savedItems.filter(item => item.type === 'article').length})
+                          </Button>
+                          <Button 
+                            variant={filterType === "newCar" ? "default" : "outline"} 
+                            size="sm" 
+                            onClick={() => setFilterType("newCar")}
+                            className="flex-shrink-0"
+                          >
+                            New Cars ({savedItems.filter(item => item.type === 'newCar').length})
+                          </Button>
+                          <Button 
+                            variant={filterType === "usedCar" ? "default" : "outline"} 
+                            size="sm" 
+                            onClick={() => setFilterType("usedCar")}
+                            className="flex-shrink-0"
+                          >
+                            Used Cars ({savedItems.filter(item => item.type === 'usedCar').length})
+                          </Button>
+                          <Button 
+                            variant={filterType === "photo" ? "default" : "outline"} 
+                            size="sm" 
+                            onClick={() => setFilterType("photo")}
+                            className="flex-shrink-0"
+                          >
+                            Photos ({savedItems.filter(item => item.type === 'photo').length})
+                          </Button>
+                          <Button 
+                            variant={filterType === "video" ? "default" : "outline"} 
+                            size="sm" 
+                            onClick={() => setFilterType("video")}
+                            className="flex-shrink-0"
+                          >
+                            Videos ({savedItems.filter(item => item.type === 'video').length})
+                          </Button>
+                        </div>
                       </div>
                     </div>
                     

@@ -3,6 +3,8 @@ import { Award, Users, Shield, Star, Gauge, Zap, DollarSign, ChevronDown, Chevro
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface VehicleOverviewProps {
   overallRating: number;
@@ -32,7 +34,31 @@ const VehicleOverview: React.FC<VehicleOverviewProps> = ({
         <Card className="bg-white shadow-sm border border-neutral-6 rounded-xl overflow-hidden">
           <CardContent className="space-y-6">
             <div>
-              <h2 className="text-lg font-bold text-neutral-1 mb-4">Vehicle Overview</h2>
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="typography-title text-neutral-1">Vehicle Overview</h2>
+                <div className="flex items-center gap-2">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div className="flex items-center gap-2 cursor-pointer">
+                          <Avatar className="h-8 w-8 border border-neutral-6 overflow-hidden">
+                            <AvatarImage 
+                              src="https://d2kde5ohu8qb21.cloudfront.net/files/66b0c284018fc100080e47eb/billyrehbock.jpg" 
+                              alt="Billy Rehbock" 
+                              className="object-cover object-center" 
+                            />
+                            <AvatarFallback className="text-xs bg-neutral-7 text-neutral-1">BR</AvatarFallback>
+                          </Avatar>
+                          <span className="typography-caption text-neutral-3">Billy Rehbock</span>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="typography-caption-small">Motortrend Senior Editor</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              </div>
               <div className="space-y-4">
                 <p className="text-neutral-2">
                   The {carTitle} represents the pinnacle of modern automotive engineering, 

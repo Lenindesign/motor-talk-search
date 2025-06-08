@@ -152,11 +152,11 @@ const CostOfOwnership: React.FC<CostOfOwnershipProps> = ({
       {/* Depreciation Chart */}
       <div>
         <h4 className="text-sm font-semibold text-neutral-1 mb-3">Estimated Depreciation</h4>
-        <div className="h-[250px] w-full">
+        <div className="h-[350px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart
               data={depreciationData}
-              margin={{ top: 10, right: 30, left: 60, bottom: 30 }}
+              margin={{ top: 20, right: 20, left: 0, bottom: 30 }}
             >
               <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
               <XAxis
@@ -171,7 +171,8 @@ const CostOfOwnership: React.FC<CostOfOwnershipProps> = ({
                 tickLine={false}
                 axisLine={false}
                 tick={{ fill: '#6B7280', fontSize: 12 }}
-                width={60}
+                width={70}
+                domain={['dataMin - 5000', 'dataMax + 5000']}
               />
               <Tooltip
                 formatter={(value) => formatCurrency(Number(value))}
