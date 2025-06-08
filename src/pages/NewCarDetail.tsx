@@ -113,18 +113,6 @@ const NewCarDetail: React.FC = () => {
   const overallRating = expertRatings.reduce((acc, rating) => acc + rating.score, 0) / expertRatings.length;
   return <div className="">
       <main className="">
-        {/* Breadcrumb Navigation */}
-        <div className="flex items-center mb-5 overflow-x-auto whitespace-nowrap py-1 text-xs md:text-sm">
-          <Link to="/cars" className="text-neutral-4 hover:text-motortrend-red transition-colors">
-            Cars
-          </Link>
-          <ChevronRight size={12} className="mx-1 text-neutral-4 flex-shrink-0" />
-          <Link to={`/cars/${car.category.toLowerCase().replace(' ', '-')}`} className="text-neutral-4 hover:text-motortrend-red transition-colors">
-            {car.category}
-          </Link>
-          <ChevronRight size={12} className="mx-1 text-neutral-4 flex-shrink-0" />
-          <span className="text-neutral-3 truncate">{car.title}</span>
-        </div>
         
         {/* Sticky Navigation */}
         <nav className="sticky top-[56px] md:top-[64px] z-50 bg-white border-b border-neutral-200 shadow-sm mb-6">

@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { InputWithAffix } from '@/components/ui/input-with-affix';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Building2 } from 'lucide-react';
+import { Calculator } from 'lucide-react';
 
 interface PaymentCalculatorProps {
   car: {
@@ -68,7 +68,7 @@ export const PaymentCalculator = ({ car }: PaymentCalculatorProps) => {
   return (
     <Card className="p-4 md:p-5">
       <div className="flex items-center gap-2 mb-4">
-        <Building2 className="h-5 w-5" />
+        <Calculator className="h-5 w-5" />
         <h2 className="text-lg md:text-xl text-neutral-1 font-bold">Payment Calculator</h2>
       </div>
 
@@ -79,7 +79,7 @@ export const PaymentCalculator = ({ car }: PaymentCalculatorProps) => {
           className="w-20 h-15 object-contain"
         />
         <div>
-          <h3 className="font-medium">{car.title}</h3>
+          <h3 className="typography-title">{car.title}</h3>
           <p className="text-sm text-neutral-2">MSRP: {car.msrp}</p>
         </div>
       </div>

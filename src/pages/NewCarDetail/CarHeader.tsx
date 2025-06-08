@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MapPin, Share, Calendar, Award, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { Calculator } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import GarageActionMenu from '@/components/GarageActionMenu';
 import { CarData } from '@/components/CarCard';
@@ -74,7 +75,7 @@ const CarHeader: React.FC<CarHeaderProps> = ({
               
               <div 
                 id="thumbnails-container"
-                className="flex gap-2 overflow-x-auto hide-scrollbar scroll-smooth px-8"
+                className="flex gap-2 overflow-x-auto hide-scrollbar scroll-smooth pl-0 pr-8"
               >
                 {carPhotos.map((photo, index) => (
                   <button 
@@ -82,9 +83,9 @@ const CarHeader: React.FC<CarHeaderProps> = ({
                     onClick={() => setCurrentImage(photo)}
                     className={`
                       flex-shrink-0 w-24 aspect-[4/3] rounded-lg overflow-hidden 
-                      transition-all duration-200
+                      transition-all duration-200 relative
                       ${currentImage === photo 
-                        ? 'ring-2 ring-motortrend-red shadow-lg scale-105' 
+                        ? 'ring-2 ring-motortrend-red shadow-modern' 
                         : 'hover:ring-2 ring-neutral-200 hover:ring-motortrend-red/50'}
                     `}
                   >
@@ -93,6 +94,9 @@ const CarHeader: React.FC<CarHeaderProps> = ({
                       alt={`${car.title} photo ${index + 1}`}
                       className="w-full h-full object-cover"
                     />
+                    {currentImage === photo && (
+                      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+                    )}
                   </button>
                 ))}
               </div>
@@ -156,11 +160,22 @@ const CarHeader: React.FC<CarHeaderProps> = ({
           <div className="space-y-1">
             <div className="text-sm text-neutral-3">MotorTrend suggests you pay</div>
             <div className="text-2xl font-bold">{car.price}</div>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-lg font-semibold text-green-600">$634</span>
+            <a 
+              href="#payment-calculator" 
+              className="flex items-baseline gap-1.5 hover:opacity-80 transition-opacity cursor-pointer group"
+              onClick={(e) => {
+                e.preventDefault();
+                const element = document.getElementById('payment-calculator');
+                if (element) {
+                  element.scrollIntoView({ behavior: 'smooth' });
+                }
+              }}
+            >
+              <Calculator className="h-4 w-4 text-neutral-1 mr-1 self-center group-hover:text-motortrend-red transition-colors" />
+              <span className="text-lg font-semibold text-motortrend-dark">$1,290.79</span>
               <span className="text-sm text-neutral-3">/mo*</span>
-            </div>
-            <div className="text-[11px] text-neutral-3">*Est. payment with $7,600 down for 24 months</div>
+            </a>
+            <div className="text-[11px] text-neutral-3">*Est. payment with $7,600 down for 60 months</div>
           </div>
           
           {/* Find Price Button */}

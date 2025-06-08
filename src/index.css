@@ -433,6 +433,16 @@ button.bg-neutral-8 {
     @apply text-pretty antialiased;
   }
 
+  .typography-subtitle {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 1rem; /* 16px */
+    line-height: 1.4;
+    letter-spacing: -0.005em;
+    font-synthesis-weight: none;
+    @apply text-pretty antialiased;
+  }
+
   .typography-body-large {
     font-family: var(--font-body);
     font-size: 1.125rem; /* 18px */

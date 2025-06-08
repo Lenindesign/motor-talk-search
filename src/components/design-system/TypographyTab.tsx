@@ -41,6 +41,13 @@ const TypographyTab: React.FC = () => {
           example: 'Latest Car Reviews & News',
           specs: 'clamp(1.25rem, 2vw, 1.5rem), line-height: 1.3',
           usage: 'Section headers, card titles'
+        },
+        {
+          name: 'Subtitle',
+          class: 'typography-subtitle',
+          example: '2024 Honda Civic Type R',
+          specs: '1rem (16px), line-height: 1.4',
+          usage: 'Card headlines, smaller titles'
         }
       ]
     },

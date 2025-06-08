@@ -72,7 +72,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
   }
   return <Card
     variant={type === 'new' ? 'newCar' : 'usedCar'}
-    className={cn('flex flex-col w-full h-full bg-white rounded-t-xl shadow-sm border border-neutral-6 overflow-hidden hover:shadow-md transition-shadow duration-200', className)}
+    className={cn('flex flex-col w-full h-full bg-white rounded-t-xl shadow-modern overflow-hidden transition-shadow duration-200', className)}
     isSaved={isSaved}
     onToggleSave={toggleSave}
     imageUrl={currentImage}
