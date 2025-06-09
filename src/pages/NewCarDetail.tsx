@@ -133,7 +133,7 @@ const NewCarDetail: React.FC = () => {
   const overallRating = expertRatings.reduce((acc, rating) => acc + rating.score, 0) / expertRatings.length;
 
   return (
-    <div className="max-w-[980px] mx-auto px-4 pb-12">
+    <div className="mx-auto pb-12">
       <main>
         {/* Sticky Navigation */}
         <nav className="sticky top-[56px] md:top-[64px] z-50 bg-white border-b border-neutral-200 shadow-sm mb-6">
@@ -158,7 +158,12 @@ const NewCarDetail: React.FC = () => {
           <div className="lg:col-span-2 space-y-6">
             {/* Car Header with Image and Primary Info */}
             <div id="hero">
-              <CarHeader car={car} carData={carData} overallRating={expertRatings[0].score} />
+              <CarHeader 
+                car={car} 
+                carData={carData} 
+                overallRating={expertRatings[0].score} 
+                ownerRating={ownerReviews.overallScore}
+              />
             </div>
             {/* Vehicle Overview */}
             <div id="overview">

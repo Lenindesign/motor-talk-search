@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import GarageActionMenu from '@/components/GarageActionMenu';
 import { CarData } from '@/components/CarCard';
 import { carPhotos } from '@/services/mockData';
+import DualScoreBadge from './DualScoreBadge';
 
 interface CarHeaderProps {
   car: {
@@ -15,12 +16,14 @@ interface CarHeaderProps {
   };
   carData: CarData;
   overallRating: number;
+  ownerRating?: number;
 }
 
 const CarHeader: React.FC<CarHeaderProps> = ({
   car,
   carData,
-  overallRating
+  overallRating,
+  ownerRating = 4.2 // Default value if not provided
 }) => {
   const [currentImage, setCurrentImage] = useState(carPhotos[0]);
   return (
@@ -28,23 +31,12 @@ const CarHeader: React.FC<CarHeaderProps> = ({
       {/* Car Images */}
       <div className="p-0">
         <div className="relative">
-          {/* MT Score Badge */}
-          <div className="absolute top-6 right-6 z-10">
-            <div className="inline-flex items-center gap-3 bg-black/80 backdrop-blur-md rounded-lg py-2 px-3 text-white shadow-xl">
-              <div className="flex items-baseline">
-                <span className="typography-title text-white">{overallRating}</span>
-                <span className="typography-caption text-white/60 ml-0.5">/10</span>
-              </div>
-              <div className="h-8 w-px bg-white/20"></div>
-              <div>
-                <div className="typography-caption uppercase tracking-wider text-white/60">Ranked</div>
-                <div className="flex items-baseline gap-1 -mt-0.5">
-                  <span className="typography-subtitle font-bold">#2</span>
-                  <span className="typography-caption text-white/80">of 12</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          {/* Score Badge */}
+          <DualScoreBadge 
+            expertRating={overallRating} 
+            ownerRating={ownerRating}
+            rank={{ position: 2, total: 12 }}
+          />
           
           {/* Car Image */}
           <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg bg-neutral-100">
