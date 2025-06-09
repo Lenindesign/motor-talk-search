@@ -281,7 +281,7 @@ const SearchTab: React.FC = () => {
                 <div>
                   <h3 className="typography-title text-neutral-1 mb-2">Interactive Examples</h3>
                   <p className="typography-body text-neutral-4 mb-3">
-                    Try these example searches to see how our prioritization logic works. Enter "Honda" or "Honda Accord" to see different result patterns.
+                    Try these example searches to see how our prioritization logic works. You can search for makes ("Honda"), models ("Honda Accord"), or ask questions ("What is the MPG of the 2025 Honda Accord?").
                   </p>
                   
                   <div className="bg-white p-4 rounded-md border mb-4">
@@ -290,7 +290,7 @@ const SearchTab: React.FC = () => {
                         <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-neutral-4" />
                         <Input 
                           type="search" 
-                          placeholder="Try 'Honda' or 'Honda Accord'..." 
+                          placeholder="Try 'Honda', 'Honda Accord', or 'Honda Accord MPG'..." 
                           className="pl-9"
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
@@ -360,7 +360,7 @@ const SearchTab: React.FC = () => {
                       </div>
                     ) : searchQuery ? (
                       <div className="text-center py-4 text-neutral-4">
-                        No results found. Try "Honda" or "Honda Accord".
+                        No results found. Try "Honda", "Honda Accord", or "What is the MPG of the 2025 Honda Accord?"
                       </div>
                     ) : null}
                   </div>
@@ -388,6 +388,28 @@ const SearchTab: React.FC = () => {
                   </div>
                 </div>
                 
+                <div>
+                  <h3 className="typography-title text-neutral-1 mb-2">Example: Question Search</h3>
+                  <p className="typography-body text-neutral-4 mb-3">
+                    When users ask questions like "What is the MPG of the 2025 Honda Accord?", the system prioritizes:
+                  </p>
+                  
+                  <div className="bg-neutral-9 p-4 rounded-md space-y-2">
+                    <div className="flex items-center">
+                      <span className="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-0.5 rounded mr-2">1</span>
+                      <p><strong>Chatbot response</strong> - Direct answer with relevant data</p>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded mr-2">2</span>
+                      <p><strong>Supporting content</strong> - Related articles and specifications</p>
+                    </div>
+                    <div className="flex items-center">
+                      <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded mr-2">3</span>
+                      <p><strong>Additional context</strong> - Comparison data and user guides</p>
+                    </div>
+                  </div>
+                </div>
+
                 <div>
                   <h3 className="typography-title text-neutral-1 mb-2">Example: Model Search</h3>
                   <p className="typography-body text-neutral-4 mb-3">
