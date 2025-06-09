@@ -30,7 +30,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
               {article.category}
             </div>
           )}
-          <h3 className="font-semibold text-lg mb-2 line-clamp-2 group-hover:text-motortrend-red transition-colors">
+          <h3 className="typography-subtitle line-clamp-2 group-hover:text-motortrend-red transition-colors">
             {article.title}
           </h3>
           {showExcerpt && article.excerpt && (

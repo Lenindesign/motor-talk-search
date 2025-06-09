@@ -92,7 +92,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
     onClick={() => navigate(linkPath)}
   >
     <div className="relative w-full h-full flex flex-col">
-      <div className="p-4 flex-1 flex flex-col min-h-0">
+      <div className="p-8 flex-1 flex flex-col min-h-0">
         {/* Use grid with consistent gap instead of space-y for better spacing control */}
         <div className="grid gap-2">
         <div className="flex items-start justify-between">
@@ -113,7 +113,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
         </div>
       </div>
       {/* Fixed bottom section */}
-      <div className="p-4 pt-0 mt-auto">
+      <div className="p-8 pt-0 mt-auto">
         <Button
           variant="outline-primary"
           size="lg"
