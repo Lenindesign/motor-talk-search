@@ -64,7 +64,8 @@ const GarageContent = () => {
       familyFeatures: item.metadata?.familyFeatures,
       motorTrendRank: item.metadata?.motorTrendRank,
       motorTrendScore: item.metadata?.motorTrendScore,
-      motorTrendCategoryRank: item.metadata?.motorTrendCategoryRank
+      motorTrendCategoryRank: item.metadata?.motorTrendCategoryRank,
+      userReviewsScore: item.metadata?.userReviewsScore || '8.5'
     };
   };
 

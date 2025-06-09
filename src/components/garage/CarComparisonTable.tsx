@@ -14,11 +14,11 @@ const CarComparisonTable: React.FC<CarComparisonTableProps> = ({ cars }) => {
   // Get all possible specs across all cars
   const getSpecCategories = () => {
     const categories: Record<string, string[]> = {
+      'Ratings': ['motorTrendScore', 'userReviewsScore', 'motorTrendRank', 'motorTrendCategoryRank'],
       'Basic Info': ['year', 'mileage', 'price', 'category'],
       'Performance': ['horsepowerTorque', 'fuelType', 'drivetrain', 'zeroToSixty', 'topSpeed', 'weightPowerRatio'],
       'Capacity': ['passengerCapacity', 'cargoCapacity', 'cargoCapacityFolded', 'trunkCapacity', 'towingCapacity', 'payloadCapacity'],
-      'Features': ['seatingConfiguration', 'slidingDoorFeatures', 'familyFeatures', 'bedDimensions', 'safetyRating'],
-      'MotorTrend': ['motorTrendScore', 'motorTrendRank', 'motorTrendCategoryRank']
+      'Features': ['seatingConfiguration', 'slidingDoorFeatures', 'familyFeatures', 'bedDimensions', 'safetyRating']
     };
     return categories;
   };
@@ -63,7 +63,20 @@ const CarComparisonTable: React.FC<CarComparisonTableProps> = ({ cars }) => {
         break;
       case 'motorTrendScore':
         displayValue = typeof value === 'number' ? value.toFixed(1) : String(value);
-        break;
+        return (
+          <div className="flex items-center justify-center gap-1">
+            <span className="typography-body-large font-bold text-motortrend-red">{displayValue}</span>
+            <span className="typography-caption text-neutral-4">/10</span>
+          </div>
+        );
+      case 'userReviewsScore':
+        displayValue = typeof value === 'number' ? value.toFixed(1) : String(value);
+        return (
+          <div className="flex items-center justify-center gap-1">
+            <span className="typography-body-large font-bold text-blue-600">{displayValue}</span>
+            <span className="typography-caption text-neutral-4">/10</span>
+          </div>
+        );
       default:
         displayValue = String(value);
     }
@@ -76,7 +89,7 @@ const CarComparisonTable: React.FC<CarComparisonTableProps> = ({ cars }) => {
     const rawValue = carForSpec[spec as keyof CarData];
     if (rawValue === undefined || rawValue === null || String(rawValue).trim() === '') return '';
 
-    if (spec === 'motorTrendScore' || spec === 'motorTrendRank' || spec === 'motorTrendCategoryRank') {
+    if (spec === 'motorTrendScore' || spec === 'userReviewsScore' || spec === 'motorTrendRank' || spec === 'motorTrendCategoryRank') {
       const numericValues = cars.map(car => {
         const val = car[spec as keyof CarData];
         return typeof val === 'number' ? val : (spec.includes('Rank') ? Infinity : -Infinity); // Use -Infinity for scores if N/A
@@ -121,7 +134,8 @@ const CarComparisonTable: React.FC<CarComparisonTableProps> = ({ cars }) => {
       case 'familyFeatures': return 'Family Features';
       case 'bedDimensions': return 'Bed Dimensions';
       case 'safetyRating': return 'Safety Rating';
-      case 'motorTrendScore': return 'MT Score';
+      case 'motorTrendScore': return 'MotorTrend Score';
+      case 'userReviewsScore': return 'User Reviews Score';
       case 'motorTrendRank': return 'MT Rank';
       case 'motorTrendCategoryRank': return 'MT Category Rank';
       default:
@@ -163,8 +177,8 @@ const CarComparisonTable: React.FC<CarComparisonTableProps> = ({ cars }) => {
           <TableBody>
             {Object.entries(specCategories).map(([category, specs]) => (
               <React.Fragment key={category}>
-                <TableRow className="bg-gray-100">
-                  <TableCell colSpan={cars.length + 1} className="typography-body-large">
+                <TableRow className={category === 'Ratings' ? 'bg-neutral-2/10' : 'bg-gray-100'}>
+                  <TableCell colSpan={cars.length + 1} className={`${category === 'Ratings' ? 'typography-subtitle text-motortrend-red' : 'typography-body-large'}`}>
                     {category}
                   </TableCell>
                 </TableRow>

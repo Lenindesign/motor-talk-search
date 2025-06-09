@@ -30,10 +30,11 @@ export interface CarData {
   horsepower?: string;
   transmission?: string;
   
-  // MotorTrend ratings
+  // Ratings
   motorTrendScore?: string;
   motorTrendRank?: string;
   motorTrendCategoryRank?: boolean;
+  userReviewsScore?: string;
   
   // Body style and basic specs
   bodyStyle?: 'SUV' | 'Sedan' | 'Truck' | 'Sports Car' | 'Minivan' | 'Crossover' | 'Coupe' | 'Convertible' | 'Hatchback' | 'Wagon';

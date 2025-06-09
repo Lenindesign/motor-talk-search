@@ -35,7 +35,8 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
         horsepower: carData.horsepower || 'N/A',
         transmission: carData.transmission || 'N/A',
         motorTrendScore: carData.motorTrendScore || '0.0',
-        motorTrendRank: carData.motorTrendRank || 'N/A'
+        motorTrendRank: carData.motorTrendRank || 'N/A',
+        userReviewsScore: carData.userReviewsScore || '8.5'
       };
     });
 
