@@ -42,7 +42,8 @@ export const mockArticles: ArticleData[] = [
     imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/671a7554264766000986939b/008-2025-honda-accord-hybrid.jpg',
     category: 'First Drive',
     date: 'May 31, 2025',
-    detailUrl: '/article/v1',
+    detailUrl: '/article/2025-honda-accord-hybrid-efficiency-meets-performance',
+
     featured: true,
     photoCount: 24,
     content: {
@@ -126,7 +127,8 @@ export const mockArticles: ArticleData[] = [
     imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65bbdd14be8a380008367a34/2018-honda-accord-touring-2-5t-front-three-quarter-in-motion-05.jpg',
     category: 'Road Test',
     date: 'May 29, 2025',
-    detailUrl: '/article/v2',
+    detailUrl: '/article/2025-honda-accord-touring-luxury-within-reach',
+
     featured: true,
     photoCount: 18,
     content: {
@@ -209,8 +211,9 @@ export const mockArticles: ArticleData[] = [
     title: '2025 Honda Accord vs. Toyota Camry: Midsize Sedan Showdown',
     imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65a4c3b0adb8a4000836452a/2025-toyota-camry-vs-2024-honda-accord-feature-image.jpg',
     category: 'Comparison',
-    date: 'May 28, 2025',
-    detailUrl: '/article/v3',
+    date: 'May 27, 2025',
+    detailUrl: '/article/2025-honda-accord-vs-toyota-camry',
+
     featured: true,
     photoCount: 22,
     content: {
@@ -307,7 +310,8 @@ export const mockArticles: ArticleData[] = [
     imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/6763144d7da72a0008ca90b5/mt75-msc-1982-honda-accord.jpg',
     category: 'Feature',
     date: 'May 25, 2025',
-    detailUrl: '/article/v4',
+    detailUrl: '/article/honda-accord-complete-history',
+
     featured: false,
     photoCount: 30,
     content: {
@@ -403,8 +407,8 @@ export const mockArticles: ArticleData[] = [
     title: '2025 Ferrari 296 GT3: The Ultimate Track Weapon',
     imageUrl: 'https://www.ferrarisiliconvalley.com/static/dealer-20428/New_Ferrari_V12_ext_02_red_media_de9bb413-30d8-448c-bb64-2458e003d949.webp',
     category: 'First Drive',
-    date: 'May 31, 2025',
-    detailUrl: '/article/hero-slide-1',
+    date: 'June 1, 2025',
+    detailUrl: '/article/2025-ferrari-296-gt3-ultimate-track-weapon',
     featured: true,
     photoCount: 24,
     content: {
@@ -502,7 +506,7 @@ export const mockArticles: ArticleData[] = [
     imageUrl: 'https://www.motortrend.com/uploads/2024/02/023-2022-Tesla-Model-S-Plaid-2024-Lucid-Air-Sapphire.jpg',
     category: 'Comparison',
     date: 'May 30, 2025',
-    detailUrl: '/article/hero-slide-2',
+    detailUrl: '/article/2025-tesla-model-s-plaid-vs-2024-lucid-air-sapphire',
     featured: true,
     photoCount: 32,
     content: {
@@ -604,7 +608,7 @@ export const mockArticles: ArticleData[] = [
     imageUrl: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920&h=1080',
     category: 'Analysis',
     date: 'May 29, 2025',
-    detailUrl: '/article/hero-slide-3',
+    detailUrl: '/article/electric-vs-gas-future-of-performance-cars',
     featured: true,
     photoCount: 18,
     content: {
@@ -705,8 +709,8 @@ export const mockArticles: ArticleData[] = [
     title: '2025 Ford Mustang 60th Anniversary Edition Revealed',
     imageUrl: 'https://hips.hearstapps.com/hmg-prod/images/2025-ford-mustang-60th-anniversary-exterior-66227932bb88e.jpg',
     category: 'New Model',
-    date: 'May 27, 2025',
-    detailUrl: '/article/hero-slide-4',
+    date: 'May 28, 2025',
+    detailUrl: '/article/2025-ford-mustang-60th-anniversary-edition-revealed',
     featured: true,
     photoCount: 28,
     content: {
@@ -802,7 +806,7 @@ export const mockArticles: ArticleData[] = [
     date: "May 15, 2025",
     category: "Review",
     featured: true,
-    detailUrl: "/article/honda-article-1"
+    detailUrl: "/article/2025-honda-accord-review-midsize-sedan-benchmark"
   },
   {
     id: "honda-accord-article-2",
@@ -811,7 +815,7 @@ export const mockArticles: ArticleData[] = [
     date: "May 28, 2025",
     category: "Comparison",
     featured: false,
-    detailUrl: "/article/honda-accord-article-2"
+    detailUrl: "/article/2025-honda-accord-vs-toyota-camry-midsize-sedan-showdown"
   },
   {
     id: "honda-accord-article-3",
@@ -820,7 +824,7 @@ export const mockArticles: ArticleData[] = [
     date: "May 22, 2025",
     category: "Hybrid",
     featured: false,
-    detailUrl: "/article/honda-accord-article-3"
+    detailUrl: "/article/2025-honda-accord-hybrid-first-drive"
   },
   {
     id: "honda-accord-article-4",
@@ -829,7 +833,7 @@ export const mockArticles: ArticleData[] = [
     date: "May 18, 2025",
     category: "Long Term",
     featured: false,
-    detailUrl: "/article/honda-accord-article-4"
+    detailUrl: "/article/2025-honda-accord-interior-review"
   },
   {
     id: "honda-accord-article-5",
@@ -838,7 +842,7 @@ export const mockArticles: ArticleData[] = [
     date: "May 10, 2025",
     category: "History",
     featured: false,
-    detailUrl: "/article/honda-accord-article-5"
+    detailUrl: "/article/2025-honda-accord-sport-touring-review"
   },
   {
     id: "honda-accord-article-6",
@@ -847,7 +851,7 @@ export const mockArticles: ArticleData[] = [
     date: "May 05, 2025",
     category: "Accessories",
     featured: false,
-    detailUrl: "/article/honda-accord-article-6"
+    detailUrl: "/article/2025-honda-accord-vs-competitors"
   },
   {
     id: "honda-article-2",
