@@ -1,4 +1,5 @@
 
+
 export interface ArticleData {
   id: string;
   title: string;
@@ -12,6 +13,7 @@ export interface ArticleData {
   featured?: boolean;
   photoCount?: number;
   detailUrl?: string;
+  content?: any; // For article content structure
 }
 
 export interface ArticleCardProps {
@@ -23,3 +25,4 @@ export interface ArticleCardProps {
   showCategory?: boolean;
   variant?: 'default' | 'compact' | 'featured';
 }
+
