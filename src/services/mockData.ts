@@ -8,7 +8,7 @@
  * at least 36 results across all content types when searching for Honda Accord.
  */
 
-import { ArticleData } from "../components/ArticleCard";
+import { ArticleData } from '@/types/article';
 import { CarData } from "../components/CarCard/types";
 import { PhotoData } from "../components/PhotoCard";
 import { VideoData } from "../components/VideoCard";
@@ -525,7 +525,7 @@ export const mockArticles: ArticleData[] = [
         },
         {
           type: "paragraph",
-          content: "The raw acceleration figures of these electric titans are staggering. The Tesla Model S Plaid, with its tri-motor setup producing 1,100 horsepower (up from 1,020 in previous years), rockets to 60 mph in just 1.99 seconds with our testing equipment. The Lucid Air Sapphire, also featuring a tri-motor architecture with 1,234 horsepower, matches this with an identical 1.99-second 0-60 mph time."
+          content: "The raw acceleration figures of these electric titans are staggering. The instant torque delivery of electric motors allows even mainstream EVs to outperform many combustion-powered sports cars from a standstill. Flagship electric performance models like the Rimac Nevera, Tesla Model S Plaid, and Lucid Air Sapphire achieve sub-2-second 0-60 mph times that were unimaginable in production cars just a decade ago."
         },
         {
           type: "paragraph",
@@ -1253,7 +1253,7 @@ export const mockNewCars: CarData[] = [
   },
   {
     id: "new-5",
-    title: "2025 Toyota Crown Signia",
+    title: "2024 Toyota Crown Signia",
     imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a4c435544c890008b8417b/2025-toyota-crown-signia-suv-reveal-4.jpg",
     price: "$39,950",
     category: "Luxury Crossover",
@@ -2014,7 +2014,7 @@ export const mockShortVideos: VideoData[] = [
   {
     id: "short-3",
     title: "2025 Cadillac Escalade IQ road trip SF LA",
-    subtitle: "Electric truck shows off its surprising drift capabilities on a closed course",
+    subtitle: "The glorious sound of Ferrari's naturally aspirated V12 engine at full throttle",
     imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67dddb04b641230008206fa2/49-2025-cadillac-escalade-iq-road-trip-sf-la.jpg",
     videoUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/683cc2152e586f000898f614/shorts3.mp4",
     duration: "0:52",
@@ -2029,7 +2029,7 @@ export const mockShortVideos: VideoData[] = [
   {
     id: "short-4",
     title: "2025 Nissan Armada Pro 4x",
-    subtitle: "The glorious sound of Ferrari's naturally aspirated V12 engine at full throttle",
+    subtitle: "Electric power vs traditional muscle in this epic truck tug of war battle",
     imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67e5de98a550c0000829d20e/12-2025-nissan-armada-pro-4x.jpg",
     videoUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/683cc2132e586f000898f613/shorts4.mp4",
     duration: "0:41",
