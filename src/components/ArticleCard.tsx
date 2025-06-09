@@ -1,87 +1,88 @@
-import React, { memo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Camera } from 'lucide-react';
-import { useCardSave } from '../hooks/useCardSave';
-import { useOptimizedImageLoader } from '../hooks/useOptimizedImageLoader';
-import { Card } from './ui/card';
-import CardSkeleton from './ui/CardSkeleton';
-import { cn } from '@/lib/utils';
-import { ArticleData } from '@/types';
 
-interface ArticleCardProps {
-  article: ArticleData;
-  className?: string;
-  onClick?: () => void;
-  isLoading?: boolean;
-  priority?: boolean;
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Calendar, User, Clock } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+
+export interface ArticleData {
+  id: string;
+  title: string;
+  imageUrl: string;
+  category: string;
+  date: string;
+  author?: string;
+  excerpt?: string;
+  readTime?: string;
+  tags?: string[];
 }
 
-const ArticleCard: React.FC<ArticleCardProps> = memo(({
-  article,
-  className,
-  onClick,
-  isLoading = false,
-  priority = false
+export interface ArticleCardProps {
+  article: ArticleData;
+  className?: string;
+  showAuthor?: boolean;
+  showDate?: boolean;
+  showExcerpt?: boolean;
+  showCategory?: boolean;
+  variant?: 'default' | 'compact' | 'featured';
+}
+
+const ArticleCard: React.FC<ArticleCardProps> = ({ 
+  article, 
+  className = '', 
+  showAuthor = false,
+  showDate = true,
+  showExcerpt = false,
+  showCategory = true,
+  variant = 'default'
 }) => {
-  const navigate = useNavigate();
-  const {
-    currentImage,
-    isLoading: imageLoading,
-    hasError
-  } = useOptimizedImageLoader({
-    imageUrl: article.imageUrl,
-    priority
-  });
-  const {
-    isSaved,
-    toggleSave
-  } = useCardSave({
-    id: article.id,
-    type: 'article',
-    title: article.title,
-    imageUrl: article.imageUrl,
-    metadata: {
-      category: article.category,
-      date: article.date,
-      photoCount: article.photoCount,
-      featured: article.featured
-    }
-  });
-  const handleClick = onClick || (() => navigate(`/article/${article.id}`));
-  if (isLoading) {
-    return <Card isLoading className={className} />;
-  }
-  return <Card
-    variant="article"
-    className={className}
-    isSaved={isSaved}
-    onToggleSave={toggleSave}
-    imageUrl={currentImage}
-    metadata={{
-      category: article.category,
-      date: article.date,
-      photoCount: article.photoCount ? String(article.photoCount) : undefined,
-      featured: article.featured ? 'Yes' : undefined
-    }}
-    onClick={handleClick}
-  >
-    {/* Overlays absolutely positioned on top of Card image */}
-    {article.photoCount && (
-      <div className="absolute top-2 right-2 z-10 bg-black/70 text-white px-2 py-1 rounded flex items-center text-xs pointer-events-none">
-        <Camera className="mr-1" size={12} />
-        <span>{article.photoCount}</span>
-      </div>
-    )}
-    <div className="p-4">
-      <h3 className="leading-tight text-gray-900 mb-2 line-clamp-2 text-base font-semibold">
-        {article.title}
-      </h3>
-      <div className="flex items-center justify-between text-sm text-gray-500">
-        <span className="font-medium">{article.category}</span>
-        <span>{article.date}</span>
-      </div>
-    </div>
-  </Card>;
-});
-ArticleCard.displayName = 'ArticleCard';
+  return (
+    <Card className={`group overflow-hidden hover:shadow-lg transition-shadow duration-300 ${className}`}>
+      <Link to={`/news/${article.id}`} className="block">
+        <div className="aspect-video overflow-hidden">
+          <img 
+            src={article.imageUrl} 
+            alt={article.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+        </div>
+        <CardContent className="p-4">
+          {showCategory && (
+            <div className="text-xs font-medium text-motortrend-red mb-2 uppercase tracking-wide">
+              {article.category}
+            </div>
+          )}
+          <h3 className="font-semibold text-lg mb-2 line-clamp-2 group-hover:text-motortrend-red transition-colors">
+            {article.title}
+          </h3>
+          {showExcerpt && article.excerpt && (
+            <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+              {article.excerpt}
+            </p>
+          )}
+          <div className="flex items-center text-xs text-gray-500 space-x-4">
+            {showDate && (
+              <div className="flex items-center">
+                <Calendar className="w-3 h-3 mr-1" />
+                {article.date}
+              </div>
+            )}
+            {showAuthor && article.author && (
+              <div className="flex items-center">
+                <User className="w-3 h-3 mr-1" />
+                {article.author}
+              </div>
+            )}
+            {article.readTime && (
+              <div className="flex items-center">
+                <Clock className="w-3 h-3 mr-1" />
+                {article.readTime}
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Link>
+    </Card>
+  );
+};
+
 export default ArticleCard;

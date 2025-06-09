@@ -1,3 +1,4 @@
+
 import { cva } from "class-variance-authority"
 
 export const buttonVariants = cva(
@@ -23,9 +24,11 @@ export const buttonVariants = cva(
         "outline-primary": "border border-[#c11b17] text-[#c11b17] bg-transparent hover:bg-[#c11b17]/10 active:bg-[#c11b17]/20",
         "ghost-primary": "text-[#c11b17] hover:bg-[#c11b17]/10 active:bg-[#c11b17]/20",
         
-        // Legacy/Additional variants
-        outline: "border border-input bg-background hover:bg-neutral-8 hover:text-neutral-1",
-        ghost: "hover:bg-neutral-8 hover:text-neutral-1",
+        // Legacy/Additional variants for backward compatibility
+        default: "bg-[#141416] text-white hover:bg-[#23262f] active:bg-[#353945] shadow-sm",
+        outline: "border border-[#141416] text-[#141416] bg-transparent hover:bg-[#fcfcfd] active:bg-[#f4f5f6]",
+        secondary: "bg-[#23262f] text-white hover:bg-[#353945] active:bg-[#6e7481] shadow-sm",
+        ghost: "text-[#141416] hover:bg-[#fcfcfd] active:bg-[#f4f5f6]",
         link: "text-neutral-1 underline-offset-4 hover:underline",
         minimal: "text-neutral-1 hover:underline underline-offset-4 p-0 h-auto",
       },
@@ -37,6 +40,8 @@ export const buttonVariants = cva(
         "icon-sm": "h-8 w-8 p-0",
         icon: "h-10 w-10 p-0",
         "icon-lg": "h-12 w-12 p-0",
+        // Legacy size for backward compatibility
+        default: "h-10 px-4",
       },
     },
     defaultVariants: {
