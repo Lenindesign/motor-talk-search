@@ -8,23 +8,57 @@ import { Search, Info, Car, FileText, Image, Video, Filter } from 'lucide-react'
 import CodeSnippet from './CodeSnippet';
 import ResponsivePreview from './ResponsivePreview';
 
+interface SearchResult {
+  type: 'make' | 'model' | 'article' | 'photo' | 'video' | 'chatbot';
+  title: string;
+  subtitle?: string;
+  date?: string;
+  count?: string;
+  duration?: string;
+  priority: 'highest' | 'high' | 'medium' | 'low';
+  content?: string;
+  relatedResults?: Array<{
+    type: string;
+    title: string;
+    subtitle?: string;
+    date?: string;
+  }>;
+}
+
 // Mock search results for demonstration
-const hondaResults = [
-  { type: 'make', title: 'Honda', subtitle: 'Japanese Automaker', priority: 'high' },
-  { type: 'model', title: 'Honda Accord', subtitle: '2025 Model', priority: 'medium' },
-  { type: 'model', title: 'Honda Civic', subtitle: '2025 Model', priority: 'medium' },
-  { type: 'model', title: 'Honda CR-V', subtitle: '2025 Model', priority: 'medium' },
-  { type: 'model', title: 'Honda Pilot', subtitle: '2025 Model', priority: 'medium' },
-  { type: 'article', title: 'Honda Announces New EV Strategy', date: '2025-05-15', priority: 'low' },
-  { type: 'photo', title: 'Honda Collection at Tokyo Motor Show', count: '24 photos', priority: 'low' },
+const hondaResults: SearchResult[] = [
+  { type: 'make' as const, title: 'Honda', subtitle: 'Japanese Automaker', priority: 'high' },
+  { type: 'model' as const, title: 'Honda Accord', subtitle: '2025 Model', priority: 'medium' },
+  { type: 'model' as const, title: 'Honda Civic', subtitle: '2025 Model', priority: 'medium' },
+  { type: 'model' as const, title: 'Honda CR-V', subtitle: '2025 Model', priority: 'medium' },
+  { type: 'model' as const, title: 'Honda Pilot', subtitle: '2025 Model', priority: 'medium' },
+  { type: 'article' as const, title: 'Honda Announces New EV Strategy', date: '2025-05-15', priority: 'low' },
+  { type: 'photo' as const, title: 'Honda Collection at Tokyo Motor Show', count: '24 photos', priority: 'low' },
 ];
 
-const hondaAccordResults = [
-  { type: 'model', title: 'Honda Accord', subtitle: '2025 Model', priority: 'high' },
-  { type: 'article', title: '2025 Honda Accord Review: Still the Midsize Sedan Benchmark', date: '2025-04-10', priority: 'medium' },
-  { type: 'photo', title: 'Honda Accord Photo Gallery', count: '18 photos', priority: 'medium' },
-  { type: 'video', title: 'Honda Accord vs Toyota Camry: Midsize Sedan Showdown', duration: '12:45', priority: 'medium' },
-  { type: 'article', title: 'Honda Accord Hybrid: The Efficient Choice', date: '2025-03-22', priority: 'low' },
+const hondaAccordResults: SearchResult[] = [
+  { type: 'model' as const, title: 'Honda Accord', subtitle: '2025 Model', priority: 'high' },
+  { type: 'article' as const, title: '2025 Honda Accord Review: Still the Midsize Sedan Benchmark', date: '2025-04-10', priority: 'medium' },
+  { type: 'photo' as const, title: 'Honda Accord Photo Gallery', count: '18 photos', priority: 'medium' },
+  { type: 'video' as const, title: 'Honda Accord vs Toyota Camry: Midsize Sedan Showdown', duration: '12:45', priority: 'medium' },
+  { type: 'article' as const, title: 'Honda Accord Hybrid: The Efficient Choice', date: '2025-03-22', priority: 'low' },
+];
+
+const hondaAccordMpgResults: SearchResult[] = [
+  { 
+    type: 'chatbot' as const, 
+    title: 'The 2025 Honda Accord MPG',
+    content: 'The 2025 Honda Accord gets 32 mpg city and 41 mpg highway with the standard 1.5L engine. The hybrid model achieves up to 51 mpg city and 44 mpg highway.',
+    priority: 'highest',
+    relatedResults: [
+      { type: 'article' as const, title: '2025 Honda Accord Fuel Economy Guide', date: '2025-05-01' },
+      { type: 'model' as const, title: 'Honda Accord Hybrid', subtitle: '2025 Model' },
+      { type: 'article' as const, title: 'Honda Accord vs Competitors: MPG Comparison', date: '2025-04-15' }
+    ]
+  },
+  { type: 'model' as const, title: 'Honda Accord', subtitle: '2025 Model', priority: 'high' },
+  { type: 'article' as const, title: 'Complete Guide to 2025 Honda Accord Fuel Economy', date: '2025-05-01', priority: 'medium' },
+  { type: 'article' as const, title: 'How to Maximize Your Honda Accord MPG', date: '2025-04-15', priority: 'medium' }
 ];
 
 const searchLogicCode = `// Simplified search logic pseudocode
@@ -77,14 +111,36 @@ function performSearch(query: string): SearchResult[] {
 const SearchTab: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  interface SearchResult {
+    type: 'make' | 'model' | 'article' | 'photo' | 'video' | 'chatbot';
+    title: string;
+    subtitle?: string;
+    date?: string;
+    count?: string;
+    duration?: string;
+    priority: 'highest' | 'high' | 'medium' | 'low';
+    content?: string;
+    relatedResults?: Array<{
+      type: string;
+      title: string;
+      subtitle?: string;
+      date?: string;
+    }>;
+  }
+
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   
   const handleSearch = (query: string) => {
     // Simple mock implementation to demonstrate the UI
-    if (query.toLowerCase() === 'honda') {
+    const lowerQuery = query.toLowerCase();
+    if (lowerQuery === 'honda') {
       setSearchResults(hondaResults);
-    } else if (query.toLowerCase() === 'honda accord') {
+    } else if (lowerQuery === 'honda accord') {
       setSearchResults(hondaAccordResults);
+    } else if (lowerQuery === 'what is the mpg of the 2025 honda accord' || 
+               lowerQuery === 'honda accord mpg' ||
+               lowerQuery === '2025 honda accord mpg') {
+      setSearchResults(hondaAccordMpgResults);
     } else {
       setSearchResults([]);
     }
@@ -127,6 +183,13 @@ const SearchTab: React.FC = () => {
                       <h4 className="font-medium mb-2">Priority Levels:</h4>
                       <ul className="space-y-2">
                         <li className="flex items-start">
+                          <span className="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-0.5 rounded mr-2 mt-0.5">Highest</span>
+                          <div>
+                            <p className="font-medium">Chatbot Responses</p>
+                            <p className="text-sm text-neutral-4">Direct answers to questions with relevant context from top search results</p>
+                          </div>
+                        </li>
+                        <li className="flex items-start">
                           <span className="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded mr-2 mt-0.5">High</span>
                           <div>
                             <p className="font-medium">Exact Make/Model Matches</p>
@@ -153,6 +216,7 @@ const SearchTab: React.FC = () => {
                     <div>
                       <h4 className="font-medium mb-2">Content Type Weighting:</h4>
                       <ul className="space-y-1 text-sm">
+                        <li>• Chatbot responses are prioritized for questions and informational queries</li>
                         <li>• Cars and models are prioritized for make/model searches</li>
                         <li>• Articles are prioritized for news and information searches</li>
                         <li>• Photos and videos are prioritized for visual content searches</li>
@@ -243,7 +307,9 @@ const SearchTab: React.FC = () => {
                         {searchResults.map((result, index) => (
                           <div key={index} className="flex items-start p-2 hover:bg-neutral-9 rounded-md">
                             <div className="mr-3 mt-0.5">
-                              {result.type === 'make' || result.type === 'model' ? (
+                              {result.type === 'chatbot' ? (
+                                <Info className="h-5 w-5 text-purple-600" />
+                              ) : result.type === 'make' || result.type === 'model' ? (
                                 <Car className="h-5 w-5 text-motortrend-dark" />
                               ) : result.type === 'article' ? (
                                 <FileText className="h-5 w-5 text-motortrend-dark" />
@@ -256,12 +322,31 @@ const SearchTab: React.FC = () => {
                             <div className="flex-grow">
                               <div className="flex items-center justify-between">
                                 <h4 className="font-medium">{result.title}</h4>
+                                {result.type === 'chatbot' && result.content && (
+                                  <div className="mt-2 bg-purple-50 p-3 rounded-md">
+                                    <p className="text-sm text-purple-900">{result.content}</p>
+                                    {result.relatedResults && result.relatedResults.length > 0 && (
+                                      <div className="mt-2 pt-2 border-t border-purple-200">
+                                        <p className="text-xs font-medium text-purple-700 mb-1">Related Content:</p>
+                                        <ul className="text-xs space-y-1">
+                                          {result.relatedResults.map((related, idx) => (
+                                            <li key={idx} className="text-purple-800">
+                                              • {related.title}
+                                            </li>
+                                          ))}
+                                        </ul>
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
                                 <span className={`text-xs px-2 py-0.5 rounded ${
-                                  result.priority === 'high' 
-                                    ? 'bg-green-100 text-green-800' 
-                                    : result.priority === 'medium'
-                                      ? 'bg-blue-100 text-blue-800'
-                                      : 'bg-gray-100 text-gray-800'
+                                  result.priority === 'highest'
+                                    ? 'bg-purple-100 text-purple-800'
+                                    : result.priority === 'high' 
+                                      ? 'bg-green-100 text-green-800' 
+                                      : result.priority === 'medium'
+                                        ? 'bg-blue-100 text-blue-800'
+                                        : 'bg-gray-100 text-gray-800'
                                 }`}>
                                   {result.priority.charAt(0).toUpperCase() + result.priority.slice(1)}
                                 </span>
