@@ -6,6 +6,7 @@ import { useOptimizedImageLoader } from '../hooks/useOptimizedImageLoader';
 import { Card } from './ui/card';
 import CardSkeleton from './ui/CardSkeleton';
 import { cn } from '@/lib/utils';
+
 export interface VideoData {
   id: string;
   title: string;
@@ -26,6 +27,7 @@ export interface VideoData {
     publishDate?: string;
   };
 }
+
 export interface VideoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   video: VideoData;
   className?: string;
@@ -33,6 +35,7 @@ export interface VideoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   isLoading?: boolean;
   priority?: boolean;
 }
+
 const VideoCard: React.FC<VideoCardProps> = memo(({
   video,
   className,
@@ -68,7 +71,7 @@ const VideoCard: React.FC<VideoCardProps> = memo(({
   }
   return <Card
     variant="video"
-    className={cn('group relative hover:shadow-xl transition-shadow duration-300 cursor-pointer bg-gray-800 dark:border-0', className)}
+    className={cn('group relative hover:shadow-xl transition-shadow duration-300 cursor-pointer bg-gray-800 border-0', className)}
     isSaved={isSaved}
     onToggleSave={toggleSave}
     metadata={{
@@ -102,5 +105,6 @@ const VideoCard: React.FC<VideoCardProps> = memo(({
     </div>
   </Card>;
 });
+
 VideoCard.displayName = 'VideoCard';
 export default VideoCard;
