@@ -61,6 +61,33 @@ const hondaAccordMpgResults: SearchResult[] = [
   { type: 'article' as const, title: 'How to Maximize Your Honda Accord MPG', date: '2025-04-15', priority: 'medium' }
 ];
 
+// Helper function to detect if a query is a question
+const isQuestion = (query: string): boolean => {
+  return query.trim().endsWith('?') || 
+         query.toLowerCase().startsWith('what') ||
+         query.toLowerCase().startsWith('how') ||
+         query.toLowerCase().startsWith('which') ||
+         query.toLowerCase().startsWith('why') ||
+         query.toLowerCase().startsWith('when') ||
+         query.toLowerCase().startsWith('where');
+};
+
+const genericQuestionResults: SearchResult[] = [
+  {
+    type: 'chatbot' as const,
+    title: 'Analyzing your question...',
+    content: 'I understand you\'re asking a question about automotive topics. While I\'m analyzing the specific details, here are some helpful resources that might answer your question:',
+    priority: 'highest',
+    relatedResults: [
+      { type: 'article' as const, title: 'Automotive Buying Guides & FAQs', date: '2025-05-15' },
+      { type: 'article' as const, title: 'Car Shopping Tips: Everything You Need to Know', date: '2025-05-01' },
+      { type: 'article' as const, title: 'Understanding Car Specs and Features', date: '2025-04-20' }
+    ]
+  },
+  { type: 'article' as const, title: 'Common Car Buying Questions Answered', date: '2025-05-10', priority: 'medium' },
+  { type: 'article' as const, title: 'Expert Car Advice: Top Tips from MotorTrend', date: '2025-04-15', priority: 'medium' }
+];
+
 const bestSuvResults: SearchResult[] = [
   {
     type: 'chatbot' as const,
@@ -151,6 +178,9 @@ const SearchTab: React.FC = () => {
   const handleSearch = (query: string) => {
     // Simple mock implementation to demonstrate the UI
     const lowerQuery = query.toLowerCase();
+    const trimmedQuery = query.trim();
+    
+    // Check for specific queries first
     if (lowerQuery === 'honda') {
       setSearchResults(hondaResults);
     } else if (lowerQuery === 'honda accord') {
@@ -164,6 +194,9 @@ const SearchTab: React.FC = () => {
                lowerQuery === 'what\'s the best suv' ||
                lowerQuery === 'which suv is best') {
       setSearchResults(bestSuvResults);
+    } else if (isQuestion(trimmedQuery)) {
+      // For any other question, show the generic chatbot response
+      setSearchResults(genericQuestionResults);
     } else {
       setSearchResults([]);
     }
