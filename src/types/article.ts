@@ -9,6 +9,9 @@ export interface ArticleData {
   excerpt?: string;
   readTime?: string;
   tags?: string[];
+  featured?: boolean;
+  photoCount?: number;
+  detailUrl?: string;
 }
 
 export interface ArticleCardProps {
