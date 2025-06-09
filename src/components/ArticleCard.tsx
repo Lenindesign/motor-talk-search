@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, User, Clock } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArticleData, ArticleCardProps } from '@/types/article';
+import { useCardSave } from '../hooks/useCardSave';
 
 const ArticleCard: React.FC<ArticleCardProps> = ({ 
   article, 
@@ -14,8 +15,22 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
   showCategory = true,
   variant = 'default'
 }) => {
+  const { isSaved, toggleSave } = useCardSave({
+    id: article.id,
+    type: 'article',
+    title: article.title,
+    imageUrl: article.imageUrl,
+    metadata: {
+      category: article.category,
+      date: article.date
+    }
+  });
   return (
-    <Card className={`group overflow-hidden hover:shadow-lg transition-shadow duration-300 ${className}`}>
+    <Card 
+      className={`group overflow-hidden hover:shadow-lg transition-shadow duration-300 ${className}`}
+      isSaved={isSaved}
+      onToggleSave={toggleSave}
+    >
       <Link to={`http://localhost:8080/article/${article.id}`} className="block">
         <div className="aspect-video overflow-hidden">
           <img 
