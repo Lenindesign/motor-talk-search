@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Suggestion } from "../hooks/use-autocomplete"; 
 import { Search, Newspaper, Car, CarFront, Factory, Image as ImageIcon, Video as VideoIcon } from "lucide-react";
@@ -79,6 +78,14 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
         return <ImageIcon size={18} className="text-gray-500 dark:text-gray-400" />;
       case 'video':
         return <VideoIcon size={18} className="text-gray-500 dark:text-gray-400" />;
+      case 'aiSuggestion':
+        return (
+          <img 
+            src="https://d2kde5ohu8qb21.cloudfront.net/files/684770b189dde90008189d23/aiicon.svg" 
+            alt="AI"
+            className="w-5 h-5 text-primary dark:text-primary-400" 
+          />
+        );
       case 'popular':
       default:
         return <Search size={18} className="text-gray-500 dark:text-gray-400" />;
@@ -94,13 +101,19 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
     return groups;
   }, {} as Record<Suggestion["type"], Suggestion[]>);
 
-  // Order of content types in dropdown - car models first for Honda searches
+  // Order of content types in dropdown - AI suggestions first, then cars
   const getTypeOrder = (): Suggestion["type"][] => {
-    const query = suggestions.find(s => s.type === 'newCar')?.text.toLowerCase() || '';
-    if (query.includes('honda')) {
-      return ['newCar', 'usedCar', 'article', 'video', 'photo', 'carMake', 'popular'] as Suggestion["type"][];
-    }
-    return ['newCar', 'usedCar', 'article', 'video', 'photo', 'carMake', 'popular'] as Suggestion["type"][];
+    return [
+      'aiSuggestion', 
+      'newCar', 
+      'usedCar', 
+      'carMake', 
+      'carModel', 
+      'article', 
+      'video', 
+      'photo', 
+      'popular'
+    ] as Suggestion["type"][];
   };
   const typeOrder = getTypeOrder();
   
@@ -115,7 +128,9 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
           
           const typeLabel = (() => {
             switch (type) {
+              case 'aiSuggestion': return 'AI Suggestions';
               case 'carMake': return 'Car Makes';
+              case 'carModel': return 'Car Models';
               case 'newCar': return 'New Cars';
               case 'usedCar': return 'Used Cars';
               case 'article': return 'Articles';
@@ -129,7 +144,7 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
           return (
             <li key={type} className="pt-1 mb-2">
               {typeLabel && (
-                <div className="px-4 py-2 typography-caption text-neutral-4 dark:text-neutral-3 bg-neutral-7 dark:bg-neutral-2/50 sticky top-0 z-10">
+                <div className={`px-4 py-2 typography-caption sticky top-0 z-10 text-neutral-4 dark:text-neutral-3 bg-neutral-7 dark:bg-neutral-2/50`}>
                   {typeLabel}
                 </div>
               )}
@@ -148,14 +163,18 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
                     secondaryText = suggestion.duration ? `${suggestion.duration} | ${suggestion.date}` : suggestion.date || '';
                   } else if (suggestion.type === 'photo') {
                     secondaryText = suggestion.date || ''; 
+                  } else if (suggestion.type === 'aiSuggestion') {
+                    secondaryText = 'Ask our AI assistant';
                   }
 
                   return (
                     <li 
                       key={suggestion.id}
-                      className={`rounded-md flex items-center gap-3 p-2 typography-caption cursor-pointer dark:text-white ${ 
+                      className={`rounded-md flex items-center gap-3 p-2 typography-caption cursor-pointer dark:text-white ${
                         selectedIndex === currentGlobalIndex
-                          ? "bg-motortrend-red bg-opacity-10 text-motortrend-red dark:bg-motortrend-red/20 dark:text-motortrend-red-300"
+                          ? suggestion.type === 'aiSuggestion' 
+                            ? "bg-motortrend-red bg-opacity-10 text-motortrend-red dark:bg-motortrend-red/20 dark:text-motortrend-red-300"
+                            : "bg-motortrend-red bg-opacity-10 text-motortrend-red dark:bg-motortrend-red/20 dark:text-motortrend-red-300"
                           : "hover:bg-gray-100 dark:hover:bg-gray-700"
                       }`}
                       onClick={() => onSelect(suggestion)}
@@ -163,7 +182,15 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
                       role="option"
                       aria-selected={selectedIndex === currentGlobalIndex}
                     >
-                      {suggestion.imageUrl ? (
+                      {suggestion.type === 'aiSuggestion' ? (
+                        <div className="w-16 h-10 flex-shrink-0 flex items-center justify-center">
+                          <img 
+                            src="https://d2kde5ohu8qb21.cloudfront.net/files/684770b189dde90008189d23/aiicon.svg" 
+                            alt="AI"
+                            className="w-8 h-8" 
+                          />
+                        </div>
+                      ) : suggestion.imageUrl ? (
                         <img src={suggestion.imageUrl} alt={suggestion.text} className="w-16 h-10 object-cover rounded-sm flex-shrink-0" /> 
                       ) : (
                         <div className="w-16 h-10 flex-shrink-0 flex items-center justify-center bg-neutral-7 dark:bg-neutral-2 rounded-sm">
@@ -171,8 +198,18 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
                         </div>
                       )}
                       <div className="flex-grow overflow-hidden">
-                        <span className="typography-body-small truncate block">{suggestion.text}</span>
-                        {secondaryText && <span className="typography-caption text-neutral-4 dark:text-neutral-3 truncate block">{secondaryText}</span>}
+                        <span className={`${suggestion.type === 'aiSuggestion' ? 'typography-body-small font-medium' : 'typography-body-small'} truncate block`}>
+                          {suggestion.text}
+                        </span>
+                        {secondaryText && (
+                          <span className={`typography-caption truncate block ${
+                            suggestion.type === 'aiSuggestion' 
+                              ? 'text-motortrend-red dark:text-motortrend-red-300' 
+                              : 'text-neutral-4 dark:text-neutral-3'
+                          }`}>
+                            {secondaryText}
+                          </span>
+                        )}
                       </div>
                     </li>
                   );
