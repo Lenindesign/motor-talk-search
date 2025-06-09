@@ -61,6 +61,24 @@ const hondaAccordMpgResults: SearchResult[] = [
   { type: 'article' as const, title: 'How to Maximize Your Honda Accord MPG', date: '2025-04-15', priority: 'medium' }
 ];
 
+const bestSuvResults: SearchResult[] = [
+  {
+    type: 'chatbot' as const,
+    title: 'Best SUVs in 2025',
+    content: 'Based on our extensive testing, the 2025 Hyundai Tucson is currently the best overall SUV, offering exceptional value, advanced technology, and great fuel economy. For luxury buyers, the Genesis GV70 leads its class, while the Honda CR-V remains the most practical choice. The Toyota RAV4 Prime offers the best hybrid performance.',
+    priority: 'highest',
+    relatedResults: [
+      { type: 'article' as const, title: '2025 SUV Buying Guide: Top Picks in Every Category', date: '2025-05-15' },
+      { type: 'article' as const, title: 'Compact SUV Comparison Test: 12 Models Ranked', date: '2025-05-01' },
+      { type: 'model' as const, title: 'Hyundai Tucson', subtitle: '2025 Model' }
+    ]
+  },
+  { type: 'model' as const, title: 'Hyundai Tucson', subtitle: '2025 Model', priority: 'high' },
+  { type: 'model' as const, title: 'Genesis GV70', subtitle: '2025 Model', priority: 'high' },
+  { type: 'article' as const, title: '2025 SUV Rankings: Best SUVs in Every Category', date: '2025-05-10', priority: 'medium' },
+  { type: 'article' as const, title: 'Best Family SUVs of 2025', date: '2025-04-20', priority: 'medium' }
+];
+
 const searchLogicCode = `// Simplified search logic pseudocode
 function performSearch(query: string): SearchResult[] {
   // Step 1: Normalize and tokenize the search query
@@ -141,6 +159,11 @@ const SearchTab: React.FC = () => {
                lowerQuery === 'honda accord mpg' ||
                lowerQuery === '2025 honda accord mpg') {
       setSearchResults(hondaAccordMpgResults);
+    } else if (lowerQuery === 'what is the best suv' ||
+               lowerQuery === 'best suv' ||
+               lowerQuery === 'what\'s the best suv' ||
+               lowerQuery === 'which suv is best') {
+      setSearchResults(bestSuvResults);
     } else {
       setSearchResults([]);
     }
