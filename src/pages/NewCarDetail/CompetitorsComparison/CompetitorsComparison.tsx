@@ -52,7 +52,7 @@ const CompetitorsComparison: React.FC = () => {
         </div>
         <div className="flex space-x-2">
           <Button 
-            variant="outline" 
+            variant="outline-black" 
             size="sm" 
             className="h-8 w-8 p-0 rounded-full" 
             onClick={handlePrevious}
@@ -60,7 +60,7 @@ const CompetitorsComparison: React.FC = () => {
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <Button 
-            variant="outline" 
+            variant="outline-black" 
             size="sm" 
             className="h-8 w-8 p-0 rounded-full" 
             onClick={handleNext}
@@ -118,7 +118,7 @@ const CompetitorsComparison: React.FC = () => {
       </div>
     <div className="flex justify-center mt-6">
       <Button 
-        variant="outline" 
+        variant="outline-black" 
         size="sm" 
         className="text-xs px-4 py-2 text-neutral-1 bg-white border-neutral-6 hover:bg-neutral-8 transition-colors" 
       >

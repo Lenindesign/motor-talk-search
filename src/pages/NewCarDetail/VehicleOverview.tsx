@@ -114,7 +114,7 @@ const VehicleOverview: React.FC<VehicleOverviewProps> = ({
                 </div>
 
                 <Button 
-                  variant="ghost" 
+                  variant="ghost-black" 
                   className="w-full flex items-center justify-center gap-2 text-neutral-3 hover:text-neutral-1 mt-4"
                   onClick={() => setExpanded(!expanded)}
                 >

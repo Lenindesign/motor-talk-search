@@ -284,16 +284,16 @@ const NewCarDetail: React.FC = () => {
                     </div>
                     <div className="p-4">
                       <div className="flex flex-col space-y-2">
-                        <Button variant="ghost" size="sm" className="justify-start w-full">
+                        <Button variant="ghost-black" size="sm" className="justify-start w-full">
                           <FileText size={16} className="mr-2" /> Owner's Manual
                         </Button>
-                        <Button variant="ghost" size="sm" className="justify-start w-full">
+                        <Button variant="ghost-black" size="sm" className="justify-start w-full">
                           <MapPin size={16} className="mr-2" /> Find a Dealer
                         </Button>
-                        <Button variant="ghost" size="sm" className="justify-start w-full">
+                        <Button variant="ghost-black" size="sm" className="justify-start w-full">
                           <Car size={16} className="mr-2" /> Build & Price
                         </Button>
-                        <Button variant="ghost" size="sm" className="justify-start w-full">
+                        <Button variant="ghost-black" size="sm" className="justify-start w-full">
                           <Wrench size={16} className="mr-2" /> Service Centers
                         </Button>
                       </div>

@@ -77,7 +77,7 @@ const TrimLevels: React.FC<TrimLevelsProps> = ({ carTitle }) => {
               </div>
 
               <div className="md:w-24 flex md:flex-col md:items-end gap-2">
-                <Button variant="outline" className="w-full">
+                <Button variant="outline-black" className="w-full">
                   Select
                 </Button>
               </div>

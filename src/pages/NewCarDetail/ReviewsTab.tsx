@@ -179,7 +179,7 @@ const ReviewsTab: React.FC = () => {
         <div className="text-center">
           <Button 
             onClick={() => setShowMore(true)} 
-            variant="outline" 
+            variant="outline-black" 
             className="min-w-[200px] bg-white hover:bg-neutral-8"
           >
             Load More Reviews
