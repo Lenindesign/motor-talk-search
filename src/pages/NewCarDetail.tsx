@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, FileText, Car, Star, Settings, Zap, Shield, Users, MapPin, Wrench, CheckCircle2 } from 'lucide-react';
@@ -17,6 +18,7 @@ import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 import { Button } from '@/components/ui/button';
 import PricingModule from './NewCarDetail/PricingModule';
 import CostOfOwnership from '@/components/CostOfOwnership/CostOfOwnership';
+
 const NewCarDetail: React.FC = () => {
   const {
     id
@@ -106,6 +108,7 @@ const NewCarDetail: React.FC = () => {
         </main>
       </div>;
   }
+
   const carData: CarData = {
     id: car.id,
     title: car.title,
@@ -119,6 +122,7 @@ const NewCarDetail: React.FC = () => {
     drivetrain: 'AWD',
     location: 'Available Nationwide'
   };
+
   const processedTrims = mockTrims.map(trim => ({
     name: trim.name,
     price: trim.name === 'Base' ? car.price : '$' + (parseInt(car.price.replace(/\D/g, '')) + trim.basePrice).toLocaleString(),
@@ -265,17 +269,17 @@ const NewCarDetail: React.FC = () => {
           
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            {/* Sticky Sidebar Container */}
+            {/* Sticky Sidebar Container with Alternating Positions */}
             <div className="hidden lg:block relative">
               {/* First Sticky Component - Car Sidebar */}
-              <div className="sticky top-[120px] z-20" style={{ marginBottom: '800px' }}>
-                <div className="pb-6">
+              <div className="sticky top-[120px] z-20 mb-4" style={{ height: '800px' }}>
+                <div className="pb-4">
                   <CarSidebar car={car} carData={carData} />
                 </div>
               </div>
               
               {/* Second Sticky Component - Quick Links */}
-              <div className="sticky top-[120px] z-10">
+              <div className="sticky top-[936px] z-10 mb-4" style={{ height: '800px' }}>
                 <div className="space-y-6">
                   {/* Quick Links */}
                   <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden">
@@ -299,59 +303,63 @@ const NewCarDetail: React.FC = () => {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
 
-                  {/* Key Features */}
-                  <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden">
-                    <div className="p-4 bg-neutral-7 border-b border-neutral-6">
-                      <h3 className="typography-body-large font-semibold text-neutral-1">Key Features</h3>
-                    </div>
-                    <div className="p-4">
-                      <ul className="space-y-3">
-                        <li className="flex">
-                          <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="typography-body-small text-neutral-2">All-wheel drive with dual motors</span>
-                        </li>
-                        <li className="flex">
-                          <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="typography-body-small text-neutral-2">15.5-inch touchscreen infotainment</span>
-                        </li>
-                        <li className="flex">
-                          <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="typography-body-small text-neutral-2">Advanced driver assistance features</span>
-                        </li>
-                        <li className="flex">
-                          <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="typography-body-small text-neutral-2">Over-the-air software updates</span>
-                        </li>
-                        <li className="flex">
-                          <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="typography-body-small text-neutral-2">Premium audio system with 14 speakers</span>
-                        </li>
-                      </ul>
-                    </div>
+              {/* Third Sticky Component - Key Features */}
+              <div className="sticky top-[1752px] z-10 mb-4" style={{ height: '800px' }}>
+                <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden">
+                  <div className="p-4 bg-neutral-7 border-b border-neutral-6">
+                    <h3 className="typography-body-large font-semibold text-neutral-1">Key Features</h3>
                   </div>
+                  <div className="p-4">
+                    <ul className="space-y-3">
+                      <li className="flex">
+                        <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                        <span className="typography-body-small text-neutral-2">All-wheel drive with dual motors</span>
+                      </li>
+                      <li className="flex">
+                        <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                        <span className="typography-body-small text-neutral-2">15.5-inch touchscreen infotainment</span>
+                      </li>
+                      <li className="flex">
+                        <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                        <span className="typography-body-small text-neutral-2">Advanced driver assistance features</span>
+                      </li>
+                      <li className="flex">
+                        <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                        <span className="typography-body-small text-neutral-2">Over-the-air software updates</span>
+                      </li>
+                      <li className="flex">
+                        <CheckCircle2 size={16} className="text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                        <span className="typography-body-small text-neutral-2">Premium audio system with 14 speakers</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
 
-                  {/* Similar Cars */}
-                  <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden">
-                    <div className="p-4 bg-neutral-7 border-b border-neutral-6">
-                      <h3 className="typography-body-large font-semibold text-neutral-1">Similar Cars</h3>
-                    </div>
-                    <div className="p-4 space-y-4">
-                      {mockNewCars.slice(0, 3).map(similarCar => (
-                        <Link key={similarCar.id} to={`/cars/new/${similarCar.id}`} className="flex items-center bg-neutral-8 rounded-lg p-3 hover:shadow-md transition-shadow duration-200">
-                          <div className="w-16 h-12 flex-shrink-0 mr-3">
-                            <img src={similarCar.imageUrl || 'https://via.placeholder.com/300x180?text=Car+Image'} alt={similarCar.title} className="w-full h-full object-contain" />
-                          </div>
-                          <div className="flex-grow">
-                            <p className="typography-body-small font-medium text-neutral-1">{similarCar.title}</p>
-                            <p className="typography-caption text-neutral-3">${similarCar.price.toLocaleString()}</p>
-                          </div>
-                        </Link>
-                      ))}
-                      <Button variant="outline" size="sm" className="w-full mt-4">
-                        View All Similar Vehicles
-                      </Button>
-                    </div>
+              {/* Fourth Sticky Component - Similar Cars */}
+              <div className="sticky top-[2568px] z-10">
+                <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden">
+                  <div className="p-4 bg-neutral-7 border-b border-neutral-6">
+                    <h3 className="typography-body-large font-semibold text-neutral-1">Similar Cars</h3>
+                  </div>
+                  <div className="p-4 space-y-4">
+                    {mockNewCars.slice(0, 3).map(similarCar => (
+                      <Link key={similarCar.id} to={`/cars/new/${similarCar.id}`} className="flex items-center bg-neutral-8 rounded-lg p-3 hover:shadow-md transition-shadow duration-200">
+                        <div className="w-16 h-12 flex-shrink-0 mr-3">
+                          <img src={similarCar.imageUrl || 'https://via.placeholder.com/300x180?text=Car+Image'} alt={similarCar.title} className="w-full h-full object-contain" />
+                        </div>
+                        <div className="flex-grow">
+                          <p className="typography-body-small font-medium text-neutral-1">{similarCar.title}</p>
+                          <p className="typography-caption text-neutral-3">${similarCar.price.toLocaleString()}</p>
+                        </div>
+                      </Link>
+                    ))}
+                    <Button variant="outline" size="sm" className="w-full mt-4">
+                      View All Similar Vehicles
+                    </Button>
                   </div>
                 </div>
               </div>
