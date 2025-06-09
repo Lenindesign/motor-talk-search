@@ -66,7 +66,7 @@ const PhotoCard: React.FC<PhotoCardProps> = memo(({
   return (
     <Card
       variant="photo"
-      className={cn('group relative hover:shadow-xl transition-shadow duration-300 cursor-pointer bg-gray-800 border-gray-700', className)}
+      className={cn('group relative shadow-[0_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.12)] transition-shadow duration-300 cursor-pointer bg-gray-800 border-0', className)}
       isSaved={isSaved}
       onToggleSave={toggleSave}
       onClick={handleClick}

@@ -68,7 +68,7 @@ const VideoCard: React.FC<VideoCardProps> = memo(({
   }
   return <Card
     variant="video"
-    className={cn('group relative hover:shadow-xl transition-shadow duration-300 cursor-pointer bg-gray-800', className)}
+    className={cn('group relative hover:shadow-xl transition-shadow duration-300 cursor-pointer bg-gray-800 dark:border-0', className)}
     isSaved={isSaved}
     onToggleSave={toggleSave}
     metadata={{

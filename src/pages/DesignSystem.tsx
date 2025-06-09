@@ -2,7 +2,7 @@ import React, { useState, lazy, Suspense } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { Download, Github, Code, Palette, BookOpen, FileText, Search, Layout, FormInput } from 'lucide-react';
+import { Download, Github, Code, Palette, BookOpen, FileText, Search, Layout, FormInput, CreditCard, Type, Car } from 'lucide-react';
 
 // Lazy load components
 const OverviewTab = lazy(() => import('@/components/design-system/OverviewTab'));
@@ -16,6 +16,10 @@ const AnimationsTab = lazy(() => import('@/components/design-system/AnimationsTa
 const TokensTab = lazy(() => import('@/components/design-system/TokensTab'));
 const PatternsTab = lazy(() => import('@/components/design-system/PatternsTab'));
 const SearchTab = lazy(() => import('@/components/design-system/SearchTab'));
+const ButtonPlaygroundTab = lazy(() => import('@/components/design-system/ButtonPlayground'));
+const CardPlaygroundTab = lazy(() => import('@/components/design-system/CardPlayground'));
+const TypographyPlaygroundTab = lazy(() => import('@/components/design-system/TypographyPlayground'));
+const GarageTab = lazy(() => import('@/components/design-system/GarageTab'));
 const AccessibilityTab = lazy(() => import('@/components/design-system/AccessibilityTab'));
 const LayoutTab = lazy(() => import('@/components/design-system/LayoutTab'));
 const FormsTab = lazy(() => import('@/components/design-system/FormsTab'));
@@ -48,9 +52,9 @@ const DesignSystem = () => {
                   <BookOpen className="h-4 w-4 mr-2" />
                   Overview
                 </TabsTrigger>
-                <TabsTrigger value="tokens" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-color-primary-2 px-4 py-3">
+                <TabsTrigger value="patterns" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-color-primary-2 px-4 py-3">
                   <FileText className="h-4 w-4 mr-2" />
-                  Design Tokens
+                  Patterns
                 </TabsTrigger>
                 
                 <div className="p-4 typography-small text-color-neutral-4 uppercase tracking-wider mt-2 text-left w-full">Foundation</div>
@@ -102,6 +106,22 @@ const DesignSystem = () => {
                 </TabsTrigger>
                 
                 <div className="p-4 typography-small text-color-neutral-4 uppercase tracking-wider mt-2 text-left w-full">Resources</div>
+                <TabsTrigger value="garage" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-color-primary-2 px-4 py-3">
+                  <Car className="h-4 w-4 mr-2" />
+                  My Garage
+                </TabsTrigger>
+                <TabsTrigger value="button-playground" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-color-primary-2 px-4 py-3">
+                  <Code className="h-4 w-4 mr-2" />
+                  Button Playground
+                </TabsTrigger>
+                <TabsTrigger value="card-playground" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-color-primary-2 px-4 py-3">
+                  <CreditCard className="h-4 w-4 mr-2" />
+                  Card Playground
+                </TabsTrigger>
+                <TabsTrigger value="typography-playground" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-color-primary-2 px-4 py-3">
+                  <Type className="h-4 w-4 mr-2" />
+                  Typography Playground
+                </TabsTrigger>
                 <TabsTrigger value="accessibility" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-color-primary-2 px-4 py-3">
                   <span className="text-xs mr-2">♿</span>
                   Accessibility
@@ -182,10 +202,34 @@ const DesignSystem = () => {
                   <PatternsTab />
                 </Suspense>
               </TabsContent>
+
+              <TabsContent value="garage" className="flex-1 p-6">
+                <Suspense fallback={<div className="animate-pulse">Loading...</div>}>
+                  <GarageTab />
+                </Suspense>
+              </TabsContent>
               
               <TabsContent value="search" className="flex-1 p-6">
                 <Suspense fallback={<div className="animate-pulse">Loading...</div>}>
                   <SearchTab />
+                </Suspense>
+              </TabsContent>
+
+              <TabsContent value="button-playground" className="flex-1 p-6">
+                <Suspense fallback={<div className="animate-pulse">Loading...</div>}>
+                  <ButtonPlaygroundTab />
+                </Suspense>
+              </TabsContent>
+
+              <TabsContent value="card-playground" className="flex-1 p-6">
+                <Suspense fallback={<div className="animate-pulse">Loading...</div>}>
+                  <CardPlaygroundTab />
+                </Suspense>
+              </TabsContent>
+
+              <TabsContent value="typography-playground" className="flex-1 p-6">
+                <Suspense fallback={<div className="animate-pulse">Loading...</div>}>
+                  <TypographyPlaygroundTab />
                 </Suspense>
               </TabsContent>
 

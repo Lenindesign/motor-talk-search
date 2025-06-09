@@ -6,6 +6,7 @@ import { PaymentCalculator } from '@/components/PaymentCalculator/PaymentCalcula
 import { CarData } from '@/components/CarCard';
 import { getBodyStyle, mockTrims, expertRatings, ownerReviews } from './NewCarDetail/utils';
 import CarHeader from './NewCarDetail/CarHeader';
+import CarSidebar from './NewCarDetail/CarSidebar';
 import VehicleOverview from './NewCarDetail/VehicleOverview';
 import RatingsTab from './NewCarDetail/RatingsTab';
 import ComparisonTab from './NewCarDetail/ComparisonTab';
@@ -141,17 +142,16 @@ const NewCarDetail: React.FC = () => {
           </div>
         </nav>
         
-        {/* Car Header with Image and Primary Info */}
-        <div className="mb-6">
-            <CarHeader car={car} carData={carData} overallRating={expertRatings[0].score} />
-        </div>
-
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
           {/* Main Content Area */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 space-y-6">
+            {/* Car Header with Image and Primary Info */}
+            <div id="hero">
+              <CarHeader car={car} carData={carData} overallRating={expertRatings[0].score} />
+            </div>
             {/* Vehicle Overview */}
-            <div id="overview" className="mb-6">
+            <div id="overview">
               <VehicleOverview overallRating={expertRatings[0].score} ownerRating={ownerReviews.overallScore} carTitle={car.title} specs={{
               engine: '400 HP Electric Motor',
               acceleration: '4.2 seconds 0-60 mph',
@@ -165,7 +165,7 @@ const NewCarDetail: React.FC = () => {
             </div>
 
             {/* Payment Calculator Section */}
-            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="payment-calculator">
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5" id="payment-calculator">
               <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Payment Calculator</h2>
               <PaymentCalculator car={{
               ...car,
@@ -175,19 +175,19 @@ const NewCarDetail: React.FC = () => {
             </div>
             
             {/* Expert Ratings Section */}
-            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="ratings">
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5" id="ratings">
               <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Expert Ratings</h2>
               <RatingsTab />
             </div>
             
             {/* Class Comparison */}
-            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="comparison">
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5" id="comparison">
               <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Class Comparison</h2>
               <ComparisonTab carTitle={car.title} carCategory={car.category} />
             </div>
             
             {/* Competitors Section */}
-            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6" id="competitors">
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5" id="competitors">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-lg md:text-xl text-neutral-1 font-bold">Compare with Competitors</h2>
                 <Button variant="ghost" size="sm" className="text-motortrend-red text-xs px-2">
@@ -198,7 +198,7 @@ const NewCarDetail: React.FC = () => {
             </div>
             
             {/* Owner Reviews Section */}
-            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6 min-h-[300px]" id="reviews">
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 min-h-[300px]" id="reviews">
               <h2 className="text-lg md:text-xl text-neutral-1 font-bold mb-3">Owner Reviews</h2>
               <ReviewsTab />
             </div>
@@ -206,12 +206,12 @@ const NewCarDetail: React.FC = () => {
 
             
             {/* Trim Levels Section */}
-            <div id="trims" className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5 mb-6">
+            <div id="trims" className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5">
               <TrimLevels carTitle={car.title} />
             </div>
 
             {/* Cost of Ownership Section */}
-            <div id="cost" className="mb-6">
+            <div id="cost">
               <CostOfOwnership initialPrice={parseInt(car.price.replace(/\D/g, ''))} costBreakdown={[{
               category: 'Depreciation',
               amount: 42000,
@@ -258,9 +258,14 @@ const NewCarDetail: React.FC = () => {
           </div>
           
           {/* Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-1 space-y-6">
+            {/* Sticky Car Sidebar */}
+            <div className="hidden lg:block sticky top-[120px] z-40">
+              <CarSidebar car={car} carData={carData} />
+            </div>
+            
             {/* Quick Links */}
-            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden mb-6">
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden">
               <div className="p-4 bg-neutral-7 border-b border-neutral-6">
                 <h3 className="typography-body-large font-semibold text-neutral-1">Quick Links</h3>
               </div>
@@ -283,7 +288,7 @@ const NewCarDetail: React.FC = () => {
             </div>
 
             {/* Key Features */}
-            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden mb-6">
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden">
               <div className="p-4 bg-neutral-7 border-b border-neutral-6">
                 <h3 className="typography-body-large font-semibold text-neutral-1">Key Features</h3>
               </div>
