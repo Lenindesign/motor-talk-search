@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Star, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import ArticleCard, { ArticleData } from '@/components/ArticleCard';
+import ArticleCard from '@/components/ArticleCard';
+import { ArticleData } from '@/types/article';
+
 interface ReviewItem {
   id: string;
   title: string;
@@ -14,6 +16,7 @@ interface ReviewItem {
   date: string;
   author: string;
 }
+
 const reviewItems: ArticleData[] = [{
   id: '1',
   title: '2024 Honda Accord Hybrid Review: The Smart Choice',
@@ -33,6 +36,7 @@ const reviewItems: ArticleData[] = [{
   category: 'Long-Term Test',
   date: 'May 1, 2025'
 }];
+
 const LatestReviews: React.FC = () => {
   return <section className="space-content">
       <div className="component-header">
@@ -53,4 +57,5 @@ const LatestReviews: React.FC = () => {
       </div>
     </section>;
 };
+
 export default LatestReviews;

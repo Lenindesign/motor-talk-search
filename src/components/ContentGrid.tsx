@@ -1,6 +1,7 @@
 import React from "react";
 import { ContentType } from "./ContentTabs";
-import ArticleCard, { ArticleData } from "./ArticleCard";
+import ArticleCard from "./ArticleCard";
+import { ArticleData } from "@/types/article";
 import CarCard, { CarData } from "./CarCard";
 import PhotoCard, { PhotoData } from "./PhotoCard";
 import VideoCard, { VideoData } from "./VideoCard";

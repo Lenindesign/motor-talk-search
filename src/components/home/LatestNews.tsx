@@ -2,7 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Newspaper, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import ArticleCard, { ArticleData } from '@/components/ArticleCard';
+import ArticleCard from '@/components/ArticleCard';
+import { ArticleData } from '@/types/article';
+
 const newsItems: ArticleData[] = [{
   id: '1',
   title: '2025 Ferrari 12Cilindri First Look: The B12-HP...',
@@ -34,6 +36,7 @@ const newsItems: ArticleData[] = [{
   category: 'Comparison',
   date: 'Apr 25, 2025'
 }];
+
 const LatestNews: React.FC = () => {
   return <section className="space-content">
       <div className="component-header">
@@ -59,4 +62,5 @@ const LatestNews: React.FC = () => {
       </div>
     </section>;
 };
+
 export default LatestNews;

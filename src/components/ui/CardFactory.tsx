@@ -1,10 +1,9 @@
-
 import React from 'react';
 import { Card } from './card';
 import { CardType } from '@/styles/cardStyles';
 import { cn } from '@/lib/utils';
 import { CarData, CarCardProps } from '../CarCard/types';
-import { ArticleData, ArticleCardProps } from '../ArticleCard';
+import { ArticleData, ArticleCardProps } from '@/types/article';
 import { VideoData, VideoCardProps } from '../VideoCard';
 import { PhotoData, PhotoCardProps } from '../PhotoCard';
 
