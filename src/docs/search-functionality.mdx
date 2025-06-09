@@ -1,0 +1,85 @@
+# Search Functionality
+
+Intelligent automotive search with context-aware results prioritization and chatbot assistance.
+
+## Overview
+
+Our search system is designed to understand automotive context and user intent, delivering the most relevant results based on sophisticated prioritization rules. The search algorithm analyzes queries to determine if users are looking for specific makes, models, or content types, and adjusts result ranking accordingly.
+
+## Interactive Examples
+
+Try these example searches to see how our prioritization logic works:
+
+1. Make Search: Enter "Honda" to see how results are prioritized:
+   - The make itself (Honda brand page)
+   - Popular models (Accord, Civic, CR-V, etc.)
+   - Related content (News articles, photo galleries, etc.)
+
+2. Model Search: Enter "Honda Accord" to see model-specific prioritization:
+   - The exact model (Honda Accord model page)
+   - Model-specific content (Reviews, photos, videos of the Accord)
+   - Secondary content (News mentioning the Accord, comparison articles, etc.)
+
+3. Question Mode: Enter a question like "What's the best EV?" to trigger the chatbot:
+   - Activates AI-powered chatbot mode
+   - Provides conversational responses with expert insights
+   - Includes relevant links to in-depth content
+   - Suggests related topics and comparisons
+
+## Chatbot Examples
+
+The search automatically detects when users are asking questions and switches to chatbot mode. Here are some examples:
+
+1. Vehicle Recommendations:
+   ```
+   Q: "What's the best family SUV under $40,000?"
+   A: Based on our testing, top family SUVs under $40,000 include:
+      - Hyundai Palisade: Best overall value
+      - Kia Telluride: Best comfort and features
+      - Mazda CX-90: Best driving dynamics
+      [View full SUV rankings →]
+   ```
+
+2. Technical Questions:
+   ```
+   Q: "Should I buy a hybrid or electric car?"
+   A: The choice depends on your needs:
+      - Hybrids are great if you:
+        • Take long trips regularly
+        • Don't have home charging
+        • Want lower upfront costs
+      - EVs are better if you:
+        • Have home charging
+        • Drive mostly local
+        • Want lowest operating costs
+      [Read our Hybrid vs EV Guide →]
+   ```
+
+3. Maintenance Advice:
+   ```
+   Q: "How often should I rotate my tires?"
+   A: For most vehicles, rotate tires every 5,000-8,000 miles.
+      Signs you need rotation sooner:
+      • Uneven wear patterns
+      • Vehicle pulling to one side
+      • Vibration in steering wheel
+      [View complete maintenance guide →]
+   ```
+
+## Implementation Guidelines
+
+1. Query Analysis:
+   - Identify query type (make, model, question)
+   - Extract key automotive terms
+   - Determine user intent
+
+2. Result Prioritization:
+   - Primary matches (exact make/model)
+   - Related content (reviews, comparisons)
+   - Supporting content (news, photos)
+
+3. Chatbot Integration:
+   - Question detection
+   - Context-aware responses
+   - Related content links
+   - Follow-up suggestions
