@@ -8,8 +8,19 @@ import { Search, Info, Car, FileText, Image, Video, Filter } from 'lucide-react'
 import CodeSnippet from './CodeSnippet';
 import ResponsivePreview from './ResponsivePreview';
 
+interface SearchResult {
+  type: 'make' | 'model' | 'article' | 'photo' | 'video' | 'chat';
+  title: string;
+  subtitle?: string;
+  priority: 'high' | 'medium' | 'low';
+  date?: string;
+  count?: string;
+  duration?: string;
+  response?: string;
+}
+
 // Mock search results for demonstration
-const hondaResults = [
+const hondaResults: SearchResult[] = [
   { type: 'make', title: 'Honda', subtitle: 'Japanese Automaker', priority: 'high' },
   { type: 'model', title: 'Honda Accord', subtitle: '2025 Model', priority: 'medium' },
   { type: 'model', title: 'Honda Civic', subtitle: '2025 Model', priority: 'medium' },
@@ -17,15 +28,38 @@ const hondaResults = [
   { type: 'model', title: 'Honda Pilot', subtitle: '2025 Model', priority: 'medium' },
   { type: 'article', title: 'Honda Announces New EV Strategy', date: '2025-05-15', priority: 'low' },
   { type: 'photo', title: 'Honda Collection at Tokyo Motor Show', count: '24 photos', priority: 'low' },
-];
+] as const;
 
-const hondaAccordResults = [
+const hondaAccordResults: SearchResult[] = [
   { type: 'model', title: 'Honda Accord', subtitle: '2025 Model', priority: 'high' },
   { type: 'article', title: '2025 Honda Accord Review: Still the Midsize Sedan Benchmark', date: '2025-04-10', priority: 'medium' },
   { type: 'photo', title: 'Honda Accord Photo Gallery', count: '18 photos', priority: 'medium' },
   { type: 'video', title: 'Honda Accord vs Toyota Camry: Midsize Sedan Showdown', duration: '12:45', priority: 'medium' },
   { type: 'article', title: 'Honda Accord Hybrid: The Efficient Choice', date: '2025-03-22', priority: 'low' },
-];
+] as const;
+
+const bestEvResults: SearchResult[] = [
+  { 
+    type: 'chat',
+    title: 'Best EVs for 2025',
+    response: `Based on our testing, here are the top EVs for 2025:
+
+• Luxury: Lucid Air (516 mile range)
+• SUV: Rivian R1S (best capability)
+• Value: Hyundai Ioniq 6 (best efficiency)
+
+[View full EV rankings →]
+
+Would you like to:
+• Compare EV models
+• See charging guides
+• Read latest EV news`,
+    priority: 'high'
+  },
+  { type: 'article', title: 'Best Electric Cars of 2025', date: '2025-06-01', priority: 'medium' },
+  { type: 'video', title: 'Ultimate EV Comparison Test', duration: '18:32', priority: 'medium' },
+  { type: 'article', title: 'EV Buying Guide: Everything You Need to Know', date: '2025-05-28', priority: 'medium' },
+] as const;
 
 const searchLogicCode = `// Simplified search logic pseudocode
 function performSearch(query: string): SearchResult[] {
@@ -64,14 +98,17 @@ function performSearch(query: string): SearchResult[] {
 const SearchTab: React.FC = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   
-  const handleSearch = (query: string) => {
+const handleSearch = (query: string) => {
     // Simple mock implementation to demonstrate the UI
-    if (query.toLowerCase() === 'honda') {
+    const lowerQuery = query.toLowerCase();
+    if (lowerQuery === 'honda') {
       setSearchResults(hondaResults);
-    } else if (query.toLowerCase() === 'honda accord') {
+    } else if (lowerQuery === 'honda accord') {
       setSearchResults(hondaAccordResults);
+    } else if (lowerQuery.includes('best ev') || lowerQuery.includes('best electric')) {
+      setSearchResults(bestEvResults);
     } else {
       setSearchResults([]);
     }
@@ -207,55 +244,46 @@ const SearchTab: React.FC = () => {
                     Try these example searches to see how our prioritization logic works. Enter "Honda" or "Honda Accord" to see different result patterns.
                   </p>
                   
-                  <div className="bg-white p-4 rounded-md border mb-4">
-                    <div className="flex gap-2 mb-4">
-                      <div className="relative flex-grow">
-                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-neutral-4" />
-                        <Input 
-                          type="search" 
-                          placeholder="Try 'Honda' or 'Honda Accord'..." 
-                          className="pl-9"
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                          onKeyDown={(e) => e.key === 'Enter' && handleSearch(searchQuery)}
-                        />
-                      </div>
-                      <Button onClick={() => handleSearch(searchQuery)}>
-                        Search
-                      </Button>
+                  <div className="space-y-4">
+                    <div className="relative">
+                      <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-neutral-4" />
+                      <Input 
+                        type="search" 
+                        placeholder="Try 'Honda', 'Honda Accord', or 'What's the best EV?'" 
+                        className="pl-9"
+                        value={searchQuery}
+                        onChange={(e) => {
+                          setSearchQuery(e.target.value);
+                          handleSearch(e.target.value);
+                        }}
+                      />
                     </div>
-                    
+                    <Button onClick={() => handleSearch(searchQuery)}>
+                      Search
+                    </Button>
                     {searchResults.length > 0 ? (
                       <div className="space-y-3">
                         {searchResults.map((result, index) => (
-                          <div key={index} className="flex items-start p-2 hover:bg-neutral-9 rounded-md">
-                            <div className="mr-3 mt-0.5">
-                              {result.type === 'make' || result.type === 'model' ? (
-                                <Car className="h-5 w-5 text-motortrend-dark" />
-                              ) : result.type === 'article' ? (
-                                <FileText className="h-5 w-5 text-motortrend-dark" />
-                              ) : result.type === 'photo' ? (
-                                <Image className="h-5 w-5 text-motortrend-dark" />
-                              ) : (
-                                <Video className="h-5 w-5 text-motortrend-dark" />
-                              )}
-                            </div>
+                          <div key={index} className="flex items-start gap-3 p-3 bg-white rounded-md border">
                             <div className="flex-grow">
-                              <div className="flex items-center justify-between">
-                                <h4 className="font-medium">{result.title}</h4>
-                                <span className={`text-xs px-2 py-0.5 rounded ${
-                                  result.priority === 'high' 
-                                    ? 'bg-green-100 text-green-800' 
-                                    : result.priority === 'medium'
-                                      ? 'bg-blue-100 text-blue-800'
-                                      : 'bg-gray-100 text-gray-800'
-                                }`}>
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className={`text-xs font-medium px-2 py-0.5 rounded ${result.priority === 'high' ? 'bg-green-100 text-green-800' : result.priority === 'medium' ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-800'}`}>
                                   {result.priority.charAt(0).toUpperCase() + result.priority.slice(1)}
                                 </span>
+                                <span className="text-xs text-neutral-4">{result.type.charAt(0).toUpperCase() + result.type.slice(1)}</span>
                               </div>
-                              <p className="text-sm text-neutral-4">
-                                {result.subtitle || result.date || result.count || result.duration}
-                              </p>
+                              <h4 className="font-medium mb-1">{result.title}</h4>
+                              {result.type === 'chat' ? (
+                                <div className="mt-3 p-3 bg-neutral-9 rounded-md">
+                                  <pre className="whitespace-pre-wrap font-mono text-sm text-neutral-1">
+                                    {result.response}
+                                  </pre>
+                                </div>
+                              ) : (
+                                <p className="text-sm text-neutral-4">
+                                  {result.subtitle || result.date || result.count || result.duration}
+                                </p>
+                              )}
                             </div>
                           </div>
                         ))}
