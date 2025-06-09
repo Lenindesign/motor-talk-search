@@ -6,14 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import ImageSearchOverlay from './ImageSearchOverlay';
 import { useNavigate } from 'react-router-dom';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter,
-} from "@/components/ui/dialog";
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -37,14 +29,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const [isFocused, setIsFocused] = useState(false);
   const [voiceSearch, setVoiceSearch] = useState(false);
   const [isImageSearchOverlayOpen, setIsImageSearchOverlayOpen] = useState(false);
-  const [aiResponse, setAiResponse] = useState<{ question: string; answer: string } | null>(null);
-  const [isAiResponseOpen, setIsAiResponseOpen] = useState(false);
-  const [userMessages, setUserMessages] = useState<{ text: string; isUser: boolean }[]>([]);
-  const [inputValue, setInputValue] = useState("");
   
   const localInputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const chatEndRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   
   const {
@@ -73,19 +60,15 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
   
   const handleSuggestionSelect = (suggestion: Suggestion) => {
-    // Handle AI suggestions differently
+    // Handle AI suggestions by navigating to search results with the AI response
     if (suggestion.type === 'aiSuggestion' && suggestion.aiResponse) {
-      setAiResponse({
-        question: suggestion.text,
-        answer: suggestion.aiResponse
-      });
-      setUserMessages([
-        { text: suggestion.text, isUser: true },
-        { text: suggestion.aiResponse, isUser: false }
-      ]);
-      setIsAiResponseOpen(true);
+      // Navigate to search results page with AI query and response
+      navigate(`/search?q=${encodeURIComponent(suggestion.text)}&aiResponse=${encodeURIComponent(suggestion.aiResponse)}`);
       setQuery("");
       setShowSuggestions(false);
+      if (currentInputRef?.current) {
+        currentInputRef.current.blur();
+      }
       return;
     }
     
@@ -141,31 +124,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
     setIsImageSearchOverlayOpen(true);
   };
   
-  const handleAiChatSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!inputValue.trim()) return;
-    
-    // Add user's message to the chat
-    const newMessages = [...userMessages, { text: inputValue, isUser: true }];
-    setUserMessages(newMessages);
-    setInputValue("");
-    
-    // Simulate AI response
-    setTimeout(() => {
-      // Mock response - in a real app this would be an API call
-      const aiResponseText = `Thank you for your question about "${inputValue}". Based on our automotive database, I can provide you with information on specifications, pricing, reviews, and comparisons. Please let me know if you need more specific details.`;
-      
-      setUserMessages([...newMessages, { text: aiResponseText, isUser: false }]);
-      
-      // Scroll to bottom after adding new message
-      setTimeout(() => {
-        if (chatEndRef.current) {
-          chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
-    }, 1000);
-  };
-  
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
@@ -196,12 +154,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
       currentInputRef.current.focus();
     }
   }, [isLoading, currentInputRef, variant]);
-  
-  useEffect(() => {
-    if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [userMessages]);
   
   return (
     <div ref={wrapperRef} className="relative w-full">
@@ -425,83 +377,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
           }}
         />
       )}
-      
-      {/* AI Response Dialog */}
-      <Dialog open={isAiResponseOpen} onOpenChange={setIsAiResponseOpen}>
-        <DialogContent className="sm:max-w-[600px]">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <img 
-                src="https://d2kde5ohu8qb21.cloudfront.net/files/684770b189dde90008189d23/aiicon.svg" 
-                alt="AI"
-                className="w-6 h-6" 
-              />
-              <span>MotorTalk AI Assistant</span>
-            </DialogTitle>
-            <DialogDescription>
-              Ask me anything about cars, specs, reviews, or buying advice
-            </DialogDescription>
-          </DialogHeader>
-          
-          {/* Chat Messages */}
-          <div className="border rounded-md p-4 h-[350px] overflow-y-auto mb-4 bg-gray-50 dark:bg-gray-900">
-            <div className="space-y-4">
-              {userMessages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-[80%] rounded-lg p-3 ${
-                      message.isUser
-                        ? 'bg-primary text-white'
-                        : 'bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-                    }`}
-                  >
-                    {!message.isUser && (
-                      <div className="flex items-center gap-2 mb-1 text-primary dark:text-primary-400">
-                        <img 
-                          src="https://d2kde5ohu8qb21.cloudfront.net/files/684770b189dde90008189d23/aiicon.svg" 
-                          alt="AI"
-                          className="w-4 h-4" 
-                        />
-                        <span className="font-medium text-sm">MotorTalk AI</span>
-                      </div>
-                    )}
-                    <p className="whitespace-pre-wrap">{message.text}</p>
-                  </div>
-                </div>
-              ))}
-              <div ref={chatEndRef} />
-            </div>
-          </div>
-          
-          {/* Chat Input */}
-          <form onSubmit={handleAiChatSubmit} className="flex gap-2">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              placeholder="Ask a follow-up question..."
-              className="flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary dark:bg-gray-800 dark:text-white"
-            />
-            <Button type="submit" disabled={!inputValue.trim()}>
-              Send
-            </Button>
-          </form>
-          
-          <DialogFooter className="sm:justify-start">
-            <div className="flex items-center text-xs text-gray-500 dark:text-gray-400">
-              <img 
-                src="https://d2kde5ohu8qb21.cloudfront.net/files/684770b189dde90008189d23/aiicon.svg" 
-                alt="AI"
-                className="w-4 h-4 mr-1" 
-              />
-              Powered by MotorTalk AI
-            </div>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

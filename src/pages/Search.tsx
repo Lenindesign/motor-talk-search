@@ -58,6 +58,7 @@ const Search = () => {
   // Check for URL query parameter and perform search automatically
   useEffect(() => {
     const queryFromUrl = searchParams.get('q');
+    const aiResponseFromUrl = searchParams.get('aiResponse');
 
     if (queryFromUrl && queryFromUrl.trim()) {
       const trimmedQuery = queryFromUrl.trim();
@@ -72,7 +73,7 @@ const Search = () => {
         return;
       }
 
-      const isQuestion = trimmedQuery.endsWith("?");
+      const isQuestion = trimmedQuery.endsWith("?") || aiResponseFromUrl;
       const typeFromUrl = isQuestion ? "chat" : "search";
       const queryExistsInHistory = searchHistory.some(
         item => item.query === trimmedQuery && item.type === typeFromUrl
@@ -81,10 +82,43 @@ const Search = () => {
       if (!queryExistsInHistory) {
         // Store the current query to prevent duplicate processing
         previousQueryRef.current = trimmedQuery;
-        handleSearch(trimmedQuery);
+        
+        // If there's an AI response in the URL, handle it specially
+        if (aiResponseFromUrl) {
+          handleAIResponse(trimmedQuery, aiResponseFromUrl);
+        } else {
+          handleSearch(trimmedQuery);
+        }
       }
     }
   }, [searchParams, searchHistory, isSearching]);
+
+  // Function to handle AI responses from URL
+  const handleAIResponse = (query: string, aiResponse: string) => {
+    const searchId = `search-${Date.now()}`;
+    
+    // Create a new chat result with the predefined response
+    const newResult: SearchResult = {
+      id: searchId,
+      query,
+      type: "chat",
+      response: decodeURIComponent(aiResponse),
+      timestamp: new Date().toLocaleTimeString()
+    };
+    
+    // Add to search history
+    setSearchHistory(prev => [...prev, newResult]);
+    
+    // Scroll to the result
+    setTimeout(() => {
+      if (latestResultRef.current) {
+        latestResultRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'end'
+        });
+      }
+    }, 100);
+  };
 
   // Function to handle search submissions
   const handleSearch = (rawQuery: string) => {
