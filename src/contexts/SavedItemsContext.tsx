@@ -24,7 +24,7 @@ export interface UserActivity {
 
 // Saved item type
 // Update the SavedItemType to use "testDriven" internally but display as "Test Drive"
-export type SavedItemType = 'article' | 'newCar' | 'usedCar' | 'photo' | 'video' | 'owned' | 'testDriven' | 'interested';
+export type SavedItemType = 'article' | 'newCar' | 'usedCar' | 'photo' | 'video' | 'comment' | 'review' | 'owned' | 'testDriven' | 'interested';
 
 // Saved item structure
 export interface SavedItem {
@@ -136,7 +136,80 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
         }
       }
     ];
-    setSavedItems(mockCars);
+
+    // Mock comments
+    const mockComments: SavedItem[] = [
+      {
+        id: "comment1",
+        title: "Great article! I've been considering the Camry for months and this review really helped me understand the hybrid system better.",
+        type: "comment",
+        imageUrl: "",
+        savedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+        metadata: {
+          author: "CarEnthusiast92",
+          date: "2 days ago",
+          articleTitle: "2024 Toyota Camry Hybrid Review",
+          articleId: "article-camry-2024",
+          likes: "12",
+          replies: "3"
+        }
+      },
+      {
+        id: "comment2",
+        title: "I disagree with the fuel economy claims. In real-world driving, I'm getting much better MPG than the EPA estimates.",
+        type: "comment",
+        imageUrl: "",
+        savedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
+        metadata: {
+          author: "EcoDriver",
+          date: "5 days ago",
+          articleTitle: "Best Hybrid SUVs of 2024",
+          articleId: "article-hybrid-suvs",
+          likes: "8",
+          replies: "7"
+        }
+      }
+    ];
+
+    // Mock reviews
+    const mockReviews: SavedItem[] = [
+      {
+        id: "review1",
+        title: "Excellent reliability and comfort",
+        type: "review",
+        imageUrl: "",
+        savedAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
+        metadata: {
+          content: "I've owned this car for 6 months now and it's been fantastic. The hybrid system is smooth, the interior is comfortable, and the reliability has been perfect. Highly recommend for anyone looking for a practical daily driver.",
+          author: "ToyotaOwner2024",
+          date: "1 week ago",
+          rating: "5",
+          carTitle: "2024 Toyota Camry Hybrid",
+          carId: "car-camry-2024",
+          helpful: "24",
+          verified: "true"
+        }
+      },
+      {
+        id: "review2",
+        title: "Good value but some concerns",
+        type: "review",
+        imageUrl: "",
+        savedAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(),
+        metadata: {
+          content: "Overall a solid car with good fuel economy. However, the road noise is more noticeable than I expected, and the infotainment system can be slow to respond. Still a good choice for the price point.",
+          author: "HondaFan",
+          date: "2 weeks ago",
+          rating: "4",
+          carTitle: "2023 Honda CR-V Hybrid",
+          carId: "car-crv-2023",
+          helpful: "18",
+          verified: "true"
+        }
+      }
+    ];
+
+    setSavedItems([...mockCars, ...mockComments, ...mockReviews]);
 
     // Mock achievements
     const achievements: UserAchievement[] = [

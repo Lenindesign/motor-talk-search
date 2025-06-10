@@ -21,6 +21,8 @@ import ArticleCard from "../components/ArticleCard";
 import CarCard from "../components/CarCard";
 import PhotoCard from "../components/PhotoCard";
 import VideoCard from "../components/VideoCard";
+import CommentCard from "../components/CommentCard";
+import ReviewCard from "../components/ReviewCard";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import MyGarageSkinny from "../components/profile/MyGarageSkinny";
 import GarageContent from '../components/garage/GarageContent';
@@ -225,6 +227,22 @@ const Profile = () => {
                           >
                             Videos ({savedItems.filter(item => item.type === 'video').length})
                           </Button>
+                          <Button 
+                            variant={filterType === "comment" ? "solid" : "ghost"} 
+                            size="sm" 
+                            onClick={() => setFilterType("comment")}
+                            className="flex-shrink-0"
+                          >
+                            Comments ({savedItems.filter(item => item.type === 'comment').length})
+                          </Button>
+                          <Button 
+                            variant={filterType === "review" ? "solid" : "ghost"} 
+                            size="sm" 
+                            onClick={() => setFilterType("review")}
+                            className="flex-shrink-0"
+                          >
+                            Reviews ({savedItems.filter(item => item.type === 'review').length})
+                          </Button>
                         </div>
                       </div>
                     </div>
@@ -233,12 +251,21 @@ const Profile = () => {
                       <div className="text-center py-10">
                         <Bookmark size={48} className="mx-auto text-gray-300 mb-4" />
                         <h3 className="text-lg font-medium text-gray-700 mb-2">
-                          {filterType === 'all' ? 'No saved items yet' : `No ${filterType === 'newCar' ? 'new cars' : filterType === 'usedCar' ? 'used cars' : filterType + 's'} saved yet`}
+                          {filterType === 'all' ? 'No saved items yet' : 
+                           filterType === 'newCar' ? 'No new cars saved yet' : 
+                           filterType === 'usedCar' ? 'No used cars saved yet' : 
+                           filterType === 'comment' ? 'No comments saved yet' :
+                           filterType === 'review' ? 'No reviews saved yet' :
+                           `No ${filterType}s saved yet`}
                         </h3>
                         <p className="text-gray-500 max-w-md mx-auto">
                           {filterType === 'all' 
-                            ? 'Use the bookmark button on articles, cars, videos, and photos to collect them here'
-                            : `Save some ${filterType === 'newCar' ? 'new cars' : filterType === 'usedCar' ? 'used cars' : filterType + 's'} to see them here`
+                            ? 'Use the bookmark button on articles, cars, videos, photos, comments, and reviews to collect them here'
+                            : filterType === 'newCar' ? 'Save some new cars to see them here'
+                            : filterType === 'usedCar' ? 'Save some used cars to see them here'
+                            : filterType === 'comment' ? 'Save interesting comments to see them here'
+                            : filterType === 'review' ? 'Save helpful reviews to see them here'
+                            : `Save some ${filterType}s to see them here`
                           }
                         </p>
                         <Button onClick={() => navigate("/")} className="mt-4 text-white bg-color-primary-1 hover:bg-color-primary-2 bg-black">
@@ -327,6 +354,40 @@ const Profile = () => {
                                     motorTrendCategoryRank: item.metadata?.motorTrendCategoryRank
                                   }} 
                                   type={item.type === 'newCar' ? 'new' : 'used'} 
+                                />
+                              );
+                            case 'comment':
+                              return (
+                                <CommentCard 
+                                  key={item.id} 
+                                  comment={{
+                                    id: item.id,
+                                    content: item.title, // Use title as content for saved comments
+                                    author: item.metadata?.author || 'Anonymous',
+                                    date: item.metadata?.date || item.savedAt,
+                                    articleTitle: item.metadata?.articleTitle,
+                                    articleId: item.metadata?.articleId,
+                                    likes: parseInt(item.metadata?.likes || '0'),
+                                    replies: parseInt(item.metadata?.replies || '0')
+                                  }} 
+                                />
+                              );
+                            case 'review':
+                              return (
+                                <ReviewCard 
+                                  key={item.id} 
+                                  review={{
+                                    id: item.id,
+                                    title: item.title,
+                                    content: item.metadata?.content || 'Review content...',
+                                    author: item.metadata?.author || 'Anonymous',
+                                    date: item.metadata?.date || item.savedAt,
+                                    rating: parseInt(item.metadata?.rating || '5'),
+                                    carTitle: item.metadata?.carTitle,
+                                    carId: item.metadata?.carId,
+                                    helpful: parseInt(item.metadata?.helpful || '0'),
+                                    verified: item.metadata?.verified === 'true'
+                                  }} 
                                 />
                               );
                             default:
