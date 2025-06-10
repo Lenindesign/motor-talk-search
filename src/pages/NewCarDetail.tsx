@@ -361,7 +361,7 @@ const NewCarDetail: React.FC = () => {
                         </div>
                         <div className="flex-grow">
                           <p className="typography-body-small font-medium text-neutral-1">{similarCar.title}</p>
-                          <p className="typography-caption text-neutral-3">${similarCar.price.toLocaleString()}</p>
+                          <p className="typography-caption text-neutral-3">{similarCar.price}</p>
                         </div>
                       </Link>
                     ))}

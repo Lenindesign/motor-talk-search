@@ -73,11 +73,13 @@ export const PaymentCalculator = ({ car }: PaymentCalculatorProps) => {
       </div>
 
       <div className="flex items-center gap-3 p-3 bg-neutral-8 rounded-lg mb-4">
-        <img 
-          src={car.imageUrl || 'https://via.placeholder.com/80x60?text=Car'} 
-          alt={car.title}
-          className="w-20 h-15 object-contain"
-        />
+        <div className="w-20 h-15 rounded-lg overflow-hidden flex-shrink-0">
+          <img 
+            src={car.imageUrl || 'https://via.placeholder.com/80x60?text=Car'} 
+            alt={car.title}
+            className="w-full h-full object-cover rounded-lg"
+          />
+        </div>
         <div>
           <h3 className="typography-title">{car.title}</h3>
           <p className="text-sm text-neutral-2">MSRP: {car.msrp}</p>
