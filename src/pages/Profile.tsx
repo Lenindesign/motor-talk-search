@@ -114,7 +114,7 @@ const Profile = () => {
         `}
       </style>
       <div className="min-h-screen bg-motortrend-gray">
-        <main className="mx-auto px-2 sm:px-4 pt-8 max-w-[1024px]">
+        <div className="pt-8 max-w-[1024px] mx-auto">
           <div className="flex flex-col md:flex-row gap-4">
             {/* Profile Sidebar - 1/3 width */}
             <aside className="w-full md:w-1/3 space-y-6">
@@ -513,7 +513,7 @@ const Profile = () => {
               </Tabs>
             </div>
           </div>
-        </main>
+        </div>
       </div>
       <PersonalizationDialog open={personalizationOpen} onOpenChange={setPersonalizationOpen} />
     </>

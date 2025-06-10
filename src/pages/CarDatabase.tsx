@@ -71,7 +71,7 @@ const CarDatabase = () => {
         </div>
       </header>
       
-      <main className="mx-auto px-2 sm:px-4 py-8">
+              <div className="py-8">
         <div className="mb-8 flex justify-between items-center">
           <h1 className="text-3xl font-bold flex items-center">
             <Database className="mr-2" /> Car Database (API Powered)
@@ -154,7 +154,7 @@ const CarDatabase = () => {
             </Card>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 };

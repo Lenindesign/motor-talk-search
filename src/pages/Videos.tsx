@@ -24,7 +24,7 @@ const Videos: React.FC = () => {
 
   return (
     <VideosPageWrapper>
-      <main className="w-full mx-auto px-0 py-[32px]">
+      <div className="w-full mx-auto py-[32px]">
         {/* Hero Carousel */}
         <div className="mb-10">
           <HeroCarousel slides={[
@@ -170,7 +170,7 @@ const Videos: React.FC = () => {
             </div>
           </section>
         ))}
-      </main>
+      </div>
     </VideosPageWrapper>
   );
 };

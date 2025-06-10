@@ -87,7 +87,7 @@ const Dashboard = () => {
         </div>
       </div>
       
-              <main className="max-w-[980px] mx-auto px-2 sm:px-4 py-6">
+      <div className="py-6">
         {/* Welcome section with personalization */}
         <section className="mb-8">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -463,7 +463,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         </section>
-      </main>
+      </div>
     </div>
   );
 };

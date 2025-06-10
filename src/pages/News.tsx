@@ -31,7 +31,7 @@ const News: React.FC = () => {
   const latestCars = mockNewCars.slice(0, 3);
   return <div className="min-h-screen bg-transparent">
       
-      <main className="max-w-[1024px] mx-auto px-0 py-[32px]">
+      <div className="max-w-[1024px] mx-auto py-[32px]">
         {/* Hero Carousel */}
         <div className="mb-8">
           <HeroCarousel slides={[{
@@ -150,7 +150,7 @@ const News: React.FC = () => {
             {latestCars.map(car => <CarCard key={car.id} car={car} type="new" />)}
           </div>
         </section>
-      </main>
+      </div>
     </div>;
 };
 export default News;
