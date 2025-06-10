@@ -18,6 +18,7 @@ import { Button } from '@/components/ui/button';
 import PricingModule from './NewCarDetail/PricingModule';
 import CostOfOwnership from '@/components/CostOfOwnership/CostOfOwnership';
 import StickyRelay from './NewCarDetail/StickyRelay';
+import MarketIntelligence from './NewCarDetail/MarketIntelligence/MarketIntelligence';
 
 const NewCarDetail: React.FC = () => {
   const {
@@ -61,6 +62,10 @@ const NewCarDetail: React.FC = () => {
     {
       id: 'cost',
       title: 'Cost of Ownership'
+    },
+    {
+      id: 'market-intelligence',
+      title: 'Market Intelligence'
     }
   ], []);
 
@@ -267,6 +272,16 @@ const NewCarDetail: React.FC = () => {
               year: 7,
               value: parseInt(car.price.replace(/\D/g, '')) * 0.45
             }]} />
+            </div>
+
+            {/* Market Intelligence Section */}
+            <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5" id="market-intelligence">
+              <MarketIntelligence 
+                carMake={car.title.split(' ')[1] || 'Unknown'}
+                carModel={car.title.split(' ').slice(2).join(' ') || car.title}
+                carYear={2025}
+                currentPrice={parseInt(car.price.replace(/\D/g, ''))}
+              />
             </div>
 
 

@@ -79,10 +79,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, isLoading = false }) 
         />
       )}
 
-      <main className="flex-grow px-2 sm:px-4 py-4">
+      <main className="flex-grow px-2 sm:px-4 py-4" style={{ border: '2px solid red' }}>
         {/* Add top padding on mobile to account for the sticky search */}
         <div className="sm:hidden" style={{ height: '60px' }} />
-        <div className="max-w-[980px] mx-auto">
+        <div className="max-w-[980px] mx-auto" style={{ border: '2px solid blue' }}>
           {children}
         </div>
       </main>
