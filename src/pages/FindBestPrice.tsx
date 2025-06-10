@@ -59,16 +59,21 @@ const FindBestPrice = () => {
         try {
           setLoading(true);
           
+          console.log('Looking for carId:', carId);
+          
           // First, try to find the car by ID in our mock data
           let foundCar = mockNewCars.find(car => car.id === carId);
+          console.log('Direct ID match found:', foundCar?.title || 'none');
           
           // If not found by ID, try to match by generated URL pattern
           if (!foundCar) {
-            // Parse the carId which comes in format like "2025-rivian-r1s-2025"
+            console.log('Trying URL pattern matching...');
             foundCar = mockNewCars.find(car => {
               const urlPattern = `${car.title.toLowerCase().replace(/ /g, '-')}-2025`;
+              console.log(`Checking ${car.title} -> pattern: ${urlPattern} vs carId: ${carId}`);
               return carId === urlPattern;
             });
+            console.log('URL pattern match found:', foundCar?.title || 'none');
           }
           
           if (foundCar) {
@@ -84,9 +89,11 @@ const FindBestPrice = () => {
               fallbackImageUrl: '/images/cars/placeholder.jpg'
             };
             
+            console.log('Setting car data:', carData);
             setCar(carData);
           } else {
             console.warn('Car not found for carId:', carId);
+            console.log('Available cars:', mockNewCars.map(car => ({ id: car.id, title: car.title })));
           }
         } catch (error) {
           console.error('Error fetching car data:', error);
