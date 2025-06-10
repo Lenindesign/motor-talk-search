@@ -18,7 +18,8 @@ const newCars: CarData[] = [{
   transmission: "CVT",
   motorTrendScore: "8.8",
   motorTrendRank: "2",
-  motorTrendCategoryRank: true
+  motorTrendCategoryRank: true,
+  userReviewsScore: "4.3",
 }, {
   id: "new2",
   title: "2025 Toyota RAV4",
@@ -35,7 +36,8 @@ const newCars: CarData[] = [{
   transmission: "8-speed automatic",
   motorTrendScore: "8.1",
   motorTrendRank: "9",
-  motorTrendCategoryRank: true
+  motorTrendCategoryRank: true,
+  userReviewsScore: "4.0",
 }, {
   id: "new3",
   title: "2025 Ford F-150",
@@ -52,7 +54,8 @@ const newCars: CarData[] = [{
   transmission: "10-speed automatic",
   motorTrendScore: "8.5",
   motorTrendRank: "1",
-  motorTrendCategoryRank: true
+  motorTrendCategoryRank: true,
+  userReviewsScore: "4.2",
 }];
 
 // Enhanced used cars with appropriate specs

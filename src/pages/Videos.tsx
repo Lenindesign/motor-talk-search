@@ -31,13 +31,14 @@ const Videos: React.FC = () => {
             {
               id: 'v1',
               title: '2025 Lamborghini Revuelto: Track Review',
-              subtitle: 'Lambo’s 1000+ hp hybrid V12 gets unleashed on the circuit. Watch the full test.',
+              subtitle: 'Lambo\'s 1000+ hp hybrid V12 gets unleashed on the circuit. Watch the full test.',
               imageUrl: 'https://www.motortrend.com/uploads/2023/03/012-2024-lamborghini-revuelto.jpg?w=768&width=768&q=75&format=webp',
               videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
               tag: 'Track Test',
               tagColor: 'bg-yellow-600',
               author: 'Chris Harris',
-              readTime: '2 hours ago'
+              readTime: '2 hours ago',
+              linkTo: '/video/v1'
             },
             {
               id: 'v2',
@@ -48,7 +49,8 @@ const Videos: React.FC = () => {
               tag: 'Drag Race',
               tagColor: 'bg-red-700',
               author: 'Megan Lee',
-              readTime: '4 hours ago'
+              readTime: '4 hours ago',
+              linkTo: '/video/v2'
             },
             {
               id: 'v3',
@@ -59,7 +61,8 @@ const Videos: React.FC = () => {
               tag: 'Adventure',
               tagColor: 'bg-green-800',
               author: 'Carlos Ramirez',
-              readTime: '6 hours ago'
+              readTime: '6 hours ago',
+              linkTo: '/video/v3'
             }
           ]} />
         </div>

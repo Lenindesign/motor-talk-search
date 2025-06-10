@@ -3,7 +3,7 @@ import { Award, Users } from 'lucide-react';
 
 interface DualScoreBadgeProps {
   expertRating: number;   // out of 10
-  ownerRating: number;    // out of 5
+  ownerRating: number;    // out of 5 (will be converted to 0-10 scale for display)
   rank?: {
     position: number;
     total: number;
@@ -17,7 +17,9 @@ const DualScoreBadge: React.FC<DualScoreBadgeProps> = ({
 }) => {
   // Format ratings as text with one decimal place
   const formattedExpertRating = expertRating.toFixed(1);
-  const formattedOwnerRating = ownerRating.toFixed(1);
+  // Convert owner rating from 0-5 scale to 0-10 scale for consistency
+  const ownerRatingConverted = ownerRating * 2;
+  const formattedOwnerRating = ownerRatingConverted.toFixed(1);
 
   return (
     <div className="absolute top-4 right-4 z-10">
@@ -46,6 +48,10 @@ const DualScoreBadge: React.FC<DualScoreBadgeProps> = ({
             <Users size={11} className="text-white/70" />
             <span className="text-[9px] uppercase tracking-wider text-white/70 font-medium">Owners</span>
           </div>
+          <div className="flex items-baseline justify-center mb-1">
+            <span className="text-lg font-bold text-white leading-none">{formattedOwnerRating}</span>
+            <span className="text-[9px] text-white/60 ml-0.5">/10</span>
+          </div>
           <div className="flex justify-center">
             {[1, 2, 3, 4, 5].map((star, index) => (
               <svg 
@@ -69,9 +75,6 @@ const DualScoreBadge: React.FC<DualScoreBadgeProps> = ({
                 <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
               </svg>
             ))}
-          </div>
-          <div className="text-[8px] text-white/50 mt-0.5">
-            {formattedOwnerRating}/5
           </div>
         </div>
       </div>

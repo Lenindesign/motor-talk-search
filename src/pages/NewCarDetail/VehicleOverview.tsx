@@ -8,7 +8,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 
 interface VehicleOverviewProps {
   overallRating: number;
-  ownerRating: number;
+  ownerRating: number; // out of 5 (will be converted to 0-10 scale for display)
   carTitle: string;
   specs: {
     engine: string;
@@ -29,6 +29,9 @@ const VehicleOverview: React.FC<VehicleOverviewProps> = ({
   specs
 }) => {
   const [expanded, setExpanded] = useState(false);
+  // Convert owner rating from 0-5 scale to 0-10 scale for consistency
+  const ownerRatingConverted = ownerRating * 2;
+
   return (
     <div className="space-y-6">
         <Card className="bg-white shadow-sm border border-neutral-6 rounded-xl overflow-hidden">
@@ -161,10 +164,10 @@ const VehicleOverview: React.FC<VehicleOverviewProps> = ({
                     Owner Rating
                   </h4>
                   <span className="text-base font-bold text-neutral-1">
-                    {ownerRating}/5
+                    {ownerRatingConverted.toFixed(1)}/10
                   </span>
                 </div>
-                <Progress value={ownerRating * 20} className="h-1.5 bg-neutral-6" />
+                <Progress value={ownerRatingConverted * 10} className="h-1.5 bg-neutral-6" />
                 <div className="flex justify-between mt-1">
                   <span className="text-xs text-neutral-4">Poor</span>
                   <span className="text-xs text-neutral-4">Excellent</span>

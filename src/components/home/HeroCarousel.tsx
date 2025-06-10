@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+
 export interface HeroSlide {
   id: string;
   title: string;
@@ -11,7 +13,9 @@ export interface HeroSlide {
   author: string;
   readTime: string;
   videoUrl?: string;
+  linkTo?: string;
 }
+
 const defaultHeroSlides: HeroSlide[] = [{
   id: '1',
   title: '2025 Ferrari 296 GT3: The Ultimate Track Weapon',
@@ -20,7 +24,8 @@ const defaultHeroSlides: HeroSlide[] = [{
   tag: 'First Drive',
   tagColor: 'bg-motortrend-red',
   author: 'John Carter',
-  readTime: '8 hours ago'
+  readTime: '8 hours ago',
+  linkTo: '/article/hero-slide-1'
 }, {
   id: '2',
   title: '2025 Tesla Model S Plaid vs 2024 Lucid Air Sapphire',
@@ -29,7 +34,8 @@ const defaultHeroSlides: HeroSlide[] = [{
   tag: 'Comparison',
   tagColor: 'bg-blue-600',
   author: 'Sarah Johnson',
-  readTime: '4 hours ago'
+  readTime: '4 hours ago',
+  linkTo: '/article/hero-slide-2'
 }, {
   id: '3',
   title: 'Electric vs Gas: The Future of Performance Cars',
@@ -38,7 +44,8 @@ const defaultHeroSlides: HeroSlide[] = [{
   tag: 'Analysis',
   tagColor: 'bg-green-600',
   author: 'Mike Thompson',
-  readTime: '2 hours ago'
+  readTime: '2 hours ago',
+  linkTo: '/article/hero-slide-3'
 }, {
   id: '4',
   title: '2025 Ford Mustang 60th Anniversary Edition Revealed',
@@ -47,11 +54,14 @@ const defaultHeroSlides: HeroSlide[] = [{
   tag: 'New Model',
   tagColor: 'bg-red-700',
   author: 'MotorTrend Staff',
-  readTime: 'Just In'
+  readTime: 'Just In',
+  linkTo: '/article/hero-slide-4'
 }];
+
 interface HeroCarouselProps {
   slides?: HeroSlide[];
 }
+
 const SLIDE_DURATION_SECONDS = 10; // New constant for duration
 
 const HeroCarousel: React.FC<HeroCarouselProps> = ({
@@ -134,7 +144,13 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                         {slide.title}
                       </h1>
                       
-                      <Button size="lg" className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg py-0">Full Story</Button>
+                      {slide.linkTo ? (
+                        <Button size="lg" asChild className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg py-0">
+                          <Link to={slide.linkTo}>Full Story</Link>
+                        </Button>
+                      ) : (
+                        <Button size="lg" className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg py-0">Full Story</Button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -179,4 +195,5 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
       </div>
     </div>;
 };
+
 export default HeroCarousel;

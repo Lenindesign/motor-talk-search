@@ -10,6 +10,9 @@ const QuickStats: React.FC<QuickStatsProps> = ({
   overallRating,
   ownerRating
 }) => {
+  // Convert owner rating from 0-5 scale to 0-10 scale for consistency
+  const ownerRatingConverted = ownerRating * 2;
+
   return (
     <div className="bg-white shadow-modern border-modern rounded-xl overflow-hidden p-4 md:p-5">
       <h2 className="text-lg text-neutral-1 font-bold mb-4">Vehicle Overview</h2>
@@ -44,10 +47,10 @@ const QuickStats: React.FC<QuickStatsProps> = ({
                   Owner Rating
                 </h4>
                 <span className="text-base text-neutral-1 font-bold leading-tight">
-                  {ownerRating}/5
+                  {ownerRatingConverted.toFixed(1)}/10
                 </span>
               </div>
-              <Progress value={ownerRating * 20} className="h-1.5 bg-neutral-6" />
+              <Progress value={ownerRatingConverted * 10} className="h-1.5 bg-neutral-6" />
               <div className="flex justify-between mt-1">
                 <span className="text-xs text-neutral-4">Poor</span>
                 <span className="text-xs text-neutral-4">Excellent</span>

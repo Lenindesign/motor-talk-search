@@ -42,7 +42,8 @@ const News: React.FC = () => {
           tag: 'First Drive',
           tagColor: 'bg-blue-700',
           author: 'Alexandra Smith',
-          readTime: '3 hours ago'
+          readTime: '3 hours ago',
+          linkTo: '/article/v1'
         }, {
           id: 'n2',
           title: 'Inside the 2025 Detroit Auto Show',
@@ -51,7 +52,8 @@ const News: React.FC = () => {
           tag: 'Event',
           tagColor: 'bg-green-700',
           author: 'Brian Lee',
-          readTime: '5 hours ago'
+          readTime: '5 hours ago',
+          linkTo: '/article/v2'
         }, {
           id: 'n3',
           title: 'How Autonomous Tech is Changing Road Trips',
@@ -60,7 +62,8 @@ const News: React.FC = () => {
           tag: 'Tech',
           tagColor: 'bg-purple-700',
           author: 'Dana Patel',
-          readTime: '7 hours ago'
+          readTime: '7 hours ago',
+          linkTo: '/article/v3'
         }]} />
         </div>
 

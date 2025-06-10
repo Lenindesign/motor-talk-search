@@ -71,12 +71,25 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
         </div>
       )}
       
-      {/* MotorTrend score and ranking for new cars */}
+      {/* MotorTrend score and owner score for new cars */}
       {isNewCar && car.motorTrendScore && (
         <div className="flex flex-col space-y-2 mb-2">
-          <div className="flex items-center bg-neutral-100 rounded px-2 py-1 w-fit">
-            <span className="text-motortrend-red font-bold mr-1">{car.motorTrendScore}</span>
-            <span className="text-sm font-medium">MT Score</span>
+          <div className="flex items-center gap-2">
+            {/* MT Score */}
+            <div className="flex items-center bg-neutral-100 rounded px-2 py-1">
+              <span className="text-motortrend-red font-bold mr-1">{car.motorTrendScore}</span>
+              <span className="text-sm font-medium">MT Score</span>
+            </div>
+            
+            {/* Owner Score */}
+            {car.userReviewsScore && (
+              <div className="flex items-center bg-neutral-100 rounded px-2 py-1">
+                <span className="text-motortrend-red font-bold mr-1">
+                  {(parseFloat(car.userReviewsScore) * 2).toFixed(1)}
+                </span>
+                <span className="text-sm font-medium">Owner</span>
+              </div>
+            )}
           </div>
           {car.motorTrendRank && (
             <div className="flex items-center text-sm">

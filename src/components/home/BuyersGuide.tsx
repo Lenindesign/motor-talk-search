@@ -19,7 +19,8 @@ const guideItems: CarData[] = [{
   mpge: '131 MPGe',
   motorTrendScore: '9.2',
   motorTrendRank: '#1',
-  motorTrendCategoryRank: true
+  motorTrendCategoryRank: true,
+  userReviewsScore: '4.5',
 }, {
   id: 'new-2',
   title: '2025 Rivian R1S',
@@ -34,7 +35,8 @@ const guideItems: CarData[] = [{
   mpge: '115 MPGe',
   motorTrendScore: '8.9',
   motorTrendRank: '#1',
-  motorTrendCategoryRank: true
+  motorTrendCategoryRank: true,
+  userReviewsScore: '4.2',
 }, {
   id: 'new-3',
   title: '2025 BMW i5 eDrive40',
@@ -49,7 +51,8 @@ const guideItems: CarData[] = [{
   mpge: '104 MPGe',
   motorTrendScore: '8.7',
   motorTrendRank: '#2',
-  motorTrendCategoryRank: true
+  motorTrendCategoryRank: true,
+  userReviewsScore: '4.0',
 }, {
   id: 'new-4',
   title: '2025 Ford Mustang GT',
@@ -65,7 +68,8 @@ const guideItems: CarData[] = [{
   horsepower: '480 hp',
   motorTrendScore: '8.5',
   motorTrendRank: '#1',
-  motorTrendCategoryRank: true
+  motorTrendCategoryRank: true,
+  userReviewsScore: '4.3',
 }];
 const BuyersGuide: React.FC = () => {
   return <section className="space-content">
@@ -86,7 +90,7 @@ const BuyersGuide: React.FC = () => {
         {guideItems.slice(0, 3).map((item, index) => (
           <div key={item.id} className="relative">
             <CarCard car={item} type="new" priority={index < 2} />
-            <div className="absolute top-2 right-2 z-10 w-8 h-8 bg-motortrend-red text-black rounded-sm flex items-center justify-center font-bold text-sm">
+            <div className="absolute top-2 right-2 z-10 w-8 h-8 bg-motortrend-red text-white rounded-sm flex items-center justify-center font-bold text-sm">
               {index + 1}
             </div>
           </div>

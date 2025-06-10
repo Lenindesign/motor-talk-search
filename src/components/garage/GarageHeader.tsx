@@ -14,7 +14,7 @@ const GarageHeader: React.FC = () => {
         Welcome to Your Garage
       </h1>
       <p className="typography-body-large text-neutral-4 max-w-2xl mx-auto">
-        Manage your vehicles, compare specs, and discover new cars that match your interests
+        Manage your vehicles, compare specs, and discover new cars
       </p>
     </div>
   );

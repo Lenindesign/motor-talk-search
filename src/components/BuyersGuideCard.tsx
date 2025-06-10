@@ -14,7 +14,7 @@ interface BuyersGuideCardProps {
   price: string;
   mpg?: string;
   range?: string;
-  ownerRating?: number;
+  ownerRating?: number; // out of 5 (will be converted to 0-10 scale for display)
   ownerCount?: number;
 }
 
@@ -32,6 +32,8 @@ export function BuyersGuideCard({
 }: BuyersGuideCardProps): JSX.Element {
   const isElectric = Boolean(range);
   const carId = `${make.toLowerCase()}-${model.toLowerCase()}`;
+  // Convert owner rating from 0-5 scale to 0-10 scale for consistency
+  const ownerRatingConverted = ownerRating * 2;
 
   return (
     <Card className="overflow-hidden bg-white">
@@ -65,15 +67,15 @@ export function BuyersGuideCard({
           <div>
             <div className="flex items-center space-x-1 mb-1">
               <Star className="w-4 h-4 fill-current text-warning" />
-              <span className="typography-body-large">{ownerRating}</span>
-              <span className="typography-caption text-neutral-3">/ 5</span>
+              <span className="typography-body-large">{ownerRatingConverted.toFixed(1)}</span>
+              <span className="typography-caption text-neutral-3">/ 10</span>
             </div>
             <div className="flex items-center typography-small text-neutral-3">
               <Users className="w-3 h-3 mr-1" />
               {ownerCount} owner reviews
             </div>
           </div>
-          <Progress value={ownerRating * 20} className="flex-1 h-1.5" />
+          <Progress value={ownerRatingConverted * 10} className="flex-1 h-1.5" />
         </div>
 
         {/* Key Stats */}

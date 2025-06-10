@@ -2,7 +2,7 @@ import React, { useState, lazy, Suspense } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { Download, Github, Code, Palette, BookOpen, FileText, Search, Layout, FormInput, CreditCard, Type, Car } from 'lucide-react';
+import { Download, Github, Code, Palette, BookOpen, FileText, Search, Layout, FormInput, CreditCard, Type, Car, DollarSign } from 'lucide-react';
 
 // Lazy load components
 const OverviewTab = lazy(() => import('@/components/design-system/OverviewTab'));
@@ -23,6 +23,7 @@ const GarageTab = lazy(() => import('@/components/design-system/GarageTab'));
 const AccessibilityTab = lazy(() => import('@/components/design-system/AccessibilityTab'));
 const LayoutTab = lazy(() => import('@/components/design-system/LayoutTab'));
 const FormsTab = lazy(() => import('@/components/design-system/FormsTab'));
+const FindBestPriceTab = lazy(() => import('@/components/design-system/FindBestPriceTab'));
 
 const DesignSystem = () => {
   const [activeTab, setActiveTab] = useState('overview');
@@ -103,6 +104,10 @@ const DesignSystem = () => {
                 <TabsTrigger value="search" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-color-primary-2 px-4 py-3">
                   <Search className="h-4 w-4 mr-2" />
                   Search
+                </TabsTrigger>
+                <TabsTrigger value="find-best-price" className="justify-start text-left w-full rounded-none border-l-2 border-transparent data-[state=active]:border-color-primary-2 px-4 py-3">
+                  <DollarSign className="h-4 w-4 mr-2" />
+                  Find Best Price
                 </TabsTrigger>
                 
                 <div className="p-4 typography-small text-color-neutral-4 uppercase tracking-wider mt-2 text-left w-full">Resources</div>
@@ -212,6 +217,12 @@ const DesignSystem = () => {
               <TabsContent value="search" className="flex-1 p-6">
                 <Suspense fallback={<div className="animate-pulse">Loading...</div>}>
                   <SearchTab />
+                </Suspense>
+              </TabsContent>
+
+              <TabsContent value="find-best-price" className="flex-1 p-6">
+                <Suspense fallback={<div className="animate-pulse">Loading...</div>}>
+                  <FindBestPriceTab />
                 </Suspense>
               </TabsContent>
 
