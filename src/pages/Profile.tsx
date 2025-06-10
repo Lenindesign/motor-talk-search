@@ -102,7 +102,7 @@ const Profile = () => {
     <>
       <div className="min-h-screen bg-motortrend-gray">
         <main className="mx-auto px-0 py-0 pt-8">
-          <div className="flex flex-col md:flex-row gap-8">
+          <div className="flex flex-col md:flex-row gap-4">
             {/* Profile Sidebar */}
             <aside className="w-full md:w-64 space-y-6 px-[8px]">
               <Card className="overflow-hidden">
@@ -186,7 +186,7 @@ const Profile = () => {
                             All ({savedItems.length})
                           </Button>
                           <Button 
-                            variant={filterType === "article" ? "solid" : "outline-ghost"} 
+                            variant={filterType === "article" ? "solid" : "ghost"} 
                             size="sm" 
                             onClick={() => setFilterType("article")}
                             className="flex-shrink-0"
@@ -390,7 +390,7 @@ const Profile = () => {
                               type="button" 
                               variant="outline-black" 
                               onClick={() => setPersonalizationOpen(true)} 
-                              className="flex items-center gap-2 text-gray-900 bg-white border-gray-300 hover:bg-gray-50"
+                              className="flex items-center gap-4 text-gray-900 bg-white border-gray-300 hover:bg-gray-50"
                             >
                               <Palette size={16} />
                               Personalize Experience
