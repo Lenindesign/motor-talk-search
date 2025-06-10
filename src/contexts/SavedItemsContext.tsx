@@ -44,6 +44,15 @@ export interface SavedItem {
     ownership?: 'owned' | 'interested' | 'testDriven';
     notes?: string;
     lastUpdated?: string;
+    msrp?: string;
+    bodyStyle?: string;
+    mpg?: string;
+    engine?: string;
+    horsepower?: string;
+    transmission?: string;
+    motorTrendScore?: string;
+    motorTrendRank?: string;
+    motorTrendCategoryRank?: boolean;
     [key: string]: any;
   };
 }
@@ -107,32 +116,76 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
     const mockCars: SavedItem[] = [
       {
         id: "car1",
-        title: "2024 Toyota Camry",
+        title: "2024 Toyota Camry Hybrid XSE",
         type: "newCar",
         imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a1d8a69afa860008125caf/2024-toyota-camry-xse-hybrid-front-view-18.jpg",
         savedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
         metadata: {
-          price: "29995",
+          price: "$34,950",
+          msrp: "$34,950",
+          category: "Midsize Sedan",
+          bodyStyle: "Sedan",
           year: "2024",
           mileage: "0",
-          fuelType: "Gasoline",
+          fuelType: "Hybrid",
           drivetrain: "FWD",
-          location: "San Francisco, CA"
+          location: "San Francisco, CA",
+          mpg: "51 city / 53 hwy",
+          engine: "2.5L 4-cylinder Hybrid",
+          horsepower: "208 hp",
+          transmission: "CVT Automatic",
+          motorTrendScore: "8.7",
+          motorTrendRank: "#2",
+          motorTrendCategoryRank: true
         }
       },
       {
         id: "car2",
-        title: "2023 Honda CR-V",
+        title: "2024 Honda CR-V Hybrid Sport",
         type: "newCar",
         imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a1bc4ca305c1000897c335/2024-honda-cr-v-hybrid-front-view-62.jpeg",
         savedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
         metadata: {
-          price: "32995",
-          year: "2023",
+          price: "$37,200",
+          msrp: "$37,200",
+          category: "Compact SUV",
+          bodyStyle: "SUV",
+          year: "2024",
           mileage: "0",
           fuelType: "Hybrid",
           drivetrain: "AWD",
-          location: "San Francisco, CA"
+          location: "San Francisco, CA",
+          mpg: "43 city / 36 hwy",
+          engine: "2.0L 4-cylinder Hybrid",
+          horsepower: "204 hp",
+          transmission: "CVT Automatic",
+          motorTrendScore: "8.9",
+          motorTrendRank: "#1",
+          motorTrendCategoryRank: true
+        }
+      },
+      {
+        id: "car3",
+        title: "2021 BMW M3 Competition",
+        type: "usedCar",
+        imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65c756c95279ce0008c1d934/2022-bmw-m3-competition-awd-14.jpg",
+        savedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+        metadata: {
+          price: "$69,995",
+          category: "Performance Sedan",
+          bodyStyle: "Sedan",
+          year: "2021",
+          mileage: "18,750",
+          fuelType: "Premium Gasoline",
+          drivetrain: "RWD",
+          location: "Los Angeles, CA",
+          mpg: "16 city / 23 hwy",
+          engine: "3.0L Twin-Turbo I6",
+          horsepower: "503 hp",
+          transmission: "8-speed Automatic",
+          motorTrendScore: "9.2",
+          motorTrendRank: "#1",
+          motorTrendCategoryRank: true
         }
       }
     ];

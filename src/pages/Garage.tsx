@@ -23,7 +23,7 @@ const Garage = () => {
   return (
     <MainLayout isGaragePage={true}>
       <div className="min-h-screen bg-neutral-7">
-        <div className="bg-white rounded-xl shadow-sm border border-neutral-6 mx-auto max-w-[1024px] my-8">
+        <div className="bg-white rounded-xl shadow-sm border border-neutral-6 mx-auto max-w-[1024px] my-4">
           {/* Responsive layout */}
           <div className="md:hidden py-4">
             <GarageContent />
@@ -33,7 +33,7 @@ const Garage = () => {
           <div className="hidden md:block py-8">
             <div className="flex flex-col md:flex-row gap-4 px-4">
               {/* Sidebar - 1/3 width */}
-              <aside className="w-full md:w-1/3 space-y-6">
+              <aside className="w-full md:w-1/3 px-4">
                 <ProfileSidebar 
                   userData={userData} 
                   savedItemsCount={savedItems.length} 
