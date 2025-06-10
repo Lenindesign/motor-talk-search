@@ -43,38 +43,45 @@ const currentYear = new Date().getFullYear();
 
 const GlobalFooter: React.FC = () => (
   <footer className="w-full bg-[#1a1a1a] text-gray-200 border-t border-gray-800 mt-12" aria-label="Site Footer">
-    <div className="max-w-[980px] mx-auto px-4 sm:px-8 py-12">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-10 gap-6">
-        <div className="flex items-center gap-3">
-          <Link to="/" aria-label="MOTORTREND Home">
-            <img src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" alt="MotorTrend Logo" className="h-8 sm:h-7 w-auto" />
-          </Link>
+    <div className="max-w-[980px] mx-auto px-4 sm:px-8 py-16">
+      {/* Main Footer Content */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-12">
+        {/* Brand Section */}
+        <div className="lg:col-span-1">
+          <div className="mb-6">
+            <Link to="/" aria-label="MOTORTREND Home">
+              <img src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" alt="MotorTrend Logo" className="h-8 w-auto" />
+            </Link>
+          </div>
+          <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+            Your ultimate destination for automotive news, reviews, and expert insights.
+          </p>
+          <div className="flex gap-4">
+            {socialLinks.map(link => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.label}
+                className="text-lg text-gray-400 hover:text-motortrend-red transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-motortrend-red rounded p-1"
+              >
+                {link.icon}
+              </a>
+            ))}
+          </div>
         </div>
-        <div className="flex gap-4 mt-2 sm:mt-0">
-          {socialLinks.map(link => (
-            <a
-              key={link.label}
-              href={link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={link.label}
-              className={`text-xl transition-colors duration-200 hover:text-motortrend-red focus:outline-none focus:ring-2 focus:ring-motortrend-red ${link.color}`}
-            >
-              {link.icon}
-            </a>
-          ))}
-        </div>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-8 mb-10">
+
+        {/* Footer Links */}
         {footerLinks.map((section) => (
-          <div key={section.heading}>
-            <h3 className="text-sm font-semibold uppercase tracking-wider mb-4 text-gray-300">{section.heading}</h3>
-            <ul className="space-y-2">
+          <div key={section.heading} className="lg:col-span-1">
+            <h3 className="text-sm font-semibold uppercase tracking-wider mb-6 text-white">{section.heading}</h3>
+            <ul className="space-y-3">
               {section.links.map((link) => (
                 <li key={link.label}>
                   <Link
                     to={link.href}
-                    className="text-gray-400 hover:text-white transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-motortrend-red rounded px-1"
+                    className="text-gray-400 hover:text-white transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-motortrend-red rounded px-1 py-1 text-sm"
                   >
                     {link.label}
                   </Link>
@@ -84,13 +91,29 @@ const GlobalFooter: React.FC = () => (
           </div>
         ))}
       </div>
-      <div className="flex flex-col md:flex-row items-center justify-between border-t border-gray-700 pt-6 text-xs text-gray-400 gap-2">
-        <span>&copy; {currentYear} Motor Talk. All rights reserved.</span>
-        <span>
-          <Link to="/accessibility" className="hover:text-motortrend-red underline focus:outline-none focus:ring-2 focus:ring-motortrend-red">Accessibility</Link>
-          <span className="mx-2">|</span>
-          <Link to="/sitemap" className="hover:text-motortrend-red underline focus:outline-none focus:ring-2 focus:ring-motortrend-red">Sitemap</Link>
-        </span>
+
+      {/* Bottom Section */}
+      <div className="border-t border-gray-700 pt-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="text-xs text-gray-400">
+            &copy; {currentYear} Motor Talk. All rights reserved.
+          </div>
+          <div className="flex items-center gap-4 text-xs">
+            <Link 
+              to="/accessibility" 
+              className="text-gray-400 hover:text-motortrend-red transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-motortrend-red rounded px-1 py-1"
+            >
+              Accessibility
+            </Link>
+            <span className="text-gray-600">•</span>
+            <Link 
+              to="/sitemap" 
+              className="text-gray-400 hover:text-motortrend-red transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-motortrend-red rounded px-1 py-1"
+            >
+              Sitemap
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   </footer>
