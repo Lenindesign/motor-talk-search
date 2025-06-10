@@ -82,8 +82,8 @@ const VideoCard: React.FC<VideoCardProps> = memo(({
     onClick={handleClick}
   >
     {/* Image and overlays */}
-    <div className="relative pt-[56.25%]">
-      <img src={currentImage} alt={video.title} className="absolute inset-0 w-full h-full object-cover transition-all duration-300 rounded-t-xl" loading="lazy" />
+    <div className="relative pt-[56.25%] overflow-hidden">
+      <img src={currentImage} alt={video.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-t-xl" loading="lazy" />
       {/* Overlays absolutely positioned on top of Card image */}
       <div className="absolute top-2 right-2 z-20 pointer-events-none">
         <span className="bg-black/70 text-white px-2 py-1 rounded text-xs">{video.duration}</span>

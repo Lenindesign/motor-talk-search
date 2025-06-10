@@ -59,11 +59,11 @@ const ShortVideoCard: React.FC<ShortVideoCardProps> = memo(({
       onClick={handleClick}
     >
       {/* Image container with 9:16 aspect ratio */}
-      <div className="relative pt-[177.78%]"> {/* 9:16 aspect ratio (16/9 * 100 = 177.78%) */}
+      <div className="relative pt-[177.78%] overflow-hidden"> {/* 9:16 aspect ratio (16/9 * 100 = 177.78%) */}
         <img 
           src={currentImage} 
           alt={video.title} 
-          className="absolute inset-0 w-full h-full object-cover transition-all duration-300 rounded-t-xl" 
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-t-xl" 
           loading="lazy" 
         />
         
