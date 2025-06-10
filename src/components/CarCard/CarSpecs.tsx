@@ -35,7 +35,7 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
                 <span className="ml-1">{car.price}</span>
               </div>
               <div className="flex items-center">
-                <DollarSign size={14} className="mr-1 text-motortrend-red" />
+                <DollarSign size={14} className="mr-1 text-neutral-4" />
                 <span className="font-medium">Est. Payment:</span>
                 <span className="ml-1">
                   ${calculateEstimatedPayment(parseInt(car.price.replace(/[^0-9]/g, '')))}/mo
@@ -58,13 +58,13 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
           )}
           {car.dealerName && (
             <div className="flex items-center font-medium">
-              <MapPin size={14} className="mr-1 text-motortrend-red" />
+              <MapPin size={14} className="mr-1 text-neutral-4" />
               <span>Dealer: {car.dealerName}</span>
             </div>
           )}
           {!car.dealerName && car.location && (
             <div className="flex items-center font-medium">
-              <MapPin size={14} className="mr-1 text-motortrend-red" />
+              <MapPin size={14} className="mr-1 text-neutral-4" />
               <span>Dealer: {car.location}</span>
             </div>
           )}
@@ -75,7 +75,7 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
       {isNewCar && car.motorTrendScore && (
         <div className="flex flex-col space-y-2 mb-2">
           <div className="flex items-center bg-neutral-100 rounded px-2 py-1 w-fit">
-            <span className="text-motortrend-red font-bold mr-1">{car.motorTrendScore}</span>
+            <span className="text-neutral-4 font-bold mr-1">{car.motorTrendScore}</span>
             <span className="text-sm font-medium">MT Score</span>
           </div>
           {car.motorTrendRank && (
@@ -103,7 +103,7 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
           {/* Show estimated monthly payment for new cars */}
           {car.msrp && (
             <div className="flex items-center">
-              <DollarSign size={14} className="mr-1 text-motortrend-red" />
+              <DollarSign size={14} className="mr-1 text-neutral-4" />
               <span className="font-medium">Est. Payment:</span>
               <span className="ml-1">
                 ${calculateEstimatedPayment(parseInt(car.msrp.replace(/[^0-9]/g, '')))}

@@ -104,7 +104,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
         </div>
         {/* Only show category for used cars since new cars already show it in the ranking */}
         {type !== 'new' && (
-          <RouterLink to={linkPath} className="typography-caption text-neutral-3 hover:text-motortrend-red transition-colors">
+          <RouterLink to={linkPath} className="typography-caption text-neutral-4 hover:text-neutral-2 transition-colors">
             {car.category}
           </RouterLink>
         )}
