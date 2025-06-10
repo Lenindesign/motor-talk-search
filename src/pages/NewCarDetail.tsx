@@ -356,8 +356,8 @@ const NewCarDetail: React.FC = () => {
                   <div className="p-4 space-y-4">
                     {mockNewCars.slice(0, 3).map(similarCar => (
                       <Link key={similarCar.id} to={`/cars/new/${similarCar.id}`} className="flex items-center bg-neutral-8 rounded-lg p-3 hover:shadow-md transition-shadow duration-200">
-                        <div className="w-16 h-12 flex-shrink-0 mr-3">
-                          <img src={similarCar.imageUrl || 'https://via.placeholder.com/300x180?text=Car+Image'} alt={similarCar.title} className="w-full h-full object-contain" />
+                        <div className="w-16 h-12 flex-shrink-0 mr-3 rounded-lg overflow-hidden">
+                          <img src={similarCar.imageUrl || 'https://via.placeholder.com/300x180?text=Car+Image'} alt={similarCar.title} className="w-full h-full object-cover rounded-lg" />
                         </div>
                         <div className="flex-grow">
                           <p className="typography-body-small font-medium text-neutral-1">{similarCar.title}</p>
