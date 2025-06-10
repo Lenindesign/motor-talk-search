@@ -1,8 +1,10 @@
 :root {
   /* Colors - Brand */
-  --motortrend-red: #c11b17;
-  --motortrend-red-hover: #e90c17;
-  --motortrend-red-light: #ff858a;
+  --motortrend-red: #e90c17;
+  --motortrend-red-hover: #c11b17;
+  --motortrend-red-light: #e6e8ec;
+  --motortrend-dark: #1A1F2C;
+  --motortrend-gray: #F6F6F7;
 
   /* Colors - Neutral */
   --neutral-1: #141416;

@@ -1,4 +1,3 @@
-
 import { cva } from "class-variance-authority"
 
 export const buttonVariants = cva(
@@ -14,13 +13,13 @@ export const buttonVariants = cva(
         
         // Red buttons
         "solid-red": "bg-[#c11b17] text-white hover:bg-[#e90c17] active:bg-red-800 shadow-sm",
-        "solid-red-light": "bg-[#ff858a] text-white hover:bg-red-400 active:bg-red-500 shadow-sm",
+        "solid-red-light": "bg-[#e6e8ec] text-neutral-1 hover:bg-neutral-5 active:bg-neutral-4 shadow-sm",
         "outline-red": "border border-[#c11b17] text-[#c11b17] bg-transparent hover:bg-red-50 active:bg-red-100",
         "ghost-red": "text-[#c11b17] hover:bg-red-50 active:bg-red-100",
         
         // Primary buttons (uses primary color defined in the theme)
         "solid-primary": "bg-[#c11b17] text-white hover:bg-[#e90c17] active:bg-[#e90c17] shadow-sm",
-        "solid-primary-light": "bg-[#ff858a] text-white hover:bg-[#ff858a]/90 active:bg-[#ff858a]/80 shadow-sm",
+        "solid-primary-light": "bg-[#e6e8ec] text-neutral-1 hover:bg-neutral-5 active:bg-neutral-4 shadow-sm",
         "outline-primary": "border border-[#c11b17] text-[#c11b17] bg-transparent hover:bg-[#c11b17]/10 active:bg-[#c11b17]/20",
         "ghost-primary": "text-[#c11b17] hover:bg-[#c11b17]/10 active:bg-[#c11b17]/20",
         

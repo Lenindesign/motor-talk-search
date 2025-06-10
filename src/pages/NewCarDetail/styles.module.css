@@ -1,0 +1,19 @@
+.stickyContainer {
+  --header-offset: 88px;
+  --sticky-duration: 1000px;
+}
+
+.stickyItem {
+  position: sticky;
+  top: var(--header-offset);
+  margin-bottom: var(--sticky-duration);
+}
+
+.stickyItem:last-child {
+  margin-bottom: 0;
+}
+
+/* This ensures each item pushes the previous one out */
+.stickyItem + .stickyItem {
+  margin-top: calc(-1 * var(--sticky-duration));
+} 

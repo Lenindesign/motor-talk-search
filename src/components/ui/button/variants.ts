@@ -13,12 +13,12 @@ export const buttonVariants = cva(
         minimal: "bg-transparent text-neutral-2 hover:text-neutral-1 active:bg-neutral-8",
         // Red variants
         'solid-red': "bg-red-600 text-white hover:bg-red-700 active:bg-red-800 shadow-sm",
-        'solid-red-light': "bg-red-500 text-white hover:bg-red-600 active:bg-red-700 shadow-sm",
+        'solid-red-light': "bg-[#e6e8ec] text-neutral-1 hover:bg-neutral-5 active:bg-neutral-4 shadow-sm",
         'outline-red': "border-2 border-red-600 bg-transparent text-red-600 hover:bg-red-600 hover:text-white active:bg-red-700",
         'ghost-red': "text-red-600 hover:bg-red-50 active:bg-red-100",
         // Primary variants
         'solid-primary': "bg-primary text-white hover:bg-primary-hover active:shadow-inner shadow-sm",
-        'solid-primary-light': "bg-primary-light text-white hover:bg-primary active:shadow-inner shadow-sm",
+        'solid-primary-light': "bg-[#e6e8ec] text-neutral-1 hover:bg-neutral-5 active:bg-neutral-4 shadow-sm",
         'outline-primary': "border-2 border-primary bg-transparent text-primary hover:bg-primary hover:text-white active:bg-primary-hover",
         'ghost-primary': "text-primary hover:bg-neutral-8 active:bg-neutral-7",
         // Legacy variants (for backward compatibility)

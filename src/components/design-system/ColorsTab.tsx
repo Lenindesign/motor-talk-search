@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,7 +6,7 @@ const ColorsTab = () => {
   const colorPalette = [
     { name: 'Primary Red', value: '#c11b17', css: '--color-primary-1' },
     { name: 'MotorTrend Red', value: '#e90c17', css: '--color-primary-2' },
-    { name: 'Light Red', value: '#ff858a', css: '--color-primary-3' },
+    { name: 'Light Gray', value: '#e6e8ec', css: '--color-primary-3' },
     { name: 'Neutral Dark', value: '#141416', css: '--color-neutral-1' },
     { name: 'Neutral 2', value: '#23262f', css: '--color-neutral-2' },
     { name: 'Neutral 3', value: '#353945', css: '--color-neutral-3' },

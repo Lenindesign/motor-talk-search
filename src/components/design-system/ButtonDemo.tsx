@@ -17,7 +17,7 @@ const ButtonDemo = () => {
               <Button variant="solid">Solid Black</Button>
               <Button variant="solid-light">Light Black</Button>
               <Button variant="solid-red">Solid Red</Button>
-              <Button variant="solid-red-light">Light Red</Button>
+              <Button variant="solid-red-light">Light Gray</Button>
             </div>
           </div>
 

@@ -129,8 +129,8 @@ const TokensTab = () => {
     },
     { 
       name: '--motortrend-red-light', 
-      value: '#ff858a', 
-      description: 'Light version of MotorTrend red, used for secondary elements',
+      value: '#e6e8ec', 
+      description: 'Light gray version, used for secondary elements',
       preview: <div className="h-8 rounded-md bg-[var(--motortrend-red-light)]" />
     },
     
