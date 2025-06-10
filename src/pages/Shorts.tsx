@@ -529,24 +529,26 @@ const Shorts = () => {
                 )}
 
                 {/* Navigation controls - positioned on the left side */}
-                <div className="absolute left-4 top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 z-20">
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="bg-black/50 text-white hover:bg-black/70 rounded-full h-12 w-12"
-                    onClick={navigateToPrev}
-                  >
-                    <ChevronUp size={24} />
-                  </Button>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="bg-black/50 text-white hover:bg-black/70 rounded-full h-12 w-12"
-                    onClick={navigateToNext}
-                  >
-                    <ChevronDown size={24} />
-                  </Button>
-                </div>
+                {showControls && (
+                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 z-20 transition-opacity duration-300">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="bg-black/50 text-white hover:bg-black/70 rounded-full h-12 w-12 transform transition-all duration-300 hover:scale-110"
+                      onClick={navigateToPrev}
+                    >
+                      <ChevronUp size={24} />
+                    </Button>
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="bg-black/50 text-white hover:bg-black/70 rounded-full h-12 w-12 transform transition-all duration-300 hover:scale-110"
+                      onClick={navigateToNext}
+                    >
+                      <ChevronDown size={24} />
+                    </Button>
+                  </div>
+                )}
               </div>
             </div>
           );
