@@ -32,7 +32,7 @@ const Garage = () => {
 
           {/* Desktop layout */}
           <div className="hidden md:block py-8">
-            <div className="flex flex-col md:flex-row gap-8 px-8">
+            <div className="flex flex-col md:flex-row gap-4 px-4">
               {/* Sidebar (ProfileSidebar + UserPoints) */}
               <aside className="w-full md:w-64 space-y-6">
                 <ProfileSidebar 
