@@ -69,7 +69,8 @@ const FindBestPrice = () => {
           if (!foundCar) {
             console.log('Trying URL pattern matching...');
             foundCar = mockNewCars.find(car => {
-              const urlPattern = `${car.title.toLowerCase().replace(/ /g, '-')}-2025`;
+              // CarSidebar generates URLs like: "2025 Rivian R1S" -> "2025-rivian-r1s-2025"
+              const urlPattern = `${car.title.toLowerCase().replace(/ /g, '-')}-${car.year || '2025'}`;
               console.log(`Checking ${car.title} -> pattern: ${urlPattern} vs carId: ${carId}`);
               return carId === urlPattern;
             });

@@ -27,6 +27,8 @@ const TestCarCard = lazy(() => import("./components/TestCarCard"));
 const TestCard = lazy(() => import("./pages/TestCard"));
 const BestSUVs = lazy(() => import("./pages/BestSUVs"));
 const CarConnect = lazy(() => import("./pages/CarConnect"));
+const FindBestPrice = lazy(() => import("./pages/FindBestPrice"));
+const FindBestPriceSuccess = lazy(() => import("./pages/FindBestPriceSuccess"));
 const Chat = lazy(() => import("./pages/Chat"));
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
 import { PersonalizationProvider } from "./contexts/PersonalizationContext";
@@ -59,7 +61,8 @@ function App() {
                     <Route path="/research/:id" element={<CarResearch />} />
                     <Route path="/buyers-guide" element={<BuyersGuide />} />
                     <Route path="/best-suvs" element={<BestSUVs />} />
-                    <Route path="/find-best-price/:carId" element={<CarConnect />} />
+                    <Route path="/find-best-price/:carId" element={<FindBestPrice />} />
+                    <Route path="/find-best-price/success" element={<FindBestPriceSuccess />} />
                     <Route path="/news" element={<News />} />
                     <Route path="/videos" element={<Videos />} />
                     <Route path="/article/:id" element={<ArticleDetail />} />

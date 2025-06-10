@@ -1248,6 +1248,7 @@ export const mockNewCars: CarData[] = [
     category: "Electric SUV",
     isNew: true,
     bodyStyle: "SUV",
+    year: "2025",
     userReviewsScore: "4.2",
   },
   {
