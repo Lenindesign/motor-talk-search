@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Calculator } from 'lucide-react';
+import { Calculator, Heart, Car } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CarData } from '@/components/CarCard';
+import { useSavedItems } from '@/contexts/SavedItemsContext';
+import { useToast } from '@/hooks/use-toast';
+import { cn } from '@/lib/utils';
 
 interface CarSidebarProps {
   car: {
@@ -20,6 +23,89 @@ const CarSidebar: React.FC<CarSidebarProps> = ({
   carData,
 }) => {
   const navigate = useNavigate();
+  const { addSavedItem, removeSavedItem, isSaved, getSavedItemById, updateSavedItem } = useSavedItems();
+  const { toast } = useToast();
+  const [showOwnershipOptions, setShowOwnershipOptions] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  
+  const savedItem = getSavedItemById(car.id);
+  const currentOwnership = savedItem?.metadata?.ownership as 'owned' | 'testDriven' | 'interested' | undefined;
+
+  // Handle click outside to close dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setShowOwnershipOptions(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  const handleAddToGarage = (ownership: 'owned' | 'testDriven' | 'interested') => {
+    const itemType = 'newCar';
+    
+    if (savedItem) {
+      // Update existing item
+      updateSavedItem(car.id, {
+        metadata: {
+          ...savedItem.metadata,
+          ownership: ownership,
+          lastUpdated: new Date().toISOString()
+        }
+      });
+      toast({
+        title: "Updated in garage",
+        description: `${car.title} moved to ${ownership === 'testDriven' ? 'Test Drive' : ownership} collection.`,
+        action: <Button variant="outline" size="sm" onClick={() => navigate('/garage')}>My Garage</Button>,
+        duration: 3000
+      });
+    } else {
+      // Add new item
+      addSavedItem({
+        id: car.id,
+        title: car.title,
+        type: itemType,
+        imageUrl: car.imageUrl,
+        savedAt: new Date().toISOString(),
+        metadata: {
+          price: car.price,
+          category: car.category,
+          year: carData.year || new Date().getFullYear().toString(),
+          ownership: ownership,
+          bodyStyle: carData.bodyStyle,
+          mileage: carData.mileage,
+          fuelType: carData.fuelType,
+          drivetrain: carData.drivetrain,
+          location: carData.location
+        }
+      });
+      toast({
+        title: "Added to garage",
+        description: `${car.title} added to your ${ownership === 'testDriven' ? 'Test Drive' : ownership} collection.`,
+        action: <Button variant="outline" size="sm" onClick={() => navigate('/garage')}>My Garage</Button>,
+        duration: 3000
+      });
+    }
+    setShowOwnershipOptions(false);
+  };
+
+  const getGarageButtonText = () => {
+    if (currentOwnership === 'owned') return 'Owned';
+    if (currentOwnership === 'testDriven') return 'Test Drive';
+    if (currentOwnership === 'interested') return 'Interested';
+    return 'Add to Garage';
+  };
+
+  const getGarageButtonIcon = () => {
+    if (currentOwnership === 'owned') return <Car size={16} className="mr-2" />;
+    if (currentOwnership === 'testDriven') return <Car size={16} className="mr-2" />;
+    if (currentOwnership === 'interested') return <Heart size={16} className="mr-2" />;
+    return <Heart size={16} className="mr-2" />;
+  };
   
   return (
     <div className="bg-white shadow-modern border-modern rounded-xl p-4 space-y-4">
@@ -87,6 +173,63 @@ const CarSidebar: React.FC<CarSidebarProps> = ({
       >
         Find Best Price
       </Button>
+
+      {/* Add to Garage Button */}
+      <div className="relative" ref={dropdownRef}>
+        {!currentOwnership ? (
+          <Button 
+            variant="outline" 
+            className="w-full" 
+            onClick={() => setShowOwnershipOptions(!showOwnershipOptions)}
+          >
+            {getGarageButtonIcon()}
+            {getGarageButtonText()}
+          </Button>
+        ) : (
+          <Button 
+            variant={currentOwnership === 'owned' ? 'solid-light' : 'outline'} 
+            className={cn(
+              "w-full",
+              currentOwnership === 'owned' && "bg-green-50 text-green-700 border-green-200 hover:bg-green-100",
+              currentOwnership === 'testDriven' && "bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100",
+              currentOwnership === 'interested' && "bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100"
+            )}
+            onClick={() => setShowOwnershipOptions(!showOwnershipOptions)}
+          >
+            {getGarageButtonIcon()}
+            {getGarageButtonText()}
+          </Button>
+        )}
+        
+        {/* Ownership Options Dropdown */}
+        {showOwnershipOptions && (
+          <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-neutral-200 rounded-lg shadow-lg z-10">
+            <div className="p-2 space-y-1">
+              <button
+                className="w-full text-left px-3 py-2 text-sm rounded hover:bg-green-50 hover:text-green-700 flex items-center"
+                onClick={() => handleAddToGarage('owned')}
+              >
+                <Car size={14} className="mr-2" />
+                I Own This Car
+              </button>
+              <button
+                className="w-full text-left px-3 py-2 text-sm rounded hover:bg-blue-50 hover:text-blue-700 flex items-center"
+                onClick={() => handleAddToGarage('testDriven')}
+              >
+                <Car size={14} className="mr-2" />
+                I've Test Driven
+              </button>
+              <button
+                className="w-full text-left px-3 py-2 text-sm rounded hover:bg-amber-50 hover:text-amber-700 flex items-center"
+                onClick={() => handleAddToGarage('interested')}
+              >
+                <Heart size={14} className="mr-2" />
+                I'm Interested
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
       
       {/* Additional Info */}
       <div className="typography-caption space-y-1 text-neutral-3">

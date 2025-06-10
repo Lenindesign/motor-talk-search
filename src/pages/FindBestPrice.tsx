@@ -6,8 +6,18 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select } from '@/components/ui/select';
 import MainLayout from '@/components/layout/MainLayout';
-import { parseCarIdFromUrl } from '@/services/carService';
-import { Car } from '@/types';
+import { mockNewCars } from '@/services/mockData';
+
+interface Car {
+  id: string;
+  title: string;
+  year?: string;
+  make?: string;
+  model?: string;
+  price: string;
+  imageUrl: string;
+  fallbackImageUrl?: string;
+}
 
 interface PriceRequestFormData {
   firstName: string;
@@ -45,28 +55,39 @@ const FindBestPrice = () => {
 
   useEffect(() => {
     if (carId) {
-      // Parse the car ID to extract make, model, and year
       const fetchCarData = async () => {
         try {
           setLoading(true);
-          // In a real app, we would make an API call with the carId
-          // For now, we'll use the parseCarIdFromUrl helper from carService
-          const { make, model, year } = parseCarIdFromUrl(carId);
           
-          // Create a mock car object based on the URL
-          const carData: Car = {
-            id: carId,
-            title: `${make} ${model}`,
-            year,
-            make,
-            model,
-            price: '$75,500',
-            imageUrl: `/images/cars/${make.toLowerCase()}-${model.toLowerCase().replace(/ /g, '-')}.jpg`,
-            // Fallback image if the specific car image doesn't exist
-            fallbackImageUrl: '/images/cars/lucid-air-grand-touring.jpg'
-          };
+          // First, try to find the car by ID in our mock data
+          let foundCar = mockNewCars.find(car => car.id === carId);
           
-          setCar(carData);
+          // If not found by ID, try to match by generated URL pattern
+          if (!foundCar) {
+            // Parse the carId which comes in format like "2025-rivian-r1s-2025"
+            foundCar = mockNewCars.find(car => {
+              const urlPattern = `${car.title.toLowerCase().replace(/ /g, '-')}-2025`;
+              return carId === urlPattern;
+            });
+          }
+          
+          if (foundCar) {
+            // Convert our mock car data to the Car interface format
+            const carData: Car = {
+              id: foundCar.id,
+              title: foundCar.title,
+              year: '2025',
+              make: foundCar.title.split(' ')[1] || '', // Extract make from title
+              model: foundCar.title.split(' ').slice(2).join(' ') || '', // Extract model from title
+              price: foundCar.price,
+              imageUrl: foundCar.imageUrl || '/images/cars/placeholder.jpg',
+              fallbackImageUrl: '/images/cars/placeholder.jpg'
+            };
+            
+            setCar(carData);
+          } else {
+            console.warn('Car not found for carId:', carId);
+          }
         } catch (error) {
           console.error('Error fetching car data:', error);
         } finally {
