@@ -355,24 +355,7 @@ const Shorts = () => {
         </Button>
       </div>
 
-      <div className="navigation-controls fixed left-4 top-1/2 transform -translate-y-1/2 z-50">
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="bg-black/50 text-white hover:bg-black/70 rounded-full mb-2 h-12 w-12"
-          onClick={navigateToPrev}
-        >
-          <ChevronUp size={24} />
-        </Button>
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="bg-black/50 text-white hover:bg-black/70 rounded-full h-12 w-12"
-          onClick={navigateToNext}
-        >
-          <ChevronDown size={24} />
-        </Button>
-      </div>
+
 
       <div 
         ref={containerRef}
@@ -544,6 +527,26 @@ const Shorts = () => {
                   </div>
                 </div>
                 )}
+
+                {/* Navigation controls - positioned to the right of video */}
+                <div className="absolute top-1/2 transform -translate-y-1/2 flex flex-col space-y-4" style={{ left: 'calc(100% + 40px)' }}>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="bg-black/50 text-white hover:bg-black/70 rounded-full h-12 w-12"
+                    onClick={navigateToPrev}
+                  >
+                    <ChevronUp size={24} />
+                  </Button>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="bg-black/50 text-white hover:bg-black/70 rounded-full h-12 w-12"
+                    onClick={navigateToNext}
+                  >
+                    <ChevronDown size={24} />
+                  </Button>
+                </div>
               </div>
             </div>
           );
