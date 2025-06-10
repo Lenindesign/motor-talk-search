@@ -184,7 +184,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               onBlur={() => setIsFocused(false)}
               onKeyDown={handleInputKeyDown}
               className={`w-full rounded-full border-2 border-motortrend-red bg-white py-2.5 pl-10 ${inputPaddingRightClass} typography-small shadow-sm transition-standard focus:ring-2 focus:ring-motortrend-red/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:border-motortrend-red`}
-              placeholder="Search..."
+              placeholder="Search or ask a question…"
               disabled={isLoading || voiceSearch}
               ref={currentInputRef}
               aria-autocomplete="list"
@@ -257,7 +257,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               onBlur={() => setIsFocused(false)}
               onKeyDown={handleInputKeyDown}
               className={`w-full rounded-full border-2 border-motortrend-red bg-white py-3 pl-10 ${inputPaddingRightClass} typography-body shadow-sm transition-standard focus:ring-2 focus:ring-motortrend-red/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:border-motortrend-red`}
-              placeholder="Search for cars, news, reviews..."
+              placeholder="Search or ask a question…"
               disabled={isLoading || voiceSearch}
               ref={currentInputRef}
               autoFocus
