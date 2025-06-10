@@ -78,7 +78,7 @@
   animation: pulse 0.5s ease-in-out;
 }
 
-/* Navigation arrows animations */
+/* Control animations for all interactive elements */
 @keyframes fadeInScale {
   0% {
     opacity: 0;
@@ -101,6 +101,23 @@
   }
 }
 
+.controls-enter {
+  animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.controls-exit {
+  animation: fadeOutScale 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.controls-hover {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.controls-hover:hover {
+  transform: scale(1.15);
+}
+
+/* Legacy classes for backward compatibility */
 .nav-arrow-enter {
   animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }

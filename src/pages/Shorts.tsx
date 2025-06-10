@@ -26,6 +26,7 @@ const Shorts = () => {
   const [userDisliked, setUserDisliked] = useState<Record<string, boolean>>({});
   const [showControls, setShowControls] = useState(false);
   const [navArrowsAnimation, setNavArrowsAnimation] = useState<'enter' | 'exit' | 'idle'>('idle');
+  const [controlsAnimation, setControlsAnimation] = useState<'enter' | 'exit' | 'idle'>('idle');
   
   // Refs for videos and container
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -226,6 +227,7 @@ const Shorts = () => {
   const showControlsTemporarily = () => {
     setShowControls(true);
     setNavArrowsAnimation('enter');
+    setControlsAnimation('enter');
     
     // Clear existing timeout
     if (controlsTimeoutRef.current) {
@@ -235,10 +237,12 @@ const Shorts = () => {
     // Hide controls after 3 seconds
     controlsTimeoutRef.current = setTimeout(() => {
       setNavArrowsAnimation('exit');
+      setControlsAnimation('exit');
       // Hide controls after exit animation completes
       setTimeout(() => {
         setShowControls(false);
         setNavArrowsAnimation('idle');
+        setControlsAnimation('idle');
       }, 300); // Match the exit animation duration
     }, 3000);
   };
@@ -388,9 +392,11 @@ const Shorts = () => {
                   }
                   controlsTimeoutRef.current = setTimeout(() => {
                     setNavArrowsAnimation('exit');
+                    setControlsAnimation('exit');
                     setTimeout(() => {
                       setShowControls(false);
                       setNavArrowsAnimation('idle');
+                      setControlsAnimation('idle');
                     }, 300);
                   }, 1000);
                 }}
@@ -435,12 +441,16 @@ const Shorts = () => {
                 </div>
 
                 {/* Video controls - top */}
-                {showControls && (
-                  <div className="absolute top-4 right-4 flex space-x-2 transition-opacity duration-300">
+                {(showControls || controlsAnimation !== 'idle') && (
+                  <div className={cn(
+                    "absolute top-4 right-4 flex space-x-2",
+                    controlsAnimation === 'enter' && "controls-enter",
+                    controlsAnimation === 'exit' && "controls-exit"
+                  )}>
                     <Button 
                       variant="ghost" 
                       size="icon" 
-                      className="bg-black/30 text-white hover:bg-black/50 rounded-full h-10 w-10"
+                      className="bg-black/30 text-white hover:bg-black/50 rounded-full h-10 w-10 controls-hover"
                       onClick={toggleMute}
                     >
                       {isMuted ? <VolumeX size={20} className="text-white" /> : <Volume2 size={20} className="text-white" />}
@@ -449,15 +459,19 @@ const Shorts = () => {
                 )}
 
                 {/* Interaction buttons - right side */}
-                {showControls && (
-                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center space-y-6 transition-opacity duration-300">
+                {(showControls || controlsAnimation !== 'idle') && (
+                  <div className={cn(
+                    "absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center space-y-6",
+                    controlsAnimation === 'enter' && "controls-enter",
+                    controlsAnimation === 'exit' && "controls-exit"
+                  )}>
                   {/* Like button */}
                   <div className="flex flex-col items-center">
                     <Button 
                       variant="ghost" 
                       size="icon" 
                       className={cn(
-                        "bg-black/30 hover:bg-black/50 rounded-full h-12 w-12",
+                        "bg-black/30 hover:bg-black/50 rounded-full h-12 w-12 controls-hover",
                         userLiked[video.id] ? "text-white bg-gray-700" : "text-white"
                       )}
                       onClick={() => handleLike(video.id)}
@@ -473,7 +487,7 @@ const Shorts = () => {
                       variant="ghost" 
                       size="icon" 
                       className={cn(
-                        "bg-black/30 hover:bg-black/50 rounded-full h-12 w-12",
+                        "bg-black/30 hover:bg-black/50 rounded-full h-12 w-12 controls-hover",
                         userDisliked[video.id] ? "text-white bg-gray-700" : "text-white"
                       )}
                       onClick={() => handleDislike(video.id)}
@@ -488,7 +502,7 @@ const Shorts = () => {
                     <Button 
                       variant="ghost" 
                       size="icon" 
-                      className="bg-black/30 text-white hover:bg-black/50 rounded-full h-12 w-12"
+                      className="bg-black/30 text-white hover:bg-black/50 rounded-full h-12 w-12 controls-hover"
                       onClick={() => showControlsTemporarily()}
                     >
                       <MessageSquare size={24} className="text-white" />
@@ -501,7 +515,7 @@ const Shorts = () => {
                     <Button 
                       variant="ghost" 
                       size="icon" 
-                      className="bg-black/30 text-white hover:bg-black/50 rounded-full h-12 w-12"
+                      className="bg-black/30 text-white hover:bg-black/50 rounded-full h-12 w-12 controls-hover"
                       onClick={() => showControlsTemporarily()}
                     >
                       <Share2 size={24} className="text-white" />
@@ -515,7 +529,7 @@ const Shorts = () => {
                       variant="ghost" 
                       size="icon" 
                       className={cn(
-                        "bg-black/30 hover:bg-black/50 rounded-full h-12 w-12",
+                        "bg-black/30 hover:bg-black/50 rounded-full h-12 w-12 controls-hover",
                         isVideoSaved ? "text-motortrend-red" : "text-white"
                       )}
                       onClick={() => handleSave(video.id)}
@@ -530,7 +544,7 @@ const Shorts = () => {
                     <Button 
                       variant="ghost" 
                       size="icon" 
-                      className="bg-black/30 text-white hover:bg-black/50 rounded-full h-12 w-12"
+                      className="bg-black/30 text-white hover:bg-black/50 rounded-full h-12 w-12 controls-hover"
                       onClick={() => showControlsTemporarily()}
                     >
                       <MoreVertical size={24} className="text-white" />
