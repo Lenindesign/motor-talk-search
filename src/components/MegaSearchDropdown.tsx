@@ -83,7 +83,7 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
           <img 
             src="https://d2kde5ohu8qb21.cloudfront.net/files/684770b189dde90008189d23/aiicon.svg" 
             alt="AI"
-            className="w-5 h-5 text-primary dark:text-primary-400" 
+            className="w-5 h-5 text-neutral-3 dark:text-neutral-3" 
           />
         );
       case 'popular':
@@ -187,7 +187,8 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
                           <img 
                             src="https://d2kde5ohu8qb21.cloudfront.net/files/684770b189dde90008189d23/aiicon.svg" 
                             alt="AI"
-                            className="w-8 h-8" 
+                            className="w-8 h-8 filter-neutral-3" 
+                            style={{filter: 'brightness(0) saturate(100%) invert(61%) sepia(8%) saturate(442%) hue-rotate(202deg) brightness(96%) contrast(89%)'}}
                           />
                         </div>
                       ) : suggestion.imageUrl ? (
@@ -204,7 +205,7 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
                         {secondaryText && (
                           <span className={`typography-caption truncate block ${
                             suggestion.type === 'aiSuggestion' 
-                              ? 'text-motortrend-red dark:text-motortrend-red-300' 
+                              ? 'text-neutral-3 dark:text-neutral-3' 
                               : 'text-neutral-4 dark:text-neutral-3'
                           }`}>
                             {secondaryText}
@@ -223,4 +224,4 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
   );
 };
 
-export default MegaSearchDropdown; 
+export default MegaSearchDropdown;
