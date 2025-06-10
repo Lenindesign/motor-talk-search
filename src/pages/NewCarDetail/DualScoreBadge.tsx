@@ -31,15 +31,38 @@ const DualScoreBadge: React.FC<DualScoreBadgeProps> = ({
             <Award size={11} className="text-white/70" />
             <span className="text-[9px] uppercase tracking-wider text-white/70 font-medium">MT Score</span>
           </div>
-          <div className="flex items-baseline justify-center">
+          <div className="flex items-baseline justify-center mb-1">
             <span className="text-lg font-bold text-white leading-none">{formattedExpertRating}</span>
             <span className="text-[9px] text-white/60 ml-0.5">/10</span>
           </div>
-          {rank && (
-            <div className="text-[8px] text-white/50 mt-0.5">
-              #{rank.position} of {rank.total}
-            </div>
-          )}
+          {/* MT Score Stars */}
+          <div className="flex justify-center">
+            {[1, 2, 3, 4, 5].map((star, index) => {
+              const expertRatingOutOf5 = expertRating / 2; // Convert 10-point scale to 5-point scale
+              return (
+                <svg 
+                  key={index} 
+                  width="9" 
+                  height="9" 
+                  viewBox="0 0 24 24" 
+                  fill={index < Math.floor(expertRatingOutOf5) ? "currentColor" : (index < Math.ceil(expertRatingOutOf5) && index >= Math.floor(expertRatingOutOf5)) ? "url(#halfStarExpert)" : "none"} 
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  strokeOpacity="0.3"
+                  className="text-white"
+                  style={{ margin: '0 -0.5px' }}
+                >
+                  <defs>
+                    <linearGradient id="halfStarExpert" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="50%" stopColor="currentColor" stopOpacity="1" />
+                      <stop offset="50%" stopColor="currentColor" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+              );
+            })}
+          </div>
         </div>
         
         {/* Owner Score */}
@@ -59,7 +82,7 @@ const DualScoreBadge: React.FC<DualScoreBadgeProps> = ({
                 width="9" 
                 height="9" 
                 viewBox="0 0 24 24" 
-                fill={index < Math.floor(ownerRating) ? "currentColor" : (index < Math.ceil(ownerRating) && index >= Math.floor(ownerRating)) ? "url(#halfStar)" : "none"} 
+                fill={index < Math.floor(ownerRating) ? "currentColor" : (index < Math.ceil(ownerRating) && index >= Math.floor(ownerRating)) ? "url(#halfStarOwner)" : "none"} 
                 stroke="currentColor"
                 strokeWidth="1"
                 strokeOpacity="0.3"
@@ -67,7 +90,7 @@ const DualScoreBadge: React.FC<DualScoreBadgeProps> = ({
                 style={{ margin: '0 -0.5px' }}
               >
                 <defs>
-                  <linearGradient id="halfStar" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <linearGradient id="halfStarOwner" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="50%" stopColor="currentColor" stopOpacity="1" />
                     <stop offset="50%" stopColor="currentColor" stopOpacity="0" />
                   </linearGradient>
