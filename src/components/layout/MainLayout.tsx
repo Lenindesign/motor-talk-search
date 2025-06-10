@@ -58,7 +58,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, isLoading = false }) 
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen bg-motortrend-gray">
       <div ref={headerRef} className="relative w-full" style={{ zIndex: 50, position: 'relative' }}>
         <GlobalHeader onSearch={handleSearch} isLoading={isLoading} />
       </div>
@@ -79,10 +79,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, isLoading = false }) 
         />
       )}
 
-      <main className="flex-grow max-w-[980px] mx-auto px-2 sm:px-4 py-4">
+      <main className="flex-grow px-2 sm:px-4 py-4">
         {/* Add top padding on mobile to account for the sticky search */}
         <div className="sm:hidden" style={{ height: '60px' }} />
-        {children}
+        <div className="max-w-[980px] mx-auto">
+          {children}
+        </div>
       </main>
 
     </div>

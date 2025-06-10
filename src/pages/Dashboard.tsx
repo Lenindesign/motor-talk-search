@@ -64,11 +64,10 @@ const Dashboard = () => {
   const userInterests = preferences?.favoriteCategories || ['SUVs', 'Hybrids', 'Reviews'];
 
   return (
-    <div className="min-h-screen bg-motortrend-gray">
-      
+    <>
       {/* Breadcrumbs for navigation context */}
-      <div className="bg-white border-b">
-        <div className="max-w-[980px] mx-auto px-2 sm:px-4 py-2">
+      <div className="bg-white border-b -mx-2 sm:-mx-4 mb-6">
+        <div className="px-2 sm:px-4 py-2">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -86,8 +85,6 @@ const Dashboard = () => {
           </Breadcrumb>
         </div>
       </div>
-      
-      <div className="py-6">
         {/* Welcome section with personalization */}
         <section className="mb-8">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
@@ -463,8 +460,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         </section>
-      </div>
-    </div>
+    </>
   );
 };
 

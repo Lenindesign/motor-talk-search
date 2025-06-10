@@ -7,10 +7,7 @@ import LatestReviews from '../components/home/LatestReviews';
 import FeaturedVideos from '../components/home/FeaturedVideos';
 import BrowseByCategory from '../components/home/BrowseByCategory';
 const Index = () => {
-  return <div className="flex min-h-screen flex-col w-full bg-transparent">
-      
-      <main className="flex flex-1 flex-col bg-transparent">
-         <div className="bg-transparent">
+  return <>
             {/* Hero Carousel */}
              <div className="mb-8 pt-0 sm:pt-8">
                <HeroCarousel />
@@ -45,8 +42,6 @@ const Index = () => {
             <div className="mb-8">
               <BrowseByCategory />
             </div>
-        </div>
-      </main>
-    </div>;
+    </>;
 };
 export default Index;
