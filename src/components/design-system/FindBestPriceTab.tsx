@@ -440,6 +440,156 @@ const FindBestPriceTab = () => {
         </CardContent>
       </Card>
 
+      {/* Dual Rating System Integration */}
+      <Card className="border-color-neutral-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Star className="h-5 w-5 text-yellow-500" />
+            Dual Rating System Integration
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-6">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <h4 className="font-semibold text-blue-900 mb-2">Rating Display Requirements</h4>
+              <p className="text-blue-700 text-sm mb-3">
+                All cars in the Find Best Price experience must display both MT Score and Owner Score to provide comprehensive evaluation criteria.
+              </p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-white rounded-lg p-3 border border-blue-200">
+                  <h5 className="font-medium text-gray-900 mb-2">Car Card Rating Display</h5>
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="bg-neutral-100 text-motortrend-red px-2 py-1 rounded text-xs font-medium">
+                      MT Score: 8.5
+                    </div>
+                    <div className="bg-neutral-100 text-motortrend-red px-2 py-1 rounded text-xs font-medium">
+                      Owner: 8.6
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-600">Side-by-side horizontal layout with consistent styling</p>
+                </div>
+                
+                <div className="bg-white rounded-lg p-3 border border-blue-200">
+                  <h5 className="font-medium text-gray-900 mb-2">Price Comparison Grid</h5>
+                  <div className="space-y-1 mb-2">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-gray-600">Expert Rating:</span>
+                      <span className="font-medium">8.5/10</span>
+                    </div>
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-gray-600">Owner Rating:</span>
+                      <span className="font-medium">8.6/10</span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-600">Detailed view with labeled ratings</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                <h5 className="font-semibold text-gray-900 mb-2">Rating Consistency</h5>
+                <ul className="text-sm text-gray-600 space-y-1">
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-3 w-3 text-green-500" />
+                    Same 0-10 scale for both ratings
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-3 w-3 text-green-500" />
+                    Identical visual styling
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <CheckCircle className="h-3 w-3 text-green-500" />
+                    Clear labeling (MT Score vs Owner)
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-200">
+                <h5 className="font-semibold text-yellow-900 mb-2">Trust Building</h5>
+                <ul className="text-sm text-yellow-700 space-y-1">
+                  <li className="flex items-center gap-2">
+                    <Star className="h-3 w-3 text-yellow-600" />
+                    Expert evaluation transparency
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Star className="h-3 w-3 text-yellow-600" />
+                    Real owner experiences
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Star className="h-3 w-3 text-yellow-600" />
+                    Balanced perspective
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                <h5 className="font-semibold text-purple-900 mb-2">Decision Support</h5>
+                <ul className="text-sm text-purple-700 space-y-1">
+                  <li className="flex items-center gap-2">
+                    <Target className="h-3 w-3 text-purple-600" />
+                    Compare expert vs user opinions
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Target className="h-3 w-3 text-purple-600" />
+                    Identify rating discrepancies
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Target className="h-3 w-3 text-purple-600" />
+                    Inform price negotiations
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+              <h4 className="font-semibold text-red-900 mb-2">Implementation Guidelines</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div>
+                  <h5 className="font-medium text-red-800 mb-2">Visual Design</h5>
+                  <ul className="text-red-700 space-y-1">
+                    <li>• Use motortrend-red (#DC2626) for text color</li>
+                    <li>• Apply neutral-100 background (#F5F5F5)</li>
+                    <li>• Maintain 2px gap between badges</li>
+                    <li>• Ensure 44px minimum touch target</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5 className="font-medium text-red-800 mb-2">Data Requirements</h5>
+                  <ul className="text-red-700 space-y-1">
+                    <li>• MT Score: Editorial rating (0-10 scale)</li>
+                    <li>• Owner Score: userReviewsScore * 2</li>
+                    <li>• Fallback: Show single rating if one missing</li>
+                    <li>• Loading state: Show skeleton badges</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <h4 className="font-semibold text-green-900 mb-2">User Experience Benefits</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <h5 className="font-medium text-green-800 mb-2">For Price Comparison</h5>
+                  <p className="text-sm text-green-700">
+                    Dual ratings help users understand if a higher price correlates with better expert reviews or owner satisfaction, 
+                    enabling more informed price vs quality decisions.
+                  </p>
+                </div>
+                <div>
+                  <h5 className="font-medium text-green-800 mb-2">For Dealer Selection</h5>
+                  <p className="text-sm text-green-700">
+                    When multiple dealers offer similar prices, ratings become the differentiator, 
+                    helping users choose vehicles with better long-term satisfaction scores.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Convenience Features */}
       <Card className="border-color-neutral-6">
         <CardHeader>
@@ -599,16 +749,17 @@ const FindBestPriceTab = () => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
-              {
-                title: "Car Card with Find Best Price CTA",
-                description: "Primary entry point for price discovery",
-                elements: [
-                  "Car image and basic specs",
-                  "Prominent 'Find Best Price' button",
-                  "Starting price indication",
-                  "Dealer count indicator"
-                ]
-              },
+                             {
+                 title: "Car Card with Find Best Price CTA",
+                 description: "Primary entry point for price discovery",
+                 elements: [
+                   "Car image and basic specs",
+                   "Dual rating badges (MT Score + Owner)",
+                   "Prominent 'Find Best Price' button",
+                   "Starting price indication",
+                   "Dealer count indicator"
+                 ]
+               },
               {
                 title: "Location Input Modal",
                 description: "Quick location capture for dealer proximity",
@@ -619,16 +770,17 @@ const FindBestPriceTab = () => {
                   "Continue button"
                 ]
               },
-              {
-                title: "Price Comparison Grid",
-                description: "Core price discovery interface",
-                elements: [
-                  "Sorted dealer list (price ascending)",
-                  "Distance and rating indicators",
-                  "Quick contact actions",
-                  "Filter and sort options"
-                ]
-              },
+                             {
+                 title: "Price Comparison Grid",
+                 description: "Core price discovery interface",
+                 elements: [
+                   "Sorted dealer list (price ascending)",
+                   "MT Score and Owner Score display",
+                   "Distance and rating indicators",
+                   "Quick contact actions",
+                   "Filter and sort options"
+                 ]
+               },
               {
                 title: "Dealer Contact Form",
                 description: "Streamlined lead generation",
