@@ -86,7 +86,7 @@ const BuyersGuide: React.FC = () => {
         {guideItems.slice(0, 3).map((item, index) => (
           <div key={item.id} className="relative">
             <CarCard car={item} type="new" priority={index < 2} />
-            <div className="absolute top-2 right-2 z-10 w-8 h-8 bg-motortrend-red text-white rounded-sm flex items-center justify-center font-bold text-sm">
+            <div className="absolute top-2 right-2 z-10 w-8 h-8 bg-motortrend-red text-black rounded-sm flex items-center justify-center font-bold text-sm">
               {index + 1}
             </div>
           </div>

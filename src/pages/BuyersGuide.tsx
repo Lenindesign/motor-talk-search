@@ -532,7 +532,7 @@ const BuyersGuide: React.FC = () => {
   const displayedUsedCars = searchTerm ? displayedSearchResults : defaultUsedCars;
   return <div className="bg-gray-50 min-h-screen">
       <div className="max-w-[1024px] mx-auto py-[32px] px-0">
-        <h1 className="text-2xl font-bold mb-6">Buyer's Guide</h1>
+        <h1 className="text-2xl font-bold mb-6">New & Used Cars</h1>
         
         {/* Search and filters */}
         <div className="mb-6">
@@ -547,7 +547,7 @@ const BuyersGuide: React.FC = () => {
                   className="pl-10 pr-4 py-2" 
                 />
               </div>
-              <Button type="submit" variant="solid-primary" className="flex items-center gap-2">
+              <Button type="submit" variant="solid" className="flex items-center gap-2">
                 <Search className="h-4 w-4" />
                 Search
               </Button>
