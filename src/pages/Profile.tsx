@@ -121,7 +121,7 @@ const Profile = () => {
                     </div>
                     
                     <div className="w-full mt-4 space-y-3">
-                      <Button variant="solid-primary" size="sm" className="w-full flex items-center justify-center gap-2 typography-caption">
+                      <Button variant="solid" size="sm" className="w-full flex items-center justify-center gap-2 typography-caption">
                         <User size={16} />
                         Profile
                       </Button>
@@ -178,7 +178,7 @@ const Profile = () => {
                       <div className="overflow-x-auto hide-scrollbar">
                         <div className="flex gap-2 pb-2 whitespace-nowrap">
                           <Button 
-                            variant={filterType === "all" ? "solid-primary" : "outline-black"} 
+                            variant={filterType === "all" ? "solid" : "ghost"} 
                             size="sm" 
                             onClick={() => setFilterType("all")}
                             className="flex-shrink-0"
@@ -186,7 +186,7 @@ const Profile = () => {
                             All ({savedItems.length})
                           </Button>
                           <Button 
-                            variant={filterType === "article" ? "solid-primary" : "outline-black"} 
+                            variant={filterType === "article" ? "solid" : "outline-ghost"} 
                             size="sm" 
                             onClick={() => setFilterType("article")}
                             className="flex-shrink-0"
@@ -194,7 +194,7 @@ const Profile = () => {
                             Articles ({savedItems.filter(item => item.type === 'article').length})
                           </Button>
                           <Button 
-                            variant={filterType === "newCar" ? "solid-primary" : "ghost-black"} 
+                            variant={filterType === "newCar" ? "solid" : "ghost"} 
                             size="sm" 
                             onClick={() => setFilterType("newCar")}
                             className="flex-shrink-0"
@@ -202,7 +202,7 @@ const Profile = () => {
                             New Cars ({savedItems.filter(item => item.type === 'newCar').length})
                           </Button>
                           <Button 
-                            variant={filterType === "usedCar" ? "solid-primary" : "ghost-black"} 
+                            variant={filterType === "usedCar" ? "solid" : "ghost-black"} 
                             size="sm" 
                             onClick={() => setFilterType("usedCar")}
                             className="flex-shrink-0"
@@ -210,7 +210,7 @@ const Profile = () => {
                             Used Cars ({savedItems.filter(item => item.type === 'usedCar').length})
                           </Button>
                           <Button 
-                            variant={filterType === "photo" ? "solid-red" : "ghost-red"} 
+                            variant={filterType === "photo" ? "solid" : "ghost"} 
                             size="sm" 
                             onClick={() => setFilterType("photo")}
                             className="flex-shrink-0"
@@ -218,7 +218,7 @@ const Profile = () => {
                             Photos ({savedItems.filter(item => item.type === 'photo').length})
                           </Button>
                           <Button 
-                            variant={filterType === "video" ? "solid-red" : "ghost-red"} 
+                            variant={filterType === "video" ? "solid" : "ghost"} 
                             size="sm" 
                             onClick={() => setFilterType("video")}
                             className="flex-shrink-0"
