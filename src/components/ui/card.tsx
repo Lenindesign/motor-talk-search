@@ -1,4 +1,3 @@
-
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
@@ -65,15 +64,15 @@ const Card = React.forwardRef<HTMLDivElement, UnifiedCardProps>(
       <div
         ref={ref}
         className={cn(
-          "rounded-xl border bg-card text-card-foreground shadow-modern relative",
+          "group rounded-xl border bg-card text-card-foreground shadow-modern relative",
           className
         )}
         {...props}
       >
         {renderSaveButton()}
         {imageUrl && (
-          <div className="relative pt-[56.25%]">
-            <img src={imageUrl} alt="Card visual" className="absolute inset-0 w-full h-full object-cover transition-all duration-300 rounded-t-xl" loading="lazy" />
+          <div className="relative pt-[56.25%] overflow-hidden">
+            <img src={imageUrl} alt="Card visual" className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-t-xl" loading="lazy" />
           </div>
         )}
         {children}
