@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
 import { User, Car, Settings, Palette } from "lucide-react";
@@ -36,41 +35,38 @@ const ProfileSidebar: React.FC<ProfileSidebarProps> = ({
 
   return (
     <>
-      <aside className="w-full md:w-64 space-y-6">
-        <Card className="overflow-hidden">
-          <CardContent className="p-6">
-            <div className="flex flex-col items-center text-center">
-              <Avatar className="w-20 h-20 mb-4">
-                <AvatarImage src={userData.avatar} alt={userData.name} className="object-cover" />
-                <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
-              </Avatar>
-              <h2 className="typography-title">{userData.name}</h2>
-              <p className="typography-caption text-neutral-4 mt-1">Member since {userData.joined}</p>
-              <div className="w-full mt-6 flex justify-between items-center">
-                <span className="typography-caption">Saved Items</span>
-                <span className="typography-body-large">{savedItemsCount}</span>
-              </div>
-              <div className="w-full mt-4 space-y-3">
-                <Link to="/profile" className="w-full block">
-                  <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 typography-caption">
-                    <User size={16} />
-                    Profile
-                  </Button>
-                </Link>
-                <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 typography-caption" onClick={onPersonalizeClick}>
-                  <Palette size={16} />
-                  Personalize
-                </Button>
-                <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 typography-caption" onClick={handleSettingsClick}>
-                  <Settings size={16} />
-                  Settings
-                </Button>
-              </div>
+      <Card className="overflow-hidden">
+        <CardContent className="p-6">
+          <div className="flex flex-col items-center text-center">
+            <Avatar className="w-20 h-20 mb-4">
+              <AvatarImage src={userData.avatar} alt={userData.name} className="object-cover" />
+              <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <h2 className="typography-title">{userData.name}</h2>
+            <p className="typography-caption text-neutral-4 mt-1">Member since {userData.joined}</p>
+            <div className="w-full mt-6 flex justify-between items-center">
+              <span className="typography-caption">Saved Items</span>
+              <span className="typography-body-large">{savedItemsCount}</span>
             </div>
-          </CardContent>
-        </Card>
-      </aside>
-
+            <div className="w-full mt-4 space-y-3">
+              <Link to="/profile" className="w-full block">
+                <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 typography-caption">
+                  <User size={16} />
+                  Profile
+                </Button>
+              </Link>
+              <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 typography-caption" onClick={onPersonalizeClick}>
+                <Palette size={16} />
+                Personalize
+              </Button>
+              <Button variant="outline" size="sm" className="w-full flex items-center justify-center gap-2 typography-caption" onClick={handleSettingsClick}>
+                <Settings size={16} />
+                Settings
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </>
   );
 };

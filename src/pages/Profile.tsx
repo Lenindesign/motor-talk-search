@@ -102,11 +102,22 @@ const Profile = () => {
 
   return (
     <>
+      <style>
+        {`
+          .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+          .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+          }
+        `}
+      </style>
       <div className="min-h-screen bg-motortrend-gray">
-        <main className="mx-auto px-0 py-0 pt-8">
+        <main className="mx-auto px-4 py-0 pt-8 max-w-[1024px]">
           <div className="flex flex-col md:flex-row gap-4">
-            {/* Profile Sidebar */}
-            <aside className="w-full md:w-64 space-y-6 px-[8px]">
+            {/* Profile Sidebar - 1/3 width */}
+            <aside className="w-full md:w-1/3 space-y-6">
               <Card className="overflow-hidden">
                 <CardContent className="p-6">
                   <div className="flex flex-col items-center text-center">
@@ -147,8 +158,8 @@ const Profile = () => {
               <MyGarageSkinny />
             </aside>
             
-            {/* Main Content */}
-            <div className="flex-1">
+            {/* Main Content - 2/3 width */}
+            <div className="w-full md:w-2/3">
               <Tabs defaultValue="saved" className="w-full">
                 <TabsList className="w-full justify-start border-b rounded-none overflow-x-auto whitespace-nowrap scrollbar-hide flex-nowrap">
                   <TabsTrigger value="saved" className="flex items-center gap-1">
@@ -177,72 +188,106 @@ const Profile = () => {
                   <div className="bg-white p-4 rounded-lg shadow">
                     <div className="mb-4">
                       <h2 className="typography-title mb-3">Saved Items</h2>
-                      <div className="overflow-x-auto hide-scrollbar">
-                        <div className="flex gap-2 pb-2 whitespace-nowrap">
-                          <Button 
-                            variant={filterType === "all" ? "solid" : "ghost"} 
-                            size="sm" 
-                            onClick={() => setFilterType("all")}
-                            className="flex-shrink-0"
+                      <div className="relative">
+                        <div className="flex items-center">
+                          <button 
+                            onClick={() => {
+                              const container = document.getElementById('filter-buttons-container');
+                              if (container) {
+                                container.scrollLeft -= 200;
+                              }
+                            }}
+                            className="absolute left-0 z-10 p-1.5 rounded-full bg-white/90 backdrop-blur-sm shadow-lg border border-neutral-200 hover:bg-white transition-colors"
                           >
-                            All ({savedItems.length})
-                          </Button>
-                          <Button 
-                            variant={filterType === "article" ? "solid" : "ghost"} 
-                            size="sm" 
-                            onClick={() => setFilterType("article")}
-                            className="flex-shrink-0"
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <polyline points="15,18 9,12 15,6"></polyline>
+                            </svg>
+                          </button>
+                          
+                          <div 
+                            id="filter-buttons-container"
+                            className="flex gap-2 overflow-x-auto hide-scrollbar scroll-smooth pl-8 pr-8"
+                            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                           >
-                            Articles ({savedItems.filter(item => item.type === 'article').length})
-                          </Button>
-                          <Button 
-                            variant={filterType === "newCar" ? "solid" : "ghost"} 
-                            size="sm" 
-                            onClick={() => setFilterType("newCar")}
-                            className="flex-shrink-0"
+                            <Button 
+                              variant={filterType === "all" ? "solid" : "ghost"} 
+                              size="sm" 
+                              onClick={() => setFilterType("all")}
+                              className="flex-shrink-0"
+                            >
+                              All ({savedItems.length})
+                            </Button>
+                            <Button 
+                              variant={filterType === "article" ? "solid" : "ghost"} 
+                              size="sm" 
+                              onClick={() => setFilterType("article")}
+                              className="flex-shrink-0"
+                            >
+                              Articles ({savedItems.filter(item => item.type === 'article').length})
+                            </Button>
+                            <Button 
+                              variant={filterType === "newCar" ? "solid" : "ghost"} 
+                              size="sm" 
+                              onClick={() => setFilterType("newCar")}
+                              className="flex-shrink-0"
+                            >
+                              New Cars ({savedItems.filter(item => item.type === 'newCar').length})
+                            </Button>
+                            <Button 
+                              variant={filterType === "usedCar" ? "solid" : "ghost-black"} 
+                              size="sm" 
+                              onClick={() => setFilterType("usedCar")}
+                              className="flex-shrink-0"
+                            >
+                              Used Cars ({savedItems.filter(item => item.type === 'usedCar').length})
+                            </Button>
+                            <Button 
+                              variant={filterType === "photo" ? "solid" : "ghost"} 
+                              size="sm" 
+                              onClick={() => setFilterType("photo")}
+                              className="flex-shrink-0"
+                            >
+                              Photos ({savedItems.filter(item => item.type === 'photo').length})
+                            </Button>
+                            <Button 
+                              variant={filterType === "video" ? "solid" : "ghost"} 
+                              size="sm" 
+                              onClick={() => setFilterType("video")}
+                              className="flex-shrink-0"
+                            >
+                              Videos ({savedItems.filter(item => item.type === 'video').length})
+                            </Button>
+                            <Button 
+                              variant={filterType === "comment" ? "solid" : "ghost"} 
+                              size="sm" 
+                              onClick={() => setFilterType("comment")}
+                              className="flex-shrink-0"
+                            >
+                              Comments ({savedItems.filter(item => item.type === 'comment').length})
+                            </Button>
+                            <Button 
+                              variant={filterType === "review" ? "solid" : "ghost"} 
+                              size="sm" 
+                              onClick={() => setFilterType("review")}
+                              className="flex-shrink-0"
+                            >
+                              Reviews ({savedItems.filter(item => item.type === 'review').length})
+                            </Button>
+                          </div>
+                          
+                          <button 
+                            onClick={() => {
+                              const container = document.getElementById('filter-buttons-container');
+                              if (container) {
+                                container.scrollLeft += 200;
+                              }
+                            }}
+                            className="absolute right-0 z-10 p-1.5 rounded-full bg-white/90 backdrop-blur-sm shadow-lg border border-neutral-200 hover:bg-white transition-colors"
                           >
-                            New Cars ({savedItems.filter(item => item.type === 'newCar').length})
-                          </Button>
-                          <Button 
-                            variant={filterType === "usedCar" ? "solid" : "ghost-black"} 
-                            size="sm" 
-                            onClick={() => setFilterType("usedCar")}
-                            className="flex-shrink-0"
-                          >
-                            Used Cars ({savedItems.filter(item => item.type === 'usedCar').length})
-                          </Button>
-                          <Button 
-                            variant={filterType === "photo" ? "solid" : "ghost"} 
-                            size="sm" 
-                            onClick={() => setFilterType("photo")}
-                            className="flex-shrink-0"
-                          >
-                            Photos ({savedItems.filter(item => item.type === 'photo').length})
-                          </Button>
-                          <Button 
-                            variant={filterType === "video" ? "solid" : "ghost"} 
-                            size="sm" 
-                            onClick={() => setFilterType("video")}
-                            className="flex-shrink-0"
-                          >
-                            Videos ({savedItems.filter(item => item.type === 'video').length})
-                          </Button>
-                          <Button 
-                            variant={filterType === "comment" ? "solid" : "ghost"} 
-                            size="sm" 
-                            onClick={() => setFilterType("comment")}
-                            className="flex-shrink-0"
-                          >
-                            Comments ({savedItems.filter(item => item.type === 'comment').length})
-                          </Button>
-                          <Button 
-                            variant={filterType === "review" ? "solid" : "ghost"} 
-                            size="sm" 
-                            onClick={() => setFilterType("review")}
-                            className="flex-shrink-0"
-                          >
-                            Reviews ({savedItems.filter(item => item.type === 'review').length})
-                          </Button>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <polyline points="9,18 15,12 9,6"></polyline>
+                            </svg>
+                          </button>
                         </div>
                       </div>
                     </div>

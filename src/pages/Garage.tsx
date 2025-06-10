@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import PersonalizationDialog from "../components/PersonalizationDialog";
 import ProfileSidebar from "../components/garage/ProfileSidebar";
@@ -24,7 +23,7 @@ const Garage = () => {
   return (
     <MainLayout isGaragePage={true}>
       <div className="min-h-screen bg-neutral-7">
-        <div className="bg-white rounded-xl shadow-sm border border-neutral-6 mx-auto max-w-7xl my-8">
+        <div className="bg-white rounded-xl shadow-sm border border-neutral-6 mx-auto max-w-[1024px] my-8">
           {/* Responsive layout */}
           <div className="md:hidden py-4">
             <GarageContent />
@@ -33,8 +32,8 @@ const Garage = () => {
           {/* Desktop layout */}
           <div className="hidden md:block py-8">
             <div className="flex flex-col md:flex-row gap-4 px-4">
-              {/* Sidebar (ProfileSidebar + UserPoints) */}
-              <aside className="w-full md:w-64 space-y-6">
+              {/* Sidebar - 1/3 width */}
+              <aside className="w-full md:w-1/3 space-y-6">
                 <ProfileSidebar 
                   userData={userData} 
                   savedItemsCount={savedItems.length} 
@@ -43,8 +42,8 @@ const Garage = () => {
                 />
               </aside>
               
-              {/* Main Content (GarageContent) */}
-              <div className="flex-1">
+              {/* Main Content - 2/3 width */}
+              <div className="w-full md:w-2/3">
                 <GarageContent />
               </div>
             </div>
