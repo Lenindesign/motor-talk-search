@@ -213,6 +213,46 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   </Tooltip>
                 </TooltipProvider>
               )}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 rounded-full p-0 text-gray-500 hover:bg-gray-200 hover:text-gray-700 disabled:text-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:disabled:text-gray-500 transition-fast focus-ring"
+                      onClick={handleVoiceSearch}
+                      aria-label="Search by voice"
+                      disabled={isLoading}
+                    >
+                      {voiceSearch ? <Loader size={18} className="animate-spin" /> : <Mic size={18} />}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Search by voice</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 rounded-full p-0 text-gray-500 hover:bg-gray-200 hover:text-gray-700 disabled:text-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:disabled:text-gray-500 transition-fast focus-ring"
+                      onClick={handleImageSearch}
+                      aria-label="Search by image"
+                      disabled={isLoading}
+                    >
+                      <Camera size={18} />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Search by image</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
               <Button
                 type="submit"
                 variant="ghost"
