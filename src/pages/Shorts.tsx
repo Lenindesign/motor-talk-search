@@ -24,10 +24,12 @@ const Shorts = () => {
   const [dislikeCount, setDislikeCount] = useState<Record<string, number>>({});
   const [userLiked, setUserLiked] = useState<Record<string, boolean>>({});
   const [userDisliked, setUserDisliked] = useState<Record<string, boolean>>({});
+  const [showControls, setShowControls] = useState(false);
   
   // Refs for videos and container
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
+  const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Find starting index based on URL param
   useEffect(() => {
@@ -38,6 +40,15 @@ const Shorts = () => {
       }
     }
   }, [id]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (controlsTimeoutRef.current) {
+        clearTimeout(controlsTimeoutRef.current);
+      }
+    };
+  }, []);
 
   // Handle intersection observer for videos
   useEffect(() => {
@@ -208,6 +219,25 @@ const Shorts = () => {
 
   const handleVideoClick = () => {
     togglePlayPause();
+    showControlsTemporarily();
+  };
+
+  const showControlsTemporarily = () => {
+    setShowControls(true);
+    
+    // Clear existing timeout
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current);
+    }
+    
+    // Hide controls after 3 seconds
+    controlsTimeoutRef.current = setTimeout(() => {
+      setShowControls(false);
+    }, 3000);
+  };
+
+  const handleControlsInteraction = () => {
+    showControlsTemporarily();
   };
 
   const toggleMute = () => {
@@ -216,9 +246,11 @@ const Shorts = () => {
       video.muted = !isMuted;
       setIsMuted(!isMuted);
     }
+    showControlsTemporarily();
   };
 
   const handleLike = (videoId: string) => {
+    showControlsTemporarily();
     setUserLiked(prev => {
       const wasLiked = prev[videoId] || false;
       const newState = {...prev, [videoId]: !wasLiked};
@@ -253,6 +285,7 @@ const Shorts = () => {
   };
 
   const handleDislike = (videoId: string) => {
+    showControlsTemporarily();
     setUserDisliked(prev => {
       const wasDisliked = prev[videoId] || false;
       const newState = {...prev, [videoId]: !wasDisliked};
@@ -287,6 +320,7 @@ const Shorts = () => {
   };
 
   const handleSave = (videoId: string) => {
+    showControlsTemporarily();
     const video = mockShortVideos.find(v => v.id === videoId);
     if (!video) return;
 
@@ -354,7 +388,20 @@ const Shorts = () => {
               data-index={index}
               className="short-video-container h-screen w-full flex items-center justify-center snap-start snap-always relative"
             >
-              <div className="video-wrapper relative w-full max-w-[500px] mx-auto" style={{ aspectRatio: '9/16' }}>
+              <div 
+                className="video-wrapper relative w-full max-w-[500px] mx-auto" 
+                style={{ aspectRatio: '9/16' }}
+                onMouseEnter={showControlsTemporarily}
+                onMouseLeave={() => {
+                  if (controlsTimeoutRef.current) {
+                    clearTimeout(controlsTimeoutRef.current);
+                  }
+                  controlsTimeoutRef.current = setTimeout(() => {
+                    setShowControls(false);
+                  }, 1000);
+                }}
+                onTouchStart={showControlsTemporarily}
+              >
                 {/* Video placeholder - in a real app, this would be a real video */}
                 <div 
                   className="absolute inset-0 bg-gray-900 flex items-center justify-center overflow-hidden rounded-lg"
@@ -394,19 +441,22 @@ const Shorts = () => {
                 </div>
 
                 {/* Video controls - top */}
-                <div className="absolute top-4 right-4 flex space-x-2">
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="bg-black/30 text-white hover:bg-black/50 rounded-full h-10 w-10"
-                    onClick={toggleMute}
-                  >
-                    {isMuted ? <VolumeX size={20} className="text-white" /> : <Volume2 size={20} className="text-white" />}
-                  </Button>
-                </div>
+                {showControls && (
+                  <div className="absolute top-4 right-4 flex space-x-2 transition-opacity duration-300">
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="bg-black/30 text-white hover:bg-black/50 rounded-full h-10 w-10"
+                      onClick={toggleMute}
+                    >
+                      {isMuted ? <VolumeX size={20} className="text-white" /> : <Volume2 size={20} className="text-white" />}
+                    </Button>
+                  </div>
+                )}
 
                 {/* Interaction buttons - right side */}
-                <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center space-y-6">
+                {showControls && (
+                  <div className="absolute right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center space-y-6 transition-opacity duration-300">
                   {/* Like button */}
                   <div className="flex flex-col items-center">
                     <Button 
@@ -445,7 +495,7 @@ const Shorts = () => {
                       variant="ghost" 
                       size="icon" 
                       className="bg-black/30 text-white hover:bg-black/50 rounded-full h-12 w-12"
-                      onClick={() => {}}
+                      onClick={() => showControlsTemporarily()}
                     >
                       <MessageSquare size={24} className="text-white" />
                     </Button>
@@ -458,7 +508,7 @@ const Shorts = () => {
                       variant="ghost" 
                       size="icon" 
                       className="bg-black/30 text-white hover:bg-black/50 rounded-full h-12 w-12"
-                      onClick={() => {}}
+                      onClick={() => showControlsTemporarily()}
                     >
                       <Share2 size={24} className="text-white" />
                     </Button>
@@ -487,12 +537,13 @@ const Shorts = () => {
                       variant="ghost" 
                       size="icon" 
                       className="bg-black/30 text-white hover:bg-black/50 rounded-full h-12 w-12"
-                      onClick={() => {}}
+                      onClick={() => showControlsTemporarily()}
                     >
                       <MoreVertical size={24} className="text-white" />
                     </Button>
                   </div>
                 </div>
+                )}
               </div>
             </div>
           );
