@@ -78,6 +78,45 @@
   animation: pulse 0.5s ease-in-out;
 }
 
+/* Navigation arrows animations */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeOutScale {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+}
+
+.nav-arrow-enter {
+  animation: fadeInScale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.nav-arrow-exit {
+  animation: fadeOutScale 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.nav-arrow-hover {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-arrow-hover:hover {
+  transform: scale(1.15);
+}
+
 /* Progress bar for video */
 .video-progress {
   position: absolute;

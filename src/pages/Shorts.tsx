@@ -25,6 +25,7 @@ const Shorts = () => {
   const [userLiked, setUserLiked] = useState<Record<string, boolean>>({});
   const [userDisliked, setUserDisliked] = useState<Record<string, boolean>>({});
   const [showControls, setShowControls] = useState(false);
+  const [navArrowsAnimation, setNavArrowsAnimation] = useState<'enter' | 'exit' | 'idle'>('idle');
   
   // Refs for videos and container
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
@@ -224,6 +225,7 @@ const Shorts = () => {
 
   const showControlsTemporarily = () => {
     setShowControls(true);
+    setNavArrowsAnimation('enter');
     
     // Clear existing timeout
     if (controlsTimeoutRef.current) {
@@ -232,7 +234,12 @@ const Shorts = () => {
     
     // Hide controls after 3 seconds
     controlsTimeoutRef.current = setTimeout(() => {
-      setShowControls(false);
+      setNavArrowsAnimation('exit');
+      // Hide controls after exit animation completes
+      setTimeout(() => {
+        setShowControls(false);
+        setNavArrowsAnimation('idle');
+      }, 300); // Match the exit animation duration
     }, 3000);
   };
 
@@ -380,7 +387,11 @@ const Shorts = () => {
                     clearTimeout(controlsTimeoutRef.current);
                   }
                   controlsTimeoutRef.current = setTimeout(() => {
-                    setShowControls(false);
+                    setNavArrowsAnimation('exit');
+                    setTimeout(() => {
+                      setShowControls(false);
+                      setNavArrowsAnimation('idle');
+                    }, 300);
                   }, 1000);
                 }}
                 onTouchStart={showControlsTemporarily}
@@ -529,12 +540,16 @@ const Shorts = () => {
                 )}
 
                 {/* Navigation controls - positioned on the left side */}
-                {showControls && (
-                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 z-20 transition-opacity duration-300">
+                {(showControls || navArrowsAnimation !== 'idle') && (
+                  <div className={cn(
+                    "absolute left-4 top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 z-20",
+                    navArrowsAnimation === 'enter' && "nav-arrow-enter",
+                    navArrowsAnimation === 'exit' && "nav-arrow-exit"
+                  )}>
                     <Button 
                       variant="ghost" 
                       size="icon" 
-                      className="bg-black/50 text-white hover:bg-black/70 rounded-full h-12 w-12 transform transition-all duration-300 hover:scale-110"
+                      className="bg-black/50 text-white hover:bg-black/70 rounded-full h-12 w-12 nav-arrow-hover"
                       onClick={navigateToPrev}
                     >
                       <ChevronUp size={24} />
@@ -542,7 +557,7 @@ const Shorts = () => {
                     <Button 
                       variant="ghost" 
                       size="icon" 
-                      className="bg-black/50 text-white hover:bg-black/70 rounded-full h-12 w-12 transform transition-all duration-300 hover:scale-110"
+                      className="bg-black/50 text-white hover:bg-black/70 rounded-full h-12 w-12 nav-arrow-hover"
                       onClick={navigateToNext}
                     >
                       <ChevronDown size={24} />
