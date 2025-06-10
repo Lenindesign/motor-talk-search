@@ -85,7 +85,11 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
             {car.userReviewsScore && (
               <div className="flex items-center bg-neutral-100 rounded px-2 py-1">
                 <span className="text-motortrend-red font-bold mr-1">
-                  {(parseFloat(car.userReviewsScore) * 2).toFixed(1)}
+                  {(() => {
+                    const score = parseFloat(car.userReviewsScore);
+                    // If score is > 5, it's already on 10-point scale, otherwise convert from 5-point to 10-point
+                    return score > 5 ? score.toFixed(1) : (score * 2).toFixed(1);
+                  })()}
                 </span>
                 <span className="text-sm font-medium">Owner</span>
               </div>
