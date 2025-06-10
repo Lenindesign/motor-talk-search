@@ -73,12 +73,13 @@ const NewCarDetail: React.FC = () => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
+          console.log('Section intersecting:', entry.target.id);
           setActiveSection(entry.target.id);
         }
       });
     }, {
-      threshold: 0.2,
-      rootMargin: "-10% 0px -70% 0px"
+      threshold: 0.1,
+      rootMargin: "-20% 0px -50% 0px"
     });
 
     sections.forEach(section => {
@@ -89,12 +90,7 @@ const NewCarDetail: React.FC = () => {
     });
 
     return () => {
-      sections.forEach(section => {
-        const element = document.getElementById(section.id);
-        if (element) {
-          observer.disconnect();
-        }
-      });
+      observer.disconnect();
     };
   }, [sections]);
 

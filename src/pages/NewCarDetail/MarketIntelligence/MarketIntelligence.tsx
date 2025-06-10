@@ -16,7 +16,9 @@ import {
   Car,
   BarChart3,
   Target,
-  Zap
+  Zap,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 
 interface DealerInventory {
@@ -62,6 +64,7 @@ const MarketIntelligence: React.FC<MarketIntelligenceProps> = ({
   currentPrice
 }) => {
   const [selectedRadius, setSelectedRadius] = useState(25);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   // Mock data - in real app, this would come from APIs
   const dealerInventory: DealerInventory[] = [
@@ -175,6 +178,18 @@ const MarketIntelligence: React.FC<MarketIntelligenceProps> = ({
     return insights;
   };
 
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % similarVehicles.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + similarVehicles.length) % similarVehicles.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-2 mb-6">
@@ -278,145 +293,251 @@ const MarketIntelligence: React.FC<MarketIntelligenceProps> = ({
           </Card>
         </TabsContent>
 
-        <TabsContent value="pricing" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <TrendingUp className="h-5 w-5" />
-                Price Trends & Predictions
-              </CardTitle>
-              <CardDescription>
-                6-month pricing history and market analysis
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                {/* Price Chart Simulation */}
-                <div className="bg-gray-50 rounded-lg p-4">
-                  <div className="flex justify-between items-center mb-4">
-                    <h4 className="font-semibold">Average Transaction Price</h4>
-                    <Badge className="bg-green-100 text-green-700">
-                      <TrendingDown className="h-3 w-3 mr-1" />
-                      Down $2,000 (6 months)
-                    </Badge>
-                  </div>
-                  
-                  <div className="grid grid-cols-6 gap-2 mb-4">
-                    {priceHistory.map((data, index) => (
-                      <div key={index} className="text-center">
-                        <div className="text-xs text-gray-600 mb-1">{data.month}</div>
-                        <div 
-                          className="bg-motortrend-red rounded-t"
-                          style={{ 
-                            height: `${((data.avgPrice - currentPrice + 2000) / 4000) * 60 + 20}px`,
-                            minHeight: '20px'
-                          }}
-                        />
-                        <div className="text-xs font-semibold mt-1">
-                          {formatPrice(data.avgPrice)}
-                        </div>
-                        <Badge 
-                          variant="outline" 
-                          className={`text-xs mt-1 ${
-                            data.marketDemand === 'High' ? 'border-red-300 text-red-600' :
-                            data.marketDemand === 'Medium' ? 'border-yellow-300 text-yellow-600' :
-                            'border-green-300 text-green-600'
-                          }`}
-                        >
-                          {data.marketDemand}
-                        </Badge>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                 <TabsContent value="pricing" className="space-y-4">
+           <Card>
+             <CardHeader>
+               <CardTitle className="flex items-center gap-2">
+                 <TrendingUp className="h-5 w-5" />
+                 Price Trends & Predictions
+               </CardTitle>
+               <CardDescription>
+                 6-month pricing history and market analysis
+               </CardDescription>
+             </CardHeader>
+             <CardContent>
+               <div className="space-y-8">
+                 {/* Price Chart Section */}
+                 <div className="space-y-4">
+                   <div className="flex justify-between items-center">
+                     <h4 className="text-lg font-semibold text-gray-900">Average Transaction Price</h4>
+                     <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-50 rounded-full">
+                       <TrendingDown className="h-4 w-4 text-emerald-600" />
+                       <span className="text-sm font-medium text-emerald-700">Down $2,000</span>
+                       <span className="text-xs text-emerald-600">(6 months)</span>
+                     </div>
+                   </div>
+                   
+                   {/* Modern Chart */}
+                                        <div className="bg-white border border-gray-100 rounded-xl p-6">
+                       <div className="grid grid-cols-6 gap-4 items-end mb-6" style={{ height: '200px' }}>
+                         {priceHistory.map((data, index) => {
+                           const height = ((data.avgPrice - currentPrice + 2000) / 4000) * 160 + 40;
+                           const isLowest = data.avgPrice === Math.min(...priceHistory.map(p => p.avgPrice));
+                           const isHighest = data.avgPrice === Math.max(...priceHistory.map(p => p.avgPrice));
+                           
+                           // Format price properly (e.g., $89,400 -> $89.4K)
+                           const formatPriceShort = (price: number) => {
+                             if (price >= 1000) {
+                               return `$${(price / 1000).toFixed(1)}K`;
+                             }
+                             return formatPrice(price);
+                           };
+                           
+                           // Get bar color based on price position
+                           const getBarColor = () => {
+                             if (isLowest) return 'bg-emerald-500';
+                             if (isHighest) return 'bg-red-400';
+                             if (data.marketDemand === 'High') return 'bg-red-300';
+                             if (data.marketDemand === 'Medium') return 'bg-amber-300';
+                             return 'bg-blue-300';
+                           };
+                           
+                           return (
+                             <div key={index} className="flex flex-col items-center space-y-2">
+                               <div className="text-xs font-medium text-gray-500 mb-1">{data.month}</div>
+                               <div className="relative flex flex-col items-center justify-end" style={{ height: '160px' }}>
+                                 <div 
+                                   className={`w-8 rounded-t-lg transition-all duration-500 ${getBarColor()}`}
+                                   style={{ height: `${height}px` }}
+                                 />
+                                 <div className="absolute -bottom-8 text-xs font-semibold text-gray-700">
+                                   {formatPriceShort(data.avgPrice)}
+                                 </div>
+                               </div>
+                             </div>
+                           );
+                         })}
+                       </div>
+                     
+                     {/* Market Demand Indicators */}
+                     <div className="flex justify-center gap-6 pt-4 border-t border-gray-100">
+                       {priceHistory.map((data, index) => (
+                         <div key={index} className="text-center">
+                           <div className="text-xs text-gray-500 mb-1">{data.month}</div>
+                           <div className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                             data.marketDemand === 'High' ? 'bg-red-50 text-red-700' :
+                             data.marketDemand === 'Medium' ? 'bg-amber-50 text-amber-700' :
+                             'bg-emerald-50 text-emerald-700'
+                           }`}>
+                             {data.marketDemand}
+                           </div>
+                         </div>
+                       ))}
+                     </div>
+                   </div>
+                 </div>
 
-                {/* Market Insights */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Card>
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <DollarSign className="h-4 w-4 text-green-600" />
-                        <h5 className="font-semibold">Current Incentives</h5>
-                      </div>
-                      <p className="text-2xl font-bold text-green-600">$2,500</p>
-                      <p className="text-sm text-gray-600">Manufacturer rebates available</p>
-                    </CardContent>
-                  </Card>
-                  
-                  <Card>
-                    <CardContent className="p-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Target className="h-4 w-4 text-blue-600" />
-                        <h5 className="font-semibold">Market Position</h5>
-                      </div>
-                      <p className="text-2xl font-bold text-blue-600">Fair Deal</p>
-                      <p className="text-sm text-gray-600">Within 3% of market average</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+                 {/* Market Insights */}
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                   <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl p-6 border border-emerald-200">
+                     <div className="flex items-center gap-3 mb-3">
+                       <div className="p-2 bg-emerald-500 rounded-lg">
+                         <DollarSign className="h-5 w-5 text-white" />
+                       </div>
+                       <div>
+                         <h5 className="font-semibold text-gray-900">Current Incentives</h5>
+                         <p className="text-sm text-emerald-700">Manufacturer rebates</p>
+                       </div>
+                     </div>
+                     <p className="text-3xl font-bold text-emerald-600">$2,500</p>
+                   </div>
+                   
+                   <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200">
+                     <div className="flex items-center gap-3 mb-3">
+                       <div className="p-2 bg-blue-500 rounded-lg">
+                         <Target className="h-5 w-5 text-white" />
+                       </div>
+                       <div>
+                         <h5 className="font-semibold text-gray-900">Market Position</h5>
+                         <p className="text-sm text-blue-700">Within 3% of average</p>
+                       </div>
+                     </div>
+                     <p className="text-3xl font-bold text-blue-600">Fair Deal</p>
+                   </div>
+                 </div>
 
-        <TabsContent value="similar" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Car className="h-5 w-5" />
-                Cross-Shopping Alternatives
-              </CardTitle>
-              <CardDescription>
-                Similar vehicles buyers also consider
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {similarVehicles.map((vehicle) => (
-                  <Card key={vehicle.id} className="overflow-hidden">
-                    <div className="aspect-video relative">
-                      <img 
-                        src={vehicle.imageUrl} 
-                        alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <CardContent className="p-4">
-                      <h4 className="font-semibold mb-1">
-                        {vehicle.year} {vehicle.make} {vehicle.model}
-                      </h4>
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span>Price:</span>
-                          <span className="font-semibold">{formatPrice(vehicle.price)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>MPG:</span>
-                          <span>{vehicle.mpg}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Rating:</span>
-                          <span className="flex items-center gap-1">
-                            {vehicle.rating} ⭐
-                          </span>
-                        </div>
-                        <div className="pt-2 border-t">
-                          <Badge variant="outline" className="text-xs">
-                            <Zap className="h-3 w-3 mr-1" />
-                            {vehicle.keyDifference}
-                          </Badge>
-                        </div>
-                      </div>
-                      <Button variant="outline" size="sm" className="w-full mt-3">
-                        Compare Details
-                      </Button>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
+                 {/* Additional Insights */}
+                 <div className="bg-gray-50 rounded-xl p-6">
+                   <h5 className="font-semibold text-gray-900 mb-4">Market Insights</h5>
+                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                     <div className="flex items-center gap-2">
+                       <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                       <span className="text-gray-600">Best pricing in June</span>
+                     </div>
+                     <div className="flex items-center gap-2">
+                       <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
+                       <span className="text-gray-600">Moderate demand period</span>
+                     </div>
+                     <div className="flex items-center gap-2">
+                       <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                       <span className="text-gray-600">Stable inventory levels</span>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             </CardContent>
+           </Card>
+         </TabsContent>
+
+                 <TabsContent value="similar" className="space-y-4">
+           <Card>
+             <CardHeader>
+               <CardTitle className="flex items-center gap-2">
+                 <Car className="h-5 w-5" />
+                 Cross-Shopping Alternatives
+               </CardTitle>
+               <CardDescription>
+                 Similar vehicles buyers also consider
+               </CardDescription>
+             </CardHeader>
+             <CardContent>
+               {/* Carousel Container */}
+               <div className="relative">
+                 {/* Navigation Buttons */}
+                 <div className="flex justify-between items-center mb-4">
+                   <Button
+                     variant="outline"
+                     size="sm"
+                     onClick={prevSlide}
+                     className="flex items-center gap-1"
+                   >
+                     <ChevronLeft className="h-4 w-4" />
+                     Previous
+                   </Button>
+                   <div className="flex gap-2">
+                     {similarVehicles.map((_, index) => (
+                       <button
+                         key={index}
+                         onClick={() => goToSlide(index)}
+                         className={`w-2 h-2 rounded-full transition-colors ${
+                           index === currentSlide ? 'bg-motortrend-red' : 'bg-gray-300'
+                         }`}
+                       />
+                     ))}
+                   </div>
+                   <Button
+                     variant="outline"
+                     size="sm"
+                     onClick={nextSlide}
+                     className="flex items-center gap-1"
+                   >
+                     Next
+                     <ChevronRight className="h-4 w-4" />
+                   </Button>
+                 </div>
+
+                 {/* Carousel Content */}
+                 <div className="overflow-hidden rounded-lg">
+                   <div 
+                     className="flex transition-transform duration-300 ease-in-out"
+                     style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                   >
+                     {similarVehicles.map((vehicle) => (
+                       <div key={vehicle.id} className="w-full flex-shrink-0">
+                         <Card className="overflow-hidden mx-2">
+                           <div className="aspect-video relative">
+                             <img 
+                               src={vehicle.imageUrl} 
+                               alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
+                               className="w-full h-full object-cover"
+                             />
+                           </div>
+                           <CardContent className="p-6">
+                             <h4 className="font-semibold text-lg mb-4">
+                               {vehicle.year} {vehicle.make} {vehicle.model}
+                             </h4>
+                             <div className="grid grid-cols-2 gap-4 text-sm mb-4">
+                               <div className="space-y-3">
+                                 <div className="flex justify-between">
+                                   <span className="text-gray-600">Price:</span>
+                                   <span className="font-semibold">{formatPrice(vehicle.price)}</span>
+                                 </div>
+                                 <div className="flex justify-between">
+                                   <span className="text-gray-600">MPG:</span>
+                                   <span className="font-medium">{vehicle.mpg}</span>
+                                 </div>
+                               </div>
+                               <div className="space-y-3">
+                                 <div className="flex justify-between">
+                                   <span className="text-gray-600">Rating:</span>
+                                   <span className="flex items-center gap-1 font-medium">
+                                     {vehicle.rating} ⭐
+                                   </span>
+                                 </div>
+                                 <div className="flex justify-between items-center">
+                                   <span className="text-gray-600">Key Feature:</span>
+                                 </div>
+                               </div>
+                             </div>
+                             <div className="mb-4">
+                               <Badge variant="outline" className="text-xs">
+                                 <Zap className="h-3 w-3 mr-1" />
+                                 {vehicle.keyDifference}
+                               </Badge>
+                             </div>
+                             <Button variant="outline" size="sm" className="w-full">
+                               Compare Details
+                             </Button>
+                           </CardContent>
+                         </Card>
+                       </div>
+                     ))}
+                   </div>
+                 </div>
+               </div>
+             </CardContent>
+           </Card>
+         </TabsContent>
 
         <TabsContent value="timing" className="space-y-4">
           <Card>
