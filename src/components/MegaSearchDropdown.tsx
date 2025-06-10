@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Suggestion } from "../hooks/use-autocomplete"; 
 import { Search, Newspaper, Car, CarFront, Factory, Image as ImageIcon, Video as VideoIcon } from "lucide-react";
@@ -84,7 +83,8 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
           <img 
             src="https://d2kde5ohu8qb21.cloudfront.net/files/684770b189dde90008189d23/aiicon.svg" 
             alt="AI"
-            className="w-5 h-5 text-neutral-2 dark:text-neutral-2" 
+            className="w-5 h-5" 
+            style={{filter: 'brightness(0) saturate(100%) invert(14%) sepia(8%) saturate(1015%) hue-rotate(202deg) brightness(95%) contrast(91%)'}}
           />
         );
       case 'popular':
@@ -188,8 +188,8 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
                           <img 
                             src="https://d2kde5ohu8qb21.cloudfront.net/files/684770b189dde90008189d23/aiicon.svg" 
                             alt="AI"
-                            className="w-8 h-8 filter-neutral-2" 
-                            style={{filter: 'brightness(0) saturate(100%) invert(79%) sepia(6%) saturate(449%) hue-rotate(202deg) brightness(94%) contrast(88%)'}}
+                            className="w-8 h-8" 
+                            style={{filter: 'brightness(0) saturate(100%) invert(14%) sepia(8%) saturate(1015%) hue-rotate(202deg) brightness(95%) contrast(91%)'}}
                           />
                         </div>
                       ) : suggestion.imageUrl ? (
@@ -206,9 +206,9 @@ const MegaSearchDropdown: React.FC<MegaSearchDropdownProps> = ({
                         {secondaryText && (
                           <span className={`typography-caption truncate block ${
                             suggestion.type === 'aiSuggestion' 
-                              ? 'text-neutral-2 dark:text-neutral-2' 
+                              ? 'text-neutral-4 dark:text-neutral-3' 
                               : 'text-neutral-4 dark:text-neutral-3'
-                          }`}>
+                          }`} style={suggestion.type === 'aiSuggestion' ? {color: '#23262f'} : {}}>
                             {secondaryText}
                           </span>
                         )}
