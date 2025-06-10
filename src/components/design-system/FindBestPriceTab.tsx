@@ -19,7 +19,9 @@ import {
   Target,
   Heart,
   Award,
-  Globe
+  Globe,
+  AlertTriangle as Alert,
+  Layout
 } from 'lucide-react';
 
 const FindBestPriceTab = () => {
@@ -175,51 +177,265 @@ const FindBestPriceTab = () => {
                 step: 1,
                 title: "Entry Point",
                 description: "User discovers car and clicks 'Find Best Price'",
-                time: "< 3 seconds"
+                details: ["Prominent red CTA button", "Available on all car cards", "Clear value proposition"],
+                time: "< 3 seconds",
+                painPoints: ["Button visibility", "Value unclear"],
+                solutions: ["High contrast button", "Clear benefit text"]
               },
               {
                 step: 2,
                 title: "Location Input",
                 description: "User provides location for dealer proximity",
-                time: "5-10 seconds"
+                details: ["Auto-detect current location", "ZIP code input", "City/state search"],
+                time: "5-10 seconds",
+                painPoints: ["Manual typing", "Privacy concerns"],
+                solutions: ["One-click geolocation", "Clear privacy policy"]
               },
               {
                 step: 3,
                 title: "Price Discovery",
                 description: "System shows dealer prices in ranked order",
-                time: "Instant loading"
+                details: ["Lowest price highlighted", "Distance from user", "Dealer ratings visible"],
+                time: "Instant loading",
+                painPoints: ["Slow loading", "Too many options"],
+                solutions: ["Progressive loading", "Smart filtering"]
               },
               {
                 step: 4,
                 title: "Dealer Selection",
                 description: "User compares options and selects preferred dealer",
-                time: "10-30 seconds"
+                details: ["Price comparison grid", "Filter by distance/rating", "Dealer profile preview"],
+                time: "10-30 seconds",
+                painPoints: ["Analysis paralysis", "Missing information"],
+                solutions: ["Recommended choice", "Complete dealer profiles"]
               },
               {
                 step: 5,
                 title: "Contact Initiation",
                 description: "User contacts dealer or requests quote",
-                time: "< 5 seconds"
+                details: ["One-click contact", "Pre-filled inquiry form", "Schedule appointment"],
+                time: "< 5 seconds",
+                painPoints: ["Form complexity", "No immediate response"],
+                solutions: ["Minimal required fields", "Instant confirmation"]
               }
             ].map((flow) => (
-              <div key={flow.step} className="flex gap-4">
-                <div className="flex-shrink-0">
-                  <div className="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">
-                    {flow.step}
+              <div key={flow.step} className="border border-gray-200 rounded-lg p-4">
+                <div className="flex gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold">
+                      {flow.step}
+                    </div>
                   </div>
-                </div>
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-semibold text-gray-900">{flow.title}</h4>
-                    <Badge variant="outline" className="text-xs">
-                      <Clock className="h-3 w-3 mr-1" />
-                      {flow.time}
-                    </Badge>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-semibold text-gray-900">{flow.title}</h4>
+                      <Badge variant="outline" className="text-xs">
+                        <Clock className="h-3 w-3 mr-1" />
+                        {flow.time}
+                      </Badge>
+                    </div>
+                    <p className="text-gray-600 mb-3">{flow.description}</p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
+                      <div>
+                        <h5 className="text-sm font-medium text-gray-700 mb-1">Features</h5>
+                        {flow.details.map((detail, idx) => (
+                          <div key={idx} className="flex items-center gap-1 text-xs text-gray-500 mb-1">
+                            <CheckCircle className="h-3 w-3 text-green-500" />
+                            {detail}
+                          </div>
+                        ))}
+                      </div>
+                      <div>
+                        <h5 className="text-sm font-medium text-red-700 mb-1">Pain Points</h5>
+                        {flow.painPoints.map((pain, idx) => (
+                          <div key={idx} className="flex items-center gap-1 text-xs text-red-600 mb-1">
+                            <span className="w-3 h-3 rounded-full bg-red-100 flex items-center justify-center">!</span>
+                            {pain}
+                          </div>
+                        ))}
+                      </div>
+                      <div>
+                        <h5 className="text-sm font-medium text-blue-700 mb-1">Solutions</h5>
+                        {flow.solutions.map((solution, idx) => (
+                          <div key={idx} className="flex items-center gap-1 text-xs text-blue-600 mb-1">
+                            <span className="w-3 h-3 rounded-full bg-blue-100 flex items-center justify-center">✓</span>
+                            {solution}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                  <p className="text-gray-600">{flow.description}</p>
                 </div>
               </div>
             ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* User Personas */}
+      <Card className="border-color-neutral-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Users className="h-5 w-5 text-purple-500" />
+            User Personas & Scenarios
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                name: "Sarah - First Time Buyer",
+                age: "28",
+                goal: "Find reliable car at best price",
+                frustrations: ["Overwhelming options", "Fear of overpaying", "Dealer trustworthiness"],
+                scenario: "Needs a commuter car under $25K, values fuel efficiency and reliability",
+                needs: ["Clear price comparisons", "Dealer reviews", "Simple contact process"],
+                color: "bg-blue-50 border-blue-200"
+              },
+              {
+                name: "Mike - Car Enthusiast",
+                age: "35",
+                goal: "Find specific performance model",
+                frustrations: ["Limited inventory", "Inflated prices", "Long search time"],
+                scenario: "Looking for specific trim of sports car, willing to travel for right deal",
+                needs: ["Inventory alerts", "Detailed specs", "Direct dealer communication"],
+                color: "bg-green-50 border-green-200"
+              },
+              {
+                name: "Lisa - Busy Parent",
+                age: "42",
+                goal: "Quick family vehicle purchase",
+                frustrations: ["No time for dealer visits", "Complex process", "Hidden fees"],
+                scenario: "Needs family SUV quickly, values convenience and transparency",
+                needs: ["Mobile-first experience", "Upfront pricing", "Online scheduling"],
+                color: "bg-purple-50 border-purple-200"
+              }
+            ].map((persona, index) => (
+              <Card key={index} className={`${persona.color} border`}>
+                <CardContent className="p-4">
+                  <div className="mb-3">
+                    <h4 className="font-semibold text-gray-900">{persona.name}</h4>
+                    <p className="text-sm text-gray-600">Age: {persona.age}</p>
+                  </div>
+                  
+                  <div className="space-y-3 text-sm">
+                    <div>
+                      <span className="font-medium text-gray-700">Goal:</span>
+                      <p className="text-gray-600">{persona.goal}</p>
+                    </div>
+                    
+                    <div>
+                      <span className="font-medium text-gray-700">Scenario:</span>
+                      <p className="text-gray-600">{persona.scenario}</p>
+                    </div>
+                    
+                    <div>
+                      <span className="font-medium text-gray-700">Key Needs:</span>
+                      <ul className="text-gray-600 mt-1">
+                        {persona.needs.map((need, idx) => (
+                          <li key={idx} className="flex items-center gap-1">
+                            <span className="w-1 h-1 bg-gray-400 rounded-full"></span>
+                            {need}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Edge Cases & Error States */}
+      <Card className="border-color-neutral-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Alert className="h-5 w-5 text-orange-500" />
+            Edge Cases & Error Handling
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-3">Common Edge Cases</h4>
+              <div className="space-y-3">
+                {[
+                  {
+                    case: "No dealers within range",
+                    solution: "Expand search radius with user consent",
+                    fallback: "Show online/delivery options"
+                  },
+                  {
+                    case: "Price data unavailable",
+                    solution: "Show estimated price ranges",
+                    fallback: "Direct dealer contact option"
+                  },
+                  {
+                    case: "Location permission denied",
+                    solution: "Manual ZIP code entry",
+                    fallback: "Major city selection"
+                  },
+                  {
+                    case: "Slow network connection",
+                    solution: "Progressive loading with skeleton UI",
+                    fallback: "Offline cached results"
+                  }
+                ].map((item, idx) => (
+                  <div key={idx} className="border border-orange-200 rounded-lg p-3 bg-orange-50">
+                    <h5 className="font-medium text-orange-900 mb-1">{item.case}</h5>
+                    <div className="text-sm space-y-1">
+                      <div className="flex items-center gap-1">
+                        <span className="text-green-600">Primary:</span>
+                        <span className="text-gray-600">{item.solution}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="text-blue-600">Fallback:</span>
+                        <span className="text-gray-600">{item.fallback}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            <div>
+              <h4 className="font-semibold text-gray-900 mb-3">Error States</h4>
+              <div className="space-y-3">
+                {[
+                  {
+                    error: "Server timeout",
+                    message: "We're having trouble loading prices. Please try again.",
+                    action: "Retry button + offline mode"
+                  },
+                  {
+                    error: "Invalid location",
+                    message: "We couldn't find that location. Please try a different ZIP code.",
+                    action: "Location suggestions + manual entry"
+                  },
+                  {
+                    error: "No inventory",
+                    message: "This vehicle isn't available nearby. Would you like to see similar options?",
+                    action: "Alternative suggestions + waitlist"
+                  },
+                  {
+                    error: "Form submission failed",
+                    message: "We couldn't send your request. Your information has been saved.",
+                    action: "Retry with saved data + phone contact"
+                  }
+                ].map((item, idx) => (
+                  <div key={idx} className="border border-red-200 rounded-lg p-3 bg-red-50">
+                    <h5 className="font-medium text-red-900 mb-1">{item.error}</h5>
+                    <p className="text-sm text-red-700 mb-2">{item.message}</p>
+                    <div className="text-xs text-red-600">
+                      <span className="font-medium">Recovery:</span> {item.action}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -368,6 +584,150 @@ const FindBestPriceTab = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Wireframes & Mockups */}
+      <Card className="border-color-neutral-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Layout className="h-5 w-5 text-indigo-500" />
+            Key Interface Wireframes
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              {
+                title: "Car Card with Find Best Price CTA",
+                description: "Primary entry point for price discovery",
+                elements: [
+                  "Car image and basic specs",
+                  "Prominent 'Find Best Price' button",
+                  "Starting price indication",
+                  "Dealer count indicator"
+                ]
+              },
+              {
+                title: "Location Input Modal",
+                description: "Quick location capture for dealer proximity",
+                elements: [
+                  "Auto-detect location option",
+                  "ZIP code input field",
+                  "Privacy notice",
+                  "Continue button"
+                ]
+              },
+              {
+                title: "Price Comparison Grid",
+                description: "Core price discovery interface",
+                elements: [
+                  "Sorted dealer list (price ascending)",
+                  "Distance and rating indicators",
+                  "Quick contact actions",
+                  "Filter and sort options"
+                ]
+              },
+              {
+                title: "Dealer Contact Form",
+                description: "Streamlined lead generation",
+                elements: [
+                  "Pre-filled vehicle info",
+                  "Minimal required fields",
+                  "Contact preference options",
+                  "Instant confirmation"
+                ]
+              }
+            ].map((wireframe, index) => (
+              <Card key={index} className="border-gray-300">
+                <CardContent className="p-4">
+                  <h4 className="font-semibold text-gray-900 mb-2">{wireframe.title}</h4>
+                  <p className="text-sm text-gray-600 mb-3">{wireframe.description}</p>
+                  
+                  {/* Simple wireframe mockup */}
+                  <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-4 mb-3">
+                    <div className="space-y-2">
+                      {wireframe.elements.map((element, idx) => (
+                        <div key={idx} className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                          <span className="text-xs text-gray-600">{element}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-2">
+                    <Badge variant="outline" className="text-xs">Responsive</Badge>
+                    <Badge variant="outline" className="text-xs">Accessible</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* A/B Testing Opportunities */}
+      <Card className="border-color-neutral-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Target className="h-5 w-5 text-green-500" />
+            A/B Testing Opportunities
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              {
+                test: "CTA Button Text",
+                variants: ["Find Best Price", "Get Dealer Quotes", "Compare Prices", "Shop Local Dealers"],
+                hypothesis: "More specific language increases click-through rates",
+                metric: "Button click rate"
+              },
+              {
+                test: "Price Display Format",
+                variants: ["Starting at $X", "$X - $Y Range", "From $X nearby", "Best price: $X"],
+                hypothesis: "Clear pricing context reduces bounce rate",
+                metric: "Conversion to contact"
+              },
+              {
+                test: "Location Permission Request",
+                variants: ["Auto-prompt", "Explain first", "Manual entry default", "Progressive disclosure"],
+                hypothesis: "Permission explanation increases approval rate",
+                metric: "Location permission granted"
+              },
+              {
+                test: "Dealer List Layout",
+                variants: ["List view", "Card grid", "Map overlay", "Table format"],
+                hypothesis: "Visual comparison improves decision speed",
+                metric: "Time to dealer selection"
+              }
+            ].map((test, index) => (
+              <Card key={index} className="border-green-200 bg-green-50">
+                <CardContent className="p-4">
+                  <h4 className="font-semibold text-green-900 mb-2">{test.test}</h4>
+                  <div className="space-y-2 text-sm">
+                    <div>
+                      <span className="font-medium text-green-800">Variants:</span>
+                      <ul className="text-green-700 mt-1 ml-4">
+                        {test.variants.map((variant, idx) => (
+                          <li key={idx} className="list-disc">{variant}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <span className="font-medium text-green-800">Hypothesis:</span>
+                      <p className="text-green-700">{test.hypothesis}</p>
+                    </div>
+                    <div>
+                      <span className="font-medium text-green-800">Key Metric:</span>
+                      <span className="text-green-700"> {test.metric}</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </CardContent>
       </Card>
