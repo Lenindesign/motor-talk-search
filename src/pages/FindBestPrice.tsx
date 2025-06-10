@@ -69,8 +69,7 @@ const FindBestPrice = () => {
           if (!foundCar) {
             console.log('Trying URL pattern matching...');
             foundCar = mockNewCars.find(car => {
-              // CarSidebar generates URLs like: "2025 Rivian R1S" -> "2025-rivian-r1s-2025"
-              const urlPattern = `${car.title.toLowerCase().replace(/ /g, '-')}-${car.year || '2025'}`;
+              const urlPattern = `${car.title.toLowerCase().replace(/ /g, '-')}-2025`;
               console.log(`Checking ${car.title} -> pattern: ${urlPattern} vs carId: ${carId}`);
               return carId === urlPattern;
             });
@@ -79,7 +78,7 @@ const FindBestPrice = () => {
           
           if (foundCar) {
             // Convert our mock car data to the Car interface format
-            const carData: Car = {
+          const carData: Car = {
               id: foundCar.id,
               title: foundCar.title,
               year: '2025',
@@ -88,10 +87,10 @@ const FindBestPrice = () => {
               price: foundCar.price,
               imageUrl: foundCar.imageUrl || '/images/cars/placeholder.jpg',
               fallbackImageUrl: '/images/cars/placeholder.jpg'
-            };
-            
+          };
+          
             console.log('Setting car data:', carData);
-            setCar(carData);
+          setCar(carData);
           } else {
             console.warn('Car not found for carId:', carId);
             console.log('Available cars:', mockNewCars.map(car => ({ id: car.id, title: car.title })));
@@ -118,7 +117,7 @@ const FindBestPrice = () => {
   return (
     <MainLayout>
       <div className="min-h-screen bg-neutral-50 py-12">
-        <div className="max-w-[980px] mx-auto px-4">
+        <div className="max-w-[980px] mx-auto px-2 sm:px-4">
           {car && (
             <div className="mb-8 bg-white rounded-lg overflow-hidden shadow-sm border border-neutral-7">
               <div className="flex flex-col md:flex-row">

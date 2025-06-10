@@ -19,7 +19,7 @@ const SubNavBar: React.FC = () => {
       style={{ WebkitOverflowScrolling: 'touch' }}
       aria-label="Subnavigation"
     >
-      <ul className="flex flex-row gap-2 px-4 sm:px-8 py-2 overflow-x-auto whitespace-nowrap typography-caption sm:typography-body">
+      <ul className="flex flex-row gap-2 px-2 sm:px-8 py-2 overflow-x-auto whitespace-nowrap typography-caption sm:typography-body">
         {LINKS.map(link => (
           <li key={link.href}>
             <Link

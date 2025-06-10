@@ -79,18 +79,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, isLoading = false }) 
         />
       )}
 
-      {/* DEBUG: Direct fixed bar to test layout rendering */}
-      <div style={{position: 'fixed', top: 56, left: 0, right: 0, background: 'lime', zIndex: 9999, height: 60, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold'}}>
-        LAYOUT DEBUG BAR
-      </div>
-
-      {/* Unconditionally render MobileStickySearch for troubleshooting */}
-      <MobileStickySearch
-        onSearch={handleSearch}
-        isLoading={isLoading}
-      />
-
-      <main className="flex-grow container mx-auto px-3 sm:px-4 py-4">
+      <main className="flex-grow max-w-[980px] mx-auto px-2 sm:px-4 py-4">
         {/* Add top padding on mobile to account for the sticky search */}
         <div className="sm:hidden" style={{ height: '60px' }} />
         {children}

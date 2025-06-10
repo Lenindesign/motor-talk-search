@@ -87,7 +87,7 @@ const Search = () => {
         if (aiResponseFromUrl) {
           handleAIResponse(trimmedQuery, aiResponseFromUrl);
         } else {
-          handleSearch(trimmedQuery);
+        handleSearch(trimmedQuery);
         }
       }
     }

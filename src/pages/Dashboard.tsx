@@ -68,7 +68,7 @@ const Dashboard = () => {
       
       {/* Breadcrumbs for navigation context */}
       <div className="bg-white border-b">
-        <div className="max-w-[980px] mx-auto px-4 py-2">
+        <div className="max-w-[980px] mx-auto px-2 sm:px-4 py-2">
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem>
@@ -87,7 +87,7 @@ const Dashboard = () => {
         </div>
       </div>
       
-      <main className="max-w-[980px] mx-auto px-4 py-6">
+              <main className="max-w-[980px] mx-auto px-2 sm:px-4 py-6">
         {/* Welcome section with personalization */}
         <section className="mb-8">
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">

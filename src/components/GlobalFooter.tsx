@@ -43,7 +43,7 @@ const currentYear = new Date().getFullYear();
 
 const GlobalFooter: React.FC = () => (
   <footer className="w-full bg-[#1a1a1a] text-gray-200 border-t border-gray-800 mt-12" aria-label="Site Footer">
-    <div className="max-w-[980px] mx-auto px-4 sm:px-8 py-16">
+            <div className="max-w-[980px] mx-auto px-2 sm:px-8 py-16">
       {/* Main Footer Content */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-12">
         {/* Brand Section */}

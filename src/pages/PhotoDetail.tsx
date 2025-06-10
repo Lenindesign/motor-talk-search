@@ -44,7 +44,7 @@ const PhotoDetail: React.FC = () => {
   if (!photo) {
     return <div className="min-h-screen bg-gray-50">
         
-        <main className="container mx-auto px-4 py-8">
+        <main className="container mx-auto px-2 sm:px-4 py-8">
           <div className="text-center">
             <h1 className="typography-title text-neutral-1 mb-4">Photo Not Found</h1>
             <Link to="/" className="text-motortrend-red hover:underline">
@@ -72,7 +72,7 @@ const PhotoDetail: React.FC = () => {
   const mockPhotoSeries = [photo.imageUrl, "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=500&auto=format&fit=crop&q=60", "https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=500&auto=format&fit=crop&q=60", "https://d2kde5ohu8qb21.cloudfront.net/files/683a0abf00b694000887671f/024-2025-aston-martin-vanquish.jpg?w=500&auto=format&fit=crop&q=60", "https://d2kde5ohu8qb21.cloudfront.net/files/65b819aba0798d000828ef2f/2008-honda-element-02.jpg?w=500&auto=format&fit=crop&q=60"];
   return <div className="min-h-screen bg-black">
       
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-2 sm:px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Main Photo Viewer */}
           <div className="lg:col-span-3">

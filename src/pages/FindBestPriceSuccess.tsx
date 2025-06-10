@@ -9,7 +9,7 @@ const FindBestPriceSuccess = () => {
   return (
     <MainLayout>
       <div className="min-h-screen bg-neutral-50 py-12">
-        <div className="max-w-[980px] mx-auto px-4">
+        <div className="max-w-[980px] mx-auto px-2 sm:px-4">
           <div className="max-w-2xl mx-auto">
             <Card className="p-6 md:p-8 text-center">
               <div className="flex justify-center mb-6">

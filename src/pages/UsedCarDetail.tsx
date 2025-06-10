@@ -16,7 +16,7 @@ const UsedCarDetail: React.FC = () => {
   if (!car) {
     return <div className="min-h-screen bg-gray-50">
         
-        <main className="container mx-auto px-4 py-8">
+        <main className="container mx-auto px-2 sm:px-4 py-8">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Vehicle Not Found</h1>
             <Link to="/cars" className="text-motortrend-red hover:underline">

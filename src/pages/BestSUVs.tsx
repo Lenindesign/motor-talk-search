@@ -30,7 +30,7 @@ const BestSUVs = () => {
 
   return (
     <div className="min-h-screen bg-motortrend-gray">
-      <div className="max-w-[1200px] mx-auto px-4 py-8">
+              <div className="max-w-[1200px] mx-auto px-2 sm:px-4 py-8">
         {/* Hero Section */}
         <div className="text-center mb-8">
           <h1 className="typography-display text-4xl md:text-5xl font-bold text-motortrend-dark mb-4">

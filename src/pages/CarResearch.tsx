@@ -76,7 +76,7 @@ const CarResearch = () => {
       
       {/* Premium Banner */}
       <div className="bg-amber-50 border-b border-amber-200">
-        <div className="container mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-4">
+        <div className="container mx-auto px-2 sm:px-4 py-2 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Crown className="h-5 w-5 text-amber-600" />
             <span className="text-sm">
@@ -90,7 +90,7 @@ const CarResearch = () => {
       </div>
       
       {/* Best Time to Buy Alert */}
-      <div className="container mx-auto px-4 pt-4">
+              <div className="container mx-auto px-2 sm:px-4 pt-4">
         <Alert className="border-green-200 bg-green-50">
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4 text-green-600" />
@@ -102,7 +102,7 @@ const CarResearch = () => {
         </Alert>
       </div>
       
-      <div className="container mx-auto px-4 py-6">
+              <div className="container mx-auto px-2 sm:px-4 py-6">
         {/* Breadcrumbs */}
         <div className="text-sm text-gray-500 mb-4">
           Home &gt; {vehicle.year} {vehicle.make} &gt; {vehicle.model}
