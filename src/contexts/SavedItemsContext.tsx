@@ -88,229 +88,24 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
   
   // Load saved items from localStorage on mount
   useEffect(() => {
-    // Load saved items
-    const storedItems = localStorage.getItem(SAVED_ITEMS_KEY);
-    if (storedItems) {
-      const parsedItems = JSON.parse(storedItems);
-      // Ensure all items have a savedAt date
-      const itemsWithDates = parsedItems.map((item: SavedItem) => {
-        if (!item.savedAt) {
-          return { ...item, savedAt: new Date().toISOString() };
-        }
-        return item;
-      });
-      setSavedItems(itemsWithDates);
-    }
+    // Clear all existing data for fresh start
+    localStorage.removeItem(SAVED_ITEMS_KEY);
+    localStorage.removeItem(USER_POINTS_KEY);
     
-    // Load user points
-    const storedPoints = localStorage.getItem(USER_POINTS_KEY);
-    setUserPoints(storedPoints ? parseInt(storedPoints, 10) : 50); // Default 50 points
+    // Start fresh with empty data
+    setSavedItems([]);
+    setUserPoints(0);
     
-    // Initialize mock achievements and activities for demo purposes
+    // Initialize empty user data
     initializeMockUserData();
   }, []);
 
-  // Initialize mock user data for demonstration
+  // Initialize empty user data for fresh start
   const initializeMockUserData = () => {
-    // Mock garage cars
-    const mockCars: SavedItem[] = [
-      {
-        id: "car1",
-        title: "2024 Toyota Camry Hybrid XSE",
-        type: "newCar",
-        imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a1d8a69afa860008125caf/2024-toyota-camry-xse-hybrid-front-view-18.jpg",
-        savedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
-        metadata: {
-          price: "$34,950",
-          msrp: "$34,950",
-          category: "Midsize Sedan",
-          bodyStyle: "Sedan",
-          year: "2024",
-          mileage: "0",
-          fuelType: "Hybrid",
-          drivetrain: "FWD",
-          location: "San Francisco, CA",
-          mpg: "51 city / 53 hwy",
-          engine: "2.5L 4-cylinder Hybrid",
-          horsepower: "208 hp",
-          transmission: "CVT Automatic",
-          motorTrendScore: "8.7",
-          motorTrendRank: "#2",
-          motorTrendCategoryRank: true
-        }
-      },
-      {
-        id: "car2",
-        title: "2024 Honda CR-V Hybrid Sport",
-        type: "newCar",
-        imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65a1bc4ca305c1000897c335/2024-honda-cr-v-hybrid-front-view-62.jpeg",
-        savedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
-        metadata: {
-          price: "$37,200",
-          msrp: "$37,200",
-          category: "Compact SUV",
-          bodyStyle: "SUV",
-          year: "2024",
-          mileage: "0",
-          fuelType: "Hybrid",
-          drivetrain: "AWD",
-          location: "San Francisco, CA",
-          mpg: "43 city / 36 hwy",
-          engine: "2.0L 4-cylinder Hybrid",
-          horsepower: "204 hp",
-          transmission: "CVT Automatic",
-          motorTrendScore: "8.9",
-          motorTrendRank: "#1",
-          motorTrendCategoryRank: true
-        }
-      },
-      {
-        id: "car3",
-        title: "2021 BMW M3 Competition",
-        type: "usedCar",
-        imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/65c756c95279ce0008c1d934/2022-bmw-m3-competition-awd-14.jpg",
-        savedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-        metadata: {
-          price: "$69,995",
-          category: "Performance Sedan",
-          bodyStyle: "Sedan",
-          year: "2021",
-          mileage: "18,750",
-          fuelType: "Premium Gasoline",
-          drivetrain: "RWD",
-          location: "Los Angeles, CA",
-          mpg: "16 city / 23 hwy",
-          engine: "3.0L Twin-Turbo I6",
-          horsepower: "503 hp",
-          transmission: "8-speed Automatic",
-          motorTrendScore: "9.2",
-          motorTrendRank: "#1",
-          motorTrendCategoryRank: true
-        }
-      }
-    ];
-
-    // Mock comments
-    const mockComments: SavedItem[] = [
-      {
-        id: "comment1",
-        title: "Great article! I've been considering the Camry for months and this review really helped me understand the hybrid system better.",
-        type: "comment",
-        imageUrl: "",
-        savedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
-        metadata: {
-          author: "CarEnthusiast92",
-          date: "2 days ago",
-          articleTitle: "2024 Toyota Camry Hybrid Review",
-          articleId: "article-camry-2024",
-          likes: "12",
-          replies: "3"
-        }
-      },
-      {
-        id: "comment2",
-        title: "I disagree with the fuel economy claims. In real-world driving, I'm getting much better MPG than the EPA estimates.",
-        type: "comment",
-        imageUrl: "",
-        savedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
-        metadata: {
-          author: "EcoDriver",
-          date: "5 days ago",
-          articleTitle: "Best Hybrid SUVs of 2024",
-          articleId: "article-hybrid-suvs",
-          likes: "8",
-          replies: "7"
-        }
-      }
-    ];
-
-    // Mock reviews
-    const mockReviews: SavedItem[] = [
-      {
-        id: "review1",
-        title: "Excellent reliability and comfort",
-        type: "review",
-        imageUrl: "",
-        savedAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(),
-        metadata: {
-          content: "I've owned this car for 6 months now and it's been fantastic. The hybrid system is smooth, the interior is comfortable, and the reliability has been perfect. Highly recommend for anyone looking for a practical daily driver.",
-          author: "ToyotaOwner2024",
-          date: "1 week ago",
-          rating: "5",
-          carTitle: "2024 Toyota Camry Hybrid",
-          carId: "car-camry-2024",
-          helpful: "24",
-          verified: "true"
-        }
-      },
-      {
-        id: "review2",
-        title: "Good value but some concerns",
-        type: "review",
-        imageUrl: "",
-        savedAt: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000).toISOString(),
-        metadata: {
-          content: "Overall a solid car with good fuel economy. However, the road noise is more noticeable than I expected, and the infotainment system can be slow to respond. Still a good choice for the price point.",
-          author: "HondaFan",
-          date: "2 weeks ago",
-          rating: "4",
-          carTitle: "2023 Honda CR-V Hybrid",
-          carId: "car-crv-2023",
-          helpful: "18",
-          verified: "true"
-        }
-      }
-    ];
-
-    setSavedItems([...mockCars, ...mockComments, ...mockReviews]);
-
-    // Mock achievements
-    const achievements: UserAchievement[] = [
-      {
-        id: "1",
-        name: "Garage Starter",
-        description: "Created your garage and saved your first car",
-        icon: "🚗",
-        earnedAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString() // 30 days ago
-      },
-      {
-        id: "2",
-        name: "Research Pro",
-        description: "Saved 5+ articles to your reading list",
-        icon: "📚",
-        earnedAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString() // 15 days ago
-      }
-    ];
-    setUserAchievements(achievements);
-    
-    // Mock activities
-    const activities: UserActivity[] = [
-      {
-        id: "1",
-        type: "save",
-        itemType: "newCar",
-        itemId: "car1",
-        itemTitle: "2024 Toyota Camry",
-        timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() // 2 days ago
-      },
-      {
-        id: "2",
-        type: "view",
-        itemType: "article",
-        itemId: "art1",
-        itemTitle: "Best Midsize SUVs for 2025",
-        timestamp: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString() // 1 day ago
-      },
-      {
-        id: "3",
-        type: "like",
-        itemType: "video",
-        itemId: "vid1",
-        itemTitle: "Tesla Cybertruck Review",
-        timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString() // 12 hours ago
-      }
-    ];
-    setUserActivities(activities);
+    // Start with empty arrays - no default items
+    setSavedItems([]);
+    setUserAchievements([]);
+    setUserActivities([]);
   };
 
   // Save to localStorage whenever savedItems changes
