@@ -41,7 +41,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({
         </div>
         <CardContent className="p-4">
           {showCategory && (
-            <div className="text-xs font-medium text-motortrend-red mb-2 uppercase tracking-wide">
+            <div className="text-xs font-medium text-neutral-3 mb-2 uppercase tracking-wide">
               {article.category}
             </div>
           )}
