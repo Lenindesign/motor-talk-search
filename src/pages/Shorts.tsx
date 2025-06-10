@@ -126,9 +126,21 @@ const Shorts = () => {
       nextIndex = 0;
     }
     
+    // Scroll to the next video
+    if (containerRef.current) {
+      const videoContainers = containerRef.current.querySelectorAll('.short-video-container');
+      const targetContainer = videoContainers[nextIndex] as HTMLElement;
+      if (targetContainer) {
+        targetContainer.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }
+    }
+    
     setActiveIndex(nextIndex);
     // Use a small delay to ensure state is updated before playing
-    setTimeout(() => playVideo(nextIndex), 50);
+    setTimeout(() => playVideo(nextIndex), 100);
   };
 
   const navigateToPrev = () => {
@@ -147,9 +159,21 @@ const Shorts = () => {
       prevIndex = MAX_SHORTS - 1;
     }
     
+    // Scroll to the previous video
+    if (containerRef.current) {
+      const videoContainers = containerRef.current.querySelectorAll('.short-video-container');
+      const targetContainer = videoContainers[prevIndex] as HTMLElement;
+      if (targetContainer) {
+        targetContainer.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }
+    }
+    
     setActiveIndex(prevIndex);
     // Use a small delay to ensure state is updated before playing
-    setTimeout(() => playVideo(prevIndex), 50);
+    setTimeout(() => playVideo(prevIndex), 100);
   };
 
   const togglePlayPause = () => {
