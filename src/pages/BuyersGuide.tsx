@@ -45,7 +45,8 @@ const BuyersGuide: React.FC = () => {
         mpge: car.fuel_type === 'Electric' ? '110-130 MPGe' : undefined,
         range: car.fuel_type === 'Electric' ? '250-300 miles' : undefined,
         engine: car.cylinders ? `${car.cylinders}-cylinder ${car.fuel_type === 'Hybrid' ? 'Hybrid' : 'Turbo'}` : '4-cylinder Turbo',
-        transmission: car.drive === 'AWD' ? '8-speed Automatic' : '6-speed Manual'
+        transmission: car.drive === 'AWD' ? '8-speed Automatic' : '6-speed Manual',
+        userReviewsScore: (Math.random() * 5 + 0.5).toFixed(1)
       }));
       console.log('Transformed Results:', transformedResults);
       setDisplayedSearchResults(transformedResults);
@@ -101,7 +102,8 @@ const BuyersGuide: React.FC = () => {
     transmission: '6-speed manual',
     motorTrendScore: '8.7',
     motorTrendRank: '2',
-    motorTrendCategoryRank: true
+    motorTrendCategoryRank: true,
+    userReviewsScore: '4.3',
   }, {
     id: 'new-2',
     title: '2025 BMW i5 eDrive40',
@@ -122,6 +124,7 @@ const BuyersGuide: React.FC = () => {
     motorTrendScore: '9.1',
     motorTrendRank: '1',
     motorTrendCategoryRank: true,
+    userReviewsScore: '4.5',
     engine: '6-cylinder Turbo',
   }, {
     id: 'new-3',
@@ -143,6 +146,7 @@ const BuyersGuide: React.FC = () => {
     motorTrendScore: '8.9',
     motorTrendRank: '3',
     motorTrendCategoryRank: true,
+    userReviewsScore: '4.2',
     engine: '6-cylinder Turbo',
     }, {
     id: 'new-4',
@@ -164,12 +168,13 @@ const BuyersGuide: React.FC = () => {
     mpg: '22 city / 32 hwy',
     engine: '6-cylinder Turbo',
     transmission: '6-speed Manual',
+    userReviewsScore: '4.1',
   }, {
     id: 'new-5',
     title: '2025 Porsche 911 Carrera',
     imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/67ead63126b4b600088db946/2025-porsche-911-carrera-s-first-drive-cartegena-yellow-coupe-11.jpg',
-    price: '$116,05016,050',
-    msrp: '$116,05016,050',
+    price: '$116,050',
+    msrp: '$116,050',
     category: 'Luxury Sports Car',
     bodyStyle: 'Coupe',
     year: '2025',
@@ -184,6 +189,7 @@ const BuyersGuide: React.FC = () => {
     mpg: '22 city / 32 hwy',
     engine: '6-cylinder Turbo',
     transmission: '6-speed Manual',
+    userReviewsScore: '4.7',
   }, {
     id: 'new-6',
     title: '2025 Honda Civic Type R',
@@ -204,12 +210,13 @@ const BuyersGuide: React.FC = () => {
     mpg: '22 city / 32 hwy',
     engine: '4-cylinder Turbo',
     transmission: '8-speed Automatic',
+    userReviewsScore: '4.4',
   }, {
     id: 'new-7',
     title: '2025 Chevrolet Corvette Z06',
     imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/673bbb24c432220008be9aae/2-2025-chevrolet-corvette-z06-front-view.jpg',
-    price: '$109,29509,295',
-    msrp: '$109,29509,295',
+    price: '$109,295',
+    msrp: '$109,295',
     category: 'Supercar',
     bodyStyle: 'Coupe',
     year: '2025',
@@ -224,12 +231,13 @@ const BuyersGuide: React.FC = () => {
     mpg: '22 city / 32 hwy',
     engine: '4-cylinder Turbo',
     transmission: '8-speed Automatic',
+    userReviewsScore: '4.6',
   }, {
     id: 'new-8',
     title: '2025 Audi RS e-tron GT',
     imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/67ec4bd56ffccf0008567e3a/29-2025-audi-rs-e-tron-gt-performance-first-drive.jpg',
-    price: '$148,59548,595',
-    msrp: '$148,59548,595',
+    price: '$148,595',
+    msrp: '$148,595',
     category: 'Electric Performance',
     bodyStyle: 'Sedan',
     year: '2025',
@@ -243,6 +251,7 @@ const BuyersGuide: React.FC = () => {
     isNew: false,
     engine: '6-cylinder Turbo',
     transmission: '6-speed Manual',
+    userReviewsScore: '4.2',
   }, {
     id: 'new-9',
     title: '2025 Lexus LFA Successor',
@@ -263,6 +272,7 @@ const BuyersGuide: React.FC = () => {
     mpg: '22 city / 32 hwy',
     engine: '4-cylinder Turbo',
     transmission: '8-speed Automatic',
+    userReviewsScore: '4.7',
   }, {
     id: 'new-10',
     title: '2025 Volkswagen ID.4 Pro S',
@@ -282,6 +292,7 @@ const BuyersGuide: React.FC = () => {
     isNew: false,
     engine: '4-cylinder Turbo',
     transmission: '8-speed Automatic',
+    userReviewsScore: '4.1',
   }, {
     id: 'new-11',
     title: '2025 Hyundai Ioniq 6 Limited',
@@ -301,6 +312,7 @@ const BuyersGuide: React.FC = () => {
     isNew: false,
     engine: '4-cylinder Turbo',
     transmission: '8-speed Automatic',
+    userReviewsScore: '4.3',
   }, {
     id: 'new-12',
     title: '2025 Rivian R1S',
@@ -320,6 +332,7 @@ const BuyersGuide: React.FC = () => {
     isNew: false,
     engine: '4-cylinder Turbo',
     transmission: '8-speed Automatic',
+    userReviewsScore: '4.2',
   }];
   const defaultUsedCars: CarData[] = [{
     id: 'used-1',

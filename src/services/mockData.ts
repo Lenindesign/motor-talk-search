@@ -1081,6 +1081,7 @@ export const mockNewCars: CarData[] = [
     motorTrendScore: "8.7",
     motorTrendRank: "#2",
     motorTrendCategoryRank: true,
+    userReviewsScore: "4.3",
   },
   {
     id: "honda-accord-new-2",
@@ -1099,6 +1100,7 @@ export const mockNewCars: CarData[] = [
     motorTrendScore: "8.5",
     motorTrendRank: "#3",
     motorTrendCategoryRank: true,
+    userReviewsScore: "4.1",
     detailUrl: "/new-car/honda-accord-new-2"
   },
   {
@@ -1118,6 +1120,7 @@ export const mockNewCars: CarData[] = [
     motorTrendScore: "8.4",
     motorTrendRank: "#3",
     motorTrendCategoryRank: true,
+    userReviewsScore: "4.0",
     detailUrl: "/new-car/honda-accord-new-3"
   },
   {
@@ -1137,6 +1140,7 @@ export const mockNewCars: CarData[] = [
     motorTrendScore: "8.6",
     motorTrendRank: "#2",
     motorTrendCategoryRank: true,
+    userReviewsScore: "4.2",
     detailUrl: "/new-car/honda-accord-new-4"
   },
   {
@@ -1155,6 +1159,7 @@ export const mockNewCars: CarData[] = [
     motorTrendScore: "8.8",
     motorTrendRank: "#1",
     motorTrendCategoryRank: true,
+    userReviewsScore: "4.4",
     isNew: true,
     detailUrl: "/new-car/honda-accord-new-5"
   },
@@ -1167,7 +1172,8 @@ export const mockNewCars: CarData[] = [
     isNew: true,
     bodyStyle: "Sedan",
     year: "2025",
-    detailUrl: "/new-car/honda-accord-new-6"
+    detailUrl: "/new-car/honda-accord-new-6",
+    userReviewsScore: "4.1",
   },
   {
     id: "honda-new-2",
@@ -1178,6 +1184,7 @@ export const mockNewCars: CarData[] = [
     isNew: true,
     bodyStyle: "SUV",
     year: "2025",
+    userReviewsScore: "4.3",
   },
   {
     id: "honda-new-3",
@@ -1188,6 +1195,7 @@ export const mockNewCars: CarData[] = [
     isNew: true,
     bodyStyle: "Hatchback",
     year: "2025",
+    userReviewsScore: "4.4",
   },
   {
     id: "honda-new-4",
@@ -1198,6 +1206,7 @@ export const mockNewCars: CarData[] = [
     isNew: true,
     bodyStyle: "SUV",
     year: "2025",
+    userReviewsScore: "4.2",
   },
   {
     id: "honda-new-5",
@@ -1208,6 +1217,7 @@ export const mockNewCars: CarData[] = [
     isNew: true,
     bodyStyle: "Minivan",
     year: "2025",
+    userReviewsScore: "4.1",
   },
   {
     id: "honda-new-6",
@@ -1218,6 +1228,7 @@ export const mockNewCars: CarData[] = [
     isNew: true,
     bodyStyle: "Truck",
     year: "2025",
+    userReviewsScore: "4.0",
   },
   {
     id: "new-1",
@@ -1227,6 +1238,7 @@ export const mockNewCars: CarData[] = [
     category: "Electric Sedan",
     isNew: true,
     bodyStyle: "Sedan", // Using a reliable high-quality car image from Unsplash
+    userReviewsScore: "4.5",
   },
   {
     id: "new-2",
@@ -1236,6 +1248,7 @@ export const mockNewCars: CarData[] = [
     category: "Electric SUV",
     isNew: true,
     bodyStyle: "SUV",
+    userReviewsScore: "4.2",
   },
   {
     id: "new-3",
@@ -1245,6 +1258,7 @@ export const mockNewCars: CarData[] = [
     category: "Electric Sedan",
     isNew: true,
     bodyStyle: "Sedan",
+    userReviewsScore: "4.5",
   },
   {
     id: "new-4",
@@ -1254,6 +1268,7 @@ export const mockNewCars: CarData[] = [
     category: "Sports Car",
     isNew: true,
     bodyStyle: "Sports Car",
+    userReviewsScore: "4.3",
   },
   {
     id: "new-5",
@@ -1263,6 +1278,7 @@ export const mockNewCars: CarData[] = [
     category: "Luxury Crossover",
     isNew: true,
     bodyStyle: "Crossover",
+    userReviewsScore: "4.0",
   },
   {
     id: "new-6",
@@ -1276,9 +1292,10 @@ export const mockNewCars: CarData[] = [
     mpg: "44 city / 47 hwy",
     horsepower: "208 hp",
     transmission: "eCVT",
-    motorTrendScore: "8.5/10",
+    motorTrendScore: "8.5",
     motorTrendRank: "#2",
-    motorTrendCategoryRank: true
+    motorTrendCategoryRank: true,
+    userReviewsScore: "4.1",
   },
   {
     id: "new-7",
@@ -1288,6 +1305,7 @@ export const mockNewCars: CarData[] = [
     category: "Electric Sedan",
     isNew: true,
     bodyStyle: "Sedan",
+    userReviewsScore: "4.3",
   },
 ];
 
