@@ -528,8 +528,8 @@ const Shorts = () => {
                 </div>
                 )}
 
-                {/* Navigation controls - positioned to the right of video */}
-                <div className="absolute top-1/2 transform -translate-y-1/2 flex flex-col space-y-4" style={{ left: 'calc(100% + 40px)' }}>
+                {/* Navigation controls - positioned on the left side */}
+                <div className="absolute left-4 top-1/2 transform -translate-y-1/2 flex flex-col space-y-4 z-20">
                   <Button 
                     variant="ghost" 
                     size="icon" 
