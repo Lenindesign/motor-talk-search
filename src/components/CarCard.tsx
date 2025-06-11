@@ -152,7 +152,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
 
   return <Card
     variant={type === 'new' ? 'newCar' : 'usedCar'}
-    className={cn('flex flex-col w-full h-full bg-white rounded-t-xl shadow-modern overflow-hidden transition-shadow duration-200', className)}
+    className={cn('flex flex-col w-full bg-white rounded-t-xl shadow-modern overflow-hidden transition-shadow duration-200', className)}
     isSaved={isSaved}
     onToggleSave={toggleSave}
     imageUrl={currentImage}
@@ -171,8 +171,8 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
     }}
     onClick={() => navigate(linkPath)}
   >
-    <div className="relative w-full h-full flex flex-col">
-      <div className="p-8 flex-1 flex flex-col min-h-0">
+    <div className="relative w-full flex flex-col">
+      <div className="p-8 flex-1 flex flex-col">
         {/* Use grid with consistent gap instead of space-y for better spacing control */}
         <div className="grid gap-2">
         <div className="flex items-start justify-between">
@@ -193,7 +193,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
         </div>
       </div>
       {/* Fixed bottom section */}
-      <div className="p-8 pt-0 mt-auto">
+      <div className="p-8 pt-0">
         <Button
           variant="outline-primary"
           size="lg"
