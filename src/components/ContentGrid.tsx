@@ -6,6 +6,7 @@ import CarCard, { CarData } from "./CarCard";
 import PhotoCard, { PhotoData } from "./PhotoCard";
 import VideoCard, { VideoData } from "./VideoCard";
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "../hooks/use-mobile";
 
 interface ContentGridProps {
   type: ContentType;
@@ -28,6 +29,8 @@ const ContentGrid: React.FC<ContentGridProps> = ({
   isLoadingMore,
   hasMore,
 }) => {
+  const isMobile = useIsMobile();
+  
   // Helper function to check if content array is empty
   const hasContent = (contentType: keyof typeof content): boolean => {
     return content[contentType] && content[contentType].length > 0;
@@ -51,10 +54,10 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     switch (type) {
       case "articles":
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
             {hasContent("articles") ? 
               content.articles.slice(0, ITEMS_PER_CONTENT_TYPE).map((article) => (
-                <ArticleCard key={article.id} article={article} />
+                <ArticleCard key={article.id} article={article} layout={isMobile ? "horizontal" : "vertical"} />
               )) : 
               renderEmptyState()
             }
@@ -62,10 +65,10 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         );
       case "newCars":
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
             {hasContent("newCars") ? 
               content.newCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
-                <CarCard key={car.id} car={car} type="new" />
+                <CarCard key={car.id} car={car} type="new" layout={isMobile ? "horizontal" : "vertical"} />
               )) : 
               renderEmptyState()
             }
@@ -73,10 +76,10 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         );
       case "usedCars":
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
             {hasContent("usedCars") ? 
               content.usedCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
-                <CarCard key={car.id} car={car} type="used" />
+                <CarCard key={car.id} car={car} type="used" layout={isMobile ? "horizontal" : "vertical"} />
               )) : 
               renderEmptyState()
             }
@@ -84,10 +87,10 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         );
       case "photos":
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
             {hasContent("photos") ? 
               content.photos.slice(0, ITEMS_PER_CONTENT_TYPE).map((photo) => (
-                <PhotoCard key={photo.id} photo={photo} />
+                <PhotoCard key={photo.id} photo={photo} layout={isMobile ? "horizontal" : "vertical"} />
               )) : 
               renderEmptyState()
             }
@@ -95,10 +98,10 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         );
       case "videos":
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
             {hasContent("videos") ? 
               content.videos.slice(0, ITEMS_PER_CONTENT_TYPE).map((video) => (
-                <VideoCard key={video.id} video={video} />
+                <VideoCard key={video.id} video={video} layout={isMobile ? "horizontal" : "vertical"} />
               )) : 
               renderEmptyState()
             }
@@ -111,9 +114,9 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.articles.length > 0 && (
               <div>
                 <h3 className="mb-3 typography-subtitle">Articles</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
                   {content.articles.slice(0, ITEMS_PER_CONTENT_TYPE).map((article) => (
-                    <ArticleCard key={article.id} article={article} />
+                    <ArticleCard key={article.id} article={article} layout={isMobile ? "horizontal" : "vertical"} />
                   ))}
                 </div>
               </div>
@@ -122,9 +125,9 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.newCars.length > 0 && (
               <div>
                 <h3 className="mb-3 typography-subtitle">New Cars</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
                   {content.newCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
-                    <CarCard key={car.id} car={car} type="new" />
+                    <CarCard key={car.id} car={car} type="new" layout={isMobile ? "horizontal" : "vertical"} />
                   ))}
                 </div>
               </div>
@@ -133,9 +136,9 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.usedCars.length > 0 && (
               <div>
                 <h3 className="mb-3 typography-subtitle">Used Cars</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
                   {content.usedCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
-                    <CarCard key={car.id} car={car} type="used" />
+                    <CarCard key={car.id} car={car} type="used" layout={isMobile ? "horizontal" : "vertical"} />
                   ))}
                 </div>
               </div>
@@ -144,9 +147,9 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.photos.length > 0 && (
               <div>
                 <h3 className="mb-3 typography-subtitle">Photos</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
                   {content.photos.slice(0, ITEMS_PER_CONTENT_TYPE).map((photo) => (
-                    <PhotoCard key={photo.id} photo={photo} />
+                    <PhotoCard key={photo.id} photo={photo} layout={isMobile ? "horizontal" : "vertical"} />
                   ))}
                 </div>
               </div>
@@ -155,9 +158,9 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.videos.length > 0 && (
               <div>
                 <h3 className="mb-3 typography-subtitle">Videos</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
                   {content.videos.slice(0, ITEMS_PER_CONTENT_TYPE).map((video) => (
-                    <VideoCard key={video.id} video={video} />
+                    <VideoCard key={video.id} video={video} layout={isMobile ? "horizontal" : "vertical"} />
                   ))}
                 </div>
               </div>
