@@ -7,7 +7,7 @@ import LatestReviews from '../components/home/LatestReviews';
 import FeaturedVideos from '../components/home/FeaturedVideos';
 import BrowseByCategory from '../components/home/BrowseByCategory';
 const Index = () => {
-  return <>
+  return <div className="px-4 md:px-0">
             {/* Hero Carousel */}
              <div className="mb-8 pt-0 sm:pt-8">
                <HeroCarousel />
@@ -42,6 +42,6 @@ const Index = () => {
             <div className="mb-8">
               <BrowseByCategory />
             </div>
-    </>;
+    </div>;
 };
 export default Index;

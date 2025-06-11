@@ -53,7 +53,24 @@ const LatestReviews: React.FC = () => {
       </div>
 
       <div className="!mt-0 flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6">
-        {reviewItems.map(item => <ArticleCard key={item.id} article={item} />)}
+        {reviewItems.map(item => (
+          <>
+            {/* Mobile horizontal cards */}
+            <ArticleCard 
+              key={item.id} 
+              article={item} 
+              layout="horizontal"
+              className="md:hidden"
+            />
+            {/* Desktop vertical cards */}
+            <ArticleCard 
+              key={`desktop-${item.id}`} 
+              article={item} 
+              layout="vertical"
+              className="hidden md:block"
+            />
+          </>
+        ))}
       </div>
     </section>;
 };

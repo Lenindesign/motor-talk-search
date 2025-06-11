@@ -53,12 +53,25 @@ const LatestNews: React.FC = () => {
       </div>
 
       <div className="!mt-0 flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6">
-        {newsItems.slice(0, 3).map((item, index) => <div key={item.id} className="relative">
-            <ArticleCard article={item} />
+        {newsItems.slice(0, 3).map((item, index) => (
+          <div key={item.id} className="relative">
+            {/* Mobile horizontal cards */}
+            <ArticleCard 
+              article={item} 
+              layout="horizontal"
+              className="md:hidden"
+            />
+            {/* Desktop vertical cards */}
+            <ArticleCard 
+              article={item} 
+              layout="vertical"
+              className="hidden md:block"
+            />
             <div className="absolute top-2 right-2 z-10 w-8 h-8 bg-motortrend-red text-white rounded-sm flex items-center justify-center font-bold text-sm">
               {index + 1}
             </div>
-          </div>)}
+          </div>
+        ))}
       </div>
     </section>;
 };

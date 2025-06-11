@@ -111,7 +111,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
   const progressOffset = circumference * (1 - (SLIDE_DURATION_SECONDS - countdown) / SLIDE_DURATION_SECONDS);
   return <div className="relative w-full overflow-hidden rounded-2xl shadow-modern-xl" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       {/* Responsive aspect ratio container */}
-      <div className="aspect-[4/6] sm:aspect-[16/9]">
+      <div className="aspect-[5/6] sm:aspect-[16/9]">
         <div className="relative h-full">
           {/* Slides */}
           <div className="relative w-full h-full">
@@ -140,7 +140,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                         </span>
                       </div>
                       
-                      <h1 className="typography-display text-white pt-0 pb-2">
+                      <h1 className="text-2xl sm:text-3xl font-bold text-white pt-0 pb-2 leading-tight">
                         {slide.title}
                       </h1>
                       

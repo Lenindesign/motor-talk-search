@@ -58,7 +58,7 @@ const MobileStickySearch: React.FC<MobileStickySearchProps> = ({ onSearch, isLoa
   return (
     <div
       className={`
-        fixed left-0 right-0 z-40 bg-white
+        fixed left-0 right-0 z-40 bg-motortrend-dark
         transition-standard
         ${visible ? "translate-y-0" : "-translate-y-full"}
         shadow
@@ -70,8 +70,8 @@ const MobileStickySearch: React.FC<MobileStickySearchProps> = ({ onSearch, isLoa
       }}
     >
 
-      <div className="py-2 w-full">
-        <div className="rounded-2xl bg-white px-4 shadow transition-standard">
+      <div className="py-4 w-full">
+        <div className="rounded-2xl bg-motortrend-dark px-4 shadow transition-standard">
           <SearchBar onSearch={onSearch} isLoading={isLoading} variant="header" />
         </div>
       </div>

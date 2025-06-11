@@ -16,13 +16,15 @@ import { Search } from 'lucide-react';
 export type { CarData, CarCardProps } from './CarCard/types';
 interface EnhancedCarCardProps extends CarCardProps {
   className?: string;
+  layout?: 'vertical' | 'horizontal';
 }
 const CarCard: React.FC<EnhancedCarCardProps> = memo(({
   car,
   type,
   priority = false,
   isLoading = false,
-  className
+  className,
+  layout = 'vertical'
 }) => {
   const navigate = useNavigate();
   const {
@@ -70,6 +72,84 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
   if (isLoading) {
     return <Card isLoading className={className} />;
   }
+
+  if (layout === 'horizontal') {
+    return (
+      <Card
+        variant={type === 'new' ? 'newCar' : 'usedCar'}
+        className={cn('flex overflow-hidden bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 border-0', className)}
+        showSaveButton={false}
+        imageUrl={currentImage}
+        metadata={{
+          price: car.price,
+          category: car.category,
+          year: car.year,
+          mileage: car.mileage,
+          fuelType: car.fuelType,
+          drivetrain: car.drivetrain,
+          location: car.location,
+          dealerName: car.dealerName,
+          dealerLocation: car.dealerLocation,
+          bodyStyle: car.bodyStyle,
+          isNew: car.isNew ? 'Yes' : 'No'
+        }}
+        onClick={() => navigate(linkPath)}
+      >
+        <div className="flex w-full p-6">
+          {/* Content - Left side */}
+          <div className="flex-1 flex flex-col min-w-0 pr-6">
+            <div>
+              <RouterLink to={linkPath} className="block">
+                <h3 className="text-base font-semibold line-clamp-2 group-hover:text-motortrend-red transition-colors leading-tight text-gray-900 mb-2">
+                  {car.title}
+                </h3>
+              </RouterLink>
+              <p className="text-base font-bold text-black mb-3">
+                {car.price}
+              </p>
+              {type !== 'new' && (
+                <div className="text-sm text-gray-700 mb-3">
+                  {car.category} • {car.mileage} miles
+                </div>
+              )}
+            </div>
+            <div className="flex items-center justify-between mt-auto">
+              <div className="flex items-center">
+                {car.motorTrendScore && (
+                  <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full mr-3">
+                    MT {car.motorTrendScore}
+                  </div>
+                )}
+                {/* Bookmark button next to MT score */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    toggleSave();
+                  }}
+                  className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label={isSaved ? "Unsave car" : "Save car"}
+                >
+                  <svg width="16" height="16" fill={isSaved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          {/* Car image - Right side */}
+          <div className="w-32 h-24 flex-shrink-0 overflow-hidden rounded-xl">
+            <img 
+              src={currentImage} 
+              alt={car.title}
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            />
+          </div>
+        </div>
+      </Card>
+    );
+  }
+
   return <Card
     variant={type === 'new' ? 'newCar' : 'usedCar'}
     className={cn('flex flex-col w-full h-full bg-white rounded-t-xl shadow-modern overflow-hidden transition-shadow duration-200', className)}

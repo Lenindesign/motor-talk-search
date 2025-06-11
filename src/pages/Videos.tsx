@@ -24,7 +24,7 @@ const Videos: React.FC = () => {
 
   return (
     <VideosPageWrapper>
-      <div className="w-full mx-auto py-[32px]">
+      <div className="w-full mx-auto py-[32px] px-4 md:px-0">
         {/* Hero Carousel */}
         <div className="mb-10">
           <HeroCarousel slides={[
@@ -159,9 +159,29 @@ const Videos: React.FC = () => {
                 <ArrowRight size={16} />
               </Button>
             </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {/* Mobile: Horizontal list, Desktop: 3-column grid */}
+            <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6">
               {videos.length > 0 ? (
-                videos.map(video => <VideoCard key={video.id} video={video} />)
+                <>
+                  {/* Mobile horizontal cards */}
+                  {videos.map(video => 
+                    <VideoCard 
+                      key={video.id} 
+                      video={video} 
+                      layout="horizontal"
+                      className="md:hidden"
+                    />
+                  )}
+                  {/* Desktop vertical cards */}
+                  {videos.map(video => 
+                    <VideoCard 
+                      key={`desktop-${video.id}`} 
+                      video={video} 
+                      layout="vertical"
+                      className="hidden md:block"
+                    />
+                  )}
+                </>
               ) : (
                 <div className="col-span-3 text-gray-500 text-center py-8 border border-gray-800 rounded-lg">
                   No videos in this category yet.

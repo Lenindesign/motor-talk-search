@@ -27,7 +27,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link to="/" aria-label="MOTORTREND Home">
-            <img src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" alt="MotorTrend Logo" className="h-8 sm:h-7 w-auto" />
+            <img src="/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png" alt="MotorTrend Logo" className="h-7 sm:h-7 w-auto" />
           </Link>
         </div>
         

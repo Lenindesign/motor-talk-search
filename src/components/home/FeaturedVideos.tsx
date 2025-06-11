@@ -41,7 +41,24 @@ const FeaturedVideos: React.FC = () => {
       </div>
 
       <div className="!mt-0 flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6">
-        {videoItems.map(item => <VideoCard key={item.id} video={item} />)}
+        {videoItems.map(item => (
+          <>
+            {/* Mobile horizontal cards */}
+            <VideoCard 
+              key={item.id} 
+              video={item} 
+              layout="horizontal"
+              className="md:hidden"
+            />
+            {/* Desktop vertical cards */}
+            <VideoCard 
+              key={`desktop-${item.id}`} 
+              video={item} 
+              layout="vertical"
+              className="hidden md:block"
+            />
+          </>
+        ))}
       </div>
     </section>;
 };

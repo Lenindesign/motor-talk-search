@@ -62,15 +62,6 @@ const DesktopNavigation = () => {
               <p className="typography-caption">My Garage</p>
             </TooltipContent>
           </Tooltip>
-          {/* Chat Icon */}
-          <Tooltip>
-            <TooltipTrigger asChild>
-              
-            </TooltipTrigger>
-            <TooltipContent side="bottom">
-              <p className="typography-caption">Chat with Motor Talk</p>
-            </TooltipContent>
-          </Tooltip>
           {/* Profile Avatar - Moved to last position */}
           <Tooltip>
             <TooltipTrigger asChild>

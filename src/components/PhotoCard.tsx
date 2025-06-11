@@ -5,6 +5,7 @@ import { useOptimizedImageLoader } from '../hooks/useOptimizedImageLoader';
 import { Card } from './ui/card';
 import CardSkeleton from './ui/CardSkeleton';
 import { cn } from '@/lib/utils';
+import { Link } from 'react-router-dom';
 
 export interface PhotoData {
   id: string;
@@ -21,6 +22,7 @@ export interface PhotoData {
     carModel?: string;
     year?: string;
   };
+  category?: string;
 }
 
 export interface PhotoCardProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -29,6 +31,7 @@ export interface PhotoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   onClick?: () => void;
   isLoading?: boolean;
   priority?: boolean;
+  layout?: 'vertical' | 'horizontal';
 }
 
 const PhotoCard: React.FC<PhotoCardProps> = memo(({
@@ -36,7 +39,8 @@ const PhotoCard: React.FC<PhotoCardProps> = memo(({
   className,
   onClick,
   isLoading = false,
-  priority = false
+  priority = false,
+  layout = 'vertical'
 }) => {
   const { currentImage, isLoading: imageLoading } = useOptimizedImageLoader({
     imageUrl: photo.imageUrl,
@@ -60,6 +64,60 @@ const PhotoCard: React.FC<PhotoCardProps> = memo(({
 
   if (isLoading || imageLoading) {
     return <Card isLoading className={className} />;
+  }
+
+  if (layout === 'horizontal') {
+    return (
+      <Card 
+        className={cn('group overflow-hidden hover:shadow-lg transition-shadow duration-300 bg-white border-0 rounded-2xl', className)}
+        showSaveButton={false}
+      >
+        <Link to={`http://localhost:8080/photo/${photo.id}`} className="block">
+          <div className="flex p-6">
+            {/* Content - Left side */}
+            <div className="flex-1 flex flex-col justify-between min-w-0 pr-6">
+              <div>
+                {photo.category && (
+                  <div className="text-sm font-medium text-gray-700 mb-2 uppercase tracking-wide">
+                    {photo.category}
+                  </div>
+                )}
+                <h3 className="text-base font-semibold line-clamp-3 group-hover:text-motortrend-red transition-colors leading-tight text-gray-900 mb-3">
+                  {photo.title}
+                </h3>
+              </div>
+              <div className="flex items-center justify-between text-sm text-gray-500 mt-4">
+                <div className="flex items-center">
+                  <span>{photo.year} {photo.make} {photo.carModel} • {photo.position}</span>
+                </div>
+                {/* Bookmark button next to date */}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    toggleSave();
+                  }}
+                  className="p-1 text-gray-400 hover:text-gray-600 transition-colors ml-3"
+                  aria-label={isSaved ? "Unsave photo" : "Save photo"}
+                >
+                  <svg width="16" height="16" fill={isSaved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            {/* Image - Right side */}
+            <div className="w-32 h-24 flex-shrink-0 overflow-hidden rounded-xl">
+              <img 
+                src={currentImage} 
+                alt={photo.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </div>
+          </div>
+        </Link>
+      </Card>
+    );
   }
 
   return (

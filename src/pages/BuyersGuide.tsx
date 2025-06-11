@@ -544,7 +544,7 @@ const BuyersGuide: React.FC = () => {
   const displayedNewCars = searchTerm ? displayedSearchResults : defaultNewCars;
   const displayedUsedCars = searchTerm ? displayedSearchResults : defaultUsedCars;
   return <div className="bg-gray-50 min-h-screen">
-      <div className="max-w-[1024px] mx-auto py-[32px] px-0">
+      <div className="max-w-[1024px] mx-auto py-[32px] px-4 md:px-0">
         <h1 className="text-2xl font-bold mb-6">New & Used Cars</h1>
         
         {/* Search and filters */}
@@ -607,8 +607,31 @@ const BuyersGuide: React.FC = () => {
             
             {apiLoading ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[1, 2, 3, 4, 5, 6].map(i => <div key={i} className="h-80 rounded-lg bg-gray-200 animate-pulse" />)}
-              </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {displayedNewCars.length > 0 ? displayedNewCars.map(car => <CarCard key={car.id} car={car} type="new" />) : <div className="col-span-full text-center py-12">
+              </div> : <div className="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6">
+                {displayedNewCars.length > 0 ? (
+                  <>
+                    {/* Mobile horizontal cards */}
+                    {displayedNewCars.map(car => 
+                      <CarCard 
+                        key={car.id} 
+                        car={car} 
+                        type="new" 
+                        layout="horizontal"
+                        className="md:hidden"
+                      />
+                    )}
+                    {/* Desktop vertical cards */}
+                    {displayedNewCars.map(car => 
+                      <CarCard 
+                        key={`desktop-${car.id}`} 
+                        car={car} 
+                        type="new" 
+                        layout="vertical"
+                        className="hidden md:block"
+                      />
+                    )}
+                  </>
+                ) : <div className="col-span-full text-center py-12">
                     <p className="text-gray-500">
                       {searchTerm ? `No vehicles found for "${searchTerm}". Try searching for "volkswagen" instead of "vw", or other makes like "bmw", "ford", "toyota".` : 'No vehicles match your search criteria.'}
                     </p>
@@ -628,8 +651,31 @@ const BuyersGuide: React.FC = () => {
             
             {apiLoading ? <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[1, 2, 3].map(i => <div key={i} className="h-80 rounded-lg bg-gray-200 animate-pulse" />)}
-              </div> : <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {displayedUsedCars.length > 0 ? displayedUsedCars.map(car => <CarCard key={car.id} car={car} type="used" />) : <div className="col-span-full text-center py-12">
+              </div> : <div className="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6">
+                {displayedUsedCars.length > 0 ? (
+                  <>
+                    {/* Mobile horizontal cards */}
+                    {displayedUsedCars.map(car => 
+                      <CarCard 
+                        key={car.id} 
+                        car={car} 
+                        type="used" 
+                        layout="horizontal"
+                        className="md:hidden"
+                      />
+                    )}
+                    {/* Desktop vertical cards */}
+                    {displayedUsedCars.map(car => 
+                      <CarCard 
+                        key={`desktop-${car.id}`} 
+                        car={car} 
+                        type="used" 
+                        layout="vertical"
+                        className="hidden md:block"
+                      />
+                    )}
+                  </>
+                ) : <div className="col-span-full text-center py-12">
                     <p className="text-gray-500">
                       {searchTerm ? `No vehicles found for "${searchTerm}". Try searching for "volkswagen" instead of "vw", or other makes like "bmw", "ford", "toyota".` : 'No vehicles match your search criteria.'}
                     </p>

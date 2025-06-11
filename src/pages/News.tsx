@@ -31,7 +31,7 @@ const News: React.FC = () => {
   const latestCars = mockNewCars.slice(0, 3);
   return <div className="min-h-screen bg-transparent">
       
-      <div className="max-w-[1024px] mx-auto py-[32px]">
+      <div className="max-w-[1024px] mx-auto py-[32px] px-4 md:px-0">
         {/* Hero Carousel */}
         <div className="mb-8">
           <HeroCarousel slides={[{
@@ -85,20 +85,68 @@ const News: React.FC = () => {
           </TabsList>
 
           <TabsContent value="latest">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {latestNews.map(article => <ArticleCard key={article.id} article={article} />)}
+            {/* Mobile: Horizontal list, Desktop: 3-column grid */}
+            <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6">
+              {latestNews.map(article => 
+                <ArticleCard 
+                  key={article.id} 
+                  article={article} 
+                  layout="horizontal"
+                  className="md:hidden"
+                />
+              )}
+              {latestNews.map(article => 
+                <ArticleCard 
+                  key={`desktop-${article.id}`} 
+                  article={article} 
+                  layout="vertical"
+                  className="hidden md:block"
+                />
+              )}
             </div>
           </TabsContent>
 
           <TabsContent value="trending">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {trendingNews.map(article => <ArticleCard key={article.id} article={article} />)}
+            {/* Mobile: Horizontal list, Desktop: 3-column grid */}
+            <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6">
+              {trendingNews.map(article => 
+                <ArticleCard 
+                  key={article.id} 
+                  article={article} 
+                  layout="horizontal"
+                  className="md:hidden"
+                />
+              )}
+              {trendingNews.map(article => 
+                <ArticleCard 
+                  key={`desktop-${article.id}`} 
+                  article={article} 
+                  layout="vertical"
+                  className="hidden md:block"
+                />
+              )}
             </div>
           </TabsContent>
 
           <TabsContent value="for-you">
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {forYouNews.map(article => <ArticleCard key={article.id} article={article} />)}
+            {/* Mobile: Horizontal list, Desktop: 3-column grid */}
+            <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6">
+              {forYouNews.map(article => 
+                <ArticleCard 
+                  key={article.id} 
+                  article={article} 
+                  layout="horizontal"
+                  className="md:hidden"
+                />
+              )}
+              {forYouNews.map(article => 
+                <ArticleCard 
+                  key={`desktop-${article.id}`} 
+                  article={article} 
+                  layout="vertical"
+                  className="hidden md:block"
+                />
+              )}
             </div>
           </TabsContent>
         </Tabs>
@@ -115,8 +163,24 @@ const News: React.FC = () => {
               <ArrowRight size={16} />
             </Button>
           </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {featuredVideos.map(video => <VideoCard key={video.id} video={video} />)}
+          {/* Mobile: Horizontal list, Desktop: 3-column grid */}
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6">
+            {featuredVideos.map(video => 
+              <VideoCard 
+                key={video.id} 
+                video={video} 
+                layout="horizontal"
+                className="md:hidden"
+              />
+            )}
+            {featuredVideos.map(video => 
+              <VideoCard 
+                key={`desktop-${video.id}`} 
+                video={video} 
+                layout="vertical"
+                className="hidden md:block"
+              />
+            )}
           </div>
         </section>
 
@@ -132,8 +196,24 @@ const News: React.FC = () => {
               <ArrowRight size={16} />
             </Button>
           </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {featuredPhotos.map(photo => <PhotoCard key={photo.id} photo={photo} />)}
+          {/* Mobile: Horizontal list, Desktop: 3-column grid */}
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6">
+            {featuredPhotos.map(photo => 
+              <PhotoCard 
+                key={photo.id} 
+                photo={photo} 
+                layout="horizontal"
+                className="md:hidden"
+              />
+            )}
+            {featuredPhotos.map(photo => 
+              <PhotoCard 
+                key={`desktop-${photo.id}`} 
+                photo={photo} 
+                layout="vertical"
+                className="hidden md:block"
+              />
+            )}
           </div>
         </section>
 
@@ -146,8 +226,26 @@ const News: React.FC = () => {
               <ArrowRight size={16} />
             </Button>
           </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {latestCars.map(car => <CarCard key={car.id} car={car} type="new" />)}
+          {/* Mobile: Horizontal list, Desktop: 3-column grid */}
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:gap-6">
+            {latestCars.map(car => 
+              <CarCard 
+                key={car.id} 
+                car={car} 
+                type="new" 
+                layout="horizontal"
+                className="md:hidden"
+              />
+            )}
+            {latestCars.map(car => 
+              <CarCard 
+                key={`desktop-${car.id}`} 
+                car={car} 
+                type="new" 
+                layout="vertical"
+                className="hidden md:block"
+              />
+            )}
           </div>
         </section>
       </div>
