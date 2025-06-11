@@ -71,15 +71,50 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
   const [currentSlide, setCurrentSlide] = useState(0);
   const [countdown, setCountdown] = useState(SLIDE_DURATION_SECONDS); // Use constant
   const [isHovered, setIsHovered] = useState(false);
+  
+  // Touch/swipe state
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  
+  // Minimum swipe distance (in px)
+  const minSwipeDistance = 50;
+
   const nextSlide = useCallback(() => {
     setCurrentSlide(prev => (prev + 1) % heroSlides.length);
   }, [heroSlides.length]);
+  
   const prevSlide = useCallback(() => {
     setCurrentSlide(prev => (prev - 1 + heroSlides.length) % heroSlides.length);
   }, [heroSlides.length]);
+  
   const goToSlide = useCallback((index: number) => {
     setCurrentSlide(index);
   }, []);
+
+  // Touch event handlers
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null); // Reset touchEnd
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextSlide();
+    } else if (isRightSwipe) {
+      prevSlide();
+    }
+  };
+
   useEffect(() => {
     // Reset countdown to full duration whenever the slide changes or hover state ends
     setCountdown(SLIDE_DURATION_SECONDS);
@@ -109,7 +144,15 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
   const circumference = 2 * Math.PI * radius;
   // Calculate progress based on SLIDE_DURATION_SECONDS
   const progressOffset = circumference * (1 - (SLIDE_DURATION_SECONDS - countdown) / SLIDE_DURATION_SECONDS);
-  return <div className="relative w-full overflow-hidden rounded-2xl shadow-modern-xl" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+  
+  return <div 
+    className="relative w-full overflow-hidden rounded-2xl shadow-modern-xl" 
+    onMouseEnter={() => setIsHovered(true)} 
+    onMouseLeave={() => setIsHovered(false)}
+    onTouchStart={onTouchStart}
+    onTouchMove={onTouchMove}
+    onTouchEnd={onTouchEnd}
+  >
       {/* Responsive aspect ratio container */}
       <div className="aspect-[5/6] sm:aspect-[16/9]">
         <div className="relative h-full">
