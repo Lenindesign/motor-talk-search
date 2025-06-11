@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import ImageSearchOverlay from './ImageSearchOverlay';
 import { useNavigate } from 'react-router-dom';
-import { useIsMobile } from '../hooks/use-mobile';
 
 interface SearchBarProps {
   onSearch: (query: string) => void;
@@ -34,7 +33,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const localInputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
-  const isMobile = useIsMobile();
   
   const {
     suggestions,
@@ -53,12 +51,8 @@ const SearchBar: React.FC<SearchBarProps> = ({
     if (query.trim() && !isLoading) {
       onSearch(query);
       setShowSuggestions(false);
-      // On mobile, blur the input to hide the keyboard after search
-      if (isMobile && currentInputRef?.current) {
-        currentInputRef.current.blur();
-      }
       setTimeout(() => {
-        if (currentInputRef?.current && !isMobile) {
+        if (currentInputRef?.current) {
           currentInputRef.current.focus();
         }
       }, 50);
@@ -66,46 +60,52 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
   
   const handleSuggestionSelect = (suggestion: Suggestion) => {
-    setQuery(suggestion.text);
-    setShowSuggestions(false);
+    // Handle AI suggestions by navigating to search results with the AI response
+    if (suggestion.type === 'aiSuggestion' && suggestion.aiResponse) {
+      // Navigate to search results page with AI query and response
+      navigate(`/search?q=${encodeURIComponent(suggestion.text)}&aiResponse=${encodeURIComponent(suggestion.aiResponse)}`);
+      setQuery("");
+      setShowSuggestions(false);
+      if (currentInputRef?.current) {
+        currentInputRef.current.blur();
+      }
+      return;
+    }
     
-    // Handle different suggestion types
+    let path = '';
     switch (suggestion.type) {
-      case 'article':
-        navigate(`/article/${suggestion.id}`);
-        break;
       case 'newCar':
+        path = `/new-car/${suggestion.id.replace('newcar-', '')}`;
+        break;
       case 'usedCar':
-        navigate(`/car/${suggestion.id}`);
+        path = `/used-car/${suggestion.id.replace('usedcar-', '')}`;
+        break;
+      case 'article':
+        path = `/article/${suggestion.id.replace('article-', '')}`;
         break;
       case 'video':
-        navigate(`/video/${suggestion.id}`);
+        path = `/video/${suggestion.id.replace('video-', '')}`;
         break;
       case 'photo':
-        navigate(`/photo/${suggestion.id}`);
-        break;
-      case 'aiSuggestion':
-        // For AI suggestions, perform a search with the suggestion text
-        onSearch(suggestion.text);
+        path = `/photo/${suggestion.id.replace('photo-', '')}`;
         break;
       case 'carMake':
       case 'carModel':
       case 'popular':
       default:
-        // For other types, perform a search
-        onSearch(suggestion.text);
+        path = `/search?q=${encodeURIComponent(suggestion.text)}`;
         break;
     }
-    
-    // On mobile, blur the input to hide the keyboard
-    if (isMobile && currentInputRef?.current) {
+    navigate(path);
+    setQuery("");
+    setShowSuggestions(false);
+    if (currentInputRef?.current) {
       currentInputRef.current.blur();
     }
   };
   
   const clearSearch = () => {
     setQuery("");
-    setShowSuggestions(false);
     if (currentInputRef?.current) {
       currentInputRef.current.focus();
     }
@@ -113,11 +113,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
   
   const handleVoiceSearch = () => {
     setVoiceSearch(true);
-    // Simulate voice search - in real app, integrate with Web Speech API
-    setTimeout(() => setVoiceSearch(false), 2000);
+    setTimeout(() => {
+      setVoiceSearch(false);
+      setQuery("electric SUVs under $50,000");
+    }, 1500);
   };
   
   const handleImageSearch = () => {
+    console.log("Image search initiated");
     setIsImageSearchOverlayOpen(true);
   };
   
@@ -127,46 +130,37 @@ const SearchBar: React.FC<SearchBarProps> = ({
         setShowSuggestions(false);
       }
     }
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
   
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setSelectedIndex(prev => 
-        prev < suggestions.length - 1 ? prev + 1 : prev
-      );
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setSelectedIndex(prev => (prev > 0 ? prev - 1 : 0));
-    } else if (e.key === 'Enter' && selectedIndex >= 0 && selectedIndex < suggestions.length) {
-      e.preventDefault();
-      handleSuggestionSelect(suggestions[selectedIndex]);
+    handleKeyDown(e);
+    if (e.key === 'Enter') {
+      if (selectedIndex >= 0 && selectedIndex < suggestions.length) {
+        // If a suggestion is selected, use it
+        e.preventDefault();
+        handleSuggestionSelect(suggestions[selectedIndex]);
+      } else if (query.trim() && !isLoading) {
+        // If no suggestion is selected but there's a query, submit the search
+        e.preventDefault();
+        handleSubmit(e as any);
+      }
     } else if (e.key === 'Escape') {
       setShowSuggestions(false);
     } else if (e.key === 'Tab' && showSuggestions) {
       setShowSuggestions(false);
-    } else {
-      // Call the original handleKeyDown for other functionality
-      handleKeyDown(e);
     }
   };
   
-  // Mobile-specific input attributes
-  const getMobileInputProps = () => {
-    if (!isMobile) return {};
-    
-    return {
-      inputMode: "search" as const,
-      enterKeyHint: "search" as const,
-      autoCapitalize: "none" as const,
-      autoCorrect: "off" as const,
-      spellCheck: false,
-      // Add mobile-specific attributes for better UX
-      'data-mobile-search': true,
-    };
-  };
+  useEffect(() => {
+    if (currentInputRef?.current && !isLoading && variant === "main") {
+      // Focus the input when it's ready and not loading
+      currentInputRef.current.focus();
+    }
+  }, [isLoading, currentInputRef, variant]);
   
   return (
     <div ref={wrapperRef} className="relative w-full">
@@ -177,7 +171,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               <Search size={18} className={`text-gray-400 dark:text-gray-500 ${isFocused ? 'text-primary dark:text-primary-400' : ''}`} />
             </div>
             <input
-              type="search"
+              type="text"
               value={query}
               onChange={e => {
                 setQuery(e.target.value);
@@ -194,11 +188,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   setShowSuggestions(true);
                 }
               }}
-              onBlur={() => {
-                setIsFocused(false);
-                // Delay hiding suggestions to allow for clicks
-                setTimeout(() => setShowSuggestions(false), 150);
-              }}
+              onBlur={() => setIsFocused(false)}
               onKeyDown={handleInputKeyDown}
               className={`w-full rounded-full border-2 border-motortrend-red bg-white py-2.5 pl-10 ${inputPaddingRightClass} typography-small shadow-sm transition-standard focus:ring-2 focus:ring-motortrend-red/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:border-motortrend-red`}
               placeholder="Search or ask a question…"
@@ -207,7 +197,6 @@ const SearchBar: React.FC<SearchBarProps> = ({
               aria-autocomplete="list"
               aria-expanded={showSuggestions && suggestions.length > 0}
               aria-controls="autocomplete-suggestions"
-              {...getMobileInputProps()}
             />
             <div className="absolute inset-y-0 right-0 flex items-center">
               {query && !isLoading && (
@@ -231,51 +220,46 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   </Tooltip>
                 </TooltipProvider>
               )}
-              {/* Hide voice and camera buttons on mobile for header variant to save space */}
-              {(!isMobile || variant !== "header") && (
-                <>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 rounded-full p-0 text-gray-500 hover:bg-gray-200 hover:text-gray-700 disabled:text-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:disabled:text-gray-500 transition-fast focus-ring"
-                          onClick={handleVoiceSearch}
-                          aria-label="Search by voice"
-                          disabled={isLoading}
-                        >
-                          {voiceSearch ? <Loader size={18} className="animate-spin" /> : <Mic size={18} />}
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Search by voice</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon"
-                          className="h-8 w-8 rounded-full p-0 text-gray-500 hover:bg-gray-200 hover:text-gray-700 disabled:text-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:disabled:text-gray-500 transition-fast focus-ring"
-                          onClick={handleImageSearch}
-                          aria-label="Search by image"
-                          disabled={isLoading}
-                        >
-                          <Camera size={18} />
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p>Search by image</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </>
-              )}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 rounded-full p-0 text-gray-500 hover:bg-gray-200 hover:text-gray-700 disabled:text-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:disabled:text-gray-500 transition-fast focus-ring"
+                      onClick={handleVoiceSearch}
+                      aria-label="Search by voice"
+                      disabled={isLoading}
+                    >
+                      {voiceSearch ? <Loader size={18} className="animate-spin" /> : <Mic size={18} />}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Search by voice</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 rounded-full p-0 text-gray-500 hover:bg-gray-200 hover:text-gray-700 disabled:text-gray-300 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 dark:disabled:text-gray-500 transition-fast focus-ring"
+                      onClick={handleImageSearch}
+                      aria-label="Search by image"
+                      disabled={isLoading}
+                    >
+                      <Camera size={18} />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Search by image</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
               <Button
                 type="submit"
                 variant="ghost"
@@ -300,7 +284,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               )}
             </div>
             <input
-              type="search"
+              type="text"
               value={query}
               onChange={e => {
                 setQuery(e.target.value);
@@ -317,21 +301,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
                   setShowSuggestions(true);
                 }
               }}
-              onBlur={() => {
-                setIsFocused(false);
-                // Delay hiding suggestions to allow for clicks
-                setTimeout(() => setShowSuggestions(false), 150);
-              }}
+              onBlur={() => setIsFocused(false)}
               onKeyDown={handleInputKeyDown}
               className={`w-full rounded-full border-2 border-motortrend-red bg-white py-3 pl-10 ${inputPaddingRightClass} typography-body shadow-sm transition-standard focus:ring-2 focus:ring-motortrend-red/50 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400 dark:border-motortrend-red`}
               placeholder="Search or ask a question…"
               disabled={isLoading || voiceSearch}
               ref={currentInputRef}
-              autoFocus={!isMobile} // Don't auto-focus on mobile to prevent keyboard popup
+              autoFocus
               aria-autocomplete="list"
               aria-expanded={showSuggestions && suggestions.length > 0}
               aria-controls="autocomplete-suggestions"
-              {...getMobileInputProps()}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-2">
               {query && !isLoading && (
@@ -423,26 +402,28 @@ const SearchBar: React.FC<SearchBarProps> = ({
         />
       )}
       
-      <ImageSearchOverlay 
-        isOpen={isImageSearchOverlayOpen}
-        onClose={() => setIsImageSearchOverlayOpen(false)}
-        onImageSelected={(file: File) => {
-          console.log("Image selected for search:", file.name);
-          // Simulate processing and getting a search query from the file
-          const simulatedQuery = `Image search: ${file.name.substring(0, 30)}${file.name.length > 30 ? '...' : ''}`;
-          setQuery(simulatedQuery);
-          setIsImageSearchOverlayOpen(false);
-          onSearch(simulatedQuery);
-        }}
-        onTakePhotoClicked={() => {
-          console.log("Take photo initiated for search");
-          // Simulate taking a photo and getting a search query
-          const simulatedQuery = "Image search: Photo taken";
-          setQuery(simulatedQuery);
-          setIsImageSearchOverlayOpen(false);
-          onSearch(simulatedQuery);
-        }}
-      />
+      {isImageSearchOverlayOpen && (
+        <ImageSearchOverlay
+          isOpen={isImageSearchOverlayOpen}
+          onClose={() => setIsImageSearchOverlayOpen(false)}
+          onImageSelected={(file: File) => {
+            console.log("Image selected for search:", file.name);
+            // Simulate processing and getting a search query from the file
+            const simulatedQuery = `Image search: ${file.name.substring(0, 30)}${file.name.length > 30 ? '...' : ''}`;
+            setQuery(simulatedQuery);
+            setIsImageSearchOverlayOpen(false);
+            onSearch(simulatedQuery); // Call the main onSearch prop of SearchBar
+          }}
+          onTakePhotoClicked={() => {
+            console.log("Take photo initiated for search");
+            // Simulate taking a photo and getting a search query
+            const simulatedQuery = "Image search: Photo taken";
+            setQuery(simulatedQuery);
+            setIsImageSearchOverlayOpen(false);
+            onSearch(simulatedQuery); // Call the main onSearch prop of SearchBar
+          }}
+        />
+      )}
     </div>
   );
 };
