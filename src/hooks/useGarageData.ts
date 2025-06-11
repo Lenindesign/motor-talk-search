@@ -22,7 +22,7 @@ export const useGarageData = () => {
           ...car.metadata,
           motorTrendScore: mtData.score?.toString() || '',
           motorTrendRank: mtData.rank?.toString() || '',
-          motorTrendCategoryRank: mtData.categoryRank?.toString() || ''
+          motorTrendCategoryRank: Boolean(mtData.categoryRank)
         }
       });
     });
