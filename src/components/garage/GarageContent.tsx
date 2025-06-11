@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useSavedItems, SavedItem, SavedItemType } from "../../contexts/SavedItemsContext";
@@ -184,14 +183,6 @@ const GarageContent = () => {
         />
       </div>
 
-      {/* New: Personalized Insights */}
-      <div className="mb-6">
-        <PersonalizedInsights 
-          savedCarsCount={savedCars.length}
-          favoriteCategory={savedCars[0]?.metadata?.category}
-        />
-      </div>
-
       {/* Main Content */}
       {showComparison ? (
         <div className="mb-6">
@@ -213,6 +204,14 @@ const GarageContent = () => {
               displayCars={displayCars} 
               savedItemToCarData={savedItemToCarData} 
               minScore={minScore} 
+            />
+          </div>
+
+          {/* Garage Insights - Moved under cars */}
+          <div className="mb-6">
+            <PersonalizedInsights 
+              savedCarsCount={savedCars.length}
+              favoriteCategory={savedCars[0]?.metadata?.category}
             />
           </div>
 

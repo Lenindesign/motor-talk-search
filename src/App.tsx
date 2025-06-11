@@ -26,7 +26,7 @@ const DesignSystem = lazy(() => import('./pages/DesignSystem'));
 const TestCarCard = lazy(() => import("./components/TestCarCard"));
 const TestCard = lazy(() => import("./pages/TestCard"));
 const BestSUVs = lazy(() => import("./pages/BestSUVs"));
-const CarConnect = lazy(() => import("./pages/CarConnect"));
+const CarConnect = lazy(() => import("./pages/CarConnect/index"));
 const Chat = lazy(() => import("./pages/Chat"));
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
 import { PersonalizationProvider } from "./contexts/PersonalizationContext";

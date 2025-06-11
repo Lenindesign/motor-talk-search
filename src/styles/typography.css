@@ -1,0 +1,44 @@
+/* Typography utility classes that map to Tailwind config */
+
+/* Headlines */
+.typography-hero {
+  @apply font-hero text-hero font-bold;
+}
+
+.typography-display {
+  @apply font-heading text-display font-bold;
+}
+
+.typography-title {
+  @apply font-heading text-title font-semibold;
+}
+
+.typography-subtitle {
+  @apply font-subtitle text-title font-medium;
+}
+
+/* Body Text */
+.typography-body-lg {
+  @apply font-body text-body-lg;
+}
+
+.typography-body {
+  @apply font-body text-body;
+}
+
+.typography-body-sm {
+  @apply font-body text-body-sm;
+}
+
+.typography-caption {
+  @apply font-caption text-caption text-neutral-4;
+}
+
+/* Buttons */
+.typography-button1 {
+  @apply font-button text-body-sm font-semibold tracking-wide;
+}
+
+.typography-button2 {
+  @apply font-button text-caption font-semibold tracking-wide;
+}

@@ -1,0 +1,6 @@
+/* Custom styles for video cards in dark mode */
+.dark .video-card-no-border {
+  border: none !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+}

@@ -46,7 +46,7 @@ const SimplifiedGarageContent = () => {
       fuelType: item.metadata?.fuelType,
       drivetrain: item.metadata?.drivetrain,
       location: item.metadata?.location,
-      bodyStyle: item.metadata?.bodyStyle as 'SUV' | 'Sedan' | 'Truck' | 'Sports Car' | 'Minivan' | 'Crossover' | 'Coupe' | 'Convertible' | 'Hatchback' | 'Wagon',
+      bodyStyle: item.metadata?.bodyStyle as any,
       isNew: item.type === 'newCar',
       msrp: item.metadata?.msrp,
       mpg: item.metadata?.mpg,
@@ -74,7 +74,11 @@ const SimplifiedGarageContent = () => {
       motorTrendRank: item.metadata?.motorTrendRank,
       motorTrendScore: item.metadata?.motorTrendScore,
       motorTrendCategoryRank: item.metadata?.motorTrendCategoryRank,
-      userReviewsScore: item.metadata?.userReviewsScore || '8.5'
+      userReviewsScore: item.metadata?.userReviewsScore || '8.5',
+      dealerName: item.metadata?.dealerName || item.metadata?.dealer,
+      dealerLocation: item.metadata?.dealerLocation || item.metadata?.dealerAddress || '',
+      dealerPhone: item.metadata?.dealerPhone || '',
+      ownership: item.metadata?.ownership,
     };
   };
 

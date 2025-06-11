@@ -294,7 +294,7 @@ const FindBestPriceTab = () => {
                 color: "bg-blue-50 border-blue-200"
               },
               {
-                name: "Mike - Car Enthusiast",
+                name: "Greg - Car Enthusiast",
                 age: "35",
                 goal: "Find specific performance model",
                 frustrations: ["Limited inventory", "Inflated prices", "Long search time"],
@@ -303,7 +303,7 @@ const FindBestPriceTab = () => {
                 color: "bg-green-50 border-green-200"
               },
               {
-                name: "Lisa - Busy Parent",
+                name: "Paula - Busy Parent",
                 age: "42",
                 goal: "Quick family vehicle purchase",
                 frustrations: ["No time for dealer visits", "Complex process", "Hidden fees"],

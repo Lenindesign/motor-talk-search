@@ -1,6 +1,6 @@
 import React from 'react';
-import { MapPin, Calendar, Gauge, Fuel, Settings, DollarSign, Zap, Battery, Car, Cpu, Cog, Award, Medal } from 'lucide-react';
 import { CarData } from './types';
+import MaterialIcon from '../ui/MaterialIcon';
 
 interface CarSpecsProps {
   car: CarData;
@@ -30,12 +30,12 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
           {car.price && (
             <>
               <div className="flex items-center">
-                <DollarSign size={14} className="mr-1 text-motortrend-dark" />
+                <MaterialIcon name="attach_money" size={14} className="mr-1 text-motortrend-dark" />
                 <span className="font-medium">Price:</span>
                 <span className="ml-1">{car.price}</span>
               </div>
               <div className="flex items-center">
-                <DollarSign size={14} className="mr-1 text-motortrend-red" />
+                <MaterialIcon name="payments" size={14} className="mr-1 text-motortrend-red" />
                 <span className="font-medium">Est. Payment:</span>
                 <span className="ml-1">
                   ${calculateEstimatedPayment(parseInt(car.price.replace(/[^0-9]/g, '')))}/mo
@@ -46,25 +46,25 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
           {/* Year removed since it's already in the headline */}
           {car.mileage && (
             <div className="flex items-center">
-              <Gauge size={14} className="mr-1 text-motortrend-dark" />
+              <MaterialIcon name="speed" size={14} className="mr-1 text-motortrend-dark" />
               <span>{car.mileage}</span>
             </div>
           )}
           {car.fuelType && (
             <div className="flex items-center">
-              <Fuel size={14} className="mr-1 text-motortrend-dark" />
+              <MaterialIcon name="local_gas_station" size={14} className="mr-1 text-motortrend-dark" />
               <span>{car.fuelType}</span>
             </div>
           )}
           {car.dealerName && (
             <div className="flex items-center font-medium">
-              <MapPin size={14} className="mr-1 text-motortrend-red" />
+              <MaterialIcon name="place" size={14} className="mr-1 text-motortrend-red" />
               <span>Dealer: {car.dealerName}</span>
             </div>
           )}
           {!car.dealerName && car.location && (
             <div className="flex items-center font-medium">
-              <MapPin size={14} className="mr-1 text-motortrend-red" />
+              <MaterialIcon name="place" size={14} className="mr-1 text-motortrend-red" />
               <span>Dealer: {car.location}</span>
             </div>
           )}
@@ -97,7 +97,7 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
           </div>
           {car.motorTrendRank && (
             <div className="flex items-center text-sm">
-              <Medal size={14} className="mr-1 text-motortrend-dark" />
+              <MaterialIcon name="emoji_events" size={14} className="mr-1 text-motortrend-dark" />
               <span className="font-medium">Rank:</span>
               <span className="ml-1 font-bold">{car.motorTrendRank}{car.motorTrendCategoryRank ? ` in ${car.category}` : ''}</span>
             </div>
@@ -111,7 +111,7 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
           {/* Always show MSRP as the first spec for all cars */}
           {car.msrp && (
             <div className="flex items-center">
-              <DollarSign size={14} className="mr-1 text-motortrend-dark" />
+              <MaterialIcon name="attach_money" size={14} className="mr-1 text-motortrend-dark" />
               <span className="font-medium">MSRP:</span>
               <span className="ml-1">{car.msrp}</span>
             </div>
@@ -120,7 +120,7 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
           {/* Show estimated monthly payment for new cars */}
           {car.msrp && (
             <div className="flex items-center">
-              <DollarSign size={14} className="mr-1 text-motortrend-red" />
+              <MaterialIcon name="payments" size={14} className="mr-1 text-motortrend-red" />
               <span className="font-medium">Est. Payment:</span>
               <span className="ml-1">
                 ${calculateEstimatedPayment(parseInt(car.msrp.replace(/[^0-9]/g, '')))}
@@ -132,14 +132,14 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
           {/* For electric cars, show range and MPGe */}
           {car.fuelType === 'Electric' && car.range && (
             <div className="flex items-center">
-              <Battery size={14} className="mr-1 text-motortrend-dark" />
+              <MaterialIcon name="battery_full" size={14} className="mr-1 text-motortrend-dark" />
               <span className="font-medium">Range:</span>
               <span className="ml-1">{car.range}</span>
             </div>
           )}
           {car.fuelType === 'Electric' && car.mpge && (
             <div className="flex items-center">
-              <Zap size={14} className="mr-1 text-motortrend-dark" />
+              <MaterialIcon name="electric_bolt" size={14} className="mr-1 text-motortrend-dark" />
               <span className="font-medium">MPGe:</span>
               <span className="ml-1">{car.mpge}</span>
             </div>
@@ -148,14 +148,14 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
           {/* For gas/hybrid cars, show MPG and engine */}
           {car.fuelType !== 'Electric' && car.mpg && (
             <div className="flex items-center">
-              <Fuel size={14} className="mr-1 text-motortrend-dark" />
+              <MaterialIcon name="local_gas_station" size={14} className="mr-1 text-motortrend-dark" />
               <span className="font-medium">MPG:</span>
               <span className="ml-1">{car.mpg}</span>
             </div>
           )}
           {car.fuelType !== 'Electric' && car.engine && (
             <div className="flex items-center">
-              <Car size={14} className="mr-1 text-motortrend-dark" />
+              <MaterialIcon name="directions_car" size={14} className="mr-1 text-motortrend-dark" />
               <span className="font-medium">Engine:</span>
               <span className="ml-1">{car.engine}</span>
             </div>
@@ -164,7 +164,7 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
           {/* For sports cars and performance vehicles, show horsepower */}
           {(car.category === 'Sports Car' || car.category === 'Luxury' || car.horsepower?.includes('hp')) && car.horsepower && (
             <div className="flex items-center">
-              <Cpu size={14} className="mr-1 text-motortrend-dark" />
+              <MaterialIcon name="flash_on" size={14} className="mr-1 text-motortrend-dark" />
               <span className="font-medium">Horsepower:</span>
               <span className="ml-1">{car.horsepower}</span>
             </div>

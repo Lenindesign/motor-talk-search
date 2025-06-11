@@ -1,4 +1,3 @@
-
 export interface CarData {
   id: string;
   title: string;
@@ -16,10 +15,12 @@ export interface CarData {
   detailUrl?: string;
   dealerName?: string;
   dealerLocation?: string;
+  dealerPhone?: string;
 
   // Garage status
   inGarage?: boolean;
   garageStatus?: 'Owned' | 'Test Drive' | 'Interested';
+  ownership?: 'owned' | 'interested' | 'testDriven';
   
   // New car specs
   msrp?: string;
