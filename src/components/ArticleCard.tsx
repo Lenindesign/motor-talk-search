@@ -37,7 +37,7 @@ const ArticleCard: React.FC<ExtendedArticleCardProps> = ({
         className={cn('group overflow-hidden hover:shadow-lg transition-shadow duration-300 bg-white border-0 rounded-2xl', className)}
         showSaveButton={false}
       >
-        <Link to={`http://localhost:8080/article/${article.id}`} className="block">
+        <Link to={`/article/${article.id}`} className="block">
           <div className="flex p-6">
             {/* Content - Left side */}
             <div className="flex-1 flex flex-col justify-between min-w-0 pr-6">
@@ -105,7 +105,7 @@ const ArticleCard: React.FC<ExtendedArticleCardProps> = ({
       isSaved={isSaved}
       onToggleSave={toggleSave}
     >
-      <Link to={`http://localhost:8080/article/${article.id}`} className="block">
+      <Link to={`/article/${article.id}`} className="block">
         <div className="aspect-video overflow-hidden">
           <img 
             src={article.imageUrl} 
