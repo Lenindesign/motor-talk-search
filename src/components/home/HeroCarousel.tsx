@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-
 export interface HeroSlide {
   id: string;
   title: string;
@@ -15,7 +14,6 @@ export interface HeroSlide {
   videoUrl?: string;
   linkTo?: string;
 }
-
 const defaultHeroSlides: HeroSlide[] = [{
   id: '1',
   title: '2025 Ferrari 296 GT3: The Ultimate Track Weapon',
@@ -57,11 +55,9 @@ const defaultHeroSlides: HeroSlide[] = [{
   readTime: 'Just In',
   linkTo: '/article/hero-slide-4'
 }];
-
 interface HeroCarouselProps {
   slides?: HeroSlide[];
 }
-
 const SLIDE_DURATION_SECONDS = 10; // New constant for duration
 
 const HeroCarousel: React.FC<HeroCarouselProps> = ({
@@ -71,22 +67,19 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
   const [currentSlide, setCurrentSlide] = useState(0);
   const [countdown, setCountdown] = useState(SLIDE_DURATION_SECONDS); // Use constant
   const [isHovered, setIsHovered] = useState(false);
-  
+
   // Touch/swipe state
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
-  
+
   // Minimum swipe distance (in px)
   const minSwipeDistance = 50;
-
   const nextSlide = useCallback(() => {
     setCurrentSlide(prev => (prev + 1) % heroSlides.length);
   }, [heroSlides.length]);
-  
   const prevSlide = useCallback(() => {
     setCurrentSlide(prev => (prev - 1 + heroSlides.length) % heroSlides.length);
   }, [heroSlides.length]);
-  
   const goToSlide = useCallback((index: number) => {
     setCurrentSlide(index);
   }, []);
@@ -96,25 +89,20 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
     setTouchEnd(null); // Reset touchEnd
     setTouchStart(e.targetTouches[0].clientX);
   };
-
   const onTouchMove = (e: React.TouchEvent) => {
     setTouchEnd(e.targetTouches[0].clientX);
   };
-
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
-    
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
-
     if (isLeftSwipe) {
       nextSlide();
     } else if (isRightSwipe) {
       prevSlide();
     }
   };
-
   useEffect(() => {
     // Reset countdown to full duration whenever the slide changes or hover state ends
     setCountdown(SLIDE_DURATION_SECONDS);
@@ -144,15 +132,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
   const circumference = 2 * Math.PI * radius;
   // Calculate progress based on SLIDE_DURATION_SECONDS
   const progressOffset = circumference * (1 - (SLIDE_DURATION_SECONDS - countdown) / SLIDE_DURATION_SECONDS);
-  
-  return <div 
-    className="relative w-full overflow-hidden rounded-2xl shadow-modern-xl" 
-    onMouseEnter={() => setIsHovered(true)} 
-    onMouseLeave={() => setIsHovered(false)}
-    onTouchStart={onTouchStart}
-    onTouchMove={onTouchMove}
-    onTouchEnd={onTouchEnd}
-  >
+  return <div className="relative w-full overflow-hidden rounded-2xl shadow-modern-xl" onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
       {/* Responsive aspect ratio container */}
       <div className="aspect-[5/6] sm:aspect-[16/9]">
         <div className="relative h-full">
@@ -183,17 +163,13 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                         </span>
                       </div>
                       
-                      <h1 className="text-2xl sm:text-3xl font-bold text-white pt-0 pb-2 leading-tight">
+                      <h1 className="sm:text-2xl font-bold text-white pt-0 pb-2 leading-tight lg:text-4xl ">
                         {slide.title}
                       </h1>
                       
-                      {slide.linkTo ? (
-                        <Button size="lg" asChild className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg py-0">
+                      {slide.linkTo ? <Button size="lg" asChild className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg py-0">
                           <Link to={slide.linkTo}>Full Story</Link>
-                        </Button>
-                      ) : (
-                        <Button size="lg" className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg py-0">Full Story</Button>
-                      )}
+                        </Button> : <Button size="lg" className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg py-0">Full Story</Button>}
                     </div>
                   </div>
                 </div>
@@ -227,16 +203,10 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
 
           {/* Dot indicators */}
           {heroSlides.length > 1 && <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
-            {heroSlides.map((_, index) => <button 
-              key={index} 
-              onClick={() => goToSlide(index)} 
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ease-in-out ${index === currentSlide ? 'bg-white' : 'bg-white/40'}`} 
-              aria-label={`Go to slide ${index + 1}`} 
-            />)}
+            {heroSlides.map((_, index) => <button key={index} onClick={() => goToSlide(index)} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ease-in-out ${index === currentSlide ? 'bg-white' : 'bg-white/40'}`} aria-label={`Go to slide ${index + 1}`} />)}
           </div>}
         </div>
       </div>
     </div>;
 };
-
 export default HeroCarousel;
