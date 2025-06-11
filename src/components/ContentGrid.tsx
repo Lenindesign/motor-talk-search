@@ -51,10 +51,23 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     switch (type) {
       case "articles":
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4">
             {hasContent("articles") ? 
               content.articles.slice(0, ITEMS_PER_CONTENT_TYPE).map((article) => (
-                <ArticleCard key={article.id} article={article} />
+                <React.Fragment key={article.id}>
+                  {/* Mobile horizontal cards */}
+                  <ArticleCard 
+                    article={article} 
+                    layout="horizontal"
+                    className="md:hidden"
+                  />
+                  {/* Desktop vertical cards */}
+                  <ArticleCard 
+                    article={article} 
+                    layout="vertical"
+                    className="hidden md:block"
+                  />
+                </React.Fragment>
               )) : 
               renderEmptyState()
             }
@@ -62,10 +75,25 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         );
       case "newCars":
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4">
             {hasContent("newCars") ? 
               content.newCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
-                <CarCard key={car.id} car={car} type="new" />
+                <React.Fragment key={car.id}>
+                  {/* Mobile horizontal cards */}
+                  <CarCard 
+                    car={car} 
+                    type="new" 
+                    layout="horizontal"
+                    className="md:hidden"
+                  />
+                  {/* Desktop vertical cards */}
+                  <CarCard 
+                    car={car} 
+                    type="new" 
+                    layout="vertical"
+                    className="hidden md:block"
+                  />
+                </React.Fragment>
               )) : 
               renderEmptyState()
             }
@@ -73,10 +101,25 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         );
       case "usedCars":
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4">
             {hasContent("usedCars") ? 
               content.usedCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
-                <CarCard key={car.id} car={car} type="used" />
+                <React.Fragment key={car.id}>
+                  {/* Mobile horizontal cards */}
+                  <CarCard 
+                    car={car} 
+                    type="used" 
+                    layout="horizontal"
+                    className="md:hidden"
+                  />
+                  {/* Desktop vertical cards */}
+                  <CarCard 
+                    car={car} 
+                    type="used" 
+                    layout="vertical"
+                    className="hidden md:block"
+                  />
+                </React.Fragment>
               )) : 
               renderEmptyState()
             }
@@ -84,10 +127,23 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         );
       case "photos":
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4">
             {hasContent("photos") ? 
               content.photos.slice(0, ITEMS_PER_CONTENT_TYPE).map((photo) => (
-                <PhotoCard key={photo.id} photo={photo} />
+                <React.Fragment key={photo.id}>
+                  {/* Mobile horizontal cards */}
+                  <PhotoCard 
+                    photo={photo} 
+                    layout="horizontal"
+                    className="md:hidden"
+                  />
+                  {/* Desktop vertical cards */}
+                  <PhotoCard 
+                    photo={photo} 
+                    layout="vertical"
+                    className="hidden md:block"
+                  />
+                </React.Fragment>
               )) : 
               renderEmptyState()
             }
@@ -95,10 +151,23 @@ const ContentGrid: React.FC<ContentGridProps> = ({
         );
       case "videos":
         return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4">
             {hasContent("videos") ? 
               content.videos.slice(0, ITEMS_PER_CONTENT_TYPE).map((video) => (
-                <VideoCard key={video.id} video={video} />
+                <React.Fragment key={video.id}>
+                  {/* Mobile horizontal cards */}
+                  <VideoCard 
+                    video={video} 
+                    layout="horizontal"
+                    className="md:hidden"
+                  />
+                  {/* Desktop vertical cards */}
+                  <VideoCard 
+                    video={video} 
+                    layout="vertical"
+                    className="hidden md:block"
+                  />
+                </React.Fragment>
               )) : 
               renderEmptyState()
             }
@@ -111,9 +180,22 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.articles.length > 0 && (
               <div>
                 <h3 className="mb-3 typography-subtitle">Articles</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4">
                   {content.articles.slice(0, ITEMS_PER_CONTENT_TYPE).map((article) => (
-                    <ArticleCard key={article.id} article={article} />
+                    <React.Fragment key={article.id}>
+                      {/* Mobile horizontal cards */}
+                      <ArticleCard 
+                        article={article} 
+                        layout="horizontal"
+                        className="md:hidden"
+                      />
+                      {/* Desktop vertical cards */}
+                      <ArticleCard 
+                        article={article} 
+                        layout="vertical"
+                        className="hidden md:block"
+                      />
+                    </React.Fragment>
                   ))}
                 </div>
               </div>
@@ -122,9 +204,24 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.newCars.length > 0 && (
               <div>
                 <h3 className="mb-3 typography-subtitle">New Cars</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4">
                   {content.newCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
-                    <CarCard key={car.id} car={car} type="new" />
+                    <React.Fragment key={car.id}>
+                      {/* Mobile horizontal cards */}
+                      <CarCard 
+                        car={car} 
+                        type="new" 
+                        layout="horizontal"
+                        className="md:hidden"
+                      />
+                      {/* Desktop vertical cards */}
+                      <CarCard 
+                        car={car} 
+                        type="new" 
+                        layout="vertical"
+                        className="hidden md:block"
+                      />
+                    </React.Fragment>
                   ))}
                 </div>
               </div>
@@ -133,9 +230,24 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.usedCars.length > 0 && (
               <div>
                 <h3 className="mb-3 typography-subtitle">Used Cars</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4">
                   {content.usedCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
-                    <CarCard key={car.id} car={car} type="used" />
+                    <React.Fragment key={car.id}>
+                      {/* Mobile horizontal cards */}
+                      <CarCard 
+                        car={car} 
+                        type="used" 
+                        layout="horizontal"
+                        className="md:hidden"
+                      />
+                      {/* Desktop vertical cards */}
+                      <CarCard 
+                        car={car} 
+                        type="used" 
+                        layout="vertical"
+                        className="hidden md:block"
+                      />
+                    </React.Fragment>
                   ))}
                 </div>
               </div>
@@ -144,9 +256,22 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.photos.length > 0 && (
               <div>
                 <h3 className="mb-3 typography-subtitle">Photos</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4">
                   {content.photos.slice(0, ITEMS_PER_CONTENT_TYPE).map((photo) => (
-                    <PhotoCard key={photo.id} photo={photo} />
+                    <React.Fragment key={photo.id}>
+                      {/* Mobile horizontal cards */}
+                      <PhotoCard 
+                        photo={photo} 
+                        layout="horizontal"
+                        className="md:hidden"
+                      />
+                      {/* Desktop vertical cards */}
+                      <PhotoCard 
+                        photo={photo} 
+                        layout="vertical"
+                        className="hidden md:block"
+                      />
+                    </React.Fragment>
                   ))}
                 </div>
               </div>
@@ -155,9 +280,22 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             {content.videos.length > 0 && (
               <div>
                 <h3 className="mb-3 typography-subtitle">Videos</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="flex flex-col gap-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-4">
                   {content.videos.slice(0, ITEMS_PER_CONTENT_TYPE).map((video) => (
-                    <VideoCard key={video.id} video={video} />
+                    <React.Fragment key={video.id}>
+                      {/* Mobile horizontal cards */}
+                      <VideoCard 
+                        video={video} 
+                        layout="horizontal"
+                        className="md:hidden"
+                      />
+                      {/* Desktop vertical cards */}
+                      <VideoCard 
+                        video={video} 
+                        layout="vertical"
+                        className="hidden md:block"
+                      />
+                    </React.Fragment>
                   ))}
                 </div>
               </div>
