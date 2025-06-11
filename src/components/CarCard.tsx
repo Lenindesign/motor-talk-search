@@ -116,11 +116,21 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
             <div className="flex items-center justify-between mt-auto">
               <div className="flex items-center">
                 {car.motorTrendScore && (
-                  <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full mr-3">
+                  <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full mr-2">
                     MT {car.motorTrendScore}
                   </div>
                 )}
-                {/* Bookmark button next to MT score */}
+                {/* Owner Score */}
+                {car.userReviewsScore && (
+                  <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full mr-3">
+                    {(() => {
+                      const score = parseFloat(car.userReviewsScore);
+                      // If score is > 5, it's already on 10-point scale, otherwise convert from 5-point to 10-point
+                      return score > 5 ? score.toFixed(1) : (score * 2).toFixed(1);
+                    })()} Owner
+                  </div>
+                )}
+                {/* Bookmark button next to scores */}
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -131,7 +141,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
                   aria-label={isSaved ? "Unsave car" : "Save car"}
                 >
                   <svg width="16" height="16" fill={isSaved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 0 012 2z"/>
                   </svg>
                 </button>
               </div>
