@@ -66,8 +66,11 @@ const CarDetails: React.FC<CarDetailsProps> = ({ car, onUpdate, onDelete }) => {
   
   // Helper to render the MotorTrend score with color
   const renderMotorTrendScore = () => {
-    const score = car.metadata?.motorTrendScore;
-    if (!score) return null;
+    const scoreStr = car.metadata?.motorTrendScore;
+    if (!scoreStr) return null;
+    
+    const score = typeof scoreStr === 'string' ? parseFloat(scoreStr) : scoreStr;
+    if (isNaN(score)) return null;
     
     let scoreColor = "text-red-500";
     let progressColor = "bg-red-500";
@@ -93,9 +96,9 @@ const CarDetails: React.FC<CarDetailsProps> = ({ car, onUpdate, onDelete }) => {
             <Award size={18} className={scoreColor} />
             <span className="font-medium text-sm">MotorTrend Score</span>
           </div>
-          <span className={`text-lg font-bold ${scoreColor}`}>{Number(score).toFixed(1)}/10</span>
+          <span className={`text-lg font-bold ${scoreColor}`}>{score.toFixed(1)}/10</span>
         </div>
-        <Progress value={Number(score) * 10} className={`h-2 ${progressColor}`} />
+        <Progress value={score * 10} className={`h-2 ${progressColor}`} />
         
         <div className="mt-3 space-y-2 text-sm">
           {car.metadata?.motorTrendRank && (

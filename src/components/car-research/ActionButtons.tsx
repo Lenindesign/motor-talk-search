@@ -56,8 +56,8 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ vehicle }) => {
         price: `${vehicle.price.base}`,
         category: vehicle.type,
         year: `${vehicle.year}`,
-        motorTrendScore: vehicle.motorTrendScore,
-        motorTrendRank: vehicle.motorTrendRank,
+        motorTrendScore: vehicle.motorTrendScore?.toString() || '',
+        motorTrendRank: vehicle.motorTrendRank?.toString() || '',
         horsepowerTorque: `${vehicle.specs.horsepower} hp`,
         fuelType: vehicle.specs.fuel,
         drivetrain: vehicle.specs.drivetrains[0]
@@ -84,8 +84,8 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ vehicle }) => {
         price: `${vehicle.price.base}`,
         category: vehicle.type,
         year: `${vehicle.year}`,
-        motorTrendScore: vehicle.motorTrendScore,
-        motorTrendRank: vehicle.motorTrendRank,
+        motorTrendScore: vehicle.motorTrendScore?.toString() || '',
+        motorTrendRank: vehicle.motorTrendRank?.toString() || '',
         horsepowerTorque: `${vehicle.specs.horsepower} hp`,
         fuelType: vehicle.specs.fuel,
         drivetrain: vehicle.specs.drivetrains[0]

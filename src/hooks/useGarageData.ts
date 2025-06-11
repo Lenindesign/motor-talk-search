@@ -20,9 +20,9 @@ export const useGarageData = () => {
       updateSavedItem(car.id, {
         metadata: {
           ...car.metadata,
-          motorTrendScore: mtData.score,
-          motorTrendRank: mtData.rank,
-          motorTrendCategoryRank: mtData.categoryRank
+          motorTrendScore: mtData.score?.toString() || '',
+          motorTrendRank: mtData.rank?.toString() || '',
+          motorTrendCategoryRank: mtData.categoryRank?.toString() || ''
         }
       });
     });

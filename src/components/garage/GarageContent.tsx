@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useSavedItems, SavedItem, SavedItemType } from "../../contexts/SavedItemsContext";
@@ -88,12 +89,22 @@ const GarageContent = () => {
 
     // Filter by minimum score
     if (minScore > 0) {
-      filteredCars = filteredCars.filter(car => (car.metadata?.motorTrendScore || 0) >= minScore);
+      filteredCars = filteredCars.filter(car => {
+        const score = car.metadata?.motorTrendScore;
+        const numericScore = typeof score === 'string' ? parseFloat(score) : score;
+        return numericScore && numericScore >= minScore;
+      });
     }
 
     // Sort by score if enabled
     if (sortByScore) {
-      filteredCars.sort((a, b) => (b.metadata?.motorTrendScore || 0) - (a.metadata?.motorTrendScore || 0));
+      filteredCars.sort((a, b) => {
+        const scoreA = a.metadata?.motorTrendScore;
+        const scoreB = b.metadata?.motorTrendScore;
+        const numericScoreA = typeof scoreA === 'string' ? parseFloat(scoreA) : scoreA || 0;
+        const numericScoreB = typeof scoreB === 'string' ? parseFloat(scoreB) : scoreB || 0;
+        return numericScoreB - numericScoreA;
+      });
     }
     
     return filteredCars;
