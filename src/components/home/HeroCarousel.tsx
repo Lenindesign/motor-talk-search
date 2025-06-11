@@ -1,7 +1,46 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Play, Bookmark } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { useCardSave } from '../../hooks/useCardSave';
+
+// Bookmark button component for carousel slides
+const SlideBookmarkButton: React.FC<{ slide: HeroSlide }> = ({ slide }) => {
+  const { isSaved, toggleSave } = useCardSave({
+    id: slide.id,
+    type: 'article',
+    title: slide.title,
+    imageUrl: slide.imageUrl,
+    metadata: {
+      subtitle: slide.subtitle,
+      author: slide.author,
+      readTime: slide.readTime,
+      tag: slide.tag,
+      linkTo: slide.linkTo
+    }
+  });
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={(e) => {
+        e.stopPropagation();
+        toggleSave();
+      }}
+      className={`w-10 h-10 rounded-full backdrop-blur-sm transition-all duration-200 border border-white/20 ${
+        isSaved 
+          ? 'bg-white/20 text-white border-white/40 hover:bg-white/30' 
+          : 'bg-black/20 text-white/70 hover:bg-white/15 hover:text-white/90'
+      }`}
+      aria-label={isSaved ? "Remove from saved stories" : "Save story"}
+    >
+      <Bookmark className={`h-4 w-4 ${isSaved ? 'fill-current' : ''}`} />
+      <span className="sr-only">{isSaved ? 'Saved' : 'Save'}</span>
+    </Button>
+  );
+};
+
 export interface HeroSlide {
   id: string;
   title: string;
@@ -153,23 +192,29 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   
+                  {/* Bookmark button - top right corner */}
+                  <div className="absolute top-4 right-4 z-10">
+                    <SlideBookmarkButton slide={slide} />
+                  </div>
+                  
                   {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 px-6 lg:px-12">
                     <div className="max-w-4xl py-12">
                       <div className="flex items-center gap-4 mb-2">
-                        
                         <span className="text-white typography-caption">
                           {slide.readTime} • {slide.author}
                         </span>
                       </div>
                       
-                      <h1 className="sm:text-2xl font-bold text-white pt-0 pb-2 leading-tight">
+                      <h1 className="sm:text-2xl font-bold text-white pt-0 pb-2 leading-tight lg:typography-display">
                         {slide.title}
                       </h1>
                       
-                      {slide.linkTo ? <Button size="lg" asChild className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg py-0">
-                          <Link to={slide.linkTo}>Full Story</Link>
-                        </Button> : <Button size="lg" className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg py-0">Full Story</Button>}
+                      <div className="mt-4">
+                        {slide.linkTo ? <Button size="lg" asChild className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg py-0">
+                            <Link to={slide.linkTo}>Full Story</Link>
+                          </Button> : <Button size="lg" className="bg-motortrend-red hover:bg-motortrend-red/90 text-white font-semibold px-8 rounded-xl shadow-modern transition-all duration-200 hover:shadow-modern-lg py-0">Full Story</Button>}
+                      </div>
                     </div>
                   </div>
                 </div>

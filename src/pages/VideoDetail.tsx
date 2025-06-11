@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Play, Share, Heart, ThumbsUp, ThumbsDown, Eye, Clock } from 'lucide-react';
+import { ArrowLeft, Play, Share, Heart, ThumbsUp, ThumbsDown, Eye, Clock, Bookmark } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { useCardSave } from '../hooks/useCardSave';
 
 import { mockVideos } from '@/services/mockData';
 
@@ -155,54 +157,8 @@ Subscribe to MotorTrend for the latest automotive content and stay up to date wi
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="border-b pb-4">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-8 h-8 bg-gray-300 rounded-full flex-shrink-0"></div>
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <span className="font-semibold text-sm">CarEnthusiast2025</span>
-                          <span className="text-xs text-gray-500">2 hours ago</span>
-                        </div>
-                        <p className="text-sm text-gray-700">
-                          Excellent review! Really helped me understand the key differences between these models.
-                        </p>
-                        <div className="flex items-center space-x-4 mt-2">
-                          <Button variant="ghost" size="sm" className="text-xs p-0 h-auto">
-                            <ThumbsUp size={12} className="mr-1" />
-                            24
-                          </Button>
-                          <Button variant="ghost" size="sm" className="text-xs p-0 h-auto">
-                            Reply
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="border-b pb-4">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-8 h-8 bg-gray-300 rounded-full flex-shrink-0"></div>
-                      <div className="flex-1">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <span className="font-semibold text-sm">TechReviewer</span>
-                          <span className="text-xs text-gray-500">5 hours ago</span>
-                        </div>
-                        <p className="text-sm text-gray-700">
-                          The acceleration test was impressive. Would love to see more detailed interior shots.
-                        </p>
-                        <div className="flex items-center space-x-4 mt-2">
-                          <Button variant="ghost" size="sm" className="text-xs p-0 h-auto">
-                            <ThumbsUp size={12} className="mr-1" />
-                            12
-                          </Button>
-                          <Button variant="ghost" size="sm" className="text-xs p-0 h-auto">
-                            Reply
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
+                  <VideoComment comment={{ author: 'CarEnthusiast2025', date: '2 hours ago', content: 'Excellent review! Really helped me understand the key differences between these models.', likes: 24 }} index={0} />
+                  <VideoComment comment={{ author: 'TechReviewer', date: '5 hours ago', content: 'The acceleration test was impressive. Would love to see more detailed interior shots.', likes: 12 }} index={1} />
                   <Button variant="outline" className="w-full">
                     Load More Comments
                   </Button>
@@ -261,6 +217,64 @@ Subscribe to MotorTrend for the latest automotive content and stay up to date wi
         </div>
       </main>
     </div>;
+};
+
+// Comment component with bookmark functionality
+const VideoComment: React.FC<{ comment: any; index: number }> = ({ comment, index }) => {
+  const { isSaved, toggleSave } = useCardSave({
+    id: `video-comment-${index}`,
+    type: 'comment',
+    title: comment.content.substring(0, 50) + '...',
+    imageUrl: '',
+    metadata: {
+      author: comment.author,
+      date: comment.date,
+      content: comment.content,
+      likes: comment.likes?.toString() || '0',
+      videoId: 'current-video'
+    }
+  });
+
+  return (
+    <div className="border-b pb-4">
+      <div className="flex items-start space-x-3">
+        <div className="w-8 h-8 bg-gray-300 rounded-full flex-shrink-0"></div>
+        <div className="flex-1">
+          <div className="flex items-center justify-between mb-1">
+            <div className="flex items-center space-x-2">
+              <span className="font-semibold text-sm">{comment.author}</span>
+              <span className="text-xs text-gray-500">{comment.date}</span>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleSave();
+              }}
+              className={`flex items-center gap-1 transition-colors text-xs p-1 h-auto ${
+                isSaved ? 'text-motortrend-red' : 'text-gray-500 hover:text-motortrend-red'
+              }`}
+              aria-label={isSaved ? "Remove from saved comments" : "Save comment"}
+            >
+              <Bookmark className={`h-3 w-3 ${isSaved ? 'fill-current' : ''}`} />
+              <span className="hidden sm:inline">{isSaved ? 'Saved' : 'Save'}</span>
+            </Button>
+          </div>
+          <p className="text-sm text-gray-700">{comment.content}</p>
+          <div className="flex items-center space-x-4 mt-2">
+            <Button variant="ghost" size="sm" className="text-xs p-0 h-auto">
+              <ThumbsUp size={12} className="mr-1" />
+              {comment.likes || 0}
+            </Button>
+            <Button variant="ghost" size="sm" className="text-xs p-0 h-auto">
+              Reply
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default VideoDetail;

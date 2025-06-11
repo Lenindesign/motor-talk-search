@@ -5,6 +5,8 @@ import { CarData } from "../CarCard/types";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Info } from "lucide-react";
 import GarageStats from "../GarageStats";
+import FamilyReadinessScore from "./FamilyReadinessScore";
+import ModificationTracker from "./ModificationTracker";
 
 interface GarageTabContentProps {
   activeTab: 'all' | 'owned' | 'testDriven' | 'interested';
@@ -40,10 +42,45 @@ const GarageTabContent: React.FC<GarageTabContentProps> = ({
       };
     });
 
+  // Get the first car for detailed views
+  const firstCar = enhancedCarData[0];
+  const firstSavedItem = displayCars[0];
+
   return (
     <div className="space-y-6">
       {/* Stats Overview */}
       <GarageStats activeTab={activeTab} onTabChange={onTabChange} />
+      
+      {/* Persona-specific features */}
+      {activeTab === 'owned' && firstCar && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <ModificationTracker 
+            carId={firstCar.id}
+            carName={firstCar.title}
+            modifications={[]}
+            onAddModification={(mod) => console.log('Add modification:', mod)}
+          />
+          <FamilyReadinessScore
+            safetyRating={typeof firstCar.safetyRating === 'number' ? firstCar.safetyRating : parseInt(firstCar.safetyRating || '0')}
+            cargoCapacity={firstCar.cargoCapacity}
+            passengerCapacity={firstCar.passengerCapacity}
+            fuelEfficiency={firstCar.mpg}
+            price={firstCar.price}
+            familyFeatures={Array.isArray(firstCar.familyFeatures) ? firstCar.familyFeatures : []}
+          />
+        </div>
+      )}
+
+      {activeTab === 'interested' && firstCar && (
+        <FamilyReadinessScore
+          safetyRating={typeof firstCar.safetyRating === 'number' ? firstCar.safetyRating : parseInt(firstCar.safetyRating || '0')}
+          cargoCapacity={firstCar.cargoCapacity}
+          passengerCapacity={firstCar.passengerCapacity}
+          fuelEfficiency={firstCar.mpg}
+          price={firstCar.price}
+          familyFeatures={Array.isArray(firstCar.familyFeatures) ? firstCar.familyFeatures : []}
+        />
+      )}
       
       {/* Car Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

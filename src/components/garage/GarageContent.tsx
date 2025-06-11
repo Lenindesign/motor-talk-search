@@ -11,6 +11,9 @@ import GarageHeader from "./GarageHeader";
 import GarageActionBar from "./GarageActionBar";
 import GarageComparisonSection from "./GarageComparisonSection";
 import PaymentCalculator from "./PaymentCalculator";
+import GarageShareCard from "./GarageShareCard";
+import GarageAchievements from "./GarageAchievements";
+import PersonalizedInsights from "./PersonalizedInsights";
 
 const GarageContent = () => {
   const { savedItems } = useSavedItems();
@@ -160,6 +163,11 @@ const GarageContent = () => {
 
   const displayCars = getDisplayCars();
 
+  // Calculate stats for achievements
+  const ownedCount = savedCars.filter(car => car.metadata?.ownership === 'owned').length;
+  const testDrivenCount = savedCars.filter(car => car.metadata?.ownership === 'testDriven').length;
+  const interestedCount = savedCars.filter(car => car.metadata?.ownership === 'interested').length;
+
   return (
     <div className="w-full">
       {/* Header */}
@@ -173,6 +181,14 @@ const GarageContent = () => {
           onMinScoreChange={setMinScore}
           onSortByScoreChange={setSortByScore}
           onToggleFilters={() => setShowFilters(!showFilters)}
+        />
+      </div>
+
+      {/* New: Personalized Insights */}
+      <div className="mb-6">
+        <PersonalizedInsights 
+          savedCarsCount={savedCars.length}
+          favoriteCategory={savedCars[0]?.metadata?.category}
         />
       </div>
 
@@ -207,6 +223,21 @@ const GarageContent = () => {
             onToggleCar={handleToggleCarForComparison}
             onCompare={handleCompare}
           />
+
+          {/* New: Social Sharing */}
+          <div className="mb-6">
+            <GarageShareCard carCount={savedCars.length} />
+          </div>
+
+          {/* New: Achievements */}
+          <div className="mb-6">
+            <GarageAchievements 
+              savedCarsCount={savedCars.length}
+              ownedCount={ownedCount}
+              testDrivenCount={testDrivenCount}
+              comparisonsCount={selectedCars.length}
+            />
+          </div>
 
           {/* Recommendations */}
           <CarsYouMayLike />
