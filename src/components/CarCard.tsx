@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { CarData, CarCardProps } from './CarCard/types';
 import { Button } from './ui/button';
 import { Search } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 // Re-export types for backward compatibility
 export type { CarData, CarCardProps } from './CarCard/types';
@@ -109,7 +110,26 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
               </p>
               {type !== 'new' && (
                 <div className="text-sm text-gray-700 mb-3">
-                  {car.category} • {car.mileage} miles
+                  <div className="flex items-center gap-2">
+                    <RouterLink to={linkPath} className="typography-caption text-neutral-3 hover:text-motortrend-red transition-colors">
+                      {car.category}
+                    </RouterLink>
+                    <Badge variant="secondary" className="text-xs">
+                      Used Car
+                    </Badge>
+                  </div>
+                </div>
+              )}
+              {type === 'new' && (
+                <div className="text-sm text-gray-700 mb-3">
+                  <div className="flex items-center gap-2">
+                    <RouterLink to={linkPath} className="typography-caption text-neutral-3 hover:text-motortrend-red transition-colors">
+                      {car.category}
+                    </RouterLink>
+                    <Badge variant="default" className="text-xs bg-green-100 text-green-800 hover:bg-green-200">
+                      New Car
+                    </Badge>
+                  </div>
                 </div>
               )}
             </div>
@@ -184,9 +204,24 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
         </div>
         {/* Only show category for used cars since new cars already show it in the ranking */}
         {type !== 'new' && (
-          <RouterLink to={linkPath} className="typography-caption text-neutral-3 hover:text-motortrend-red transition-colors">
-            {car.category}
-          </RouterLink>
+          <div className="flex items-center gap-2">
+            <RouterLink to={linkPath} className="typography-caption text-neutral-3 hover:text-motortrend-red transition-colors">
+              {car.category}
+            </RouterLink>
+            <Badge variant="secondary" className="text-xs">
+              Used Car
+            </Badge>
+          </div>
+        )}
+        {type === 'new' && (
+          <div className="flex items-center gap-2">
+            <RouterLink to={linkPath} className="typography-caption text-neutral-3 hover:text-motortrend-red transition-colors">
+              {car.category}
+            </RouterLink>
+            <Badge variant="default" className="text-xs bg-green-100 text-green-800 hover:bg-green-200">
+              New Car
+            </Badge>
+          </div>
         )}
         <CarSpecs car={car} type={type} />
 
