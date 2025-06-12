@@ -1,130 +1,101 @@
-// Shared utility for enriching saved car items with robust specs, sample merging, and fallbacks
-import type { SavedItem } from '../../contexts/SavedItemsContext';
-import type { CarData } from '../CarCard/types';
+import { SavedItem } from "../../contexts/SavedItemsContext";
+import { CarData } from "../CarCard/types";
 
-// Sample car data for enrichment (copy from GarageTabContent)
-const sampleCars: CarData[] = [
-  {
-    id: 'honda-1',
-    title: '2025 Honda Accord',
-    price: '$29,500',
-    msrp: '$29,500',
-    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/679d37b47ff34400082301e7/19-2025-honda-accord-front-view.jpg',
-    isNew: true,
-    year: '2025',
-    category: 'Sedan',
-    fuelType: 'Gasoline',
-    mpg: '30 city / 38 hwy',
-    engine: '1.5L Turbo 4-cylinder',
-    horsepower: '192 hp',
-    transmission: 'CVT',
-    motorTrendScore: '8.8',
-    motorTrendRank: '2',
-    motorTrendCategoryRank: true
-  },
-  {
-    id: 'lucid-1',
-    title: '2025 Lucid Air Grand Touring',
-    price: '$87,400',
-    msrp: '$87,400',
-    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/67eebefe5107540008d18c50/020-2025-lucid-air-pure.jpg',
-    isNew: true,
-    year: '2025',
-    category: 'Luxury Sedan',
-    fuelType: 'Electric',
-    range: '516 miles',
-    mpge: '131 MPGe',
-    motorTrendScore: '9.2',
-    motorTrendRank: '#1',
-    motorTrendCategoryRank: true
-  }
-];
-
-// Base enrichment logic (from GarageContent)
 export function savedItemToCarData(item: SavedItem): CarData {
   const metadata = item.metadata || {};
   const isNewCar = item.type === 'newCar';
-  const carStatus = (metadata.ownership as string) || (metadata.status as string) || 'interested';
-
+  
   return {
     id: item.id,
-    title: item.title || '',
-    imageUrl: item.imageUrl || '/placeholder-vehicle.jpg',
-    price: metadata.price || 'Contact Dealer',
-    year: metadata.year ? String(metadata.year) : '',
-    mileage: metadata.mileage ? String(metadata.mileage) : (isNewCar ? 'New' : ''),
-    mpg: metadata.mpg || (isNewCar ? '28 city / 36 hwy' : ''),
-    make: metadata.make || '',
-    model: metadata.model || '',
-    status: carStatus,
-    type: item.type as 'newCar' | 'usedCar',
-    category: (metadata.category as string) || 'Sedan',
+    title: item.title,
+    imageUrl: item.imageUrl || '/placeholder.svg',
+    price: metadata.price || 'Contact dealer',
+    category: metadata.category || 'Car',
+    year: metadata.year,
+    mileage: metadata.mileage,
     fuelType: metadata.fuelType || (isNewCar ? 'Hybrid' : 'Gasoline'),
     drivetrain: metadata.drivetrain || 'AWD',
     location: metadata.location || 'Dealer Lot',
-    bodyStyle: (metadata.bodyStyle || 'Sedan') as string,
+    bodyStyle: (metadata.bodyStyle as CarData['bodyStyle']) || 'Sedan',
     msrp: metadata.msrp || (isNewCar ? `$${(Math.floor(Math.random() * 30000) + 25000).toLocaleString()}` : ''),
     dealerName: metadata.dealerName || 'MotorTrend Certified Dealer',
     dealerLocation: metadata.dealerLocation || 'San Francisco, CA',
-    updatedAt: metadata.updatedAt || new Date().toISOString(),
-    isNew: isNewCar,
-    // MotorTrend ratings
-    motorTrendScore: metadata.motorTrendScore || (isNewCar ? '8.5' : ''),
-    motorTrendRank: metadata.motorTrendRank || (isNewCar ? '2' : ''),
-    motorTrendCategoryRank: metadata.motorTrendCategoryRank !== undefined ? metadata.motorTrendCategoryRank : isNewCar,
-    // New car specific specs
-    mpge: metadata.mpge || (isNewCar && metadata.fuelType === 'Electric' ? 'Up to 134 city / 126 highway' : undefined),
-    range: metadata.range || (isNewCar ? (metadata.fuelType === 'Electric' ? '315 to 341 mi battery-only' : '450 mi fuel tank') : undefined),
-    engine: metadata.engine || (isNewCar ? (metadata.fuelType === 'Electric' ? 'Electric' : '2.0L Turbo 4-cylinder') : undefined),
-    horsepower: metadata.horsepower || (isNewCar ? '280 hp' : undefined),
-    transmission: metadata.transmission || (isNewCar ? 'Automatic' : ''),
-    metadata: {
-      ...metadata,
-      ownership: carStatus,
-      status: carStatus,
-      isNew: isNewCar
-    }
+    make: metadata.make,
+    model: metadata.model,
+    detailUrl: metadata.detailUrl,
+    isNew: item.type === 'newCar',
+    
+    // Garage status
+    inGarage: true,
+    garageStatus: (metadata.ownership === 'owned' ? 'Owned' : 
+                  metadata.ownership === 'testDriven' ? 'Test Drive' : 'Interested') as 'Owned' | 'Test Drive' | 'Interested',
+    
+    // New car specs
+    mpg: metadata.mpg,
+    mpge: metadata.mpge,
+    range: metadata.range,
+    engine: metadata.engine,
+    horsepower: metadata.horsepower,
+    transmission: metadata.transmission,
+    
+    // Ratings
+    motorTrendScore: metadata.motorTrendScore,
+    motorTrendRank: metadata.motorTrendRank,
+    motorTrendCategoryRank: metadata.motorTrendCategoryRank,
+    userReviewsScore: metadata.userReviewsScore || '8.5',
+    
+    // Body style specific specs
+    cargoCapacity: metadata.cargoCapacity,
+    cargoCapacityFolded: metadata.cargoCapacityFolded,
+    passengerCapacity: metadata.passengerCapacity,
+    seatingConfiguration: metadata.seatingConfiguration,
+    trunkCapacity: metadata.trunkCapacity,
+    safetyRating: metadata.safetyRating,
+    horsepowerTorque: metadata.horsepowerTorque,
+    towingCapacity: metadata.towingCapacity,
+    payloadCapacity: metadata.payloadCapacity,
+    bedDimensions: metadata.bedDimensions,
+    powertrainOptions: metadata.powertrainOptions,
+    zeroToSixty: metadata.zeroToSixty,
+    topSpeed: metadata.topSpeed,
+    weightPowerRatio: metadata.weightPowerRatio,
+    slidingDoorFeatures: metadata.slidingDoorFeatures,
+    familyFeatures: metadata.familyFeatures
   };
 }
 
-// Merge sample specs for new cars and ensure robust fallback values
-export function enrichCarDataWithSampleSpecs(item: SavedItem): CarData {
-  const baseCarData = savedItemToCarData(item);
-  if (item.type === 'newCar' || baseCarData.isNew) {
-    const normalize = (str: string) => str.toLowerCase().replace(/\s+/g, '');
-    const matchingSample = sampleCars.find(sample => 
-      normalize(sample.title).includes(normalize(baseCarData.title)) ||
-      normalize(baseCarData.title).includes(normalize(sample.title))
-    );
-    if (matchingSample) {
-      return {
-        ...baseCarData,
-        msrp: baseCarData.msrp || matchingSample.msrp,
-        mpg: baseCarData.mpg || matchingSample.mpg,
-        mpge: baseCarData.mpge || matchingSample.mpge,
-        range: baseCarData.range || matchingSample.range,
-        engine: baseCarData.engine || matchingSample.engine,
-        horsepower: baseCarData.horsepower || matchingSample.horsepower,
-        transmission: baseCarData.transmission || matchingSample.transmission,
-        motorTrendScore: baseCarData.motorTrendScore || matchingSample.motorTrendScore,
-        motorTrendRank: baseCarData.motorTrendRank || matchingSample.motorTrendRank,
-        motorTrendCategoryRank: baseCarData.motorTrendCategoryRank || matchingSample.motorTrendCategoryRank
-      };
-    }
-    // Fallback defaults for new cars
-    return {
-      ...baseCarData,
-      msrp: baseCarData.msrp ?? '$35,000',
-      mpg: baseCarData.mpg ?? (baseCarData.fuelType === 'Electric' ? '—' : '28 city / 36 hwy'),
-      mpge: baseCarData.mpge ?? (baseCarData.fuelType === 'Electric' ? '120 MPGe' : '—'),
-      range: baseCarData.range ?? (baseCarData.fuelType === 'Electric' ? '300 miles' : '—'),
-      engine: baseCarData.engine ?? (baseCarData.fuelType === 'Electric' ? 'Electric Motor' : '2.0L 4-cylinder'),
-      horsepower: baseCarData.horsepower ?? '200 hp',
-      transmission: baseCarData.transmission ?? (baseCarData.fuelType === 'Electric' ? 'Single-speed' : 'Automatic'),
-      motorTrendScore: baseCarData.motorTrendScore ?? '8.5',
-      motorTrendRank: baseCarData.motorTrendRank ?? '#3',
-      motorTrendCategoryRank: baseCarData.motorTrendCategoryRank ?? true
-    };
-  }
-  return baseCarData;
+export function enrichCarDataWithSampleSpecs(car: CarData): CarData {
+  // Sample data for demonstration purposes
+  const sampleSpecs = {
+    engine: car.isNew ? '2.0L Turbo 4-Cylinder' : '3.5L V6',
+    horsepower: car.isNew ? '250 hp' : '290 hp',
+    transmission: car.isNew ? '8-Speed Automatic' : '6-Speed Automatic',
+    fuelType: car.isNew ? 'Hybrid' : 'Gasoline',
+    drivetrain: 'AWD',
+    mpg: car.isNew ? '35 City / 40 Hwy' : '20 City / 28 Hwy',
+    msrp: car.isNew ? `$${(Math.floor(Math.random() * 30000) + 25000).toLocaleString()}` : '',
+    range: car.isNew ? '500 miles' : '',
+    cargoCapacity: car.bodyStyle === 'SUV' ? '75.8 cu ft' : '',
+    trunkCapacity: car.bodyStyle === 'Sedan' ? '16.7 cu ft' : '',
+    towingCapacity: car.bodyStyle === 'Truck' ? '10,000 lbs' : '',
+    zeroToSixty: car.category === 'Sports Car' ? '4.5 seconds' : '',
+    userReviewsScore: '8.5'
+  };
+
+  return {
+    ...car,
+    engine: car.engine || sampleSpecs.engine,
+    horsepower: car.horsepower || sampleSpecs.horsepower,
+    transmission: car.transmission || sampleSpecs.transmission,
+    fuelType: car.fuelType || sampleSpecs.fuelType,
+    drivetrain: car.drivetrain || sampleSpecs.drivetrain,
+    mpg: car.mpg || sampleSpecs.mpg,
+    msrp: car.msrp || sampleSpecs.msrp,
+    range: car.range || sampleSpecs.range,
+    cargoCapacity: car.cargoCapacity || sampleSpecs.cargoCapacity,
+    trunkCapacity: car.trunkCapacity || sampleSpecs.trunkCapacity,
+    towingCapacity: car.towingCapacity || sampleSpecs.towingCapacity,
+    zeroToSixty: car.zeroToSixty || sampleSpecs.zeroToSixty,
+    userReviewsScore: car.userReviewsScore || sampleSpecs.userReviewsScore
+  };
 }
