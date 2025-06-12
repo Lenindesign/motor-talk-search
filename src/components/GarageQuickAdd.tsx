@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Search, Plus, Car } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { useAutocomplete, Suggestion } from "../hooks/use-autocomplete";
@@ -72,6 +72,8 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const { addSavedItem, isSaved } = useSavedItems();
   const { toast } = useToast();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
   
   // For selecting ownership category
   const [ownership, setOwnership] = useState<'owned' | 'testDriven' | 'interested'>('interested');
@@ -179,10 +181,22 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
 
   const filteredSuggestions = combinedSuggestions.slice(0, 8); // Limit to prevent overwhelming UI
 
+  // Calculate dropdown position when showing suggestions
+  useEffect(() => {
+    if (showSuggestions && inputRef.current) {
+      const rect = inputRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + window.scrollY,
+        left: rect.left + window.scrollX,
+        width: rect.width
+      });
+    }
+  }, [showSuggestions]);
+
   return (
-    <Card className="border-0 shadow-md bg-white rounded-lg overflow-hidden">
+    <Card className="border-0 shadow-md bg-white rounded-lg overflow-visible">
       <CardContent className="p-4">
-        <div className="relative w-full">
+        <div className="relative w-full" style={{ zIndex: 10000 }}>
           {/* Ownership selector */}
           <div className="flex mb-4 justify-between items-center">
             <span className="text-sm font-medium text-motortrend-dark">Add as:</span>
@@ -238,6 +252,7 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
                 <Search size={18} />
               </div>
               <input
+                ref={inputRef}
                 type="text"
                 value={query}
                 onChange={(e) => {
@@ -279,19 +294,29 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
               Add Car
             </Button>
           </div>
-          {showSuggestions && filteredSuggestions.length > 0 && (
-  <div className="absolute left-0 right-0 z-10 max-w-[632px] mx-auto">
-    <AutocompleteSuggestions
-      suggestions={filteredSuggestions}
-      selectedIndex={selectedIndex}
-      isLoading={suggestionsLoading || makesLoading}
-      onSelect={(suggestion) => handleAddCar(suggestion)}
-      onMouseEnter={(index) => setSelectedIndex(index)}
-    />
-  </div>
-)}
         </div>
       </CardContent>
+      {showSuggestions && filteredSuggestions.length > 0 && (
+        <div 
+          className="fixed z-[99999] bg-white rounded-md shadow-xl border border-gray-200"
+          style={{ 
+            top: `${dropdownPosition.top + 4}px`,
+            left: `${dropdownPosition.left}px`,
+            width: `${dropdownPosition.width}px`,
+            maxHeight: '240px',
+            overflowY: 'auto',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)'
+          }}
+        >
+          <AutocompleteSuggestions
+            suggestions={filteredSuggestions}
+            selectedIndex={selectedIndex}
+            isLoading={suggestionsLoading || makesLoading}
+            onSelect={(suggestion) => handleAddCar(suggestion)}
+            onMouseEnter={(index) => setSelectedIndex(index)}
+          />
+        </div>
+      )}
     </Card>
   );
 };

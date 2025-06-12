@@ -1,6 +1,8 @@
-import React from 'react';
-import { MapPin, Calendar, Gauge, Fuel, Settings, DollarSign, Zap, Battery, Car, Cpu, Cog, Award, Medal } from 'lucide-react';
+import React, { useState } from 'react';
+import { MapPin, Calendar, Gauge, Fuel, Settings, DollarSign, Zap, Battery, Car, Cpu, Cog, Award, Medal, Calculator } from 'lucide-react';
 import { CarData } from './types';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { PaymentCalculator } from '../PaymentCalculator/PaymentCalculator';
 
 interface CarSpecsProps {
   car: CarData;
@@ -18,6 +20,8 @@ const calculateEstimatedPayment = (price: number) => {
 };
 
 const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+  
   // Display different specs based on car type
   // Prioritize the type prop over the isNew property
   const isNewCar = type === 'new';
@@ -34,13 +38,72 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
                 <span className="font-medium">Price:</span>
                 <span className="ml-1">{car.price}</span>
               </div>
-              <div className="flex items-center">
-                <DollarSign size={14} className="mr-1 text-motortrend-red" />
-                <span className="font-medium">Est. Payment:</span>
-                <span className="ml-1">
-                  ${calculateEstimatedPayment(parseInt(car.price.replace(/[^0-9]/g, '')))}/mo
-                </span>
-              </div>
+              <Dialog 
+                open={isPaymentModalOpen} 
+                onOpenChange={(open) => {
+                  setIsPaymentModalOpen(open);
+                  if (!open) {
+                    // Prevent any navigation when modal closes
+                    setTimeout(() => {
+                      // Small delay to ensure modal close completes
+                    }, 0);
+                  }
+                }}
+              >
+                <DialogTrigger asChild>
+                  <div 
+                    className="flex items-center cursor-pointer hover:bg-gray-50 rounded px-1 py-0.5 transition-colors"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setIsPaymentModalOpen(true);
+                    }}
+                  >
+                    <DollarSign size={14} className="mr-1 text-motortrend-red" />
+                    <span className="font-medium">Est. Payment:</span>
+                    <span className="ml-1">
+                      ${calculateEstimatedPayment(parseInt(car.price.replace(/[^0-9]/g, '')))}/mo
+                    </span>
+                    <Calculator size={12} className="ml-1 text-motortrend-red" />
+                  </div>
+                </DialogTrigger>
+                <DialogContent 
+                  className="max-w-2xl"
+                  onPointerDownOutside={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  onInteractOutside={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                >
+                  <div 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }}
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }}
+                  >
+                    <DialogHeader>
+                      <DialogTitle>Payment Calculator</DialogTitle>
+                    </DialogHeader>
+                    <PaymentCalculator car={{
+                      id: car.id,
+                      title: car.title,
+                      msrp: car.price || '$0',
+                      imageUrl: car.imageUrl
+                    }} />
+                  </div>
+                </DialogContent>
+              </Dialog>
             </>
           )}
           {/* Year removed since it's already in the headline */}
@@ -119,14 +182,73 @@ const CarSpecs: React.FC<CarSpecsProps> = ({ car, type }) => {
 
           {/* Show estimated monthly payment for new cars */}
           {car.msrp && (
-            <div className="flex items-center">
-              <DollarSign size={14} className="mr-1 text-motortrend-red" />
-              <span className="font-medium">Est. Payment:</span>
-              <span className="ml-1">
-                ${calculateEstimatedPayment(parseInt(car.msrp.replace(/[^0-9]/g, '')))}
-                /mo
-              </span>
-            </div>
+            <Dialog 
+              open={isPaymentModalOpen} 
+              onOpenChange={(open) => {
+                setIsPaymentModalOpen(open);
+                if (!open) {
+                  // Prevent any navigation when modal closes
+                  setTimeout(() => {
+                    // Small delay to ensure modal close completes
+                  }, 0);
+                }
+              }}
+            >
+              <DialogTrigger asChild>
+                <div 
+                  className="flex items-center cursor-pointer hover:bg-gray-50 rounded px-1 py-0.5 transition-colors"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setIsPaymentModalOpen(true);
+                  }}
+                >
+                  <DollarSign size={14} className="mr-1 text-motortrend-red" />
+                  <span className="font-medium">Est. Payment:</span>
+                  <span className="ml-1">
+                    ${calculateEstimatedPayment(parseInt(car.msrp.replace(/[^0-9]/g, '')))}
+                    /mo
+                  </span>
+                  <Calculator size={12} className="ml-1 text-motortrend-red" />
+                </div>
+              </DialogTrigger>
+              <DialogContent 
+                className="max-w-2xl"
+                onPointerDownOutside={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                onInteractOutside={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                }}
+              >
+                <div 
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                  }}
+                >
+                  <DialogHeader>
+                    <DialogTitle>Payment Calculator</DialogTitle>
+                  </DialogHeader>
+                  <PaymentCalculator car={{
+                    id: car.id,
+                    title: car.title,
+                    msrp: car.msrp || '$0',
+                    imageUrl: car.imageUrl
+                  }} />
+                </div>
+              </DialogContent>
+            </Dialog>
           )}
           
           {/* For electric cars, show range and MPGe */}

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useSavedItems } from "../../contexts/SavedItemsContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import GarageVehicleGrid from "./GarageVehicleGrid";
 import GarageQuickActions from "./GarageQuickActions";
 import GarageInsights from "./GarageInsights";
+import GarageQuickAdd from "../GarageQuickAdd";
 
 type ViewMode = 'grid' | 'list';
 type FilterTab = 'all' | 'owned' | 'testDriven' | 'interested';
@@ -48,7 +48,9 @@ const GarageLayout = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-neutral-7 rounded-full flex items-center justify-center">
-              <Car className="w-5 h-5 text-neutral-2" />
+              <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor" className="text-neutral-2">
+                <path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/>
+              </svg>
             </div>
             <div>
               <h1 className="typography-title text-neutral-1">My Garage</h1>
@@ -90,16 +92,19 @@ const GarageLayout = () => {
           </div>
         </div>
 
-        {/* Search Bar */}
-        <div className="relative max-w-md">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-neutral-4" />
-          <Input
-            placeholder="Search your vehicles..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-9"
-          />
+
+              </div>
+
+      {/* Add Vehicle Section - Above tabs */}
+      <div className="bg-white rounded-lg border border-neutral-6 p-4 relative mb-6" style={{ minHeight: '240px', zIndex: 1000 }}>
+        <div className="mb-4">
+          <h3 className="typography-subtitle text-neutral-1 mb-2">Add a Vehicle</h3>
+          <p className="typography-caption text-neutral-4">Search and add vehicles to your garage</p>
         </div>
+        <GarageQuickAdd onAddCar={() => {
+          // Refresh the component or show success message
+          console.log('Vehicle added successfully');
+        }} />
       </div>
 
       {/* Filter Tabs - Apple-style segmented control */}
@@ -121,6 +126,7 @@ const GarageLayout = () => {
 
         {/* Main Content Area */}
         <div className="mt-6 space-y-6">
+
           {/* Quick Actions */}
           <GarageQuickActions carCount={savedCars.length} />
 

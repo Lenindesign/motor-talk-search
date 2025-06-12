@@ -20,7 +20,7 @@ const AutocompleteSuggestions: React.FC<AutocompleteSuggestionsProps> = ({
 }) => {
   if (isLoading) {
     return (
-      <div className="absolute left-0 right-0 top-full mt-1 max-h-60 overflow-y-auto rounded-md bg-white shadow-lg z-50 p-2">
+      <div className="relative max-h-60 overflow-y-auto rounded-md bg-white p-2">
         <div className="flex items-center justify-center p-4">
           <div className="animate-spin h-5 w-5 border-2 border-motortrend-red border-t-transparent rounded-full"></div>
           <span className="ml-2 text-sm text-gray-500">Loading suggestions...</span>
@@ -67,7 +67,7 @@ const AutocompleteSuggestions: React.FC<AutocompleteSuggestionsProps> = ({
   let currentIndex = -1;
   
   return (
-    <div className="absolute left-0 right-0 top-full mt-1 max-h-60 overflow-y-auto rounded-md bg-white shadow-lg z-50 max-w-[632px] w-full">
+    <div className="relative max-h-60 overflow-y-auto rounded-md bg-white w-full">
       <ul className="py-1">
         {typeOrder.map(type => {
           const typeSuggestions = groupedSuggestions[type] || [];
