@@ -1,3 +1,4 @@
+
 export interface CarData {
   id: string;
   title: string;
@@ -9,6 +10,17 @@ export interface CarData {
   trim?: string;
   mileage?: number;
   location?: string;
+}
+
+export interface Car {
+  id: string;
+  make: string;
+  model: string;
+  year: number;
+  bodyStyle: string;
+  trim?: string;
+  price: number;
+  image: string;
 }
 
 export interface CarCardProps {

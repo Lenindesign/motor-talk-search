@@ -93,7 +93,7 @@ const PropertyControls: React.FC<PropertyControlsProps> = ({
                   min={control.min}
                   max={control.max}
                   step={control.step}
-                  value={[getCurrentValue(propName) as number]}
+                  value={[Number(getCurrentValue(propName)) || 0]}
                   onValueChange={(values) => onPropertyChange(propName, values[0])}
                 />
               </div>

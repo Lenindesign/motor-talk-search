@@ -4,10 +4,10 @@ import { ArticleData } from '@/types/article';
 import { VideoData } from '@/types/video';
 import { PhotoData } from '@/types/photo';
 import { CarData } from '@/types/car';
-import { ArticleCard } from './ArticleCard';
-import { VideoCard } from './VideoCard';
-import { PhotoCard } from './PhotoCard';
-import { CarCard } from './CarCard';
+import ArticleCard from './ArticleCard';
+import VideoCard from './VideoCard';
+import PhotoCard from './PhotoCard';
+import CarCard from './CarCard';
 
 type CardData = ArticleData | VideoData | PhotoData | CarData;
 

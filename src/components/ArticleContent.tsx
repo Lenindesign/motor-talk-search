@@ -1,7 +1,8 @@
+
 import React from 'react';
 import { User, Calendar, MessageSquare } from 'lucide-react';
 import { BuyersGuideCard } from '@/components/BuyersGuideCard';
-import { ArticleData } from '@/components/ArticleCard';
+import { ArticleData } from '@/types/article';
 import { mockComments } from '@/services/mockData';
 
 interface ArticleContentProps {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Car } from '../../types/car';
-import { DollarSign, Calendar, Tool, GasPump, Shield } from 'lucide-react';
+import { DollarSign, Calendar, Settings as Tool, Fuel as GasPump, Shield } from 'lucide-react';
 
 interface CostOfOwnershipProps {
   car: Car;

@@ -1,24 +1,23 @@
-import { Car } from '../types/car';
 
-export const mockNewCars: Car[] = [
+import { CarData } from '../types/car';
+
+export const mockNewCars: CarData[] = [
   {
     id: '1',
+    title: 'Toyota Camry',
+    imageUrl: '/images/cars/toyota-camry.jpg',
+    price: '$35,000',
     make: 'Toyota',
     model: 'Camry',
-    year: 2024,
-    bodyStyle: 'Sedan',
-    trim: 'XSE',
-    price: 35000,
-    image: '/images/cars/toyota-camry.jpg'
+    year: 2024
   },
   {
-    id: '2',
+    id: '2', 
+    title: 'Honda CR-V',
+    imageUrl: '/images/cars/honda-crv.jpg',
+    price: '$38,000',
     make: 'Honda',
     model: 'CR-V',
-    year: 2024,
-    bodyStyle: 'SUV',
-    trim: 'Touring',
-    price: 38000,
-    image: '/images/cars/honda-crv.jpg'
+    year: 2024
   }
 ];

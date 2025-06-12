@@ -1,4 +1,5 @@
 
+
 export interface CarData {
   id: string;
   title: string;
@@ -20,6 +21,12 @@ export interface CarData {
   // Garage status
   inGarage?: boolean;
   garageStatus?: 'Owned' | 'Test Drive' | 'Interested';
+  
+  // Metadata for additional properties
+  metadata?: {
+    ownership?: string;
+    [key: string]: any;
+  };
   
   // New car specs
   msrp?: string;
