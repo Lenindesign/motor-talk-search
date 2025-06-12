@@ -1,9 +1,8 @@
-
 import React from "react";
 import { SavedItem } from "../../contexts/SavedItemsContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, DollarSign, Fuel, Award } from "lucide-react";
+import { TrendingUp, DollarSign, Fuel, Award, Car } from "lucide-react";
 
 interface GarageInsightsProps {
   cars: SavedItem[];
