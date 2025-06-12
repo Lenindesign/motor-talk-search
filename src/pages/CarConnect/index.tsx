@@ -17,20 +17,6 @@ interface Dealer {
   image: string;
 }
 
-// Top-level helper for string normalization
-const normalized = (str) => (str ? str.toLowerCase().replace(/[^a-z0-9]/g, '') : '');
-
-// Helper to flexibly find car data (msrp, image) from mock data
-function findCarData({ make, model, year, trim }) {
-  const matches = (item) =>
-    (!make || normalized(item.make) === normalized(make)) &&
-    (!model || normalized(item.model) === normalized(model)) &&
-    (!year || item.year?.toString() === year?.toString()) &&
-    (!trim || (item.trim && normalized(item.trim) === normalized(trim)));
-  
-  return mockNewCars.find(matches) || mockUsedCars.find(matches);
-}
-
 const CarConnect = () => {
   const { carId } = useParams<{ carId: string }>();
   const { selectedCar, setSelectedCar } = useCarContext();
@@ -101,22 +87,6 @@ const CarConnect = () => {
       fallbackCarImage = foundImage;
     }
   }
-
-  const carDataMatch = findCarData({
-    make: selectedCar?.make?.name || fallbackCarName.split(' ')[0],
-    model: selectedCar?.model?.name || fallbackCarName.split(' ').slice(1).join(' '),
-    year: selectedCar?.model?.year || fallbackCarYear,
-    trim: '' // If you want to add trim matching, pass it here
-  });
-
-  // Defensive fallback image logic
-  if (carDataMatch && carDataMatch.imageUrl) {
-    fallbackCarImage = carDataMatch.imageUrl;
-  } else if (normalized(fallbackCarName).includes('bmw')) {
-    fallbackCarImage = 'https://d2kde5ohu8qb21.cloudfront.net/files/683a457a4b63af0008dc047c/bmw.png';
-  } else if (normalized(fallbackCarName).includes('rivian')) {
-    fallbackCarImage = 'https://d2kde5ohu8qb21.cloudfront.net/files/683a457708afc700082e5cff/rivian.png';
-  } // add more brand fallbacks as needed
 
   return (
     <div className="container mx-auto px-0 py-8">
@@ -271,37 +241,18 @@ const CarConnect = () => {
 
           {/* Chat Interface Section */}
           <div className="lg:col-span-2">
-            <div className="sticky top-8">
-              <div className="flex flex-col min-h-[600px] h-[80vh]">
-                {selectedDealer ? (
-                  <ChatInterface 
-                    dealer={selectedDealer}
-                    carDetails={{
-                      year: selectedCar?.model?.year?.toString() || fallbackCarYear,
-                      make: selectedCar?.make?.name || (fallbackCarName.split(' ')[0] || ''),
-                      model: selectedCar?.model?.name || (fallbackCarName.split(' ').slice(1).join(' ') || ''),
-                      trim: '',
-                      msrp: (() => {
-                        const val = selectedCar?.model?.msrp || carDataMatch?.msrp;
-                        const num = Number(val);
-                        return isNaN(num) ? 29995 : num;
-                      })()
-                    }}
-                  />
-                ) : (
-                  <div className="bg-white rounded-lg border border-gray-200 p-8 text-center flex-1 flex items-center justify-center">
-                    <div>
-                      <h3 className="text-xl font-semibold text-gray-700 mb-2">
-                        Select a Dealer to Start Chat
-                      </h3>
-                      <p className="text-gray-600">
-                        Choose a dealer from the list to begin your conversation about this vehicle.
-                      </p>
-                    </div>
-                  </div>
-                )}
+            {selectedDealer ? (
+              <ChatInterface dealer={selectedDealer} />
+            ) : (
+              <div className="bg-white rounded-lg border border-gray-200 p-8 text-center">
+                <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                  Select a Dealer to Start Chat
+                </h3>
+                <p className="text-gray-600">
+                  Choose a dealer from the list to begin your conversation about this vehicle.
+                </p>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>

@@ -102,37 +102,8 @@ export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
 
   // Initialize empty user data for fresh start
   const initializeMockUserData = () => {
-    // Add a test saved car with dealer quote to demonstrate the Buy Now feature
-    const testDealerQuoteCar = {
-      id: 'test-dealer-quote-honda-accord',
-      title: '2025 Honda Accord Sport',
-      type: 'newCar' as SavedItemType,
-      imageUrl: '/images/cars/honda-accord-2024.jpg',
-      savedAt: new Date().toISOString(),
-      metadata: {
-        price: '30500',
-        msrp: '32995',
-        year: '2025',
-        make: 'Honda',
-        model: 'Accord',
-        trim: 'Sport',
-        dealerName: 'Sarah Johnson',
-        dealerLocation: 'Los Angeles, CA',
-        dealerPhone: '(555) 123-4567',
-        savedFrom: 'chat',
-        ownership: 'interested' as const,
-        category: 'Sedan',
-        mpg: '32/42',
-        engine: '1.5L Turbo',
-        horsepower: '192',
-        transmission: 'CVT',
-        motorTrendScore: '8.8',
-        motorTrendRank: '2'
-      }
-    };
-
-    // Start with the test car so user can see the Buy Now feature immediately
-    setSavedItems([testDealerQuoteCar]);
+    // Start with empty arrays - no default items
+    setSavedItems([]);
     setUserAchievements([]);
     setUserActivities([]);
   };

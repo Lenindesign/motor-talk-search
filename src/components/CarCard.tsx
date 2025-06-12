@@ -10,7 +10,7 @@ import { CardType } from '@/styles/cardStyles';
 import { cn } from '@/lib/utils';
 import { CarData, CarCardProps } from './CarCard/types';
 import { Button } from './ui/button';
-import MaterialIcon from './ui/MaterialIcon';
+import { Search } from 'lucide-react';
 
 // Re-export types for backward compatibility
 export type { CarData, CarCardProps } from './CarCard/types';
@@ -73,9 +73,6 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
     return <Card isLoading className={className} />;
   }
 
-  // Helper: is this a dealer quote from Find My Best Price?
-  const isDealerQuote = ((car as any).status === 'interested' || (car as any).ownership === 'interested') && car.price && car.dealerName;
-  
   if (layout === 'horizontal') {
     return (
       <Card
@@ -112,22 +109,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
               </p>
               {type !== 'new' && (
                 <div className="text-sm text-gray-700 mb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-600 text-xs font-medium">
-                      Used
-                    </span>
-                    <span>{car.category} • {car.mileage} miles</span>
-                  </div>
-                </div>
-              )}
-              {type === 'new' && (
-                <div className="text-sm text-gray-700 mb-3">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium">
-                      New
-                    </span>
-                    <span>{car.category}</span>
-                  </div>
+                  {car.category} • {car.mileage} miles
                 </div>
               )}
             </div>
@@ -170,7 +152,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
 
   return <Card
     variant={type === 'new' ? 'newCar' : 'usedCar'}
-    className={cn('flex flex-col w-full bg-white rounded-t-xl shadow-modern overflow-hidden transition-shadow duration-200', className, isDealerQuote && 'border-2 border-motortrend-red')}
+    className={cn('flex flex-col w-full bg-white rounded-t-xl shadow-modern overflow-hidden transition-shadow duration-200', className)}
     isSaved={isSaved}
     onToggleSave={toggleSave}
     imageUrl={currentImage}
@@ -191,6 +173,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
   >
     <div className="relative w-full flex flex-col">
       <div className="p-8 flex-1 flex flex-col">
+        {/* Use grid with consistent gap instead of space-y for better spacing control */}
         <div className="grid gap-2">
         <div className="flex items-start justify-between">
           <RouterLink to={linkPath} className="flex-grow">
@@ -198,84 +181,39 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
               {car.title}
             </h3>
           </RouterLink>
-          {isDealerQuote && (
-            <span className="ml-2 px-3 py-1 rounded-full bg-motortrend-red text-white text-xs font-semibold">Dealer Offer</span>
-          )}
         </div>
         {/* Only show category for used cars since new cars already show it in the ranking */}
         {type !== 'new' && (
-          <div className="flex items-center gap-2">
-            <span className="px-2 py-1 rounded-full bg-gray-100 text-gray-600 text-xs font-medium">
-              Used
-            </span>
-            <RouterLink to={linkPath} className="typography-caption text-neutral-3 hover:text-motortrend-red transition-colors">
-              {car.category}
-            </RouterLink>
-          </div>
-        )}
-        {type === 'new' && (
-          <div className="flex items-center gap-2">
-            <span className="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium">
-              New
-            </span>
-            <span className="typography-caption text-neutral-3">
-              {car.category}
-            </span>
-          </div>
+          <RouterLink to={linkPath} className="typography-caption text-neutral-3 hover:text-motortrend-red transition-colors">
+            {car.category}
+          </RouterLink>
         )}
         <CarSpecs car={car} type={type} />
-        {/* Dealer quote details */}
-        {isDealerQuote && (
-          <div className="mt-2 p-3 rounded bg-red-50 border border-motortrend-red/30">
-            <div className="font-bold text-motortrend-red text-lg mb-1">Verified Dealer Price: ${Number(car.price).toLocaleString()}</div>
-            <div className="text-sm text-gray-700 mb-1">Dealer: <span className="font-semibold">{car.dealerName}</span></div>
-            {(car as any).dealerPhone && (
-              <div className="text-sm text-gray-700 mb-1">Phone: <a href={`tel:${(car as any).dealerPhone}`} className="text-motortrend-red underline">{(car as any).dealerPhone}</a></div>
-            )}
-            {car.dealerLocation && (
-              <div className="text-sm text-gray-700">Location: {car.dealerLocation}</div>
-            )}
-          </div>
-        )}
+
         </div>
       </div>
       {/* Fixed bottom section */}
       <div className="p-8 pt-0">
-        {isDealerQuote ? (
-          <Button
-            variant="solid-primary"
-            size="lg"
-            className="w-full mb-4 bg-motortrend-red hover:bg-motortrend-dark text-white font-bold text-lg"
-            onClick={(e) => {
-              e.stopPropagation();
-              // Start buy process (could open modal, link, etc.)
-              alert('Starting buy process for this dealer quote!');
-            }}
-          >
-            Buy Now!
-          </Button>
-        ) : (
-          <Button
-            variant="outline-primary"
-            size="lg"
-            className="w-full mb-4"
-            onClick={(e) => {
-              e.stopPropagation();
-              // Extract make and model from title (e.g. "2025 Rivian R1S")
-              const titleParts = car.title.split(' ');
-              if (titleParts.length >= 3) {
-                const year = titleParts[0];
-                const make = titleParts[1];
-                const model = titleParts.slice(2).join(' ');
-                const carId = `${make.toLowerCase()}-${model.toLowerCase()}-${year}`;
-                navigate(`/find-best-price/${carId}`);
-              }
-            }}
-          >
-            <MaterialIcon name="search" />
-            Find Best Price
-          </Button>
-        )}
+        <Button
+          variant="outline-primary"
+          size="lg"
+          className="w-full mb-4"
+          onClick={(e) => {
+            e.stopPropagation();
+            // Extract make and model from title (e.g. "2025 Rivian R1S")
+            const titleParts = car.title.split(' ');
+            if (titleParts.length >= 3) {
+              const year = titleParts[0];
+              const make = titleParts[1];
+              const model = titleParts.slice(2).join(' ');
+              const carId = `${make.toLowerCase()}-${model.toLowerCase()}-${year}`;
+              navigate(`/find-best-price/${carId}`);
+            }
+          }}
+        >
+          <Search />
+          Find Best Price
+        </Button>
         <GarageActionMenu car={car} type={type} className="w-full" />
       </div>
     </div>
