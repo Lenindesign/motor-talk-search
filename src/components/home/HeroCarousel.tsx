@@ -206,7 +206,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                         </span>
                       </div>
                       
-                      <h1 className="sm:text-2xl font-bold text-white pt-0 pb-2 leading-tight lg:typography-display lg:text-[48px]">
+                      <h1 className="sm:text-2xl font-bold text-white pt-0 pb-2 leading-tight lg:typography-display">
                         {slide.title}
                       </h1>
                       
