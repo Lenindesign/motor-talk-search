@@ -105,7 +105,7 @@ const BuyersGuide: React.FC = () => {
               layout="vertical"
               className="hidden md:block"
             />
-            <div className="absolute top-2 right-2 z-10 w-8 h-8 bg-motortrend-red text-white rounded-sm flex items-center justify-center font-bold text-sm">
+            <div className="absolute top-2 right-2 z-10 w-8 h-8 bg-motortrend-red text-white rounded-full flex items-center justify-center font-bold text-sm">
               {index + 1}
             </div>
           </div>
