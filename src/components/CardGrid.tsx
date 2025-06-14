@@ -1,5 +1,4 @@
 
-
 import React, { useState } from 'react';
 import { LayoutToggle, LayoutMode } from './ui/layout-toggle';
 import { ArticleData } from '@/types/article';
@@ -60,7 +59,8 @@ export const CardGrid: React.FC<CardGridProps> = ({
           ...carData,
           category: 'Vehicle',
           price: carData.price || 'Price not available', // Ensure price is always present
-          year: String(carData.year) // Convert number to string
+          year: String(carData.year), // Convert number to string
+          mileage: carData.mileage ? String(carData.mileage) : undefined // Convert number to string
         };
         return <CarCard car={carCardData} layout={cardLayout} />;
       default:
@@ -83,4 +83,3 @@ export const CardGrid: React.FC<CardGridProps> = ({
     </div>
   );
 };
-
