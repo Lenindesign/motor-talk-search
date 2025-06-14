@@ -59,7 +59,8 @@ export const CardGrid: React.FC<CardGridProps> = ({
         const carCardData = {
           ...carData,
           category: 'Vehicle',
-          price: carData.price || 'Price not available' // Ensure price is always present
+          price: carData.price || 'Price not available', // Ensure price is always present
+          year: String(carData.year) // Convert number to string
         };
         return <CarCard car={carCardData} layout={cardLayout} />;
       default:
