@@ -95,37 +95,38 @@ const HamburgerMenu = () => {
               const isActiveMobile = item.path === '/' ? location.pathname === item.path : location.pathname.startsWith(item.path);
               const isNews = item.label === 'News';
               const isCars = item.label === 'Cars';
+              const isVideos = item.label === 'Videos';
+              const hasSubmenu = isNews || isCars || isVideos;
               
               return (
                 <div key={item.path} className="mb-1">
-                  <button 
-                    onClick={() => {
-                      // For categories with submenu, toggle expand
-                      if (item.label === 'News' || item.label === 'Cars' || item.label === 'Videos') {
-                        toggleExpand(item.label);
-                      } else {
-                        // For other items, navigate
-                        window.location.href = item.path;
-                      }
-                    }}
-                    className={`flex items-center justify-between w-full px-6 py-3 typography-body transition-colors
-                      ${isActiveMobile ? 'text-motortrend-red bg-white/5' : 'text-white hover:bg-white/5'}`}
-                  >
-                    <div className="flex items-center gap-3">
-                      {item.label === 'My Garage' ? (
-                        <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18" fill="currentColor" className="inline"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/></svg>
-                      ) : (
-                        item.icon && <item.icon size={18} />
-                      )}
-                      {item.label}
-                    </div>
-                    {(item.label === 'News' || item.label === 'Cars' || item.label === 'Videos') && (
-                      <ChevronDown 
-                        size={16} 
-                        className={`transition-transform duration-300 ${expandedItems[item.label] ? 'rotate-180' : ''}`} 
-                      />
+                  <div className="flex items-center">
+                    <Link 
+                      to={item.path}
+                      className={`flex items-center gap-3 flex-1 px-6 py-3 typography-body transition-colors
+                        ${isActiveMobile ? 'text-motortrend-red bg-white/5' : 'text-white hover:bg-white/5'}`}
+                    >
+                      <div className="flex items-center gap-3">
+                        {item.label === 'My Garage' ? (
+                          <svg xmlns="http://www.w3.org/2000/svg" height="18" viewBox="0 -960 960 960" width="18" fill="currentColor" className="inline"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z"/></svg>
+                        ) : (
+                          item.icon && <item.icon size={18} />
+                        )}
+                        {item.label}
+                      </div>
+                    </Link>
+                    {hasSubmenu && (
+                      <button
+                        onClick={() => toggleExpand(item.label)}
+                        className="px-3 py-3 text-white hover:bg-white/5 transition-colors"
+                      >
+                        <ChevronDown 
+                          size={16} 
+                          className={`transition-transform duration-300 ${expandedItems[item.label] ? 'rotate-180' : ''}`} 
+                        />
+                      </button>
                     )}
-                  </button>
+                  </div>
                   
                   {/* News Submenu */}
                   {isNews && expandedItems['News'] && (
@@ -143,7 +144,7 @@ const HamburgerMenu = () => {
                   )}
                   
                   {/* Videos Submenu */}
-                  {item.label === 'Videos' && expandedItems['Videos'] && (
+                  {isVideos && expandedItems['Videos'] && (
                     <div className="pl-6 border-l border-neutral-2 ml-8 mt-1">
                       {videosSubmenu.map(subItem => (
                         <Link
