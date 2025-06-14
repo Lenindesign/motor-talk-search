@@ -1,19 +1,23 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import MainNavigation from './MainNavigation';
 import SearchBar from './SearchBar';
 import { useIsMobile } from '../hooks/use-mobile';
 import { Button } from '@/components/ui/button';
+
 interface GlobalHeaderProps {
   onSearch?: (query: string) => void;
   isLoading?: boolean;
 }
+
 const GlobalHeader: React.FC<GlobalHeaderProps> = ({
   onSearch,
   isLoading = false
 }) => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+
   const handleSearch = (query: string) => {
     if (onSearch) {
       onSearch(query);
@@ -22,8 +26,10 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
       navigate(`/search?q=${encodeURIComponent(query)}`);
     }
   };
-  return <header className="sticky top-0 left-0 right-0 z-[9999] bg-color-neutral-2 w-full px-2 sm:px-0 py-2.5 sm:py-3 shadow-modern bg-motortrend-dark" style={{ zIndex: 9999, position: 'sticky', top: 0, left: 0, right: 0 }}>
-      <div className="flex items-center max-w-[1024px] mx-auto w-full gap-1.5 sm:gap-4">
+
+  return (
+    <header className="sticky top-0 left-0 right-0 z-[9999] bg-color-neutral-2 w-full py-2.5 sm:py-3 shadow-modern bg-motortrend-dark" style={{ zIndex: 9999, position: 'sticky', top: 0, left: 0, right: 0 }}>
+      <div className="flex items-center max-w-[1024px] mx-auto w-full gap-1.5 sm:gap-4 px-2 sm:px-4">
         {/* Logo */}
         <div className="flex-shrink-0">
           <Link to="/" aria-label="MOTORTREND Home">
@@ -41,6 +47,8 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
           <MainNavigation />
         </div>
       </div>
-    </header>;
+    </header>
+  );
 };
+
 export default GlobalHeader;
