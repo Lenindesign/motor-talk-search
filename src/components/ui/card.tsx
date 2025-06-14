@@ -38,7 +38,7 @@ const Card = React.forwardRef<HTMLDivElement, UnifiedCardProps>(
           }}
           className={cn(
             "absolute z-20 p-1.5 bg-black/60 hover:bg-black/80 rounded-full text-white transition-colors",
-            "top-3 left-3"
+            "top-2 left-2"
           )}
           aria-label={isSaved ? "Unsave item" : "Save item"}
         >
