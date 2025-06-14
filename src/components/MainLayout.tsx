@@ -51,8 +51,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           {children}
         </main>
       ) : (
-        // Regular layout with container and tablet margins
-        <main className="bg-gray-50 md:mx-6 lg:mx-8">
+        // Regular layout with container and desktop margins only
+        <main className="bg-gray-50 lg:mx-8">
           <Container>
             {children}
           </Container>
