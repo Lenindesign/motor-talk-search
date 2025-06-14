@@ -1,50 +1,43 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import { Bookmark } from 'lucide-react';
+import { Bookmark, Star, ThumbsUp, MessageCircle, Users, TrendingUp } from 'lucide-react';
 import { ownerReviews } from './utils';
-import { CommentsSection } from '@/components/CommentsSection';
-import { mockComments } from '@/services/mockData';
 import { useCardSave } from '../../hooks/useCardSave';
-const mockReviews = [{
-  author: 'John Smith',
-  rating: 5,
-  date: 'May 20, 2025',
-  content: 'I absolutely love this car! The acceleration is insane and it handles like a dream. The interior is luxurious and the tech features are top-notch. Highly recommend!',
-  pros: ['Amazing acceleration', 'Luxurious interior', 'Advanced tech'],
-  cons: ['Expensive options']
-}, {
-  author: 'Sarah Johnson',
-  rating: 4,
-  date: 'May 15, 2025',
-  content: 'Great car overall. The ride is smooth and comfortable, and the electric powertrain is fantastic. The only downside is the learning curve for all the tech features.',
-  pros: ['Quiet cabin', 'Premium materials'],
-  cons: ['Learning curve for tech']
-}, {
-  author: 'Mike Davis',
-  rating: 3,
-  date: 'May 10, 2025',
-  content: 'Solid car but not perfect. The performance is great, but the ride can be a bit firm. The tech features are impressive but take some time to master.',
-  pros: ['Good performance', 'Impressive tech'],
-  cons: ['Firm ride', 'Steep learning curve']
-}, {
-  author: 'Emily Chen',
-  rating: 4,
-  date: 'May 5, 2025',
-  content: 'Love this car! The electric range is excellent and the charging speed is impressive. The interior is comfortable and the tech features are intuitive.',
-  pros: ['Excellent range', 'Fast charging'],
-  cons: ['Expensive options']
-}, {
-  author: 'David Lee',
-  rating: 5,
-  date: 'May 1, 2025',
-  content: 'This is my dream car. The performance is outstanding, the interior is luxurious, and the tech features are amazing. Worth every penny!',
-  pros: ['Outstanding performance', 'Luxury interior', 'Advanced features'],
-  cons: []
-}];
 
-// Individual Review Card Component with Bookmark
+const mockReviews = [
+  {
+    author: 'John Smith',
+    rating: 5,
+    date: 'May 20, 2025',
+    content: 'I absolutely love this car! The acceleration is insane and it handles like a dream. The interior is luxurious and the tech features are top-notch.',
+    pros: ['Amazing acceleration', 'Luxurious interior', 'Advanced tech'],
+    cons: ['Expensive options'],
+    helpful: 24,
+    verified: true
+  },
+  {
+    author: 'Sarah Johnson',
+    rating: 4,
+    date: 'May 15, 2025',
+    content: 'Great car overall. The ride is smooth and comfortable, and the electric powertrain is fantastic. The only downside is the learning curve for all the tech features.',
+    pros: ['Quiet cabin', 'Premium materials', 'Smooth ride'],
+    cons: ['Learning curve for tech'],
+    helpful: 18,
+    verified: true
+  },
+  {
+    author: 'Mike Davis',
+    rating: 4,
+    date: 'May 10, 2025',
+    content: 'Solid car but not perfect. The performance is great, but the ride can be a bit firm. The tech features are impressive but take some time to master.',
+    pros: ['Good performance', 'Impressive tech'],
+    cons: ['Firm ride', 'Steep learning curve'],
+    helpful: 12,
+    verified: false
+  }
+];
+
 const ReviewCard: React.FC<{ review: any; index: number }> = ({ review, index }) => {
   const { isSaved, toggleSave } = useCardSave({
     id: `review-${index}`,
@@ -62,143 +55,168 @@ const ReviewCard: React.FC<{ review: any; index: number }> = ({ review, index })
   });
 
   return (
-    <Card key={index} className="border border-neutral-6 bg-white hover:shadow-lg transition-shadow duration-200">
-      <CardHeader className="pb-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1">
-              {[...Array(5)].map((_, i) => (
-                <span key={i} className={`text-lg ${i < review.rating ? 'text-yellow-500' : 'text-neutral-5'}`}>
-                  ★
-                </span>
-              ))}
+    <div className="bg-white rounded-2xl border border-neutral-6 p-6 space-y-4 hover:shadow-modern transition-shadow duration-200">
+      {/* Header */}
+      <div className="flex items-start justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-full flex items-center justify-center">
+            <span className="text-sm font-bold text-blue-700">
+              {review.author.split(' ').map(n => n[0]).join('')}
+            </span>
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="typography-subtitle text-neutral-1">{review.author}</span>
+              {review.verified && (
+                <div className="w-4 h-4 bg-green-100 rounded-full flex items-center justify-center">
+                  <div className="w-2 h-2 bg-green-600 rounded-full"></div>
+                </div>
+              )}
             </div>
-            <span className="typography-caption text-neutral-3">{review.rating}/5</span>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleSave();
-            }}
-            className={`flex items-center gap-1 transition-colors ${
-              isSaved ? 'text-motortrend-red' : 'text-neutral-4 hover:text-motortrend-red'
-            }`}
-            aria-label={isSaved ? "Remove from saved reviews" : "Save review"}
-          >
-            <Bookmark className={`h-4 w-4 ${isSaved ? 'fill-current' : ''}`} />
-            <span className="hidden sm:inline">{isSaved ? 'Saved' : 'Save'}</span>
-          </Button>
-        </div>
-        <div className="flex items-center justify-between mt-2">
-          <span className="typography-body-bold text-neutral-1">{review.author}</span>
-          <span className="typography-caption text-neutral-4">{review.date}</span>
-        </div>
-      </CardHeader>
-      <CardContent className="p-6 space-y-6">
-        <p className="text-base text-neutral-2 leading-relaxed">{review.content}</p>
-        <div className="grid grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <h4 className="text-sm font-semibold text-green-600">Pros</h4>
-            <ul className="space-y-3">
-              {review.pros.map((pro, index) => (
-                <li key={index} className="flex items-center gap-2 text-sm text-neutral-2">
-                  <span className="flex-none w-1.5 h-1.5 bg-green-500 rounded-full"></span>
-                  <span>{pro}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="space-y-4">
-            <h4 className="text-sm font-semibold text-red-600">Cons</h4>
-            <ul className="space-y-3">
-              {review.cons.map((con, index) => (
-                <li key={index} className="flex items-center gap-2 text-sm text-neutral-2">
-                  <span className="flex-none w-1.5 h-1.5 bg-red-500 rounded-full"></span>
-                  <span>{con}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="flex items-center gap-2">
+              <div className="flex">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star
+                    key={star}
+                    className={`w-4 h-4 ${
+                      star <= review.rating ? 'text-yellow-400 fill-current' : 'text-neutral-5'
+                    }`}
+                  />
+                ))}
+              </div>
+              <span className="text-xs text-neutral-3">{review.date}</span>
+            </div>
           </div>
         </div>
-      </CardContent>
-    </Card>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleSave();
+          }}
+          className={`transition-colors ${
+            isSaved ? 'text-motortrend-red' : 'text-neutral-4 hover:text-motortrend-red'
+          }`}
+        >
+          <Bookmark className={`h-4 w-4 ${isSaved ? 'fill-current' : ''}`} />
+        </Button>
+      </div>
+
+      {/* Content */}
+      <p className="text-sm text-neutral-2 leading-relaxed">{review.content}</p>
+
+      {/* Pros and Cons */}
+      {(review.pros.length > 0 || review.cons.length > 0) && (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-neutral-6">
+          {review.pros.length > 0 && (
+            <div className="space-y-2">
+              <h5 className="text-xs font-medium text-green-600 uppercase tracking-wide">Pros</h5>
+              <ul className="space-y-1">
+                {review.pros.map((pro, idx) => (
+                  <li key={idx} className="flex items-center gap-2 text-xs text-neutral-2">
+                    <div className="w-1 h-1 bg-green-500 rounded-full"></div>
+                    <span>{pro}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {review.cons.length > 0 && (
+            <div className="space-y-2">
+              <h5 className="text-xs font-medium text-red-600 uppercase tracking-wide">Cons</h5>
+              <ul className="space-y-1">
+                {review.cons.map((con, idx) => (
+                  <li key={idx} className="flex items-center gap-2 text-xs text-neutral-2">
+                    <div className="w-1 h-1 bg-red-500 rounded-full"></div>
+                    <span>{con}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Footer */}
+      <div className="flex items-center justify-between pt-2 border-t border-neutral-6">
+        <div className="flex items-center gap-1 text-xs text-neutral-3">
+          <ThumbsUp className="w-3 h-3" />
+          <span>{review.helpful} found helpful</span>
+        </div>
+        {review.verified && (
+          <span className="text-xs text-green-600 font-medium">Verified Purchase</span>
+        )}
+      </div>
+    </div>
   );
 };
 
 const ReviewsTab: React.FC = () => {
   const [showMore, setShowMore] = useState(false);
-  const displayedReviews = showMore ? mockReviews : mockReviews.slice(0, 3);
+  const displayedReviews = showMore ? mockReviews : mockReviews.slice(0, 2);
 
   return (
     <div className="space-y-8">
-      {/* Summary Card */}
-      <Card className="overflow-hidden">
-        <CardHeader className="border-b border-neutral-6 bg-neutral-7">
-          <div className="flex justify-between items-center">
-            <div className="space-y-1">
-              <CardTitle className="text-lg">Owner Reviews Summary</CardTitle>
-              <p className="text-sm text-neutral-3">{ownerReviews.totalReviews.toLocaleString()} verified owner reviews</p>
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Rating Score and Distribution */}
-            <div className="space-y-6">
-              <div className="flex items-baseline gap-3">
-                <span className="text-5xl font-bold text-neutral-1">{ownerReviews.overallScore}</span>
-                <div className="space-y-0.5">
-                  <div className="flex">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <svg key={star} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                        <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
-                      </svg>
-                    ))}
-                  </div>
-                  <div className="text-sm text-neutral-3">out of 5</div>
+      {/* Summary Section */}
+      <div className="bg-gradient-to-r from-neutral-8 to-neutral-7 rounded-2xl p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Overall Rating */}
+          <div className="space-y-4">
+            <div className="flex items-center gap-4">
+              <div className="text-center">
+                <div className="text-4xl font-bold text-neutral-1">{ownerReviews.overallScore}</div>
+                <div className="flex justify-center mt-1">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star key={star} className="w-4 h-4 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <div className="text-xs text-neutral-3 mt-1">out of 5</div>
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <Users className="w-4 h-4 text-neutral-3" />
+                  <span className="text-sm text-neutral-2">
+                    {ownerReviews.totalReviews.toLocaleString()} reviews
+                  </span>
+                </div>
+                <div className="space-y-1">
+                  {ownerReviews.ratingDistribution.slice().reverse().map(rating => (
+                    <div key={rating.stars} className="flex items-center gap-2">
+                      <span className="text-xs text-neutral-3 w-2">{rating.stars}</span>
+                      <Progress 
+                        value={(rating.count / ownerReviews.totalReviews) * 100} 
+                        className="flex-1 h-1.5 bg-neutral-6"
+                      />
+                      <span className="text-xs text-neutral-3 w-8 text-right">{rating.count}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
-              
-              <div className="space-y-2">
-                {ownerReviews.ratingDistribution.map(rating => (
-                  <div key={rating.stars} className="flex items-center gap-3">
-                    <div className="flex items-center gap-1 w-12">
-                      <span className="text-sm font-medium text-neutral-2">{rating.stars}</span>
-                      <svg className="w-3.5 h-3.5 text-yellow-400 fill-current" viewBox="0 0 24 24">
-                        <path d="M12 17.27L18.18 21L16.54 13.97L22 9.24L14.81 8.63L12 2L9.19 8.63L2 9.24L7.46 13.97L5.82 21L12 17.27Z" />
-                      </svg>
-                    </div>
-                    <Progress 
-                      value={rating.count / ownerReviews.totalReviews * 100} 
-                      className="flex-1 h-2 bg-neutral-6"
-                    />
-                    <span className="text-sm text-neutral-3 w-12 text-right">{rating.count}</span>
-                  </div>
-                ))}
-              </div>
             </div>
+          </div>
 
-            {/* Pros and Cons */}
-            <div className="grid grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <h4 className="text-sm font-semibold text-green-600">Top Pros</h4>
-                <ul className="space-y-3">
-                  {ownerReviews.topPros.map((pro, index) => (
-                    <li key={index} className="flex items-center gap-2 text-sm text-neutral-2">
-                      <span className="flex-none w-1.5 h-1.5 bg-green-500 rounded-full"></span>
+          {/* Top Mentions */}
+          <div className="space-y-4">
+            <h4 className="typography-subtitle text-neutral-1">What Owners Love</h4>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <h5 className="text-xs font-medium text-green-600 uppercase tracking-wide">Top Pros</h5>
+                <ul className="space-y-1">
+                  {ownerReviews.topPros.slice(0, 3).map((pro, index) => (
+                    <li key={index} className="flex items-center gap-2 text-xs text-neutral-2">
+                      <div className="w-1 h-1 bg-green-500 rounded-full"></div>
                       <span>{pro}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="space-y-4">
-                <h4 className="text-sm font-semibold text-red-600">Top Cons</h4>
-                <ul className="space-y-3">
-                  {ownerReviews.topCons.map((con, index) => (
-                    <li key={index} className="flex items-center gap-2 text-sm text-neutral-2">
-                      <span className="flex-none w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+              <div className="space-y-2">
+                <h5 className="text-xs font-medium text-red-600 uppercase tracking-wide">Top Cons</h5>
+                <ul className="space-y-1">
+                  {ownerReviews.topCons.slice(0, 3).map((con, index) => (
+                    <li key={index} className="flex items-center gap-2 text-xs text-neutral-2">
+                      <div className="w-1 h-1 bg-red-500 rounded-full"></div>
                       <span>{con}</span>
                     </li>
                   ))}
@@ -206,31 +224,39 @@ const ReviewsTab: React.FC = () => {
               </div>
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
 
       {/* Individual Reviews */}
-      {displayedReviews.map((review, index) => (
-        <ReviewCard key={index} review={review} index={index} />
-      ))}
-
-      {!showMore && (
-        <div className="text-center">
-          <Button 
-            onClick={() => setShowMore(true)} 
-            variant="outline-black" 
-            className="min-w-[200px] bg-white hover:bg-neutral-8"
-          >
-            Load More Reviews
-          </Button>
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h4 className="typography-subtitle text-neutral-1">Recent Reviews</h4>
+          <div className="flex items-center gap-2 text-sm text-neutral-3">
+            <TrendingUp className="w-4 h-4" />
+            <span>Sorted by most helpful</span>
+          </div>
         </div>
-      )}
-      {/* User Comments Section */}
-      <div className="mt-12">
-        <CommentsSection articleId="rivian-r1s-2025" comments={mockComments} />
+        
+        <div className="space-y-4">
+          {displayedReviews.map((review, index) => (
+            <ReviewCard key={index} review={review} index={index} />
+          ))}
+        </div>
+
+        {!showMore && mockReviews.length > 2 && (
+          <div className="text-center">
+            <Button
+              variant="outline"
+              onClick={() => setShowMore(true)}
+              className="px-8"
+            >
+              Show More Reviews ({mockReviews.length - 2} remaining)
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default ReviewsTab;

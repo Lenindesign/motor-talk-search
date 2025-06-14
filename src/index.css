@@ -18,10 +18,13 @@
     width: 100%;
     height: 100%;
   }
+  
   /**
-   * CSS Variables for the new design system
+   * Apple-Inspired Design System Variables
+   * Following Apple's Human Interface Guidelines
    */
   :root {
+    /* Apple-style Color Palette */
     --color-primary-1: #c11b17;
     --color-primary-2: #e90c17;
     --color-primary-3: #e6e8ec;
@@ -29,6 +32,7 @@
     --color-secondary-2: #33ccff;
     --color-secondary-3: #c1eaff;
     
+    /* Apple-style Semantic Colors */
     --color-error-1: #4c272e;
     --color-error-2: #d32f2f;
     --color-error-3: #e38a8a;
@@ -39,24 +43,80 @@
     --color-info-3: #33ccff;
     --color-info-4: #c1eaff;
     
-    --color-neutral-1: #141416;
-    --color-neutral-2: #23262f;
-    --color-neutral-3: #353945;
-    --color-neutral-4: #6e7481;
-    --color-neutral-5: #b1b5c3;
-    --color-neutral-6: #e6e8ec;
-    --color-neutral-7: #f4f5f6;
-    --color-neutral-8: #fcfcfd;
+    /* Apple-style Neutral Palette - Enhanced for better contrast */
+    --color-neutral-1: #1d1d1f;  /* Apple's primary text */
+    --color-neutral-2: #2c2c2e;  /* Apple's secondary text */
+    --color-neutral-3: #48484a;  /* Apple's tertiary text */
+    --color-neutral-4: #8e8e93;  /* Apple's quaternary text */
+    --color-neutral-5: #c7c7cc;  /* Apple's separator */
+    --color-neutral-6: #f2f2f7;  /* Apple's grouped background */
+    --color-neutral-7: #f9f9f9;  /* Apple's secondary grouped background */
+    --color-neutral-8: #ffffff;  /* Apple's primary background */
     
     --color-success-1: #283d32;
-    --color-success-2: #388e3c;
+    --color-success-2: #30d158;  /* Apple's green */
     --color-success-3: #81c784;
     --color-success-4: #e7f4e7;
     
     --color-warning-1: #553925;
-    --color-warning-2: #f57c00;
+    --color-warning-2: #ff9500;  /* Apple's orange */
     --color-warning-3: #ffb74d;
     --color-warning-4: #fff1df;
+
+    /* Apple-style Spacing Scale (8pt grid system) */
+    --spacing-1: 0.25rem;   /* 4px */
+    --spacing-2: 0.5rem;    /* 8px - Apple's base unit */
+    --spacing-3: 0.75rem;   /* 12px */
+    --spacing-4: 1rem;      /* 16px */
+    --spacing-5: 1.25rem;   /* 20px */
+    --spacing-6: 1.5rem;    /* 24px */
+    --spacing-8: 2rem;      /* 32px */
+    --spacing-10: 2.5rem;   /* 40px */
+    --spacing-12: 3rem;     /* 48px */
+    --spacing-16: 4rem;     /* 64px */
+    --spacing-20: 5rem;     /* 80px */
+    --spacing-24: 6rem;     /* 96px */
+
+    /* Apple-style Border Radius */
+    --radius-xs: 0.25rem;   /* 4px */
+    --radius-sm: 0.5rem;    /* 8px */
+    --radius-md: 0.75rem;   /* 12px - Apple's standard */
+    --radius-lg: 1rem;      /* 16px */
+    --radius-xl: 1.25rem;   /* 20px */
+    --radius-2xl: 1.5rem;   /* 24px */
+    --radius-full: 9999px;
+
+    /* Apple-style Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+    /* Apple-style Typography Scale */
+    --font-size-xs: 0.75rem;    /* 12px */
+    --font-size-sm: 0.875rem;   /* 14px */
+    --font-size-base: 1rem;     /* 16px - Apple's body text */
+    --font-size-lg: 1.125rem;   /* 18px */
+    --font-size-xl: 1.25rem;    /* 20px */
+    --font-size-2xl: 1.5rem;    /* 24px */
+    --font-size-3xl: 1.875rem;  /* 30px */
+    --font-size-4xl: 2.25rem;   /* 36px */
+    --font-size-5xl: 3rem;      /* 48px */
+    --font-size-6xl: 3.75rem;   /* 60px */
+
+    /* Apple-style Line Heights */
+    --line-height-tight: 1.25;
+    --line-height-snug: 1.375;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.625;
+    --line-height-loose: 2;
+
+    /* Apple-style Transitions */
+    --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
     /* Legacy variables for compatibility */
     --background: 0 0% 100%;
@@ -88,16 +148,27 @@
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
     
-    /* Updated font family variables with modern typography */
-    --font-hero: 'Poppins', sans-serif;
-    --font-heading: 'Poppins', sans-serif;
-    --font-body: 'Geist', sans-serif;
-    --font-subtitle: 'Poppins', sans-serif;
-    --font-button: 'Poppins', sans-serif;
-    --font-caption: 'Geist', sans-serif;
+    /* Apple-style Font System */
+    --font-hero: 'SF Pro Display', 'Poppins', system-ui, sans-serif;
+    --font-heading: 'SF Pro Display', 'Poppins', system-ui, sans-serif;
+    --font-body: 'SF Pro Text', 'Geist', system-ui, sans-serif;
+    --font-subtitle: 'SF Pro Text', 'Poppins', system-ui, sans-serif;
+    --font-button: 'SF Pro Text', 'Poppins', system-ui, sans-serif;
+    --font-caption: 'SF Pro Text', 'Geist', system-ui, sans-serif;
+    --font-mono: 'SF Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
   }
 
   .dark {
+    /* Apple-style Dark Mode Colors */
+    --color-neutral-1: #ffffff;  /* Apple's primary text (dark) */
+    --color-neutral-2: #f2f2f7;  /* Apple's secondary text (dark) */
+    --color-neutral-3: #c7c7cc;  /* Apple's tertiary text (dark) */
+    --color-neutral-4: #8e8e93;  /* Apple's quaternary text (dark) */
+    --color-neutral-5: #48484a;  /* Apple's separator (dark) */
+    --color-neutral-6: #2c2c2e;  /* Apple's grouped background (dark) */
+    --color-neutral-7: #1c1c1e;  /* Apple's secondary grouped background (dark) */
+    --color-neutral-8: #000000;  /* Apple's primary background (dark) */
+    
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
@@ -138,960 +209,445 @@
     font-family: var(--font-body);
     scroll-behavior: smooth;
     letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
-  /* Modern Typography hierarchy using Poppins for headings and Geist for body */
+  /* Apple-style Typography System */
   h1 {
-    @apply font-bold text-pretty antialiased;
     font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 5vw, 4rem); /* 40px - 64px responsive */
-    line-height: 1.1;
+    font-size: var(--font-size-4xl);
+    line-height: var(--line-height-tight);
     font-weight: 700;
     letter-spacing: -0.025em;
-    font-synthesis-weight: none;
+    color: var(--color-neutral-1);
   }
 
   h2 {
-    @apply font-bold text-pretty antialiased;
     font-family: var(--font-heading);
-    font-size: clamp(2rem, 4vw, 3rem); /* 32px - 48px responsive */
-    line-height: 1.2;
-    font-weight: 700;
+    font-size: var(--font-size-3xl);
+    line-height: var(--line-height-tight);
+    font-weight: 600;
     letter-spacing: -0.02em;
-    font-synthesis-weight: none;
+    color: var(--color-neutral-1);
   }
 
   h3 {
-    @apply font-semibold text-pretty antialiased;
     font-family: var(--font-heading);
-    font-size: clamp(1.5rem, 3vw, 2rem); /* 24px - 32px responsive */
-    line-height: 1.3;
+    font-size: var(--font-size-2xl);
+    line-height: var(--line-height-snug);
     font-weight: 600;
     letter-spacing: -0.015em;
-    font-synthesis-weight: none;
+    color: var(--color-neutral-1);
   }
 
   h4 {
-    @apply font-semibold text-pretty antialiased;
     font-family: var(--font-heading);
-    font-size: clamp(1.25rem, 2.5vw, 1.5rem); /* 20px - 24px responsive */
-    line-height: 1.4;
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-snug);
     font-weight: 600;
     letter-spacing: -0.01em;
-    font-synthesis-weight: none;
+    color: var(--color-neutral-1);
   }
 
   h5 {
-    @apply font-medium text-pretty antialiased;
     font-family: var(--font-heading);
-    font-size: 1.125rem; /* 18px */
-    line-height: 1.5;
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-normal);
     font-weight: 500;
     letter-spacing: -0.005em;
-    font-synthesis-weight: none;
+    color: var(--color-neutral-1);
   }
 
   h6 {
-    @apply font-medium text-pretty antialiased;
     font-family: var(--font-heading);
-    font-size: 1rem; /* 16px */
-    line-height: 1.5;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
     font-weight: 500;
-    letter-spacing: normal;
-    font-synthesis-weight: none;
+    color: var(--color-neutral-1);
   }
 
-  /* Body text improvements */
   p {
     font-family: var(--font-body);
-    line-height: 1.6;
-    letter-spacing: -0.005em;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-neutral-2);
+    margin-bottom: var(--spacing-4);
   }
 
-/* Button typography - moved to root to fix nesting error */
-button {
-  /* Ensure readable text on white backgrounds globally */
-  background-clip: padding-box;
-  font-family: var(--font-button);
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  font-synthesis-weight: none;
-}
-/* Fix: All buttons with white or near-white backgrounds should have dark text */
-button.bg-white,
-button[style*="background-color: #fff"],
-button[style*="background-color: #ffffff"],
-button[style*="background-color: var(--color-neutral-8)"],
-button.bg-neutral-8 {
-  color: var(--color-neutral-1) !important;
-}
-
-
-  /* Caption typography */
-  .caption {
-    font-family: var(--font-caption);
-    font-size: 0.875rem; /* 14px */
-    line-height: 1.4;
-    letter-spacing: normal;
-    font-synthesis-weight: none;
-  }
-  
-  /* Typography Scale Variables */
-  :root {
-    --font-size-xs: 0.75rem;    /* 12px */
-    --font-size-sm: 0.875rem;   /* 14px */
-    --font-size-base: 1rem;     /* 16px */
-    --font-size-lg: 1.125rem;   /* 18px */
-    --font-size-xl: 1.25rem;    /* 20px */
-    --font-size-2xl: 1.5rem;    /* 24px */
-    --font-size-3xl: 1.875rem;  /* 30px */
-    --font-size-4xl: 2.25rem;   /* 36px */
-    
-    /* Line Heights */
-    --line-height-tight: 1.25;
-    --line-height-normal: 1.5;
-    --line-height-relaxed: 1.75;
-    
-    /* Font Weights */
-    --font-weight-normal: 400;
-    --font-weight-medium: 500;
-    --font-weight-semibold: 600;
-    --font-weight-bold: 700;
-  }
-}
-
-/* Modern utility classes with improved spacing and typography */
-@layer utilities {
-  /* Layout utilities */
-  .main-container {
-    @apply max-w-7xl px-6 sm:px-8 lg:px-12;
-  }
-
-  .content-container {
-    @apply max-w-4xl mx-auto px-6 sm:px-8;
-  }
-
-  /* Typography utility classes */
-  .typography-hero {
-    font-family: var(--font-hero, var(--font-heading));
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: var(--line-height-tight, 1.1);
-    font-weight: var(--font-weight-bold, 700);
-    letter-spacing: -0.025em;
-    @apply text-pretty antialiased;
-  }
-  
-  .typography-h1 {
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: var(--line-height-tight, 1.1);
-    font-weight: var(--font-weight-bold, 700);
-    letter-spacing: -0.02em;
-    @apply text-pretty antialiased;
-  }
-  
-  .typography-h2 {
-    font-family: var(--font-heading);
-    font-size: clamp(1.5rem, 3vw, 2rem);
-    line-height: var(--line-height-tight, 1.2);
-    font-weight: var(--font-weight-semibold, 600);
-    letter-spacing: -0.015em;
-    @apply text-pretty antialiased;
-  }
-  
-  .typography-h3 {
-    font-family: var(--font-heading);
-    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
-    line-height: var(--line-height-normal, 1.3);
-    font-weight: var(--font-weight-semibold, 600);
-    letter-spacing: -0.01em;
-    @apply text-pretty antialiased;
-  }
-  
-  .typography-h4 {
-    font-family: var(--font-heading);
-    font-size: var(--font-size-lg, 1.125rem);
-    line-height: var(--line-height-normal, 1.4);
-    font-weight: var(--font-weight-medium, 500);
-    letter-spacing: -0.005em;
-    @apply text-pretty antialiased;
-  }
-  
-  .typography-body-lg {
-    font-family: var(--font-body);
-    font-size: var(--font-size-lg, 1.125rem);
-    line-height: var(--line-height-relaxed, 1.6);
-    letter-spacing: -0.005em;
-  }
-  
-  .typography-body {
-    font-family: var(--font-body);
-    font-size: var(--font-size-base, 1rem);
-    line-height: var(--line-height-relaxed, 1.6);
-    letter-spacing: -0.005em;
-  }
-  
-  .typography-body-sm {
-    font-family: var(--font-body);
-    font-size: var(--font-size-sm, 0.875rem);
-    line-height: var(--line-height-normal, 1.5);
-    letter-spacing: normal;
-  }
-  
-  .typography-caption {
-    font-family: var(--font-caption);
-    font-size: var(--font-size-xs, 0.75rem);
-    line-height: var(--line-height-normal, 1.4);
-    letter-spacing: normal;
-  }
-  
-  .typography-button {
+  /* Apple-style Button Base */
+  button {
     font-family: var(--font-button);
-    font-size: var(--font-size-base, 1rem);
-    line-height: var(--line-height-normal, 1.5);
-    font-weight: var(--font-weight-medium, 500);
-    letter-spacing: 0.01em;
-  }
-  
-  /* Transition utilities */
-  .transition-standard {
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-  }
-  
-  .transition-fast {
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 100ms;
-  }
-  
-  .hover-lift {
-    @apply transition-standard transform hover:-translate-y-1;
-  }
-  
-  .focus-ring {
-    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary-1;
-  }
-  
-  /* Spacing utilities */
-  .section-spacing {
-    @apply py-16 lg:py-24;
+    font-weight: 500;
+    letter-spacing: -0.005em;
+    transition: all var(--transition-fast);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .card-spacing {
-    @apply p-6 lg:p-8;
+  button:focus-visible {
+    outline: 2px solid var(--color-primary-2);
+    outline-offset: 2px;
   }
 
-  /* Modern shadows */
-  .shadow-modern {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  button:active {
+    transform: scale(0.98);
   }
 
-  .shadow-modern-lg {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  /* Apple-style Input Base */
+  input, textarea, select {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
   }
 
-  .shadow-modern-xl {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  input:focus, textarea:focus, select:focus {
+    outline: 2px solid var(--color-primary-2);
+    outline-offset: 0;
+    border-color: var(--color-primary-2);
   }
+}
 
-  /* Modern borders */
-  .border-modern {
-    border: 1px solid rgb(230 232 236 / 0.6);
-  }
-
-  /* Typography utilities with improved hierarchy */
+@layer components {
+  /* Apple-style Typography Classes */
   .typography-hero {
     font-family: var(--font-hero);
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    line-height: var(--line-height-tight);
     font-weight: 800;
-    font-size: clamp(3rem, 6vw, 5rem); /* 48px - 80px responsive */
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
+    letter-spacing: -0.04em;
+    color: var(--color-neutral-1);
   }
 
   .typography-display {
     font-family: var(--font-heading);
+    font-size: var(--font-size-5xl);
+    line-height: var(--line-height-tight);
     font-weight: 700;
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
+    letter-spacing: -0.03em;
+    color: var(--color-neutral-1);
   }
 
   .typography-title {
     font-family: var(--font-heading);
+    font-size: var(--font-size-2xl);
+    line-height: var(--line-height-snug);
     font-weight: 600;
-    font-size: clamp(1.25rem, 2vw, 1.5rem);
-    line-height: 1.3;
-    letter-spacing: -0.01em;
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
+    letter-spacing: -0.015em;
+    color: var(--color-neutral-1);
   }
 
   .typography-subtitle {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 1rem; /* 16px */
-    line-height: 1.4;
-    letter-spacing: -0.005em;
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
+    font-family: var(--font-subtitle);
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-normal);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--color-neutral-2);
   }
 
   .typography-body-large {
     font-family: var(--font-body);
-    font-size: 1.125rem; /* 18px */
-    line-height: 1.6;
-    letter-spacing: -0.005em;
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    font-weight: 400;
+    color: var(--color-neutral-2);
   }
 
   .typography-body {
     font-family: var(--font-body);
-    font-size: 1rem; /* 16px */
-    line-height: 1.6;
-    letter-spacing: -0.005em;
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+    font-weight: 400;
+    color: var(--color-neutral-2);
   }
 
   .typography-caption {
     font-family: var(--font-caption);
-    font-size: 0.875rem; /* 14px */
-    line-height: 1.4;
-    letter-spacing: normal;
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
+    font-weight: 400;
+    color: var(--color-neutral-4);
   }
 
   .typography-small {
     font-family: var(--font-caption);
-    font-size: 0.75rem; /* 12px */
-    line-height: 1.4;
-    letter-spacing: 0.025em;
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
+    font-size: var(--font-size-xs);
+    line-height: var(--line-height-normal);
+    font-weight: 500;
+    color: var(--color-neutral-4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
-  /* Modern spacing system */
+  /* Apple-style Spacing Classes */
   .space-section {
-    @apply space-y-16 lg:space-y-24;
+    margin-bottom: var(--spacing-24);
   }
 
   .space-content {
-    @apply space-y-8 lg:space-y-12;
+    margin-bottom: var(--spacing-16);
   }
 
   .space-element {
-    @apply space-y-4 lg:space-y-6;
+    margin-bottom: var(--spacing-8);
   }
 
   .space-tight {
-    @apply space-y-2 lg:space-y-3;
+    margin-bottom: var(--spacing-4);
   }
 
-  /* Global component header styles - consistent across all pages */
+  /* Apple-style Component Classes */
   .component-header {
-    @apply mb-4 flex items-center justify-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-8);
   }
 
   .component-title {
-    @apply flex items-center gap-2 text-2xl font-bold;
     font-family: var(--font-heading);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    font-synthesis-weight: none;
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--color-neutral-1);
+    margin: 0;
   }
 
   .component-view-all {
-    @apply flex items-center gap-2;
-  }
-}
-
-/* Design System Token Carousel Styles */
-.token-tabs-slider .slick-track {
-  display: flex;
-  align-items: center;
-}
-
-.token-tabs-slider .slick-slide {
-  height: auto;
-}
-
-.token-tabs-slider [data-state="active"],
-.custom-tabs-list button.active {
-  background-color: var(--primary-2) !important;
-  color: white !important;
-}
-
-/* Add active class to the currently selected tab button */
-.custom-tabs-list button {
-  position: relative;
-}
-
-/* Update active state when tab is selected */
-[data-state="active"] ~ .custom-tabs-list button[data-tab="colors"],
-[value="colors"][data-state="active"] ~ .custom-tabs-list button[onclick*="colors"] {
-  background-color: var(--primary-2) !important;
-  color: white !important;
-}
-
-/* Custom keyframes for new animations */
-@keyframes accordion-down {
-  from {
-    height: 0;
-  }
-  to {
-    height: var(--radix-accordion-content-height);
-  }
-}
-
-@keyframes accordion-up {
-  from {
-    height: var(--radix-accordion-content-height);
-  }
-  to {
-    height: 0;
-  }
-}
-
-@keyframes circular-progress-rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes circular-progress-dash {
-  0% {
-    stroke-dasharray: 1px, 200px;
-    stroke-dashoffset: 0;
-  }
-  50% {
-    stroke-dasharray: 100px, 200px;
-    stroke-dashoffset: -15px;
-  }
-  100% {
-    stroke-dasharray: 100px, 200px;
-    stroke-dashoffset: -125px;
-  }
-}
-
-@keyframes linear-progress-indeterminate-bar1 {
-  0% {
-    left: -35%;
-    right: 100%;
-  }
-  60% {
-    left: 100%;
-    right: -90%;
-  }
-  100% {
-    left: 100%;
-    right: -90%;
-  }
-}
-
-@keyframes linear-progress-indeterminate-bar2 {
-  0% {
-    left: -200%;
-    right: 100%;
-  }
-  60% {
-    left: 107%;
-    right: -8%;
-  }
-  100% {
-    left: 107%;
-    right: -8%;
-  }
-}
-
-@keyframes wave {
-  0% {
-    transform: translateX(-100%);
-  }
-  50% {
-    transform: translateX(100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-/* Custom utility classes */
-@layer utilities {
-  .main-container {
-    @apply max-w-screen-xl px-4 sm:px-6;
-  }
-  
-  /* Hide scrollbars for cleaner UI */
-  .hide-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
-  
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
+    font-family: var(--font-button);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-primary-2);
+    text-decoration: none;
+    transition: color var(--transition-fast);
   }
 
-  .ripple {
-    @apply overflow-hidden relative;
+  .component-view-all:hover {
+    color: var(--color-primary-1);
   }
 
-  .ripple:disabled::after {
-    @apply hidden;
+  /* Apple-style Shadow System */
+  .shadow-modern {
+    box-shadow: var(--shadow-md);
   }
 
-  .ripple:active::after {
-    @apply duration-0 opacity-20 scale-0;
+  .shadow-modern-lg {
+    box-shadow: var(--shadow-lg);
   }
 
-  .ripple::after {
-    @apply absolute block content-[""] size-20 bg-gradient-radial from-neutral-8 from-10% to-transparent to-10% 
-           -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 opacity-0 scale-[10] 
-           pointer-events-none transform-gpu transition-all duration-700 z-[100];
+  .shadow-modern-xl {
+    box-shadow: var(--shadow-xl);
   }
 
-  .z-high {
-    z-index: 2000000000;
+  /* Apple-style Border System */
+  .border-modern {
+    border: 1px solid var(--color-neutral-6);
   }
 
-  .z-top {
-    z-index: 2147483647;
+  /* Apple-style Card System */
+  .card-modern {
+    background: var(--color-neutral-8);
+    border: 1px solid var(--color-neutral-6);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-normal);
   }
 
-  .scrollbar-hidden {
+  .card-modern:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .card-interactive {
+    cursor: pointer;
+    transition: all var(--transition-normal);
+  }
+
+  .card-interactive:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  .card-interactive:active {
+    transform: translateY(-2px) scale(0.98);
+  }
+
+  /* Apple-style Button System */
+  .button-primary {
+    background: var(--color-primary-2);
+    color: white;
+    border: none;
+    padding: var(--spacing-3) var(--spacing-6);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    min-height: 44px; /* Apple's minimum touch target */
+  }
+
+  .button-primary:hover {
+    background: var(--color-primary-1);
+    box-shadow: var(--shadow-md);
+  }
+
+  .button-primary:active {
+    transform: scale(0.98);
+  }
+
+  .button-secondary {
+    background: var(--color-neutral-6);
+    color: var(--color-neutral-1);
+    border: 1px solid var(--color-neutral-5);
+    padding: var(--spacing-3) var(--spacing-6);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    min-height: 44px;
+  }
+
+  .button-secondary:hover {
+    background: var(--color-neutral-7);
+    border-color: var(--color-neutral-4);
+  }
+
+  .button-ghost {
+    background: transparent;
+    color: var(--color-neutral-2);
+    border: none;
+    padding: var(--spacing-3) var(--spacing-6);
+    font-size: var(--font-size-base);
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    min-height: 44px;
+  }
+
+  .button-ghost:hover {
+    background: var(--color-neutral-6);
+    color: var(--color-neutral-1);
+  }
+
+  /* Apple-style Focus System */
+  .focus-ring-modern {
+    outline: 2px solid var(--color-primary-2);
+    outline-offset: 2px;
+    border-radius: var(--radius-md);
+  }
+
+  /* Apple-style Animation System */
+  .transition-apple {
+    transition: all var(--transition-normal);
+  }
+
+  .transition-spring {
+    transition: all var(--transition-spring);
+  }
+
+  /* Apple-style Layout System */
+  .container-modern {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-4);
+  }
+
+  .grid-modern {
+    display: grid;
+    gap: var(--spacing-6);
+  }
+
+  .flex-modern {
+    display: flex;
+    gap: var(--spacing-4);
+  }
+
+  /* Apple-style Backdrop Effects */
+  .backdrop-blur-modern {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(255, 255, 255, 0.8);
+  }
+
+  .backdrop-blur-dark {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(0, 0, 0, 0.8);
+  }
+
+  /* Apple-style Loading States */
+  .skeleton-modern {
+    background: linear-gradient(90deg, var(--color-neutral-6) 25%, var(--color-neutral-7) 50%, var(--color-neutral-6) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+    border-radius: var(--radius-md);
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  /* Apple-style Status Colors */
+  .status-success {
+    color: var(--color-success-2);
+  }
+
+  .status-warning {
+    color: var(--color-warning-2);
+  }
+
+  .status-error {
+    color: var(--color-error-2);
+  }
+
+  .status-info {
+    color: var(--color-info-2);
+  }
+
+  /* Apple-style Dividers */
+  .divider-modern {
+    height: 1px;
+    background: var(--color-neutral-6);
+    border: none;
+    margin: var(--spacing-8) 0;
+  }
+
+  /* Scrollbar Styling */
+  .scrollbar-modern {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-neutral-5) transparent;
+  }
+
+  .scrollbar-modern::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-modern::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-modern::-webkit-scrollbar-thumb {
+    background: var(--color-neutral-5);
+    border-radius: var(--radius-full);
+  }
+
+  .scrollbar-modern::-webkit-scrollbar-thumb:hover {
+    background: var(--color-neutral-4);
+  }
+
+  .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
 
-  .scrollbar-hidden::-webkit-scrollbar {
+  .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
-
-  .scrollbar-dark::-webkit-scrollbar {
-    cursor: default !important;
-    width: 6px;
-  }
-
-  .scrollbar-dark::-webkit-scrollbar-thumb {
-    background-color: var(--color-neutral-4);
-    border-radius: 8px;
-  }
-
-  .scrollbar-dark::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .scrollbar-dark {
-    scrollbar-color: var(--color-neutral-4);
-    scrollbar-width: thin;
-  }
-
-  /* Typography utilities */
-  .typography-hero {
-    font-family: var(--font-hero);
-    font-weight: bold;
-    font-size: 6rem; /* 96px */
-    line-height: 6rem; /* 96px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-
-  .typography-h1 {
-    font-family: var(--font-heading);
-    font-weight: bold;
-    font-size: 4rem; /* 64px */
-    line-height: 4rem; /* 64px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-
-  .typography-h2 {
-    font-family: var(--font-heading);
-    font-weight: bold;
-    font-size: 3rem; /* 48px */
-    line-height: 3.5rem; /* 56px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-
-  .typography-h3 {
-    font-family: var(--font-heading);
-    font-weight: bold;
-    font-size: 2.5rem; /* 40px */
-    line-height: 3rem; /* 48px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-
-  .typography-h4 {
-    font-family: var(--font-heading);
-    font-weight: bold;
-    font-size: 2rem; /* 32px */
-    line-height: 2.25rem; /* 36px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-
-  .typography-h5 {
-    font-family: var(--font-heading);
-    font-weight: bold;
-    font-size: 1.5rem; /* 24px */
-    line-height: 1.75rem; /* 28px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-
-  .typography-h6 {
-    font-family: var(--font-heading);
-    font-weight: bold;
-    font-size: 1.25rem; /* 20px */
-    line-height: 1.75rem; /* 28px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-
-  .typography-subtitle1 {
-    font-family: var(--font-subtitle);
-    font-weight: bold;
-    font-size: 1.125rem; /* 18px */
-    line-height: 1.5rem; /* 24px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-
-  .typography-subtitle2 {
-    font-family: var(--font-subtitle);
-    font-weight: bold;
-    font-size: 1rem; /* 16px */
-    line-height: 1.375rem; /* 22px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-
-  .typography-body1 {
-    font-family: var(--font-body);
-    font-size: 1.25rem; /* 20px */
-    line-height: 2rem; /* 32px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-
-  .typography-body2 {
-    font-family: var(--font-body);
-    font-size: 1.125rem; /* 18px */
-    line-height: 1.75rem; /* 28px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-
-  .typography-body3 {
-    font-family: var(--font-body);
-    font-size: 1rem; /* 16px */
-    line-height: 1.5rem; /* 24px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-
-  .typography-button1 {
-    font-family: var(--font-button);
-    font-weight: semi-bold;
-    font-size: 1rem; /* 16px */
-    line-height: 1rem; /* 16px */
-    font-synthesis-weight: none;
-    @apply antialiased;
-  }
-
-  .typography-button2 {
-    font-family: var(--font-button);
-    font-weight: semi-bold;
-    font-size: 0.875rem; /* 14px */
-    line-height: 1rem; /* 16px */
-    font-synthesis-weight: none;
-    @apply antialiased;
-  }
-
-  .typography-caption1 {
-    font-family: var(--font-caption);
-    font-size: 0.875rem; /* 14px */
-    line-height: 1.125rem; /* 18px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-
-  .typography-caption2 {
-    font-family: var(--font-caption);
-    font-size: 0.75rem; /* 12px */
-    line-height: 1rem; /* 16px */
-    font-synthesis-weight: none;
-    @apply text-pretty antialiased;
-  }
-}
-
-/* Apple-style animations for garage components */
-@keyframes slide-in-from-top {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slide-in-from-right {
-  from {
-    opacity: 0;
-    transform: translateX(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes pulse-success {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.9;
-  }
-}
-
-/* Animation utility classes */
-.animate-in {
-  animation-fill-mode: both;
-}
-
-.slide-in-from-top-2 {
-  animation: slide-in-from-top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.slide-in-from-right-2 {
-  animation: slide-in-from-right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.fade-in {
-  animation: fade-in 0.2s ease-out;
-}
-
-.scale-in {
-  animation: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.pulse-success {
-  animation: pulse-success 0.6s ease-in-out;
-}
-
-/* Enhanced shadow system for Apple-like depth */
-.shadow-modern {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.shadow-modern-lg {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03), 0 0 0 1px rgba(0, 0, 0, 0.02);
-}
-
-.shadow-modern-xl {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
-}
-
-/* Garage-specific component styles */
-.garage-card-hover {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.garage-card-hover:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-.garage-button-press {
-  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.garage-button-press:active {
-  transform: scale(0.98);
-}
-
-/* Tab animation improvements */
-.garage-tab-transition {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.garage-tab-active {
-  background: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
-}
-
-/* Progress bar animations */
-.progress-bar {
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Loading skeleton improvements */
-.skeleton-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
-
-/* Scrollbar styling for better UX */
-.scrollbar-hide {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
-}
-
-/* Focus states for accessibility */
-.focus-ring-modern {
-  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-motortrend-red focus-visible:ring-opacity-50;
-}
-
-/* Improved button states */
-.button-modern {
-  @apply transition-all duration-150 ease-out;
-  @apply focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-motortrend-red;
-  @apply active:scale-95;
-}
-
-.button-modern:hover {
-  transform: translateY(-1px);
-}
-
-/* Enhanced card interactions */
-.card-interactive {
-  @apply transition-all duration-200 ease-out cursor-pointer;
-  @apply hover:shadow-modern-lg hover:-translate-y-1;
-  @apply focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-motortrend-red;
-}
-
-/* Success notification styles */
-.notification-success {
-  @apply bg-green-500 text-white px-4 py-3 rounded-xl shadow-modern-lg;
-  animation: slide-in-from-top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Empty state improvements */
-.empty-state-icon {
-  @apply w-24 h-24 bg-gradient-to-br from-neutral-6 to-neutral-7 rounded-3xl;
-  @apply flex items-center justify-center mx-auto mb-8 shadow-modern;
-  animation: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Modal improvements */
-.modal-backdrop {
-  backdrop-filter: blur(8px);
-  background: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-  animation: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Garage layout specific improvements */
-.garage-layout {
-  @apply space-y-12;
-}
-
-.garage-header {
-  @apply flex items-center justify-between;
-}
-
-.garage-header-icon {
-  @apply w-12 h-12 bg-gradient-to-br from-neutral-6 to-neutral-7 rounded-2xl;
-  @apply flex items-center justify-center shadow-modern;
-}
-
-.garage-primary-button {
-  @apply bg-motortrend-red text-white;
-  @apply min-h-[44px] shadow-modern transition-all duration-150 active:scale-95;
-  background-color: var(--motortrend-red);
-}
-
-.garage-primary-button:hover {
-  background-color: var(--motortrend-red-hover);
-}
-
-/* Tab system improvements */
-.garage-tabs-container {
-  @apply bg-neutral-8 rounded-2xl p-2 shadow-modern border border-neutral-6;
-}
-
-.garage-tab-trigger {
-  @apply flex flex-col items-center py-4 px-4 rounded-xl;
-  @apply transition-all duration-200;
-  @apply data-[state=active]:bg-white data-[state=active]:shadow-modern;
-}
-
-/* Quick actions grid */
-.garage-quick-actions {
-  @apply grid grid-cols-2 md:grid-cols-4 gap-3;
-}
-
-.garage-action-button {
-  @apply flex flex-col items-center space-y-2 h-auto py-4 px-3;
-  @apply border-neutral-6 transition-all duration-200;
-}
-
-/* Insights improvements */
-.garage-insights-grid {
-  @apply grid grid-cols-2 md:grid-cols-4 gap-6;
-}
-
-.garage-insight-card {
-  @apply bg-white rounded-2xl p-6 shadow-modern border border-neutral-6;
-  @apply hover:shadow-modern-lg transition-all duration-200 hover:-translate-y-1;
-}
-
-/* Vehicle grid improvements */
-.garage-vehicle-grid {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 p-6;
-}
-
-.garage-vehicle-card {
-  @apply transition-all duration-200 hover:shadow-modern-lg hover:-translate-y-1;
 }

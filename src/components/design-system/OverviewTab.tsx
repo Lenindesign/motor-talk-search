@@ -839,7 +839,7 @@ const OverviewTab = () => {
           <CardDescription>Our component hierarchy follows atomic design principles</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
             <div className="p-4 border border-neutral-6 rounded-lg">
               <h4 className="typography-title text-neutral-1 mb-2">Atoms</h4>
               <p className="typography-caption text-neutral-4 mb-3">Basic building blocks</p>

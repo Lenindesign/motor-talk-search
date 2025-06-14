@@ -1,30 +1,109 @@
-
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { expertRatings } from './utils';
+import { Award, TrendingUp, Shield, Zap, Users, Star } from 'lucide-react';
+
+const categoryIcons = {
+  'Performance': Zap,
+  'Comfort': Users,
+  'Safety': Shield,
+  'Value': TrendingUp,
+  'Technology': Award,
+  'Design': Star
+};
 
 const RatingsTab: React.FC = () => {
+  const overallScore = expertRatings.reduce((acc, rating) => acc + rating.score, 0) / expertRatings.length;
+
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Expert Rating Breakdown</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-6">
-          {expertRatings.map((rating) => (
-            <div key={rating.category} className="space-y-2">
-              <div className="flex justify-between items-center">
-                <span className="font-medium">{rating.category}</span>
-                <span className="text-lg font-bold">{rating.score}/10</span>
-              </div>
-              <Progress value={rating.score * 10} className="h-2" />
-              <p className="text-sm text-gray-600">{rating.description}</p>
-            </div>
-          ))}
+    <div className="space-y-8">
+      {/* Overall Score */}
+      <div className="text-center space-y-4">
+        <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-motortrend-red to-red-600 rounded-3xl shadow-modern-lg">
+          <div className="text-center">
+            <div className="text-2xl font-bold text-white">{overallScore.toFixed(1)}</div>
+            <div className="text-xs text-white/80">out of 10</div>
+          </div>
         </div>
-      </CardContent>
-    </Card>
+        <div>
+          <h3 className="typography-subtitle text-neutral-1">Expert Rating</h3>
+          <p className="text-sm text-neutral-3">Based on comprehensive testing and evaluation</p>
+        </div>
+      </div>
+
+      {/* Rating Categories */}
+      <div className="space-y-4">
+        {expertRatings.map((rating) => {
+          const IconComponent = categoryIcons[rating.category as keyof typeof categoryIcons] || Award;
+          const scorePercentage = (rating.score / 10) * 100;
+          
+          return (
+            <div key={rating.category} className="bg-neutral-8 rounded-2xl p-6 space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
+                    <IconComponent className="w-5 h-5 text-neutral-2" />
+                  </div>
+                  <div>
+                    <h4 className="typography-subtitle text-neutral-1">{rating.category}</h4>
+                    <p className="text-xs text-neutral-3">Expert evaluation</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-neutral-1">{rating.score}</div>
+                  <div className="text-xs text-neutral-3">/10</div>
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <Progress 
+                  value={scorePercentage} 
+                  className="h-2 bg-neutral-6"
+                />
+                <p className="text-sm text-neutral-2 leading-relaxed">{rating.description}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Rating Scale Reference */}
+      <div className="bg-gradient-to-r from-neutral-8 to-neutral-7 rounded-2xl p-6">
+        <h4 className="typography-subtitle text-neutral-1 mb-4">Rating Scale</h4>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+          <div className="space-y-2">
+            <div className="w-8 h-8 bg-red-100 rounded-lg mx-auto flex items-center justify-center">
+              <span className="text-sm font-bold text-red-600">1-2</span>
+            </div>
+            <div className="text-xs text-neutral-3">Poor</div>
+          </div>
+          <div className="space-y-2">
+            <div className="w-8 h-8 bg-orange-100 rounded-lg mx-auto flex items-center justify-center">
+              <span className="text-sm font-bold text-orange-600">3-4</span>
+            </div>
+            <div className="text-xs text-neutral-3">Fair</div>
+          </div>
+          <div className="space-y-2">
+            <div className="w-8 h-8 bg-yellow-100 rounded-lg mx-auto flex items-center justify-center">
+              <span className="text-sm font-bold text-yellow-600">5-6</span>
+            </div>
+            <div className="text-xs text-neutral-3">Good</div>
+          </div>
+          <div className="space-y-2">
+            <div className="w-8 h-8 bg-blue-100 rounded-lg mx-auto flex items-center justify-center">
+              <span className="text-sm font-bold text-blue-600">7-8</span>
+            </div>
+            <div className="text-xs text-neutral-3">Very Good</div>
+          </div>
+          <div className="space-y-2">
+            <div className="w-8 h-8 bg-green-100 rounded-lg mx-auto flex items-center justify-center">
+              <span className="text-sm font-bold text-green-600">9-10</span>
+            </div>
+            <div className="text-xs text-neutral-3">Excellent</div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

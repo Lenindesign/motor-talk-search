@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { Award, Users, Shield, Star, Gauge, Zap, DollarSign, ChevronDown, ChevronUp } from 'lucide-react';
+import { Award, Users, Shield, Star, Gauge, Zap, DollarSign, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface VehicleOverviewProps {
   overallRating: number;
-  ownerRating: number; // out of 5 (will be converted to 0-10 scale for display)
+  ownerRating: number;
   carTitle: string;
   specs: {
     engine: string;
@@ -29,186 +28,148 @@ const VehicleOverview: React.FC<VehicleOverviewProps> = ({
   specs
 }) => {
   const [expanded, setExpanded] = useState(false);
-  // Convert owner rating from 0-5 scale to 0-10 scale for consistency
   const ownerRatingConverted = ownerRating * 2;
 
   return (
-    <div className="space-y-6">
-        <Card className="bg-white shadow-sm border border-neutral-6 rounded-xl overflow-hidden">
-          <CardContent className="space-y-6">
-            <div>
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="typography-title text-neutral-1">Vehicle Overview</h2>
-                <div className="flex items-center gap-2">
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <div className="flex items-center gap-2 cursor-pointer">
-                          <Avatar className="h-8 w-8 border border-neutral-6 overflow-hidden">
-                            <AvatarImage 
-                              src="https://d2kde5ohu8qb21.cloudfront.net/files/66b0c284018fc100080e47eb/billyrehbock.jpg" 
-                              alt="Billy Rehbock" 
-                              className="object-cover object-center" 
-                            />
-                            <AvatarFallback className="text-xs bg-neutral-7 text-neutral-1">BR</AvatarFallback>
-                          </Avatar>
-                          <span className="typography-caption text-neutral-3">Billy Rehbock</span>
-                        </div>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p className="typography-caption-small">Motortrend Senior Editor</p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
+    <div className="space-y-8">
+      {/* Expert Summary */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-3">
+          <Avatar className="h-10 w-10 border-2 border-neutral-6">
+            <AvatarImage 
+              src="https://d2kde5ohu8qb21.cloudfront.net/files/66b0c284018fc100080e47eb/billyrehbock.jpg" 
+              alt="Billy Rehbock" 
+              className="object-cover" 
+            />
+            <AvatarFallback className="text-sm bg-neutral-7 text-neutral-1">BR</AvatarFallback>
+          </Avatar>
+          <div>
+            <div className="typography-subtitle text-neutral-1">Billy Rehbock</div>
+            <div className="text-xs text-neutral-3">Senior Editor, MotorTrend</div>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <p className="typography-body text-neutral-2 leading-relaxed">
+            The {carTitle} represents the pinnacle of modern automotive engineering, 
+            combining cutting-edge electric technology with luxurious comfort and 
+            impressive performance capabilities.
+          </p>
+
+          {/* AI Summary Card */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
+            <div className="flex items-start gap-3">
+              <div className="w-8 h-8 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
+                <Sparkles className="w-4 h-4 text-blue-600" />
               </div>
-              <div className="space-y-4">
-                <p className="text-neutral-2">
-                  The {carTitle} represents the pinnacle of modern automotive engineering, 
-                  combining cutting-edge electric technology with luxurious comfort and 
-                  impressive performance capabilities.
+              <div className="space-y-2">
+                <h3 className="typography-subtitle text-neutral-1">AI Quick Summary</h3>
+                <p className="typography-body text-neutral-2">
+                  The {carTitle} features improved range, charging, and design. It offers 
+                  FWD and AWD options with enhanced powertrains and a revamped interior with a 14-inch 
+                  touchscreen. Safety features and driver aids are standard, with the Limited FWD 
+                  trim offering the best balance of features and value.
                 </p>
-                <div className={`space-y-4 overflow-hidden transition-all duration-300 ${expanded ? 'max-h-[1000px]' : 'max-h-0'}`}>
-                  <p className="text-neutral-2">
-                    At the heart of this remarkable vehicle lies a state-of-the-art electric powertrain, 
-                    delivering an exhilarating blend of instantaneous torque and sustainable performance. 
-                    The meticulously crafted interior showcases premium materials and advanced technology, 
-                    creating an environment that perfectly balances luxury with functionality.
-                  </p>
-                  <p className="text-neutral-2">
-                    The vehicle's exterior design is a testament to aerodynamic efficiency, 
-                    with clean lines and thoughtful details that not only enhance its visual appeal 
-                    but also contribute to its impressive range and performance metrics. Advanced 
-                    driver assistance systems and cutting-edge safety features work seamlessly together, 
-                    providing peace of mind for both driver and passengers.
-                  </p>
-                  <p className="text-neutral-2">
-                    Charging capabilities are equally impressive, with support for rapid DC charging 
-                    that can add significant range in just minutes. The sophisticated battery management 
-                    system ensures optimal performance and longevity, while the regenerative braking 
-                    system maximizes efficiency during daily driving.
-                  </p>
-                  <p className="text-neutral-2">
-                    The infotainment system represents the latest in connected car technology, 
-                    offering intuitive controls, seamless smartphone integration, and over-the-air 
-                    updates that keep the vehicle's features and functionality current. The spacious 
-                    interior provides ample room for both passengers and cargo, making it an ideal 
-                    choice for both daily commuting and longer journeys.
-                  </p>
-                </div>
-                <div className="mt-4 bg-neutral-8 rounded-lg p-4">
-                  <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0">
-                      <Zap className="h-5 w-5 text-neutral-1" />
-                    </div>
-                    <div className="space-y-2">
-                      <h3 className="typography-subtitle text-neutral-1">AI Quick Summary</h3>
-                      <p className="typography-body text-neutral-2">
-                        The {carTitle}, formerly bZ4X, features improved range, charging, and design. It offers 
-                        FWD and AWD options with enhanced powertrains and a revamped interior with a 14-inch 
-                        touchscreen. Safety features and a suite of driver aids are standard, with the Limited FWD 
-                        trim offering the best balance.
-                      </p>
-                      <p className="typography-caption text-neutral-3 italic">
-                        This summary was generated by AI using content from this MotorTrend article
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <Button 
-                  variant="ghost-black" 
-                  className="w-full flex items-center justify-center gap-2 text-neutral-3 hover:text-neutral-1 mt-4"
-                  onClick={() => setExpanded(!expanded)}
-                >
-                  {expanded ? (
-                    <>
-                      Show Less
-                      <ChevronUp size={16} />
-                    </>
-                  ) : (
-                    <>
-                  Read More
-                      <ChevronDown size={16} />
-                    </>
-                  )}
-                </Button>
+                <p className="text-xs text-neutral-3 italic">
+                  Generated by AI using MotorTrend editorial content
+                </p>
               </div>
             </div>
+          </div>
 
-            {/* Ratings Section */}
-            <div className="space-y-4">
-              <h3 className="text-sm font-semibold text-neutral-1">Ratings</h3>
-              
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <h4 className="text-xs text-neutral-1 flex items-center">
-                    <Award size={14} className="text-motortrend-red mr-1" />
-                    Expert Rating
-                  </h4>
-                  <span className="text-base font-bold text-neutral-1">
-                    {overallRating.toFixed(1)}/10
-                  </span>
-                </div>
-                <Progress value={overallRating * 10} className="h-1.5 bg-neutral-6" />
-                <div className="flex justify-between mt-1">
-                  <span className="text-xs text-neutral-4">Poor</span>
-                  <span className="text-xs text-neutral-4">Excellent</span>
-                </div>
-              </div>
-              
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <h4 className="text-xs text-neutral-1 flex items-center">
-                    <Users size={14} className="text-motortrend-red mr-1" />
-                    Owner Rating
-                  </h4>
-                  <span className="text-base font-bold text-neutral-1">
-                    {ownerRatingConverted.toFixed(1)}/10
-                  </span>
-                </div>
-                <Progress value={ownerRatingConverted * 10} className="h-1.5 bg-neutral-6" />
-                <div className="flex justify-between mt-1">
-                  <span className="text-xs text-neutral-4">Poor</span>
-                  <span className="text-xs text-neutral-4">Excellent</span>
-                </div>
-              </div>
-              
-              <div>
-                <div className="flex items-center justify-between mb-1">
-                  <h4 className="text-xs text-neutral-1 flex items-center">
-                    <Shield size={14} className="text-motortrend-red mr-1" />
-                    Safety Rating
-                  </h4>
-                  <div className="flex">
-                    {[1, 2, 3, 4, 5].map((star) => (
-                      <Star key={star} size={12} className="fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                </div>
-                <div className="flex justify-between mt-1">
-                  <span className="text-xs text-neutral-4">NHTSA Overall Rating</span>
-                  <span className="text-xs font-medium text-green-600">Top Safety Pick+</span>
-                </div>
-              </div>
-            </div>
+          {/* Expandable Content */}
+          <div className={`space-y-4 overflow-hidden transition-all duration-300 ${expanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+            <p className="typography-body text-neutral-2 leading-relaxed">
+              At the heart of this remarkable vehicle lies a state-of-the-art electric powertrain, 
+              delivering an exhilarating blend of instantaneous torque and sustainable performance. 
+              The meticulously crafted interior showcases premium materials and advanced technology, 
+              creating an environment that perfectly balances luxury with functionality.
+            </p>
+            <p className="typography-body text-neutral-2 leading-relaxed">
+              The vehicle's exterior design is a testament to aerodynamic efficiency, 
+              with clean lines and thoughtful details that not only enhance its visual appeal 
+              but also contribute to its impressive range and performance metrics.
+            </p>
+          </div>
 
-            {/* Specifications Section */}
-            <div className="space-y-4">
-              <h3 className="text-sm font-semibold text-neutral-1">Specifications</h3>
-              <div className="grid grid-cols-2 gap-4">
-                {Object.entries(specs).map(([key, value]) => (
-                  <div key={key} className="flex flex-col">
-                    <span className="text-xs text-neutral-3 capitalize">
-                      {key.replace(/([A-Z])/g, ' $1').trim()}
-                    </span>
-                    <span className="text-sm font-medium text-neutral-1">{value}</span>
-                  </div>
-                ))}
-              </div>
+          <Button 
+            variant="ghost" 
+            className="w-full flex items-center justify-center gap-2 text-neutral-3 hover:text-neutral-1 mt-4 h-10"
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? (
+              <>
+                Show Less
+                <ChevronUp className="w-4 h-4" />
+              </>
+            ) : (
+              <>
+                Read More
+                <ChevronDown className="w-4 h-4" />
+              </>
+            )}
+          </Button>
+        </div>
+      </div>
+
+      {/* Ratings Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Expert Rating */}
+        <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-6 border border-red-100">
+          <div className="flex items-center gap-2 mb-4">
+            <Award className="w-5 h-5 text-motortrend-red" />
+            <span className="typography-subtitle text-neutral-1">Expert Rating</span>
+          </div>
+          <div className="space-y-3">
+            <div className="text-3xl font-bold text-neutral-1">{overallRating.toFixed(1)}<span className="text-lg text-neutral-3">/10</span></div>
+            <Progress value={overallRating * 10} className="h-2 bg-red-100" />
+            <div className="text-xs text-neutral-3">Excellent performance and value</div>
+          </div>
+        </div>
+
+        {/* Owner Rating */}
+        <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-100">
+          <div className="flex items-center gap-2 mb-4">
+            <Users className="w-5 h-5 text-blue-600" />
+            <span className="typography-subtitle text-neutral-1">Owner Rating</span>
+          </div>
+          <div className="space-y-3">
+            <div className="text-3xl font-bold text-neutral-1">{ownerRatingConverted.toFixed(1)}<span className="text-lg text-neutral-3">/10</span></div>
+            <Progress value={ownerRatingConverted * 10} className="h-2 bg-blue-100" />
+            <div className="text-xs text-neutral-3">Based on 1,247 owner reviews</div>
+          </div>
+        </div>
+
+        {/* Safety Rating */}
+        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100">
+          <div className="flex items-center gap-2 mb-4">
+            <Shield className="w-5 h-5 text-green-600" />
+            <span className="typography-subtitle text-neutral-1">Safety Rating</span>
+          </div>
+          <div className="space-y-3">
+            <div className="flex">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <Star key={star} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+              ))}
             </div>
-          </CardContent>
-        </Card>
+            <div className="text-xs text-neutral-3">NHTSA 5-Star Overall</div>
+            <div className="text-xs font-medium text-green-600">Top Safety Pick+</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Key Specifications */}
+      <div className="space-y-4">
+        <h3 className="typography-subtitle text-neutral-1">Key Specifications</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {Object.entries(specs).map(([key, value]) => (
+            <div key={key} className="flex items-center justify-between p-4 bg-neutral-8 rounded-xl">
+              <span className="text-sm text-neutral-3 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+              <span className="typography-body-small font-medium text-neutral-1">{value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
