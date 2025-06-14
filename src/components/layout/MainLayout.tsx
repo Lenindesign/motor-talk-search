@@ -59,12 +59,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, isLoading = false }) 
 
   return (
     <div className="flex flex-col min-h-screen bg-motortrend-gray">
-      <div ref={headerRef} className="relative w-full" style={{ zIndex: 50, position: 'relative' }}>
+      <div ref={headerRef} className="relative w-full" style={{ zIndex: 9999, position: 'relative' }}>
         <GlobalHeader onSearch={handleSearch} isLoading={isLoading} />
       </div>
 
       {/* Subnavigation bar wrapper - ensure lower z-index than dropdown */}
-      <div className="w-full" style={{ position: 'relative', zIndex: 30 }}>
+      <div className="w-full" style={{ position: 'relative', zIndex: 9998 }}>
         <SubNavBar />
       </div>
 

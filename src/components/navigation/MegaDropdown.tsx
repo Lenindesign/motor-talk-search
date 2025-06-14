@@ -12,7 +12,7 @@ const MegaDropdown: React.FC<MegaDropdownProps> = ({ isOpen }) => {
       className={`absolute top-full left-0 w-full bg-motortrend-dark border border-gray-700 shadow-xl transition-all duration-300 ease-in-out ${
         isOpen ? 'opacity-100 translate-y-0 max-h-[800px]' : 'opacity-0 -translate-y-2 max-h-0 pointer-events-none'
       }`}
-      style={{ zIndex: 1050 }}
+              style={{ zIndex: 9997 }}
     >
       <div className="max-w-[980px] mx-auto grid grid-cols-12 gap-6 p-6">
         {/* View Rankings Section */}

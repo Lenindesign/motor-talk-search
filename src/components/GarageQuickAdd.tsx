@@ -196,7 +196,7 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
   return (
     <Card className="border-0 shadow-md bg-white rounded-lg overflow-visible">
       <CardContent className="p-4">
-        <div className="relative w-full" style={{ zIndex: 10000 }}>
+        <div className="relative w-full" style={{ zIndex: 1000 }}>
           {/* Ownership selector */}
           <div className="flex mb-4 justify-between items-center">
             <span className="text-sm font-medium text-motortrend-dark">Add as:</span>
@@ -226,7 +226,7 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
                   htmlFor="testDriven"
                   className="text-sm font-medium leading-none cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Test Driven
+                                          Test Drive
                 </label>
               </div>
               <div className="flex items-center space-x-2">
@@ -298,7 +298,7 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
       </CardContent>
       {showSuggestions && filteredSuggestions.length > 0 && (
         <div 
-          className="fixed z-[99999] bg-white rounded-md shadow-xl border border-gray-200"
+                        className="fixed z-[1050] bg-white rounded-md shadow-xl border border-gray-200"
           style={{ 
             top: `${dropdownPosition.top + 4}px`,
             left: `${dropdownPosition.left}px`,

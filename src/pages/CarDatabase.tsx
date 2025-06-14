@@ -54,7 +54,7 @@ const CarDatabase = () => {
 
   return (
     <div className="min-h-screen bg-motortrend-gray">
-      <header className="sticky top-0 z-20 bg-motortrend-dark px-6 py-4 shadow-md">
+      <header className="sticky top-0 z-[9999] bg-motortrend-dark px-6 py-4 shadow-md">
         <div className="flex items-center justify-between mx-auto w-full">
           <div className="flex items-center">
             {isMobile && <MainNavigation />}

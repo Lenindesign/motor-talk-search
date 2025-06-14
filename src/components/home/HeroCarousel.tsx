@@ -55,9 +55,9 @@ export interface HeroSlide {
 }
 const defaultHeroSlides: HeroSlide[] = [{
   id: '1',
-  title: '2025 Ferrari 296 GT3: The Ultimate Track Weapon',
+  title: '2026 Toyota RAV4 First Look: You Get a Hybrid and You Get a Hybrid!',
   subtitle: 'Ferrari unveils its latest track-focused supercar with revolutionary hybrid technology and track performance',
-  imageUrl: 'https://www.ferrarisiliconvalley.com/static/dealer-20428/New_Ferrari_V12_ext_02_red_media_de9bb413-30d8-448c-bb64-2458e003d949.webp',
+  imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/682cd83d39615000089431b7/2026toyotarav4hybridsuvcrossover-3.jpg',
   tag: 'First Drive',
   tagColor: 'bg-motortrend-red',
   author: 'John Carter',
@@ -77,7 +77,7 @@ const defaultHeroSlides: HeroSlide[] = [{
   id: '3',
   title: 'Electric vs Gas: The Future of Performance Cars',
   subtitle: 'A comprehensive comparison of electric and traditional powertrains in today\'s performance vehicle market.',
-  imageUrl: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1920&h=1080',
+  imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/67ef546e0781fc0008cc7694/2026hyundaiioniq6nlineevelectricsedan-2.jpg',
   tag: 'Analysis',
   tagColor: 'bg-green-600',
   author: 'Mike Thompson',

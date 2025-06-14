@@ -217,7 +217,7 @@ const CarSidebar: React.FC<CarSidebarProps> = ({
                 onClick={() => handleAddToGarage('testDriven')}
               >
                 <Car size={14} className="mr-2" />
-                I've Test Driven
+                Test Drive
               </button>
               <button
                 className="w-full text-left px-3 py-2 text-sm rounded hover:bg-amber-50 hover:text-amber-700 flex items-center"

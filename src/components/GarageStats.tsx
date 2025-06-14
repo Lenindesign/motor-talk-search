@@ -21,8 +21,8 @@ const GarageStats: React.FC<GarageStatsProps> = ({
 
   const tabData = [
     { id: 'all', label: 'All Vehicles', count: allCount },
-    { id: 'owned', label: 'Owned', count: ownedCount },
-    { id: 'testDriven', label: 'Test Driven', count: testDrivenCount },
+    { id: 'owned', label: 'My Cars', count: ownedCount },
+    { id: 'testDriven', label: 'Test Drive List', count: testDrivenCount },
     { id: 'interested', label: 'Interested', count: interestedCount }
   ] as const;
 

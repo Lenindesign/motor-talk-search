@@ -135,6 +135,7 @@ export default {
 				motortrend: {
 					dark: '#1A1F2C',
 					red: '#E90C17',
+					'red-hover': '#c11b17',
 					gray: '#F6F6F7',
 					light: '#FFFFFF',
 					text: '#222222',

@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { BarChart3, Calculator, Share2, Download, CheckSquare, Square, X, ArrowLeft, Star } from "lucide-react";
+import { BarChart3, Calculator, Share2, Download, CheckSquare, Square, X, ArrowLeft, Star, Check } from "lucide-react";
 import { useSavedItems } from "@/contexts/SavedItemsContext";
 import { savedItemToCarData } from "./carDataEnrichment";
 import { useToast } from "@/hooks/use-toast";
@@ -20,6 +20,7 @@ const GarageQuickActions: React.FC<GarageQuickActionsProps> = ({ carCount }) => 
   const [selectedCars, setSelectedCars] = useState<string[]>([]);
   const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   // Filter only car items
   const savedCars = savedItems.filter(item => item.type === 'newCar' || item.type === 'usedCar');
@@ -67,6 +68,17 @@ const GarageQuickActions: React.FC<GarageQuickActionsProps> = ({ carCount }) => 
     setIsCompareModalOpen(true);
   };
 
+  const handleShareGarage = () => {
+    // Copy link to clipboard
+    navigator.clipboard.writeText(window.location.href);
+    setShowSuccess(true);
+    setTimeout(() => setShowSuccess(false), 2000);
+    toast({
+      title: "Link copied!",
+      description: "Your garage link has been copied to clipboard",
+    });
+  };
+
   // Get selected car data for comparison
   const getSelectedCarData = () => {
     return savedCars
@@ -78,68 +90,99 @@ const GarageQuickActions: React.FC<GarageQuickActionsProps> = ({ carCount }) => 
 
   return (
     <>
-      <Card className="bg-neutral-8 border-neutral-6">
-        <CardContent className="p-4">
-          <div className="space-y-3">
-            {/* Title and subtitle in horizontal row */}
+      {/* Success notification */}
+      {showSuccess && (
+        <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-3 rounded-xl shadow-modern-lg animate-in slide-in-from-top-2 z-50">
+          <div className="flex items-center">
+            <Check className="w-4 h-4 mr-2" />
+            <span className="typography-caption font-medium">Link copied successfully!</span>
+          </div>
+        </div>
+      )}
+
+      <Card className="bg-gradient-to-r from-neutral-8 to-neutral-7 border border-neutral-6 shadow-modern">
+        <CardContent className="p-6">
+          <div className="space-y-4">
+            {/* Enhanced header */}
             <div className="flex items-center justify-between">
-              <h3 className="typography-caption text-neutral-1">Quick Actions</h3>
-              <p className="typography-caption-small text-neutral-4">
-                Compare, calculate, and share your vehicles
-              </p>
+              <div>
+                <h3 className="typography-subtitle text-neutral-1 mb-1">Quick Actions</h3>
+                <p className="typography-caption text-neutral-4">
+                  Compare, calculate, and share your vehicles
+                </p>
+              </div>
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-modern">
+                <BarChart3 className="w-5 h-5 text-motortrend-red" />
+              </div>
             </div>
             
-            {/* Action buttons in their own row */}
-            <div className="flex items-center space-x-2">
+            {/* Enhanced action buttons */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <Button 
-                variant="ghost" 
-                size="sm" 
-                className="flex items-center space-x-2"
+                variant="outline" 
+                className="flex flex-col items-center space-y-2 h-auto py-4 px-3 border-neutral-6 hover:border-motortrend-red hover:bg-motortrend-red/5 transition-all duration-200"
                 onClick={handleOpenCompareModal}
               >
-                <BarChart3 className="w-4 h-4" />
-                <span className="hidden sm:inline">Compare</span>
+                <BarChart3 className="w-5 h-5 text-motortrend-red" />
+                <span className="typography-caption font-medium">Compare</span>
               </Button>
               
-              <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-                <Calculator className="w-4 h-4" />
-                <span className="hidden sm:inline">Calculate</span>
+              <Button 
+                variant="outline" 
+                className="flex flex-col items-center space-y-2 h-auto py-4 px-3 border-neutral-6 hover:border-blue-500 hover:bg-blue-50 transition-all duration-200"
+              >
+                <Calculator className="w-5 h-5 text-blue-500" />
+                <span className="typography-caption font-medium">Calculate</span>
               </Button>
               
-              <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-                <Share2 className="w-4 h-4" />
-                <span className="hidden sm:inline">Share</span>
+              <Button 
+                variant="outline" 
+                className="flex flex-col items-center space-y-2 h-auto py-4 px-3 border-neutral-6 hover:border-green-500 hover:bg-green-50 transition-all duration-200"
+                onClick={handleShareGarage}
+              >
+                <Share2 className="w-5 h-5 text-green-500" />
+                <span className="typography-caption font-medium">Share</span>
               </Button>
               
-              <Button variant="ghost" size="sm" className="flex items-center space-x-2">
-                <Download className="w-4 h-4" />
-                <span className="hidden sm:inline">Export</span>
+              <Button 
+                variant="outline" 
+                className="flex flex-col items-center space-y-2 h-auto py-4 px-3 border-neutral-6 hover:border-purple-500 hover:bg-purple-50 transition-all duration-200"
+              >
+                <Download className="w-5 h-5 text-purple-500" />
+                <span className="typography-caption font-medium">Export</span>
               </Button>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Comparison Modal */}
+      {/* Enhanced Comparison Modal */}
       <Dialog open={isCompareModalOpen} onOpenChange={handleCloseModal}>
-        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto m-4 md:m-4 xl:m-4">
-          <DialogHeader>
+        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto m-4 rounded-2xl border-0 shadow-modern-xl">
+          <DialogHeader className="pb-6 border-b border-neutral-6">
             <DialogTitle className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3">
                 {showComparison && (
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={handleBackToSelection}
-                    className="p-1"
+                    className="p-2 hover:bg-neutral-8 rounded-xl transition-all duration-150"
                   >
                     <ArrowLeft className="w-4 h-4" />
                   </Button>
                 )}
-                <span>{showComparison ? 'Vehicle Comparison' : 'Compare Vehicles'}</span>
+                <div>
+                  <h2 className="typography-title text-neutral-1">
+                    {showComparison ? 'Vehicle Comparison' : 'Compare Vehicles'}
+                  </h2>
+                  <p className="typography-caption text-neutral-4 mt-1">
+                    {showComparison ? 'Side-by-side comparison' : 'Select vehicles to compare'}
+                  </p>
+                </div>
               </div>
               {!showComparison && (
-                <Badge variant="secondary">
+                <Badge variant="secondary" className="bg-motortrend-red/10 text-motortrend-red border-motortrend-red/20">
                   {selectedCars.length} selected
                 </Badge>
               )}
@@ -147,13 +190,15 @@ const GarageQuickActions: React.FC<GarageQuickActionsProps> = ({ carCount }) => 
           </DialogHeader>
           
           {!showComparison ? (
-            /* Selection View */
-            <div className="space-y-4">
-              <p className="text-sm text-neutral-4">
-                Select 2 or more vehicles from your garage to compare their specifications, pricing, and features.
-              </p>
+            /* Enhanced Selection View */
+            <div className="space-y-6 pt-6">
+              <div className="bg-neutral-8 rounded-xl p-4 border border-neutral-6">
+                <p className="typography-body text-neutral-3">
+                  Select 2 or more vehicles from your garage to compare their specifications, pricing, and features.
+                </p>
+              </div>
               
-              {/* Vehicle Grid */}
+              {/* Enhanced Vehicle Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {savedCars.map(car => {
                   const carData = savedItemToCarData(car);
@@ -162,38 +207,41 @@ const GarageQuickActions: React.FC<GarageQuickActionsProps> = ({ carCount }) => 
                   return (
                     <div
                       key={car.id}
-                      className={`relative border rounded-lg p-4 cursor-pointer transition-all ${
+                      className={`relative border-2 rounded-xl p-4 cursor-pointer transition-all duration-200 ${
                         isSelected 
-                          ? 'border-motortrend-red bg-motortrend-red/5' 
-                          : 'border-neutral-6 hover:border-neutral-5'
+                          ? 'border-motortrend-red bg-motortrend-red/5 shadow-modern' 
+                          : 'border-neutral-6 hover:border-neutral-5 hover:shadow-modern'
                       }`}
                       onClick={() => handleToggleCarSelection(car.id)}
                     >
-                      {/* Selection indicator */}
-                      <div className="absolute top-2 right-2">
-                        {isSelected ? (
-                          <CheckSquare className="w-5 h-5 text-motortrend-red" />
-                        ) : (
-                          <Square className="w-5 h-5 text-neutral-4" />
-                        )}
+                      {/* Enhanced selection indicator */}
+                      <div className="absolute top-3 right-3">
+                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all duration-200 ${
+                          isSelected 
+                            ? 'border-motortrend-red bg-motortrend-red' 
+                            : 'border-neutral-4 bg-white'
+                        }`}>
+                          {isSelected && <Check className="w-3 h-3 text-white" />}
+                        </div>
                       </div>
                       
-                      {/* Car info */}
-                      <div className="flex gap-3">
+                      {/* Enhanced car info */}
+                      <div className="flex gap-4 pr-8">
                         <img
                           src={carData.imageUrl}
                           alt={carData.title}
-                          className="w-20 h-16 object-cover rounded"
+                          className="w-24 h-20 object-cover rounded-lg shadow-modern"
                         />
                         <div className="flex-1">
-                          <h4 className="font-semibold text-sm mb-1">{carData.title}</h4>
-                          <p className="text-sm text-neutral-4 mb-1">{carData.price}</p>
+                          <h4 className="typography-subtitle text-neutral-1 mb-2">{carData.title}</h4>
+                          <p className="typography-body text-motortrend-red font-medium mb-2">{carData.price}</p>
                           <div className="flex gap-2">
-                            <Badge variant="outline" className="text-xs">
+                            <Badge variant="outline" className="typography-small border-neutral-5 text-neutral-3">
                               {carData.category}
                             </Badge>
                             {carData.motorTrendScore && (
-                              <Badge variant="outline" className="text-xs">
+                              <Badge variant="outline" className="typography-small border-motortrend-red/20 text-motortrend-red bg-motortrend-red/5">
+                                <Star className="w-3 h-3 mr-1" />
                                 MT {carData.motorTrendScore}
                               </Badge>
                             )}
@@ -204,144 +252,198 @@ const GarageQuickActions: React.FC<GarageQuickActionsProps> = ({ carCount }) => 
                   );
                 })}
               </div>
-              
-              {/* Action buttons */}
-              <div className="flex justify-between items-center pt-4 border-t">
+
+              {/* Enhanced action buttons */}
+              <div className="flex justify-between items-center pt-6 border-t border-neutral-6">
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   onClick={handleCloseModal}
+                  className="text-neutral-4 hover:text-neutral-2"
                 >
                   Cancel
                 </Button>
-                
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    onClick={() => setSelectedCars([])}
-                    disabled={selectedCars.length === 0}
-                  >
-                    Clear Selection
-                  </Button>
-                  <Button
-                    onClick={handleCompare}
-                    disabled={selectedCars.length < 2}
-                    className="bg-motortrend-red hover:bg-motortrend-red/90"
-                  >
-                    Compare {selectedCars.length > 0 && `(${selectedCars.length})`}
-                  </Button>
-                </div>
+                <Button
+                  onClick={handleCompare}
+                  disabled={selectedCars.length < 2}
+                  className="bg-motortrend-red text-white hover:bg-red-600 shadow-modern px-6 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Compare {selectedCars.length > 0 && `(${selectedCars.length})`}
+                </Button>
               </div>
             </div>
           ) : (
-            /* Comparison View */
-            <div className="space-y-6">
-              {/* Scores at the top */}
-              <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${selectedCars.length}, 1fr)` }}>
-                {getSelectedCarData().map(car => (
-                  <div key={car.id} className="text-center">
-                    <img
-                      src={car.imageUrl}
-                      alt={car.title}
-                      className="w-full h-32 object-cover rounded-lg mb-3"
-                    />
-                    <h3 className="font-semibold text-sm mb-3">{car.title}</h3>
-                    
-                    {/* MT Score */}
-                    <div className="bg-motortrend-red/10 rounded-lg p-3 mb-2">
-                      <div className="text-xs text-neutral-4 mb-1">MotorTrend Score</div>
-                      <div className="text-2xl font-bold text-motortrend-red">
-                        {car.motorTrendScore || 'N/A'}
+            /* Enhanced Comparison View */
+            <div className="space-y-6 pt-6">
+              {(() => {
+                const selectedCarData = getSelectedCarData();
+                
+                return (
+                  <>
+                    {/* Vehicle Headers */}
+                    <div className="grid gap-4" style={{ gridTemplateColumns: `200px repeat(${selectedCarData.length}, 1fr)` }}>
+                      <div></div>
+                      {selectedCarData.map(car => (
+                        <div key={car.id} className="bg-white rounded-xl p-4 border border-neutral-6 shadow-modern">
+                          <img
+                            src={car.imageUrl}
+                            alt={car.title}
+                            className="w-full h-32 object-cover rounded-lg mb-3"
+                          />
+                          <h4 className="typography-subtitle text-neutral-1 mb-2">{car.title}</h4>
+                          <p className="typography-body text-motortrend-red font-medium">{car.price}</p>
+                          {car.motorTrendScore && (
+                            <div className="flex items-center mt-2">
+                              <Star className="w-4 h-4 text-motortrend-red mr-1" />
+                              <span className="typography-caption text-motortrend-red">MT {car.motorTrendScore}</span>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Comparison Table */}
+                    <div className="bg-white rounded-xl border border-neutral-6 shadow-modern overflow-hidden">
+                      <div className="space-y-0">
+                        {/* Basic Information */}
+                        <div className="bg-neutral-8 px-4 py-3 border-b border-neutral-6">
+                          <h5 className="typography-subtitle text-neutral-1">Basic Information</h5>
+                        </div>
+                        
+                        {[
+                          { label: 'Year', key: 'year' },
+                          { label: 'Category', key: 'category' },
+                          { label: 'Body Style', key: 'bodyStyle' },
+                          { label: 'Fuel Type', key: 'fuelType' },
+                          { label: 'Drivetrain', key: 'drivetrain' }
+                        ].map((row, index) => (
+                          <div key={row.key} className={`grid gap-4 px-4 py-3 ${index % 2 === 0 ? 'bg-neutral-8/50' : 'bg-white'}`} style={{ gridTemplateColumns: `200px repeat(${selectedCarData.length}, 1fr)` }}>
+                            <div className="typography-caption font-medium text-neutral-2">{row.label}</div>
+                            {selectedCarData.map(car => (
+                              <div key={car.id} className="typography-caption text-neutral-1">
+                                {String(car[row.key as keyof typeof car] || 'N/A')}
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+
+                        {/* Performance */}
+                        <div className="bg-neutral-8 px-4 py-3 border-b border-neutral-6">
+                          <h5 className="typography-subtitle text-neutral-1">Performance</h5>
+                        </div>
+                        
+                        {[
+                          { label: 'Engine', key: 'engine' },
+                          { label: 'Horsepower', key: 'horsepower' },
+                          { label: 'Transmission', key: 'transmission' },
+                          { label: 'MPG', key: 'mpg' },
+                          { label: 'Range', key: 'range' }
+                        ].map((row, index) => (
+                          <div key={row.key} className={`grid gap-4 px-4 py-3 ${index % 2 === 0 ? 'bg-neutral-8/50' : 'bg-white'}`} style={{ gridTemplateColumns: `200px repeat(${selectedCarData.length}, 1fr)` }}>
+                            <div className="typography-caption font-medium text-neutral-2">{row.label}</div>
+                            {selectedCarData.map(car => (
+                              <div key={car.id} className="typography-caption text-neutral-1">
+                                {String(car[row.key as keyof typeof car] || 'N/A')}
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+
+                        {/* Pricing */}
+                        <div className="bg-neutral-8 px-4 py-3 border-b border-neutral-6">
+                          <h5 className="typography-subtitle text-neutral-1">Pricing</h5>
+                        </div>
+                        
+                        {[
+                          { label: 'Current Price', key: 'price' },
+                          { label: 'MSRP', key: 'msrp' },
+                          { label: 'Mileage', key: 'mileage' }
+                        ].map((row, index) => (
+                          <div key={row.key} className={`grid gap-4 px-4 py-3 ${index % 2 === 0 ? 'bg-neutral-8/50' : 'bg-white'}`} style={{ gridTemplateColumns: `200px repeat(${selectedCarData.length}, 1fr)` }}>
+                            <div className="typography-caption font-medium text-neutral-2">{row.label}</div>
+                            {selectedCarData.map(car => (
+                              <div key={car.id} className="typography-caption text-neutral-1">
+                                {String(car[row.key as keyof typeof car] || 'N/A')}
+                              </div>
+                            ))}
+                          </div>
+                        ))}
+
+                        {/* Ratings */}
+                        <div className="bg-neutral-8 px-4 py-3 border-b border-neutral-6">
+                          <h5 className="typography-subtitle text-neutral-1">Ratings</h5>
+                        </div>
+                        
+                        {[
+                          { label: 'MotorTrend Score', key: 'motorTrendScore' },
+                          { label: 'User Reviews', key: 'userReviewsScore' },
+                          { label: 'Category Rank', key: 'motorTrendCategoryRank' }
+                        ].map((row, index) => (
+                          <div key={row.key} className={`grid gap-4 px-4 py-3 ${index % 2 === 0 ? 'bg-neutral-8/50' : 'bg-white'}`} style={{ gridTemplateColumns: `200px repeat(${selectedCarData.length}, 1fr)` }}>
+                            <div className="typography-caption font-medium text-neutral-2">{row.label}</div>
+                            {selectedCarData.map(car => (
+                              <div key={car.id} className="typography-caption text-neutral-1">
+                                {row.key === 'motorTrendScore' && car[row.key] ? (
+                                  <div className="flex items-center">
+                                    <Star className="w-3 h-3 text-motortrend-red mr-1" />
+                                    {car[row.key]}
+                                  </div>
+                                ) : row.key === 'userReviewsScore' && car[row.key] ? (
+                                  <div className="flex items-center">
+                                    <Star className="w-3 h-3 text-blue-500 mr-1" />
+                                    {car[row.key]}/10
+                                  </div>
+                                ) : row.key === 'motorTrendCategoryRank' ? (
+                                  car[row.key] ? 'Top Ranked' : 'Not Ranked'
+                                ) : (
+                                  String(car[row.key as keyof typeof car] || 'N/A')
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        ))}
                       </div>
                     </div>
-                    
-                    {/* Owner Score */}
-                    <div className="bg-blue-50 rounded-lg p-3">
-                      <div className="text-xs text-neutral-4 mb-1">Owner Score</div>
-                      <div className="flex items-center justify-center gap-1">
-                        <Star className="w-4 h-4 text-yellow-500 fill-current" />
-                        <span className="text-xl font-bold text-blue-600">
-                          {car.userReviewsScore || '4.2'}
-                        </span>
+
+                    {/* Action Buttons */}
+                    <div className="flex justify-between items-center pt-4 border-t border-neutral-6">
+                      <Button
+                        variant="ghost"
+                        onClick={handleBackToSelection}
+                        className="text-neutral-4 hover:text-neutral-2"
+                      >
+                        <ArrowLeft className="w-4 h-4 mr-2" />
+                        Back to Selection
+                      </Button>
+                      <div className="flex gap-3">
+                        <Button
+                          variant="outline"
+                          onClick={() => {
+                            // Export comparison as PDF or share
+                            toast({
+                              title: "Export feature",
+                              description: "Export functionality will be implemented soon",
+                            });
+                          }}
+                          className="border-neutral-5 text-neutral-2 hover:bg-neutral-8"
+                        >
+                          <Download className="w-4 h-4 mr-2" />
+                          Export
+                        </Button>
+                        <Button
+                          onClick={() => {
+                            // Share comparison
+                            handleShareGarage();
+                          }}
+                          className="bg-motortrend-red text-white hover:bg-red-600"
+                        >
+                          <Share2 className="w-4 h-4 mr-2" />
+                          Share Comparison
+                        </Button>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-              
-              {/* Comparison Table */}
-              <div className="border rounded-lg overflow-hidden">
-                <div className="bg-neutral-8 p-3 border-b">
-                  <h4 className="font-semibold">Specifications</h4>
-                </div>
-                
-                {/* Price */}
-                <div className="grid border-b" style={{ gridTemplateColumns: `200px repeat(${selectedCars.length}, 1fr)` }}>
-                  <div className="p-3 bg-neutral-8 font-medium">Price</div>
-                  {getSelectedCarData().map(car => (
-                    <div key={`${car.id}-price`} className="p-3 text-center font-semibold">
-                      {car.price}
-                    </div>
-                  ))}
-                </div>
-                
-                {/* Category */}
-                <div className="grid border-b" style={{ gridTemplateColumns: `200px repeat(${selectedCars.length}, 1fr)` }}>
-                  <div className="p-3 bg-neutral-8 font-medium">Category</div>
-                  {getSelectedCarData().map(car => (
-                    <div key={`${car.id}-category`} className="p-3 text-center">
-                      {car.category}
-                    </div>
-                  ))}
-                </div>
-                
-                {/* Fuel Type */}
-                <div className="grid border-b" style={{ gridTemplateColumns: `200px repeat(${selectedCars.length}, 1fr)` }}>
-                  <div className="p-3 bg-neutral-8 font-medium">Fuel Type</div>
-                  {getSelectedCarData().map(car => (
-                    <div key={`${car.id}-fuel`} className="p-3 text-center">
-                      {car.fuelType || 'N/A'}
-                    </div>
-                  ))}
-                </div>
-                
-                {/* MPG/MPGe */}
-                <div className="grid border-b" style={{ gridTemplateColumns: `200px repeat(${selectedCars.length}, 1fr)` }}>
-                  <div className="p-3 bg-neutral-8 font-medium">Efficiency</div>
-                  {getSelectedCarData().map(car => (
-                    <div key={`${car.id}-mpg`} className="p-3 text-center">
-                      {car.mpge ? `${car.mpge} MPGe` : car.mpg ? `${car.mpg} MPG` : 'N/A'}
-                    </div>
-                  ))}
-                </div>
-                
-                {/* Engine/Range */}
-                <div className="grid" style={{ gridTemplateColumns: `200px repeat(${selectedCars.length}, 1fr)` }}>
-                  <div className="p-3 bg-neutral-8 font-medium">Engine/Range</div>
-                  {getSelectedCarData().map(car => (
-                    <div key={`${car.id}-engine`} className="p-3 text-center">
-                      {car.range ? `${car.range} miles` : car.engine || 'N/A'}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Action buttons */}
-              <div className="flex justify-between items-center pt-4 border-t">
-                <Button
-                  variant="outline"
-                  onClick={handleBackToSelection}
-                >
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back to Selection
-                </Button>
-                
-                <Button
-                  onClick={handleCloseModal}
-                  className="bg-motortrend-red hover:bg-motortrend-red/90"
-                >
-                  Done
-                </Button>
-              </div>
+                  </>
+                );
+              })()}
             </div>
           )}
         </DialogContent>

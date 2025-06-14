@@ -38,7 +38,7 @@ export const GarageVehicleCard: React.FC<GarageVehicleCardProps> = ({
         />
         <div className="absolute top-2 right-2">
           <Badge className={statusColors[status]}>
-            {status === 'owned' ? 'Owned' : status === 'testDriven' ? 'Test Driven' : 'Interested'}
+            {status === 'owned' ? 'Owned' : status === 'testDriven' ? 'Test Drive' : 'Interested'}
           </Badge>
         </div>
       </div>

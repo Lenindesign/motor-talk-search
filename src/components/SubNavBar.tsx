@@ -15,7 +15,7 @@ const SubNavBar: React.FC = () => {
   const location = useLocation();
   return (
     <nav
-      className="sticky top-[56px] z-30 w-full bg-motortrend-dark border-b border-neutral-2 shadow-sm overflow-x-auto scrollbar-none"
+      className="sticky top-[56px] z-[9998] w-full bg-motortrend-dark border-b border-neutral-2 shadow-sm overflow-x-auto scrollbar-none"
       style={{ WebkitOverflowScrolling: 'touch' }}
       aria-label="Subnavigation"
     >

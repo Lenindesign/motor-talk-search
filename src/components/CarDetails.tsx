@@ -51,7 +51,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ car, onUpdate, onDelete }) => {
       case 'testDriven':
         return (
           <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200">
-            Test Driven
+            Test Drive
           </Badge>
         );
       case 'interested':
@@ -201,7 +201,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ car, onUpdate, onDelete }) => {
                 }`}
               >
                 {ownership === 'testDriven' && <Check size={14} className="inline mr-1" />}
-                Test Driven
+                Test Drive
               </button>
               <button
                 type="button"

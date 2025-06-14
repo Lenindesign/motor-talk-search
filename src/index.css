@@ -836,3 +836,262 @@ button.bg-neutral-8 {
     @apply text-pretty antialiased;
   }
 }
+
+/* Apple-style animations for garage components */
+@keyframes slide-in-from-top {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in-from-right {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-success {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* Animation utility classes */
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.slide-in-from-top-2 {
+  animation: slide-in-from-top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-in-from-right-2 {
+  animation: slide-in-from-right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+.scale-in {
+  animation: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pulse-success {
+  animation: pulse-success 0.6s ease-in-out;
+}
+
+/* Enhanced shadow system for Apple-like depth */
+.shadow-modern {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-modern-lg {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03), 0 0 0 1px rgba(0, 0, 0, 0.02);
+}
+
+.shadow-modern-xl {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
+}
+
+/* Garage-specific component styles */
+.garage-card-hover {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.garage-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.garage-button-press {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.garage-button-press:active {
+  transform: scale(0.98);
+}
+
+/* Tab animation improvements */
+.garage-tab-transition {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.garage-tab-active {
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* Progress bar animations */
+.progress-bar {
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Loading skeleton improvements */
+.skeleton-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Scrollbar styling for better UX */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Focus states for accessibility */
+.focus-ring-modern {
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-motortrend-red focus-visible:ring-opacity-50;
+}
+
+/* Improved button states */
+.button-modern {
+  @apply transition-all duration-150 ease-out;
+  @apply focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-motortrend-red;
+  @apply active:scale-95;
+}
+
+.button-modern:hover {
+  transform: translateY(-1px);
+}
+
+/* Enhanced card interactions */
+.card-interactive {
+  @apply transition-all duration-200 ease-out cursor-pointer;
+  @apply hover:shadow-modern-lg hover:-translate-y-1;
+  @apply focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-motortrend-red;
+}
+
+/* Success notification styles */
+.notification-success {
+  @apply bg-green-500 text-white px-4 py-3 rounded-xl shadow-modern-lg;
+  animation: slide-in-from-top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Empty state improvements */
+.empty-state-icon {
+  @apply w-24 h-24 bg-gradient-to-br from-neutral-6 to-neutral-7 rounded-3xl;
+  @apply flex items-center justify-center mx-auto mb-8 shadow-modern;
+  animation: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Modal improvements */
+.modal-backdrop {
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  animation: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Garage layout specific improvements */
+.garage-layout {
+  @apply space-y-12;
+}
+
+.garage-header {
+  @apply flex items-center justify-between;
+}
+
+.garage-header-icon {
+  @apply w-12 h-12 bg-gradient-to-br from-neutral-6 to-neutral-7 rounded-2xl;
+  @apply flex items-center justify-center shadow-modern;
+}
+
+.garage-primary-button {
+  @apply bg-motortrend-red text-white;
+  @apply min-h-[44px] shadow-modern transition-all duration-150 active:scale-95;
+  background-color: var(--motortrend-red);
+}
+
+.garage-primary-button:hover {
+  background-color: var(--motortrend-red-hover);
+}
+
+/* Tab system improvements */
+.garage-tabs-container {
+  @apply bg-neutral-8 rounded-2xl p-2 shadow-modern border border-neutral-6;
+}
+
+.garage-tab-trigger {
+  @apply flex flex-col items-center py-4 px-4 rounded-xl;
+  @apply transition-all duration-200;
+  @apply data-[state=active]:bg-white data-[state=active]:shadow-modern;
+}
+
+/* Quick actions grid */
+.garage-quick-actions {
+  @apply grid grid-cols-2 md:grid-cols-4 gap-3;
+}
+
+.garage-action-button {
+  @apply flex flex-col items-center space-y-2 h-auto py-4 px-3;
+  @apply border-neutral-6 transition-all duration-200;
+}
+
+/* Insights improvements */
+.garage-insights-grid {
+  @apply grid grid-cols-2 md:grid-cols-4 gap-6;
+}
+
+.garage-insight-card {
+  @apply bg-white rounded-2xl p-6 shadow-modern border border-neutral-6;
+  @apply hover:shadow-modern-lg transition-all duration-200 hover:-translate-y-1;
+}
+
+/* Vehicle grid improvements */
+.garage-vehicle-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 p-6;
+}
+
+.garage-vehicle-card {
+  @apply transition-all duration-200 hover:shadow-modern-lg hover:-translate-y-1;
+}

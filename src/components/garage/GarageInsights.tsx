@@ -2,7 +2,7 @@ import React from "react";
 import { SavedItem } from "../../contexts/SavedItemsContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, DollarSign, Fuel, Award, Car } from "lucide-react";
+import { TrendingUp, DollarSign, Fuel, Award, Car, BarChart3, Target, Calendar } from "lucide-react";
 
 interface GarageInsightsProps {
   cars: SavedItem[];
@@ -28,57 +28,175 @@ const GarageInsights: React.FC<GarageInsightsProps> = ({ cars }) => {
     .reduce((sum, price, _, arr) => sum + price / arr.length, 0);
 
   const ownedCount = cars.filter(car => car.metadata?.ownership === 'owned').length;
+  const testDriveCount = cars.filter(car => car.metadata?.ownership === 'testDriven').length;
+  const interestedCount = cars.filter(car => car.metadata?.ownership === 'interested').length;
+
+  // Calculate percentage distributions
+  const totalCars = cars.length;
+  const ownedPercentage = totalCars > 0 ? Math.round((ownedCount / totalCars) * 100) : 0;
+  const testDrivePercentage = totalCars > 0 ? Math.round((testDriveCount / totalCars) * 100) : 0;
+  const interestedPercentage = totalCars > 0 ? Math.round((interestedCount / totalCars) * 100) : 0;
+
+  const insights = [
+    {
+      icon: <Car className="w-6 h-6 text-white" />,
+      label: "Total Vehicles",
+      value: cars.length.toString(),
+      subtitle: "In your garage",
+      bgColor: "bg-gradient-to-br from-neutral-1 to-neutral-2",
+      percentage: null
+    },
+    {
+      icon: <Award className="w-6 h-6 text-white" />,
+      label: "Favorite Type",
+      value: topCategory ? topCategory[0] : "None",
+      subtitle: topCategory ? `${topCategory[1]} vehicle${topCategory[1] !== 1 ? 's' : ''}` : "No data",
+      bgColor: "bg-gradient-to-br from-motortrend-red to-red-600",
+      percentage: null
+    },
+    {
+      icon: <DollarSign className="w-6 h-6 text-white" />,
+      label: "Avg. Price",
+      value: averagePrice > 0 ? `$${Math.round(averagePrice / 1000)}K` : "N/A",
+      subtitle: "Across all vehicles",
+      bgColor: "bg-gradient-to-br from-green-500 to-green-600",
+      percentage: null
+    },
+    {
+      icon: <Target className="w-6 h-6 text-white" />,
+      label: "Owned Cars",
+      value: ownedCount.toString(),
+      subtitle: `${ownedPercentage}% of garage`,
+      bgColor: "bg-gradient-to-br from-blue-500 to-blue-600",
+      percentage: ownedPercentage
+    }
+  ];
 
   return (
-    <Card className="bg-gradient-to-r from-neutral-8 to-neutral-7 border-neutral-6">
-      <CardHeader>
-        <CardTitle className="typography-subtitle text-neutral-1 flex items-center">
-          <TrendingUp className="w-5 h-5 mr-2" />
-          Garage Insights
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="text-center">
-            <div className="flex items-center justify-center w-10 h-10 bg-neutral-1 rounded-full mx-auto mb-2">
-              <Car className="w-5 h-5 text-white" />
-            </div>
-            <div className="typography-body-large text-neutral-1 font-semibold">{cars.length}</div>
-            <div className="typography-caption-small text-neutral-4">Total Vehicles</div>
+    <div className="p-6">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-motortrend-red to-red-600 rounded-xl flex items-center justify-center shadow-modern">
+            <BarChart3 className="w-5 h-5 text-white" />
           </div>
-
-          {topCategory && (
-            <div className="text-center">
-              <div className="flex items-center justify-center w-10 h-10 bg-motortrend-red rounded-full mx-auto mb-2">
-                <Award className="w-5 h-5 text-white" />
-              </div>
-              <div className="typography-caption text-neutral-1 font-semibold">{topCategory[0]}</div>
-              <div className="typography-caption-small text-neutral-4">Favorite Type</div>
-            </div>
-          )}
-
-          {averagePrice > 0 && (
-            <div className="text-center">
-              <div className="flex items-center justify-center w-10 h-10 bg-green-500 rounded-full mx-auto mb-2">
-                <DollarSign className="w-5 h-5 text-white" />
-              </div>
-              <div className="typography-caption text-neutral-1 font-semibold">
-                ${Math.round(averagePrice / 1000)}K
-              </div>
-              <div className="typography-caption-small text-neutral-4">Avg. Price</div>
-            </div>
-          )}
-
-          <div className="text-center">
-            <div className="flex items-center justify-center w-10 h-10 bg-blue-500 rounded-full mx-auto mb-2">
-              <Fuel className="w-5 h-5 text-white" />
-            </div>
-            <div className="typography-caption text-neutral-1 font-semibold">{ownedCount}</div>
-            <div className="typography-caption-small text-neutral-4">Owned</div>
+          <div>
+            <h2 className="typography-title text-neutral-1">Garage Insights</h2>
+            <p className="typography-caption text-neutral-4">Your automotive preferences at a glance</p>
           </div>
         </div>
-      </CardContent>
-    </Card>
+        <Badge variant="outline" className="border-neutral-5 text-neutral-3 bg-white">
+          <Calendar className="w-3 h-3 mr-1" />
+          Updated now
+        </Badge>
+      </div>
+
+      {/* Main Insights Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        {insights.map((insight, index) => (
+          <div
+            key={index}
+            className="bg-white rounded-2xl p-4 shadow-modern border border-neutral-6 hover:shadow-modern-lg transition-all duration-200 hover:-translate-y-1"
+          >
+            <div className="flex items-start justify-between mb-3">
+              <div className={`w-10 h-10 ${insight.bgColor} rounded-xl flex items-center justify-center shadow-modern`}>
+                {insight.icon}
+              </div>
+              {insight.percentage !== null && (
+                <div className="text-right">
+                  <div className="text-xs text-neutral-4">of total</div>
+                  <div className="text-sm font-semibold text-neutral-2">{insight.percentage}%</div>
+                </div>
+              )}
+            </div>
+            
+            <div className="space-y-1">
+              <div className="typography-title text-neutral-1">{insight.value}</div>
+              <div className="typography-caption font-medium text-neutral-2">{insight.label}</div>
+              <div className="typography-small text-neutral-4">{insight.subtitle}</div>
+            </div>
+
+            {/* Progress bar for percentage-based insights */}
+            {insight.percentage !== null && (
+              <div className="mt-3">
+                <div className="w-full bg-neutral-7 rounded-full h-2">
+                  <div 
+                    className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-500"
+                    style={{ width: `${insight.percentage}%` }}
+                  ></div>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Category Breakdown */}
+      {Object.keys(categories).length > 1 && (
+        <div className="bg-white rounded-2xl p-4 shadow-modern border border-neutral-6 mb-4">
+          <h3 className="typography-subtitle text-neutral-1 mb-4 flex items-center">
+            <TrendingUp className="w-5 h-5 mr-2 text-motortrend-red" />
+            Vehicle Categories
+          </h3>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            {Object.entries(categories)
+              .sort((a, b) => b[1] - a[1])
+              .map(([category, count]) => {
+                const percentage = Math.round((count / totalCars) * 100);
+                return (
+                  <div key={category} className="bg-neutral-8 rounded-xl p-3 border border-neutral-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="typography-caption font-medium text-neutral-1 capitalize">
+                        {category}
+                      </span>
+                      <Badge variant="outline" className="text-xs border-neutral-5 text-neutral-3">
+                        {count}
+                      </Badge>
+                    </div>
+                    <div className="w-full bg-neutral-6 rounded-full h-1.5">
+                      <div 
+                        className="bg-gradient-to-r from-motortrend-red to-red-600 h-1.5 rounded-full transition-all duration-500"
+                        style={{ width: `${percentage}%` }}
+                      ></div>
+                    </div>
+                    <div className="typography-small text-neutral-4 mt-1">{percentage}%</div>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
+      )}
+
+      {/* Quick Stats Row */}
+      <div className="grid grid-cols-3 gap-3">
+        <div className="bg-green-50 rounded-xl p-3 border border-green-200">
+          <div className="flex items-center space-x-2 mb-1">
+            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+            <span className="typography-caption text-green-700 font-medium">Test Drive Ready</span>
+          </div>
+          <div className="typography-subtitle text-green-800">{testDriveCount}</div>
+          <div className="typography-small text-green-600">{testDrivePercentage}% of garage</div>
+        </div>
+
+        <div className="bg-blue-50 rounded-xl p-3 border border-blue-200">
+          <div className="flex items-center space-x-2 mb-1">
+            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+            <span className="typography-caption text-blue-700 font-medium">Interested</span>
+          </div>
+          <div className="typography-subtitle text-blue-800">{interestedCount}</div>
+          <div className="typography-small text-blue-600">{interestedPercentage}% of garage</div>
+        </div>
+
+        <div className="bg-purple-50 rounded-xl p-3 border border-purple-200">
+          <div className="flex items-center space-x-2 mb-1">
+            <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+            <span className="typography-caption text-purple-700 font-medium">Categories</span>
+          </div>
+          <div className="typography-subtitle text-purple-800">{Object.keys(categories).length}</div>
+          <div className="typography-small text-purple-600">Different types</div>
+        </div>
+      </div>
+    </div>
   );
 };
 

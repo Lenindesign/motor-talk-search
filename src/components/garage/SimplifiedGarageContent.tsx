@@ -226,7 +226,7 @@ const SimplifiedGarageContent = () => {
           </TabsTrigger>
           <TabsTrigger value="testDriven" className="gap-2">
             <Eye className="h-4 w-4" />
-            Test Driven <Badge variant="secondary" className="ml-1">{testDrivenCount}</Badge>
+            Test Drive List <Badge variant="secondary" className="ml-1">{testDrivenCount}</Badge>
           </TabsTrigger>
           <TabsTrigger value="interested" className="gap-2">
             <Heart className="h-4 w-4" />

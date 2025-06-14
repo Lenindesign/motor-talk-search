@@ -22,7 +22,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({
       navigate(`/search?q=${encodeURIComponent(query)}`);
     }
   };
-  return <header className="sticky top-0 left-0 right-0 z-[1000] bg-color-neutral-2 w-full px-2 sm:px-0 py-2.5 sm:py-3 shadow-modern bg-motortrend-dark" style={{ zIndex: 1000, position: 'sticky', top: 0, left: 0, right: 0 }}>
+  return <header className="sticky top-0 left-0 right-0 z-[9999] bg-color-neutral-2 w-full px-2 sm:px-0 py-2.5 sm:py-3 shadow-modern bg-motortrend-dark" style={{ zIndex: 9999, position: 'sticky', top: 0, left: 0, right: 0 }}>
       <div className="flex items-center max-w-[1024px] mx-auto w-full gap-1.5 sm:gap-4">
         {/* Logo */}
         <div className="flex-shrink-0">
