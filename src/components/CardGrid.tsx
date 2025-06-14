@@ -62,7 +62,7 @@ export const CardGrid: React.FC<CardGridProps> = ({
           year: String(carData.year), // Convert number to string
           mileage: carData.mileage ? String(carData.mileage) : undefined // Convert number to string
         };
-        return <CarCard car={carCardData} layout={cardLayout} />;
+        return <CarCard car={carCardData} type="used" layout={cardLayout} />;
       default:
         return null;
     }
