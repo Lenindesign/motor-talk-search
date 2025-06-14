@@ -51,8 +51,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           {children}
         </main>
       ) : (
-        // Regular layout with container and consistent white background
-        <main className="bg-white lg:mx-8">
+        // Regular layout with container and consistent white background - removed all margins
+        <main className="bg-white">
           <Container>
             {children}
           </Container>
