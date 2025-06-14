@@ -63,7 +63,7 @@ const TrimLevels: React.FC<TrimLevelsProps> = ({ carTitle }) => {
       </div>
 
       {/* Horizontal scrolling container with proper padding for badges */}
-      <div className="relative pt-8">
+      <div className="relative pt-6">
         <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
           {trims.map((trim, index) => (
             <div
