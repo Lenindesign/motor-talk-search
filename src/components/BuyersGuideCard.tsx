@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { Gauge, DollarSign, Fuel, Battery, Award, Star, Users, ArrowRight } from 'lucide-react';
@@ -36,8 +37,8 @@ export function BuyersGuideCard({
   const ownerRatingConverted = ownerRating * 2;
 
   return (
-    <Card className="overflow-hidden bg-white">
-      <div className="p-6 space-y-6">
+    <Card variant="newCar" className="overflow-hidden">
+      <CardContent className="p-6 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <h3 className="typography-title">{year} {make} {model}</h3>
@@ -116,7 +117,7 @@ export function BuyersGuideCard({
             </Link>
           </Button>
         </div>
-      </div>
+      </CardContent>
     </Card>
   );
 }

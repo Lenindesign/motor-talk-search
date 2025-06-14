@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, User, Clock } from 'lucide-react';
@@ -34,7 +35,10 @@ const ArticleCard: React.FC<ExtendedArticleCardProps> = ({
   if (layout === 'horizontal') {
     return (
       <Card 
+        variant="article"
         className={cn('group overflow-hidden hover:shadow-lg transition-shadow duration-300 bg-white border-0 rounded-2xl', className)}
+        isSaved={isSaved}
+        onToggleSave={toggleSave}
         showSaveButton={false}
       >
         <Link to={`/article/${article.id}`} className="block">
@@ -47,7 +51,7 @@ const ArticleCard: React.FC<ExtendedArticleCardProps> = ({
                     {article.category}
                   </div>
                 )}
-                <h3 className="text-base font-semibold line-clamp-3 group-hover:text-motortrend-red transition-colors leading-tight text-gray-900 mb-3">
+                <h3 className="typography-title line-clamp-3 group-hover:text-motortrend-red transition-colors leading-tight text-gray-900 mb-3">
                   {article.title}
                 </h3>
               </div>
@@ -101,25 +105,20 @@ const ArticleCard: React.FC<ExtendedArticleCardProps> = ({
 
   return (
     <Card 
+      variant="article"
       className={cn('group overflow-hidden hover:shadow-lg transition-shadow duration-300', className)}
       isSaved={isSaved}
       onToggleSave={toggleSave}
+      imageUrl={article.imageUrl}
     >
       <Link to={`/article/${article.id}`} className="block">
-        <div className="aspect-video overflow-hidden">
-          <img 
-            src={article.imageUrl} 
-            alt={article.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-          />
-        </div>
         <CardContent className="p-4">
           {showCategory && (
             <div className="text-xs font-medium text-neutral-3 mb-2 uppercase tracking-wide">
               {article.category}
             </div>
           )}
-          <h3 className="typography-subtitle line-clamp-2 group-hover:text-motortrend-red transition-colors">
+          <h3 className="typography-title line-clamp-2 group-hover:text-motortrend-red transition-colors">
             {article.title}
           </h3>
           {showExcerpt && article.excerpt && (
