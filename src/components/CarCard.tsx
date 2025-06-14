@@ -197,7 +197,7 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
         <div className="grid gap-2">
         <div className="flex items-start justify-between">
           <RouterLink to={linkPath} className="flex-grow">
-            <h3 className="typography-subtitle line-clamp-2 transition-colors text-neutral-1">
+            <h3 className="typography-title line-clamp-2 transition-colors text-neutral-1">
               {car.title}
             </h3>
           </RouterLink>
