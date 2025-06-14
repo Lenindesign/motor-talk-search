@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { LayoutToggle, LayoutMode } from './ui/layout-toggle';
 import { ArticleData } from '@/types/article';
@@ -24,16 +25,39 @@ export const CardGrid: React.FC<CardGridProps> = ({
 }) => {
   const [layout, setLayout] = useState<LayoutMode>('grid');
 
+  // Convert LayoutMode to the format expected by card components
+  const cardLayout = layout === 'grid' ? 'grid' : 'list';
+
   const renderCard = (item: CardData) => {
     switch (type) {
       case 'article':
-        return <ArticleCard article={item as ArticleData} layout={layout} />;
+        return <ArticleCard article={item as ArticleData} layout={cardLayout} />;
       case 'video':
-        return <VideoCard video={item as VideoData} layout={layout} />;
+        // Convert VideoData to match VideoCard expectations
+        const videoData = item as VideoData;
+        const videoCardData = {
+          ...videoData,
+          imageUrl: videoData.thumbnailUrl || '/placeholder.svg'
+        };
+        return <VideoCard video={videoCardData} layout={cardLayout} />;
       case 'photo':
-        return <PhotoCard photo={item as PhotoData} layout={layout} />;
+        // Convert PhotoData to match PhotoCard expectations
+        const photoData = item as PhotoData;
+        const photoCardData = {
+          ...photoData,
+          make: 'Unknown',
+          carModel: 'Unknown',
+          year: 'Unknown'
+        };
+        return <PhotoCard photo={photoCardData} layout={cardLayout} />;
       case 'car':
-        return <CarCard car={item as CarData} layout={layout} />;
+        // Convert CarData to match CarCard expectations
+        const carData = item as CarData;
+        const carCardData = {
+          ...carData,
+          category: 'Vehicle'
+        };
+        return <CarCard car={carCardData} layout={cardLayout} />;
       default:
         return null;
     }

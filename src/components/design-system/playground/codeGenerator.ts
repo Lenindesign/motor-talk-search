@@ -65,9 +65,9 @@ export default function MyCard() {
       </CardHeader>
       <CardContent>
         <img src="${data.imageUrl}" alt="${data.title}" className="w-full h-48 object-cover rounded-md" />
-        ${data.price ? `<p className="mt-4 text-lg font-semibold">${data.price}</p>` : ''}
-        ${(data as any).year ? `<p className="text-sm text-gray-600">${(data as any).year}</p>` : ''}
-        ${(data as any).date ? `<p className="text-sm text-gray-600">${(data as any).date}</p>` : ''}
+        ${'price' in data ? `<p className="mt-4 text-lg font-semibold">${data.price}</p>` : ''}
+        ${'year' in data ? `<p className="text-sm text-gray-600">${data.year}</p>` : ''}
+        ${'date' in data ? `<p className="text-sm text-gray-600">${data.date}</p>` : ''}
       </CardContent>
     </Card>
   );
@@ -80,9 +80,9 @@ export default function MyCard() {
   </div>
   <div class="card-content">
     <img src="${data.imageUrl}" alt="${data.title}" class="w-full h-48 object-cover rounded-md" />
-    ${data.price ? `<p class="mt-4 text-lg font-semibold">${data.price}</p>` : ''}
-    ${(data as any).year ? `<p class="text-sm text-gray-600">${(data as any).year}</p>` : ''}
-    ${(data as any).date ? `<p class="text-sm text-gray-600">${(data as any).date}</p>` : ''}
+    ${'price' in data ? `<p class="mt-4 text-lg font-semibold">${data.price}</p>` : ''}
+    ${'year' in data ? `<p class="text-sm text-gray-600">${data.year}</p>` : ''}
+    ${'date' in data ? `<p class="text-sm text-gray-600">${data.date}</p>` : ''}
   </div>
 </div>`;
   }

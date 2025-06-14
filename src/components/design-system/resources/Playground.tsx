@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -35,9 +36,9 @@ const Playground = () => {
 
     switch (selectedComponent) {
       case 'button':
-        return <Button {...commonProps}>{componentProps.children}</Button>;
+        return <Button {...commonProps} variant={componentProps.variant as any}>{componentProps.children}</Button>;
       case 'badge':
-        return <Badge {...commonProps}>{componentProps.children || 'Badge'}</Badge>;
+        return <Badge {...commonProps} variant={componentProps.variant as any}>{componentProps.children || 'Badge'}</Badge>;
       case 'input':
         return <Input {...commonProps} placeholder="Type something..." />;
       case 'card':
