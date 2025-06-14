@@ -5,8 +5,15 @@ import { Link } from 'react-router-dom';
 import { useCardSave } from '../../hooks/useCardSave';
 
 // Bookmark button component for carousel slides
-const SlideBookmarkButton: React.FC<{ slide: HeroSlide }> = ({ slide }) => {
-  const { isSaved, toggleSave } = useCardSave({
+const SlideBookmarkButton: React.FC<{
+  slide: HeroSlide;
+}> = ({
+  slide
+}) => {
+  const {
+    isSaved,
+    toggleSave
+  } = useCardSave({
     id: slide.id,
     type: 'article',
     title: slide.title,
@@ -19,28 +26,14 @@ const SlideBookmarkButton: React.FC<{ slide: HeroSlide }> = ({ slide }) => {
       linkTo: slide.linkTo
     }
   });
-
-  return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={(e) => {
-        e.stopPropagation();
-        toggleSave();
-      }}
-      className={`w-10 h-10 rounded-full backdrop-blur-sm transition-all duration-200 border border-white/20 ${
-        isSaved 
-          ? 'bg-white/20 text-white border-white/40 hover:bg-white/30' 
-          : 'bg-black/20 text-white/70 hover:bg-white/15 hover:text-white/90'
-      }`}
-      aria-label={isSaved ? "Remove from saved stories" : "Save story"}
-    >
+  return <Button variant="ghost" size="icon" onClick={e => {
+    e.stopPropagation();
+    toggleSave();
+  }} className={`w-10 h-10 rounded-full backdrop-blur-sm transition-all duration-200 border border-white/20 ${isSaved ? 'bg-white/20 text-white border-white/40 hover:bg-white/30' : 'bg-black/20 text-white/70 hover:bg-white/15 hover:text-white/90'}`} aria-label={isSaved ? "Remove from saved stories" : "Save story"}>
       <Bookmark className={`h-4 w-4 ${isSaved ? 'fill-current' : ''}`} />
       <span className="sr-only">{isSaved ? 'Saved' : 'Save'}</span>
-    </Button>
-  );
+    </Button>;
 };
-
 export interface HeroSlide {
   id: string;
   title: string;
@@ -206,7 +199,7 @@ const HeroCarousel: React.FC<HeroCarouselProps> = ({
                         </span>
                       </div>
                       
-                      <h1 className="sm:text-2xl font-bold text-white pt-0 pb-2 leading-tight lg:typography-display">
+                      <h1 className="font-bold pt-0 pb-2 leading-tight lg:typography-display text-motortrend-light sm:text-2xl text-5xl">
                         {slide.title}
                       </h1>
                       
