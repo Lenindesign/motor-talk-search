@@ -27,7 +27,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
   const isFullScreen = location.pathname.startsWith('/shorts');
 
   return (
-    <div className="">
+    <div className="w-full">
       {/* Fixed nav bar (hide for garage page and shorts pages) */}
       {!shouldHideNavigation && (
         <>
@@ -51,8 +51,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({
           {children}
         </main>
       ) : (
-        // Regular layout with container and tablet margins
-        <main className="bg-gray-50 md:mx-6 lg:mx-8">
+        // Regular layout with container
+        <main className="bg-white">
           <Container>
             {children}
           </Container>
