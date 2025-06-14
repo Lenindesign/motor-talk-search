@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import { LayoutToggle, LayoutMode } from './ui/layout-toggle';
 import { ArticleData } from '@/types/article';
@@ -26,7 +27,7 @@ export const CardGrid: React.FC<CardGridProps> = ({
   const [layout, setLayout] = useState<LayoutMode>('grid');
 
   // Convert LayoutMode to the format expected by card components
-  const cardLayout = layout === 'grid' ? 'grid' : 'list';
+  const cardLayout = layout === 'grid' ? 'vertical' : 'horizontal';
 
   const renderCard = (item: CardData) => {
     switch (type) {
@@ -37,7 +38,8 @@ export const CardGrid: React.FC<CardGridProps> = ({
         const videoData = item as VideoData;
         const videoCardData = {
           ...videoData,
-          imageUrl: videoData.thumbnailUrl || '/placeholder.svg'
+          imageUrl: videoData.thumbnailUrl || '/placeholder.svg',
+          views: String(videoData.views) // Convert number to string
         };
         return <VideoCard video={videoCardData} layout={cardLayout} />;
       case 'photo':
@@ -47,7 +49,8 @@ export const CardGrid: React.FC<CardGridProps> = ({
           ...photoData,
           make: 'Unknown',
           carModel: 'Unknown',
-          year: 'Unknown'
+          year: 'Unknown',
+          position: photoData.position ? String(photoData.position) : undefined // Convert number to string
         };
         return <PhotoCard photo={photoCardData} layout={cardLayout} />;
       case 'car':
@@ -55,7 +58,8 @@ export const CardGrid: React.FC<CardGridProps> = ({
         const carData = item as CarData;
         const carCardData = {
           ...carData,
-          category: 'Vehicle'
+          category: 'Vehicle',
+          price: carData.price || 'Price not available' // Ensure price is always present
         };
         return <CarCard car={carCardData} layout={cardLayout} />;
       default:
@@ -78,3 +82,4 @@ export const CardGrid: React.FC<CardGridProps> = ({
     </div>
   );
 };
+

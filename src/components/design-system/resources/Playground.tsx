@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -40,7 +41,9 @@ const Playground = () => {
       case 'badge':
         return <Badge {...commonProps} variant={componentProps.variant as any}>{componentProps.children || 'Badge'}</Badge>;
       case 'input':
-        return <Input {...commonProps} placeholder="Type something..." />;
+        // Remove the size prop for Input as it doesn't accept it
+        const { size, ...inputProps } = commonProps;
+        return <Input {...inputProps} placeholder="Type something..." />;
       case 'card':
         return (
           <Card className="w-[350px]">
@@ -112,7 +115,7 @@ const Playground = () => {
                     </Select>
                   </div>
 
-                  {selectedComponent !== 'card' && (
+                  {selectedComponent !== 'card' && selectedComponent !== 'input' && (
                     <>
                       <div>
                         <Label htmlFor="size">Size</Label>
@@ -178,3 +181,4 @@ const Playground = () => {
 };
 
 export default Playground;
+
