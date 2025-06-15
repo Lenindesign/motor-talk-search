@@ -78,7 +78,7 @@ const NewCarDetail: React.FC = () => {
       // Only update if we have a significant intersection
       if (activeEntry && maxRatio > 0.1) {
         setActiveSection(activeEntry.target.id);
-      }
+        }
     }, {
       threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
       rootMargin: "-80px 0px -50% 0px"
@@ -148,9 +148,9 @@ const NewCarDetail: React.FC = () => {
             to="/cars" 
             className="inline-flex items-center justify-center px-6 py-3 bg-motortrend-red text-white rounded-xl hover:bg-red-600 transition-colors duration-200"
           >
-            Browse All Cars
-          </Link>
-        </div>
+              Browse All Cars
+            </Link>
+          </div>
       </div>
     );
   }
@@ -184,23 +184,23 @@ const NewCarDetail: React.FC = () => {
       <nav className="sticky top-[56px] md:top-[64px] z-50 bg-white/95 backdrop-blur-md border-b border-neutral-6 shadow-sm">
         <div className="max-w-[980px] mx-auto px-4">
           <div className="flex items-center gap-1 md:gap-2 py-3 overflow-x-auto scrollbar-hide">
-            {sections.map(section => (
-              <button 
-                key={section.id} 
-                onClick={() => scrollToSection(section.id)} 
+              {sections.map(section => (
+                <button 
+                  key={section.id} 
+                  onClick={() => scrollToSection(section.id)} 
                 className={`px-3 md:px-4 py-2 rounded-xl text-xs md:text-sm font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
                   activeSection === section.id 
                     ? 'bg-motortrend-red text-white shadow-modern' 
                     : 'text-neutral-3 hover:text-neutral-1 hover:bg-neutral-8'
                 }`}
-              >
-                {section.title}
-              </button>
-            ))}
+                >
+                  {section.title}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      </nav>
-      
+        </nav>
+        
       {/* Main Content with Apple-style layout */}
       <div className="max-w-[980px] mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -225,14 +225,14 @@ const NewCarDetail: React.FC = () => {
                   ownerRating={ownerReviews.overallScore} 
                   carTitle={car.title} 
                   specs={{
-                    engine: '400 HP Electric Motor',
-                    acceleration: '4.2 seconds 0-60 mph',
-                    range: '405 miles EPA estimated',
-                    charging: '350kW DC Fast Charging',
-                    drivetrain: 'All-Wheel Drive',
-                    seating: '5 passengers',
-                    cargo: '28.1 cu ft',
-                    warranty: '4 years/50,000 miles'
+              engine: '400 HP Electric Motor',
+              acceleration: '4.2 seconds 0-60 mph',
+              range: '405 miles EPA estimated',
+              charging: '350kW DC Fast Charging',
+              drivetrain: 'All-Wheel Drive',
+              seating: '5 passengers',
+              cargo: '28.1 cu ft',
+              warranty: '4 years/50,000 miles'
                   }} 
                 />
               </div>
@@ -251,16 +251,16 @@ const NewCarDetail: React.FC = () => {
               <div className="p-6">
                 <h2 className="typography-title text-neutral-1 mb-6">Pricing & Calculator</h2>
                 <div className="space-y-6">
-                  <PaymentCalculator car={{
-                    ...car,
-                    msrp: selectedTrimData.price,
-                    imageUrl: car.imageUrl
-                  }} />
+              <PaymentCalculator car={{
+              ...car,
+              msrp: selectedTrimData.price,
+              imageUrl: car.imageUrl
+            }} />
                                      <TrimLevels carTitle={car.title} />
                 </div>
               </div>
             </div>
-
+            
             {/* Reviews Section */}
             <div id="reviews" className="bg-white rounded-2xl shadow-modern border border-neutral-6 overflow-hidden">
               <div className="p-6">
@@ -270,16 +270,16 @@ const NewCarDetail: React.FC = () => {
                   <div className="border-t border-neutral-6 pt-8">
                     <h3 className="typography-subtitle text-neutral-1 mb-4">Compare with Competitors</h3>
                     <CompetitorsComparison />
-                  </div>
-                </div>
+            </div>
+            </div>
               </div>
             </div>
-
+            
             {/* Class Comparison Section */}
             <div id="comparison" className="bg-white rounded-2xl shadow-modern border border-neutral-6 overflow-hidden">
               <div className="p-6">
                 <ComparisonTab carTitle={car.title} carCategory={car.category} />
-              </div>
+            </div>
             </div>
 
             {/* Cost of Ownership Section */}
@@ -308,21 +308,21 @@ const NewCarDetail: React.FC = () => {
             {/* Market Intelligence Section */}
             <div id="market" className="bg-white rounded-2xl shadow-modern border border-neutral-6 overflow-hidden">
               <div className="p-6">
-                <MarketIntelligence 
+              <MarketIntelligence 
                   carMake={car.title.split(' ')[0]}
                   carModel={car.title.split(' ').slice(1).join(' ')}
-                  carYear={2025}
-                  currentPrice={parseInt(car.price.replace(/\D/g, ''))}
-                />
-              </div>
+                carYear={2025}
+                currentPrice={parseInt(car.price.replace(/\D/g, ''))}
+              />
+            </div>
             </div>
           </div>
-
+          
           {/* Sidebar */}
           <div className="lg:col-span-1">
             <div className="sticky top-32">
-              <CarSidebar car={car} carData={carData} />
-            </div>
+                <CarSidebar car={car} carData={carData} />
+                </div>
           </div>
         </div>
       </div>

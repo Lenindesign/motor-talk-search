@@ -45,7 +45,7 @@ const CarHeader: React.FC<CarHeaderProps> = ({
   };
 
   return (
-    <div className="relative">
+        <div className="relative">
       {/* Hero Image Section */}
       <div className="relative aspect-[16/9] bg-neutral-100 overflow-hidden">
         {/* Score Badge - Positioned absolutely */}
@@ -56,7 +56,7 @@ const CarHeader: React.FC<CarHeaderProps> = ({
             rank={{ position: 2, total: 12 }}
           />
         </div>
-
+          
         {/* Score Badges - Top Right */}
         <div className="absolute top-4 right-4 z-20 flex gap-2">
           {/* MT Score Badge */}
@@ -109,11 +109,11 @@ const CarHeader: React.FC<CarHeaderProps> = ({
         </div>
 
         {/* Main Car Image */}
-        <img
-          src={currentImage}
-          alt={car.title}
-          className="w-full h-full object-cover"
-        />
+            <img
+              src={currentImage}
+              alt={car.title}
+              className="w-full h-full object-cover"
+            />
 
         {/* Navigation Arrows */}
         {carPhotos.length > 1 && (
@@ -138,7 +138,7 @@ const CarHeader: React.FC<CarHeaderProps> = ({
         {carPhotos.length > 1 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
             {carPhotos.map((_, index) => (
-              <button
+              <button 
                 key={index}
                 onClick={() => {
                   setCurrentImageIndex(index);
@@ -199,7 +199,7 @@ const CarHeader: React.FC<CarHeaderProps> = ({
             </div>
           </div>
         </div>
-      </div>
+              </div>
 
       {/* Simplified Thumbnail Gallery */}
       {carPhotos.length > 1 && (

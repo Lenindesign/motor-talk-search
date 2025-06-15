@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Separator } from '@/components/ui/separator';
 import { Car, Info, Users, Clock, Zap, ArrowRight } from 'lucide-react';
 import MyGarageSkinny from '../profile/MyGarageSkinny';
+import MyGarageSlideshow from './MyGarageSlideshow';
 
 const GarageTab = () => {
   return (
@@ -14,6 +15,12 @@ const GarageTab = () => {
           The My Garage feature allows users to save, organize, compare, and track vehicles they own, are interested in, or have test-driven.
           This section provides an overview of the garage components, user journeys, and implementation guidelines.
         </p>
+        
+        {/* My Garage Slideshow */}
+        <div className="mb-8">
+          <h3 className="typography-subtitle text-neutral-1 mb-4">Feature Overview</h3>
+          <MyGarageSlideshow />
+        </div>
         
         <Card className="mb-8">
           <CardHeader>

@@ -28,7 +28,7 @@ const MobileNavigation = () => {
           <TooltipTrigger asChild>
             <Link to="/profile" aria-label="Profile" className="text-white p-2 focus:outline-none hover:bg-motortrend-dark/50 rounded-md transition-colors mr-1">
               <Avatar className="h-6 w-6">
-                <AvatarImage src="https://d2kde5ohu8qb21.cloudfront.net/files/6839e7e53277480008013d30/greg.jpg" alt="Greg Driver" />
+                <AvatarImage src="https://d2kde5ohu8qb21.cloudfront.net/files/684f27791210320008016dfd/profile3-greg.jpg" alt="Greg Driver" />
                 <AvatarFallback className="bg-neutral-4 text-white typography-small">GD</AvatarFallback>
               </Avatar>
             </Link>

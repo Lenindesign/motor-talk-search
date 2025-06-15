@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -16,7 +15,7 @@ const OverviewTab = () => {
           {/* Gearhead Greg */}
           <div className="border border-neutral-6 rounded-lg bg-white shadow-sm overflow-hidden transition-standard hover:shadow-md">
             <div className="flex flex-col md:flex-row">
-              <div className="md:w-1/3 h-40 md:h-auto bg-cover" style={{backgroundImage: 'url("https://d2kde5ohu8qb21.cloudfront.net/files/6837f71dd9decc00084879bc/image9.jpg")', backgroundPosition: 'center 15%'}}></div>
+              <div className="md:w-1/3 h-40 md:h-auto bg-cover" style={{backgroundImage: 'url("https://d2kde5ohu8qb21.cloudfront.net/files/684f14cf7a225e0008ee0729/greg-profile2.jpg")', backgroundPosition: 'center 30%'}}></div>
               <div className="p-6 flex-1">
                 <div className="flex items-center mb-3">
                   <div className="bg-motortrend-dark text-white rounded-full w-7 h-7 flex items-center justify-center font-bold mr-3">1</div>
@@ -40,7 +39,7 @@ const OverviewTab = () => {
           {/* Practical Paula */}
           <div className="border border-neutral-6 rounded-lg bg-white shadow-sm overflow-hidden transition-standard hover:shadow-md">
             <div className="flex flex-col md:flex-row">
-              <div className="md:w-1/3 h-40 md:h-auto bg-cover" style={{backgroundImage: 'url("https://d2kde5ohu8qb21.cloudfront.net/files/6837f71f7a1c810008179900/image10.jpg")', backgroundPosition: 'center 25%'}}></div>
+              <div className="md:w-1/3 h-40 md:h-auto bg-cover" style={{backgroundImage: 'url("https://d2kde5ohu8qb21.cloudfront.net/files/684f1535f48fe5000867d791/paula-profile.jpg")', backgroundPosition: 'center 25%'}}></div>
               <div className="p-6 flex-1">
                 <div className="flex items-center mb-3">
                   <div className="bg-motortrend-dark text-white rounded-full w-7 h-7 flex items-center justify-center font-bold mr-3">2</div>

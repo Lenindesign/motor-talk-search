@@ -74,7 +74,7 @@ const Profile = () => {
   const userData = {
     name: form.watch("name"),
     email: form.watch("email"),
-    avatar: "https://d2kde5ohu8qb21.cloudfront.net/files/6839e7e53277480008013d30/greg.jpg",
+    avatar: "https://d2kde5ohu8qb21.cloudfront.net/files/684f27791210320008016dfd/profile3-greg.jpg",
     joined: "January 2023"
   };
 

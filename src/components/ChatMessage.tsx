@@ -65,7 +65,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
         {isUser && (
           <div className="ml-2 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full overflow-hidden">
             <img 
-              src="https://d2kde5ohu8qb21.cloudfront.net/files/6839e7e53277480008013d30/greg.jpg" 
+              src="https://d2kde5ohu8qb21.cloudfront.net/files/684f12307a225e0008ee0727/greg-profile.jpg" 
               alt="User" 
               className="w-full h-full object-cover"
             />
