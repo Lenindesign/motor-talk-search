@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { SavedItem } from '../../contexts/SavedItemsContext';
 import CarCard from '../CarCard';
@@ -18,6 +17,12 @@ const GarageVehicleGrid: React.FC<GarageVehicleGridProps> = ({
 }) => {
   // Helper function to convert SavedItem to CarData
   const savedItemToCarData = (item: SavedItem): CarData => {
+    // Ensure bodyStyle is a valid value from the union type
+    const getValidBodyStyle = (bodyStyle: string | undefined): "SUV" | "Sedan" | "Truck" | "Sports Car" | "Minivan" | "Crossover" | "Coupe" | "Convertible" | "Hatchback" | "Wagon" => {
+      const validBodyStyles = ['SUV', 'Sedan', 'Truck', 'Sports Car', 'Minivan', 'Crossover', 'Coupe', 'Convertible', 'Hatchback', 'Wagon'];
+      return validBodyStyles.includes(bodyStyle || '') ? bodyStyle as any : 'SUV';
+    };
+
     return {
       id: item.id,
       title: item.title,
@@ -29,7 +34,7 @@ const GarageVehicleGrid: React.FC<GarageVehicleGridProps> = ({
       fuelType: item.metadata?.fuelType || 'N/A',
       drivetrain: item.metadata?.drivetrain || 'N/A',
       location: item.metadata?.location || 'N/A',
-      bodyStyle: item.metadata?.bodyStyle || 'N/A',
+      bodyStyle: getValidBodyStyle(item.metadata?.bodyStyle),
       isNew: item.type === 'newCar',
       motorTrendScore: item.metadata?.motorTrendScore || '0.0',
       motorTrendRank: item.metadata?.motorTrendRank || 'N/A',
