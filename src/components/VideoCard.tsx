@@ -171,7 +171,7 @@ const VideoCard: React.FC<VideoCardProps> = memo(({
     </div>
     {/* Card content below image */}
     <div className="p-8">
-      <h3 className="leading-tight text-white mb-1 line-clamp-2 typography-subtitle font-semibold">
+      <h3 className="leading-tight text-white mb-1 line-clamp-2 text-lg font-semibold">
         {video.title}
       </h3>
       <div className="flex items-center text-sm text-gray-400">

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, User, Clock } from 'lucide-react';
@@ -51,7 +50,7 @@ const ArticleCard: React.FC<ExtendedArticleCardProps> = ({
                     {article.category}
                   </div>
                 )}
-                <h3 className="typography-title line-clamp-3 group-hover:text-motortrend-red transition-colors leading-tight text-gray-900 mb-3">
+                <h3 className="text-lg line-clamp-3 group-hover:text-motortrend-red transition-colors leading-tight text-gray-900 mb-3">
                   {article.title}
                 </h3>
               </div>
@@ -118,7 +117,7 @@ const ArticleCard: React.FC<ExtendedArticleCardProps> = ({
               {article.category}
             </div>
           )}
-          <h3 className="typography-title line-clamp-2 group-hover:text-motortrend-red transition-colors">
+          <h3 className="text-lg line-clamp-2 group-hover:text-motortrend-red transition-colors">
             {article.title}
           </h3>
           {showExcerpt && article.excerpt && (

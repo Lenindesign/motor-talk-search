@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
@@ -41,7 +40,7 @@ export function BuyersGuideCard({
       <CardContent className="p-6 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <h3 className="typography-title">{year} {make} {model}</h3>
+          <h3 className="text-lg">{year} {make} {model}</h3>
           <div className="flex items-center space-x-1">
             <Award className="w-4 h-4 text-motortrend-red" />
             <span className="typography-caption text-neutral-3">{ranking}</span>

@@ -145,7 +145,7 @@ const PhotoCard: React.FC<PhotoCardProps> = memo(({
       {/* Card content below image - headline moved here */}
       <div className="p-8 bg-motortrend-dark rounded-b-xl">
         <div className="flex items-center">
-          <h3 className="typography-subtitle text-white line-clamp-2">{photo.title}</h3>
+          <h3 className="text-lg text-white line-clamp-2">{photo.title}</h3>
         </div>
       </div>
     </Card>

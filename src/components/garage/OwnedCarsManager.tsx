@@ -166,6 +166,7 @@ const OwnedCarsManager: React.FC<OwnedCarsManagerProps> = ({ cars, savedItemToCa
       make: '',
       model: '',
       year: new Date().getFullYear().toString(),
+      imageUrl: 'https://images.unsplash.com/photo-1494905998402-395d579af36f?w=800&h=600&fit=crop&crop=center',
       priority: 'medium',
       category: 'upgrade',
       features: [],
@@ -244,91 +245,105 @@ const OwnedCarsManager: React.FC<OwnedCarsManagerProps> = ({ cars, savedItemToCa
               const plannedUpgrades = carUpgrades.filter(u => u.status === 'planned').length;
 
               return (
-                <Card key={car.id} className="border-l-4 border-l-green-500">
-                  <CardHeader className="pb-4">
+                <Card key={car.id} className="relative overflow-hidden bg-gradient-to-br from-white via-neutral-8 to-neutral-7 border-2 border-neutral-6 shadow-modern hover:shadow-modern-lg transition-all duration-300 hover:-translate-y-1 p-0">
+                  {/* Premium Badge */}
+                  <div className="absolute top-4 right-4 z-20">
+                    <Badge className="bg-motortrend-red text-white font-medium shadow-modern">
+                      Owned
+                    </Badge>
+                  </div>
+                  
+                  {/* Full-width image taking upper third */}
+                  <div className="relative h-42 w-full overflow-hidden">
+                    <img 
+                      src={car.imageUrl} 
+                      alt={car.title}
+                      className="w-full h-full object-cover"
+                    />
+                    {/* Image overlay for premium feel */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                  </div>
+                  
+                  {/* Subtle Pattern Overlay for content area */}
+                  <div className="absolute inset-0 top-42 bg-gradient-to-br from-transparent via-white/20 to-transparent pointer-events-none"></div>
+                  
+                  <CardHeader className="!pb-4 !px-4 !pt-4 relative z-10">
                     <div className="flex items-start justify-between">
-                      <div className="flex items-start space-x-4">
-                        <img 
-                          src={car.imageUrl} 
-                          alt={car.title}
-                          className="w-20 h-16 object-cover rounded-lg"
-                        />
-                        <div>
-                          <CardTitle className="typography-subtitle text-neutral-1">
-                            {car.title}
-                          </CardTitle>
-                          <div className="flex items-center space-x-4 mt-2">
-                            <span className="typography-body text-neutral-3">
-                              {carData.year}
-                            </span>
-                            {carData.mileage && (
-                              <div className="flex items-center text-neutral-4">
-                                <Gauge className="w-4 h-4 mr-1" />
-                                <span className="typography-caption">{carData.mileage}</span>
-                              </div>
-                            )}
-                          </div>
+                      <div className="w-full">
+                        <CardTitle className="typography-title text-neutral-1 mb-1">
+                          {car.title}
+                        </CardTitle>
+                        <div className="flex items-center space-x-4">
+                          <span className="typography-body-large font-semibold text-motortrend-red">
+                            {carData.year}
+                          </span>
+                          {carData.mileage && (
+                            <div className="flex items-center bg-white/80 rounded-full px-3 py-1 shadow-sm">
+                              <Gauge className="w-4 h-4 mr-2 text-neutral-3" />
+                              <span className="typography-caption font-medium text-neutral-2">{carData.mileage}</span>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>
                   </CardHeader>
 
-                  <CardContent className="space-y-4">
-                    {/* Quick Stats */}
-                    <div className="grid grid-cols-3 gap-4">
-                      <div className="text-center">
-                        <p className="text-lg font-bold text-neutral-2">{carMaintenance.length}</p>
-                        <p className="typography-caption text-neutral-4">Maintenance Records</p>
+                  <CardContent className="space-y-2 relative z-10 !pt-4 !px-4 !pb-4">
+                    {/* Enhanced Stats Grid with Your Vehicle indicator */}
+                    <div className="space-y-2">
+                      {/* Your Vehicle indicator at top of stats */}
+                      <div className="flex items-center justify-center space-x-2 pb-1">
+                        <div className="w-2 h-2 bg-motortrend-red rounded-full animate-pulse"></div>
+                        <span className="typography-caption text-neutral-3 font-medium">Your Vehicle</span>
                       </div>
-                      <div className="text-center">
-                        <p className="text-lg font-bold text-neutral-2">{carUpgrades.length}</p>
-                        <p className="typography-caption text-neutral-4">Upgrade Plans</p>
-                      </div>
-                      <div className="text-center">
-                        <p className={`text-lg font-bold ${overdueMaintenance > 0 ? 'text-red-600' : 'text-green-600'}`}>
-                          {overdueMaintenance}
-                        </p>
-                        <p className="typography-caption text-neutral-4">Overdue Items</p>
+                      
+                      <div className="grid grid-cols-3 gap-3">
+                        <div className="bg-white/60 backdrop-blur-sm rounded-xl p-2.5 text-center border border-white/40 shadow-sm">
+                          <p className="text-lg font-bold text-neutral-1 mb-0.5">{carMaintenance.length}</p>
+                          <p className="typography-caption text-neutral-3 font-medium">Maintenance</p>
+                          <p className="typography-small text-neutral-4">Records</p>
+                        </div>
+                        <div className="bg-white/60 backdrop-blur-sm rounded-xl p-2.5 text-center border border-white/40 shadow-sm">
+                          <p className="text-lg font-bold text-neutral-1 mb-0.5">{carUpgrades.length}</p>
+                          <p className="typography-caption text-neutral-3 font-medium">Upgrade</p>
+                          <p className="typography-small text-neutral-4">Plans</p>
+                        </div>
+                        <div className="bg-white/60 backdrop-blur-sm rounded-xl p-2.5 text-center border border-white/40 shadow-sm">
+                          <p className={`text-lg font-bold mb-0.5 ${overdueMaintenance > 0 ? 'text-red-500' : 'text-green-500'}`}>
+                            {overdueMaintenance}
+                          </p>
+                          <p className="typography-caption text-neutral-3 font-medium">Overdue</p>
+                          <p className="typography-small text-neutral-4">Items</p>
+                        </div>
                       </div>
                     </div>
 
-                    {/* Quick Actions */}
+                    {/* Premium Action Buttons */}
                     <div className="flex flex-wrap gap-2">
                       <Button 
                         size="sm" 
-                        variant="outline" 
+                        className="bg-white/80 backdrop-blur-sm text-neutral-1 border border-white/40 hover:bg-white hover:shadow-modern transition-all duration-200 flex-1 min-w-[120px]"
                         onClick={() => {
                           setSelectedCarId(car.id);
                           setActiveTab('maintenance');
                         }}
                       >
-                        <Wrench className="w-4 h-4 mr-2" />
-                        Maintenance
+                        <Wrench className="w-4 h-4 mr-2 text-neutral-3" />
+                        <span className="font-medium">Maintenance</span>
                       </Button>
                       <Button 
                         size="sm" 
-                        variant="outline"
+                        className="bg-motortrend-red/90 text-white hover:bg-motortrend-red hover:shadow-modern transition-all duration-200 flex-1 min-w-[120px]"
                         onClick={() => {
                           setSelectedCarId(car.id);
                           setActiveTab('upgrades');
                         }}
                       >
                         <Zap className="w-4 h-4 mr-2" />
-                        Upgrades
+                        <span className="font-medium">Upgrades</span>
                       </Button>
                     </div>
 
-                    {/* Alerts */}
-                    {overdueMaintenance > 0 && (
-                      <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                        <div className="flex items-center">
-                          <AlertTriangle className="w-4 h-4 text-red-600 mr-2" />
-                          <span className="typography-caption text-red-800">
-                            {overdueMaintenance} overdue maintenance item{overdueMaintenance !== 1 ? 's' : ''}
-                          </span>
-                        </div>
-                      </div>
-                    )}
                   </CardContent>
                 </Card>
               );
@@ -448,68 +463,62 @@ const OwnedCarsManager: React.FC<OwnedCarsManagerProps> = ({ cars, savedItemToCa
           </div>
 
           {/* Dream Cars Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             {dreamCars.map(dreamCar => (
-              <Card key={dreamCar.id} className="border-l-4 border-l-purple-500">
-                <CardHeader className="pb-4">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <CardTitle className="typography-subtitle text-neutral-1">
-                        {dreamCar.year} {dreamCar.make} {dreamCar.model}
-                      </CardTitle>
-                      <Badge className={`${getPriorityColor(dreamCar.priority)} border mt-2`}>
-                        {dreamCar.priority.charAt(0).toUpperCase() + dreamCar.priority.slice(1)} Priority
-                      </Badge>
-                    </div>
-                  </div>
-                </CardHeader>
-
-                <CardContent className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="typography-caption text-neutral-4">Category:</span>
-                    <Badge variant="secondary">
-                      {dreamCar.category.charAt(0).toUpperCase() + dreamCar.category.slice(1)}
+              <Card key={dreamCar.id} className="relative overflow-hidden bg-card shadow-modern hover:shadow-modern-lg transition-all duration-300 hover:-translate-y-1 p-0 col-span-3">
+                {/* Full-width car image */}
+                <div className="relative h-64 w-full overflow-hidden">
+                  <img 
+                    src={dreamCar.imageUrl || 'https://images.unsplash.com/photo-1494905998402-395d579af36f?w=800&h=600&fit=crop&crop=center'} 
+                    alt={`${dreamCar.year} ${dreamCar.make} ${dreamCar.model}`}
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                  {/* Dark overlay for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                  
+                  {/* Priority badge */}
+                  <div className="absolute top-3 right-3">
+                    <Badge className={`${getPriorityColor(dreamCar.priority)} border shadow-sm`}>
+                      {dreamCar.priority.charAt(0).toUpperCase() + dreamCar.priority.slice(1)} Priority
                     </Badge>
                   </div>
                   
-                  {dreamCar.targetPrice && (
-                    <div className="flex items-center justify-between">
-                      <span className="typography-caption text-neutral-4">Target Price:</span>
-                      <span className="typography-body font-medium text-neutral-2">
-                        ${dreamCar.targetPrice.toLocaleString()}
-                      </span>
-                    </div>
-                  )}
-
-                  {dreamCar.features.length > 0 && (
-                    <div>
-                      <span className="typography-caption text-neutral-4">Must-Have Features:</span>
-                      <div className="flex flex-wrap gap-1 mt-1">
-                        {dreamCar.features.slice(0, 3).map((feature, index) => (
-                          <Badge key={index} variant="outline" className="text-xs">
-                            {feature}
-                          </Badge>
-                        ))}
-                        {dreamCar.features.length > 3 && (
-                          <Badge variant="outline" className="text-xs">
-                            +{dreamCar.features.length - 3} more
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex space-x-2 pt-2">
-                    <Button size="sm" variant="outline" className="flex-1">
-                      <ArrowLeftRight className="w-4 h-4 mr-1" />
-                      Compare
-                    </Button>
-                    <Button size="sm" variant="outline" className="flex-1">
-                      <Target className="w-4 h-4 mr-1" />
-                      Research
-                    </Button>
+                  {/* Car name prominently displayed on the image */}
+                  <div className="absolute top-3 left-3">
+                    <h2 className="text-lg font-bold text-white text-shadow-lg leading-tight">
+                      {dreamCar.year} {dreamCar.make} {dreamCar.model}
+                    </h2>
                   </div>
-                </CardContent>
+                </div>
+
+                {/* Information overlay at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
+                  <div className="space-y-2">
+                    {/* Category and price row */}
+                    <div className="flex items-center justify-between text-sm">
+                      <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                        {dreamCar.category.charAt(0).toUpperCase() + dreamCar.category.slice(1)}
+                      </Badge>
+                      {dreamCar.targetPrice && (
+                        <span className="typography-body-small font-medium text-white">
+                          ${dreamCar.targetPrice.toLocaleString()}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Action buttons */}
+                    <div className="flex space-x-2 pt-1">
+                      <Button size="sm" variant="secondary" className="flex-1 bg-white/20 hover:bg-white/30 text-white border-white/30">
+                        <ArrowLeftRight className="w-4 h-4 mr-1" />
+                        Compare
+                      </Button>
+                      <Button size="sm" variant="secondary" className="flex-1 bg-white/20 hover:bg-white/30 text-white border-white/30">
+                        <Target className="w-4 h-4 mr-1" />
+                        Research
+                      </Button>
+                    </div>
+                  </div>
+                </div>
               </Card>
             ))}
           </div>
