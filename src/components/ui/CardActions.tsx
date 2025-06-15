@@ -25,7 +25,7 @@ const CardActions: React.FC<CardActionsProps> = ({
           onClick={onToggleSave}
           className="flex items-center gap-1"
         >
-          <SaveIcon className={`h-4 w-4 ${isSaved ? 'text-blue-500' : 'text-gray-500'}`} />
+          <SaveIcon className={`h-4 w-4 ${isSaved ? 'text-black' : 'text-black'}`} />
           {isSaved ? 'Saved' : 'Save'}
         </Button>
       )}
@@ -34,7 +34,7 @@ const CardActions: React.FC<CardActionsProps> = ({
         className="p-2 rounded-full hover:bg-gray-100 transition-colors"
         aria-label="Share item"
       >
-        <ShareIcon className="w-5 h-5 text-gray-400" />
+        <ShareIcon className="w-5 h-5 text-black" />
       </button>
     </div>
   );

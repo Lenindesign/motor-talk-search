@@ -104,7 +104,7 @@ const GarageLayout = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-8 h-8 bg-gradient-to-br from-neutral-6 to-neutral-7 rounded-xl flex items-center justify-center">
-                <Warehouse className="w-4 h-4 text-neutral-2" />
+                <svg xmlns="http://www.w3.org/2000/svg" height="44" viewBox="0 -960 960 960" width="44" fill="currentColor" className="text-black"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z" /></svg>
               </div>
               <div>
                 <h1 className="typography-subtitle text-neutral-1">My Garage</h1>
@@ -194,7 +194,7 @@ const GarageLayout = () => {
       <div className="hidden lg:flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <div className="w-12 h-12 bg-gradient-to-br from-neutral-6 to-neutral-7 rounded-2xl flex items-center justify-center shadow-modern">
-            <Warehouse className="w-6 h-6 text-neutral-2" />
+            <svg xmlns="http://www.w3.org/2000/svg" height="44" viewBox="0 -960 960 960" width="44" fill="currentColor" className="text-black"><path d="M160-120v-480l320-240 320 240v480h-80v-440L480-740 240-560v440h-80Zm200-80h240v-80H360v80Zm0-160h240v-80H360v80Zm-80 240v-400h400v400H280Z" /></svg>
           </div>
           <div>
             <h1 className="typography-display text-neutral-1">My Garage</h1>
@@ -245,7 +245,7 @@ const GarageLayout = () => {
           <TabsList className="grid w-full grid-cols-4 bg-transparent gap-2 h-auto">
             <TabsTrigger 
               value="all" 
-              className="flex flex-col items-center justify-center py-3 px-4 rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-modern transition-all duration-200 h-auto min-h-[60px] text-center"
+              className="flex flex-col items-center justify-center py-3 px-4 rounded-xl data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:shadow-modern transition-all duration-200 h-auto min-h-[60px] text-center"
             >
               <div className="flex items-center gap-2 mb-1">
                 <Grid className="w-4 h-4" />
@@ -256,7 +256,7 @@ const GarageLayout = () => {
             
             <TabsTrigger 
               value="owned" 
-              className="flex flex-col items-center justify-center py-3 px-4 rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-modern transition-all duration-200 h-auto min-h-[60px] text-center"
+              className="flex flex-col items-center justify-center py-3 px-4 rounded-xl data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:shadow-modern transition-all duration-200 h-auto min-h-[60px] text-center"
             >
               <div className="flex items-center gap-2 mb-1">
                 <Car className="w-4 h-4" />
@@ -267,7 +267,7 @@ const GarageLayout = () => {
             
             <TabsTrigger 
               value="testDriven" 
-              className="flex flex-col items-center justify-center py-3 px-4 rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-modern transition-all duration-200 h-auto min-h-[60px] text-center"
+              className="flex flex-col items-center justify-center py-3 px-4 rounded-xl data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:shadow-modern transition-all duration-200 h-auto min-h-[60px] text-center"
             >
               <div className="flex items-center gap-2 mb-1">
                 <Search className="w-4 h-4" />
@@ -278,7 +278,7 @@ const GarageLayout = () => {
             
             <TabsTrigger 
               value="interested" 
-              className="flex flex-col items-center justify-center py-3 px-4 rounded-xl data-[state=active]:bg-white data-[state=active]:shadow-modern transition-all duration-200 h-auto min-h-[60px] text-center"
+              className="flex flex-col items-center justify-center py-3 px-4 rounded-xl data-[state=active]:bg-black data-[state=active]:text-white data-[state=active]:shadow-modern transition-all duration-200 h-auto min-h-[60px] text-center"
             >
               <div className="flex items-center gap-2 mb-1">
                 <Settings className="w-4 h-4" />

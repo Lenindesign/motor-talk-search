@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import AddVehicleModal from './AddVehicleModal';
 import { 
   Wrench, 
   Calendar, 
@@ -182,10 +183,16 @@ const OwnedCarsManager: React.FC<OwnedCarsManagerProps> = ({ cars, savedItemToCa
         <p className="typography-body text-neutral-4 mb-6 max-w-md mx-auto">
           Mark cars as "Owned" to start tracking maintenance, planning upgrades, and building your dream car wishlist.
         </p>
-        <Button variant="outline" className="mx-auto">
-          <Car className="w-4 h-4 mr-2" />
-          Add Your First Car
-        </Button>
+        <AddVehicleModal onAddVehicle={(vehicleData) => {
+          console.log('Adding vehicle:', vehicleData);
+          // Here you would typically save the vehicle to your data store
+          // For now, we'll just log it
+        }}>
+          <Button variant="outline" className="mx-auto">
+            <Car className="w-4 h-4 mr-2" />
+            Add Your First Car
+          </Button>
+        </AddVehicleModal>
       </div>
     );
   }

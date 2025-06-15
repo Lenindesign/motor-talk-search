@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useLocation } from "react-router-dom";
 import GlobalHeader from "@/components/GlobalHeader";
@@ -41,7 +40,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         style={{
           height: shouldHideNavigation ? 0 : 80
         }} 
-        className="sm:hidden py-[12px]" 
+        className="sm:hidden" 
       />
       
       {/* Main content */}
@@ -52,7 +51,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({
         </main>
       ) : (
         // Regular layout with container and tablet margins
-        <main className="bg-gray-50 md:mx-6 lg:mx-8">
+        <main className="bg-gray-50">
           <Container>
             {children}
           </Container>

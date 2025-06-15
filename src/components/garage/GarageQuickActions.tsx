@@ -111,8 +111,8 @@ const GarageQuickActions: React.FC<GarageQuickActionsProps> = ({ carCount }) => 
                   Compare, calculate, and share your vehicles
                 </p>
               </div>
-              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-modern">
-                <BarChart3 className="w-5 h-5 text-motortrend-red" />
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-modern hover:bg-gray-200">
+                <BarChart3 className="w-5 h-5 text-black" />
               </div>
             </div>
             
@@ -120,36 +120,36 @@ const GarageQuickActions: React.FC<GarageQuickActionsProps> = ({ carCount }) => 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               <Button 
                 variant="outline" 
-                className="flex flex-col items-center space-y-2 h-auto py-4 px-3 border-neutral-6 hover:border-motortrend-red hover:bg-motortrend-red/5 transition-all duration-200"
+                className="flex flex-col items-center space-y-2 h-auto py-4 px-3 border-neutral-6 hover:border-neutral-5 hover:bg-gray-200 transition-all duration-200"
                 onClick={handleOpenCompareModal}
               >
-                <BarChart3 className="w-5 h-5 text-motortrend-red" />
-                <span className="typography-caption font-medium">Compare</span>
+                <BarChart3 className="w-5 h-5 text-black" />
+                <span className="typography-caption font-medium text-black">Compare</span>
               </Button>
               
               <Button 
                 variant="outline" 
-                className="flex flex-col items-center space-y-2 h-auto py-4 px-3 border-neutral-6 hover:border-blue-500 hover:bg-blue-50 transition-all duration-200"
+                className="flex flex-col items-center space-y-2 h-auto py-4 px-3 border-neutral-6 hover:border-neutral-5 hover:bg-gray-200 transition-all duration-200"
               >
-                <Calculator className="w-5 h-5 text-blue-500" />
-                <span className="typography-caption font-medium">Calculate</span>
+                <Calculator className="w-5 h-5 text-black" />
+                <span className="typography-caption font-medium text-black">Calculate</span>
               </Button>
               
               <Button 
                 variant="outline" 
-                className="flex flex-col items-center space-y-2 h-auto py-4 px-3 border-neutral-6 hover:border-green-500 hover:bg-green-50 transition-all duration-200"
+                className="flex flex-col items-center space-y-2 h-auto py-4 px-3 border-neutral-6 hover:border-neutral-5 hover:bg-gray-200 transition-all duration-200"
                 onClick={handleShareGarage}
               >
-                <Share2 className="w-5 h-5 text-green-500" />
-                <span className="typography-caption font-medium">Share</span>
+                <Share2 className="w-5 h-5 text-black" />
+                <span className="typography-caption font-medium text-black">Share</span>
               </Button>
               
               <Button 
                 variant="outline" 
-                className="flex flex-col items-center space-y-2 h-auto py-4 px-3 border-neutral-6 hover:border-purple-500 hover:bg-purple-50 transition-all duration-200"
+                className="flex flex-col items-center space-y-2 h-auto py-4 px-3 border-neutral-6 hover:border-neutral-5 hover:bg-gray-200 transition-all duration-200"
               >
-                <Download className="w-5 h-5 text-purple-500" />
-                <span className="typography-caption font-medium">Export</span>
+                <Download className="w-5 h-5 text-black" />
+                <span className="typography-caption font-medium text-black">Export</span>
               </Button>
             </div>
           </div>
