@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useCardSave } from '../hooks/useCardSave';
+import { useCardSaveWithCategory } from '../hooks/useCardSaveWithCategory';
 import { useOptimizedImageLoader } from '../hooks/useOptimizedImageLoader';
 import CarSpecs from './CarCard/CarSpecs';
 import GarageActionMenu from './GarageActionMenu';
@@ -12,13 +12,16 @@ import { CarData, CarCardProps } from './CarCard/types';
 import { Button } from './ui/button';
 import { Search } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import BookmarkDropdown from './ui/BookmarkDropdown';
 
 // Re-export types for backward compatibility
 export type { CarData, CarCardProps } from './CarCard/types';
+
 interface EnhancedCarCardProps extends CarCardProps {
   className?: string;
   layout?: 'vertical' | 'horizontal';
 }
+
 const CarCard: React.FC<EnhancedCarCardProps> = memo(({
   car,
   type,
@@ -37,8 +40,9 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
   });
   const {
     isSaved,
-    toggleSave
-  } = useCardSave({
+    saveToCategory,
+    removeItem
+  } = useCardSaveWithCategory({
     id: car.id,
     type: type === 'new' ? 'newCar' : 'usedCar',
     title: car.title,
@@ -140,20 +144,16 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
                     MT {car.motorTrendScore}
                   </div>
                 )}
-                {/* Bookmark button next to MT score */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    toggleSave();
-                  }}
-                  className="p-1 text-gray-400 hover:text-gray-600 transition-colors"
-                  aria-label={isSaved ? "Unsave car" : "Save car"}
-                >
-                  <svg width="16" height="16" fill={isSaved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
-                  </svg>
-                </button>
+                {/* Bookmark dropdown next to MT score */}
+                <div className="relative">
+                  <BookmarkDropdown
+                    isSaved={isSaved}
+                    onSave={saveToCategory}
+                    onRemove={removeItem}
+                    carTitle={car.title}
+                    className="static"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -174,7 +174,10 @@ const CarCard: React.FC<EnhancedCarCardProps> = memo(({
     variant={type === 'new' ? 'newCar' : 'usedCar'}
     className={cn('flex flex-col w-full bg-white rounded-t-xl shadow-modern overflow-hidden transition-shadow duration-200', className)}
     isSaved={isSaved}
-    onToggleSave={toggleSave}
+    onSaveToCategory={saveToCategory}
+    onRemoveBookmark={removeItem}
+    useBookmarkDropdown={true}
+    itemTitle={car.title}
     imageUrl={currentImage}
     metadata={{
       price: car.price,

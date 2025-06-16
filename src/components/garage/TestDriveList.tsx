@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { SavedItem, useSavedItems } from '../../contexts/SavedItemsContext';
 import { CarData } from '../CarCard/types';
+import ScheduleTestDriveModal from './ScheduleTestDriveModal';
 
 interface TestDriveListProps {
   cars: SavedItem[];
@@ -42,11 +43,13 @@ interface TestDriveNote {
 const TestDriveList: React.FC<TestDriveListProps> = ({ cars, savedItemToCarData }) => {
   const { updateSavedItem } = useSavedItems();
   const navigate = useNavigate();
+  const [testDriveNotes, setTestDriveNotes] = useState<TestDriveNote[]>([]);
   const [editingNotes, setEditingNotes] = useState<string | null>(null);
   const [noteText, setNoteText] = useState('');
-  const [testDriveNotes, setTestDriveNotes] = useState<TestDriveNote[]>([]);
+  const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
+  const [selectedCar, setSelectedCar] = useState<SavedItem | null>(null);
 
-  // Filter cars that are marked as test driven
+  // Filter cars that are marked for test driving
   const testDriveCars = cars.filter(car => car.metadata?.ownership === 'testDriven');
 
   const handleSaveNote = (carId: string) => {
@@ -64,17 +67,46 @@ const TestDriveList: React.FC<TestDriveListProps> = ({ cars, savedItemToCarData 
   };
 
   const handleUpdatePurchaseInterest = (carId: string, interest: TestDriveNote['purchaseInterest']) => {
-    setTestDriveNotes(prev => 
-      prev.map(note => 
-        note.carId === carId 
-          ? { ...note, purchaseInterest: interest }
-          : note
-      )
-    );
+    setTestDriveNotes(prev => {
+      const existingNote = prev.find(note => note.carId === carId);
+      
+      if (existingNote) {
+        // Update existing note
+        return prev.map(note => 
+          note.carId === carId 
+            ? { ...note, purchaseInterest: interest }
+            : note
+        );
+      } else {
+        // Create new note with purchase interest
+        const newNote: TestDriveNote = {
+          id: `note-${Date.now()}`,
+          carId,
+          note: '',
+          purchaseInterest: interest,
+          createdAt: new Date().toISOString()
+        };
+        return [...prev, newNote];
+      }
+    });
   };
 
   const getCarNote = (carId: string) => {
     return testDriveNotes.find(note => note.carId === carId);
+  };
+
+  const handleCarClick = (car: SavedItem) => {
+    // Navigate to car detail page based on car type
+    if (car.type === 'newCar') {
+      navigate(`/new-car/${car.id}`);
+    } else {
+      navigate(`/used-car/${car.id}`);
+    }
+  };
+
+  const handleScheduleTestDrive = (car: SavedItem) => {
+    setSelectedCar(car);
+    setScheduleModalOpen(true);
   };
 
   const handleGetQuote = (car: SavedItem) => {
@@ -162,7 +194,7 @@ const TestDriveList: React.FC<TestDriveListProps> = ({ cars, savedItemToCarData 
           const isEditing = editingNotes === car.id;
 
           return (
-            <Card key={car.id} className="border-l-4 border-l-blue-500">
+            <Card key={car.id}>
               <CardHeader className="pb-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-start space-x-4">
@@ -172,7 +204,10 @@ const TestDriveList: React.FC<TestDriveListProps> = ({ cars, savedItemToCarData 
                       className="w-20 h-16 object-cover rounded-lg"
                     />
                     <div>
-                      <CardTitle className="typography-subtitle text-neutral-1">
+                      <CardTitle 
+                        className="typography-subtitle text-neutral-1 cursor-pointer hover:text-motortrend-red transition-colors"
+                        onClick={() => handleCarClick(car)}
+                      >
                         {car.title}
                       </CardTitle>
                       <div className="flex items-center space-x-4 mt-2">
@@ -203,7 +238,7 @@ const TestDriveList: React.FC<TestDriveListProps> = ({ cars, savedItemToCarData 
               <CardContent className="space-y-4">
                 {/* Quick Actions */}
                 <div className="flex flex-wrap gap-2">
-                  <Button size="sm" variant="outline" className="flex items-center">
+                  <Button size="sm" variant="outline" className="flex items-center" onClick={() => handleScheduleTestDrive(car)}>
                     <Calendar className="w-4 h-4 mr-2" />
                     Schedule Test Drive
                   </Button>
@@ -379,6 +414,19 @@ const TestDriveList: React.FC<TestDriveListProps> = ({ cars, savedItemToCarData 
             </div>
           </CardContent>
         </Card>
+      )}
+      
+      {/* Schedule Test Drive Modal */}
+      {selectedCar && (
+        <ScheduleTestDriveModal
+          isOpen={scheduleModalOpen}
+          onClose={() => {
+            setScheduleModalOpen(false);
+            setSelectedCar(null);
+          }}
+          car={selectedCar}
+          carData={savedItemToCarData(selectedCar)}
+        />
       )}
     </div>
   );

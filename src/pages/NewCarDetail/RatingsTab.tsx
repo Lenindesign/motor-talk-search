@@ -67,42 +67,7 @@ const RatingsTab: React.FC = () => {
         })}
       </div>
 
-      {/* Rating Scale Reference */}
-      <div className="bg-gradient-to-r from-neutral-8 to-neutral-7 rounded-2xl p-6">
-        <h4 className="typography-subtitle text-neutral-1 mb-4">Rating Scale</h4>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
-          <div className="space-y-2">
-            <div className="w-8 h-8 bg-red-100 rounded-lg mx-auto flex items-center justify-center">
-              <span className="text-sm font-bold text-red-600">1-2</span>
-            </div>
-            <div className="text-xs text-neutral-3">Poor</div>
-          </div>
-          <div className="space-y-2">
-            <div className="w-8 h-8 bg-orange-100 rounded-lg mx-auto flex items-center justify-center">
-              <span className="text-sm font-bold text-orange-600">3-4</span>
-            </div>
-            <div className="text-xs text-neutral-3">Fair</div>
-          </div>
-          <div className="space-y-2">
-            <div className="w-8 h-8 bg-yellow-100 rounded-lg mx-auto flex items-center justify-center">
-              <span className="text-sm font-bold text-yellow-600">5-6</span>
-            </div>
-            <div className="text-xs text-neutral-3">Good</div>
-          </div>
-          <div className="space-y-2">
-            <div className="w-8 h-8 bg-blue-100 rounded-lg mx-auto flex items-center justify-center">
-              <span className="text-sm font-bold text-blue-600">7-8</span>
-            </div>
-            <div className="text-xs text-neutral-3">Very Good</div>
-          </div>
-          <div className="space-y-2">
-            <div className="w-8 h-8 bg-green-100 rounded-lg mx-auto flex items-center justify-center">
-              <span className="text-sm font-bold text-green-600">9-10</span>
-            </div>
-            <div className="text-xs text-neutral-3">Excellent</div>
-          </div>
-        </div>
-      </div>
+
     </div>
   );
 };

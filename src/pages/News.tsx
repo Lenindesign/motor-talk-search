@@ -58,7 +58,7 @@ const News: React.FC = () => {
           id: 'n3',
           title: 'How Autonomous Tech is Changing Road Trips',
           subtitle: 'From hands-free driving to smart navigation, a look at the new era of travel.',
-          imageUrl: 'https://images.unsplash.com/photo-1461632830798-3adb3034e4c8?auto=format&fit=crop&w=1200&q=80',
+          imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65a284d1b3bf12000821ef3f/waymo-i-pace-pacifica.jpeg',
           tag: 'Tech',
           tagColor: 'bg-purple-700',
           author: 'Dana Patel',

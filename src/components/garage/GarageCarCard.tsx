@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { useCardSave } from '../../hooks/useCardSave';
+import { useCardSaveWithCategory } from '../../hooks/useCardSaveWithCategory';
 import { useOptimizedImageLoader } from '../../hooks/useOptimizedImageLoader';
 import { Card, CardContent } from '../ui/card';
 import { CarData, CarCardProps } from '../CarCard/types';
@@ -30,8 +29,9 @@ const GarageCarCard: React.FC<GarageCarCardProps> = ({
   
   const {
     isSaved,
-    toggleSave
-  } = useCardSave({
+    saveToCategory,
+    removeItem
+  } = useCardSaveWithCategory({
     id: car.id,
     type: type === 'new' ? 'newCar' : 'usedCar',
     title: car.title,
@@ -74,7 +74,10 @@ const GarageCarCard: React.FC<GarageCarCardProps> = ({
       variant={type === 'new' ? 'newCar' : 'usedCar'}
       className={cn('flex flex-col w-full h-full overflow-hidden hover:shadow-md hover:border-neutral-5 transition-all duration-200', className)}
       isSaved={isSaved}
-      onToggleSave={toggleSave}
+      onSaveToCategory={saveToCategory}
+      onRemoveBookmark={removeItem}
+      useBookmarkDropdown={true}
+      itemTitle={car.title}
       imageUrl={currentImage}
       onClick={() => window.location.href = linkPath}
     >

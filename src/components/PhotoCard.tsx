@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { Camera, Calendar } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useCardSave } from '../hooks/useCardSave';
 import { useOptimizedImageLoader } from '../hooks/useOptimizedImageLoader';
 import { Card } from './ui/card';
@@ -42,6 +43,7 @@ const PhotoCard: React.FC<PhotoCardProps> = memo(({
   priority = false,
   layout = 'vertical'
 }) => {
+  const navigate = useNavigate();
   const { currentImage, isLoading: imageLoading } = useOptimizedImageLoader({
     imageUrl: photo.imageUrl,
     priority
@@ -60,7 +62,7 @@ const PhotoCard: React.FC<PhotoCardProps> = memo(({
     }
   });
 
-  const handleClick = onClick || (() => window.location.href = `/photo/${photo.id}`);
+  const handleClick = onClick || (() => navigate(`/photo/${photo.id}`));
 
   if (isLoading || imageLoading) {
     return <Card isLoading className={className} />;

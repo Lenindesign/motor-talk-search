@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MapPin, Calendar, Award, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Award, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import GarageActionMenu from '@/components/GarageActionMenu';
 import { CarData } from '@/components/CarCard';
@@ -158,24 +158,11 @@ const CarHeader: React.FC<CarHeaderProps> = ({
       {/* Vehicle Information */}
       <div className="p-6">
         <div className="space-y-4">
-          {/* Title and Price */}
+          {/* Title and Price Range */}
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
             <div className="space-y-2">
-              <h1 className="typography-display text-neutral-1">{car.title}</h1>
-              <div className="flex items-center gap-4 text-sm text-neutral-3">
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-4 h-4" />
-                  2025 Model Year
-                </span>
-                <span className="flex items-center gap-1">
-                  <MapPin className="w-4 h-4" />
-                  Available Nationwide
-                </span>
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="typography-title text-neutral-1">{car.price}</div>
-              <div className="text-sm text-neutral-3">Starting MSRP</div>
+              <h1 className="typography-title text-neutral-1">{car.title}</h1>
+              <div className="typography-subtitle text-neutral-2">{car.price}</div>
             </div>
           </div>
 

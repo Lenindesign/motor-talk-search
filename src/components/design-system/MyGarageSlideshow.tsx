@@ -101,6 +101,24 @@ const slides: Slide[] = [
     subtitle: "Plan your next purchase",
     content: "Create a wishlist of dream cars with target prices, must-have features, and priority levels to plan your future purchases.",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7"
+  },
+  {
+    id: 12,
+    title: "Greg's Garage – Where Passion Lives",
+    subtitle: "This is how we turn fans into creators",
+    content: "**Why this matters:**\nGreg's not just watching builds—he's under the hood, tuning his RX-7 on weekends.\n\n**My Garage lets Greg:**\n• Share his car, mods, and journey\n• Track builds, parts, and upgrades\n• Connect with others who get it\n\n**So what?**\nThis is how we turn fans into creators.\nIt's sticky, social, and keeps Greg coming back—not just to read, but to show off.",
+    image: "https://d2kde5ohu8qb21.cloudfront.net/files/684f8b995576c80008d8e227/chatgptimagejun15-2025-08-01-15pm.png",
+    backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7",
+    isStory: true
+  },
+  {
+    id: 13,
+    title: "Paula's Garage – Confidence Behind the Wheel",
+    subtitle: "We become Paula's go-to car companion, every mile of the way",
+    content: "**Why this matters:**\nPaula isn't chasing horsepower—she's juggling life, and needs her car to just work.\n\n**My Garage gives Paula:**\n• A home for service records & recalls\n• Car-specific tips she actually needs\n• Tools to stay ahead—without stress\n\n**So what?**\nWe become more than a site—\nWe become Paula's go-to car companion, every mile of the way.",
+    image: "https://d2kde5ohu8qb21.cloudfront.net/files/684f8b975576c80008d8e225/1113e676-e427-43e5-8015-7b268feaba25.png",
+    backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7",
+    isStory: true
   }
 ];
 

@@ -12,6 +12,7 @@ import GarageQuickAdd from "../GarageQuickAdd";
 import TestDriveList from "./TestDriveList";
 import OwnedCarsManager from "./OwnedCarsManager";
 import { CarData } from "../CarCard/types";
+import ComparisonModal from "./ComparisonModal";
 
 type ViewMode = 'grid' | 'list';
 type FilterTab = 'all' | 'owned' | 'testDriven' | 'interested';
@@ -25,6 +26,7 @@ const GarageLayout = () => {
   const [showAdvancedOptions, setShowAdvancedOptions] = useState(false);
   const [showAddVehicle, setShowAddVehicle] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [showComparisonModal, setShowComparisonModal] = useState(false);
 
   // Filter only car items
   const savedCars = savedItems.filter(item => item.type === 'newCar' || item.type === 'usedCar');
@@ -150,6 +152,10 @@ const GarageLayout = () => {
                 <Button 
                   variant="outline" 
                   className="w-full justify-start"
+                  onClick={() => {
+                    setShowComparisonModal(true);
+                    setShowMobileMenu(false);
+                  }}
                 >
                   <Grid className="w-4 h-4 mr-2" />
                   Compare Vehicles
@@ -296,7 +302,11 @@ const GarageLayout = () => {
             <div className="flex items-center space-x-3">
               {savedCars.length > 1 && (
                 <>
-                  <Button variant="solid" className="bg-neutral-1 text-white hover:bg-neutral-2">
+                  <Button 
+                    variant="solid" 
+                    className="bg-neutral-1 text-white hover:bg-neutral-2"
+                    onClick={() => setShowComparisonModal(true)}
+                  >
                     Compare Selected
                   </Button>
                   <Button variant="outline" className="border-neutral-5 text-neutral-2 hover:bg-neutral-8">
@@ -466,6 +476,14 @@ const GarageLayout = () => {
           </div>
         )}
       </div>
+
+      {/* Comparison Modal */}
+      <ComparisonModal
+        isOpen={showComparisonModal}
+        onClose={() => setShowComparisonModal(false)}
+        savedCars={savedCars}
+        savedItemToCarData={savedItemToCarData}
+      />
     </div>
   );
 };

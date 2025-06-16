@@ -1,15 +1,20 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
+import BookmarkDropdown from "./BookmarkDropdown"
 
 export interface UnifiedCardProps extends React.HTMLAttributes<HTMLDivElement> {
   variant?: 'default' | 'photo' | 'video' | 'newCar' | 'usedCar' | 'article';
   isSaved?: boolean;
   onToggleSave?: () => void;
+  onSaveToCategory?: (category: 'owned' | 'testDriven' | 'interested') => void;
+  onRemoveBookmark?: () => void;
   isLoading?: boolean;
   metadata?: Record<string, string>;
   imageUrl?: string;
   showSaveButton?: boolean;
+  useBookmarkDropdown?: boolean;
+  itemTitle?: string;
   className?: string;
 }
 
@@ -18,17 +23,35 @@ const Card = React.forwardRef<HTMLDivElement, UnifiedCardProps>(
     variant = 'default',
     isSaved,
     onToggleSave,
+    onSaveToCategory,
+    onRemoveBookmark,
     isLoading,
     metadata,
     imageUrl,
     showSaveButton,
+    useBookmarkDropdown = false,
+    itemTitle,
     className,
     children,
     ...props
   }, ref) => {
     // Save button logic
     const renderSaveButton = () => {
-      if (!onToggleSave && !showSaveButton) return null;
+      if (!onToggleSave && !showSaveButton && !useBookmarkDropdown) return null;
+      
+      // Use BookmarkDropdown for car cards
+      if (useBookmarkDropdown && onSaveToCategory && onRemoveBookmark) {
+        return (
+          <BookmarkDropdown
+            isSaved={isSaved || false}
+            onSave={onSaveToCategory}
+            onRemove={onRemoveBookmark}
+            carTitle={itemTitle}
+          />
+        );
+      }
+      
+      // Fallback to regular bookmark button
       return (
         <button
           onClick={e => {

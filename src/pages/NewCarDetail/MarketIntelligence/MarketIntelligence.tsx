@@ -301,7 +301,7 @@ const MarketIntelligence: React.FC<MarketIntelligenceProps> = ({
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {priceHistory.map((trend, index) => {
                   const isCurrentMonth = index === priceHistory.length - 1;
                   const demandColor = trend.marketDemand === 'High' ? 'text-red-600 bg-red-100' : 

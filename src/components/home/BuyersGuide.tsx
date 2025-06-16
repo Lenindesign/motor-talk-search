@@ -24,8 +24,8 @@ const guideItems: CarData[] = [{
 }, {
   id: 'new-2',
   title: '2025 Rivian R1S',
-  price: '$76,000',
-  msrp: '$76,000',
+  price: 'Price Range $69,900 - $99,900',
+  msrp: 'Price Range $69,900 - $99,900',
   imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/67003206c86c06000844d0f6/001-2025-rivian-r1s-dual-max-lead.jpg',
   isNew: true,
   year: "2025",
@@ -53,8 +53,8 @@ const guideItems: CarData[] = [{
   motorTrendRank: '#2',
   motorTrendCategoryRank: true,
   userReviewsScore: '4.0',
-}, {
-  id: 'new-4',
+},   {
+  id: 'new-1',
   title: '2025 Ford Mustang GT',
   price: '$42,990',
   msrp: '$42,990',

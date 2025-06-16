@@ -85,7 +85,7 @@ const BuyersGuide: React.FC = () => {
 
   // Default cars for when there's no search
   const defaultNewCars: CarData[] = [{
-    id: 'ford-mustang-2025',
+    id: 'new-1',
     title: '2025 Ford Mustang GT',
     imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/65a457a12936a70008a96a14/030-2025-ford-mustang-gtd.jpg',
     price: '$45,995',

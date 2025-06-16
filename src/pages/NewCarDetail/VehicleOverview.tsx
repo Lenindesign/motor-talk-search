@@ -115,20 +115,20 @@ const VehicleOverview: React.FC<VehicleOverviewProps> = ({
       {/* Ratings Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Expert Rating */}
-        <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl p-6 border border-red-100">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
           <div className="flex items-center gap-2 mb-4">
-            <Award className="w-5 h-5 text-motortrend-red" />
+            <Award className="w-5 h-5 text-blue-600" />
             <span className="typography-subtitle text-neutral-1">Expert Rating</span>
                 </div>
           <div className="space-y-3">
             <div className="text-3xl font-bold text-neutral-1">{overallRating.toFixed(1)}<span className="text-lg text-neutral-3">/10</span></div>
-            <Progress value={overallRating * 10} className="h-2 bg-red-100" />
+            <Progress value={overallRating * 10} className="h-2 bg-blue-100" />
             <div className="text-xs text-neutral-3">Excellent performance and value</div>
                 </div>
               </div>
               
         {/* Owner Rating */}
-        <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-100">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
           <div className="flex items-center gap-2 mb-4">
             <Users className="w-5 h-5 text-blue-600" />
             <span className="typography-subtitle text-neutral-1">Owner Rating</span>
@@ -141,9 +141,9 @@ const VehicleOverview: React.FC<VehicleOverviewProps> = ({
               </div>
               
         {/* Safety Rating */}
-        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-100">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
           <div className="flex items-center gap-2 mb-4">
-            <Shield className="w-5 h-5 text-green-600" />
+            <Shield className="w-5 h-5 text-blue-600" />
             <span className="typography-subtitle text-neutral-1">Safety Rating</span>
           </div>
           <div className="space-y-3">
@@ -153,7 +153,7 @@ const VehicleOverview: React.FC<VehicleOverviewProps> = ({
                     ))}
                   </div>
             <div className="text-xs text-neutral-3">NHTSA 5-Star Overall</div>
-            <div className="text-xs font-medium text-green-600">Top Safety Pick+</div>
+            <div className="text-xs font-medium text-blue-600">Top Safety Pick+</div>
                 </div>
               </div>
             </div>

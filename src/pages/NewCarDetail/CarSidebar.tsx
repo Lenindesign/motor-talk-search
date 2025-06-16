@@ -113,7 +113,7 @@ const CarSidebar: React.FC<CarSidebarProps> = ({
           {/* Price Section */}
           <div className="text-center space-y-2">
             <div className="text-sm text-neutral-3">MotorTrend suggests you pay</div>
-            <div className="typography-display text-neutral-1">{car.price}</div>
+            <div className="typography-display font-bold text-neutral-1">$75,900</div>
             <button 
               onClick={() => {
                 const element = document.getElementById('pricing');
