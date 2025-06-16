@@ -26,13 +26,20 @@ const slides: Slide[] = [
   },
   {
     id: 2,
+    title: "The Digital Car Shopping Revolution",
+    subtitle: "Understanding today's automotive consumer behavior",
+    content: "**1. Digital is default:** 95% of vehicle buyers use online sources during the shopping journey.\n*consumeraffairs.com*\n\n**2. Multi-site comparison:** Shoppers visit ≈ 4.9 websites on average before deciding (up from 4.0 in 2021).\n*coxautoinc.com*\n\n**3. Time commitment:** The full new-car buying process now takes 13.5 hours, with most of that in research/discovery.\n*coxautoinc.com*\n\n**4. Hybrid journey:** Car Buyers complete > 50% of steps online, yet 69% still insist on an in-person test drive.\n*kbb.com, cargurus.com*\n\n**5. Online purchase gap:** < 3% have bought fully online so far, but 57% say they'd be willing to do so.\n*consumeraffairs.com, adtaxi.com*\n\n**6. Generational span:** Gen Z researches for 147 days on average; Boomers, 84 days.\n*marketwatch.com*",
+    backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7"
+  },
+  {
+    id: 3,
     title: "Meet Greg The Enthusiast",
     subtitle: "The Car Enthusiast",
     content: "**Background:** Greg is a passionate car enthusiast who has loved cars since childhood. He owns a classic vintage car that he enjoys tinkering with on weekends. Greg isn't actively buying cars but dreams about adding to his collection someday.\n\n**Needs and Goals:** Greg uses \"My Garage\" to track maintenance on his current vehicle, plan upgrades, and create a wishlist of dream cars. He enjoys comparing different models and imagining future project cars.\n\n**Motivation:** For Greg, cars aren't just transportation—they're a passion and hobby. He wants features that support his automotive enthusiasm and help him connect with the car community.",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7"
   },
   {
-    id: 3,
+    id: 4,
     title: "Greg The Enthusiast",
     subtitle: "Car Enthusiast",
     content: "You know, for me, cars are more than just transportation. They're memories, they're passion projects, they're a part of who I am.",
@@ -41,69 +48,69 @@ const slides: Slide[] = [
     isQuote: true
   },
   {
-    id: 4,
+    id: 5,
     title: "Greg's Story – Why he loves cars",
     subtitle: "From Toy Hot-Wheels to Track Days—Greg's Journey on Four Wheels",
-    content: "1. Childhood spark (age 6)\n• Hot-Wheels and weekend car shows with his dad planted the seed.\n\n2. Formative moment (college years)\nGreg working on a project car\n• Rebuilt a 1986 Mazda RX-7 in the dorm parking lot—learned patience and mechanics.\n\n3. Today – the hobby turns social\nAutocross run\n• Monthly track-day community gives him adrenaline and friendships.\n\n4. What Greg wants next\n\"…a car that's track-ready out of the box, but civil for Monday to-work.\"",
+    content: "• 1. Childhood spark (age 6) Hot-Wheels and weekend car shows with his dad planted the seed.\n\n2. Formative moment (college years)\nGreg working on a project car\n• Rebuilt a 1986 Mazda RX-7 in the dorm parking lot—learned patience and mechanics.\n\n• 3. Today – the hobby turns social\nAutocross run, monthly track-day community gives him adrenaline and friendships.\n\n• 4. What Greg wants next\n\"…a car that's track-ready on Saturday and cruise to the office in on a Monday\"",
     image: "https://d2kde5ohu8qb21.cloudfront.net/files/684f0d537a225e0008ee0726/chatgptimagejun15-2025-11-13-19am.png",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7",
     isStory: true
   },
   {
-    id: 5,
+    id: 6,
     title: "Meet Paula the Practical Buyer",
     subtitle: "The Practical Buyer",
     content: "**Background:** Paula is a busy professional who needs a reliable car for her daily commute. She isn't a car enthusiast, but she values practicality and efficiency. Paula is in the market for a new car that's fuel-efficient and affordable, and she wants to make a well-informed decision.\n\n**Needs and Goals:** Paula uses \"My Garage\" to compare different cars she's considering, calculate monthly payments, and keep track of test drives. She wants a feature that simplifies the car-buying process and helps her stay organized throughout her search.\n\n**Motivation:** Paula is motivated by convenience and efficiency. She wants to find a car that fits her lifestyle and budget without too much hassle.",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7"
   },
   {
-    id: 6,
+    id: 7,
     title: "Paula the Practical Buyer",
     subtitle: "Practical Buyer",
-    content: "I just need a car that fits my life. Something reliable that gets me where I need to go and makes things a little easier every day.",
+    content: "I don't need flashy horsepower—I just need a car I can count on. Give me something that starts every morning, keeps the kids safe, and lets me focus on my day instead of the dashboard.",
     image: "https://d2kde5ohu8qb21.cloudfront.net/files/684f0501ad70b40008438c6d/paula.png",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7",
     isQuote: true
   },
   {
-    id: 7,
+    id: 8,
     title: "Paula's Story – Why she needs a new car",
     subtitle: "From Frustration to Freedom—Paula's Search for Peace-of-Mind Mobility",
-    content: "1. The problem (yesterday's commute)\nPhoto: Paula waiting for a tow truck, phone in hand\n• 14-mile commute ballooned to two hours after her 2008 sedan overheated—again.\n\n2. Life changes (this year)\n• New baby → safety first.\n• Side-hustle deliveries → cargo space.\n• Rising repair bills → budget drain.\n\n3. Decision criteria\n• 5-star safety rating\n• 40+ MPG (gas or equivalent EV range)\n• Under $450/mo all-in financing\n\n4. The \"aha\" moment\nTestimonial quote placeholder\n• \"Your Smart-Lease bundle fit every box—plus concierge maintenance so I never see a tow again.\"",
+    content: "• 1 Yesterday's Commute a 14-mile drive turned into a two-hour ordeal when her 2008 sedan overheated for the third time this month.\n\n 2 This Year – Life Just Got Real - \n• New baby → safety is non-negotiable,\n• Side-hustle deliveries → needs real cargo space, \n• Rising repair bills → money leaking from the budget\n\n3. Decision criteria\n• 5-star safety rating\n• 40+ MPG (gas or equivalent EV range)\n• Under $550/mo all-in financing\n\n4. The \"aha\" moment\n\"I realized, with Smart-Lease I can finally stop juggling repair bills, so I can just buckle the baby in and get on with my day.\"",
     image: "https://d2kde5ohu8qb21.cloudfront.net/files/684f0affe07a220008e85b17/chatgptimagejun15-2025-11-03-00am.png",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7",
     isStory: true
   },
   {
-    id: 8,
+    id: 9,
     title: "Save Your Vehicles",
-    subtitle: "Build your automotive collection",
+    subtitle: "Build your automotive collection, schedule a test drive",
     content: "Easily save cars you own, are interested in, or have test-driven. Create a comprehensive collection of your automotive journey.",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7"
   },
   {
-    id: 9,
+    id: 10,
     title: "Track Maintenance",
     subtitle: "Stay on top of vehicle care",
     content: "Keep detailed maintenance records, set reminders, and track service history to ensure your vehicles stay in perfect condition.",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7"
   },
   {
-    id: 10,
+    id: 11,
     title: "Compare & Research",
     subtitle: "Make informed decisions",
     content: "Compare specifications, prices, and features across different vehicles to make the best automotive decisions.",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7"
   },
   {
-    id: 11,
+    id: 12,
     title: "Dream Car Wishlist",
     subtitle: "Plan your next purchase",
     content: "Create a wishlist of dream cars with target prices, must-have features, and priority levels to plan your future purchases.",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7"
   },
   {
-    id: 12,
+    id: 13,
     title: "Greg's Garage – Where Passion Lives",
     subtitle: "This is how we turn fans into creators",
     content: "**Why this matters:**\nGreg's not just watching builds—he's under the hood, tuning his RX-7 on weekends.\n\n**My Garage lets Greg:**\n• Share his car, mods, and journey\n• Track builds, parts, and upgrades\n• Connect with others who get it\n\n**So what?**\nThis is how we turn fans into creators.\nIt's sticky, social, and keeps Greg coming back—not just to read, but to show off.",
@@ -112,13 +119,21 @@ const slides: Slide[] = [
     isStory: true
   },
   {
-    id: 13,
+    id: 14,
     title: "Paula's Garage – Confidence Behind the Wheel",
     subtitle: "We become Paula's go-to car companion, every mile of the way",
     content: "**Why this matters:**\nPaula isn't chasing horsepower—she's juggling life, and needs her car to just work.\n\n**My Garage gives Paula:**\n• A home for service records & recalls\n• Car-specific tips she actually needs\n• Tools to stay ahead—without stress\n\n**So what?**\nWe become more than a site—\nWe become Paula's go-to car companion, every mile of the way.",
     image: "https://d2kde5ohu8qb21.cloudfront.net/files/684f8b975576c80008d8e225/1113e676-e427-43e5-8015-7b268feaba25.png",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7",
     isStory: true
+  },
+  {
+    id: 15,
+    title: "Sticky Value for Users & for MotorTrend",
+    subtitle: "Creating mutual value through personalized automotive experiences",
+    content: "**For Enthusiasts (Greg)**\n• Show progress, mods, lap times\n• Find parts lists & peer tips\n• Build reputation in the community\n• Return often to update builds\n\n**For Everyday Drivers (Paula)**\n• Schedule and keep track of all her test drives in one place\n• Keep service & recall alerts handy\n• Get \"what-to-do-next\" maintenance guides\n• Peace-of-mind record-keeping\n• Return for reminders & advice\n\n**For MotorTrend**\n• + Time-on-site & log-ins\n• + UGC for SEO & socials\n• + Targeted commerce & ads\n• + Brand loyalty after the sale\n\n**Bottom line:** \"My Garage\" turns MotorTrend from a site people visit into a platform they *live in*—fueling repeat engagement, fresh user-generated content, and new monetization paths.",
+    image: "https://d2kde5ohu8qb21.cloudfront.net/files/684f21c88feb2d000827e604/adobestock-416249405.jpeg",
+    backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7"
   }
 ];
 
@@ -131,15 +146,59 @@ const MyGarageSlideshow: React.FC<MyGarageSlideshowProps> = ({ className }) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // Helper function to render text with bold markdown
+  // Helper function to render text with bold markdown and bullet points
   const renderTextWithBold = (text: string) => {
-    const parts = text.split(/(\*\*.*?\*\*)/g);
-    return parts.map((part, index) => {
-      if (part.startsWith('**') && part.endsWith('**')) {
-        const boldText = part.slice(2, -2);
-        return <strong key={index} className="font-bold text-neutral-1">{boldText}</strong>;
+    // First split by double line breaks to handle paragraphs
+    const paragraphs = text.split('\n\n');
+    
+    return paragraphs.map((paragraph, paragraphIndex) => {
+      // Check if this paragraph contains bullet points
+      if (paragraph.includes('\n•') || paragraph.startsWith('•')) {
+        // Split by bullet points and handle each one
+        const bulletItems = paragraph.split(/\n•/).filter(item => item.trim());
+        
+        return (
+          <div key={paragraphIndex} className="mb-4 last:mb-0">
+            {bulletItems.map((item, itemIndex) => {
+              // Handle the first item (might not start with bullet)
+              const cleanItem = item.startsWith('•') ? item.slice(1).trim() : item.trim();
+              
+              // Process bold text within each bullet point
+              const parts = cleanItem.split(/(\*\*.*?\*\*)/g);
+              const processedItem = parts.map((part, partIndex) => {
+                if (part.startsWith('**') && part.endsWith('**')) {
+                  const boldText = part.slice(2, -2);
+                  return <strong key={partIndex} className="font-bold text-neutral-1">{boldText}</strong>;
+                }
+                return part;
+              });
+              
+              return (
+                <div key={itemIndex} className="flex items-start mb-2 last:mb-0">
+                  <span className="text-motortrend-red mr-2 mt-1 flex-shrink-0">•</span>
+                  <span className="flex-1">{processedItem}</span>
+                </div>
+              );
+            })}
+          </div>
+        );
+      } else {
+        // Regular paragraph without bullet points
+        const parts = paragraph.split(/(\*\*.*?\*\*)/g);
+        const processedParagraph = parts.map((part, partIndex) => {
+          if (part.startsWith('**') && part.endsWith('**')) {
+            const boldText = part.slice(2, -2);
+            return <strong key={partIndex} className="font-bold text-neutral-1">{boldText}</strong>;
+          }
+          return part;
+        });
+        
+        return (
+          <div key={paragraphIndex} className="mb-4 last:mb-0">
+            {processedParagraph}
+          </div>
+        );
       }
-      return part;
     });
   };
 
@@ -246,7 +305,7 @@ const MyGarageSlideshow: React.FC<MyGarageSlideshowProps> = ({ className }) => {
               "text-neutral-2 italic border-l-4 border-motortrend-red pl-6",
               isFullscreen ? "text-2xl md:text-3xl leading-relaxed" : "text-xl md:text-2xl leading-relaxed"
             )}>
-              {renderTextWithBold(currentSlideData.content)}
+              <div>{renderTextWithBold(currentSlideData.content)}</div>
             </blockquote>
           </div>
         </div>
@@ -292,11 +351,7 @@ const MyGarageSlideshow: React.FC<MyGarageSlideshowProps> = ({ className }) => {
               "text-neutral-3 max-w-3xl mx-auto text-left",
               isFullscreen ? "text-lg md:text-xl" : "text-base md:text-lg"
             )}>
-              {currentSlideData.content.split('\n\n').map((paragraph, index) => (
-                <p key={index} className="mb-4 last:mb-0">
-                  {renderTextWithBold(paragraph)}
-                </p>
-              ))}
+              {renderTextWithBold(currentSlideData.content)}
             </div>
           </div>
         </div>
@@ -305,12 +360,14 @@ const MyGarageSlideshow: React.FC<MyGarageSlideshowProps> = ({ className }) => {
 
     // Regular slide layout
     return (
-      <div className="text-center max-w-4xl">
+      <div className="text-left max-w-4xl">
         {/* Title */}
         <h1 className={cn(
           "font-bold mb-4 leading-tight",
           currentSlide === 0 ? "text-white" : "text-neutral-1",
-          isFullscreen ? "text-6xl md:text-8xl" : "text-4xl md:text-6xl"
+          currentSlide === 1 || currentSlide === 2
+            ? isFullscreen ? "text-4xl md:text-5xl" : "text-2xl md:text-3xl"
+            : isFullscreen ? "text-6xl md:text-8xl" : "text-4xl md:text-6xl"
         )}>
           {currentSlideData.title}
         </h1>
@@ -325,12 +382,12 @@ const MyGarageSlideshow: React.FC<MyGarageSlideshowProps> = ({ className }) => {
         </p>
         
         {/* Red accent line */}
-        <div className="w-16 h-1 bg-motortrend-red mx-auto mb-6"></div>
+        <div className="w-16 h-1 bg-motortrend-red mb-6"></div>
         
         {/* Content */}
         <div 
           className={cn(
-            "max-w-4xl mx-auto text-center",
+            "max-w-4xl text-left",
             currentSlide === 0 ? "!text-white font-medium" : "text-neutral-3",
             currentSlide === 0 
               ? isFullscreen ? "text-3xl md:text-4xl leading-relaxed" : "text-2xl md:text-3xl leading-relaxed"
@@ -344,24 +401,20 @@ const MyGarageSlideshow: React.FC<MyGarageSlideshowProps> = ({ className }) => {
             filter: 'none'
           } : {}}
         >
-          {currentSlideData.content.split('\n\n').map((paragraph, index) => (
-            <p 
-              key={index} 
-              className={cn(
-                "mb-4 last:mb-0",
-                currentSlide === 0 ? "drop-shadow-lg !text-white" : ""
-              )}
-              style={currentSlide === 0 ? {
-                color: '#ffffff !important',
-                fontSize: 'inherit',
-                fontWeight: 'inherit',
-                filter: 'none',
-                opacity: '1'
-              } : {}}
-            >
-              {renderTextWithBold(paragraph)}
-            </p>
-          ))}
+          <div 
+            className={cn(
+              currentSlide === 0 ? "drop-shadow-lg !text-white" : ""
+            )}
+            style={currentSlide === 0 ? {
+              color: '#ffffff !important',
+              fontSize: 'inherit',
+              fontWeight: 'inherit',
+              filter: 'none',
+              opacity: '1'
+            } : {}}
+          >
+            {renderTextWithBold(currentSlideData.content)}
+          </div>
         </div>
       </div>
     );

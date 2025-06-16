@@ -198,15 +198,21 @@ const CarSidebar: React.FC<CarSidebarProps> = ({
           {/* Configuration Options */}
           <div className="space-y-3 pt-4 border-t border-neutral-6">
             <div className="text-sm font-medium text-neutral-1">Configuration</div>
-            <select className="w-full h-10 px-3 border border-neutral-6 rounded-xl text-sm bg-white focus:ring-2 focus:ring-motortrend-red focus:border-transparent">
-              <option>2025 Model Year</option>
-            </select>
-            <select className="w-full h-10 px-3 border border-neutral-6 rounded-xl text-sm bg-white focus:ring-2 focus:ring-motortrend-red focus:border-transparent">
-              <option>Dual-Motor - $78,000 MSRP</option>
-              <option>Performance Dual-Motor - $89,000 MSRP</option>
-              <option>Max Pack Dual-Motor - $93,000 MSRP</option>
-              <option>Performance Max Pack - $99,000 MSRP</option>
-            </select>
+            <div className="relative">
+              <select className="w-full h-10 px-3 pr-10 border border-neutral-6 rounded-xl text-sm bg-white focus:ring-2 focus:ring-motortrend-red focus:border-transparent appearance-none">
+                <option>2025 Model Year</option>
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-3 pointer-events-none" />
+            </div>
+            <div className="relative">
+              <select className="w-full h-10 px-3 pr-10 border border-neutral-6 rounded-xl text-sm bg-white focus:ring-2 focus:ring-motortrend-red focus:border-transparent appearance-none">
+                <option>Dual-Motor - $78,000 MSRP</option>
+                <option>Performance Dual-Motor - $89,000 MSRP</option>
+                <option>Max Pack Dual-Motor - $93,000 MSRP</option>
+                <option>Performance Max Pack - $99,000 MSRP</option>
+              </select>
+              <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-3 pointer-events-none" />
+            </div>
           </div>
         </div>
       </div>
