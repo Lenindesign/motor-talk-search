@@ -1311,7 +1311,7 @@ export const mockNewCars: CarData[] = [
   {
     id: "tesla-new-1",
     title: "2025 Tesla Model 3 Long Range",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-tesla-model-3-front-view.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b6575d66bfb8000847395d/29-2025-tesla-model-3-front-view.jpg",
     price: "$38,990",
     msrp: "$38,990",
     category: "Electric Sedan",
@@ -1336,7 +1336,7 @@ export const mockNewCars: CarData[] = [
   {
     id: "tesla-new-2",
     title: "2025 Tesla Model Y Long Range",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-tesla-model-y-juniper-front-view.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b65c0a261b1300083ef8f6/2-2025-tesla-model-x-front-view.jpg",
     price: "$44,990",
     msrp: "$44,990",
     category: "Electric SUV",
@@ -1361,7 +1361,7 @@ export const mockNewCars: CarData[] = [
   {
     id: "tesla-new-3",
     title: "2025 Tesla Model S Long Range",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-tesla-model-s-front-view.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/6793fa7df3811f0008acd379/1-2025-tesla-model-s-front-view.jpg",
     price: "$84,990",
     msrp: "$84,990",
     category: "Luxury Electric Sedan",
@@ -1386,7 +1386,7 @@ export const mockNewCars: CarData[] = [
   {
     id: "tesla-new-4",
     title: "2025 Tesla Model X Long Range",
-    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-tesla-model-x-front-view.jpg",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b65c31261b1300083ef8ff/14-2025-tesla-model-x-front-view.jpg",
     price: "$89,990",
     msrp: "$89,990",
     category: "Luxury Electric SUV",

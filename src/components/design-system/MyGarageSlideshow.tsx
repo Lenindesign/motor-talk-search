@@ -20,7 +20,7 @@ const slides: Slide[] = [
     id: 1,
     title: "Introducing My Garage",
     subtitle: "A personalized experience for every driver",
-    content: "Welcome to My Garage - your personal autoUsemotive hub where you can save, organize, and track all your vehicles in one place.",
+    content: "Welcome to My Garage - your personal automotive hub where you can save, organize, and track all your vehicles in one place.",
     image: "https://d2kde5ohu8qb21.cloudfront.net/files/684f21c88feb2d000827e604/adobestock-416249405.jpeg",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7"
   },
