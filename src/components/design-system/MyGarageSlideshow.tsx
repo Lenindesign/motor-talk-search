@@ -20,15 +20,15 @@ const slides: Slide[] = [
     id: 1,
     title: "Introducing My Garage",
     subtitle: "A personalized experience for every driver",
-    content: "Welcome to My Garage - your personal automotive hub where you can save, organize, and track all your vehicles in one place.",
+    content: "Welcome to My Garage - your personal autoUsemotive hub where you can save, organize, and track all your vehicles in one place.",
     image: "https://d2kde5ohu8qb21.cloudfront.net/files/684f21c88feb2d000827e604/adobestock-416249405.jpeg",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7"
   },
   {
     id: 2,
-    title: "The Digital Car Shopping Revolution",
+    title: "Users are going more online than ever before",
     subtitle: "Understanding today's automotive consumer behavior",
-    content: "**1. Digital is default:** 95% of vehicle buyers use online sources during the shopping journey.\n*consumeraffairs.com*\n\n**2. Multi-site comparison:** Shoppers visit ≈ 4.9 websites on average before deciding (up from 4.0 in 2021).\n*coxautoinc.com*\n\n**3. Time commitment:** The full new-car buying process now takes 13.5 hours, with most of that in research/discovery.\n*coxautoinc.com*\n\n**4. Hybrid journey:** Car Buyers complete > 50% of steps online, yet 69% still insist on an in-person test drive.\n*kbb.com, cargurus.com*\n\n**5. Online purchase gap:** < 3% have bought fully online so far, but 57% say they'd be willing to do so.\n*consumeraffairs.com, adtaxi.com*\n\n**6. Generational span:** Gen Z researches for 147 days on average; Boomers, 84 days.\n*marketwatch.com*",
+    content: "**1. Digital is default:** 95% of vehicle buyers use online sources during the shopping journey.\n*consumeraffairs.com*\n\n**2. Multi-site comparison:** Shoppers visit ≈ 4.9 websites on average before deciding (up from 4.0 in 2021).\n*coxautoinc.com*\n\n**3. Time commitment:** The full new-car buying process now takes 13.5 hours, with most of that in research/discovery.\n*coxautoinc.com*\n\n**4. Hybrid journey:** Car Buyers complete > 50% of steps online, yet 69% still insist on an in-person test drive.\n*kbb.com, cargurus.com\n\n**5. Generational span:** Gen Z researches for 147 days on average; Boomers, 84 days.\n*marketwatch.com*",
     backgroundColor: "bg-gradient-to-br from-neutral-8 to-neutral-7"
   },
   {
