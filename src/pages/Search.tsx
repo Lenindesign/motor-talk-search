@@ -180,11 +180,15 @@ const Search = () => {
 
         // Filter content based on the query, but keep all content types populated
         const lowerQuery = query.toLowerCase();
-        // Check for Honda Accord searches - include just 'accord' to get more results
-        const isHondaAccordSearch = lowerQuery.includes('honda accord') || 
-                                   (lowerQuery.includes('honda') && lowerQuery.includes('accord')) || 
-                                   lowerQuery === 'accord' || 
-                                   lowerQuery === 'honda';
+        // Check if it's a Honda Accord specific search
+        const isHondaAccordSearch = lowerQuery.includes("honda") && lowerQuery.includes("accord");
+        
+        // Check if it's a Tesla specific search
+        const isTeslaSearch = lowerQuery.includes("tesla") || 
+                            lowerQuery.includes("model 3") || 
+                            lowerQuery.includes("model y") || 
+                            lowerQuery.includes("model s") || 
+                            lowerQuery.includes("model x");
         
         // Special handling for Honda Accord searches
         const filteredContent = {
@@ -206,6 +210,14 @@ const Search = () => {
                 car.title.toLowerCase().includes('honda') || 
                 car.title.toLowerCase().includes('accord') ||
                 car.id.toLowerCase().startsWith('honda-'))
+            : isTeslaSearch
+            ? mockNewCars.filter(car => 
+                car.title.toLowerCase().includes('tesla') || 
+                car.title.toLowerCase().includes('model 3') ||
+                car.title.toLowerCase().includes('model y') ||
+                car.title.toLowerCase().includes('model s') ||
+                car.title.toLowerCase().includes('model x') ||
+                car.id.toLowerCase().startsWith('tesla-'))
             : lowerQuery.includes("new") || contentType === "newCars" ? mockNewCars : content.newCars,
             
           // For used cars, include any that mention Honda or Accord or have IDs starting with 'honda-'
@@ -214,6 +226,14 @@ const Search = () => {
                 car.title.toLowerCase().includes('honda') || 
                 car.title.toLowerCase().includes('accord') ||
                 car.id.toLowerCase().startsWith('honda-'))
+            : isTeslaSearch
+            ? mockUsedCars.filter(car => 
+                car.title.toLowerCase().includes('tesla') || 
+                car.title.toLowerCase().includes('model 3') ||
+                car.title.toLowerCase().includes('model y') ||
+                car.title.toLowerCase().includes('model s') ||
+                car.title.toLowerCase().includes('model x') ||
+                car.id.toLowerCase().startsWith('tesla-'))
             : lowerQuery.includes("used") || contentType === "usedCars" ? mockUsedCars : content.usedCars,
             
           // For photos, include any that have Honda as make or Accord as model or in title

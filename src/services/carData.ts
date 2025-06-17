@@ -1,4 +1,3 @@
-
 // Car makes and models data for autocomplete suggestions
 export interface CarMake {
   id: string;
@@ -200,6 +199,73 @@ export const carMakes: CarMake[] = [
       { id: "nissan-3", name: "Pathfinder", year: 2025 , imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/676370aa8f15860008e1af84/21-2025-nissan-pathfinder-front-view.jpg"},
       { id: "nissan-4", name: "Frontier", year: 2025 , imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67e5dec95067fc0008a938a5/04-2025-nissan-frontier-pro-4x.jpg"},
       { id: "nissan-5", name: "Ariya", year: 2025 , imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67afe4e50a4efc0008c300dc/1-2025-nissan-ariya-front-view.jpg"}
+    ]
+  },
+  {
+    id: "make-13",
+    name: "Tesla",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/tesla-logo.png",
+    models: [
+      { 
+        id: "tesla-1", 
+        name: "Model 3", 
+        year: 2025, 
+        imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-tesla-model-3-front-view.jpg",
+        msrp: 38990,
+        estPayment: 629,
+        range: 272,
+        mpge: 132,
+        motorTrendScore: 8.8,
+        rank: "#2 in Electric Sedan"
+      },
+      { 
+        id: "tesla-2", 
+        name: "Model Y", 
+        year: 2025, 
+        imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-tesla-model-y-juniper-front-view.jpg",
+        msrp: 44990,
+        estPayment: 729,
+        range: 320,
+        mpge: 122,
+        motorTrendScore: 9.1,
+        rank: "#1 in Electric SUV"
+      },
+      { 
+        id: "tesla-3", 
+        name: "Model S", 
+        year: 2025, 
+        imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-tesla-model-s-front-view.jpg",
+        msrp: 84990,
+        estPayment: 1399,
+        range: 410,
+        mpge: 120,
+        motorTrendScore: 9.0,
+        rank: "#1 in Luxury Electric Sedan"
+      },
+      { 
+        id: "tesla-4", 
+        name: "Model X", 
+        year: 2025, 
+        imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-tesla-model-x-front-view.jpg",
+        msrp: 89990,
+        estPayment: 1479,
+        range: 352,
+        mpge: 102,
+        motorTrendScore: 8.9,
+        rank: "#1 in Luxury Electric SUV"
+      },
+      { 
+        id: "tesla-5", 
+        name: "Cybertruck", 
+        year: 2025, 
+        imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-tesla-cybertruck-front-view.jpg",
+        msrp: 99990,
+        estPayment: 1649,
+        range: 340,
+        mpge: 105,
+        motorTrendScore: 8.7,
+        rank: "#1 in Electric Truck"
+      }
     ]
   }
 ];

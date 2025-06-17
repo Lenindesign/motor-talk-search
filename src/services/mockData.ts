@@ -1307,6 +1307,107 @@ export const mockNewCars: CarData[] = [
     bodyStyle: "Sedan",
     userReviewsScore: "4.3",
   },
+  // Tesla New Cars - 2025 Models
+  {
+    id: "tesla-new-1",
+    title: "2025 Tesla Model 3 Long Range",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-tesla-model-3-front-view.jpg",
+    price: "$38,990",
+    msrp: "$38,990",
+    category: "Electric Sedan",
+    isNew: true,
+    bodyStyle: "Sedan",
+    year: "2025",
+    make: "Tesla",
+    model: "Model 3",
+    fuelType: "Electric",
+    transmission: "Single-speed automatic",
+    drivetrain: "AWD",
+    mpge: "132 MPGe",
+    range: "272 miles",
+    engine: "Dual electric motors",
+    horsepower: "346 hp",
+    motorTrendScore: "8.8",
+    motorTrendRank: "#2",
+    motorTrendCategoryRank: true,
+    userReviewsScore: "4.5",
+    detailUrl: "/new-car/tesla-new-1"
+  },
+  {
+    id: "tesla-new-2",
+    title: "2025 Tesla Model Y Long Range",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-tesla-model-y-juniper-front-view.jpg",
+    price: "$44,990",
+    msrp: "$44,990",
+    category: "Electric SUV",
+    isNew: true,
+    bodyStyle: "SUV",
+    year: "2025",
+    make: "Tesla",
+    model: "Model Y",
+    fuelType: "Electric",
+    transmission: "Single-speed automatic",
+    drivetrain: "AWD",
+    mpge: "122 MPGe",
+    range: "320 miles",
+    engine: "Dual electric motors",
+    horsepower: "384 hp",
+    motorTrendScore: "9.1",
+    motorTrendRank: "#1",
+    motorTrendCategoryRank: true,
+    userReviewsScore: "4.6",
+    detailUrl: "/new-car/tesla-new-2"
+  },
+  {
+    id: "tesla-new-3",
+    title: "2025 Tesla Model S Long Range",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-tesla-model-s-front-view.jpg",
+    price: "$84,990",
+    msrp: "$84,990",
+    category: "Luxury Electric Sedan",
+    isNew: true,
+    bodyStyle: "Sedan",
+    year: "2025",
+    make: "Tesla",
+    model: "Model S",
+    fuelType: "Electric",
+    transmission: "Single-speed automatic",
+    drivetrain: "AWD",
+    mpge: "120 MPGe",
+    range: "410 miles",
+    engine: "Tri-motor electric",
+    horsepower: "670 hp",
+    motorTrendScore: "9.0",
+    motorTrendRank: "#1",
+    motorTrendCategoryRank: true,
+    userReviewsScore: "4.7",
+    detailUrl: "/new-car/tesla-new-3"
+  },
+  {
+    id: "tesla-new-4",
+    title: "2025 Tesla Model X Long Range",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/67b8d2d9e5f2c20008e9d8c9/2025-tesla-model-x-front-view.jpg",
+    price: "$89,990",
+    msrp: "$89,990",
+    category: "Luxury Electric SUV",
+    isNew: true,
+    bodyStyle: "SUV",
+    year: "2025",
+    make: "Tesla",
+    model: "Model X",
+    fuelType: "Electric",
+    transmission: "Single-speed automatic",
+    drivetrain: "AWD",
+    mpge: "102 MPGe",
+    range: "352 miles",
+    engine: "Tri-motor electric",
+    horsepower: "670 hp",
+    motorTrendScore: "8.9",
+    motorTrendRank: "#1",
+    motorTrendCategoryRank: true,
+    userReviewsScore: "4.6",
+    detailUrl: "/new-car/tesla-new-4"
+  },
 ];
 
 /**
@@ -1560,6 +1661,70 @@ export const mockUsedCars: CarData[] = [
     bodyStyle: "Sedan",
     dealerName: "BMW of San Francisco",
     dealerLocation: "San Francisco, CA"
+  },
+  // Tesla Used Cars
+  {
+    id: "tesla-used-1",
+    title: "2022 Tesla Model 3 Performance",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/663515bddbe9350008773b00/002-2023-tesla-model-y.jpg",
+    price: "$42,995",
+    category: "Electric Sedan",
+    year: "2022",
+    make: "Tesla",
+    model: "Model 3",
+    mileage: "28,750 mi",
+    fuelType: "Electric",
+    drivetrain: "AWD",
+    location: "San Francisco, CA",
+    bodyStyle: "Sedan",
+    mpge: "115 MPGe",
+    range: "315 miles",
+    engine: "Dual electric motors",
+    horsepower: "450 hp",
+    transmission: "Single-speed automatic",
+    detailUrl: "/used-car/tesla-used-1"
+  },
+  {
+    id: "tesla-used-2",
+    title: "2021 Tesla Model Y Long Range",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/663515bddbe9350008773b00/002-2023-tesla-model-y.jpg",
+    price: "$38,995",
+    category: "Electric SUV",
+    year: "2021",
+    make: "Tesla",
+    model: "Model Y",
+    mileage: "41,250 mi",
+    fuelType: "Electric",
+    drivetrain: "AWD",
+    location: "Austin, TX",
+    bodyStyle: "SUV",
+    mpge: "121 MPGe",
+    range: "326 miles",
+    engine: "Dual electric motors",
+    horsepower: "384 hp",
+    transmission: "Single-speed automatic",
+    detailUrl: "/used-car/tesla-used-2"
+  },
+  {
+    id: "tesla-used-3",
+    title: "2020 Tesla Model S Long Range",
+    imageUrl: "https://d2kde5ohu8qb21.cloudfront.net/files/6793fa8794846c00084135f8/3-2025-tesla-model-s-front-view.jpg",
+    price: "$52,995",
+    category: "Luxury Electric Sedan",
+    year: "2020",
+    make: "Tesla",
+    model: "Model S",
+    mileage: "52,500 mi",
+    fuelType: "Electric",
+    drivetrain: "AWD",
+    location: "Los Angeles, CA",
+    bodyStyle: "Sedan",
+    mpge: "113 MPGe",
+    range: "405 miles",
+    engine: "Dual electric motors",
+    horsepower: "412 hp",
+    transmission: "Single-speed automatic",
+    detailUrl: "/used-car/tesla-used-3"
   },
 ];
 
@@ -2168,6 +2333,35 @@ export const generateChatResponse = (query: string): string => {
       }
     } else {
       responseText = `I can help you find Honda Accord models. Are you interested in ${createSearchLink("new Accord models", "Honda Accord new cars")} or ${createSearchLink("used Accord models", "Honda Accord used cars")}?`;
+    }
+  } else if (lowerQuery.includes("tesla")) {
+    // Handle Tesla-specific queries
+    if (lowerQuery.includes("new")) {
+      const teslaNewCars = mockNewCars.filter(car => car.title.toLowerCase().includes("tesla"));
+      if (teslaNewCars.length > 0) {
+        responseText = `Here are our available new Tesla models:\n\n${teslaNewCars.map(car => `• ${createSearchLink(car.title, car.title + " new car")}`).join('\n')}\n\nAll Tesla models are fully electric with advanced Autopilot technology and access to the Supercharger network.`;
+      } else {
+        responseText = `I can help you find new Tesla models. Try searching for "${createSearchLink("2025 Tesla new cars")}" to see our latest inventory including Model 3, Model Y, Model S, and Model X.`;
+      }
+    } else if (lowerQuery.includes("used")) {
+      const teslaUsedCars = mockUsedCars.filter(car => car.title.toLowerCase().includes("tesla"));
+      if (teslaUsedCars.length > 0) {
+        responseText = `Here are our available used Tesla models:\n\n${teslaUsedCars.map(car => `• ${createSearchLink(car.title, car.title + " used car")}`).join('\n')}\n\nAll used Tesla vehicles include over-the-air software updates and retain access to the Supercharger network.`;
+      } else {
+        responseText = `I can help you find used Tesla models. Try searching for "${createSearchLink("Tesla used cars")}" to see our inventory.`;
+      }
+    } else if (lowerQuery.includes("model 3")) {
+      responseText = `The Tesla Model 3 is our most popular electric sedan. Available in ${createSearchLink("new 2025 Model 3", "2025 Tesla Model 3")} starting at $38,990 and ${createSearchLink("used Model 3", "Tesla Model 3 used")} options. Features include 272+ mile range, Autopilot, and over-the-air updates.`;
+    } else if (lowerQuery.includes("model y")) {
+      responseText = `The Tesla Model Y is the best-selling electric SUV. Available in ${createSearchLink("new 2025 Model Y", "2025 Tesla Model Y")} starting at $44,990 and ${createSearchLink("used Model Y", "Tesla Model Y used")} options. Features include 320+ mile range, spacious interior, and optional 7-seat configuration.`;
+    } else if (lowerQuery.includes("model s")) {
+      responseText = `The Tesla Model S is the flagship luxury electric sedan. Available in ${createSearchLink("new 2025 Model S", "2025 Tesla Model S")} starting at $84,990 and ${createSearchLink("used Model S", "Tesla Model S used")} options. Features include 410+ mile range, premium interior, and incredible performance.`;
+    } else if (lowerQuery.includes("model x")) {
+      responseText = `The Tesla Model X is the luxury electric SUV with distinctive falcon wing doors. Available in ${createSearchLink("new 2025 Model X", "2025 Tesla Model X")} starting at $89,990. Features include 352+ mile range, 7-seat configuration, and bioweapon defense mode.`;
+    } else if (lowerQuery.includes("electric") || lowerQuery.includes("ev")) {
+      responseText = `Tesla offers the complete lineup of premium electric vehicles:\n\n• ${createSearchLink("Model 3", "Tesla Model 3")} - Compact luxury sedan\n• ${createSearchLink("Model Y", "Tesla Model Y")} - Compact luxury SUV\n• ${createSearchLink("Model S", "Tesla Model S")} - Full-size luxury sedan\n• ${createSearchLink("Model X", "Tesla Model X")} - Full-size luxury SUV\n\nAll models include Autopilot, Supercharger access, and over-the-air updates.`;
+    } else {
+      responseText = `I can help you find Tesla vehicles. Are you interested in ${createSearchLink("new Tesla models", "Tesla new cars")} or ${createSearchLink("used Tesla models", "Tesla used cars")}? Popular models include the ${createSearchLink("Model 3", "Tesla Model 3")}, ${createSearchLink("Model Y", "Tesla Model Y")}, ${createSearchLink("Model S", "Tesla Model S")}, and ${createSearchLink("Model X", "Tesla Model X")}.`;
     }
   } else if (lowerQuery.includes("list of cars") || lowerQuery.includes("show me some cars") || lowerQuery.includes("list of year make models")) {
     const exampleCars = [

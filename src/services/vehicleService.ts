@@ -1280,6 +1280,1097 @@ const vehicleDatabase = [
     motorTrendScore: 7.8,
     motorTrendRank: 12,
   },
+  // Tesla New Cars - 2025 Models
+  {
+    id: 'tesla-new-1',
+    year: 2025,
+    make: 'Tesla',
+    model: 'Model 3',
+    trim: 'Long Range',
+    type: 'Electric Sedan',
+    price: {
+      base: 38990,
+      asConfigured: 42500,
+    },
+    ratings: {
+      expert: {
+        overall: 8.8,
+        performance: 8.9,
+        comfort: 8.2,
+        technology: 9.5,
+        safety: 9.4,
+        reliability: 8.1,
+        value: 8.6,
+      },
+      user: {
+        average: 4.5,
+        count: 324,
+        distribution: [8, 12, 25, 89, 190],
+      }
+    },
+    keyPoints: [
+      'Impressive range and efficiency with updated Highland design',
+      'Minimalist interior with premium materials',
+      'Access to Tesla Supercharger network',
+    ],
+    specs: {
+      engine: 'Dual electric motors',
+      horsepower: 346,
+      torque: 389,
+      transmission: 'Single-speed automatic',
+      mpg: {
+        equivalent: 132,
+        range: 272, // miles
+      },
+      dimensions: {
+        length: 184.8,
+        width: 72.8,
+        height: 56.8,
+        wheelbase: 113.2,
+        weight: 4065,
+        cargo: 23, // combined trunk and frunk
+      },
+      seating: 5,
+      drivetrains: ['AWD'],
+      fuel: 'Electric',
+      acceleration: 4.2, // 0-60 mph in seconds
+    },
+    features: {
+      standard: [
+        '15.4-inch central touchscreen',
+        'Autopilot',
+        'Glass roof',
+        'Wireless phone charging',
+        'Premium audio system',
+        'Heated front seats',
+        'LED headlights',
+      ],
+      optional: [
+        'Full Self-Driving capability',
+        'Premium Connectivity',
+        'Enhanced Autopilot',
+      ]
+    },
+    ownership: {
+      warranty: {
+        basic: '4 years / 50,000 miles',
+        battery: '8 years / 120,000 miles',
+      },
+      maintenance: {
+        year1: 0,
+        year2: 150,
+        year3: 200,
+        year4: 350,
+        year5: 250,
+      },
+      depreciation: [
+        {year: 1, value: 33000},
+        {year: 3, value: 28500},
+        {year: 5, value: 23000},
+      ],
+      fuelCost: 850, // yearly based on avg electricity costs
+    },
+    photos: [
+      '/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png',
+      '/lovable-uploads/5b8a120c-3d52-41cb-8e20-9a16e6b9bf6a.png',
+      '/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png',
+      '/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png',
+    ],
+    reviews: [
+      {
+        id: 'review-t3-1',
+        user: 'TechEnthusiast',
+        rating: 5,
+        title: 'The future of driving',
+        content: 'The Highland refresh makes the Model 3 even better. The interior is more refined and the driving experience is exceptional.',
+        pros: ['Incredible tech', 'Great range', 'Supercharger network'],
+        cons: ['Learning curve for new users', 'Road noise on some surfaces'],
+        ownershipLength: '6 months',
+        verified: true,
+        date: '2024-11-15',
+      },
+      {
+        id: 'review-t3-2',
+        user: 'EVConvert',
+        rating: 4,
+        title: 'Best EV for the money',
+        content: 'Switched from a BMW 3 Series and couldn\'t be happier. The efficiency and performance are outstanding.',
+        pros: ['Performance', 'Efficiency', 'Over-the-air updates'],
+        cons: ['Build quality inconsistencies', 'Service center availability'],
+        ownershipLength: '1 year',
+        verified: true,
+        date: '2024-09-20',
+      },
+    ],
+    competitors: [
+      {
+        id: 'competitor-t3-1',
+        make: 'BMW',
+        model: 'i4',
+        year: 2025,
+        price: 56395,
+        overallRating: 8.5,
+        mpg: 119, // MPGe
+        key_difference: 'More luxurious interior, higher price point',
+      },
+      {
+        id: 'competitor-t3-2',
+        make: 'Genesis',
+        model: 'Electrified G80',
+        year: 2025,
+        price: 59345,
+        overallRating: 8.4,
+        mpg: 108, // MPGe
+        key_difference: 'More traditional luxury approach, less tech integration',
+      },
+    ],
+    classComparison: {
+      avgPrice: 45000,
+      avgMpg: 120, // MPGe
+      avgCargoSpace: 18.2,
+      avgSafetyRating: 9.1,
+      avgReliabilityRating: 8.2,
+      avgTechRating: 9.0,
+    },
+    motorTrendScore: 8.8,
+    motorTrendRank: 2,
+  },
+  {
+    id: 'tesla-new-2',
+    year: 2025,
+    make: 'Tesla',
+    model: 'Model Y',
+    trim: 'Long Range',
+    type: 'Electric SUV',
+    price: {
+      base: 44990,
+      asConfigured: 48500,
+    },
+    ratings: {
+      expert: {
+        overall: 9.1,
+        performance: 9.0,
+        comfort: 8.5,
+        technology: 9.6,
+        safety: 9.5,
+        reliability: 8.3,
+        value: 8.9,
+      },
+      user: {
+        average: 4.6,
+        count: 456,
+        distribution: [5, 8, 18, 125, 300],
+      }
+    },
+    keyPoints: [
+      'Refreshed Juniper design with improved aerodynamics',
+      'Best-selling electric SUV with proven reliability',
+      'Spacious interior with optional third row seating',
+    ],
+    specs: {
+      engine: 'Dual electric motors',
+      horsepower: 384,
+      torque: 376,
+      transmission: 'Single-speed automatic',
+      mpg: {
+        equivalent: 122,
+        range: 320, // miles
+      },
+      dimensions: {
+        length: 187.0,
+        width: 75.6,
+        height: 63.9,
+        wheelbase: 113.8,
+        weight: 4416,
+        cargo: 76, // with rear seats folded
+      },
+      seating: 5, // 7 optional
+      drivetrains: ['AWD'],
+      fuel: 'Electric',
+      acceleration: 4.8, // 0-60 mph in seconds
+    },
+    features: {
+      standard: [
+        '15-inch central touchscreen',
+        'Autopilot',
+        'Panoramic glass roof',
+        'Wireless phone charging',
+        'Premium audio system',
+        'Heated front and rear seats',
+        'Power liftgate',
+        'LED light bar',
+      ],
+      optional: [
+        'Full Self-Driving capability',
+        'Premium Connectivity',
+        'Third row seating',
+        'Tow hitch',
+      ]
+    },
+    ownership: {
+      warranty: {
+        basic: '4 years / 50,000 miles',
+        battery: '8 years / 120,000 miles',
+      },
+      maintenance: {
+        year1: 0,
+        year2: 180,
+        year3: 250,
+        year4: 400,
+        year5: 300,
+      },
+      depreciation: [
+        {year: 1, value: 38000},
+        {year: 3, value: 32500},
+        {year: 5, value: 26000},
+      ],
+      fuelCost: 950, // yearly based on avg electricity costs
+    },
+    photos: [
+      '/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png',
+      '/lovable-uploads/5b8a120c-3d52-41cb-8e20-9a16e6b9bf6a.png',
+      '/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png',
+      '/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png',
+    ],
+    reviews: [
+             {
+         id: 'review-ty-1',
+         user: 'FamilyFirst',
+         rating: 5,
+         title: 'Perfect family electric SUV',
+         content: 'The Juniper refresh makes the Model Y even better. Great space, efficiency, and the kids love the glass roof.',
+         pros: ['Spacious interior', 'Great range', 'Family-friendly features'],
+         cons: ['Firm ride quality', 'Wind noise at highway speeds'],
+         ownershipLength: '8 months',
+         verified: true,
+         date: '2024-10-28',
+       },
+      {
+        id: 'review-ty-2',
+        user: 'CommuterPro',
+        rating: 4,
+        title: 'Excellent daily driver',
+        content: 'Love the efficiency and the Supercharger network makes long trips stress-free.',
+        pros: ['Efficiency', 'Charging network', 'Technology'],
+        cons: ['Road noise', 'Service center availability'],
+        ownershipLength: '4 years',
+        verified: true,
+        date: '2024-03-18',
+      },
+    ],
+    competitors: [
+      {
+        id: 'competitor-ty-1',
+        make: 'Ford',
+        model: 'Mustang Mach-E',
+        year: 2021,
+        price: 36500,
+        overallRating: 8.2,
+        mpg: 103, // MPGe
+        key_difference: 'More traditional interior, less charging infrastructure',
+      },
+      {
+        id: 'competitor-ty-2',
+        make: 'Volkswagen',
+        model: 'ID.4',
+        year: 2021,
+        price: 34000,
+        overallRating: 7.9,
+        mpg: 107, // MPGe
+        key_difference: 'More conventional design, less performance',
+      },
+    ],
+    classComparison: {
+      avgPrice: 48000,
+      avgMpg: 105, // MPGe
+      avgCargoSpace: 68.2,
+      avgSafetyRating: 9.1,
+      avgReliabilityRating: 7.9,
+      avgTechRating: 8.8,
+    },
+    motorTrendScore: 9.1,
+    motorTrendRank: 1,
+  },
+  {
+    id: 'tesla-new-3',
+    year: 2025,
+    make: 'Tesla',
+    model: 'Model S',
+    trim: 'Long Range',
+    type: 'Luxury Electric Sedan',
+    price: {
+      base: 84990,
+      asConfigured: 92500,
+    },
+    ratings: {
+      expert: {
+        overall: 9.0,
+        performance: 9.3,
+        comfort: 9.2,
+        technology: 9.7,
+        safety: 9.4,
+        reliability: 8.2,
+        value: 8.1,
+      },
+      user: {
+        average: 4.7,
+        count: 187,
+        distribution: [2, 4, 8, 45, 128],
+      }
+    },
+    keyPoints: [
+      'Flagship sedan with 410-mile range and plaid performance',
+      'Luxurious interior with yoke steering wheel option',
+      'Advanced autopilot and full self-driving capabilities',
+    ],
+    specs: {
+      engine: 'Tri-motor electric',
+      horsepower: 670,
+      torque: 713,
+      transmission: 'Single-speed automatic',
+      mpg: {
+        equivalent: 120,
+        range: 410, // miles
+      },
+      dimensions: {
+        length: 196.0,
+        width: 77.3,
+        height: 56.9,
+        wheelbase: 116.5,
+        weight: 4561,
+        cargo: 28, // combined trunk and frunk
+      },
+      seating: 5,
+      drivetrains: ['AWD'],
+      fuel: 'Electric',
+      acceleration: 3.1, // 0-60 mph in seconds
+    },
+    features: {
+      standard: [
+        '17-inch central touchscreen',
+        'Autopilot',
+        'Glass roof',
+        'Premium audio system',
+        'Heated and ventilated seats',
+        'Air suspension',
+        'Ambient lighting',
+        'HEPA air filtration',
+      ],
+      optional: [
+        'Full Self-Driving capability',
+        'Yoke steering wheel',
+        'Carbon fiber spoiler',
+        'Premium interior package',
+      ]
+    },
+    ownership: {
+      warranty: {
+        basic: '4 years / 50,000 miles',
+        battery: '8 years / 150,000 miles',
+      },
+      maintenance: {
+        year1: 0,
+        year2: 200,
+        year3: 350,
+        year4: 500,
+        year5: 400,
+      },
+      depreciation: [
+        {year: 1, value: 72000},
+        {year: 3, value: 58000},
+        {year: 5, value: 45000},
+      ],
+      fuelCost: 1100, // yearly based on avg electricity costs
+    },
+    photos: [
+      '/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png',
+      '/lovable-uploads/5b8a120c-3d52-41cb-8e20-9a16e6b9bf6a.png',
+      '/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png',
+      '/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png',
+    ],
+    reviews: [
+      {
+        id: 'review-ts-1',
+        user: 'LuxuryCarOwner',
+        rating: 5,
+        title: 'The ultimate electric luxury sedan',
+        content: 'The Model S refresh brings incredible performance and luxury. The range is outstanding for long trips.',
+        pros: ['Incredible performance', 'Luxury interior', 'Amazing range'],
+        cons: ['Price premium', 'Yoke steering takes getting used to'],
+        ownershipLength: '10 months',
+        verified: true,
+        date: '2024-09-12',
+      },
+      {
+        id: 'review-ts-2',
+        user: 'TechExecutive',
+        rating: 4,
+        title: 'Impressive technology showcase',
+        content: 'The tech in this car is unmatched. Autopilot works great on highway trips.',
+        pros: ['Technology', 'Performance', 'Efficiency'],
+        cons: ['Build quality issues', 'Service experience varies'],
+        ownershipLength: '1.2 years',
+        verified: true,
+        date: '2024-07-08',
+      },
+    ],
+    competitors: [
+      {
+        id: 'competitor-ts-1',
+        make: 'Lucid',
+        model: 'Air Dream',
+        year: 2025,
+        price: 87400,
+        overallRating: 8.9,
+        mpg: 124, // MPGe
+        key_difference: 'Even more luxury, slightly less tech integration',
+      },
+      {
+        id: 'competitor-ts-2',
+        make: 'Mercedes-Benz',
+        model: 'EQS',
+        year: 2025,
+        price: 104400,
+        overallRating: 8.7,
+        mpg: 108, // MPGe
+        key_difference: 'Traditional luxury approach, higher price',
+      },
+    ],
+    classComparison: {
+      avgPrice: 95000,
+      avgMpg: 115, // MPGe
+      avgCargoSpace: 22.4,
+      avgSafetyRating: 9.3,
+      avgReliabilityRating: 8.0,
+      avgTechRating: 9.4,
+    },
+    motorTrendScore: 9.0,
+    motorTrendRank: 1,
+  },
+  {
+    id: 'tesla-new-4',
+    year: 2025,
+    make: 'Tesla',
+    model: 'Model X',
+    trim: 'Long Range',
+    type: 'Luxury Electric SUV',
+    price: {
+      base: 89990,
+      asConfigured: 95500,
+    },
+    ratings: {
+      expert: {
+        overall: 8.9,
+        performance: 9.1,
+        comfort: 9.3,
+        technology: 9.7,
+        safety: 9.5,
+        reliability: 8.1,
+        value: 7.8,
+      },
+      user: {
+        average: 4.6,
+        count: 156,
+        distribution: [3, 5, 12, 42, 94],
+      }
+    },
+    keyPoints: [
+      'Luxury electric SUV with distinctive falcon-wing doors',
+      'Spacious 7-seat configuration with premium materials',
+      'Advanced air filtration and bioweapon defense mode',
+    ],
+    specs: {
+      engine: 'Tri-motor electric',
+      horsepower: 670,
+      torque: 713,
+      transmission: 'Single-speed automatic',
+      mpg: {
+        equivalent: 102,
+        range: 352, // miles
+      },
+      dimensions: {
+        length: 198.3,
+        width: 78.7,
+        height: 66.3,
+        wheelbase: 116.7,
+        weight: 5390,
+        cargo: 88, // with third row folded
+      },
+      seating: 7,
+      drivetrains: ['AWD'],
+      fuel: 'Electric',
+      acceleration: 3.8, // 0-60 mph in seconds
+    },
+    features: {
+      standard: [
+        '17-inch central touchscreen',
+        'Autopilot',
+        'Panoramic windshield',
+        'Falcon wing doors',
+        'Premium audio system',
+        'Heated and ventilated seats',
+        'Air suspension',
+        'HEPA air filtration',
+        'Bioweapon Defense Mode',
+      ],
+      optional: [
+        'Full Self-Driving capability',
+        'Yoke steering wheel',
+        'Premium interior package',
+        'Six-seat configuration',
+      ]
+    },
+    ownership: {
+      warranty: {
+        basic: '4 years / 50,000 miles',
+        battery: '8 years / 150,000 miles',
+      },
+      maintenance: {
+        year1: 0,
+        year2: 250,
+        year3: 400,
+        year4: 600,
+        year5: 500,
+      },
+      depreciation: [
+        {year: 1, value: 76000},
+        {year: 3, value: 62000},
+        {year: 5, value: 48000},
+      ],
+      fuelCost: 1200, // yearly based on avg electricity costs
+    },
+    photos: [
+      '/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png',
+      '/lovable-uploads/5b8a120c-3d52-41cb-8e20-9a16e6b9bf6a.png',
+      '/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png',
+      '/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png',
+    ],
+    reviews: [
+      {
+        id: 'review-tx-1',
+        user: 'LuxuryFamilyOwner',
+        rating: 5,
+        title: 'Ultimate luxury electric SUV',
+        content: 'The Model X is incredible. The falcon wing doors are a showstopper and the interior is luxurious. Perfect for families.',
+        pros: ['Falcon wing doors', 'Luxury interior', 'Amazing technology'],
+        cons: ['Very expensive', 'Complex door mechanism'],
+        ownershipLength: '1 year',
+        verified: true,
+        date: '2024-08-22',
+      },
+      {
+        id: 'review-tx-2',
+        user: 'TechInnovator',
+        rating: 4,
+        title: 'Impressive but pricey',
+        content: 'The technology is unmatched and the bioweapon defense mode is wild. However, the price is steep.',
+        pros: ['Advanced technology', 'Unique features', 'Performance'],
+        cons: ['High price', 'Service complexity'],
+        ownershipLength: '8 months',
+        verified: true,
+        date: '2024-06-10',
+      },
+    ],
+    competitors: [
+      {
+        id: 'competitor-tx-1',
+        make: 'BMW',
+        model: 'iX',
+        year: 2025,
+        price: 87100,
+        overallRating: 8.7,
+        mpg: 96, // MPGe
+        key_difference: 'More traditional luxury approach, less tech integration',
+      },
+      {
+        id: 'competitor-tx-2',
+        make: 'Mercedes-Benz',
+        model: 'EQS SUV',
+        year: 2025,
+        price: 105450,
+        overallRating: 8.5,
+        mpg: 91, // MPGe
+        key_difference: 'Traditional luxury interior, higher price',
+      },
+    ],
+    classComparison: {
+      avgPrice: 98000,
+      avgMpg: 95, // MPGe
+      avgCargoSpace: 82.5,
+      avgSafetyRating: 9.3,
+      avgReliabilityRating: 8.0,
+      avgTechRating: 9.2,
+    },
+    motorTrendScore: 8.9,
+    motorTrendRank: 1,
+  },
+  // Tesla Used Cars
+  {
+    id: 'tesla-used-1',
+    year: 2022,
+    make: 'Tesla',
+    model: 'Model 3',
+    trim: 'Performance',
+    type: 'Electric Sedan',
+    price: {
+      base: 42995,
+      asConfigured: 42995,
+    },
+    ratings: {
+      expert: {
+        overall: 8.6,
+        performance: 9.2,
+        comfort: 8.0,
+        technology: 9.3,
+        safety: 9.2,
+        reliability: 7.9,
+        value: 8.4,
+      },
+      user: {
+        average: 4.4,
+        count: 289,
+        distribution: [12, 18, 32, 89, 138],
+      }
+    },
+    keyPoints: [
+      'High-performance electric sedan with track capability',
+      'Proven Tesla technology with regular software updates',
+      'Access to extensive Supercharger network',
+    ],
+    specs: {
+      engine: 'Dual electric motors',
+      horsepower: 450,
+      torque: 471,
+      transmission: 'Single-speed automatic',
+      mpg: {
+        equivalent: 115,
+        range: 315, // miles
+      },
+      dimensions: {
+        length: 184.8,
+        width: 72.8,
+        height: 56.8,
+        wheelbase: 113.2,
+        weight: 4048,
+        cargo: 23, // combined trunk and frunk
+      },
+      seating: 5,
+      drivetrains: ['AWD'],
+      fuel: 'Electric',
+      acceleration: 3.1, // 0-60 mph in seconds
+      mileage: 28750,
+    },
+    features: {
+      standard: [
+        '15-inch central touchscreen',
+        'Autopilot',
+        'Glass roof',
+        'Performance brakes',
+        'Lowered suspension',
+        'Track Mode',
+        'Premium audio',
+      ],
+      optional: [
+        'Full Self-Driving capability',
+        'Premium Connectivity',
+      ]
+    },
+    ownership: {
+      warranty: {
+        basic: '2 years / 21,250 miles remaining',
+        battery: '6 years / 91,250 miles remaining',
+      },
+      maintenance: {
+        year1: 150,
+        year2: 200,
+        year3: 350,
+        year4: 450,
+        year5: 350,
+      },
+      depreciation: [
+        {year: 1, value: 38000},
+        {year: 3, value: 32000},
+        {year: 5, value: 25000},
+      ],
+      fuelCost: 900, // yearly based on avg electricity costs
+    },
+    location: 'San Francisco, CA',
+    photos: [
+      '/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png',
+      '/lovable-uploads/5b8a120c-3d52-41cb-8e20-9a16e6b9bf6a.png',
+      '/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png',
+      '/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png',
+    ],
+    reviews: [
+      {
+        id: 'review-tu3-1',
+        user: 'PerformanceDriver',
+        rating: 5,
+        title: 'Incredible performance for the price',
+        content: 'The Model 3 Performance is a rocket ship. Track Mode is amazing and the handling is surprisingly good.',
+        pros: ['Incredible acceleration', 'Track Mode', 'Over-the-air updates'],
+        cons: ['Firm ride quality', 'Interior noise'],
+        ownershipLength: '2.5 years',
+        verified: true,
+        date: '2024-06-15',
+      },
+      {
+        id: 'review-tu3-2',
+        user: 'DailyDriver',
+        rating: 4,
+        title: 'Great daily driver with performance',
+        content: 'Perfect balance of efficiency and performance. Supercharging makes road trips easy.',
+        pros: ['Performance', 'Efficiency', 'Technology'],
+        cons: ['Build quality inconsistencies', 'Service wait times'],
+        ownershipLength: '3 years',
+        verified: true,
+        date: '2024-04-22',
+      },
+    ],
+    competitors: [
+      {
+        id: 'competitor-tu3-1',
+        make: 'BMW',
+        model: 'M3',
+        year: 2022,
+        price: 48500,
+        overallRating: 8.8,
+        mpg: 19, // combined
+        key_difference: 'Traditional performance sedan, gas engine',
+      },
+      {
+        id: 'competitor-tu3-2',
+        make: 'Genesis',
+        model: 'G70',
+        year: 2022,
+        price: 39500,
+        overallRating: 8.3,
+        mpg: 25, // combined
+        key_difference: 'More luxurious interior, less performance',
+      },
+    ],
+    classComparison: {
+      avgPrice: 44000,
+      avgMpg: 108, // MPGe for electric comparison
+      avgCargoSpace: 18.5,
+      avgSafetyRating: 9.0,
+      avgReliabilityRating: 8.1,
+      avgTechRating: 8.9,
+    },
+    motorTrendScore: 8.6,
+    motorTrendRank: 3,
+  },
+  {
+    id: 'tesla-used-2',
+    year: 2021,
+    make: 'Tesla',
+    model: 'Model Y',
+    trim: 'Long Range',
+    type: 'Electric SUV',
+    price: {
+      base: 38995,
+      asConfigured: 38995,
+    },
+    ratings: {
+      expert: {
+        overall: 8.4,
+        performance: 8.7,
+        comfort: 8.1,
+        technology: 9.2,
+        safety: 9.3,
+        reliability: 7.8,
+        value: 8.6,
+      },
+      user: {
+        average: 4.3,
+        count: 412,
+        distribution: [15, 22, 38, 142, 195],
+      }
+    },
+    keyPoints: [
+      'Popular electric SUV with proven track record',
+      'Spacious interior and cargo area for families',
+      'Regular software updates add new features',
+    ],
+    specs: {
+      engine: 'Dual electric motors',
+      horsepower: 384,
+      torque: 376,
+      transmission: 'Single-speed automatic',
+      mpg: {
+        equivalent: 121,
+        range: 326, // miles
+      },
+      dimensions: {
+        length: 187.0,
+        width: 75.6,
+        height: 63.9,
+        wheelbase: 113.8,
+        weight: 4416,
+        cargo: 76, // with rear seats folded
+      },
+      seating: 5,
+      drivetrains: ['AWD'],
+      fuel: 'Electric',
+      acceleration: 4.8, // 0-60 mph in seconds
+      mileage: 41250,
+    },
+    features: {
+      standard: [
+        '15-inch central touchscreen',
+        'Autopilot',
+        'Glass roof',
+        'Wireless phone charging',
+        'Premium audio system',
+        'Heated front seats',
+        'Power liftgate',
+      ],
+      optional: [
+        'Full Self-Driving capability',
+        'Premium Connectivity',
+        'Tow hitch',
+      ]
+    },
+    ownership: {
+      warranty: {
+        basic: '1 year / 8,750 miles remaining',
+        battery: '5 years / 78,750 miles remaining',
+      },
+      maintenance: {
+        year1: 180,
+        year2: 250,
+        year3: 400,
+        year4: 500,
+        year5: 400,
+      },
+      depreciation: [
+        {year: 1, value: 34000},
+        {year: 3, value: 28500},
+        {year: 5, value: 22000},
+      ],
+      fuelCost: 950, // yearly based on avg electricity costs
+    },
+    location: 'Austin, TX',
+    photos: [
+      '/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png',
+      '/lovable-uploads/5b8a120c-3d52-41cb-8e20-9a16e6b9bf6a.png',
+      '/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png',
+      '/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png',
+    ],
+    reviews: [
+      {
+        id: 'review-tuy-1',
+        user: 'FamilyOfFive',
+        rating: 5,
+        title: 'Perfect family electric SUV',
+        content: 'The Model Y has been fantastic for our family. Great space, efficiency, and the kids love the glass roof.',
+        pros: ['Spacious interior', 'Great range', 'Family-friendly'],
+        cons: ['Some build quality issues', 'Firm suspension'],
+        ownershipLength: '3.5 years',
+        verified: true,
+        date: '2024-05-10',
+      },
+      {
+        id: 'review-tuy-2',
+        user: 'CommuterPro',
+        rating: 4,
+        title: 'Excellent daily driver',
+        content: 'Love the efficiency and the Supercharger network makes long trips stress-free.',
+        pros: ['Efficiency', 'Charging network', 'Technology'],
+        cons: ['Road noise', 'Service center availability'],
+        ownershipLength: '4 years',
+        verified: true,
+        date: '2024-03-18',
+      },
+    ],
+    competitors: [
+      {
+        id: 'competitor-tuy-1',
+        make: 'Ford',
+        model: 'Mustang Mach-E',
+        year: 2021,
+        price: 36500,
+        overallRating: 8.2,
+        mpg: 103, // MPGe
+        key_difference: 'More traditional interior, less charging infrastructure',
+      },
+      {
+        id: 'competitor-tuy-2',
+        make: 'Volkswagen',
+        model: 'ID.4',
+        year: 2021,
+        price: 34000,
+        overallRating: 7.9,
+        mpg: 107, // MPGe
+        key_difference: 'More conventional design, less performance',
+      },
+    ],
+    classComparison: {
+      avgPrice: 42000,
+      avgMpg: 105, // MPGe
+      avgCargoSpace: 68.2,
+      avgSafetyRating: 9.1,
+      avgReliabilityRating: 7.9,
+      avgTechRating: 8.8,
+    },
+    motorTrendScore: 8.4,
+    motorTrendRank: 2,
+  },
+  {
+    id: 'tesla-used-3',
+    year: 2020,
+    make: 'Tesla',
+    model: 'Model S',
+    trim: 'Long Range',
+    type: 'Luxury Electric Sedan',
+    price: {
+      base: 52995,
+      asConfigured: 52995,
+    },
+    ratings: {
+      expert: {
+        overall: 8.7,
+        performance: 9.0,
+        comfort: 8.8,
+        technology: 9.1,
+        safety: 9.2,
+        reliability: 7.6,
+        value: 8.2,
+      },
+      user: {
+        average: 4.5,
+        count: 178,
+        distribution: [8, 12, 18, 54, 86],
+      }
+    },
+    keyPoints: [
+      'Luxury electric sedan with impressive range and performance',
+      'Pre-refresh model with traditional steering wheel',
+      'Proven Tesla technology with regular over-the-air updates',
+    ],
+    specs: {
+      engine: 'Dual electric motors',
+      horsepower: 412,
+      torque: 485,
+      transmission: 'Single-speed automatic',
+      mpg: {
+        equivalent: 113,
+        range: 405, // miles
+      },
+      dimensions: {
+        length: 196.0,
+        width: 77.3,
+        height: 56.9,
+        wheelbase: 116.5,
+        weight: 4561,
+        cargo: 28, // combined trunk and frunk
+      },
+      seating: 5,
+      drivetrains: ['AWD'],
+      fuel: 'Electric',
+      acceleration: 3.7, // 0-60 mph in seconds
+      mileage: 52500,
+    },
+    features: {
+      standard: [
+        '17-inch central touchscreen',
+        'Autopilot',
+        'Glass roof',
+        'Premium audio system',
+        'Heated and ventilated seats',
+        'Air suspension',
+        'LED headlights',
+      ],
+      optional: [
+        'Full Self-Driving capability',
+        'Premium Connectivity',
+      ]
+    },
+    ownership: {
+      warranty: {
+        basic: 'Expired',
+        battery: '4 years / 67,500 miles remaining',
+      },
+      maintenance: {
+        year1: 200,
+        year2: 300,
+        year3: 450,
+        year4: 600,
+        year5: 500,
+      },
+      depreciation: [
+        {year: 1, value: 47000},
+        {year: 3, value: 38000},
+        {year: 5, value: 28000},
+      ],
+      fuelCost: 1050, // yearly based on avg electricity costs
+    },
+    location: 'Los Angeles, CA',
+    photos: [
+      '/lovable-uploads/35ad1cf0-8807-4008-be7c-96fc7b43062b.png',
+      '/lovable-uploads/5b8a120c-3d52-41cb-8e20-9a16e6b9bf6a.png',
+      '/lovable-uploads/6f8fd40c-6013-4f96-89f0-8406d6febb7c.png',
+      '/lovable-uploads/930641e7-042c-4f43-a9f6-c81fa3a9a0c4.png',
+    ],
+    reviews: [
+      {
+        id: 'review-tus-1',
+        user: 'LuxurySeeker',
+        rating: 5,
+        title: 'Still an amazing luxury EV',
+        content: 'Even though it\'s a 2020, the Model S still feels futuristic. The range is incredible and the performance is thrilling.',
+        pros: ['Amazing range', 'Luxury interior', 'Performance'],
+        cons: ['Some interior wear', 'Older software'],
+        ownershipLength: '2 years',
+        verified: true,
+        date: '2024-07-15',
+      },
+      {
+        id: 'review-tus-2',
+        user: 'EVEnthusiast',
+        rating: 4,
+        title: 'Great value for luxury EV',
+        content: 'The 2020 Model S offers great value compared to new ones. Still has most of the features and incredible range.',
+        pros: ['Great value', 'Range', 'Technology'],
+        cons: ['Battery degradation concerns', 'Service costs'],
+        ownershipLength: '1.5 years',
+        verified: true,
+        date: '2024-05-08',
+      },
+    ],
+    competitors: [
+      {
+        id: 'competitor-tus-1',
+        make: 'Porsche',
+        model: 'Taycan',
+        year: 2020,
+        price: 58000,
+        overallRating: 8.9,
+        mpg: 79, // MPGe
+        key_difference: 'More traditional luxury, sportier handling',
+      },
+      {
+        id: 'competitor-tus-2',
+        make: 'Audi',
+        model: 'e-tron GT',
+        year: 2020,
+        price: 65000,
+        overallRating: 8.6,
+        mpg: 85, // MPGe
+        key_difference: 'More conventional interior, less range',
+      },
+    ],
+    classComparison: {
+      avgPrice: 58000,
+      avgMpg: 95, // MPGe
+      avgCargoSpace: 25.2,
+      avgSafetyRating: 9.1,
+      avgReliabilityRating: 7.8,
+      avgTechRating: 8.9,
+    },
+    motorTrendScore: 8.7,
+    motorTrendRank: 2,
+  },
 ];
 
 export const getVehicleById = async (id: string) => {
