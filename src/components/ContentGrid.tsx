@@ -45,138 +45,98 @@ const ContentGrid: React.FC<ContentGridProps> = ({
       <div className="text-4xl mb-4">📷</div>
       <h3 className="typography-title text-neutral-2 mb-2">No content available</h3>
       <p className="typography-body text-neutral-3 max-w-md">
-        Try searching for something specific to find relevant {type === "all" ? "content" : type}
+        Try searching for something specific to find relevant content
       </p>
     </div>
   );
 
-  const renderContent = () => {
-    switch (type) {
-      case "articles":
-        return (
-          <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
-            {hasContent("articles") ? 
-              content.articles.slice(0, ITEMS_PER_CONTENT_TYPE).map((article) => (
-                <ArticleCard key={article.id} article={article} layout={isMobile ? "horizontal" : "vertical"} />
-              )) : 
-              renderEmptyState()
-            }
-          </div>
-        );
-      case "newCars":
-        return (
-          <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
-            {hasContent("newCars") ? 
-              content.newCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
-                <CarCard key={car.id} car={car} type="new" layout={isMobile ? "horizontal" : "vertical"} />
-              )) : 
-              renderEmptyState()
-            }
-          </div>
-        );
-      case "usedCars":
-        return (
-          <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
-            {hasContent("usedCars") ? 
-              content.usedCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
-                <CarCard key={car.id} car={car} type="used" layout={isMobile ? "horizontal" : "vertical"} />
-              )) : 
-              renderEmptyState()
-            }
-          </div>
-        );
-      case "photos":
-        return (
-          <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
-            {hasContent("photos") ? 
-              content.photos.slice(0, ITEMS_PER_CONTENT_TYPE).map((photo) => (
-                <PhotoCard key={photo.id} photo={photo} layout={isMobile ? "horizontal" : "vertical"} />
-              )) : 
-              renderEmptyState()
-            }
-          </div>
-        );
-      case "videos":
-        return (
-          <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
-            {hasContent("videos") ? 
-              content.videos.slice(0, ITEMS_PER_CONTENT_TYPE).map((video) => (
-                <VideoCard key={video.id} video={video} layout={isMobile ? "horizontal" : "vertical"} />
-              )) : 
-              renderEmptyState()
-            }
-          </div>
-        );
-      case "all":
-      default:
-        return (
-          <div className="space-y-8">
-            {content.articles.length > 0 && (
-              <div>
-                <h3 className="mb-3 typography-subtitle">Articles</h3>
-                <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
-                  {content.articles.slice(0, ITEMS_PER_CONTENT_TYPE).map((article) => (
-                    <ArticleCard key={article.id} article={article} layout={isMobile ? "horizontal" : "vertical"} />
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {content.newCars.length > 0 && (
-              <div>
-                <h3 className="mb-3 typography-subtitle">New Cars</h3>
-                <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
-                  {content.newCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
-                    <CarCard key={car.id} car={car} type="new" layout={isMobile ? "horizontal" : "vertical"} />
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {content.usedCars.length > 0 && (
-              <div>
-                <h3 className="mb-3 typography-subtitle">Used Cars</h3>
-                <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
-                  {content.usedCars.slice(0, ITEMS_PER_CONTENT_TYPE).map((car) => (
-                    <CarCard key={car.id} car={car} type="used" layout={isMobile ? "horizontal" : "vertical"} />
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {content.photos.length > 0 && (
-              <div>
-                <h3 className="mb-3 typography-subtitle">Photos</h3>
-                <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
-                  {content.photos.slice(0, ITEMS_PER_CONTENT_TYPE).map((photo) => (
-                    <PhotoCard key={photo.id} photo={photo} layout={isMobile ? "horizontal" : "vertical"} />
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {content.videos.length > 0 && (
-              <div>
-                <h3 className="mb-3 typography-subtitle">Videos</h3>
-                <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"}>
-                  {content.videos.slice(0, ITEMS_PER_CONTENT_TYPE).map((video) => (
-                    <VideoCard key={video.id} video={video} layout={isMobile ? "horizontal" : "vertical"} />
-                  ))}
-                </div>
-              </div>
-            )}
-            
-            {!content.articles.length && !content.newCars.length && !content.usedCars.length && 
-             !content.photos.length && !content.videos.length && renderEmptyState()}
-          </div>
-        );
-    }
+  // Render a section of content
+  const renderSection = (
+    id: string,
+    title: string,
+    items: any[],
+    CardComponent: typeof ArticleCard | typeof CarCard | typeof PhotoCard | typeof VideoCard,
+    props: any = {}
+  ) => {
+    if (!items.length) return null;
+    
+    return (
+      <div id={id} className="py-8 first:pt-0">
+        <h2 className="typography-h2 mb-6 flex items-center justify-between">
+          {title}
+          {items.length > ITEMS_PER_CONTENT_TYPE && (
+            <Button variant="ghost" size="sm" className="text-motortrend-red">
+              View All ({items.length})
+            </Button>
+          )}
+        </h2>
+        <div className={isMobile ? "space-y-4" : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"}>
+          {items.slice(0, ITEMS_PER_CONTENT_TYPE).map((item) => (
+            <CardComponent
+              key={item.id}
+              {...props}
+              {...{ [props.itemProp || 'article']: item }}
+              layout={isMobile ? "horizontal" : "vertical"}
+            />
+          ))}
+        </div>
+      </div>
+    );
   };
 
+  // Always render all sections, but respect the active type for scrolling
   return (
-    <div>
-      {renderContent()}
-      
+    <div className="space-y-8">
+      {/* Articles Section */}
+      {renderSection(
+        "articles",
+        "Articles",
+        content.articles,
+        ArticleCard,
+        { itemProp: "article" }
+      )}
+
+      {/* New Cars Section */}
+      {renderSection(
+        "newCars",
+        "New Cars",
+        content.newCars,
+        CarCard,
+        { itemProp: "car", type: "new" }
+      )}
+
+      {/* Used Cars Section */}
+      {renderSection(
+        "usedCars",
+        "Used Cars",
+        content.usedCars,
+        CarCard,
+        { itemProp: "car", type: "used" }
+      )}
+
+      {/* Photos Section */}
+      {renderSection(
+        "photos",
+        "Photos",
+        content.photos,
+        PhotoCard,
+        { itemProp: "photo" }
+      )}
+
+      {/* Videos Section */}
+      {renderSection(
+        "videos",
+        "Videos",
+        content.videos,
+        VideoCard,
+        { itemProp: "video" }
+      )}
+
+      {/* Show empty state if no content at all */}
+      {!hasContent("articles") && !hasContent("newCars") && !hasContent("usedCars") && 
+       !hasContent("photos") && !hasContent("videos") && renderEmptyState()}
+
+      {/* Load More button */}
       {hasMore && (
         <div className="mt-6 flex justify-center">
           <Button
@@ -207,12 +167,6 @@ const ContentGrid: React.FC<ContentGridProps> = ({
             )}
           </Button>
         </div>
-      )}
-      
-      {!hasMore && content[type === "all" ? "articles" : type].length > 0 && (
-        <p className="mt-6 text-center typography-caption text-neutral-4">
-          No more content to load
-        </p>
       )}
     </div>
   );
