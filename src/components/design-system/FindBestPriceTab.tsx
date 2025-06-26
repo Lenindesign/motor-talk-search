@@ -89,80 +89,80 @@ const FindBestPriceTab = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Discovery & Intent Column */}
             <div className="space-y-4">
-              <Card className="border border-yellow-200">
+            <Card className="border border-yellow-200">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-8 h-8 rounded-full bg-yellow-100 text-yellow-800 flex items-center justify-center">
-                      <Eye className="h-4 w-4" />
-                    </div>
-                    <span className="font-semibold">Discovery</span>
+                  <div className="w-8 h-8 rounded-full bg-yellow-100 text-yellow-800 flex items-center justify-center">
+                    <Eye className="h-4 w-4" />
                   </div>
+                  <span className="font-semibold">Discovery</span>
+                </div>
                   <p className="text-sm text-gray-600 mb-4">User browses cars and discovers Find Best Price feature</p>
                   <div className="space-y-2">
                     <span className="text-sm font-medium text-gray-500">Touchpoints:</span>
                     <div className="text-sm text-gray-500">• Car card CTA</div>
                     <div className="text-sm text-gray-500">• Search results</div>
                     <div className="text-sm text-gray-500">• Detail page</div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border border-blue-200">
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card className="border border-blue-200">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center">
-                      <MousePointer className="h-4 w-4" />
-                    </div>
-                    <span className="font-semibold">Intent</span>
+                  <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-800 flex items-center justify-center">
+                    <MousePointer className="h-4 w-4" />
                   </div>
+                  <span className="font-semibold">Intent</span>
+                </div>
                   <p className="text-sm text-gray-600 mb-4">User clicks 'Find Best Price' with purchase intent</p>
                   <div className="space-y-2">
                     <span className="text-sm font-medium text-gray-500">Touchpoints:</span>
                     <div className="text-sm text-gray-500">• Primary CTA button</div>
                     <div className="text-sm text-gray-500">• Price comparison</div>
                     <div className="text-sm text-gray-500">• Location input</div>
-                  </div>
-                </CardContent>
-              </Card>
+                </div>
+              </CardContent>
+            </Card>
             </div>
 
             {/* Evaluation & Action Column */}
             <div className="space-y-4">
-              <Card className="border border-purple-200">
+            <Card className="border border-purple-200">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-8 h-8 rounded-full bg-purple-100 text-purple-800 flex items-center justify-center">
-                      <Filter className="h-4 w-4" />
-                    </div>
-                    <span className="font-semibold">Evaluation</span>
+                  <div className="w-8 h-8 rounded-full bg-purple-100 text-purple-800 flex items-center justify-center">
+                    <Filter className="h-4 w-4" />
                   </div>
+                  <span className="font-semibold">Evaluation</span>
+                </div>
                   <p className="text-sm text-gray-600 mb-4">User reviews and compares dealer offers</p>
                   <div className="space-y-2">
                     <span className="text-sm font-medium text-gray-500">Touchpoints:</span>
                     <div className="text-sm text-gray-500">• Price grid</div>
                     <div className="text-sm text-gray-500">• Dealer ratings</div>
                     <div className="text-sm text-gray-500">• Distance filters</div>
-                  </div>
-                </CardContent>
-              </Card>
+                </div>
+              </CardContent>
+            </Card>
 
-              <Card className="border border-green-200">
+            <Card className="border border-green-200">
                 <CardContent className="p-6">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="w-8 h-8 rounded-full bg-green-100 text-green-800 flex items-center justify-center">
-                      <CheckCircle className="h-4 w-4" />
-                    </div>
-                    <span className="font-semibold">Action</span>
+                  <div className="w-8 h-8 rounded-full bg-green-100 text-green-800 flex items-center justify-center">
+                    <CheckCircle className="h-4 w-4" />
                   </div>
+                  <span className="font-semibold">Action</span>
+                </div>
                   <p className="text-sm text-gray-600 mb-4">User selects dealer and initiates contact</p>
                   <div className="space-y-2">
                     <span className="text-sm font-medium text-gray-500">Touchpoints:</span>
                     <div className="text-sm text-gray-500">• Contact dealer</div>
                     <div className="text-sm text-gray-500">• Get quote</div>
                     <div className="text-sm text-gray-500">• Schedule visit</div>
-                  </div>
-                </CardContent>
-              </Card>
+                </div>
+              </CardContent>
+            </Card>
             </div>
           </div>
         </CardContent>

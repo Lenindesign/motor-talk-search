@@ -2422,5 +2422,5 @@ export const determineContentType = (query: string): ContentType => {
   if (lowerQuery.includes("used car") || lowerQuery.includes("buy used")) return "usedCars";
   if (lowerQuery.includes("photo") || lowerQuery.includes("image") || lowerQuery.includes("picture")) return "photos";
   if (lowerQuery.includes("video") || lowerQuery.includes("watch")) return "videos";
-  return "articles"; // Default to articles instead of all
+  return "all"; // Default to all instead of articles
 };

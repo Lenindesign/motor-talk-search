@@ -23,7 +23,6 @@ interface SearchResult {
 const Search = () => {
   const [searchParams] = useSearchParams();
   const [searchHistory, setSearchHistory] = useState<SearchResult[]>([]);
-  // Honda Accord result count state removed as it's no longer needed
   const [isSearching, setIsSearching] = useState(false);
   const [activeContentTypes, setActiveContentTypes] = useState<Record<string, ContentType>>({});
   const [content, setContent] = useState({
@@ -36,21 +35,10 @@ const Search = () => {
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const chatContainerRef = useRef<HTMLDivElement>(null);
-  const latestResultRef = useRef<HTMLDivElement>(null);
   const searchBarRef = useRef<HTMLInputElement>(null);
   const currentProcessingQueryRef = useRef<string | null>(null);
   const allContent = getAllContent();
   const isMobile = useIsMobile();
-
-  // Auto-scroll to the latest result when it's added
-  useEffect(() => {
-    if (latestResultRef.current) {
-      latestResultRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'end'
-      });
-    }
-  }, [searchHistory.length]);
 
   // Track previous URL query to prevent duplicate searches
   const previousQueryRef = useRef<string | null>(null);
@@ -87,7 +75,7 @@ const Search = () => {
         if (aiResponseFromUrl) {
           handleAIResponse(trimmedQuery, aiResponseFromUrl);
         } else {
-        handleSearch(trimmedQuery);
+          handleSearch(trimmedQuery);
         }
       }
     }
@@ -106,18 +94,16 @@ const Search = () => {
       timestamp: new Date().toLocaleTimeString()
     };
     
-    // Add to search history
-    setSearchHistory(prev => [...prev, newResult]);
-    
-    // Scroll to the result
-    setTimeout(() => {
-      if (latestResultRef.current) {
-        latestResultRef.current.scrollIntoView({
-          behavior: 'smooth',
-          block: 'end'
-        });
-      }
-    }, 100);
+    // Add to search history at the beginning (newest first)
+    setSearchHistory(prev => [newResult, ...prev]);
+
+    // Scroll to top to show the latest query
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
   };
 
   // Function to handle search submissions
@@ -154,12 +140,11 @@ const Search = () => {
       timestamp: new Date().toLocaleTimeString()
     };
 
-    // Add the query to the search history at the end (oldest first)
-    setSearchHistory(prev => [...prev, newResult]);
+    // Add the query to the search history at the beginning (newest first)
+    setSearchHistory(prev => [newResult, ...prev]);
 
-    // Handle scrolling and focus
+    // Focus search bar after brief delay
     setTimeout(() => {
-      // Focus search bar after brief delay
       if (searchBarRef.current) {
         searchBarRef.current.focus();
       }
@@ -279,15 +264,13 @@ const Search = () => {
         searchBarRef.current.focus();
       }
 
-      // Ensure we scroll to the latest result after it's processed and rendered
-      setTimeout(() => {
-        if (latestResultRef.current) {
-          latestResultRef.current.scrollIntoView({
-            behavior: 'smooth',
-            block: 'end'
-          });
-        }
-      }, 100);
+      // Scroll to top to show the latest query
+      if (chatContainerRef.current) {
+        chatContainerRef.current.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
     }, 800);
   };
 
@@ -315,72 +298,67 @@ const Search = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <main>
-        <div className="relative min-h-[calc(100vh-64px)]">
-          <div className="max-w-[980px] mx-auto px-4 py-6">
-            {/* Welcome screen or search history */}
-            {searchHistory.length === 0 ? (
-              <div className="flex flex-1 flex-col items-center justify-center space-y-6 py-12">
-                <h1 className="typography-display text-motortrend-dark text-center">
-                  Welcome to MOTORTREND Search
-                </h1>
-                <p className="max-w-md text-center typography-body text-neutral-3 mb-4">
-                  Ask me anything about cars or search for automotive content
-                </p>
-                
-                {/* My Garage link */}
-                <div className="bg-white p-4 rounded-lg shadow-md w-full max-w-md mb-4 transition-all hover:shadow-lg">
-                  <Link to="/dashboard" className="flex items-center justify-between text-motortrend-dark hover:text-motortrend-red">
-                    <div className="flex items-center">
-                      <LayoutDashboard className="h-5 w-5 mr-2" />
-                      <div>
-                        <h3 className="typography-body-large">My Garage</h3>
-                        <p className="typography-caption text-neutral-3">Get personalized automotive content</p>
+    <div className="flex min-h-screen flex-col bg-motortrend-gray w-full">
+      <main className="flex flex-1 flex-col">
+        <div className="relative flex flex-col h-full">
+          <div className="flex-1 overflow-y-auto" ref={chatContainerRef}>
+            <div className="max-w-[980px] mx-auto w-full pb-32 px-0 py-[16px]">
+              {searchHistory.length === 0 ? (
+                <div className="flex flex-1 flex-col items-center justify-center space-y-6 px-[32px] py-[32px]">
+                  <h1 className="typography-display text-motortrend-dark">
+                    Welcome to MOTORTREND Search
+                  </h1>
+                  <p className="max-w-md text-center typography-body text-neutral-3 mb-4">
+                    Ask me anything about cars or search for automotive content
+                  </p>
+                  
+                  {/* New personalized dashboard link */}
+                  <div className="bg-white p-4 rounded-lg shadow-md w-full max-w-md mb-4 transition-all hover:shadow-lg px-[32px]">
+                    <Link to="/dashboard" className="flex items-center justify-between text-motortrend-dark hover:text-motortrend-red">
+                      <div className="flex items-center">
+                        <LayoutDashboard className="h-5 w-5 mr-2" />
+                        <div>
+                          <h3 className="typography-body-large">My Garage</h3>
+                          <p className="typography-caption text-neutral-3">Get personalized automotive content</p>
+                        </div>
                       </div>
-                    </div>
-                    <Button size="sm">Go</Button>
-                  </Link>
+                      <Button size="sm">Go</Button>
+                    </Link>
+                  </div>
+                  
+                  <SearchSuggestions onSuggestionClick={handleSuggestionClick} />
                 </div>
-                
-                <SearchSuggestions onSuggestionClick={handleSuggestionClick} />
-              </div>
-            ) : (
-              /* Search history and results */
-              <div className="space-y-6">
-                {searchHistory.map((result, index) => (
-                  <div key={result.id} className="space-y-4" ref={index === searchHistory.length - 1 ? latestResultRef : undefined}>
-                    <ChatMessage message={result.query} isUser={true} timestamp={result.timestamp} />
-                    
-                    {result.type === "chat" && result.response && (
-                      <ChatMessage message={result.response} isUser={false} />
-                    )}
-                    
-                    {result.type === "search" && result.contentType && (
-                      <div className="overflow-hidden rounded-lg bg-white shadow-md relative z-10">
-                        {/* Search results content */}
-                        <ContentTabs 
-                          activeTab={activeContentTypes[result.id] || result.contentType} 
-                          onTabChange={tab => handleTabChange(result.id, tab)} 
-                        />
-                        <div className="p-4">
+              ) : (
+                <div className="space-y-6">
+                  {searchHistory.map((result, index) => (
+                    <div key={result.id} className="space-y-4">
+                      <ChatMessage message={result.query} isUser={true} timestamp={result.timestamp} />
+                      
+                      {result.type === "chat" && result.response && (
+                        <ChatMessage message={result.response} isUser={false} />
+                      )}
+                      
+                      {result.type === "search" && result.contentType && (
+                        <div className="overflow-hidden rounded-lg bg-white p-4 shadow-md relative z-10">
+                          {/* Search results content */}
+                          <ContentTabs activeTab={activeContentTypes[result.id] || result.contentType} onTabChange={tab => handleTabChange(result.id, tab)} />
                           <ContentGrid 
                             type={activeContentTypes[result.id] || result.contentType} 
                             content={content} 
                             loadMore={handleLoadMore} 
                             isLoadingMore={loadingMore} 
-                            hasMore={hasMore} 
+                            hasMore={hasMore}
+                            searchQuery={result.query}
                           />
                         </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
           
-          {/* Sticky search bar at bottom */}
           <div className="sticky bottom-0 left-0 right-0 z-50 bg-gradient-to-t from-motortrend-gray to-transparent p-4 pb-6">
             <div className="max-w-[980px] mx-auto w-full">
               <SearchBar 

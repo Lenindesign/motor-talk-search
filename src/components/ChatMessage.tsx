@@ -44,7 +44,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
         <div
           className={`rounded-2xl px-3 py-2 sm:px-4 sm:py-2.5 ${
             isUser
-              ? "bg-motortrend-dark text-white"
+              ? "bg-motortrend-dark text-white !important"
               : "bg-motortrend-gray text-motortrend-text"
           }`}
         >
@@ -54,12 +54,14 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
               dangerouslySetInnerHTML={{ __html: processedMessageHtml }}
             />
           ) : (
-            <p className="typography-caption sm:typography-body text-left break-words">
+            <p className={`typography-caption sm:typography-body text-left break-words ${isUser ? '!text-white' : 'text-motortrend-text'}`}>
               {message}
             </p>
           )}
           {timestamp && (
-            <p className="mt-1 typography-caption-small opacity-70">{timestamp}</p>
+            <p className={`mt-1 typography-caption-small ${isUser ? '!text-white/70' : 'text-neutral-4'}`}>
+              {timestamp}
+            </p>
           )}
         </div>
         {isUser && (
@@ -77,3 +79,7 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
 };
 
 export default ChatMessage;
+
+
+
+<iframe height="1950px" width="100%" style="border: 0px;" src="https://www.intelliprice.com/intellipricedealer/start.htm?dealerid=0441004"></iframe>
