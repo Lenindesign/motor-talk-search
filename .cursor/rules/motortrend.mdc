@@ -8,7 +8,7 @@ alwaysApply: false
 ## 1. Design System Consistency
 
 ### Layout
-- Maintain consistent max-width of 980px using Container component
+- Maintain consistent max-width of 1040px using Container component
 - Use standardized vertical spacing (32px/2rem between sections)
 - Implement responsive layouts with mobile-first approach
 - Follow dark mode guidelines specific to Videos page

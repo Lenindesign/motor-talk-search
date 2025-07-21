@@ -45,7 +45,7 @@ const ContentGrid: React.FC<ContentGridProps> = ({
     
     // Add responses for different car manufacturers and models
     if (lowerQuery.includes('honda')) {
-      return "Honda is a Japanese multinational conglomerate automotive manufacturer. It is headquartered in Minato, Tokyo, Japan. Honda has been the world's largest motorcycle manufacturer since 1959.";
+      return "Honda is a Japanese multinational conglomerate automotive manufacturer. It is headquartered in Minato, Tokyo, Japan. Honda has been the world's largest motorcycle manufacturer since 1959. Explore our extensive collection of Honda articles, videos, and photos to learn more about their latest vehicles and innovations.";
     }
     if (lowerQuery.includes('toyota')) {
       return "Toyota is the world's largest automobile manufacturer by production volume and revenue. Founded in 1937 by Kiichiro Toyoda, it's known for its reliable vehicles and innovative hybrid technology.";

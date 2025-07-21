@@ -75,7 +75,7 @@ const Search = () => {
         if (aiResponseFromUrl) {
           handleAIResponse(trimmedQuery, aiResponseFromUrl);
         } else {
-          handleSearch(trimmedQuery);
+        handleSearch(trimmedQuery);
         }
       }
     }
@@ -96,14 +96,14 @@ const Search = () => {
     
     // Add to search history at the beginning (newest first)
     setSearchHistory(prev => [newResult, ...prev]);
-
+    
     // Scroll to top to show the latest query
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTo({
         top: 0,
         behavior: 'smooth'
-      });
-    }
+        });
+      }
   };
 
   // Function to handle search submissions
@@ -269,8 +269,8 @@ const Search = () => {
         chatContainerRef.current.scrollTo({
           top: 0,
           behavior: 'smooth'
-        });
-      }
+          });
+        }
     }, 800);
   };
 
