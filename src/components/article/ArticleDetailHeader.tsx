@@ -1,8 +1,9 @@
 
 import React from 'react';
+import { CarData } from '@/types/car';
 
 interface ArticleDetailHeaderProps {
-  car: any;
+  car?: CarData;
 }
 
 const ArticleDetailHeader: React.FC<ArticleDetailHeaderProps> = () => {

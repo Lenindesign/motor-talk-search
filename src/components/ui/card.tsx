@@ -57,7 +57,7 @@ const Card = React.forwardRef<HTMLDivElement, UnifiedCardProps>(
           onClick={e => {
             e.stopPropagation();
             e.preventDefault();
-            onToggleSave && onToggleSave();
+            onToggleSave?.();
           }}
           className={cn(
             "absolute z-20 p-1.5 bg-black/60 hover:bg-black/80 rounded-full text-white transition-colors",

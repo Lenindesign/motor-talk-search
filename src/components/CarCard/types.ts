@@ -25,7 +25,7 @@ export interface CarData {
   // Metadata for additional properties
   metadata?: {
     ownership?: string;
-    [key: string]: any;
+    [key: string]: string | number | boolean | undefined;
   };
   
   // New car specs

@@ -11,7 +11,7 @@ import { useCarMakesApi, useCarModelsByMakeApi, useCarDetailsApi } from '@/hooks
 import { Loader } from 'lucide-react';
 
 interface CarSelectorApiProps {
-  onSelectionChange?: (selection: { 
+  onSelectionChange: (selection: {
     make: string | null, 
     model: string | null, 
     year: number | null,

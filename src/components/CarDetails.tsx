@@ -17,7 +17,7 @@ const CarDetails: React.FC<CarDetailsProps> = ({ car, onUpdate, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [notes, setNotes] = useState(car.metadata?.notes || '');
   const [ownership, setOwnership] = useState<'owned' | 'interested' | 'testDriven'>(
-    car.metadata?.ownership as any || 'interested'
+    (car.metadata?.ownership as 'owned' | 'interested' | 'testDriven') || 'interested'
   );
   const { toast } = useToast();
 

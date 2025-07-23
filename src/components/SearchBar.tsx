@@ -146,7 +146,15 @@ const SearchBar: React.FC<SearchBarProps> = ({
       } else if (query.trim() && !isLoading) {
         // If no suggestion is selected but there's a query, submit the search
         e.preventDefault();
-        handleSubmit(e as any);
+        if (query.trim() && !isLoading) {
+          onSearch(query);
+          setShowSuggestions(false);
+          setTimeout(() => {
+            if (currentInputRef?.current) {
+              currentInputRef.current.blur();
+            }
+          }, 100);
+        }
       }
     } else if (e.key === 'Escape') {
       setShowSuggestions(false);

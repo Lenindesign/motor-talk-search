@@ -162,6 +162,7 @@ const StickyRelay: React.FC<StickyRelayProps> = ({
         sentinel.parentNode?.removeChild(sentinel);
       });
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [children.length, headerOffset, stickDistance, transitionBuffer, activeIndex, componentOffsets]);
 
   return (

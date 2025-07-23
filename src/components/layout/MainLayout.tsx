@@ -51,6 +51,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children, isLoading = false }) 
       clearTimeout(timeoutId);
       cancelAnimationFrame(rafId);
     };
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Remove headerHeight dependency to avoid re-running effect
 
   const handleSearch = (query: string) => {

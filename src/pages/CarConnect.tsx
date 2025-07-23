@@ -5,9 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Container } from '@/components/ui/container';
 import { ArrowLeft, ExternalLink, Phone, Mail } from 'lucide-react';
 
-interface CarConnectProps {}
-
-const CarConnect: React.FC<CarConnectProps> = () => {
+const CarConnect: React.FC = () => {
   const { carId } = useParams<{ carId: string }>();
   const navigate = useNavigate();
 

@@ -167,7 +167,7 @@ const GarageQuickAdd: React.FC<GarageQuickAddProps> = ({ onAddCar }) => {
       .map(make => ({
         id: make.id,
         text: make.name,
-        type: 'carMake' as 'carMake',
+        type: 'carMake' as const,
       }));
   };
   

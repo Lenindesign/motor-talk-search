@@ -137,7 +137,7 @@ const PaymentCalculator: React.FC = () => {
     if (garageCars.length > 0 && !selectedCarId) {
       setSelectedCarId(garageCars[0].id);
     }
-  }, [garageCars]);
+  }, [garageCars, selectedCarId]);
 
   useEffect(() => {
     if (selectedCar) {

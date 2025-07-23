@@ -92,10 +92,11 @@ const SUVOverallRankings: React.FC = () => {
         return b.motorTrendScore - a.motorTrendScore;
       case 'rank':
         return a.rank - b.rank;
-      case 'price':
+      case 'price': {
         const priceA = parseFloat(a.msrp.replace(/[^0-9.-]+/g, ''));
         const priceB = parseFloat(b.msrp.replace(/[^0-9.-]+/g, ''));
         return priceA - priceB;
+      }
       default:
         return a.rank - b.rank;
     }

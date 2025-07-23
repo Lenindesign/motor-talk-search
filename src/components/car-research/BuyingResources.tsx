@@ -3,9 +3,17 @@ import React from 'react';
 import { Link2, Calculator, Car, ArrowRight } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { CarData } from '@/types/car';
+
+interface VehicleWithPricing {
+  price: {
+    base: number;
+  };
+  [key: string]: any;
+}
 
 interface BuyingResourcesProps {
-  vehicle: any;
+  vehicle: VehicleWithPricing;
 }
 
 const BuyingResources: React.FC<BuyingResourcesProps> = ({ vehicle }) => {

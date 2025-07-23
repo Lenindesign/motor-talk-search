@@ -40,10 +40,11 @@ const Playground = () => {
         return <Button {...commonProps} variant={componentProps.variant as any}>{componentProps.children}</Button>;
       case 'badge':
         return <Badge {...commonProps} variant={componentProps.variant as any}>{componentProps.children || 'Badge'}</Badge>;
-      case 'input':
+      case 'input': {
         // Remove the size prop for Input as it doesn't accept it
         const { size, ...inputProps } = commonProps;
         return <Input {...inputProps} placeholder="Type something..." />;
+      }
       case 'card':
         return (
           <Card className="w-[350px]">

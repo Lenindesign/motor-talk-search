@@ -32,7 +32,7 @@ export const CardGrid: React.FC<CardGridProps> = ({
     switch (type) {
       case 'article':
         return <ArticleCard article={item as ArticleData} layout={cardLayout} />;
-      case 'video':
+      case 'video': {
         // Convert VideoData to match VideoCard expectations
         const videoData = item as VideoData;
         const videoCardData = {
@@ -41,7 +41,8 @@ export const CardGrid: React.FC<CardGridProps> = ({
           views: String(videoData.views) // Convert number to string
         };
         return <VideoCard video={videoCardData} layout={cardLayout} />;
-      case 'photo':
+      }
+      case 'photo': {
         // Convert PhotoData to match PhotoCard expectations
         const photoData = item as PhotoData;
         const photoCardData = {
@@ -52,7 +53,8 @@ export const CardGrid: React.FC<CardGridProps> = ({
           position: photoData.position ? String(photoData.position) : undefined // Convert number to string
         };
         return <PhotoCard photo={photoCardData} layout={cardLayout} />;
-      case 'car':
+      }
+      case 'car': {
         // Convert CarData to match CarCard expectations
         const carData = item as CarData;
         const carCardData = {
@@ -63,6 +65,7 @@ export const CardGrid: React.FC<CardGridProps> = ({
           mileage: carData.mileage ? String(carData.mileage) : undefined // Convert number to string
         };
         return <CarCard car={carCardData} type="used" layout={cardLayout} />;
+      }
       default:
         return null;
     }
