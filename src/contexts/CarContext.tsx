@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { carMakes, CarMake, CarModel } from '../services/carData';
 
 interface CarContextType {
@@ -17,6 +17,8 @@ const CarContext = createContext<CarContextType>({
 export const useCarContext = () => useContext(CarContext);
 
 export const CarProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  console.log('[CarProvider] Initializing...');
+  
   const [selectedCar, setSelectedCar] = useState<{ make: CarMake | null; model: CarModel | null }>({
     make: null,
     model: null,
