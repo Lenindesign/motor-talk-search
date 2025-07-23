@@ -29,58 +29,20 @@ const BestSUVs = lazy(() => import("./pages/BestSUVs"));
 const CarConnect = lazy(() => import("./pages/CarConnect/index"));
 const Chat = lazy(() => import("./pages/Chat"));
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
-import { PersonalizationProvider } from "./contexts/PersonalizationContext";
+import { SimplePersonalizationProvider } from "./contexts/SimplePersonalizationContext";
 import { CarProvider } from "./contexts/CarContext";
 import MainLayout from "./components/MainLayout";
 import GlobalFooter from "./components/GlobalFooter";
 import { Toaster } from "@/components/ui/toaster";
 function App() {
-  return <div className="">
-      <BrowserRouter>
-        <PersonalizationProvider>
-          <CarProvider>
-            <SavedItemsProvider>
-              <MainLayout>
-                <Toaster />
-                {/* Loading fallback for lazy-loaded components */}
-                <Suspense fallback={<div className="flex items-center justify-center w-full h-screen bg-background">
-                    <div className="flex flex-col items-center space-y-4">
-                      <div className="w-10 h-10 border-4 border-primary rounded-full border-t-transparent animate-spin"></div>
-                      <p className="text-sm text-muted-foreground">Loading...</p>
-                    </div>
-                  </div>}>
-                  <Routes>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/search" element={<Search />} />
-                    <Route path="/dashboard" element={<Navigate to="/garage" replace />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/garage" element={<Garage />} />
-                    <Route path="/cars" element={<CarDatabase />} />
-                    <Route path="/research/:id" element={<CarResearch />} />
-                    <Route path="/buyers-guide" element={<BuyersGuide />} />
-                    <Route path="/best-suvs" element={<BestSUVs />} />
-                    <Route path="/find-best-price/:carId" element={<CarConnect />} />
-                    <Route path="/news" element={<News />} />
-                    <Route path="/videos" element={<Videos />} />
-                    <Route path="/article/:id" element={<ArticleDetail />} />
-                    <Route path="/new-car/:id" element={<NewCarDetail />} />
-                    <Route path="/used-car/:id" element={<UsedCarDetail />} />
-                    <Route path="/photo/:id" element={<PhotoDetail />} />
-                    <Route path="/video/:id" element={<VideoDetail />} />
-                    <Route path="/shorts/:id" element={<Shorts />} />
-                    <Route path="/design-system" element={<DesignSystem />} />
-                    <Route path="/test-car-card" element={<TestCarCard />} />
-                    <Route path="/car-connect" element={<CarConnect />} />
-                    <Route path="/chat" element={<Chat />} />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </Suspense>
-              </MainLayout>
-              <GlobalFooter />
-            </SavedItemsProvider>
-          </CarProvider>
-        </PersonalizationProvider>
-      </BrowserRouter>
-    </div>;
+  return (
+    <SimplePersonalizationProvider>
+      <div>
+        <h1>Motor Talk Search</h1>
+        <p>Testing simple context provider...</p>
+      </div>
+    </SimplePersonalizationProvider>
+  );
 }
+
 export default App;
