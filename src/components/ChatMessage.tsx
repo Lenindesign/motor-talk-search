@@ -82,4 +82,3 @@ export default ChatMessage;
 
 
 
-<iframe height="1950px" width="100%" style="border: 0px;" src="https://www.intelliprice.com/intellipricedealer/start.htm?dealerid=0441004"></iframe>

@@ -113,7 +113,7 @@ const ArticleDetail: React.FC = () => {
       showScrollTop={showScrollTop}
       scrollToTop={scrollToTop}
     >
-      <ArticleDetailHeader car={currentArticle} />
+      <ArticleDetailHeader />
       
       {loadedIndexes.map((index) => {
         const article = mockArticles[index];
