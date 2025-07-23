@@ -31,32 +31,51 @@ const defaultPreferences: PersonalizationPreferences = {
 const PersonalizationContext = createContext<PersonalizationContextType | undefined>(undefined);
 
 export const PersonalizationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [preferences, setPreferences] = useState<PersonalizationPreferences>(() => {
-    const savedPrefs = localStorage.getItem("userPreferences");
-    return savedPrefs ? JSON.parse(savedPrefs) : defaultPreferences;
-  });
+  console.log('[PersonalizationProvider] Initializing...');
+  
+  // Initialize with default preferences first
+  const [preferences, setPreferences] = useState<PersonalizationPreferences>(defaultPreferences);
+  
+  // Load from localStorage after component mounts
+  useEffect(() => {
+    try {
+      console.log('[PersonalizationProvider] Loading from localStorage...');
+      const savedPrefs = localStorage.getItem("userPreferences");
+      if (savedPrefs) {
+        const parsed = JSON.parse(savedPrefs);
+        console.log('[PersonalizationProvider] Loaded preferences:', parsed);
+        setPreferences(parsed);
+      }
+    } catch (error) {
+      console.error('[PersonalizationProvider] Error loading preferences:', error);
+    }
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem("userPreferences", JSON.stringify(preferences));
-    
-    // Apply theme
-    document.documentElement.classList.toggle("dark", preferences.theme === "dark");
-    
-    // Apply font size
-    document.documentElement.dataset.fontSize = preferences.fontSize;
-    
-    // Apply the appropriate font size CSS class
-    document.body.className = document.body.className
-      .replace(/text-(sm|base|lg)/, "");
-    
-    if (preferences.fontSize === "small") {
-      document.body.classList.add("text-sm");
-    } else if (preferences.fontSize === "large") {
-      document.body.classList.add("text-lg");
-    } else {
-      document.body.classList.add("text-base");
+    try {
+      console.log('[PersonalizationProvider] Saving preferences:', preferences);
+      localStorage.setItem("userPreferences", JSON.stringify(preferences));
+      
+      // Apply theme
+      document.documentElement.classList.toggle("dark", preferences.theme === "dark");
+      
+      // Apply font size
+      document.documentElement.dataset.fontSize = preferences.fontSize;
+      
+      // Apply the appropriate font size CSS class
+      document.body.className = document.body.className
+        .replace(/text-(sm|base|lg)/, "");
+      
+      if (preferences.fontSize === "small") {
+        document.body.classList.add("text-sm");
+      } else if (preferences.fontSize === "large") {
+        document.body.classList.add("text-lg");
+      } else {
+        document.body.classList.add("text-base");
+      }
+    } catch (error) {
+      console.error('[PersonalizationProvider] Error saving preferences:', error);
     }
-    
   }, [preferences]);
 
   const updatePreferences = (newPreferences: Partial<PersonalizationPreferences>) => {

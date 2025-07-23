@@ -31,17 +31,24 @@ const Chat = lazy(() => import("./pages/Chat"));
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
 import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 import { CarProvider } from "./contexts/CarContext";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import MainLayout from "./components/MainLayout";
 import GlobalFooter from "./components/GlobalFooter";
 import { Toaster } from "@/components/ui/toaster";
 function App() {
+  console.log('[App] Initializing...');
+  
   return <div className="">
-      <BrowserRouter>
-        <PersonalizationProvider>
-          <CarProvider>
-            <SavedItemsProvider>
-              <MainLayout>
-                <Toaster />
+      <ErrorBoundary>
+        <BrowserRouter>
+          <ErrorBoundary>
+            <PersonalizationProvider>
+              <ErrorBoundary>
+                <CarProvider>
+                  <ErrorBoundary>
+                    <SavedItemsProvider>
+                      <MainLayout>
+                        <Toaster />
                 {/* Loading fallback for lazy-loaded components */}
                 <Suspense fallback={<div className="flex items-center justify-center w-full h-screen bg-background">
                     <div className="flex flex-col items-center space-y-4">
@@ -74,13 +81,17 @@ function App() {
                     <Route path="/chat" element={<Chat />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
-                </Suspense>
-              </MainLayout>
-              <GlobalFooter />
-            </SavedItemsProvider>
-          </CarProvider>
-        </PersonalizationProvider>
-      </BrowserRouter>
+                        </Suspense>
+                      </MainLayout>
+                      <GlobalFooter />
+                    </SavedItemsProvider>
+                  </ErrorBoundary>
+                </CarProvider>
+              </ErrorBoundary>
+            </PersonalizationProvider>
+          </ErrorBoundary>
+        </BrowserRouter>
+      </ErrorBoundary>
     </div>;
 }
 export default App;
