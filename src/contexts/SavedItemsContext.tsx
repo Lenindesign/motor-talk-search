@@ -81,6 +81,8 @@ interface SavedItemsProviderProps {
 }
 
 export function SavedItemsProvider({ children }: SavedItemsProviderProps) {
+  console.log('[SavedItemsProvider] Initializing...');
+  
   const [savedItems, setSavedItems] = useState<SavedItem[]>([]);
   const [userPoints, setUserPoints] = useState<number>(0);
   const [userAchievements, setUserAchievements] = useState<UserAchievement[]>([]);
