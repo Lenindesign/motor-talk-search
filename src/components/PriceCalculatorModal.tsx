@@ -46,7 +46,7 @@ const PriceCalculatorModal: React.FC<PriceCalculatorModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md p-0">
+      <DialogContent className="max-w-2xl p-0">
         <div className="bg-white rounded-lg">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b">
@@ -76,9 +76,9 @@ const PriceCalculatorModal: React.FC<PriceCalculatorModalProps> = ({
 
           {/* Finance/Lease Tabs */}
           <Tabs defaultValue="finance" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mx-4 mt-4">
-              <TabsTrigger value="finance">Finance</TabsTrigger>
-              <TabsTrigger value="lease">Lease</TabsTrigger>
+            <TabsList className="grid grid-cols-2 mx-4 mt-4 max-w-xs">
+              <TabsTrigger value="finance" className="text-sm px-3">Finance</TabsTrigger>
+              <TabsTrigger value="lease" className="text-sm px-3">Lease</TabsTrigger>
             </TabsList>
 
             <TabsContent value="finance" className="p-4 space-y-4">
