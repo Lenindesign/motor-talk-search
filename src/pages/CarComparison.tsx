@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Container } from '@/components/ui/container';
+// import { Container } from '@/components/ui/container';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -62,7 +62,7 @@ const mockCars: CarSpec[] = [
     make: 'Hyundai',
     model: 'Ioniq 5',
     year: 2024,
-    imageUrl: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/6740c7c6bcb30700085b0217/2024-hyundai-ioniq-6-se-long-range-yearlong-review-update-1-5-a.jpg',
     price: {
       msrp: 42250,
       monthlyPayment: 589
@@ -90,7 +90,7 @@ const mockCars: CarSpec[] = [
     make: 'Polestar',
     model: '2',
     year: 2024,
-    imageUrl: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400',
+    imageUrl: 'https://d2kde5ohu8qb21.cloudfront.net/files/659f1978d022910008f126f7/2024-polestar-2-4.png',
     price: {
       msrp: 64800,
       monthlyPayment: 899
@@ -179,21 +179,21 @@ const CarComparison: React.FC = () => {
   if (cars.length === 0) {
     return (
       <div className="min-h-screen bg-neutral-7">
-        <Container className="py-8">
+        <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-neutral-1 mb-4">No vehicles to compare</h1>
             <Button onClick={() => navigate('/search')}>
               Find Vehicles to Compare
             </Button>
           </div>
-        </Container>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-neutral-7">
-      <Container className="py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center space-x-4">
@@ -219,15 +219,96 @@ const CarComparison: React.FC = () => {
 
         {/* AI Insights */}
         {aiInsights && (
-          <Card className="mb-8 border-blue-200 bg-blue-50">
-            <CardHeader className="pb-3">
-              <CardTitle className="flex items-center text-blue-900">
-                <Sparkles className="w-5 h-5 mr-2" />
+          <Card className="mb-8 border-gray-200 bg-white">
+            <CardHeader className="pb-4 border-b border-gray-100">
+              <CardTitle className="flex items-center text-gray-900 text-xl">
+                <Sparkles className="w-5 h-5 mr-2 text-red-600" />
                 AI Insights
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-blue-800 leading-relaxed">{aiInsights}</p>
+            <CardContent className="pt-6">
+              {/* Summary Section */}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Summary</h3>
+                <p className="text-gray-700 leading-relaxed">
+                  The {cars[0]?.name} excels in value and efficiency, while the {cars[1]?.name} stands out for performance and luxury features.
+                </p>
+              </div>
+
+              {/* Overview Section */}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Overview</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span className="text-gray-700">
+                      <span className="font-medium text-blue-600 underline cursor-pointer">{cars[0]?.name}</span> – A practical electric SUV with excellent efficiency ratings and spacious interior.
+                    </span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span className="text-gray-700">
+                      <span className="font-medium text-blue-600 underline cursor-pointer">{cars[1]?.name}</span> – A stylish electric fastback with advanced tech and a sporty driving experience.
+                    </span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Comparison Section */}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Comparison</h3>
+                <ul className="space-y-2">
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span className="text-gray-700">{cars[0]?.make} {cars[0]?.model} - Practicality with spacious interior</span>
+                  </li>
+                  <li className="flex items-start">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                    <span className="text-gray-700">{cars[1]?.make} {cars[1]?.model} - High-tech features and modern design</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Best For Section */}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Best For</h3>
+                <div className="space-y-1 text-sm">
+                  <div><span className="text-gray-600">Best Overall Value:</span> <span className="font-medium text-blue-600 underline cursor-pointer">{cars[0]?.name}</span></div>
+                  <div><span className="text-gray-600">Best Fuel Efficiency:</span> <span className="font-medium text-blue-600 underline cursor-pointer">{cars[0]?.name}</span></div>
+                  <div><span className="text-gray-600">Most Reliable:</span> <span className="font-medium text-blue-600 underline cursor-pointer">{cars[0]?.name}</span></div>
+                  <div><span className="text-gray-600">Best Safety Features:</span> <span className="font-medium text-blue-600 underline cursor-pointer">{cars[0]?.name}</span></div>
+                  <div><span className="text-gray-600">Performance:</span> <span className="font-medium text-blue-600 underline cursor-pointer">{cars[1]?.name}</span></div>
+                  <div><span className="text-gray-600">Most Comfortable:</span> <span className="font-medium text-blue-600 underline cursor-pointer">{cars[0]?.name}</span></div>
+                  <div><span className="text-gray-600">Best for Tech:</span> <span className="font-medium text-blue-600 underline cursor-pointer">{cars[1]?.name}</span></div>
+                  <div><span className="text-gray-600">Best Resale Value:</span> <span className="font-medium text-blue-600 underline cursor-pointer">{cars[0]?.name}</span></div>
+                </div>
+              </div>
+
+              {/* Disclaimer */}
+              <div className="text-xs text-gray-500 mb-6 border-t border-gray-100 pt-4">
+                AI Insights are powered by our own editorial expertise, vehicle testing data and car ratings.
+              </div>
+
+              {/* Interactive Chat Section */}
+              <div className="bg-gray-50 rounded-lg p-4">
+                <p className="text-gray-700 mb-3">
+                  Still have questions? I can help! Ask me anything about the {cars[0]?.name} vs {cars[1]?.name}
+                </p>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    placeholder="Ask me anything about cars..."
+                    className="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                  />
+                  <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white px-4">
+                    <span className="text-white">▶</span>
+                  </Button>
+                </div>
+                <div className="text-xs text-gray-500 mt-2">
+                  Powered by OpenAI. Chats are recorded and used for moderation, user safety, and to operate and improve our services. By using chat, you agree to this use of data. The chatbot can make mistakes. Please verify important information. Give us your{' '}
+                  <span className="text-blue-600 underline cursor-pointer">Feedback</span>
+                </div>
+              </div>
             </CardContent>
           </Card>
         )}
@@ -466,7 +547,7 @@ const CarComparison: React.FC = () => {
             Save Comparison
           </Button>
         </div>
-      </Container>
+      </div>
     </div>
   );
 };
