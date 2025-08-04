@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 
 // Lazy load all other pages to improve initial load time
 const Search = lazy(() => import("./pages/Search"));
+const CarComparison = lazy(() => import("./pages/CarComparison"));
 const NavRoutes = lazy(() => import("./pages/NavRoutes"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const Profile = lazy(() => import("./pages/Profile"));
@@ -52,6 +53,7 @@ function App() {
                   <Routes>
                     <Route path="/" element={<Index />} />
                     <Route path="/search" element={<Search />} />
+                    <Route path="/compare" element={<CarComparison />} />
                     <Route path="/dashboard" element={<Navigate to="/garage" replace />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/garage" element={<Garage />} />
