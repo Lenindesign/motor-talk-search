@@ -20,7 +20,7 @@ const DesktopNavigation = () => {
         </NavLink>
         <NavLink href="/buyers-guide" hasDropdown dropdownContent={<div className="py-2">
               <Link to="/car-finder" className="block px-4 py-2 typography-caption text-white hover:bg-white/10 hover:text-motortrend-red">Car Finder</Link>
-              <Link to="/compare-cars" className="block px-4 py-2 typography-caption text-white hover:bg-white/10 hover:text-motortrend-red">Compare Cars</Link>
+              <Link to="/compare" className="block px-4 py-2 typography-caption text-white hover:bg-white/10 hover:text-motortrend-red">Compare Cars</Link>
               <Link to="/rankings" className="block px-4 py-2 typography-caption text-white hover:bg-white/10 hover:text-motortrend-red">Ultimate Car Rankings</Link>
               <Link to="/best-sedans" className="block px-4 py-2 typography-caption text-white hover:bg-white/10 hover:text-motortrend-red">Best Sedans</Link>
               <Link to="/best-suvs" className="block px-4 py-2 typography-caption text-white hover:bg-white/10 hover:text-motortrend-red">Best SUVs</Link>

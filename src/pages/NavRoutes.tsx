@@ -9,6 +9,7 @@ import PhotoDetail from './PhotoDetail';
 import Garage from './Garage';
 import BuyersGuide from './BuyersGuide';
 import DesignSystem from './DesignSystem';
+import CarComparison from './CarComparison';
 
 const NavRoutes: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const NavRoutes: React.FC = () => {
         <Route path="/photo/:id" element={<PhotoDetail />} />
         <Route path="/garage" element={<Garage />} />
         <Route path="/buyers-guide" element={<BuyersGuide />} />
+        <Route path="/compare" element={<CarComparison />} />
         <Route path="/design-system" element={<DesignSystem />} />
       </Routes>
     </Router>
