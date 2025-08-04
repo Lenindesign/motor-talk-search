@@ -35,6 +35,8 @@ import { CarProvider } from "./contexts/CarContext";
 import MainLayout from "./components/MainLayout";
 import GlobalFooter from "./components/GlobalFooter";
 import { Toaster } from "@/components/ui/toaster";
+
+// Clean app component - no performance monitoring
 function App() {
   return <div className="">
       <BrowserRouter>
