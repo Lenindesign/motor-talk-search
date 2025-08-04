@@ -532,105 +532,6 @@ const CarComparison: React.FC = () => {
           </Card>
         )}
 
-        {/* Persona-Based Quick Filters */}
-        <Card className="mb-8 border-gray-200 bg-white">
-          <CardHeader className="pb-4">
-            <CardTitle className="flex items-center text-gray-900">
-              <Target className="w-5 h-5 mr-2 text-red-600" />
-              Find Your Perfect Match
-            </CardTitle>
-            <p className="text-sm text-gray-600">Tell us about yourself to get personalized recommendations</p>
-          </CardHeader>
-          <CardContent>
-            <Tabs defaultValue="all" className="w-full">
-              <TabsList className="grid w-full grid-cols-5">
-                <TabsTrigger value="all">All Cars</TabsTrigger>
-                <TabsTrigger value="family" className="flex items-center gap-1">
-                  <Users className="w-4 h-4" />
-                  Family
-                </TabsTrigger>
-                <TabsTrigger value="performance" className="flex items-center gap-1">
-                  <Zap className="w-4 h-4" />
-                  Performance
-                </TabsTrigger>
-                <TabsTrigger value="budget" className="flex items-center gap-1">
-                  <Wallet className="w-4 h-4" />
-                  Budget
-                </TabsTrigger>
-                <TabsTrigger value="tech" className="flex items-center gap-1">
-                  <Smartphone className="w-4 h-4" />
-                  Tech
-                </TabsTrigger>
-              </TabsList>
-
-              <TabsContent value="all" className="mt-4">
-                <div className="text-center py-4 text-gray-600">
-                  Showing all vehicles for comprehensive comparison
-                </div>
-              </TabsContent>
-
-              <TabsContent value="family" className="mt-4">
-                <div className="bg-neutral-100 rounded-lg p-4">
-                  <h4 className="font-semibold text-neutral-900 mb-2">👨‍👩‍👧‍👦 Perfect for Families</h4>
-                  <div className="text-sm text-neutral-800 space-y-1">
-                    <div>• <strong>Winner:</strong> {cars[0]?.name} - Best value with spacious interior</div>
-                    <div>• <strong>Runner-up:</strong> {cars[2]?.name} - Top safety ratings and tech features</div>
-                    <div>• <strong>Key factors:</strong> Safety, space, reliability, family-friendly pricing</div>
-                  </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="performance" className="mt-4">
-                <div className="bg-red-50 rounded-lg p-4">
-                  <h4 className="font-semibold text-red-900 mb-2">🏎️ Built for Performance</h4>
-                  <div className="text-sm text-red-800 space-y-1">
-                    <div>• <strong>Winner:</strong> {cars[1]?.name} - 408 HP, 4.2s 0-60mph</div>
-                    <div>• <strong>Runner-up:</strong> {cars[2]?.name} - 384 HP, proven performance</div>
-                    <div>• <strong>Key factors:</strong> Horsepower, acceleration, handling, driving dynamics</div>
-                  </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="budget" className="mt-4">
-                <div className="bg-neutral-100 rounded-lg p-4">
-                  <h4 className="font-semibold text-neutral-900 mb-2">💰 Best Value Options</h4>
-                  <div className="text-sm text-neutral-800 space-y-1">
-                    <div>• <strong>Winner:</strong> {cars[0]?.name} - ${cars[0]?.price.msrp.toLocaleString()} MSRP</div>
-                    <div>• <strong>Consideration:</strong> {cars[2]?.name} - Better resale value long-term</div>
-                    <div>• <strong>Key factors:</strong> Purchase price, monthly payment, total cost of ownership</div>
-                  </div>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="tech" className="mt-4">
-                <div className="bg-neutral-100 rounded-lg p-4">
-                  <h4 className="font-semibold text-neutral-900 mb-2">📱 Tech Enthusiasts</h4>
-                  <div className="text-sm text-neutral-800 space-y-1">
-                    <div>• <strong>Winner:</strong> {cars[2]?.name} - Industry-leading software and OTA updates</div>
-                    <div>• <strong>Runner-up:</strong> {cars[1]?.name} - Premium Google-based infotainment</div>
-                    <div>• <strong>Key factors:</strong> Software updates, connectivity, autonomous features</div>
-                  </div>
-                </div>
-              </TabsContent>
-            </Tabs>
-
-            {/* Action Buttons */}
-            <div className="flex gap-3 mt-6 pt-4 border-t border-neutral-200">
-              <Button variant="outline" className="flex items-center gap-2 border-neutral-300 text-neutral-700 hover:bg-neutral-50">
-                <Heart className="w-4 h-4" />
-                Save Comparison
-              </Button>
-              <Button variant="outline" className="flex items-center gap-2 border-neutral-300 text-neutral-700 hover:bg-neutral-50">
-                <Share2 className="w-4 h-4" />
-                Share with Family
-              </Button>
-              <Button variant="outline" className="flex items-center gap-2 border-neutral-300 text-neutral-700 hover:bg-neutral-50">
-                <Filter className="w-4 h-4" />
-                Advanced Filters
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
 
 
 
@@ -805,7 +706,7 @@ const CarComparison: React.FC = () => {
         </Card>
 
         {/* Quick Decision Helper */}
-        <Card className="mb-8 border-gray-200 bg-gradient-to-r from-blue-50 to-purple-50">
+        <Card className="mt-8 mb-8 border-gray-200 bg-gradient-to-r from-blue-50 to-purple-50">
           <CardHeader>
             <CardTitle className="flex items-center text-gray-900">
               <Target className="w-5 h-5 mr-2 text-blue-600" />
@@ -873,7 +774,7 @@ const CarComparison: React.FC = () => {
 
             {/* Next Steps */}
             <div className="flex flex-wrap gap-3 pt-4 border-t border-neutral-200">
-              <Button className="bg-red-600 hover:bg-red-700 text-white">
+              <Button className="bg-red-600 hover:bg-red-700 text-white" onClick={() => openCalculator(cars[0])}>
                 <Calculator className="w-4 h-4 mr-2" />
                 Calculate My Payment
               </Button>
