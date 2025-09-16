@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    force: true, // Force cache clearing
   },
   plugins: [
     react(),
@@ -22,5 +23,7 @@ export default defineConfig(({ mode }) => ({
   },
   optimizeDeps: {
     include: ["react", "react-dom", "react/jsx-runtime"],
+    force: true, // Force re-optimization
   },
+  clearScreen: false,
 }));

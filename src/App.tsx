@@ -36,7 +36,7 @@ import MainLayout from "./components/MainLayout";
 import GlobalFooter from "./components/GlobalFooter";
 import { Toaster } from "@/components/ui/toaster";
 
-// Clean app component - no performance monitoring
+// Clean app component - no performance monitoring - cache cleared v2
 function App() {
   return <div className="">
       <BrowserRouter>
