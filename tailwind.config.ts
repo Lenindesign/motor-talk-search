@@ -57,6 +57,14 @@ export default {
 				'7xl': ['4.5rem', { lineHeight: '1' }],         // 72px
 				'8xl': ['6rem', { lineHeight: '1' }],           // 96px
 				'9xl': ['8rem', { lineHeight: '1' }],           // 128px
+				// Semantic typography sizes
+				'hero': ['4.5rem', { lineHeight: '1.1' }],      // 72px - Hero headlines
+				'display': ['3rem', { lineHeight: '1.2' }],     // 48px - Display text
+				'title': ['1.5rem', { lineHeight: '2rem' }],    // 24px - Titles
+				'body-lg': ['1.125rem', { lineHeight: '1.75rem' }], // 18px - Large body
+				'body': ['1rem', { lineHeight: '1.5rem' }],     // 16px - Body text
+				'body-sm': ['0.875rem', { lineHeight: '1.25rem' }], // 14px - Small body
+				'caption': ['0.75rem', { lineHeight: '1rem' }], // 12px - Captions
 			},
 			spacing: {
 				// Apple's 8pt grid system
