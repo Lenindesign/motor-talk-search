@@ -29,6 +29,7 @@ const TestCard = lazy(() => import("./pages/TestCard"));
 const BestSUVs = lazy(() => import("./pages/BestSUVs"));
 const CarConnect = lazy(() => import("./pages/CarConnect/index"));
 const Chat = lazy(() => import("./pages/Chat"));
+const ContentDetail = lazy(() => import("./pages/ContentDetail"));
 import { SavedItemsProvider } from "./contexts/SavedItemsContext";
 import { PersonalizationProvider } from "./contexts/PersonalizationContext";
 import { CarProvider } from "./contexts/CarContext";
@@ -76,6 +77,7 @@ function App() {
                     <Route path="/test-car-card" element={<TestCarCard />} />
                     <Route path="/car-connect" element={<CarConnect />} />
                     <Route path="/chat" element={<Chat />} />
+                    <Route path="/content/:id" element={<ContentDetail />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </Suspense>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Heart, MessageCircle, Share, Bookmark, MoreHorizontal, ThumbsUp, ThumbsDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import ContentDetailModal from './ContentDetailModal';
 
 export interface FeedCardProps {
   id: string;
@@ -36,6 +37,7 @@ interface FeedCardState {
   isBookmarked: boolean;
   localLikes: number;
   localDislikes: number;
+  showDetailModal: boolean;
 }
 
 const FeedCard: React.FC<FeedCardProps> = ({ 
@@ -55,6 +57,7 @@ const FeedCard: React.FC<FeedCardProps> = ({
     isBookmarked: false,
     localLikes: engagement.likes,
     localDislikes: engagement.dislikes,
+    showDetailModal: false,
   });
 
   const handleVote = (voteType: 'like' | 'dislike') => {
@@ -94,6 +97,19 @@ const FeedCard: React.FC<FeedCardProps> = ({
     setState(prev => ({ ...prev, isBookmarked: !prev.isBookmarked }));
   };
 
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Don't open modal if clicking on buttons or interactive elements
+    const target = e.target as HTMLElement;
+    if (target.closest('button') || target.closest('a')) {
+      return;
+    }
+    setState(prev => ({ ...prev, showDetailModal: true }));
+  };
+
+  const handleCloseModal = () => {
+    setState(prev => ({ ...prev, showDetailModal: false }));
+  };
+
   const getTypeIcon = () => {
     switch (type) {
       case 'video':
@@ -117,7 +133,11 @@ const FeedCard: React.FC<FeedCardProps> = ({
   };
 
   return (
-    <article className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden transition-all duration-200 hover:shadow-md">
+    <>
+      <article 
+        className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden transition-all duration-200 hover:shadow-md cursor-pointer"
+        onClick={handleCardClick}
+      >
       {/* Header */}
       <div className="p-3 sm:p-4 pb-3">
         <div className="flex items-center justify-between">
@@ -332,7 +352,31 @@ const FeedCard: React.FC<FeedCardProps> = ({
           </Button>
         </div>
       </div>
-    </article>
+      </article>
+
+      {/* Detail Modal */}
+      <ContentDetailModal
+        isOpen={state.showDetailModal}
+        onClose={handleCloseModal}
+        content={{
+          id,
+          type,
+          title,
+          description,
+          author,
+          timestamp,
+          image,
+          content,
+          engagement: {
+            likes: state.localLikes,
+            dislikes: state.localDislikes,
+            comments: engagement.comments,
+            shares: engagement.shares,
+          },
+          metadata,
+        }}
+      />
+    </>
   );
 };
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import FeedCard, { FeedCardProps } from './FeedCard';
-import Container from '../Container';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
 
@@ -56,8 +55,8 @@ const SocialFeed: React.FC<SocialFeedProps> = ({
 
   if (feedItems.length === 0 && !loading) {
     return (
-      <Container className={className}>
-        <div className="text-center py-12">
+      <div className={className}>
+        <div className="w-full max-w-3xl mx-auto text-center py-12">
           <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
             <span className="text-2xl">📱</span>
           </div>
@@ -68,13 +67,13 @@ const SocialFeed: React.FC<SocialFeedProps> = ({
             Check back later for updates from the community.
           </p>
         </div>
-      </Container>
+      </div>
     );
   }
 
   return (
-    <Container className={className}>
-      <div className="max-w-2xl mx-auto">
+    <div className={className}>
+      <div className="w-full max-w-3xl mx-auto">
         {/* Feed Header */}
         <div className="mb-4 sm:mb-6">
           <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">
@@ -125,7 +124,7 @@ const SocialFeed: React.FC<SocialFeedProps> = ({
           </div>
         )}
       </div>
-    </Container>
+    </div>
   );
 };
 
