@@ -37,9 +37,9 @@ import MainLayout from "./components/MainLayout";
 import GlobalFooter from "./components/GlobalFooter";
 import { Toaster } from "@/components/ui/toaster";
 
-// Clean app component - no performance monitoring
+// App component
 function App() {
-  return <div className="">
+  return <div className="min-h-screen">
       <BrowserRouter>
         <PersonalizationProvider>
           <CarProvider>
