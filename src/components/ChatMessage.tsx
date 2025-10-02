@@ -1,4 +1,5 @@
 import React from "react";
+import DOMPurify from 'dompurify';
 
 interface ChatMessageProps {
   message: string;
@@ -6,15 +7,19 @@ interface ChatMessageProps {
   timestamp?: string;
 }
 
-// Helper function to convert markdown links to HTML anchor tags
+// Helper function to convert markdown links to HTML anchor tags and sanitize
 const parseMarkdownLinks = (text: string): string => {
   const markdownLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
   // Replace markdown links with HTML <a> tags
-  // Links will open in a new tab and have specific styling
-  return text.replace(
+  const htmlWithLinks = text.replace(
     markdownLinkRegex,
     '<a href="$2" class="text-motortrend-red hover:underline" target="_blank" rel="noopener noreferrer">$1</a>'
   );
+  // Sanitize the HTML to prevent XSS attacks
+  return DOMPurify.sanitize(htmlWithLinks, {
+    ALLOWED_TAGS: ['a'],
+    ALLOWED_ATTR: ['href', 'class', 'target', 'rel']
+  });
 };
 
 const ChatMessage: React.FC<ChatMessageProps> = ({
